@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{66EA1CE4-1852-4AE6-A977-30BB4DC4CD00}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Yburn.SingleQQ</RootNamespace>
+    <AssemblyName>SingleQQ</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Main\bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\Main\bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlphaPlotParamForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AlphaPlotParamForm.Designer.cs">
+      <DependentUpon>AlphaPlotParamForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SingleQQMainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SingleQQMainWindow.Designer.cs">
+      <DependentUpon>SingleQQMainWindow.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PionGDFPlotParamForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PionGDFPlotParamForm.Designer.cs">
+      <DependentUpon>PionGDFPlotParamForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PlotterUITool.cs" />
+    <Compile Include="PotentialPlotParamForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PotentialPlotParamForm.Designer.cs">
+      <DependentUpon>PotentialPlotParamForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SingleQQPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SingleQQPanel.Designer.cs">
+      <DependentUpon>SingleQQPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SingleQQStarter.cs" />
+    <EmbeddedResource Include="AlphaPlotParamForm.resx">
+      <DependentUpon>AlphaPlotParamForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SingleQQMainWindow.resx">
+      <DependentUpon>SingleQQMainWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PionGDFPlotParamForm.resx">
+      <DependentUpon>PionGDFPlotParamForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PotentialPlotParamForm.resx">
+      <DependentUpon>PotentialPlotParamForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="SingleQQPanel.resx">
+      <DependentUpon>SingleQQPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="SingleQQMainWindow.MenuItems.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Interfaces\Interfaces.csproj">
+      <Project>{742600e8-00ef-4a05-bb96-31449ae45336}</Project>
+      <Name>Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Yburn.UI\Yburn.UI.csproj">
+      <Project>{5d018a3b-a201-4940-adcd-52704681b94d}</Project>
+      <Name>Yburn.UI</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Yburn\Yburn.csproj">
+      <Project>{eb474e7f-d6f1-408d-a30b-cf662b311c93}</Project>
+      <Name>Yburn</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 und x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="logo.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

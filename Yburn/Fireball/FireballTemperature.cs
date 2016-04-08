@@ -1,0 +1,106 @@
+﻿using System;
+
+namespace Yburn.Fireball
+{
+	public class FireballTemperature : SimpleFireballField
+	{
+		/********************************************************************************************
+		 * Constructors
+		 ********************************************************************************************/
+
+		public FireballTemperature(
+			int xDimension,
+			int yDimension,
+			SimpleFireballField temperatureScalingField,
+			double initialCentralTemperature,
+			double thermalTime,
+			double initialTime
+			)
+			: base(FireballFieldType.Temperature, xDimension, yDimension)
+		{
+			TemperatureScalingField = temperatureScalingField;
+			InitialCentralTemperature = initialCentralTemperature;
+			ThermalTime = thermalTime;
+			InitialTime = initialTime;
+
+			AssertValidInput();
+			Initialize();
+		}
+
+		/********************************************************************************************
+		 * Public members, functions and properties
+		 ********************************************************************************************/
+
+		public void Advance(
+			Ftexs solver
+			)
+		{
+			Values = solver.T;
+		}
+
+		public void Advance(
+			double newTime
+			)
+		{
+			SetValues((i, j) =>
+			{
+				return Tnorm.Values[i, j] / Math.Pow(newTime, 1 / 3.0);
+			});
+		}
+
+		/********************************************************************************************
+		 * Private/protected members, functions and properties
+		 ********************************************************************************************/
+
+		// auxiliary field for the calculation of the temperature profile Temperature
+		private SimpleFireballField Tnorm;
+
+		private double InitialCentralTemperature;
+
+		private double InitialTime;
+
+		private double ThermalTime;
+
+		private SimpleFireballField TemperatureScalingField;
+
+		private void AssertValidInput()
+		{
+			if(TemperatureScalingField == null)
+			{
+				throw new InvalidFireballFieldFunctionException();
+			}
+
+			if(InitialCentralTemperature <= 0)
+			{
+				throw new Exception("InitialCentralTemperature <= 0.");
+			}
+
+			if(ThermalTime <= 0)
+			{
+				throw new Exception("ThermalTime <= 0.");
+			}
+
+			if(InitialTime <= 0)
+			{
+				throw new Exception("InitialTime <= 0.");
+			}
+		}
+
+		private void Initialize()
+		{
+			InitTnorm();
+			Advance(InitialTime);
+		}
+
+		// temperature is normalized such that T(0, 0, ThermalTimeFm) = T0
+		// for a central collision (ImpactParam = 0) and TransversMomentum = 0
+		private void InitTnorm()
+		{
+			double norm = InitialCentralTemperature * Math.Pow(ThermalTime, 1 / 3.0);
+			Tnorm = new SimpleFireballField(FireballFieldType.Tnorm, XDimension, YDimension, (i, j) =>
+				{
+					return norm * TemperatureScalingField.Values[i, j];
+				});
+		}
+	}
+}

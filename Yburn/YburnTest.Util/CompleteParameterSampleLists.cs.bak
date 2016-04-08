@@ -1,0 +1,157 @@
+﻿using System.Collections.Generic;
+
+namespace Yburn.Tests.Util
+{
+	public static class CompleteParameterSampleLists
+	{
+		public static Dictionary<string, string> SingleQQSamples
+		{
+			get
+			{
+				Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+
+				nameValuePairs.Add("AccuracyAlpha", "3333");
+				nameValuePairs.Add("AccuracyWaveFunction", "3333");
+				nameValuePairs.Add("AggressivenessAlpha", "3333");
+				nameValuePairs.Add("AlphaHard", "3333");
+				nameValuePairs.Add("AlphaSoft", "3333");
+				nameValuePairs.Add("AlphaThermal", "3333");
+				nameValuePairs.Add("AlphaUltraSoft", "3333");
+				nameValuePairs.Add("AvInvRadius", "3333");
+				nameValuePairs.Add("BoundMass", "3333");
+				nameValuePairs.Add("ColorState", "Octet");
+				nameValuePairs.Add("DebyeMass", "3333");
+				nameValuePairs.Add("StepSize", "3333");
+				nameValuePairs.Add("MaxEnergy", "3333");
+				nameValuePairs.Add("Energy", "3333");
+				nameValuePairs.Add("EnergySteps", "3333");
+				nameValuePairs.Add("GammaDamp", "3333");
+				nameValuePairs.Add("GammaDiss", "3333");
+				nameValuePairs.Add("GammaTot", "3333");
+				nameValuePairs.Add("WaveVector", "3333");
+				nameValuePairs.Add("StepsPerPeriod", "3333");
+				nameValuePairs.Add("QuantumNumberL", "3333");
+				nameValuePairs.Add("MaxShootingTrials", "3333");
+				nameValuePairs.Add("QuantumNumberN", "3333");
+				nameValuePairs.Add("NumberExtrema", "3333");
+				nameValuePairs.Add("Outfile", "stdout.txt");
+				nameValuePairs.Add("PotentialType", "Real_NoString");
+				nameValuePairs.Add("QuarkMass", "3333");
+				nameValuePairs.Add("RunningCouplingType", "LOperturbative_Cutoff3");
+				nameValuePairs.Add("MaxRadius", "3333");
+				nameValuePairs.Add("RMS", "3333");
+				nameValuePairs.Add("StepNumber", "3333");
+				nameValuePairs.Add("Sigma", "3333");
+				nameValuePairs.Add("SigmaEff", "3333");
+				nameValuePairs.Add("SpinCouplingStrength", "3333");
+				nameValuePairs.Add("SpinCouplingRange", "3333");
+				nameValuePairs.Add("SpinState", "Triplet");
+				nameValuePairs.Add("SoftScale", "3333");
+				nameValuePairs.Add("Temperature", "3333");
+				nameValuePairs.Add("Tchem", "3333");
+				nameValuePairs.Add("Tcrit", "3333");
+				nameValuePairs.Add("Trials", "3333");
+				nameValuePairs.Add("UltraSoftScale", "3333");
+				nameValuePairs.Add("UseFixedAlpha", "True");
+
+				return nameValuePairs;
+			}
+		}
+
+		public static Dictionary<string, string> PlotterSamples
+		{
+			get
+			{
+				Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+				nameValuePairs["DataFileName"] = "stdout.txt";
+				nameValuePairs["RunningCouplingTypeSelection"] = "1111";
+				nameValuePairs["MaxEnergy"] = "2222";
+				nameValuePairs["MinEnergy"] = "3333";
+				nameValuePairs["Samples"] = "4444";
+				nameValuePairs["EnergyScale"] = "5555";
+				nameValuePairs["PotentialType"] = "Complex";
+				nameValuePairs["AlphaSoft"] = "6666";
+				nameValuePairs["Sigma"] = "7777";
+				nameValuePairs["ColorState"] = "Octet";
+				nameValuePairs["Temperature"] = "8888";
+				nameValuePairs["DebyeMass"] = "9999";
+				nameValuePairs["SpinState"] = "Triplet";
+				nameValuePairs["SpinCouplingRange"] = "11";
+				nameValuePairs["SpinCouplingStrength"] = "22";
+				nameValuePairs["MinRadius"] = "33";
+				nameValuePairs["MaxRadius"] = "44";
+				nameValuePairs["Samples"] = "55";
+				nameValuePairs["DataFileName"] = "stdout.txt";
+				nameValuePairs["BottomiumStates"] = "Y1S,x1P,Y3S";
+				nameValuePairs["DecayWidthAveragingAngles"] = "0,60,120,180";
+
+				return nameValuePairs;
+			}
+		}
+
+		public static Dictionary<string, string> QQonFireSamples
+		{
+			get
+			{
+				Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+
+				nameValuePairs.Add("ExpansionMode", "Transverse");
+				nameValuePairs.Add("DecayWidthType", "GammaTot");
+				nameValuePairs.Add("DecayWidthAveragingAngles", "10,20,30");
+				nameValuePairs.Add("TemperatureProfile", "Ncoll13");
+                nameValuePairs.Add("ProtonProtonBaseline", "CMS2012");
+				nameValuePairs.Add("DiffusenessA", "3333");
+				nameValuePairs.Add("DiffusenessB", "3333");
+				nameValuePairs.Add("FireballFields", "Teff");
+				nameValuePairs.Add("ImpactParam", "3333");
+				nameValuePairs.Add("FeedDown3P", "3333");
+				nameValuePairs.Add("NucleonNumberA", "3333");
+				nameValuePairs.Add("NucleonNumberB", "3333");
+				nameValuePairs.Add("Outfile", "stdout.txt");
+				nameValuePairs.Add("PotentialTypes", "Tzero");
+				nameValuePairs.Add("TransverseMomenta", "3,3,3,3");
+				nameValuePairs.Add("NuclearRadiusA", "3333");
+				nameValuePairs.Add("NuclearRadiusB", "3333");
+				nameValuePairs.Add("SnapRate", "3333");
+				nameValuePairs.Add("CentralityBinBoundaries", "3,3,3");
+				nameValuePairs.Add("ImpactParamsAtBinBoundaries", "3,3,3");
+				nameValuePairs.Add("ParticipantsAtBinBoundaries", "3,3,3");
+				nameValuePairs.Add("MeanParticipantsInBin", "3,3,3");
+				nameValuePairs.Add("BottomiumStates", "Y1S,x3P");
+				nameValuePairs.Add("InitialCentralTemperature", "3333");
+				nameValuePairs.Add("MinimalCentralTemperature", "3333");
+				nameValuePairs.Add("FormationTimes", "3,3,3,3,3,3");
+				nameValuePairs.Add("ThermalTime", "3333");
+				nameValuePairs.Add("GridCellSize", "3333");
+				nameValuePairs.Add("NumberGridCells", "3333");
+				nameValuePairs.Add("BeamRapidity", "3333");
+				nameValuePairs.Add("BjorkenLifeTime", "3333");
+				nameValuePairs.Add("LifeTime", "3333");
+				nameValuePairs.Add("DecayWidthEvaluationType", "AveragedTemperature");
+
+				return nameValuePairs;
+			}
+		}
+
+		public static Dictionary<string, string> InMediumDecayWidthSamples
+		{
+			get
+			{
+				Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+
+				nameValuePairs.Add("MinTemperature", "100.5");
+				nameValuePairs.Add("MaxTemperature", "310");
+				nameValuePairs.Add("BottomiumStates", "Y1S,x3P");
+				nameValuePairs.Add("TemperatureStepSize", "6.5");
+				nameValuePairs.Add("DecayWidthType", "GammaTot");
+				nameValuePairs.Add("AveragingAngles", "10,20,30");
+				nameValuePairs.Add("MediumVelocity", "0.2");
+				nameValuePairs.Add("PotentialTypes", "Tzero");
+				nameValuePairs.Add("UseAveragedTemperature", "True");
+				nameValuePairs.Add("Outfile", "stdout.txt");
+
+				return nameValuePairs;
+			}
+		}
+	}
+}

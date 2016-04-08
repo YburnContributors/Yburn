@@ -1,0 +1,151 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Text;
+using Yburn.Fireball;
+using Yburn.Interfaces;
+using Yburn.Util;
+
+namespace Yburn.Workers
+{
+	public class InMediumDecayWidth : Worker
+	{
+		/********************************************************************************************
+		 * Constructors
+		 ********************************************************************************************/
+
+		public InMediumDecayWidth()
+			: base()
+		{
+		}
+
+		/********************************************************************************************
+		 * Public members, functions and properties
+		 ********************************************************************************************/
+
+		public override bool CanDoJob(
+			string jobId
+			)
+		{
+			return jobId == "CalculateInMediumDecayWidth";
+		}
+
+		public void CalculateInMediumDecayWidth()
+		{
+			PrepareJob("CalculateInMediumDecayWidth");
+
+			string temperatureDecayWidthList = GetTemperatureDecayWidthList();
+
+			LogMessages.AppendFormat("#\r\n#\r\n");
+			LogMessages.AppendFormat(temperatureDecayWidthList);
+
+			File.WriteAllText(YburnConfigFile.OutputPath + Outfile,
+				LogHeader + "#\r\n#\r\n" + temperatureDecayWidthList);
+		}
+
+		/********************************************************************************************
+		 * Private/protected members, functions and properties
+		 ********************************************************************************************/
+
+		private string BottomiumStates;
+
+		private DecayWidthType DecayWidthType;
+
+		private double[] AveragingAngles;
+
+		private double MediumVelocity;
+
+		private string PotentialTypes;
+
+		private double MinTemperature;
+
+		private double MaxTemperature;
+
+		private double TemperatureStepSize;
+
+		private bool UseAveragedTemperature;
+
+		private string Outfile;
+
+		private string GetTemperatureDecayWidthList()
+		{
+			BottomiumState[] bottomiumStates = StringToEnumArray<BottomiumState>(BottomiumStates);
+
+			TemperatureDecayWidthPrinter printer = new TemperatureDecayWidthPrinter(
+				YburnConfigFile.QQDataPathFile, bottomiumStates, DecayWidthType, PotentialTypes,
+				MinTemperature, MaxTemperature, TemperatureStepSize, MediumVelocity,
+				AveragingAngles);
+
+			return UseAveragedTemperature ?
+				printer.GetListUsingAveragedTemperature() : printer.GetList();
+		}
+
+		protected override void SetVariableNameValueList(
+			Dictionary<string, string> nameValuePairs
+			)
+		{
+			MinTemperature = TransferTool.TryGetDouble(nameValuePairs, "MinTemperature", MinTemperature);
+			MaxTemperature = TransferTool.TryGetDouble(nameValuePairs, "MaxTemperature", MaxTemperature);
+			BottomiumStates = TransferTool.TryGetString(nameValuePairs, "BottomiumStates", "");
+			TemperatureStepSize = TransferTool.TryGetDouble(nameValuePairs, "TemperatureStepSize", TemperatureStepSize);
+			DecayWidthType = TransferTool.TryGetEnum<DecayWidthType>(nameValuePairs, "DecayWidthType", DecayWidthType);
+			AveragingAngles = TransferTool.TryGetDoubleArray(nameValuePairs, "AveragingAngles", AveragingAngles);
+			MediumVelocity = TransferTool.TryGetDouble(nameValuePairs, "MediumVelocity", MediumVelocity);
+			PotentialTypes = TransferTool.TryGetString(nameValuePairs, "PotentialTypes", "");
+			UseAveragedTemperature = TransferTool.TryGetBool(nameValuePairs, "UseAveragedTemperature", UseAveragedTemperature);
+			Outfile = TransferTool.TryGetString(nameValuePairs, "Outfile", "");
+		}
+
+		protected override Dictionary<string, string> GetVariableNameValueList()
+		{
+			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+			nameValuePairs["MinTemperature"] = MinTemperature.ToString(CultureInfo.InvariantCulture);
+			nameValuePairs["MaxTemperature"] = MaxTemperature.ToString(CultureInfo.InvariantCulture);
+			nameValuePairs["BottomiumStates"] = BottomiumStates;
+			nameValuePairs["TemperatureStepSize"] = TemperatureStepSize.ToString(CultureInfo.InvariantCulture);
+			nameValuePairs["DecayWidthType"] = DecayWidthType.ToString();
+			nameValuePairs["AveragingAngles"] = DoubleArrayToString(AveragingAngles);
+			nameValuePairs["MediumVelocity"] = MediumVelocity.ToString(CultureInfo.InvariantCulture);
+			nameValuePairs["PotentialTypes"] = PotentialTypes;
+			nameValuePairs["UseAveragedTemperature"] = UseAveragedTemperature.ToString();
+			nameValuePairs["Outfile"] = Outfile;
+
+			return nameValuePairs;
+		}
+
+		protected override void StartJob(
+			string jobId
+			)
+		{
+			switch(jobId)
+			{
+				case "CalculateInMediumDecayWidth":
+					CalculateInMediumDecayWidth();
+					break;
+
+				default:
+					throw new InvalidJobException(jobId);
+			}
+		}
+
+		protected override string LogHeader
+		{
+			get
+			{
+				StringBuilder stringBuilder = new StringBuilder(base.LogHeader);
+				AppendLogHeaderLine(stringBuilder, "MinTemperature", MinTemperature);
+				AppendLogHeaderLine(stringBuilder, "MaxTemperature", MaxTemperature);
+				AppendLogHeaderLine(stringBuilder, "TemperatureStepSize", TemperatureStepSize);
+				AppendLogHeaderLine(stringBuilder, "MediumVelocity", MediumVelocity);
+				AppendLogHeaderLine(stringBuilder, "AveragingAngles", AveragingAngles);
+				AppendLogHeaderLine(stringBuilder, "UseAveragedTemperature", UseAveragedTemperature);
+				AppendLogHeaderLine(stringBuilder, "DecayWidthType", DecayWidthType);
+				AppendLogHeaderLine(stringBuilder, "PotentialTypes", PotentialTypes);
+				AppendLogHeaderLine(stringBuilder, "BottomiumStates", BottomiumStates);
+
+				return stringBuilder.ToString();
+			}
+		}
+	}
+}
