@@ -6,4 +6,4 @@
 ###################################################################################
 OutputPath C:\Users\LordPonne\Documents\Visual Studio 2015\Projects\Yburn\Data\Output\
 QQDataPathFile C:\Users\LordPonne\Documents\Visual Studio 2015\Projects\Yburn\Data\Parameter and Batch Files\bbdata-Pert1LoopCut3.txt
-LastParaFile C:\Users\LordPonne\Documents\Visual Studio 2015\Projects\Yburn\Data\Parameter and Batch Files\params-Pert1LoopCut3.txt
+LastParaFile YburnTestParameterFile.txt
