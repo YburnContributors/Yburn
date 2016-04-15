@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
 using Yburn.SingleQQ.UI;
 using Yburn.Tests.Util;
 
@@ -24,6 +26,12 @@ namespace Yburn.UI.Tests
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
+
+		[TestInitialize]
+		public void TestInitialize()
+		{
+			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+		}
 
 		[TestMethod]
 		public void TakeAlphaParamsFromSingleQQPanel()

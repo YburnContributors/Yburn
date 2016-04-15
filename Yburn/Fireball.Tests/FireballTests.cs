@@ -1,5 +1,7 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Globalization;
+using System.Threading;
 
 namespace Yburn.Fireball.Tests
 {
@@ -9,6 +11,12 @@ namespace Yburn.Fireball.Tests
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
+
+		[TestInitialize]
+		public void TestInitialize()
+		{
+			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+		}
 
 		[TestCleanup]
 		public void TestCleanup()
