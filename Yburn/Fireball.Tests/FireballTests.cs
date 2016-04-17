@@ -64,7 +64,7 @@ namespace Yburn.Fireball.Tests
 			CalculateFireballEvolution();
 
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
-			Assert.AreEqual(0.65139849902601177, qgpSuppressionFactors[(int)BottomiumState.Y1S], 1e-15);
+			Assert.AreEqual(0.65139796775724945, qgpSuppressionFactors[(int)BottomiumState.Y1S], 1e-15);
 			Assert.AreEqual(0.12047654947393906, qgpSuppressionFactors[(int)BottomiumState.x1P], 1e-15);
 			Assert.AreEqual(0.15676062081686307, qgpSuppressionFactors[(int)BottomiumState.Y2S], 1e-15);
 			Assert.AreEqual(0.037209757981401831, qgpSuppressionFactors[(int)BottomiumState.x2P], 1e-15);

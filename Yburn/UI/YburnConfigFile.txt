@@ -4,6 +4,6 @@
 ##  what you are doing. Commentary lines may be inserted with leading a '#'.     ##  
 ###################################################################################
 ###################################################################################
-OutputPath C:\Users\LordPonne\Documents\Visual Studio 2015\Projects\Yburn\Data\Output\
-QQDataPathFile C:\Users\LordPonne\Documents\Visual Studio 2015\Projects\Yburn\Data\Parameter and Batch Files\bbdata-Pert1LoopCut3.txt
-LastParaFile YburnTestParameterFile.txt
+OutputPath ..\..\..\..\..\Data\Output\
+QQDataPathFile ..\..\..\..\..\Data\Input\bbdata-Pert1LoopCut3.txt
+LastParaFile ..\..\..\..\..\Data\Input\params-Pert1LoopCut3.txt

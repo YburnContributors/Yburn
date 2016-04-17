@@ -10,12 +10,14 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public ElectromagneticField(
+			double qgpConductivityMeV,
 			EMFCalculationMethod emfCalculationMethod,
 			double minSpatialFrequency,
 			double maxSpatialFrequency,
 			int spatialFrequencySteps
 			)
 		{
+			QGPConductivity = qgpConductivityMeV / PhysConst.HBARC;
 			EMFCalculationMethod = emfCalculationMethod;
 			MinSpatialFrequency = minSpatialFrequency;
 			MaxSpatialFrequency = maxSpatialFrequency;
@@ -111,13 +113,11 @@ namespace Yburn.Fireball
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		// in fm^-1
-		private static readonly double QGPConductivity = 5.8 / PhysConst.HBARC;
-		//private static readonly double QGPConductivity = 0.01 / PhysConst.HBARC;
-
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
+
+		private double QGPConductivity;
 
 		private EMFCalculationMethod EMFCalculationMethod;
 

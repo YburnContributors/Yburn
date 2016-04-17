@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using Yburn.Interfaces;
 using Yburn.UI;
@@ -100,10 +101,11 @@ namespace Yburn.Electromagnetism.UI
 		private Dictionary<string, string> GetControlsValues()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+			nameValuePairs["QGPConductivityMeV"] = TbxQGPConductivityMeV.Text;
+			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
 			nameValuePairs["MinFourierFrequency"] = TbxMinFourierFrequency.Text;
 			nameValuePairs["MaxFourierFrequency"] = TbxMaxFourierFrequency.Text;
 			nameValuePairs["FourierFrequencySteps"] = TbxFourierFrequencySteps.Text;
-			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
 			nameValuePairs["LorentzFactor"] = TbxLorentzFactor.Text;
 			nameValuePairs["RadialDistance"] = TbxRadialDistance.Text;
 			nameValuePairs["StartEffectiveTime"] = TbxStartEffectiveTime.Text;
@@ -119,16 +121,17 @@ namespace Yburn.Electromagnetism.UI
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"].ToString();
-			TbxMinFourierFrequency.Text = nameValuePairs["MinFourierFrequency"].ToString();
-			TbxMaxFourierFrequency.Text = nameValuePairs["MaxFourierFrequency"].ToString();
-			TbxFourierFrequencySteps.Text = nameValuePairs["FourierFrequencySteps"].ToString();
-			TbxLorentzFactor.Text = nameValuePairs["LorentzFactor"].ToString();
-			TbxRadialDistance.Text = nameValuePairs["RadialDistance"].ToString();
-			TbxStartEffectiveTime.Text = nameValuePairs["StartEffectiveTime"].ToString();
-			TbxStopEffectiveTime.Text = nameValuePairs["StopEffectiveTime"].ToString();
-			TbxEffectiveTimeSamples.Text = nameValuePairs["EffectiveTimeSamples"].ToString();
-			MsxEMFCalculationMethodSelection.SelectionString = nameValuePairs["EMFCalculationMethodSelection"].ToString();
+			TbxQGPConductivityMeV.Text = nameValuePairs["QGPConductivityMeV"].ToString(CultureInfo.InvariantCulture);
+			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"].ToString(CultureInfo.InvariantCulture);
+			TbxMinFourierFrequency.Text = nameValuePairs["MinFourierFrequency"].ToString(CultureInfo.InvariantCulture);
+			TbxMaxFourierFrequency.Text = nameValuePairs["MaxFourierFrequency"].ToString(CultureInfo.InvariantCulture);
+			TbxFourierFrequencySteps.Text = nameValuePairs["FourierFrequencySteps"].ToString(CultureInfo.InvariantCulture);
+			TbxLorentzFactor.Text = nameValuePairs["LorentzFactor"].ToString(CultureInfo.InvariantCulture);
+			TbxRadialDistance.Text = nameValuePairs["RadialDistance"].ToString(CultureInfo.InvariantCulture);
+			TbxStartEffectiveTime.Text = nameValuePairs["StartEffectiveTime"].ToString(CultureInfo.InvariantCulture);
+			TbxStopEffectiveTime.Text = nameValuePairs["StopEffectiveTime"].ToString(CultureInfo.InvariantCulture);
+			TbxEffectiveTimeSamples.Text = nameValuePairs["EffectiveTimeSamples"].ToString(CultureInfo.InvariantCulture);
+			MsxEMFCalculationMethodSelection.SelectionString = nameValuePairs["EMFCalculationMethodSelection"].ToString(CultureInfo.InvariantCulture);
 			TbxOutfile.Text = nameValuePairs["Outfile"];
 		}
 
@@ -148,7 +151,7 @@ namespace Yburn.Electromagnetism.UI
 				"The electromagnetic fields are calculated via Fourier synthesis from their\r\n"
 				+ "counterparts in Fourier space. To perform this numerically, one has to choose\r\n"
 				+ "cutoffs and a discretization of the unbounded Fourier integral.",
-				GbxFourierParams);
+				GbxFourierSynthesis);
 			toolTipMaker.Add(
 				"Chosen method for performing the Fourier synthesis.",
 				LblEMFCalculationMethod, CbxEMFCalculationMethod);
@@ -180,6 +183,11 @@ namespace Yburn.Electromagnetism.UI
 		private void MenuItemPlotPointChargeRadialElectricField_Click(object sender, EventArgs e)
 		{
 			JobOrganizer.RequestNewJob("PlotPointChargeRadialElectricField", ControlsValues);
+		}
+
+		private void GbxOutput_Enter(object sender, EventArgs e)
+		{
+
 		}
 	}
 }

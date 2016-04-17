@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using Yburn.Fireball;
 
@@ -44,6 +45,7 @@ namespace Yburn.Workers
 			Dictionary<string, string> nameValuePairs
 			)
 		{
+			QGPConductivityMeV = Extractor.TryGetDouble(nameValuePairs, "QGPConductivityMeV", QGPConductivityMeV);
 			EMFCalculationMethod = Extractor.TryGetEnum<EMFCalculationMethod>(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
 			MinFourierFrequency = Extractor.TryGetDouble(nameValuePairs, "MinFourierFrequency", MinFourierFrequency);
 			MaxFourierFrequency = Extractor.TryGetDouble(nameValuePairs, "MaxFourierFrequency", MaxFourierFrequency);
@@ -61,15 +63,17 @@ namespace Yburn.Workers
 		protected override Dictionary<string, string> GetVariableNameValueList()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+
+			nameValuePairs["QGPConductivityMeV"] = QGPConductivityMeV.ToString(CultureInfo.InvariantCulture);
 			nameValuePairs["EMFCalculationMethod"] = EMFCalculationMethod.ToString();
-			nameValuePairs["MinFourierFrequency"] = MinFourierFrequency.ToString();
-			nameValuePairs["MaxFourierFrequency"] = MaxFourierFrequency.ToString();
-			nameValuePairs["FourierFrequencySteps"] = FourierFrequencySteps.ToString();
-			nameValuePairs["LorentzFactor"] = LorentzFactor.ToString();
-			nameValuePairs["RadialDistance"] = RadialDistance.ToString();
-			nameValuePairs["StartEffectiveTime"] = StartEffectiveTime.ToString();
-			nameValuePairs["StopEffectiveTime"] = StopEffectiveTime.ToString();
-			nameValuePairs["EffectiveTimeSamples"] = EffectiveTimeSamples.ToString();
+			nameValuePairs["MinFourierFrequency"] = MinFourierFrequency.ToString(CultureInfo.InvariantCulture);
+			nameValuePairs["MaxFourierFrequency"] = MaxFourierFrequency.ToString(CultureInfo.InvariantCulture);
+			nameValuePairs["FourierFrequencySteps"] = FourierFrequencySteps.ToString(CultureInfo.InvariantCulture);
+			nameValuePairs["LorentzFactor"] = LorentzFactor.ToString(CultureInfo.InvariantCulture);
+			nameValuePairs["RadialDistance"] = RadialDistance.ToString(CultureInfo.InvariantCulture);
+			nameValuePairs["StartEffectiveTime"] = StartEffectiveTime.ToString(CultureInfo.InvariantCulture);
+			nameValuePairs["StopEffectiveTime"] = StopEffectiveTime.ToString(CultureInfo.InvariantCulture);
+			nameValuePairs["EffectiveTimeSamples"] = EffectiveTimeSamples.ToString(CultureInfo.InvariantCulture);
 			nameValuePairs["EMFCalculationMethodSelection"] = Converter.EnumArrayToString<EMFCalculationMethod>(EMFCalculationMethodSelection);
 			nameValuePairs["Outfile"] = Outfile;
 
@@ -104,6 +108,7 @@ namespace Yburn.Workers
 			get
 			{
 				StringBuilder stringBuilder = new StringBuilder(base.LogHeader);
+				AppendLogHeaderLine(stringBuilder, "QGPConductivityMeV", QGPConductivityMeV);
 				AppendLogHeaderLine(stringBuilder, "EMFCalculationMethod", EMFCalculationMethod);
 				AppendLogHeaderLine(stringBuilder, "MinSpatialFrequency", MinFourierFrequency);
 				AppendLogHeaderLine(stringBuilder, "MaxSpatialFrequency", MaxFourierFrequency);

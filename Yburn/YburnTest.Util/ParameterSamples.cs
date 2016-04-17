@@ -11,15 +11,16 @@ namespace Yburn.Tests.Util
 				Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 				nameValuePairs["EffectiveTimeSamples"] = "3333";
 				nameValuePairs["EMFCalculationMethod"] = "URLimitFourierSynthesis";
+				nameValuePairs["EMFCalculationMethodSelection"] = "URLimitFourierSynthesis";
 				nameValuePairs["FourierFrequencySteps"] = "3333";
 				nameValuePairs["LorentzFactor"] = "3333";
 				nameValuePairs["MaxFourierFrequency"] = "3333";
 				nameValuePairs["MinFourierFrequency"] = "3333";
 				nameValuePairs["Outfile"] = "stdout.txt";
+				nameValuePairs["QGPConductivityMeV"] = "3333";
 				nameValuePairs["RadialDistance"] = "3333";
 				nameValuePairs["StartEffectiveTime"] = "3333";
 				nameValuePairs["StopEffectiveTime"] = "3333";
-				nameValuePairs["EMFCalculationMethodSelection"] = "URLimitFourierSynthesis";
 
 				return nameValuePairs;
 			}

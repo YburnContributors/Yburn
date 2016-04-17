@@ -45,7 +45,7 @@ namespace Yburn.Electromagnetism.UI
 				this.MenuItemPlotPointChargeLongitudinalElectricField,
 				this.MenuItemPlotPointChargeRadialElectricField});
 			this.Size = new System.Drawing.Size(84, 24);
-			this.Text = "Electro&magnetism";
+			this.Text = "&Electromagnetism";
 		}
 	}
 }

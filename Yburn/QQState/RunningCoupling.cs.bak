@@ -148,7 +148,7 @@ namespace Yburn.QQState
 		public NumericalRunningCoupling()
 			: base(RunningCouplingType.NonPerturbative_ITP)
 		{
-			List<string> allLines = new List<string>(File.ReadAllLines("..\\..\\AlphaS_qQCD.txt"));
+			List<string> allLines = new List<string>(File.ReadAllLines("..\\..\\..\\AlphaS_qQCD.txt"));
 			RemoveCommentaryAndEmptyLines(allLines);
 
 			double[] momenta;

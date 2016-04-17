@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using Yburn.Fireball;
@@ -47,6 +48,8 @@ namespace Yburn.Workers
 		private delegate List<List<double>> DataListCreator();
 
 		private string DataFileName = string.Empty;
+
+		private double QGPConductivityMeV;
 
 		private EMFCalculationMethod EMFCalculationMethod;
 
@@ -116,7 +119,7 @@ namespace Yburn.Workers
 			foreach(List<double> list in dataList)
 			{
 				plotFile.AppendFormat("{0,-25}",
-					list[index].ToString());
+					list[index].ToString(CultureInfo.InvariantCulture));
 			}
 			plotFile.AppendLine();
 		}
@@ -155,6 +158,14 @@ namespace Yburn.Workers
 
 		private void AssertInputValid_PlotPointChargeField()
 		{
+			if(LorentzFactor < 1)
+			{
+				throw new Exception("LorentzFactor < 1.");
+			}
+			if(RadialDistance < 0)
+			{
+				throw new Exception("RadialDistance < 0.");
+			}
 			if(StartEffectiveTime < 0)
 			{
 				throw new Exception("StartEffectiveTime < 0.");
@@ -180,8 +191,8 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title \"Azimutal magnetic field of a point charge"
-				+ " with Lorentz factor {/Symbol g} = " + LorentzFactor.ToString("G6")
-				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6") + " fm\"");
+				+ " with Lorentz factor {/Symbol g} = " + LorentzFactor.ToString("G6", CultureInfo.InvariantCulture)
+				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6", CultureInfo.InvariantCulture) + " fm\"");
 			plotFile.AppendLine("set xlabel \"t - z/v (fm/c)\"");
 			plotFile.AppendLine("set ylabel \"eH_{/Symbol f}/m_{/Symbol p}^2\"");
 			plotFile.AppendLine();
@@ -230,7 +241,11 @@ namespace Yburn.Workers
 				* (PhysConst.HBARC / PhysConst.MeanPionMass);
 			List<double> fieldValues = new List<double>();
 			ElectromagneticField emf = new ElectromagneticField(
-				type, MinFourierFrequency, MaxFourierFrequency, FourierFrequencySteps);
+				QGPConductivityMeV,
+				type,
+				MinFourierFrequency,
+				MaxFourierFrequency,
+				FourierFrequencySteps);
 			foreach(double timeValue in timeValues)
 			{
 				fieldValues.Add(normalization * emf.GetPointChargeAzimutalMagneticField(
@@ -247,8 +262,8 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title \"Longitudinal electric field of a point charge"
-				+ " with Lorentz factor {/Symbol g} = " + LorentzFactor.ToString("G6")
-				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6") + " fm\"");
+				+ " with Lorentz factor {/Symbol g} = " + LorentzFactor.ToString("G6", CultureInfo.InvariantCulture)
+				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6", CultureInfo.InvariantCulture) + " fm\"");
 			plotFile.AppendLine("set xlabel \"t - z/v (fm/c)\"");
 			plotFile.AppendLine("set ylabel \"e|E_{z}|/m_{/Symbol p}^2\"");
 			plotFile.AppendLine();
@@ -297,7 +312,11 @@ namespace Yburn.Workers
 				* (PhysConst.HBARC / PhysConst.MeanPionMass);
 			List<double> fieldValues = new List<double>();
 			ElectromagneticField emf = new ElectromagneticField(
-				type, MinFourierFrequency, MaxFourierFrequency, FourierFrequencySteps);
+				QGPConductivityMeV,
+				type,
+				MinFourierFrequency,
+				MaxFourierFrequency,
+				FourierFrequencySteps);
 			foreach(double timeValue in timeValues)
 			{
 				fieldValues.Add(normalization * Math.Abs(emf.GetPointChargeLongitudinalElectricField(
@@ -314,8 +333,8 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title \"Radial electric field of a point charge"
-				+ " with Lorentz factor {/Symbol g} = " + LorentzFactor.ToString("G6")
-				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6") + " fm\"");
+				+ " with Lorentz factor {/Symbol g} = " + LorentzFactor.ToString("G6", CultureInfo.InvariantCulture)
+				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6", CultureInfo.InvariantCulture) + " fm\"");
 			plotFile.AppendLine("set xlabel \"t - z/v (fm/c)\"");
 			plotFile.AppendLine("set ylabel \"eE_{r}/m_{/Symbol p}^2\"");
 			plotFile.AppendLine();
@@ -364,7 +383,11 @@ namespace Yburn.Workers
 				* (PhysConst.HBARC / PhysConst.MeanPionMass);
 			List<double> fieldValues = new List<double>();
 			ElectromagneticField emf = new ElectromagneticField(
-				type, MinFourierFrequency, MaxFourierFrequency, FourierFrequencySteps);
+				QGPConductivityMeV,
+				type,
+				MinFourierFrequency,
+				MaxFourierFrequency,
+				FourierFrequencySteps);
 			foreach(double timeValue in timeValues)
 			{
 				fieldValues.Add(normalization * emf.GetPointChargeRadialElectricField(

@@ -50,7 +50,7 @@ namespace Yburn
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static string ConfigPathFile = "..\\..\\YburnConfigFile.txt";
+		private static string ConfigPathFile = "..\\..\\..\\YburnConfigFile.txt";
 
 		private static string CommentarySign = "#";
 
