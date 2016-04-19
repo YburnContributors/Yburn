@@ -121,17 +121,17 @@ namespace Yburn.Electromagnetism.UI
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			TbxQGPConductivityMeV.Text = nameValuePairs["QGPConductivityMeV"].ToString(CultureInfo.InvariantCulture);
-			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"].ToString(CultureInfo.InvariantCulture);
-			TbxMinFourierFrequency.Text = nameValuePairs["MinFourierFrequency"].ToString(CultureInfo.InvariantCulture);
-			TbxMaxFourierFrequency.Text = nameValuePairs["MaxFourierFrequency"].ToString(CultureInfo.InvariantCulture);
-			TbxFourierFrequencySteps.Text = nameValuePairs["FourierFrequencySteps"].ToString(CultureInfo.InvariantCulture);
-			TbxLorentzFactor.Text = nameValuePairs["LorentzFactor"].ToString(CultureInfo.InvariantCulture);
-			TbxRadialDistance.Text = nameValuePairs["RadialDistance"].ToString(CultureInfo.InvariantCulture);
-			TbxStartEffectiveTime.Text = nameValuePairs["StartEffectiveTime"].ToString(CultureInfo.InvariantCulture);
-			TbxStopEffectiveTime.Text = nameValuePairs["StopEffectiveTime"].ToString(CultureInfo.InvariantCulture);
-			TbxEffectiveTimeSamples.Text = nameValuePairs["EffectiveTimeSamples"].ToString(CultureInfo.InvariantCulture);
-			MsxEMFCalculationMethodSelection.SelectionString = nameValuePairs["EMFCalculationMethodSelection"].ToString(CultureInfo.InvariantCulture);
+			TbxQGPConductivityMeV.Text = nameValuePairs["QGPConductivityMeV"].ToString();
+			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"].ToString();
+			TbxMinFourierFrequency.Text = nameValuePairs["MinFourierFrequency"].ToString();
+			TbxMaxFourierFrequency.Text = nameValuePairs["MaxFourierFrequency"].ToString();
+			TbxFourierFrequencySteps.Text = nameValuePairs["FourierFrequencySteps"].ToString();
+			TbxLorentzFactor.Text = nameValuePairs["LorentzFactor"].ToString();
+			TbxRadialDistance.Text = nameValuePairs["RadialDistance"].ToString();
+			TbxStartEffectiveTime.Text = nameValuePairs["StartEffectiveTime"].ToString();
+			TbxStopEffectiveTime.Text = nameValuePairs["StopEffectiveTime"].ToString();
+			TbxEffectiveTimeSamples.Text = nameValuePairs["EffectiveTimeSamples"].ToString();
+			MsxEMFCalculationMethodSelection.SelectionString = nameValuePairs["EMFCalculationMethodSelection"].ToString();
 			TbxOutfile.Text = nameValuePairs["Outfile"];
 		}
 

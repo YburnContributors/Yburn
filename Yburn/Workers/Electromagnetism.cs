@@ -64,16 +64,16 @@ namespace Yburn.Workers
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-			nameValuePairs["QGPConductivityMeV"] = QGPConductivityMeV.ToString(CultureInfo.InvariantCulture);
+			nameValuePairs["QGPConductivityMeV"] = QGPConductivityMeV.ToString();
 			nameValuePairs["EMFCalculationMethod"] = EMFCalculationMethod.ToString();
-			nameValuePairs["MinFourierFrequency"] = MinFourierFrequency.ToString(CultureInfo.InvariantCulture);
-			nameValuePairs["MaxFourierFrequency"] = MaxFourierFrequency.ToString(CultureInfo.InvariantCulture);
-			nameValuePairs["FourierFrequencySteps"] = FourierFrequencySteps.ToString(CultureInfo.InvariantCulture);
-			nameValuePairs["LorentzFactor"] = LorentzFactor.ToString(CultureInfo.InvariantCulture);
-			nameValuePairs["RadialDistance"] = RadialDistance.ToString(CultureInfo.InvariantCulture);
-			nameValuePairs["StartEffectiveTime"] = StartEffectiveTime.ToString(CultureInfo.InvariantCulture);
-			nameValuePairs["StopEffectiveTime"] = StopEffectiveTime.ToString(CultureInfo.InvariantCulture);
-			nameValuePairs["EffectiveTimeSamples"] = EffectiveTimeSamples.ToString(CultureInfo.InvariantCulture);
+			nameValuePairs["MinFourierFrequency"] = MinFourierFrequency.ToString();
+			nameValuePairs["MaxFourierFrequency"] = MaxFourierFrequency.ToString();
+			nameValuePairs["FourierFrequencySteps"] = FourierFrequencySteps.ToString();
+			nameValuePairs["LorentzFactor"] = LorentzFactor.ToString();
+			nameValuePairs["RadialDistance"] = RadialDistance.ToString();
+			nameValuePairs["StartEffectiveTime"] = StartEffectiveTime.ToString();
+			nameValuePairs["StopEffectiveTime"] = StopEffectiveTime.ToString();
+			nameValuePairs["EffectiveTimeSamples"] = EffectiveTimeSamples.ToString();
 			nameValuePairs["EMFCalculationMethodSelection"] = Converter.EnumArrayToString<EMFCalculationMethod>(EMFCalculationMethodSelection);
 			nameValuePairs["Outfile"] = Outfile;
 

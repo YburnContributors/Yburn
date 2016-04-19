@@ -119,7 +119,7 @@ namespace Yburn.Workers
 			foreach(List<double> list in dataList)
 			{
 				plotFile.AppendFormat("{0,-25}",
-					list[index].ToString(CultureInfo.InvariantCulture));
+					list[index].ToString());
 			}
 			plotFile.AppendLine();
 		}
@@ -191,8 +191,8 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title \"Azimutal magnetic field of a point charge"
-				+ " with Lorentz factor {/Symbol g} = " + LorentzFactor.ToString("G6", CultureInfo.InvariantCulture)
-				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6", CultureInfo.InvariantCulture) + " fm\"");
+				+ " with Lorentz factor {/Symbol g} = " + LorentzFactor.ToString("G6")
+				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6") + " fm\"");
 			plotFile.AppendLine("set xlabel \"t - z/v (fm/c)\"");
 			plotFile.AppendLine("set ylabel \"eH_{/Symbol f}/m_{/Symbol p}^2\"");
 			plotFile.AppendLine();
@@ -262,8 +262,8 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title \"Longitudinal electric field of a point charge"
-				+ " with Lorentz factor {/Symbol g} = " + LorentzFactor.ToString("G6", CultureInfo.InvariantCulture)
-				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6", CultureInfo.InvariantCulture) + " fm\"");
+				+ " with Lorentz factor {/Symbol g} = " + LorentzFactor.ToString("G6")
+				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6") + " fm\"");
 			plotFile.AppendLine("set xlabel \"t - z/v (fm/c)\"");
 			plotFile.AppendLine("set ylabel \"e|E_{z}|/m_{/Symbol p}^2\"");
 			plotFile.AppendLine();
@@ -333,8 +333,8 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title \"Radial electric field of a point charge"
-				+ " with Lorentz factor {/Symbol g} = " + LorentzFactor.ToString("G6", CultureInfo.InvariantCulture)
-				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6", CultureInfo.InvariantCulture) + " fm\"");
+				+ " with Lorentz factor {/Symbol g} = " + LorentzFactor.ToString("G6")
+				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6") + " fm\"");
 			plotFile.AppendLine("set xlabel \"t - z/v (fm/c)\"");
 			plotFile.AppendLine("set ylabel \"eE_{r}/m_{/Symbol p}^2\"");
 			plotFile.AppendLine();
