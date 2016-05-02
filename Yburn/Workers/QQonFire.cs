@@ -736,11 +736,11 @@ namespace Yburn.Workers
 			FireballParam param = new FireballParam();
 
 			param.NucleonNumberA = NucleonNumberA;
-			param.DiffusenessFmA = DiffusenessA;
-			param.NuclearRadiusFmA = NuclearRadiusA;
+			param.DiffusenessAFm = DiffusenessA;
+			param.NuclearRadiusAFm = NuclearRadiusA;
 			param.NucleonNumberB = NucleonNumberB;
-			param.DiffusenessFmB = DiffusenessB;
-			param.NuclearRadiusFmB = NuclearRadiusB;
+			param.DiffusenessBFm = DiffusenessB;
+			param.NuclearRadiusBFm = NuclearRadiusB;
 			param.GridCellSizeFm = GridCellSize;
 			param.NumberGridCells = NumberGridCells;
 			param.ImpactParamFm = ImpactParam;

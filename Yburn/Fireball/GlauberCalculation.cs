@@ -151,10 +151,10 @@ namespace Yburn.Fireball
 			NumberGridCells = param.NumberGridCells;
 			GridCellSize = param.GridCellSizeFm;
 			ImpactParameter = param.ImpactParamFm;
-			NuclearRadiusA = param.NuclearRadiusFmA;
-			NuclearRadiusB = param.NuclearRadiusFmB;
-			DiffusenessA = param.DiffusenessFmA;
-			DiffusenessB = param.DiffusenessFmB;
+			NuclearRadiusA = param.NuclearRadiusAFm;
+			NuclearRadiusB = param.NuclearRadiusBFm;
+			DiffusenessA = param.DiffusenessAFm;
+			DiffusenessB = param.DiffusenessBFm;
 			NucleonNumberA = param.NucleonNumberA;
 			NucleonNumberB = param.NucleonNumberB;
 			TemperatureProfile = param.TemperatureProfile;

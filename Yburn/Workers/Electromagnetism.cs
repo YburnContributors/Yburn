@@ -21,6 +21,21 @@ namespace Yburn.Workers
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
+		private FireballParam CreateFireballParam(
+			EMFCalculationMethod emfCalculationMethod
+			)
+		{
+			FireballParam param = new FireballParam();
+
+			param.EMFCalculationMethod = emfCalculationMethod;
+			param.FourierFrequencySteps = FourierFrequencySteps;
+			param.MaxFourierFrequency = MaxFourierFrequency;
+			param.MinFourierFrequency = MinFourierFrequency;
+			param.QGPConductivityMeV = QGPConductivityMeV;
+
+			return param;
+		}
+
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
@@ -39,7 +54,17 @@ namespace Yburn.Workers
 			}
 		}
 
+		private EMFCalculationMethod EMFCalculationMethod;
+
+		private int FourierFrequencySteps;
+
+		private double MaxFourierFrequency;
+
+		private double MinFourierFrequency;
+
 		private string Outfile = "stdout.txt";
+
+		private double QGPConductivityMeV;
 
 		protected override void SetVariableNameValueList(
 			Dictionary<string, string> nameValuePairs
@@ -110,9 +135,9 @@ namespace Yburn.Workers
 				StringBuilder stringBuilder = new StringBuilder(base.LogHeader);
 				AppendLogHeaderLine(stringBuilder, "QGPConductivityMeV", QGPConductivityMeV);
 				AppendLogHeaderLine(stringBuilder, "EMFCalculationMethod", EMFCalculationMethod);
-				AppendLogHeaderLine(stringBuilder, "MinSpatialFrequency", MinFourierFrequency);
-				AppendLogHeaderLine(stringBuilder, "MaxSpatialFrequency", MaxFourierFrequency);
-				AppendLogHeaderLine(stringBuilder, "SpatialFrequencySteps", FourierFrequencySteps);
+				AppendLogHeaderLine(stringBuilder, "MinFourierFrequency", MinFourierFrequency);
+				AppendLogHeaderLine(stringBuilder, "MaxFourierFrequency", MaxFourierFrequency);
+				AppendLogHeaderLine(stringBuilder, "FourierFrequencySteps", FourierFrequencySteps);
 
 				return stringBuilder.ToString();
 			}

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using Yburn.Fireball;
@@ -45,19 +44,9 @@ namespace Yburn.Workers
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private delegate List<List<double>> DataListCreator();
+		private int EffectiveTimeSamples;
 
-		private string DataFileName = string.Empty;
-
-		private double QGPConductivityMeV;
-
-		private EMFCalculationMethod EMFCalculationMethod;
-
-		private double MinFourierFrequency;
-
-		private double MaxFourierFrequency;
-
-		private int FourierFrequencySteps;
+		private EMFCalculationMethod[] EMFCalculationMethodSelection = new EMFCalculationMethod[0];
 
 		private double LorentzFactor;
 
@@ -67,9 +56,9 @@ namespace Yburn.Workers
 
 		private double StopEffectiveTime;
 
-		private int EffectiveTimeSamples;
+		private delegate List<List<double>> DataListCreator();
 
-		private EMFCalculationMethod[] EMFCalculationMethodSelection = new EMFCalculationMethod[0];
+		private string DataFileName = string.Empty;
 
 		private string DataPathFile
 		{
@@ -223,32 +212,27 @@ namespace Yburn.Workers
 			List<double> timeValues
 			)
 		{
-			foreach(EMFCalculationMethod type in EMFCalculationMethodSelection)
+			foreach(EMFCalculationMethod method in EMFCalculationMethodSelection)
 			{
 				List<double> fieldValues =
-					GetPointChargeAzimutalMagneticFieldValueList(timeValues, type);
+					GetPointChargeAzimutalMagneticFieldValueList(timeValues, method);
 				dataList.Add(fieldValues);
 			}
 		}
 
 		private List<double> GetPointChargeAzimutalMagneticFieldValueList(
 			List<double> timeValues,
-			EMFCalculationMethod type
+			EMFCalculationMethod method
 			)
 		{
 			double normalization = PhysConst.ElementaryCharge
 				* (PhysConst.HBARC / PhysConst.MeanPionMass)
 				* (PhysConst.HBARC / PhysConst.MeanPionMass);
 			List<double> fieldValues = new List<double>();
-			ElectromagneticField emf = new ElectromagneticField(
-				QGPConductivityMeV,
-				type,
-				MinFourierFrequency,
-				MaxFourierFrequency,
-				FourierFrequencySteps);
+			ElectromagneticField emf = ElectromagneticField.Create(CreateFireballParam(method));
 			foreach(double timeValue in timeValues)
 			{
-				fieldValues.Add(normalization * emf.GetPointChargeAzimutalMagneticField(
+				fieldValues.Add(normalization * emf.CalculatePointChargeAzimutalMagneticField(
 					timeValue, RadialDistance, LorentzFactor));
 			}
 
@@ -294,32 +278,27 @@ namespace Yburn.Workers
 			List<double> timeValues
 			)
 		{
-			foreach(EMFCalculationMethod type in EMFCalculationMethodSelection)
+			foreach(EMFCalculationMethod method in EMFCalculationMethodSelection)
 			{
 				List<double> fieldValues =
-					GetPointChargeLongitudinalElectricFieldValueList(timeValues, type);
+					GetPointChargeLongitudinalElectricFieldValueList(timeValues, method);
 				dataList.Add(fieldValues);
 			}
 		}
 
 		private List<double> GetPointChargeLongitudinalElectricFieldValueList(
 			List<double> timeValues,
-			EMFCalculationMethod type
+			EMFCalculationMethod method
 			)
 		{
 			double normalization = PhysConst.ElementaryCharge
 				* (PhysConst.HBARC / PhysConst.MeanPionMass)
 				* (PhysConst.HBARC / PhysConst.MeanPionMass);
 			List<double> fieldValues = new List<double>();
-			ElectromagneticField emf = new ElectromagneticField(
-				QGPConductivityMeV,
-				type,
-				MinFourierFrequency,
-				MaxFourierFrequency,
-				FourierFrequencySteps);
+			ElectromagneticField emf = ElectromagneticField.Create(CreateFireballParam(method));
 			foreach(double timeValue in timeValues)
 			{
-				fieldValues.Add(normalization * Math.Abs(emf.GetPointChargeLongitudinalElectricField(
+				fieldValues.Add(normalization * Math.Abs(emf.CalculatePointChargeLongitudinalElectricField(
 					timeValue, RadialDistance, LorentzFactor)));
 			}
 
@@ -365,32 +344,27 @@ namespace Yburn.Workers
 			List<double> timeValues
 			)
 		{
-			foreach(EMFCalculationMethod type in EMFCalculationMethodSelection)
+			foreach(EMFCalculationMethod method in EMFCalculationMethodSelection)
 			{
 				List<double> fieldValues =
-					GetPointChargeRadialElectricFieldValueList(timeValues, type);
+					GetPointChargeRadialElectricFieldValueList(timeValues, method);
 				dataList.Add(fieldValues);
 			}
 		}
 
 		private List<double> GetPointChargeRadialElectricFieldValueList(
 			List<double> timeValues,
-			EMFCalculationMethod type
+			EMFCalculationMethod method
 			)
 		{
 			double normalization = PhysConst.ElementaryCharge
 				* (PhysConst.HBARC / PhysConst.MeanPionMass)
 				* (PhysConst.HBARC / PhysConst.MeanPionMass);
 			List<double> fieldValues = new List<double>();
-			ElectromagneticField emf = new ElectromagneticField(
-				QGPConductivityMeV,
-				type,
-				MinFourierFrequency,
-				MaxFourierFrequency,
-				FourierFrequencySteps);
+			ElectromagneticField emf = ElectromagneticField.Create(CreateFireballParam(method));
 			foreach(double timeValue in timeValues)
 			{
-				fieldValues.Add(normalization * emf.GetPointChargeRadialElectricField(
+				fieldValues.Add(normalization * emf.CalculatePointChargeRadialElectricField(
 					timeValue, RadialDistance, LorentzFactor));
 			}
 

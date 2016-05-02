@@ -62,7 +62,7 @@ namespace Yburn.Fireball.Tests
 			Assert.AreEqual(8, impactParams.Length);
 			Assert.AreEqual(0, impactParams[0], 1e-14);
 			Assert.AreEqual(3.2, impactParams[1], 1e-14);
-			Assert.AreEqual(4.8, impactParams[2], 1e-14);
+			Assert.AreEqual(4.4, impactParams[2], 1e-14);
 			Assert.AreEqual(6.8, impactParams[3], 1e-14);
 			Assert.AreEqual(8.4, impactParams[4], 1e-14);
 			Assert.AreEqual(9.6, impactParams[5], 1e-14);
@@ -74,13 +74,13 @@ namespace Yburn.Fireball.Tests
 		{
 			double[] nparts = calculator.MeanParticipantsInBin[0];
 			Assert.AreEqual(7, nparts.Length);
-			Assert.AreEqual(386.319541643199, nparts[0], 1e-12);
-			Assert.AreEqual(334.785097729082, nparts[1], 1e-12);
-			Assert.AreEqual(263.95471617815, nparts[2], 1e-12);
-			Assert.AreEqual(189.589583965075, nparts[3], 1e-12);
-			Assert.AreEqual(133.929607266372, nparts[4], 1e-12);
-			Assert.AreEqual(90.956150729068, nparts[5], 1e-12);
-			Assert.AreEqual(20.1293079185253, nparts[6], 1e-12);
+			Assert.AreEqual(383.63733145209432, nparts[0], 1e-12);
+			Assert.AreEqual(340.22338305772513, nparts[1], 1e-12);
+			Assert.AreEqual(268.4305732594392, nparts[2], 1e-12);
+			Assert.AreEqual(187.36409577512202, nparts[3], 1e-12);
+			Assert.AreEqual(131.944740579625, nparts[4], 1e-12);
+			Assert.AreEqual(89.250454152613017, nparts[5], 1e-12);
+			Assert.AreEqual(19.648149728827331, nparts[6], 1e-12);
 		}
 
 		/********************************************************************************************
@@ -102,12 +102,12 @@ namespace Yburn.Fireball.Tests
 			param.NumberGridCells = NumberGridCells;
 
 			param.NucleonNumberA = 208;
-			param.NuclearRadiusFmA = 6.62;
-			param.DiffusenessFmA = 0.546;
+			param.NuclearRadiusAFm = 6.62;
+			param.DiffusenessAFm = 0.546;
 
 			param.NucleonNumberB = 208;
-			param.NuclearRadiusFmB = 6.62;
-			param.DiffusenessFmB = 0.546;
+			param.NuclearRadiusBFm = 6.62;
+			param.DiffusenessBFm = 0.546;
 
 			param.TemperatureDecayWidthList = GetTemperatureDecayWidthList();
 
