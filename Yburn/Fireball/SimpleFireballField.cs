@@ -46,6 +46,22 @@
 			set;
 		}
 
+        public double GetMaxValue()
+        {
+            double maxValue = Values[0, 0];
+            for (int i = 0; i < XDimension; i++)
+            {
+                for(int j = 0; j < YDimension; j++)
+                {
+                    if (Values[i,j] > maxValue)
+                    {
+                        maxValue = Values[i, j]; ;
+                    }
+                }
+            }
+            return maxValue;
+        }
+
 		public double TrapezoidalRuleSummedValues()
 		{
 			double sum = 0.5 * Values[0, 0];
