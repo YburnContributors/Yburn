@@ -35,8 +35,8 @@ namespace Yburn.Fireball.Tests
 		private static readonly int[] NumberCentralityBins = new int[] { 5, 6 };
 
 		private static readonly double[][] ImpactParamsAtBinBoundaries = new double[][] {
-			new double[] { 3.2, 4.8, 8.4, 9.6, 10.8, 21.2 },
-			new double[] { 0, 4.8, 6.8, 8.4, 9.6, 10.8, 12 }};
+			new double[] { 3.2, 4.4, 8.4, 9.6, 10.8, 21.2 },
+			new double[] { 0, 4.4, 6.8, 8.4, 9.6, 10.8, 12 }};
 
 		private static void AssertCorrectFlatImpactParamsArray(
 			double[] flatImpactParams
@@ -44,7 +44,7 @@ namespace Yburn.Fireball.Tests
 		{
 			Assert.AreEqual(0, flatImpactParams[0]);
 			Assert.AreEqual(3.2, flatImpactParams[1]);
-			Assert.AreEqual(4.8, flatImpactParams[2]);
+			Assert.AreEqual(4.4, flatImpactParams[2]);
 			Assert.AreEqual(6.8, flatImpactParams[3]);
 			Assert.AreEqual(8.4, flatImpactParams[4]);
 			Assert.AreEqual(9.6, flatImpactParams[5]);

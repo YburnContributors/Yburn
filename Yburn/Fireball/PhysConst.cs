@@ -8,7 +8,7 @@ namespace Yburn.Fireball
 		// in MeV fm
 		public static readonly double HBARC = 197.3269788;
 
-		public static readonly double PI = 3.14159265358979;
+		public static readonly double PI = Math.PI; //3.1415926535897931;
 
 		public static readonly double FineStructureConstant = 7.2973525664E-3;
 

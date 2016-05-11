@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="BinBoundaryCalculatorTests.cs" />
     <Compile Include="BottomiumCascadeTests.cs" />
+    <Compile Include="EuclideanVectorTests.cs" />
+    <Compile Include="ElectromagneticFieldTests.cs" />
     <Compile Include="DecayWidthAveragerTests.cs" />
     <Compile Include="FireballFieldTests.cs" />
     <Compile Include="FireballTests.cs" />

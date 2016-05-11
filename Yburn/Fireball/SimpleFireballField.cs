@@ -50,11 +50,11 @@
 		{
 			double sum = 0.5 * Values[0, 0];
 
-			for(int i = 0; i < XDimension; i++)
+			for(int i = 1; i < XDimension; i++)
 			{
 				sum += Values[i, 0];
 			}
-			for(int i = 0; i < YDimension; i++)
+			for(int i = 1; i < YDimension; i++)
 			{
 				sum += Values[0, i];
 			}

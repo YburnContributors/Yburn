@@ -34,12 +34,12 @@ namespace Yburn.Fireball.Tests
 			CalculateFireballEvolution();
 
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
-			Assert.AreEqual(0.685250831226219, qgpSuppressionFactors[(int)BottomiumState.Y1S], 1e-4);
-			Assert.AreEqual(0.145548188917557, qgpSuppressionFactors[(int)BottomiumState.x1P], 1e-4);
-			Assert.AreEqual(0.181337174147212, qgpSuppressionFactors[(int)BottomiumState.Y2S], 1e-4);
-			Assert.AreEqual(0.0429757611907636, qgpSuppressionFactors[(int)BottomiumState.x2P], 1e-4);
-			Assert.AreEqual(0.0553731580470921, qgpSuppressionFactors[(int)BottomiumState.Y3S], 1e-4);
-			Assert.AreEqual(0.0224418133599137, qgpSuppressionFactors[(int)BottomiumState.x3P], 1e-4);
+			Assert.AreEqual(0.68735662450554291, qgpSuppressionFactors[(int)BottomiumState.Y1S], 1e-4);
+			Assert.AreEqual(0.14694835743748225, qgpSuppressionFactors[(int)BottomiumState.x1P], 1e-4);
+			Assert.AreEqual(0.18302631971728495, qgpSuppressionFactors[(int)BottomiumState.Y2S], 1e-4);
+			Assert.AreEqual(0.043377555420717834, qgpSuppressionFactors[(int)BottomiumState.x2P], 1e-4);
+			Assert.AreEqual(0.055872843005052776, qgpSuppressionFactors[(int)BottomiumState.Y3S], 1e-4);
+			Assert.AreEqual(0.022662140834388896, qgpSuppressionFactors[(int)BottomiumState.x3P], 1e-4);
 		}
 
 		[TestMethod]
@@ -49,12 +49,12 @@ namespace Yburn.Fireball.Tests
 			CalculateFireballEvolution();
 
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
-			Assert.AreEqual(0.269354021666524, qgpSuppressionFactors[(int)BottomiumState.Y1S], 4e-4);
-			Assert.AreEqual(0.0208609142470617, qgpSuppressionFactors[(int)BottomiumState.x1P], 4e-4);
-			Assert.AreEqual(0.028876456026112, qgpSuppressionFactors[(int)BottomiumState.Y2S], 4e-4);
-			Assert.AreEqual(0.00848629615599608, qgpSuppressionFactors[(int)BottomiumState.x2P], 4e-4);
-			Assert.AreEqual(0.0107574789962652, qgpSuppressionFactors[(int)BottomiumState.Y3S], 4e-4);
-			Assert.AreEqual(0.00486554796139194, qgpSuppressionFactors[(int)BottomiumState.x3P], 4e-4);
+			Assert.AreEqual(0.27229850669580641, qgpSuppressionFactors[(int)BottomiumState.Y1S], 4e-4);
+			Assert.AreEqual(0.021115017239003504, qgpSuppressionFactors[(int)BottomiumState.x1P], 4e-4);
+			Assert.AreEqual(0.029253999798176698, qgpSuppressionFactors[(int)BottomiumState.Y2S], 4e-4);
+			Assert.AreEqual(0.0085912564232263084, qgpSuppressionFactors[(int)BottomiumState.x2P], 4e-4);
+			Assert.AreEqual(0.010894507768678827, qgpSuppressionFactors[(int)BottomiumState.Y3S], 4e-4);
+			Assert.AreEqual(0.0049171614280425, qgpSuppressionFactors[(int)BottomiumState.x3P], 4e-4);
 		}
 
 		[TestMethod]
@@ -64,12 +64,12 @@ namespace Yburn.Fireball.Tests
 			CalculateFireballEvolution();
 
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
-			Assert.AreEqual(0.65139796775724945, qgpSuppressionFactors[(int)BottomiumState.Y1S], 1e-15);
-			Assert.AreEqual(0.12047654947393906, qgpSuppressionFactors[(int)BottomiumState.x1P], 1e-15);
-			Assert.AreEqual(0.15676062081686307, qgpSuppressionFactors[(int)BottomiumState.Y2S], 1e-15);
-			Assert.AreEqual(0.037209757981401831, qgpSuppressionFactors[(int)BottomiumState.x2P], 1e-15);
-			Assert.AreEqual(0.0468273894779688, qgpSuppressionFactors[(int)BottomiumState.Y3S], 1e-15);
-			Assert.AreEqual(0.020321416763603287, qgpSuppressionFactors[(int)BottomiumState.x3P], 1e-15);
+			Assert.AreEqual(0.65398639785152268, qgpSuppressionFactors[(int)BottomiumState.Y1S], 1e-15);
+			Assert.AreEqual(0.12166054713738836, qgpSuppressionFactors[(int)BottomiumState.x1P], 1e-15);
+			Assert.AreEqual(0.15830120452031807, qgpSuppressionFactors[(int)BottomiumState.Y2S], 1e-15);
+			Assert.AreEqual(0.037575441317286427, qgpSuppressionFactors[(int)BottomiumState.x2P], 1e-15);
+			Assert.AreEqual(0.047287591234820583, qgpSuppressionFactors[(int)BottomiumState.Y3S], 1e-15);
+			Assert.AreEqual(0.020521127911300879, qgpSuppressionFactors[(int)BottomiumState.x3P], 1e-15);
 		}
 
 		/********************************************************************************************
@@ -86,8 +86,8 @@ namespace Yburn.Fireball.Tests
 			)
 		{
 			FireballParam param = new FireballParam();
-			param.DiffusenessFmA = 0.546;
-			param.DiffusenessFmB = 0.546;
+			param.DiffusenessAFm = 0.546;
+			param.DiffusenessBFm = 0.546;
 			param.DecayWidthEvaluationType = DecayWidthEvaluationType.AveragedTemperature;
 			param.ExpansionMode = ExpansionMode.Transverse;
 			param.ImpactParamFm = 1.5;
@@ -95,8 +95,8 @@ namespace Yburn.Fireball.Tests
 			param.NucleonNumberB = 208;
 			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 			param.TransverseMomentaGeV = new double[] { 6 };
-			param.NuclearRadiusFmA = 6.62;
-			param.NuclearRadiusFmB = 6.62;
+			param.NuclearRadiusAFm = 6.62;
+			param.NuclearRadiusBFm = 6.62;
 			param.DecayWidthEvaluationType = decayWidthEvaluationType;
 			param.InitialCentralTemperatureMeV = 550;
 			param.MinimalCentralTemperatureMeV = MinimalCentralTemperatureMeV;

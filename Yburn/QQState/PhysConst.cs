@@ -1,4 +1,6 @@
-﻿namespace Yburn.QQState
+﻿using System;
+
+namespace Yburn.QQState
 {
 	public static class PhysConst
 	{
@@ -17,7 +19,7 @@
 		// in MeV fm
 		public static readonly double HBARC = 197.3269788;
 
-		public static readonly double PI = 3.14159265358979;
+		public static readonly double PI = Math.PI; //3.1415926535897931;
 
 		// Riemann zeta function zeta(2)
 		public static readonly double Zeta2 = 1.64493406684823;

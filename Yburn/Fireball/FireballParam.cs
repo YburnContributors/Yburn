@@ -18,15 +18,15 @@ namespace Yburn.Fireball
 
 		public int NucleonNumberA;
 
-		public double DiffusenessFmA;
+		public double DiffusenessAFm;
 
-		public double NuclearRadiusFmA;
+		public double NuclearRadiusAFm;
 
 		public int NucleonNumberB;
 
-		public double DiffusenessFmB;
+		public double DiffusenessBFm;
 
-		public double NuclearRadiusFmB;
+		public double NuclearRadiusBFm;
 
 		public double GridCellSizeFm;
 
@@ -62,6 +62,16 @@ namespace Yburn.Fireball
 
 		public double[] DecayWidthAveragingAngles;
 
+		public double QGPConductivityMeV;
+
+		public EMFCalculationMethod EMFCalculationMethod;
+
+		public double MinFourierFrequency;
+
+		public double MaxFourierFrequency;
+
+		public int FourierFrequencySteps;
+
 		public string FtexsLogPathFile;
 
         public CollisionType CollisionType;
@@ -73,20 +83,25 @@ namespace Yburn.Fireball
 			param.BeamRapidity = BeamRapidity;
 			param.DecayWidthAveragingAngles = DecayWidthAveragingAngles;
 			param.DecayWidthEvaluationType = DecayWidthEvaluationType;
-			param.DiffusenessFmA = DiffusenessFmA;
-			param.DiffusenessFmB = DiffusenessFmB;
+			param.DiffusenessAFm = DiffusenessAFm;
+			param.DiffusenessBFm = DiffusenessBFm;
+			param.EMFCalculationMethod = EMFCalculationMethod;
 			param.ExpansionMode = ExpansionMode;
 			param.FormationTimesFm = FormationTimesFm;
+			param.FourierFrequencySteps = FourierFrequencySteps;
 			param.FtexsLogPathFile = FtexsLogPathFile;
 			param.GridCellSizeFm = GridCellSizeFm;
 			param.ImpactParamFm = ImpactParamFm;
 			param.InitialCentralTemperatureMeV = InitialCentralTemperatureMeV;
+			param.MaxFourierFrequency = MaxFourierFrequency;
+			param.MinFourierFrequency = MinFourierFrequency;
 			param.MinimalCentralTemperatureMeV = MinimalCentralTemperatureMeV;
 			param.NucleonNumberA = NucleonNumberA;
 			param.NucleonNumberB = NucleonNumberB;
-			param.NuclearRadiusFmA = NuclearRadiusFmA;
-			param.NuclearRadiusFmB = NuclearRadiusFmB;
+			param.NuclearRadiusAFm = NuclearRadiusAFm;
+			param.NuclearRadiusBFm = NuclearRadiusBFm;
 			param.NumberGridCells = NumberGridCells;
+			param.QGPConductivityMeV = QGPConductivityMeV;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthList;
 			param.TemperatureProfile = TemperatureProfile;
 			param.ThermalTimeFm = ThermalTimeFm;
