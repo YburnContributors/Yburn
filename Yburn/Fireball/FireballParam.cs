@@ -32,6 +32,10 @@ namespace Yburn.Fireball
 
 		public int NumberGridCells;
 
+        public int NumberGridCellsInX;
+
+        public int NumberGridCellsInY;
+
 		public double ImpactParamFm;
 
 		public double ThermalTimeFm;
@@ -60,6 +64,8 @@ namespace Yburn.Fireball
 
 		public string FtexsLogPathFile;
 
+        public CollisionType CollisionType;
+
 		public FireballParam Clone()
 		{
 			FireballParam param = new FireballParam();
@@ -85,6 +91,9 @@ namespace Yburn.Fireball
 			param.TemperatureProfile = TemperatureProfile;
 			param.ThermalTimeFm = ThermalTimeFm;
 			param.TransverseMomentaGeV = TransverseMomentaGeV;
+            param.CollisionType = CollisionType;
+            param.NumberGridCellsInX = NumberGridCellsInX;
+            param.NumberGridCellsInY = NumberGridCellsInY;
 
 			return param;
 		}

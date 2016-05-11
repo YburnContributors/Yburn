@@ -85,6 +85,7 @@ namespace Yburn.Workers.Tests
 			nameValuePairs.Add("NumberGridCells", "11");
 			nameValuePairs.Add("BeamRapidity", "7.99");
 			nameValuePairs.Add("DecayWidthEvaluationType", type.ToString());
+            nameValuePairs.Add("CollisionType", "LeadAOnLeadB");
 
 			return nameValuePairs;
 		}

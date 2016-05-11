@@ -110,8 +110,24 @@ namespace Yburn.Fireball.Tests
 			param.DiffusenessFmB = 0.546;
 
 			param.TemperatureDecayWidthList = GetTemperatureDecayWidthList();
+            param.CollisionType = CollisionType.WoodsSaxonAWoodsSaxonB;
 
-			return param;
+            if (param.CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+            {
+                param.NumberGridCellsInX = NumberGridCells;
+                param.NumberGridCellsInY = NumberGridCells;
+            }
+            else if (param.CollisionType == CollisionType.WoodsSaxonAGaussianB)
+            {
+                param.NumberGridCellsInX = 2 * NumberGridCells - 1;
+                param.NumberGridCellsInY = NumberGridCells;
+            }
+            else
+            {
+                throw new Exception("Invalid CollisionType.");
+            }
+
+            return param;
 		}
 	}
 }

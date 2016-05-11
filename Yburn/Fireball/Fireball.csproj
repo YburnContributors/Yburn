@@ -33,6 +33,7 @@
   <ItemGroup>
     <Compile Include="BinBoundaryCalculator.cs" />
     <Compile Include="BottomiumCascade.cs" />
+    <Compile Include="GaussianDistribution.cs" />
     <Compile Include="DecayWidthAverager.cs" />
     <Compile Include="ElectromagneticField.cs" />
     <Compile Include="Fireball.cs" />

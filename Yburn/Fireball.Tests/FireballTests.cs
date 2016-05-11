@@ -107,8 +107,24 @@ namespace Yburn.Fireball.Tests
 			param.BeamRapidity = 7.99;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthList.GetList(
 					"..\\..\\bbdata-Pert1LoopCut3.txt", DecayWidthType.GammaTot, new string[] { "Complex" });
+            param.CollisionType = CollisionType.WoodsSaxonAWoodsSaxonB;
 
-			return param;
+            if (param.CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+            {
+                param.NumberGridCellsInX = param.NumberGridCells;
+                param.NumberGridCellsInY = param.NumberGridCells;
+            }
+            else if (param.CollisionType == CollisionType.WoodsSaxonAGaussianB)
+            {
+                param.NumberGridCellsInX = 2 * param.NumberGridCells - 1;
+                param.NumberGridCellsInY = param.NumberGridCells;
+            }
+            else
+            {
+                throw new Exception("Invalid CollisionType.");
+            }
+
+            return param;
 		}
 
 		/********************************************************************************************

@@ -601,7 +601,11 @@ namespace Yburn.Workers
 			{
 				return typeof(BottomiumState);
 			}
-			else if(enumName == "DecayWidthType")
+            else if (enumName == "CollisionType")
+            {
+                return typeof(CollisionType);
+            }
+            else if(enumName == "DecayWidthType")
 			{
 				return typeof(DecayWidthType);
 			}
@@ -705,6 +709,8 @@ namespace Yburn.Workers
 
 		private double BeamRapidity;
 
+        private CollisionType CollisionType;
+
 		private Fireball.Fireball CreateFireball()
 		{
 			return new Fireball.Fireball(CreateFireballParam());
@@ -757,6 +763,21 @@ namespace Yburn.Workers
 			param.DecayWidthAveragingAngles = DecayWidthAveragingAngles;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthList.GetList(
 					GetQQDataPathFile(), DecayWidthType, PotentialTypes);
+            param.CollisionType = CollisionType;
+            if (CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+            {
+                param.NumberGridCellsInX = NumberGridCells;
+                param.NumberGridCellsInY = NumberGridCells;
+            }
+            else if (CollisionType == CollisionType.WoodsSaxonAGaussianB)
+            {
+                param.NumberGridCellsInX = 2 * NumberGridCells - 1;
+                param.NumberGridCellsInY = NumberGridCells;
+            }
+            else
+            {
+                throw new Exception("Invalid CollisionType.");
+            }
 
 			return param;
 		}
@@ -965,7 +986,8 @@ namespace Yburn.Workers
 			BjorkenLifeTime = Extractor.TryGetDouble(nameValuePairs, "BjorkenLifeTime", BjorkenLifeTime);
 			BottomiumStates = Extractor.TryGetString(nameValuePairs, "BottomiumStates", BottomiumStates);
 			CentralityBinBoundaries = Extractor.TryGetIntArrayArray(nameValuePairs, "CentralityBinBoundaries", CentralityBinBoundaries);
-			DecayWidthAveragingAngles = Extractor.TryGetDoubleArray(nameValuePairs, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
+            CollisionType = Extractor.TryGetEnum<CollisionType>(nameValuePairs, "CollisionType", CollisionType);
+            DecayWidthAveragingAngles = Extractor.TryGetDoubleArray(nameValuePairs, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
 			DecayWidthEvaluationType = Extractor.TryGetEnum<DecayWidthEvaluationType>(nameValuePairs, "DecayWidthEvaluationType", DecayWidthEvaluationType);
 			DecayWidthType = Extractor.TryGetEnum<DecayWidthType>(nameValuePairs, "DecayWidthType", DecayWidthType);
 			DiffusenessA = Extractor.TryGetDouble(nameValuePairs, "DiffusenessA", DiffusenessA);
@@ -1032,6 +1054,7 @@ namespace Yburn.Workers
 			nameValuePairs["Outfile"] = Outfile;
 			nameValuePairs["BjorkenLifeTime"] = BjorkenLifeTime.ToString();
 			nameValuePairs["LifeTime"] = LifeTime.ToString();
+            nameValuePairs["CollisionType"] = CollisionType.ToString();
 
 			return nameValuePairs;
 		}
@@ -1074,6 +1097,7 @@ namespace Yburn.Workers
 				AppendLogHeaderLine(stringBuilder, "FormationTimes", FormationTimes);
 				AppendLogHeaderLine(stringBuilder, "ThermalTime", ThermalTime);
 				AppendLogHeaderLine(stringBuilder, "TransverseMomenta", TransverseMomenta);
+                AppendLogHeaderLine(stringBuilder, "CollisionType", CollisionType);
 
 				return stringBuilder.ToString();
 			}

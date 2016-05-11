@@ -10,7 +10,13 @@
 		x3P
 	};
 
-	public enum DecayWidthType
+    public enum CollisionType
+    {
+        WoodsSaxonAWoodsSaxonB,
+        WoodsSaxonAGaussianB
+    };
+
+    public enum DecayWidthType
 	{
 		None,
 		GammaDamp,

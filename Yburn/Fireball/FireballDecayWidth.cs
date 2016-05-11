@@ -26,7 +26,43 @@ namespace Yburn.Fireball
 			: base(FireballFieldType.DecayWidth, xDimension, yDimension,
 				  transverseMomenta.Length)
 		{
-			GridCellSize = gridCellSize;
+            InitXY();
+            GridCellSize = gridCellSize;
+			Temperature = temperature;
+			VX = vx;
+			VY = vy;
+			FormationTimes = formationTimes;
+			InitialTime = initialTime;
+			TransverseMomenta = transverseMomenta;
+			DecayWidthEvaluationType = decayWidthEvaluationType;
+			DecayWidthAveragingAngles = decayWidthAveragingAngles;
+			TemperatureDecayWidthList = temperatureDecayWidthList;
+
+			Initialize();
+		}
+
+        public FireballDecayWidth(
+            double[] xPosition,
+            double[] yPosition,
+			double gridCellSize,
+			double[] transverseMomenta,
+			FireballTemperature temperature,
+			SimpleFireballField vx,
+			SimpleFireballField vy,
+			double[] formationTimes,
+			double initialTime,
+			DecayWidthEvaluationType decayWidthEvaluationType,
+			double[] decayWidthAveragingAngles,
+			List<KeyValuePair<double, double>>[] temperatureDecayWidthList
+			)
+			: base(FireballFieldType.DecayWidth, xPosition.Length, yPosition.Length,
+				  transverseMomenta.Length)
+		{
+            X = new double[XDimension];
+            Y = new double[YDimension];
+            X = xPosition;
+            Y = yPosition;
+            GridCellSize = gridCellSize;
 			Temperature = temperature;
 			VX = vx;
 			VY = vy;
@@ -108,7 +144,6 @@ namespace Yburn.Fireball
 
 		private void Initialize()
 		{
-			InitXY();
 			SetTransverseBottomiumVelocityAndLorentzFactor();
 			SetDecayWidthAveragers();
 			SetValues((i, j, k, l) =>

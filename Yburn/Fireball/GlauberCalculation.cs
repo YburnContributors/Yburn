@@ -16,7 +16,7 @@ namespace Yburn.Fireball
 			AssertValidMembers();
 
 			InitXY();
-			InitWoodsSaxonPotentials();
+			InitDensityPotentials();
 			InitNucleonDensityAB();
 			InitColumnDensityAB();
 			InitOverlap();
@@ -49,8 +49,20 @@ namespace Yburn.Fireball
 
 		public double GetTotalNumberCollisions()
 		{
-			// include a fcator of 4 because only a quarter has been integrated
-			return 4 * GridCellSize * GridCellSize * Ncoll.TrapezoidalRuleSummedValues();
+            if (CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+            {
+                // include a factor of 4 because only a quarter has been integrated
+                return 4 * GridCellSize * GridCellSize * Ncoll.TrapezoidalRuleSummedValues();
+            }
+            else if (CollisionType == CollisionType.WoodsSaxonAGaussianB)
+            {
+                // include a factor of 2 because only a half has been integrated
+                return 2 * GridCellSize * GridCellSize * Ncoll.TrapezoidalRuleSummedValues();
+            }
+            else
+            {
+                throw new Exception("Invalid CollisionType.");
+            }
 		}
 
 		public SimpleFireballField Npart
@@ -61,9 +73,21 @@ namespace Yburn.Fireball
 
 		public double GetTotalNumberParticipants()
 		{
-			// include a fcator of 4 because only a quarter has been integrated
-			return 4 * GridCellSize * GridCellSize * Npart.TrapezoidalRuleSummedValues();
-		}
+            if (CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+            {
+                // include a factor of 4 because only a quarter has been integrated
+                return 4 * GridCellSize * GridCellSize * Npart.TrapezoidalRuleSummedValues();
+            }
+            else if (CollisionType == CollisionType.WoodsSaxonAGaussianB)
+            {
+                // include a factor of 2 because only a half has been integrated
+                return 2 * GridCellSize * GridCellSize * Npart.TrapezoidalRuleSummedValues();
+            }
+            else
+            {
+                throw new Exception("Invalid CollisionType.");
+            }
+        }
 
 		public SimpleFireballField ColumnDensityA
 		{
@@ -113,14 +137,18 @@ namespace Yburn.Fireball
 
 		private static readonly double NmixALICEFittingConstant = 0.8;
 
-		// inelastic cross section for pp collisions is 64 mb = 6.4 fm^-2 at 2.76 TeV
+		// inelastic cross section for pp collisions is 64 mb = 6.4 fm^2 at 2.76 TeV
 		private static readonly double InelasticppCrossSectionFm = 6.4;
 
-		/********************************************************************************************
+        /********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private int NumberGridCells;
+        private int NumberGridCells;
+
+        private int NumberGridCellsInY;
+
+        private int NumberGridCellsInX;
 
 		private double ImpactParameter;
 
@@ -129,6 +157,8 @@ namespace Yburn.Fireball
 		private WoodsSaxonPotential WSPotentialA;
 
 		private WoodsSaxonPotential WSPotentialB;
+
+        private GaussianDistribution GaussianDistribution;
 
 		private int NucleonNumberB;
 
@@ -144,6 +174,8 @@ namespace Yburn.Fireball
 
 		private TemperatureProfile TemperatureProfile;
 
+        private CollisionType CollisionType;
+
 		private void SetMembers(
 			FireballParam param
 			)
@@ -158,6 +190,9 @@ namespace Yburn.Fireball
 			NucleonNumberA = param.NucleonNumberA;
 			NucleonNumberB = param.NucleonNumberB;
 			TemperatureProfile = param.TemperatureProfile;
+            CollisionType = param.CollisionType;
+            NumberGridCellsInX = param.NumberGridCellsInX;
+            NumberGridCellsInY = param.NumberGridCellsInY;
 		}
 
 		private void AssertValidMembers()
@@ -184,6 +219,22 @@ namespace Yburn.Fireball
 
 		private double[] Y;
 
+        private void InitDensityPotentials()
+        {
+            if (CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+            {
+                InitWoodsSaxonPotentials();
+            }
+            else if (CollisionType == CollisionType.WoodsSaxonAGaussianB)
+            {
+                InitGaussianWoodsSaxonPotentials();
+            }
+            else
+            {
+                throw new Exception("Invalid CollisionType.");
+            }
+        }
+
 		private void InitWoodsSaxonPotentials()
 		{
 			WSPotentialA = new WoodsSaxonPotential(NuclearRadiusA, DiffusenessA, NucleonNumberA);
@@ -192,26 +243,57 @@ namespace Yburn.Fireball
 			WSPotentialB.NormalizeTo(NucleonNumberB);
 		}
 
+        private void InitGaussianWoodsSaxonPotentials()
+        {
+            WSPotentialA = new WoodsSaxonPotential(NuclearRadiusA, DiffusenessA, NucleonNumberA);
+            WSPotentialA.NormalizeTo(NucleonNumberA);
+            GaussianDistribution = new GaussianDistribution(NuclearRadiusB, NucleonNumberB);
+            GaussianDistribution.NormalizeTo(NucleonNumberB);
+        }
+
 		private void InitNucleonDensityAB()
 		{
-			NucleonDensityA = new SimpleFireballField(FireballFieldType.NucleonDensityA,
-				NumberGridCells, NumberGridCells, (i, j) =>
-				{
-					return WSPotentialA.Value(Math.Sqrt(
-						Math.Pow(X[i] + 0.5 * ImpactParameter, 2) + Math.Pow(Y[j], 2)));
-				});
+            if (CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+            {
+                NucleonDensityA = new SimpleFireballField(FireballFieldType.NucleonDensityA,
+                    NumberGridCellsInX, NumberGridCellsInY, (i, j) =>
+                    {
+                        return WSPotentialA.Value(Math.Sqrt(
+                            Math.Pow(X[i] + 0.5 * ImpactParameter, 2) + Math.Pow(Y[j], 2)));
+                    });
 
-			NucleonDensityB = new SimpleFireballField(FireballFieldType.NucleonDensityB,
-				NumberGridCells, NumberGridCells, (i, j) =>
-				{
-					return WSPotentialB.Value(Math.Sqrt(
-						Math.Pow(X[i] - 0.5 * ImpactParameter, 2) + Math.Pow(Y[j], 2)));
-				});
-		}
+                NucleonDensityB = new SimpleFireballField(FireballFieldType.NucleonDensityB,
+                    NumberGridCellsInX, NumberGridCellsInY, (i, j) =>
+                    {
+                        return WSPotentialB.Value(Math.Sqrt(
+                            Math.Pow(X[i] - 0.5 * ImpactParameter, 2) + Math.Pow(Y[j], 2)));
+                    });
+            }
+            else if (CollisionType == CollisionType.WoodsSaxonAGaussianB)
+            {
+                NucleonDensityA = new SimpleFireballField(FireballFieldType.NucleonDensityA,
+                    NumberGridCellsInX, NumberGridCellsInY, (i, j) =>
+                    {
+                        return WSPotentialA.Value(Math.Sqrt(
+                            Math.Pow(X[i] + ImpactParameter, 2) + Math.Pow(Y[j], 2)));
+                    });
+
+                NucleonDensityB = new SimpleFireballField(FireballFieldType.NucleonDensityB,
+                    NumberGridCellsInX, NumberGridCellsInY, (i, j) =>
+                    {
+                        return GaussianDistribution.Value(Math.Sqrt(
+                            Math.Pow(X[i], 2) + Math.Pow(Y[j], 2)));
+                    });
+            }
+            else
+            {
+                throw new Exception("Invalid CollisionType.");
+            }
+        }
 
 		private void InitNcoll()
 		{
-			Ncoll = new SimpleFireballField(FireballFieldType.Ncoll, NumberGridCells, NumberGridCells,
+			Ncoll = new SimpleFireballField(FireballFieldType.Ncoll, NumberGridCellsInX, NumberGridCellsInY,
 				(i, j) =>
 				{
 					return InelasticppCrossSectionFm * Overlap.Values[i, j];
@@ -220,7 +302,7 @@ namespace Yburn.Fireball
 
 		private void InitNpart()
 		{
-			Npart = new SimpleFireballField(FireballFieldType.Npart, NumberGridCells, NumberGridCells,
+			Npart = new SimpleFireballField(FireballFieldType.Npart, NumberGridCellsInX, NumberGridCellsInY,
 				(i, j) =>
 				{
 					return ColumnDensityA.Values[i, j]
@@ -235,7 +317,7 @@ namespace Yburn.Fireball
 		private void InitOverlap()
 		{
 			Overlap = new SimpleFireballField(FireballFieldType.Overlap,
-				NumberGridCells, NumberGridCells, (i, j) =>
+				NumberGridCellsInX, NumberGridCellsInY, (i, j) =>
 				{
 					return ColumnDensityA.Values[i, j] * ColumnDensityB.Values[i, j];
 				});
@@ -243,35 +325,75 @@ namespace Yburn.Fireball
 
 		private void InitXY()
 		{
-			X = new double[NumberGridCells];
-			Y = new double[NumberGridCells];
+            X = new double[NumberGridCellsInX];
+            Y = new double[NumberGridCellsInY];
 
-			for(int j = 0; j < NumberGridCells; j++)
-			{
-				X[j] = Y[j] = GridCellSize * j;
-			}
+            if (CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+            {
+                for (int j = 0; j < NumberGridCellsInX; j++)
+                {
+                    X[j] = Y[j] = GridCellSize * j;
+                }
+            }
+            else if (CollisionType == CollisionType.WoodsSaxonAGaussianB)
+            {
+                for (int j = 0; j < NumberGridCellsInY; j++)
+                {
+                    Y[j] = GridCellSize * j;
+                }
+
+                for (int j = 0; j < NumberGridCellsInX; j++)
+                {
+                    X[j] = GridCellSize * (j + 1 - NumberGridCells);
+                }
+            }
+            else
+            {
+                throw new Exception("Invalid CollisionType.");
+            }
 		}
 
 		private void InitColumnDensityAB()
 		{
-			ColumnDensityA = new SimpleFireballField(FireballFieldType.ColumnDensityA,
-				NumberGridCells, NumberGridCells, (i, j) =>
-				{
-					return WSPotentialA.GetColumnDensity(X[i] + 0.5 * ImpactParameter, Y[j]);
-				});
+            if (CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+            {
+                ColumnDensityA = new SimpleFireballField(FireballFieldType.ColumnDensityA,
+                    NumberGridCellsInX, NumberGridCellsInY, (i, j) =>
+                    {
+                        return WSPotentialA.GetColumnDensity(X[i] + 0.5 * ImpactParameter, Y[j]);
+                    });
 
-			ColumnDensityB = new SimpleFireballField(FireballFieldType.ColumnDensityB,
-				NumberGridCells, NumberGridCells, (i, j) =>
-				{
-					return WSPotentialB.GetColumnDensity(X[i] - 0.5 * ImpactParameter, Y[j]);
-				});
-		}
+                ColumnDensityB = new SimpleFireballField(FireballFieldType.ColumnDensityB,
+                    NumberGridCellsInX, NumberGridCellsInY, (i, j) =>
+                    {
+                        return WSPotentialB.GetColumnDensity(X[i] - 0.5 * ImpactParameter, Y[j]);
+                    });
+            }
+            else if (CollisionType == CollisionType.WoodsSaxonAGaussianB)
+            {
+                ColumnDensityA = new SimpleFireballField(FireballFieldType.ColumnDensityA,
+                     NumberGridCellsInX, NumberGridCellsInY, (i, j) =>
+                    {
+                        return WSPotentialA.GetColumnDensity(X[i] + ImpactParameter, Y[j]);
+                    });
+
+                ColumnDensityB = new SimpleFireballField(FireballFieldType.ColumnDensityB,
+                    NumberGridCellsInX, NumberGridCells, (i, j) =>
+                    {
+                        return GaussianDistribution.GetColumnDensity(X[i] , Y[j]);
+                    });
+            }
+            else
+            {
+                throw new Exception("Invalid CollisionType.");
+            }
+        }
 
 		private void InitTemperatureScalingField()
 		{
 			double norm = 1.0 / GetTemperatureScalingFieldNormalization();
 			TemperatureScalingField = new SimpleFireballField(
-				FireballFieldType.TemperatureScalingField, NumberGridCells, NumberGridCells, (i, j) =>
+				FireballFieldType.TemperatureScalingField, NumberGridCellsInX, NumberGridCellsInY, (i, j) =>
 			{
 				switch(TemperatureProfile)
 				{
@@ -301,10 +423,24 @@ namespace Yburn.Fireball
 
 		private double GetTemperatureScalingFieldNormalization()
 		{
-			double columnA = WSPotentialA.GetColumnDensity(0, 0);
-			double columnB = WSPotentialB.GetColumnDensity(0, 0);
+            double columnA;
+            double columnB;
+            if (CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+            {
+                columnA = WSPotentialA.GetColumnDensity(0, 0);
+                columnB = WSPotentialB.GetColumnDensity(0, 0);
+            }
+            else if (CollisionType == CollisionType.WoodsSaxonAGaussianB)
+            {
+                columnA = WSPotentialA.GetColumnDensity(0, 0);
+                columnB = GaussianDistribution.GetColumnDensity(0, 0);
+            }
+            else
+            {
+                throw new Exception("Invalid CollisionType.");
+            }
 
-			double ncoll = InelasticppCrossSectionFm * columnA * columnB;
+            double ncoll = InelasticppCrossSectionFm * columnA * columnB;
 			double npart = columnA * (1.0 - Math.Pow(1.0 - InelasticppCrossSectionFm * columnB
 				/ NucleonNumberB, NucleonNumberB))
 				+ columnB * (1.0 - Math.Pow(1.0 - InelasticppCrossSectionFm * columnA
