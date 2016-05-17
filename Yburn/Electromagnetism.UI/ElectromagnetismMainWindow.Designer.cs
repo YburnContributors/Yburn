@@ -57,7 +57,7 @@
             this.MenuItemFile});
 			this.MenuStrip.Location = new System.Drawing.Point(0, 0);
 			this.MenuStrip.Name = "MenuStrip";
-			this.MenuStrip.Size = new System.Drawing.Size(1182, 42);
+			this.MenuStrip.Size = new System.Drawing.Size(1182, 40);
 			this.MenuStrip.TabIndex = 0;
 			this.MenuStrip.Text = "MenuStrip";
 			this.MenuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.MenuStrip_ItemClicked);
@@ -184,12 +184,12 @@
 			this.LayoutBottom.Controls.Add(this.ElectromagnetismPanel, 0, 1);
 			this.LayoutBottom.Controls.Add(this.YburnConfigDataBox, 0, 0);
 			this.LayoutBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LayoutBottom.Location = new System.Drawing.Point(0, 42);
+			this.LayoutBottom.Location = new System.Drawing.Point(0, 40);
 			this.LayoutBottom.Name = "LayoutBottom";
 			this.LayoutBottom.RowCount = 2;
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 90F));
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.LayoutBottom.Size = new System.Drawing.Size(1182, 607);
+			this.LayoutBottom.Size = new System.Drawing.Size(1182, 609);
 			this.LayoutBottom.TabIndex = 1;
 			// 
 			// ElectromagnetismPanel
@@ -221,6 +221,7 @@
 			this.Controls.Add(this.TabControl);
 			this.Controls.Add(this.MenuStrip);
 			this.Font = new System.Drawing.Font("Consolas", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MainMenuStrip = this.MenuStrip;
 			this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
 			this.Name = "ElectromagnetismMainWindow";

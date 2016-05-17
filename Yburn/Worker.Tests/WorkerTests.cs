@@ -24,7 +24,7 @@ namespace Yburn.Workers.Tests
 		[ExpectedException(typeof(ArgumentException))]
 		public void ThrowIfInvalidEnumEntry()
 		{
-			Converter.StringToEnumArray<PotentialType>("invalid entry");
+			"invalid entry".ToEnumArray<PotentialType>();
 		}
 
 		[TestMethod]
@@ -62,7 +62,7 @@ namespace Yburn.Workers.Tests
 			T[] expectedArray
 			)
 		{
-			AssertSameEntries(expectedArray, Converter.StringToEnumArray<T>(stringifiedList));
+			AssertSameEntries(expectedArray, stringifiedList.ToEnumArray<T>());
 		}
 
 		private static void AssertSameEntries<T>(

@@ -220,7 +220,7 @@ namespace Yburn.QQState.Tests
 			double[] radiusFm
 			)
 		{
-			double twoOverPi = Math.Sqrt(2 / PhysConst.PI);
+			double twoOverPi = Math.Sqrt(2 / Math.PI);
 			double eta = -0.5 * alphaEff * quarkMassMeV / waveVectorFm / PhysConst.HBARC;
 
 			Complex[] coulombWave = new Complex[radiusFm.Length];

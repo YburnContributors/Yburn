@@ -42,7 +42,7 @@ namespace Yburn.Workers
 			string value = TryGetString(nameValuePairs, key);
 			return string.IsNullOrEmpty(value) ?
 				defaultIfNull
-				: Converter.StringToStringArray(value);
+				: value.ToStringArray();
 		}
 
 		public static double[] TryGetDoubleArray(
@@ -54,7 +54,7 @@ namespace Yburn.Workers
 			string value = TryGetString(nameValuePairs, key);
 			return string.IsNullOrEmpty(value) ?
 				defaultIfNull
-				: Converter.StringToDoubleArray(value);
+				: value.ToDoubleArray();
 		}
 
 		public static double[][] TryGetDoubleArrayArray(
@@ -66,7 +66,7 @@ namespace Yburn.Workers
 			string value = TryGetString(nameValuePairs, key);
 			return string.IsNullOrEmpty(value) ?
 				defaultIfNull
-				: Converter.StringToDoubleArrayArray(value);
+				: value.ToDoubleArrayArray();
 		}
 
 		public static int TryGetInt(
@@ -90,7 +90,7 @@ namespace Yburn.Workers
 			string value = TryGetString(nameValuePairs, key);
 			return string.IsNullOrEmpty(value) ?
 				defaultIfNull
-				: Converter.StringToIntArray(value);
+				: value.ToIntArray();
 		}
 
 		public static int[][] TryGetIntArrayArray(
@@ -102,7 +102,7 @@ namespace Yburn.Workers
 			string value = TryGetString(nameValuePairs, key);
 			return string.IsNullOrEmpty(value) ?
 				defaultIfNull
-				: Converter.StringToIntArrayArray(value);
+				: value.ToIntArrayArray();
 		}
 
 		public static EnumType TryGetEnum<EnumType>(
@@ -126,7 +126,7 @@ namespace Yburn.Workers
 			string value = TryGetString(nameValuePairs, key);
 			return string.IsNullOrEmpty(value) ?
 				defaultIfNull
-				: Converter.StringToEnumArray<EnumType>(value);
+				: value.ToEnumArray<EnumType>();
 		}
 
 		public static string TryGetString(

@@ -11,138 +11,139 @@ namespace Yburn.Fireball.Tests
 		 ********************************************************************************************/
 
 		[TestMethod]
-		public void GetDimensionOfEuclideanVector()
+		public void ConstructEuclideanVector2DFromDoubles()
 		{
-			double[] components = new double[5];
-			EuclideanVector vector = new EuclideanVector(components);
-
-			Assert.AreEqual(5, vector.Dimension);
+			EuclideanVector2D vec2D = new EuclideanVector2D(1, 2);
+			Assert.AreEqual(1, vec2D.X);
+			Assert.AreEqual(2, vec2D.Y);
 		}
 
 		[TestMethod]
-		public void CalculateNormOfEuclideanVector()
+		public void ConstructEuclideanVector3DFromDoubles()
 		{
-			double[] components = new double[] { 3, 4 };
-			EuclideanVector vector = new EuclideanVector(components);
-
-			Assert.AreEqual(5, vector.Norm);
+			EuclideanVector3D vec3D = new EuclideanVector3D(3, 4, 5);
+			Assert.AreEqual(3, vec3D.X);
+			Assert.AreEqual(4, vec3D.Y);
+			Assert.AreEqual(5, vec3D.Z);
 		}
 
 		[TestMethod]
-		public void NegateEuclideanVector()
+		public void ConstructEuclideanVector3DFromVectorAndDouble()
 		{
-			EuclideanVector vector = new EuclideanVector(new double[] { 1, 2, 3 });
+			EuclideanVector2D vec2D = new EuclideanVector2D(1, 2);
+			EuclideanVector3D vec3D = new EuclideanVector3D(vec2D, 3);
 
-			EuclideanVector negatedVector = vector.Negate();
-			double[] negatedComponents = negatedVector.ToDoubleArray();
-
-			Assert.AreEqual(-1, negatedComponents[0]);
-			Assert.AreEqual(-2, negatedComponents[1]);
-			Assert.AreEqual(-3, negatedComponents[2]);
-		}
-
-		[TestMethod]
-		public void ConvertEuclideanVectorToDoubleArray()
-		{
-			double[] sourceArray = { 1, 2, 3, 4, 5 };
-			EuclideanVector vector = new EuclideanVector(sourceArray);
-			double[] retrievedArray = vector.ToDoubleArray();
-
-			Assert.AreEqual(sourceArray.Length, retrievedArray.Length);
-			for(int i = 0; i < sourceArray.Length; i++)
-			{
-				Assert.AreEqual(sourceArray[i], retrievedArray[i]);
-			}
-		}
-
-		[TestMethod]
-		public void AddEuclideanVectorsOfEqualDimension()
-		{
-			EuclideanVector v = new EuclideanVector(new double[] { 1, 2, 3 });
-			EuclideanVector w = new EuclideanVector(new double[] { 4, 5, 6 });
-
-			EuclideanVector result = v + w;
-			double[] resultComponents = result.ToDoubleArray();
-
-			Assert.AreEqual(5, resultComponents[0]);
-			Assert.AreEqual(7, resultComponents[1]);
-			Assert.AreEqual(9, resultComponents[2]);
-		}
-
-		[TestMethod]
-		[ExpectedException(typeof(VectorDimensionMismatchException))]
-		public void AddEuclideanVectorsOfUnequalDimension()
-		{
-			EuclideanVector v = new EuclideanVector(new double[] { 1, 2, 3 });
-			EuclideanVector w = new EuclideanVector(new double[] { 4, 5 });
-
-			EuclideanVector result = v + w;
-		}
-
-		[TestMethod]
-		public void MultiplyEuclideanVectorsOfEqualDimension()
-		{
-			EuclideanVector v = new EuclideanVector(new double[] { 1, 2, 3 });
-			EuclideanVector w = new EuclideanVector(new double[] { 4, 5, 6 });
-
-			double result = v * w;
-
-			Assert.AreEqual(32, result);
-		}
-
-		[TestMethod]
-		[ExpectedException(typeof(VectorDimensionMismatchException))]
-		public void MultiplyEuclideanVectorsOfUnequalDimension()
-		{
-			EuclideanVector v = new EuclideanVector(new double[] { 1, 2, 3 });
-			EuclideanVector w = new EuclideanVector(new double[] { 4, 5 });
-
-			double result = v * w;
-		}
-
-		[TestMethod]
-		public void GetAzimutalAngleOfEuclideanVector()
-		{
-			EuclideanVector vector = new EuclideanVector(new double[] { 0, 1 });
-			double azimutalAngle = vector.AzimutalAngle;
-
-			Assert.AreEqual(0.5 * Math.PI, azimutalAngle);
-		}
-
-		[TestMethod]
-		[ExpectedException(typeof(InsufficientVectorDimensionException))]
-		public void GetAzimutalAngleOf1DEuclideanVector()
-		{
-			EuclideanVector vector = new EuclideanVector(new double[] { 1 });
-			double azimutalAngle = vector.AzimutalAngle;
-		}
-
-		[TestMethod]
-		public void AssureEuclideanVector2DHasCorrectDimension()
-		{
-			EuclideanVector2D vector = new EuclideanVector2D();
-
-			Assert.AreEqual(2, vector.Dimension);
-		}
-
-		[TestMethod]
-		public void AssureEuclideanVector2DHasCorrectComponents()
-		{
-			EuclideanVector2D vector = new EuclideanVector2D(1, 2);
-
-			Assert.AreEqual(1, vector.X);
-			Assert.AreEqual(2, vector.Y);
+			Assert.AreEqual(1, vec3D.X);
+			Assert.AreEqual(2, vec3D.Y);
+			Assert.AreEqual(3, vec3D.Z);
 		}
 
 		[TestMethod]
 		public void ManipulateEuclideanVector2DComponents()
 		{
-			EuclideanVector2D vector = new EuclideanVector2D();
-			vector.X = 1;
-			vector.Y = 2;
+			EuclideanVector2D vec2D = new EuclideanVector2D();
+			vec2D.X = 1;
+			vec2D.Y = 2;
 
-			Assert.AreEqual(1, vector.X);
-			Assert.AreEqual(2, vector.Y);
+			Assert.AreEqual(1, vec2D.X);
+			Assert.AreEqual(2, vec2D.Y);
+		}
+
+		[TestMethod]
+		public void ManipulateEuclideanVector3DComponents()
+		{
+			EuclideanVector3D vec3D = new EuclideanVector3D();
+			vec3D.X = 3;
+			vec3D.Y = 4;
+			vec3D.Z = 5;
+
+			Assert.AreEqual(3, vec3D.X);
+			Assert.AreEqual(4, vec3D.Y);
+			Assert.AreEqual(5, vec3D.Z);
+		}
+
+		[TestMethod]
+		public void GetEuclideanVectorDimension()
+		{
+			EuclideanVector2D vec2D = new EuclideanVector2D();
+			Assert.AreEqual(2, vec2D.Dimension);
+
+			EuclideanVector3D vec3D = new EuclideanVector3D();
+			Assert.AreEqual(3, vec3D.Dimension);
+		}
+
+		[TestMethod]
+		public void GetEuclideanVectorNorm()
+		{
+			EuclideanVector2D vector = new EuclideanVector2D(3, 4);
+			Assert.AreEqual(5, vector.Norm);
+		}
+
+		[TestMethod]
+		public void GetEuclideanVector2DAzimutalAngle()
+		{
+			EuclideanVector2D vector = new EuclideanVector2D(0, 1);
+			double angle = vector.AzimutalAngle;
+
+			Assert.AreEqual(0.5 * Math.PI, angle);
+		}
+
+		[TestMethod]
+		public void ConvertEuclideanVectorToDoubleArray()
+		{
+			EuclideanVector2D vector = new EuclideanVector2D(1, 2);
+			double[] array = vector.ToDoubleArray();
+
+			Assert.AreEqual(2, array.Length);
+			Assert.AreEqual(1, array[0]);
+			Assert.AreEqual(2, array[1]);
+		}
+
+		[TestMethod]
+		public void AddEuclideanVectors()
+		{
+			EuclideanVector2D a = new EuclideanVector2D(1, 2);
+			EuclideanVector2D b = new EuclideanVector2D(3, 4);
+
+			EuclideanVector2D result = a + b;
+
+			Assert.AreEqual(4, result.X);
+			Assert.AreEqual(6, result.Y);
+		}
+
+		[TestMethod]
+		public void SubstractEuclideanVectors()
+		{
+			EuclideanVector2D a = new EuclideanVector2D(1, 2);
+			EuclideanVector2D b = new EuclideanVector2D(4, 3);
+
+			EuclideanVector2D result = a - b;
+
+			Assert.AreEqual(-3, result.X);
+			Assert.AreEqual(-1, result.Y);
+		}
+
+		[TestMethod]
+		public void MultiplyEuclideanVectorWithScalar()
+		{
+			EuclideanVector2D vector = new EuclideanVector2D(1, 2);
+			double scalar = 2;
+
+			EuclideanVector2D result = scalar * vector;
+
+			Assert.AreEqual(2, result.X);
+			Assert.AreEqual(4, result.Y);
+		}
+
+		[TestMethod]
+		public void MultiplyEuclideanVectorWithEuclideanVector()
+		{
+			EuclideanVector2D a = new EuclideanVector2D(1, 2);
+			EuclideanVector2D b = new EuclideanVector2D(3, 4);
+
+			double result = a * b;
+
+			Assert.AreEqual(11, result);
 		}
 
 		[TestMethod]
@@ -150,10 +151,11 @@ namespace Yburn.Fireball.Tests
 		{
 			double radius = 2;
 			double azimutalAngle = 0.5 * Math.PI;
-			EuclideanVector2D vector = EuclideanVector2D.CreateFromPolarCoordinates(radius, azimutalAngle);
+			EuclideanVector2D vector =
+				EuclideanVector2D.CreateFromPolarCoordinates(radius, azimutalAngle);
 
 			Assert.AreEqual(0, vector.X, 1e-15);
-			Assert.AreEqual(2, vector.Y, 1e-15);
+			Assert.AreEqual(2, vector.Y);
 		}
 
 		[TestMethod]
@@ -164,8 +166,9 @@ namespace Yburn.Fireball.Tests
 
 			for(int i = 0; i < positions.GetLength(0); i++)
 			{
-				EuclideanVector2D vector = EuclideanVector2D.CreateAzimutalUnitVectorAtPosition(
-					positions[i, 0], positions[i, 1]);
+				EuclideanVector2D position = new EuclideanVector2D(positions[i, 0], positions[i, 1]);
+				EuclideanVector2D vector =
+					EuclideanVector2D.CreateAzimutalUnitVectorAtPosition(position);
 
 				Assert.AreEqual(-positions[i, 1] / Math.Sqrt(2), vector.X, 1e-15);
 				Assert.AreEqual(positions[i, 0] / Math.Sqrt(2), vector.Y, 1e-15);
@@ -180,43 +183,13 @@ namespace Yburn.Fireball.Tests
 
 			for(int i = 0; i < positions.GetLength(0); i++)
 			{
-				EuclideanVector2D vector = EuclideanVector2D.CreateRadialUnitVectorAtPosition(
-					positions[i, 0], positions[i, 1]);
+				EuclideanVector2D position = new EuclideanVector2D(positions[i, 0], positions[i, 1]);
+				EuclideanVector2D vector =
+					EuclideanVector2D.CreateRadialUnitVectorAtPosition(position);
 
 				Assert.AreEqual(positions[i, 0] / Math.Sqrt(2), vector.X, 1e-15);
 				Assert.AreEqual(positions[i, 1] / Math.Sqrt(2), vector.Y, 1e-15);
 			}
-		}
-
-		[TestMethod]
-		public void AssureEuclideanVector3DHasCorrectDimension()
-		{
-			EuclideanVector3D vector = new EuclideanVector3D();
-
-			Assert.AreEqual(3, vector.Dimension);
-		}
-
-		[TestMethod]
-		public void AssureEuclideanVector3DHasCorrectComponents()
-		{
-			EuclideanVector3D vector = new EuclideanVector3D(1, 2, 3);
-
-			Assert.AreEqual(1, vector.X);
-			Assert.AreEqual(2, vector.Y);
-			Assert.AreEqual(3, vector.Z);
-		}
-
-		[TestMethod]
-		public void ManipulateEuclideanVector3DComponents()
-		{
-			EuclideanVector3D vector = new EuclideanVector3D();
-			vector.X = 1;
-			vector.Y = 2;
-			vector.Z = 3;
-
-			Assert.AreEqual(1, vector.X);
-			Assert.AreEqual(2, vector.Y);
-			Assert.AreEqual(3, vector.Z);
 		}
 	}
 }

@@ -701,6 +701,18 @@ namespace Yburn.Workers
 
 		private double GridCellSize;
 
+		private double GridRadius
+		{
+			get
+			{
+				return NumberGridCells * GridCellSize;
+			}
+			set
+			{
+				NumberGridCells = (int)Math.Round(value / GridCellSize);
+			}
+		}
+
 		private int NumberGridCells;
 
 		private double BeamRapidity;
@@ -975,6 +987,7 @@ namespace Yburn.Workers
 			FireballFieldTypes = Extractor.TryGetStringArray(nameValuePairs, "FireballFieldTypes", FireballFieldTypes);
 			FormationTimes = Extractor.TryGetDoubleArray(nameValuePairs, "FormationTimes", FormationTimes);
 			GridCellSize = Extractor.TryGetDouble(nameValuePairs, "GridCellSize", GridCellSize);
+			GridRadius = Extractor.TryGetDouble(nameValuePairs, "GridRadius", GridRadius);
 			ImpactParam = Extractor.TryGetDouble(nameValuePairs, "ImpactParam", ImpactParam);
 			ImpactParamsAtBinBoundaries = Extractor.TryGetDoubleArrayArray(nameValuePairs, "ImpactParamsAtBinBoundaries", ImpactParamsAtBinBoundaries);
 			InitialCentralTemperature = Extractor.TryGetDouble(nameValuePairs, "InitialCentralTemperature", InitialCentralTemperature);
@@ -985,7 +998,6 @@ namespace Yburn.Workers
 			NuclearRadiusB = Extractor.TryGetDouble(nameValuePairs, "NuclearRadiusB", NuclearRadiusB);
 			NucleonNumberA = Extractor.TryGetInt(nameValuePairs, "NucleonNumberA", NucleonNumberA);
 			NucleonNumberB = Extractor.TryGetInt(nameValuePairs, "NucleonNumberB", NucleonNumberB);
-			NumberGridCells = Extractor.TryGetInt(nameValuePairs, "NumberGridCells", NumberGridCells);
 			Outfile = Extractor.TryGetString(nameValuePairs, "Outfile", Outfile);
 			ParticipantsAtBinBoundaries = Extractor.TryGetDoubleArrayArray(nameValuePairs, "ParticipantsAtBinBoundaries", ParticipantsAtBinBoundaries);
 			PotentialTypes = Extractor.TryGetStringArray(nameValuePairs, "PotentialTypes", PotentialTypes);
@@ -1002,32 +1014,32 @@ namespace Yburn.Workers
 			nameValuePairs["DecayWidthEvaluationType"] = DecayWidthEvaluationType.ToString();
 			nameValuePairs["ExpansionMode"] = ExpansionMode.ToString();
 			nameValuePairs["DecayWidthType"] = DecayWidthType.ToString();
-			nameValuePairs["DecayWidthAveragingAngles"] = Converter.DoubleArrayToString(DecayWidthAveragingAngles);
+			nameValuePairs["DecayWidthAveragingAngles"] = DecayWidthAveragingAngles.ToStringifiedList();
 			nameValuePairs["TemperatureProfile"] = TemperatureProfile.ToString();
 			nameValuePairs["ProtonProtonBaseline"] = ProtonProtonBaseline.ToString();
 			nameValuePairs["DiffusenessA"] = DiffusenessA.ToString();
 			nameValuePairs["DiffusenessB"] = DiffusenessB.ToString();
-			nameValuePairs["FireballFieldTypes"] = Converter.StringArrayToString(FireballFieldTypes);
+			nameValuePairs["FireballFieldTypes"] = FireballFieldTypes.ToStringifiedList();
 			nameValuePairs["ImpactParam"] = ImpactParam.ToString();
 			nameValuePairs["FeedDown3P"] = FeedDown3P.ToString();
 			nameValuePairs["NucleonNumberA"] = NucleonNumberA.ToString();
 			nameValuePairs["NucleonNumberB"] = NucleonNumberB.ToString();
-			nameValuePairs["PotentialTypes"] = Converter.StringArrayToString(PotentialTypes);
-			nameValuePairs["TransverseMomenta"] = Converter.DoubleArrayToString(TransverseMomenta);
+			nameValuePairs["PotentialTypes"] = PotentialTypes.ToStringifiedList();
+			nameValuePairs["TransverseMomenta"] = TransverseMomenta.ToStringifiedList();
 			nameValuePairs["NuclearRadiusA"] = NuclearRadiusA.ToString();
 			nameValuePairs["NuclearRadiusB"] = NuclearRadiusB.ToString();
 			nameValuePairs["SnapRate"] = SnapRate.ToString();
-			nameValuePairs["CentralityBinBoundaries"] = Converter.IntArrayArrayToString(CentralityBinBoundaries);
-			nameValuePairs["ImpactParamsAtBinBoundaries"] = Converter.DoubleArrayArrayToString(ImpactParamsAtBinBoundaries);
-			nameValuePairs["ParticipantsAtBinBoundaries"] = Converter.DoubleArrayArrayToString(ParticipantsAtBinBoundaries);
-			nameValuePairs["MeanParticipantsInBin"] = Converter.DoubleArrayArrayToString(MeanParticipantsInBin);
+			nameValuePairs["CentralityBinBoundaries"] = CentralityBinBoundaries.ToStringifiedList();
+			nameValuePairs["ImpactParamsAtBinBoundaries"] = ImpactParamsAtBinBoundaries.ToStringifiedList();
+			nameValuePairs["ParticipantsAtBinBoundaries"] = ParticipantsAtBinBoundaries.ToStringifiedList();
+			nameValuePairs["MeanParticipantsInBin"] = MeanParticipantsInBin.ToStringifiedList();
 			nameValuePairs["BottomiumStates"] = BottomiumStates;
 			nameValuePairs["InitialCentralTemperature"] = InitialCentralTemperature.ToString();
 			nameValuePairs["MinimalCentralTemperature"] = MinimalCentralTemperature.ToString();
-			nameValuePairs["FormationTimes"] = Converter.DoubleArrayToString(FormationTimes);
+			nameValuePairs["FormationTimes"] = FormationTimes.ToStringifiedList();
 			nameValuePairs["ThermalTime"] = ThermalTime.ToString();
 			nameValuePairs["GridCellSize"] = GridCellSize.ToString();
-			nameValuePairs["NumberGridCells"] = NumberGridCells.ToString();
+			nameValuePairs["GridRadius"] = GridRadius.ToString();
 			nameValuePairs["BeamRapidity"] = BeamRapidity.ToString();
 			nameValuePairs["Outfile"] = Outfile;
 			nameValuePairs["BjorkenLifeTime"] = BjorkenLifeTime.ToString();
@@ -1054,6 +1066,7 @@ namespace Yburn.Workers
 				AppendLogHeaderLine(stringBuilder, "FeedDown3P", FeedDown3P);
 				AppendLogHeaderLine(stringBuilder, "FireballFieldTypes", FireballFieldTypes);
 				AppendLogHeaderLine(stringBuilder, "GridCellSize", GridCellSize);
+				AppendLogHeaderLine(stringBuilder, "GridRadius", GridRadius);
 				AppendLogHeaderLine(stringBuilder, "ImpactParam", ImpactParam);
 				AppendLogHeaderLine(stringBuilder, "ImpactParamsAtBinBoundaries", ImpactParamsAtBinBoundaries);
 				AppendLogHeaderLine(stringBuilder, "InitialCentralTemperature", InitialCentralTemperature);
@@ -1063,7 +1076,6 @@ namespace Yburn.Workers
 				AppendLogHeaderLine(stringBuilder, "NuclearRadiusB", NuclearRadiusB);
 				AppendLogHeaderLine(stringBuilder, "NucleonNumberA", NucleonNumberA);
 				AppendLogHeaderLine(stringBuilder, "NucleonNumberB", NucleonNumberB);
-				AppendLogHeaderLine(stringBuilder, "NumberGridCells", NumberGridCells);
 				AppendLogHeaderLine(stringBuilder, "ParticipantsAtBinBoundaries", ParticipantsAtBinBoundaries);
 				AppendLogHeaderLine(stringBuilder, "MeanParticipantsInBin", MeanParticipantsInBin);
 				AppendLogHeaderLine(stringBuilder, "Outfile", Outfile);

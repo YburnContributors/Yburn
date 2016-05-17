@@ -1,0 +1,26 @@
+#------------------------------------------------------------------------------------------------------------------------------------------------------------
+#This is a QQDataDoc-file. Commentary lines may inserted using a leading "#".
+#The data has been calculated using the following parameters (hopefully) consistently:
+#
+#         AccuracyAlpha    1E-09       
+#          AccuracyWave    1E-09       
+#   AggressivenessAlpha    0.5         
+#            Emax (MeV)    1E+04       
+#                ESteps    1000        
+#       QuarkMass (MeV)    4801        
+#             Rout (fm)    10          
+#           StepsNumber    20000       
+#              AlphaS_H    0           
+#         Sigma (MeV^2)    0           
+#      SigmaEff (MeV^2)    0           
+#           Tchem (MeV)    120         
+#           Tcrit (MeV)    160         
+#------------------------------------------------------------------------------------------------------------------------------------------------------------
+#N       L       ColorState  Pot.Type    Temperature DebyeMass   <r^2>^1/2   SoftScale   US_Scale    BoundMass   Energy      GammaDamp   GammaDiss   GammaTot    
+#                                        (MeV)       (MeV)       (fm)        (Mev)       (Mev)       (MeV)       (MeV)       (MeV)       (MeV)       (MeV)       
+#------------------------------------------------------------------------------------------------------------------------------------------------------------
+ 1       0       Singlet     Complex     170         523.975     0.236375    1423.23     786.3       9312.72     -363.855    27.3595     7.79133     35.1508     
+ 1       0       Singlet     Complex     180         543.693     0.237878    1417.62     765.991     9304.76     -346.832    30.6275     10.3445     40.972      
+ 1       0       Singlet     Complex     190         563.435     0.239416    1411.93     746.686     9296.63     -330.814    34.1089     13.3162     47.4251     
+ 1       0       Singlet     Complex     200         583.179     0.240989    1406.19     728.314     9288.34     -315.723    37.805      16.7043     54.5093     
+ 1       0       Singlet     Complex     210         602.909     0.242593    1400.4      710.809     9279.9      -301.483    41.7173     20.5032     62.2204     

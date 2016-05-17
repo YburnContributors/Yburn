@@ -101,6 +101,15 @@ namespace Yburn.Electromagnetism.UI
 		private Dictionary<string, string> GetControlsValues()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+			nameValuePairs["DiffusenessA"] = TbxDiffusenessA.Text;
+			nameValuePairs["DiffusenessB"] = TbxDiffusenessB.Text;
+			nameValuePairs["NucleonNumberA"] = TbxNucleonNumberA.Text;
+			nameValuePairs["NucleonNumberB"] = TbxNucleonNumberB.Text;
+			nameValuePairs["NuclearRadiusA"] = TbxNuclearRadiusA.Text;
+			nameValuePairs["NuclearRadiusB"] = TbxNuclearRadiusB.Text;
+			nameValuePairs["ProtonNumberA"] = TbxProtonNumberA.Text;
+			nameValuePairs["ProtonNumberB"] = TbxProtonNumberB.Text;
+			nameValuePairs["ImpactParam"] = TbxImpactParam.Text;
 			nameValuePairs["QGPConductivityMeV"] = TbxQGPConductivityMeV.Text;
 			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
 			nameValuePairs["MinFourierFrequency"] = TbxMinFourierFrequency.Text;
@@ -121,6 +130,15 @@ namespace Yburn.Electromagnetism.UI
 			Dictionary<string, string> nameValuePairs
 			)
 		{
+			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA"].ToString();
+			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB"].ToString();
+			TbxNucleonNumberA.Text = nameValuePairs["NucleonNumberA"].ToString();
+			TbxNucleonNumberB.Text = nameValuePairs["NucleonNumberB"].ToString();
+			TbxNuclearRadiusA.Text = nameValuePairs["NuclearRadiusA"].ToString();
+			TbxNuclearRadiusB.Text = nameValuePairs["NuclearRadiusB"].ToString();
+			TbxProtonNumberA.Text = nameValuePairs["ProtonNumberA"].ToString();
+			TbxProtonNumberB.Text = nameValuePairs["ProtonNumberB"].ToString();
+			TbxImpactParam.Text = nameValuePairs["ImpactParam"].ToString();
 			TbxQGPConductivityMeV.Text = nameValuePairs["QGPConductivityMeV"].ToString();
 			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"].ToString();
 			TbxMinFourierFrequency.Text = nameValuePairs["MinFourierFrequency"].ToString();
@@ -153,16 +171,16 @@ namespace Yburn.Electromagnetism.UI
 				+ "cutoffs and a discretization of the unbounded Fourier integral.",
 				GbxFourierSynthesis);
 			toolTipMaker.Add(
-				"Chosen method for performing the Fourier synthesis.",
+				"Chosen approximation for the calculation of the electromagnetic field.",
 				LblEMFCalculationMethod, CbxEMFCalculationMethod);
 			toolTipMaker.Add(
-				"Minimum spatial frequency in 1/fm to be considered in the Fourier synthesis.",
+				"Minimum Fourier frequency in 1/fm to be considered in the Fourier synthesis.",
 				LblMinFourierFrequency, TbxMinFourierFrequency);
 			toolTipMaker.Add(
-				"Maximum spatial frequency in 1/fm to be considered in the Fourier synthesis.",
+				"Maximum Fourier frequency in 1/fm to be considered in the Fourier synthesis.",
 				LblMaxFourierFrequency, TbxMaxFourierFrequency);
 			toolTipMaker.Add(
-				"Number of spatial frequency steps to be considered in the Fourier synthesis.",
+				"Number of Fourier frequency steps to be considered in the Fourier synthesis.",
 				LblFourierFrequencySteps, TbxFourierFrequencySteps);
 			toolTipMaker.Add(
 				"Name of the output file. The standard output path can be set\r\n"

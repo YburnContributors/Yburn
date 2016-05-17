@@ -8,11 +8,9 @@ namespace Yburn.Fireball
 		// in MeV fm
 		public static readonly double HBARC = 197.3269788;
 
-		public static readonly double PI = Math.PI; //3.1415926535897931;
-
 		public static readonly double FineStructureConstant = 7.2973525664E-3;
 
-		public static readonly double ElementaryCharge = Math.Sqrt(4 * PI * FineStructureConstant);
+		public static readonly double ElementaryCharge = Math.Sqrt(4 * Math.PI * FineStructureConstant);
 
 		// in MeV
 		public static readonly double ChargedPionMass = 139.57018;
@@ -21,6 +19,6 @@ namespace Yburn.Fireball
 		public static readonly double NeutralPionMass = 134.9766;
 
 		// in MeV
-		public static readonly double MeanPionMass = (2 * ChargedPionMass + NeutralPionMass) / 3;
+		public static readonly double AveragePionMass = (2 * ChargedPionMass + NeutralPionMass) / 3;
 	}
 }

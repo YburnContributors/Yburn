@@ -392,7 +392,7 @@ namespace Yburn.Workers
 			int plotColumn = 2;
 
 			foreach(RunningCouplingType type in
-				Converter.StringToEnumArray<RunningCouplingType>(RunningCouplingTypeSelection))
+				RunningCouplingTypeSelection.ToEnumArray<RunningCouplingType>())
 			{
 				string title = type.ToString().Replace("_", "\\\\_");
 				if(isFirstCommand)
@@ -429,7 +429,7 @@ namespace Yburn.Workers
 			)
 		{
 			foreach(RunningCouplingType type in
-				Converter.StringToEnumArray<RunningCouplingType>(RunningCouplingTypeSelection))
+				RunningCouplingTypeSelection.ToEnumArray<RunningCouplingType>())
 			{
 				List<double> alphaValues = GetAlphaValueList(energyValues, type);
 				dataList.Add(alphaValues);

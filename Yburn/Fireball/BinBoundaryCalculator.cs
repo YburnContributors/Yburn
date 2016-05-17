@@ -225,7 +225,7 @@ namespace Yburn.Fireball
 			ncoll = calc.GetTotalNumberCollisions();
 			npart = calc.GetTotalNumberParticipants();
 
-			dsigmadb = 2 * PhysConst.PI * impactParam * (1.0 - Math.Exp(-ncoll));
+			dsigmadb = 2 * Math.PI * impactParam * (1.0 - Math.Exp(-ncoll));
 			sigma = param.GridCellSizeFm * dsigmadb;
 			if(Sigmas.Count > 0)
 			{

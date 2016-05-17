@@ -3,7 +3,7 @@
 namespace Yburn.Fireball.Tests
 {
 	[TestClass]
-	public class ElectromagneticFieldTests
+	public class PointChargeElectromagneticFieldTests
 	{
 		/********************************************************************************************
 		 * Public members, functions and properties
@@ -12,22 +12,25 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void CalculatePointChargeFields_URLimitFourierSynthesis()
 		{
-			AssertCorrectPointChargeFields_URLimitFourierSynthesis(
-				CalculatePointChargeFields(EMFCalculationMethod.URLimitFourierSynthesis));
+			double[,] fieldValues =
+				CalculatePointChargeFields(EMFCalculationMethod.URLimitFourierSynthesis);
+			AssertCorrectPointChargeFields_URLimitFourierSynthesis(fieldValues);
 		}
 
 		[TestMethod]
 		public void CalculatePointChargeFields_DiffusionApproximation()
 		{
-			AssertCorrectPointChargeFields_DiffusionApproximation(
-				CalculatePointChargeFields(EMFCalculationMethod.DiffusionApproximation));
+			double[,] fieldValues =
+				CalculatePointChargeFields(EMFCalculationMethod.DiffusionApproximation);
+			AssertCorrectPointChargeFields_DiffusionApproximation(fieldValues);
 		}
 
 		[TestMethod]
 		public void CalculatePointChargeFields_FreeSpace()
 		{
-			AssertCorrectPointChargeFields_FreeSpace(
-				CalculatePointChargeFields(EMFCalculationMethod.FreeSpace));
+			double[,] fieldValues =
+				CalculatePointChargeFields(EMFCalculationMethod.FreeSpace);
+			AssertCorrectPointChargeFields_FreeSpace(fieldValues);
 		}
 
 		/********************************************************************************************
@@ -61,7 +64,8 @@ namespace Yburn.Fireball.Tests
 
 		private double[,] CalculatePointChargeFields(EMFCalculationMethod method)
 		{
-			ElectromagneticField emf = ElectromagneticField.Create(CreateFireballParam(method));
+			PointChargeElectromagneticField emf =
+				PointChargeElectromagneticField.Create(CreateFireballParam(method));
 
 			double[,] fieldValues = new double[3, EffectiveTimes.Length];
 			for(int i = 0; i < EffectiveTimes.Length; i++)

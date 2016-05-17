@@ -54,15 +54,33 @@ namespace Yburn.Workers
 			}
 		}
 
+		private double DiffusenessA;
+
+		private double DiffusenessB;
+
 		private EMFCalculationMethod EMFCalculationMethod;
 
 		private int FourierFrequencySteps;
+
+		private double ImpactParam;
 
 		private double MaxFourierFrequency;
 
 		private double MinFourierFrequency;
 
+		private double NuclearRadiusA;
+
+		private double NuclearRadiusB;
+
+		private int NucleonNumberA;
+
+		private int NucleonNumberB;
+
 		private string Outfile = "stdout.txt";
+
+		private int ProtonNumberA;
+
+		private int ProtonNumberB;
 
 		private double QGPConductivityMeV;
 
@@ -70,6 +88,15 @@ namespace Yburn.Workers
 			Dictionary<string, string> nameValuePairs
 			)
 		{
+			DiffusenessA = Extractor.TryGetDouble(nameValuePairs, "DiffusenessA", DiffusenessA);
+			DiffusenessB = Extractor.TryGetDouble(nameValuePairs, "DiffusenessB", DiffusenessB);
+			NucleonNumberA = Extractor.TryGetInt(nameValuePairs, "NucleonNumberA", NucleonNumberA);
+			NucleonNumberB = Extractor.TryGetInt(nameValuePairs, "NucleonNumberB", NucleonNumberB);
+			NuclearRadiusA = Extractor.TryGetDouble(nameValuePairs, "NuclearRadiusA", NuclearRadiusA);
+			NuclearRadiusB = Extractor.TryGetDouble(nameValuePairs, "NuclearRadiusB", NuclearRadiusB);
+			ProtonNumberA = Extractor.TryGetInt(nameValuePairs, "ProtonNumberA", ProtonNumberA);
+			ProtonNumberB = Extractor.TryGetInt(nameValuePairs, "ProtonNumberB", ProtonNumberB);
+			ImpactParam = Extractor.TryGetDouble(nameValuePairs, "ImpactParam", ImpactParam);
 			QGPConductivityMeV = Extractor.TryGetDouble(nameValuePairs, "QGPConductivityMeV", QGPConductivityMeV);
 			EMFCalculationMethod = Extractor.TryGetEnum<EMFCalculationMethod>(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
 			MinFourierFrequency = Extractor.TryGetDouble(nameValuePairs, "MinFourierFrequency", MinFourierFrequency);
@@ -89,6 +116,15 @@ namespace Yburn.Workers
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
+			nameValuePairs["DiffusenessA"] = DiffusenessA.ToString();
+			nameValuePairs["DiffusenessB"] = DiffusenessB.ToString();
+			nameValuePairs["NucleonNumberA"] = NucleonNumberA.ToString();
+			nameValuePairs["NucleonNumberB"] = NucleonNumberB.ToString();
+			nameValuePairs["NuclearRadiusA"] = NuclearRadiusA.ToString();
+			nameValuePairs["NuclearRadiusB"] = NuclearRadiusB.ToString();
+			nameValuePairs["ProtonNumberA"] = ProtonNumberA.ToString();
+			nameValuePairs["ProtonNumberB"] = ProtonNumberB.ToString();
+			nameValuePairs["ImpactParam"] = ImpactParam.ToString();
 			nameValuePairs["QGPConductivityMeV"] = QGPConductivityMeV.ToString();
 			nameValuePairs["EMFCalculationMethod"] = EMFCalculationMethod.ToString();
 			nameValuePairs["MinFourierFrequency"] = MinFourierFrequency.ToString();
@@ -99,7 +135,7 @@ namespace Yburn.Workers
 			nameValuePairs["StartEffectiveTime"] = StartEffectiveTime.ToString();
 			nameValuePairs["StopEffectiveTime"] = StopEffectiveTime.ToString();
 			nameValuePairs["EffectiveTimeSamples"] = EffectiveTimeSamples.ToString();
-			nameValuePairs["EMFCalculationMethodSelection"] = Converter.EnumArrayToString<EMFCalculationMethod>(EMFCalculationMethodSelection);
+			nameValuePairs["EMFCalculationMethodSelection"] = EMFCalculationMethodSelection.ToStringifiedList<EMFCalculationMethod>();
 			nameValuePairs["Outfile"] = Outfile;
 
 			return nameValuePairs;

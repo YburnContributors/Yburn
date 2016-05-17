@@ -109,7 +109,7 @@ namespace Yburn.Fireball
 				r += h;
 			}
 
-			return integral * h * 4 * PhysConst.PI;
+			return integral * h * 4 * Math.PI;
 		}
 
 		private double UnnormalizedPotential(

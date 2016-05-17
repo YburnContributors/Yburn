@@ -8,8 +8,8 @@ namespace Yburn.Workers
 		 * Public static members, functions and properties
 		 ********************************************************************************************/
 
-		public static string[] StringToStringArray(
-			string stringifiedList,
+		public static string[] ToStringArray(
+			this string stringifiedList,
 			char[] separator = null
 			)
 		{
@@ -27,12 +27,12 @@ namespace Yburn.Workers
 			}
 		}
 
-		public static double[] StringToDoubleArray(
-			string stringifiedList,
+		public static double[] ToDoubleArray(
+			this string stringifiedList,
 			char[] separator = null
 			)
 		{
-			string[] splittedList = StringToStringArray(stringifiedList, separator);
+			string[] splittedList = stringifiedList.ToStringArray(separator);
 			double[] array = new double[splittedList.Length];
 			for(int i = 0; i < array.Length; i++)
 			{
@@ -42,26 +42,26 @@ namespace Yburn.Workers
 			return array;
 		}
 
-		public static double[][] StringToDoubleArrayArray(
-			string stringifiedList
+		public static double[][] ToDoubleArrayArray(
+			this string stringifiedList
 			)
 		{
-			string[] splittedList = StringToStringArray(stringifiedList, new char[] { '\t', ';' });
+			string[] splittedList = stringifiedList.ToStringArray(new char[] { '\t', ';' });
 			double[][] array = new double[splittedList.Length][];
 			for(int i = 0; i < array.Length; i++)
 			{
-				array[i] = StringToDoubleArray(splittedList[i], new char[] { ' ', ',' });
+				array[i] = splittedList[i].ToDoubleArray(new char[] { ' ', ',' });
 			}
 
 			return array;
 		}
 
-		public static int[] StringToIntArray(
-			string stringifiedList,
+		public static int[] ToIntArray(
+			this string stringifiedList,
 			char[] separator = null
 			)
 		{
-			string[] splittedList = StringToStringArray(stringifiedList, separator);
+			string[] splittedList = stringifiedList.ToStringArray(separator);
 			int[] array = new int[splittedList.Length];
 			for(int i = 0; i < array.Length; i++)
 			{
@@ -71,22 +71,22 @@ namespace Yburn.Workers
 			return array;
 		}
 
-		public static int[][] StringToIntArrayArray(
-			string stringifiedList
+		public static int[][] ToIntArrayArray(
+			this string stringifiedList
 			)
 		{
-			string[] splittedList = StringToStringArray(stringifiedList, new char[] { '\t', ';' });
+			string[] splittedList = stringifiedList.ToStringArray(new char[] { '\t', ';' });
 			int[][] array = new int[splittedList.Length][];
 			for(int i = 0; i < array.Length; i++)
 			{
-				array[i] = StringToIntArray(splittedList[i], new char[] { ' ', ',' });
+				array[i] = splittedList[i].ToIntArray(new char[] { ' ', ',' });
 			}
 
 			return array;
 		}
 
-		public static EnumType[] StringToEnumArray<EnumType>(
-			string stringifiedList
+		public static EnumType[] ToEnumArray<EnumType>(
+			this string stringifiedList
 			)
 		{
 			if(string.IsNullOrEmpty(stringifiedList))
@@ -108,8 +108,8 @@ namespace Yburn.Workers
 			}
 		}
 
-		public static string StringArrayToString(
-			string[] array
+		public static string ToStringifiedList(
+			this string[] array
 			)
 		{
 			if(array == null || array.Length == 0)
@@ -128,8 +128,8 @@ namespace Yburn.Workers
 			}
 		}
 
-		public static string DoubleArrayToString(
-			double[] array
+		public static string ToStringifiedList(
+			this double[] array
 			)
 		{
 			if(array == null || array.Length == 0)
@@ -148,8 +148,8 @@ namespace Yburn.Workers
 			}
 		}
 
-		public static string DoubleArrayArrayToString(
-			double[][] array
+		public static string ToStringifiedList(
+			this double[][] array
 			)
 		{
 			if(array == null || array.Length == 0)
@@ -158,18 +158,18 @@ namespace Yburn.Workers
 			}
 			else
 			{
-				string stringifiedList = DoubleArrayToString(array[0]);
+				string stringifiedList = array[0].ToStringifiedList();
 				for(int i = 1; i < array.Length; i++)
 				{
-					stringifiedList += ";" + DoubleArrayToString(array[i]);
+					stringifiedList += ";" + array[i].ToStringifiedList();
 				}
 
 				return stringifiedList;
 			}
 		}
 
-		public static string IntArrayToString(
-			int[] array
+		public static string ToStringifiedList(
+			this int[] array
 			)
 		{
 			if(array == null || array.Length == 0)
@@ -188,8 +188,8 @@ namespace Yburn.Workers
 			}
 		}
 
-		public static string IntArrayArrayToString(
-			int[][] array
+		public static string ToStringifiedList(
+			this int[][] array
 			)
 		{
 			if(array == null || array.Length == 0)
@@ -198,18 +198,18 @@ namespace Yburn.Workers
 			}
 			else
 			{
-				string stringifiedList = IntArrayToString(array[0]);
+				string stringifiedList = array[0].ToStringifiedList();
 				for(int i = 1; i < array.Length; i++)
 				{
-					stringifiedList += ";" + IntArrayToString(array[i]);
+					stringifiedList += ";" + array[i].ToStringifiedList();
 				}
 
 				return stringifiedList;
 			}
 		}
 
-		public static string EnumArrayToString<EnumType>(
-			EnumType[] array
+		public static string ToStringifiedList<EnumType>(
+			this EnumType[] array
 			)
 		{
 			if(array == null || array.Length == 0)

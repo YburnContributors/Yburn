@@ -1,0 +1,6 @@
+Temperature          = 180
+Job = GammaDiss
+Job = ArchiveQQData
+Temperature          = 190
+Job = GammaDiss
+Job = ArchiveQQData

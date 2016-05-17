@@ -19,8 +19,6 @@ namespace Yburn.QQState
 		// in MeV fm
 		public static readonly double HBARC = 197.3269788;
 
-		public static readonly double PI = Math.PI; //3.1415926535897931;
-
 		// Riemann zeta function zeta(2)
 		public static readonly double Zeta2 = 1.64493406684823;
 

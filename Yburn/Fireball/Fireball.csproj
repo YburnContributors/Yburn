@@ -35,7 +35,8 @@
     <Compile Include="BottomiumCascade.cs" />
     <Compile Include="EuclideanVector.cs" />
     <Compile Include="DecayWidthAverager.cs" />
-    <Compile Include="ElectromagneticField.cs" />
+    <Compile Include="FireballElectromagneticField.cs" />
+    <Compile Include="PointChargeElectromagneticField.cs" />
     <Compile Include="Fireball.cs" />
     <Compile Include="FireballDecayWidth.cs" />
     <Compile Include="FireballEnums.cs" />

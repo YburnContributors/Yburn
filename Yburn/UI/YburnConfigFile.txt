@@ -4,6 +4,6 @@
 ##  what you are doing. Commentary lines may be inserted with leading a '#'.     ##  
 ###################################################################################
 ###################################################################################
-OutputPath ..\..\..\..\..\Data\Output\
-QQDataPathFile ..\..\..\..\..\Data\Input\bbdata-Pert1LoopCut3.txt
-LastParaFile ..\..\..\..\..\Data\Input\params-Pert1LoopCut3.txt
+OutputPath ..\..\..\..\DefaultData\Output\
+QQDataPathFile ..\..\..\..\DefaultData\bbdata-Pert1LoopCut3.txt
+LastParaFile ..\..\..\..\DefaultData\params-Pert1LoopCut3.txt

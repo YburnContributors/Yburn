@@ -1,0 +1,134 @@
+###########################
+# Parameters for SingleQQ #
+###########################
+
+# Context
+ColorState            = Singlet
+SpinState             = Singlet
+PotentialType         = Tzero
+RunningCouplingType   = LOperturbative_Cutoff3
+QuantumNumberL        = 0
+QuantumNumberN        = 1
+#Outfile               = stdout.txt		# The output file is relevant for both SingleQQ and QQonFire
+Sigma                 = 192000
+Temperature           = 160
+Tchem                 = 100
+Tcrit                 = 160
+#SpinCouplingRange     = 0
+#SpingCouplingStrength = 0
+
+# Shooting
+AccuracyAlpha        = 1E-06
+AccuracyWaveFunction = 1E-09
+AggressivenessAlpha  = 0.5
+BoundMass            = 9460.3
+Energy               = -363
+GammaDamp            = 27
+MaxShootingTrials    = 5000
+QuarkMass            = 4800.90885593666
+MaxRadius            = 10
+StepNumber           = 20000
+SoftScale            = 1420
+
+# Gluodissociation
+MaxEnergy   = 10000
+EnergySteps = 1000
+
+
+#####################################
+# Parameters for InMediumDecayWidth #
+#####################################
+
+MinTemperature         = 100
+MaxTemperature         = 650
+TemperatureStepSize    = 50
+AveragingAngles        = 0,30,60,90,120,150,180
+MediumVelocity         = 0.2
+UseAveragedTemperature = True
+
+
+###################################
+# Parameters for Electromagnetism #
+###################################
+
+# General Parameters
+QGPConductivityMeV   = 5.8
+EMFCalculationMethod = URLimitFourierSynthesis
+
+# Fourier Synthesis
+MinFourierFrequency   = 0.001
+MaxFourierFrequency   = 1000
+FourierFrequencySteps = 1000
+
+# Single Point Charge
+LorentzFactor                 = 100
+RadialDistance                = 7.4
+StartEffectiveTime            = 0.0
+StopEffectiveTime             = 10.0
+EffectiveTimeSamples          = 1000
+EMFCalculationMethodSelection = URLimitFourierSynthesis,DiffusionApproximation,FreeSpace
+
+
+###########################
+# Parameters for QQonFire #
+###########################
+
+# Glauber
+DiffusenessA   = 0.546		# diffuseness of Woods-Saxon potential
+DiffusenessB   = 0.546
+NucleonNumberA = 208		# nucleon number
+NucleonNumberB = 208
+NuclearRadiusA = 6.62		# radius of Woods-Saxon potential
+NuclearRadiusB = 6.62
+ImpactParam    = 0
+
+# Hydrodynamics
+ExpansionMode             = Transverse
+TemperatureProfile        = NmixPHOBOS13
+InitialCentralTemperature = 550
+MinimalCentralTemperature = 160
+ThermalTime               = 0.1
+GridCellSize              = 1 #0.4
+NumberGridCells           = 11 #26
+BeamRapidity              = 7.99
+
+# QQStates
+DecayWidthEvaluationType  = AveragedDecayWidth
+DecayWidthAveragingAngles = 0,30,60,90,120,150,180
+DecayWidthType            = GammaTot
+PotentialTypes            = Complex
+FeedDown3P                = 0.06
+FormationTimes            = 0.4,0.4,0.4,0.4,0.4,0.4
+TransverseMomenta         = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+ProtonProtonBaseline      = CMS2012
+
+# Output
+BottomiumStates         =
+FireballFields          =
+SnapRate                = 5
+CentralityBinBoundaries = 0,5,10,20,30,40,50,60,100;0,10,30,50,100;0,100
+
+# Si nucleus parameters
+#DiffusenessB   = 0.537
+#NucleonNumberB = 28
+#NuclearRadiusB = 3.14
+
+# Fe nucleus parameters
+#DiffusenessB   = 0.519
+#NucleonNumberB = 56
+#NuclearRadiusB = 4.106
+
+# Au nucleus parameters
+#DiffusenessB   = 0.535
+#NucleonNumberB = 197
+#NuclearRadiusB = 6.38
+
+# Pb nucleus parameters
+#DiffusenessB   = 0.546
+#NucleonNumberB = 208
+#NuclearRadiusB = 6.62
+
+# U nucleus parameters
+#DiffusenessB   = 0.605
+#NucleonNumberB = 238
+#NuclearRadiusB = 6.8054

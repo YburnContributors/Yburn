@@ -77,7 +77,7 @@ namespace Yburn.QQState
 			)
 		{
 			// equivalent to 0.1197/(1. + 0.1197 * 9.0/(2*PI) * log(E/91200.))
-			return PhysConst.PI / 4.5 / Math.Log(energyMeV / QQState.LambdaQCDMeV);
+			return Math.PI / 4.5 / Math.Log(energyMeV / QQState.LambdaQCDMeV);
 		}
 
 		private static double LOpert_CutoffAt1(
@@ -101,7 +101,7 @@ namespace Yburn.QQState
 			)
 		{
 			double ratioSquared = Math.Pow(energyMeV / QQState.LambdaQCDMeV, 2);
-			return (AlphaSatIRfixpoint + ratioSquared * PhysConst.PI / 2.25 *
+			return (AlphaSatIRfixpoint + ratioSquared * Math.PI / 2.25 *
 				(1.0 / Math.Log(ratioSquared) - 1.0 / (ratioSquared - 1.0))) / (1.0 + ratioSquared);
 		}
 

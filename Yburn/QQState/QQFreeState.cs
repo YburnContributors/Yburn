@@ -65,7 +65,7 @@ namespace Yburn.QQState
 		{
 			get
 			{
-				return 3e-3 * 2 * PhysConst.PI / WaveVectorFm;
+				return 3e-3 * 2 * Math.PI / WaveVectorFm;
 			}
 		}
 
@@ -222,7 +222,7 @@ namespace Yburn.QQState
 
 		private void NormalizeWaveFunction()
 		{
-			double normFactor = Math.Sqrt(2 / PhysConst.PI) / CurrentMaximum;
+			double normFactor = Math.Sqrt(2 / Math.PI) / CurrentMaximum;
 			for(int j = 0; j <= Param.StepNumber; j++)
 			{
 				WaveFunctionFm[j] *= normFactor;

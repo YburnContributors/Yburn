@@ -226,10 +226,10 @@ namespace Yburn.Workers
 			)
 		{
 			double normalization = PhysConst.ElementaryCharge
-				* (PhysConst.HBARC / PhysConst.MeanPionMass)
-				* (PhysConst.HBARC / PhysConst.MeanPionMass);
+				* (PhysConst.HBARC / PhysConst.AveragePionMass)
+				* (PhysConst.HBARC / PhysConst.AveragePionMass);
 			List<double> fieldValues = new List<double>();
-			ElectromagneticField emf = ElectromagneticField.Create(CreateFireballParam(method));
+			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(CreateFireballParam(method));
 			foreach(double timeValue in timeValues)
 			{
 				fieldValues.Add(normalization * emf.CalculatePointChargeAzimutalMagneticField(
@@ -292,10 +292,10 @@ namespace Yburn.Workers
 			)
 		{
 			double normalization = PhysConst.ElementaryCharge
-				* (PhysConst.HBARC / PhysConst.MeanPionMass)
-				* (PhysConst.HBARC / PhysConst.MeanPionMass);
+				* (PhysConst.HBARC / PhysConst.AveragePionMass)
+				* (PhysConst.HBARC / PhysConst.AveragePionMass);
 			List<double> fieldValues = new List<double>();
-			ElectromagneticField emf = ElectromagneticField.Create(CreateFireballParam(method));
+			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(CreateFireballParam(method));
 			foreach(double timeValue in timeValues)
 			{
 				fieldValues.Add(normalization * Math.Abs(emf.CalculatePointChargeLongitudinalElectricField(
@@ -358,10 +358,10 @@ namespace Yburn.Workers
 			)
 		{
 			double normalization = PhysConst.ElementaryCharge
-				* (PhysConst.HBARC / PhysConst.MeanPionMass)
-				* (PhysConst.HBARC / PhysConst.MeanPionMass);
+				* (PhysConst.HBARC / PhysConst.AveragePionMass)
+				* (PhysConst.HBARC / PhysConst.AveragePionMass);
 			List<double> fieldValues = new List<double>();
-			ElectromagneticField emf = ElectromagneticField.Create(CreateFireballParam(method));
+			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(CreateFireballParam(method));
 			foreach(double timeValue in timeValues)
 			{
 				fieldValues.Add(normalization * emf.CalculatePointChargeRadialElectricField(

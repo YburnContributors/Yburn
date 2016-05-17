@@ -120,7 +120,7 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["MinimalCentralTemperature"] = TbxMinimalCentralTemperature.Text;
 			nameValuePairs["ThermalTime"] = TbxThermalTime.Text;
 			nameValuePairs["GridCellSize"] = TbxGridCellSize.Text;
-			nameValuePairs["NumberGridCells"] = TbxNumberGridCells.Text;
+			nameValuePairs["GridRadius"] = TbxGridRadius.Text;
 			nameValuePairs["BeamRapidity"] = TbxBeamRapidity.Text;
 			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
 			nameValuePairs["DecayWidthAveragingAngles"] = TbxDecayWidthAveragingAngles.Text;
@@ -161,7 +161,7 @@ namespace Yburn.QQonFire.UI
 			TbxMinimalCentralTemperature.Text = nameValuePairs["MinimalCentralTemperature"].ToString();
 			TbxThermalTime.Text = nameValuePairs["ThermalTime"].ToString();
 			TbxGridCellSize.Text = nameValuePairs["GridCellSize"].ToString();
-			TbxNumberGridCells.Text = nameValuePairs["NumberGridCells"].ToString();
+			TbxGridRadius.Text = nameValuePairs["GridRadius"].ToString();
 			TbxBeamRapidity.Text = nameValuePairs["BeamRapidity"].ToString();
 			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"].ToString();
 			TbxDecayWidthAveragingAngles.Text = nameValuePairs["DecayWidthAveragingAngles"].ToString();

@@ -136,7 +136,7 @@ namespace Yburn.Workers
 
 		private string GetTemperatureDecayWidthList()
 		{
-			BottomiumState[] bottomiumStates = Converter.StringToEnumArray<BottomiumState>(BottomiumStates);
+			BottomiumState[] bottomiumStates = BottomiumStates.ToEnumArray<BottomiumState>();
 
 			TemperatureDecayWidthPrinter printer = new TemperatureDecayWidthPrinter(
 				YburnConfigFile.QQDataPathFile, bottomiumStates, DecayWidthType, PotentialTypes,
@@ -167,13 +167,13 @@ namespace Yburn.Workers
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 			nameValuePairs["BottomiumStates"] = BottomiumStates;
-			nameValuePairs["DecayWidthAveragingAngles"] = Converter.DoubleArrayToString(DecayWidthAveragingAngles);
+			nameValuePairs["DecayWidthAveragingAngles"] = DecayWidthAveragingAngles.ToStringifiedList();
 			nameValuePairs["DecayWidthType"] = DecayWidthType.ToString();
 			nameValuePairs["MaxTemperature"] = MaxTemperature.ToString();
 			nameValuePairs["MediumVelocity"] = MediumVelocity.ToString();
 			nameValuePairs["MinTemperature"] = MinTemperature.ToString();
 			nameValuePairs["Outfile"] = Outfile;
-			nameValuePairs["PotentialTypes"] = Converter.StringArrayToString(PotentialTypes);
+			nameValuePairs["PotentialTypes"] = PotentialTypes.ToStringifiedList();
 			nameValuePairs["TemperatureStepSize"] = TemperatureStepSize.ToString();
 			nameValuePairs["UseAveragedTemperature"] = UseAveragedTemperature.ToString();
 
@@ -220,7 +220,7 @@ namespace Yburn.Workers
 
 		private void AssertInputValid_PlotInMediumDecayWidth()
 		{
-			if(Converter.StringToEnumArray<BottomiumState>(BottomiumStates).Length == 0)
+			if(BottomiumStates.ToEnumArray<BottomiumState>().Length == 0)
 			{
 				throw new Exception("No bottomium states given.");
 			}
@@ -246,7 +246,7 @@ namespace Yburn.Workers
 			get
 			{
 				return "In medium decay widths {/Symnbol G}_{nl}, averaged over angles "
-					+ Converter.DoubleArrayToString(DecayWidthAveragingAngles);
+					+ DecayWidthAveragingAngles.ToStringifiedList();
 			}
 		}
 
@@ -254,7 +254,7 @@ namespace Yburn.Workers
 			StringBuilder plotFile
 			)
 		{
-			BottomiumState[] bottomiumStates = Converter.StringToEnumArray<BottomiumState>(BottomiumStates);
+			BottomiumState[] bottomiumStates = BottomiumStates.ToEnumArray<BottomiumState>();
 			int colNumber = 2;
 			foreach(BottomiumState state in bottomiumStates)
 			{
@@ -269,7 +269,7 @@ namespace Yburn.Workers
 			StringBuilder plotFile
 			)
 		{
-			BottomiumState[] bottomiumStates = Converter.StringToEnumArray<BottomiumState>(BottomiumStates);
+			BottomiumState[] bottomiumStates = BottomiumStates.ToEnumArray<BottomiumState>();
 			int colNumber = 2;
 			foreach(BottomiumState state in bottomiumStates)
 			{

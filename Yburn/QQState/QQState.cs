@@ -188,7 +188,7 @@ namespace Yburn.QQState
 
 		private void SetDebyeMass()
 		{
-			DebyeMassMeV = Param.TemperatureMeV * Math.Sqrt(2 * PhysConst.PI
+			DebyeMassMeV = Param.TemperatureMeV * Math.Sqrt(2 * Math.PI
 				* AlphaThermal * (2 * PhysConst.NC + NumberLightFlavors) / 3.0);
 		}
 
@@ -198,7 +198,7 @@ namespace Yburn.QQState
 			AlphaHard = AlphaS.Value(Param.QuarkMassMeV);
 			AlphaSoft = AlphaS.Value(Param.SoftScaleMeV);
 			AlphaThermal = Param.TemperatureMeV == 0 ?
-				0 : AlphaS.Value(2 * PhysConst.PI * Param.TemperatureMeV);
+				0 : AlphaS.Value(2 * Math.PI * Param.TemperatureMeV);
 		}
 
 		private void SetPotential()

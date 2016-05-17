@@ -2,71 +2,88 @@
 
 namespace Yburn.Fireball
 {
-	public class EuclideanVector
+	public abstract class EuclideanVector<TSelf>
+		where TSelf : EuclideanVector<TSelf>, new()
 	{
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-		public EuclideanVector(double[] components)
+		protected EuclideanVector(double[] components)
 		{
-			Components = components;
+			Components = (double[])components.Clone();
 		}
 
 		/********************************************************************************************
 		 * Public static members, functions and properties
 		 ********************************************************************************************/
 
-		public static EuclideanVector operator +(EuclideanVector v, EuclideanVector w)
+		public static TSelf operator +(
+			EuclideanVector<TSelf> left,
+			EuclideanVector<TSelf> right
+			)
 		{
-			if(v.Dimension == w.Dimension)
-			{
-				double[] vComponents = v.ToDoubleArray();
-				double[] wComponents = w.ToDoubleArray();
-				double[] addedComponents = new double[vComponents.Length];
+			TSelf result = new TSelf();
 
-				for(int i = 0; i < addedComponents.Length; i++)
-				{
-					addedComponents[i] = vComponents[i] + wComponents[i];
-				}
-
-				return new EuclideanVector(addedComponents);
-			}
-			else
+			for(int i = 0; i < result.Dimension; i++)
 			{
-				throw new VectorDimensionMismatchException();
+				result.Components[i] = left.Components[i] + right.Components[i];
 			}
+
+			return result;
 		}
 
-		public static EuclideanVector operator -(EuclideanVector v, EuclideanVector w)
+		public static TSelf operator -(
+			EuclideanVector<TSelf> left,
+			EuclideanVector<TSelf> right
+			)
 		{
-			return v + w.Negate();
+			TSelf result = new TSelf();
+
+			for(int i = 0; i < result.Dimension; i++)
+			{
+				result.Components[i] = left.Components[i] - right.Components[i];
+			}
+
+			return result;
 		}
 
-		public static double operator *(EuclideanVector v, EuclideanVector w)
+		public static TSelf operator *(
+			double scalar,
+			EuclideanVector<TSelf> vector
+			)
 		{
-			return CalculateScalarProduct(v, w);
+			TSelf result = new TSelf();
+
+			for(int i = 0; i < result.Dimension; i++)
+			{
+				result.Components[i] = scalar * vector.Components[i];
+			}
+
+			return result;
 		}
 
-		public static double CalculateScalarProduct(EuclideanVector v, EuclideanVector w)
+		public static TSelf operator *(
+			EuclideanVector<TSelf> vector,
+			double scalar
+			)
 		{
-			if(v.Dimension == w.Dimension)
-			{
-				double[] vComponents = v.ToDoubleArray();
-				double[] wComponents = w.ToDoubleArray();
-				double scalarProduct = 0;
+			return scalar * vector;
+		}
 
-				for(int i = 0; i < vComponents.Length; i++)
-				{
-					scalarProduct += vComponents[i] * wComponents[i];
-				}
+		public static double operator *(
+			EuclideanVector<TSelf> left,
+			EuclideanVector<TSelf> right
+			)
+		{
+			double result = 0;
 
-				return scalarProduct;
-			}
-			else
+			for(int i = 0; i < left.Dimension; i++)
 			{
-				throw new VectorDimensionMismatchException();
+				result += left.Components[i] * right.Components[i];
 			}
+
+			return result;
 		}
 
 		/********************************************************************************************
@@ -85,41 +102,13 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				return Math.Sqrt(CalculateScalarProduct(this, this));
+				return Math.Sqrt(this * this);
 			}
-		}
-
-		public double AzimutalAngle
-		{
-			get
-			{
-				if(Dimension >= 2)
-				{
-					return Math.Atan2(Components[1], Components[0]);
-				}
-				else
-				{
-					throw new InsufficientVectorDimensionException(
-						"Vector dimension has to be at least 2.");
-				}
-			}
-		}
-
-		public EuclideanVector Negate()
-		{
-			double[] negatedComponents = new double[Components.Length];
-
-			for(int i = 0; i < negatedComponents.Length; i++)
-			{
-				negatedComponents[i] = -Components[i];
-			}
-
-			return new EuclideanVector(negatedComponents);
 		}
 
 		public double[] ToDoubleArray()
 		{
-			return Components;
+			return (double[])Components.Clone();
 		}
 
 		/********************************************************************************************
@@ -129,7 +118,7 @@ namespace Yburn.Fireball
 		protected double[] Components;
 	}
 
-	public class EuclideanVector2D : EuclideanVector
+	public class EuclideanVector2D : EuclideanVector<EuclideanVector2D>
 	{
 		/********************************************************************************************
 		 * Constructors
@@ -160,33 +149,21 @@ namespace Yburn.Fireball
 		}
 
 		public static EuclideanVector2D CreateAzimutalUnitVectorAtPosition(
-			double positionX,
-			double positionY
+			EuclideanVector2D position
 			)
 		{
-			double angle = new EuclideanVector2D(positionX, positionY).AzimutalAngle;
+			double angle = position.AzimutalAngle;
 
 			return EuclideanVector2D.CreateFromPolarCoordinates(1, angle + 0.5 * Math.PI);
 		}
 
 		public static EuclideanVector2D CreateRadialUnitVectorAtPosition(
-			double positionX,
-			double positionY
+			EuclideanVector2D position
 			)
 		{
-			double angle = new EuclideanVector2D(positionX, positionY).AzimutalAngle;
+			double angle = position.AzimutalAngle;
 
 			return EuclideanVector2D.CreateFromPolarCoordinates(1, angle);
-		}
-
-		public static EuclideanVector2D operator +(EuclideanVector2D v, EuclideanVector2D w)
-		{
-			return v + w;
-		}
-
-		public static EuclideanVector2D operator -(EuclideanVector2D v, EuclideanVector2D w)
-		{
-			return v - w;
 		}
 
 		/********************************************************************************************
@@ -216,9 +193,17 @@ namespace Yburn.Fireball
 				Components[1] = value;
 			}
 		}
+
+		public double AzimutalAngle
+		{
+			get
+			{
+				return Math.Atan2(Y, X);
+			}
+		}
 	}
 
-	public class EuclideanVector3D : EuclideanVector
+	public class EuclideanVector3D : EuclideanVector<EuclideanVector3D>
 	{
 		/********************************************************************************************
 		 * Constructors
@@ -234,18 +219,9 @@ namespace Yburn.Fireball
 		{
 		}
 
-		/********************************************************************************************
-		 * Public static members, functions and properties
-		 ********************************************************************************************/
-
-		public static EuclideanVector3D operator +(EuclideanVector3D v, EuclideanVector3D w)
+		public EuclideanVector3D(EuclideanVector2D vectorWithXAndY, double z)
+			: this(vectorWithXAndY.X, vectorWithXAndY.Y, z)
 		{
-			return v + w;
-		}
-
-		public static EuclideanVector3D operator -(EuclideanVector3D v, EuclideanVector3D w)
-		{
-			return v - w;
 		}
 
 		/********************************************************************************************
@@ -286,22 +262,6 @@ namespace Yburn.Fireball
 			{
 				Components[2] = value;
 			}
-		}
-	}
-
-	public class VectorDimensionMismatchException : Exception
-	{
-		public VectorDimensionMismatchException()
-			: base("Vectors have different dimensions.")
-		{
-		}
-	}
-
-	public class InsufficientVectorDimensionException : Exception
-	{
-		public InsufficientVectorDimensionException(string message)
-			: base(message)
-		{
 		}
 	}
 }

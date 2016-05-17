@@ -80,8 +80,8 @@
 			this.TbxThermalTime = new System.Windows.Forms.TextBox();
 			this.LblGridCellSize = new System.Windows.Forms.Label();
 			this.TbxGridCellSize = new System.Windows.Forms.TextBox();
-			this.LblNumberGridCells = new System.Windows.Forms.Label();
-			this.TbxNumberGridCells = new System.Windows.Forms.TextBox();
+			this.LblGridRadius = new System.Windows.Forms.Label();
+			this.TbxGridRadius = new System.Windows.Forms.TextBox();
 			this.GbxOutput = new System.Windows.Forms.GroupBox();
 			this.LayoutOutput = new System.Windows.Forms.TableLayoutPanel();
 			this.LblBottomiumStates = new System.Windows.Forms.Label();
@@ -585,8 +585,8 @@
 			this.LayoutHydro.Controls.Add(this.TbxThermalTime, 1, 4);
 			this.LayoutHydro.Controls.Add(this.LblGridCellSize, 0, 5);
 			this.LayoutHydro.Controls.Add(this.TbxGridCellSize, 1, 5);
-			this.LayoutHydro.Controls.Add(this.LblNumberGridCells, 0, 6);
-			this.LayoutHydro.Controls.Add(this.TbxNumberGridCells, 1, 6);
+			this.LayoutHydro.Controls.Add(this.LblGridRadius, 0, 6);
+			this.LayoutHydro.Controls.Add(this.TbxGridRadius, 1, 6);
 			this.LayoutHydro.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LayoutHydro.Location = new System.Drawing.Point(10, 34);
 			this.LayoutHydro.Name = "LayoutHydro";
@@ -737,24 +737,24 @@
 			this.TbxGridCellSize.Size = new System.Drawing.Size(192, 31);
 			this.TbxGridCellSize.TabIndex = 14;
 			// 
-			// LblNumberGridCells
+			// LblGridRadius
 			// 
-			this.LblNumberGridCells.AutoSize = true;
-			this.LblNumberGridCells.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblNumberGridCells.Location = new System.Drawing.Point(3, 150);
-			this.LblNumberGridCells.Name = "LblNumberGridCells";
-			this.LblNumberGridCells.Size = new System.Drawing.Size(235, 25);
-			this.LblNumberGridCells.TabIndex = 0;
-			this.LblNumberGridCells.Text = "NumberGridCells";
-			this.LblNumberGridCells.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblGridRadius.AutoSize = true;
+			this.LblGridRadius.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblGridRadius.Location = new System.Drawing.Point(3, 150);
+			this.LblGridRadius.Name = "LblGridRadius";
+			this.LblGridRadius.Size = new System.Drawing.Size(235, 25);
+			this.LblGridRadius.TabIndex = 0;
+			this.LblGridRadius.Text = "GridRadius (fm)";
+			this.LblGridRadius.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxNumberGridCells
+			// TbxGridRadius
 			// 
-			this.TbxNumberGridCells.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxNumberGridCells.Location = new System.Drawing.Point(244, 153);
-			this.TbxNumberGridCells.Name = "TbxNumberGridCells";
-			this.TbxNumberGridCells.Size = new System.Drawing.Size(192, 31);
-			this.TbxNumberGridCells.TabIndex = 15;
+			this.TbxGridRadius.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxGridRadius.Location = new System.Drawing.Point(244, 153);
+			this.TbxGridRadius.Name = "TbxGridRadius";
+			this.TbxGridRadius.Size = new System.Drawing.Size(192, 31);
+			this.TbxGridRadius.TabIndex = 15;
 			// 
 			// GbxOutput
 			// 
@@ -1122,8 +1122,8 @@
 		private System.Windows.Forms.TextBox TbxThermalTime;
 		private System.Windows.Forms.Label LblGridCellSize;
 		private System.Windows.Forms.TextBox TbxGridCellSize;
-		private System.Windows.Forms.Label LblNumberGridCells;
-		private System.Windows.Forms.TextBox TbxNumberGridCells;
+		private System.Windows.Forms.Label LblGridRadius;
+		private System.Windows.Forms.TextBox TbxGridRadius;
 		private System.Windows.Forms.TextBox TbxBeamRapidity;
 		private System.Windows.Forms.Label LblBeamRapidity;
 		private System.Windows.Forms.GroupBox GbxQQStates;

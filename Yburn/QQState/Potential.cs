@@ -315,7 +315,7 @@ namespace Yburn.QQState
 				double radiusFm
 				)
 		{
-			double PI = PhysConst.PI;
+			double PI = Math.PI;
 			double xt = TwoPiTemperatureFm * radiusFm;
 			double xt2 = xt * xt;
 			double xm = DebyeMassFm * radiusFm;
@@ -348,7 +348,7 @@ namespace Yburn.QQState
 		{
 			base.SetHelperVariables();
 
-			TwoPiTemperatureFm = 2 * PhysConst.PI * TemperatureMeV / PhysConst.HBARC;
+			TwoPiTemperatureFm = 2 * Math.PI * TemperatureMeV / PhysConst.HBARC;
 			TwoPiTemperatureFm2 = TwoPiTemperatureFm * TwoPiTemperatureFm;
 
 			DebyeMassFm = DebyeMassMeV / PhysConst.HBARC;

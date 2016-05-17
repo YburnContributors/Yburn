@@ -3,41 +3,39 @@ using System;
 
 namespace Yburn.Fireball
 {
-	public abstract class ElectromagneticField
+	public abstract class PointChargeElectromagneticField
 	{
-		public static ElectromagneticField Create(
-			FireballParam param
-			)
-		{
-			switch(param.EMFCalculationMethod)
-			{
-				case EMFCalculationMethod.URLimitFourierSynthesis:
-					return new ElectromagneticField_URLimitFourierSynthesis(param);
-
-				case EMFCalculationMethod.DiffusionApproximation:
-					return new ElectromagneticField_DiffusionApproximation(param);
-
-				case EMFCalculationMethod.FreeSpace:
-					return new ElectromagneticField_FreeSpace(param);
-
-				default:
-					throw new Exception("Invalid Calculation Method.");
-			}
-		}
-
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-		public ElectromagneticField(
-			FireballParam param
-			)
+		public PointChargeElectromagneticField(FireballParam param)
 		{
 			EMFCalculationMethod = param.EMFCalculationMethod;
 			QGPConductivityMeV = param.QGPConductivityMeV;
 			MinFourierFrequency = param.MinFourierFrequency;
 			MaxFourierFrequency = param.MaxFourierFrequency;
 			FourierFrequencySteps = param.FourierFrequencySteps;
+		}
+
+		public static PointChargeElectromagneticField Create(
+			FireballParam param
+			)
+		{
+			switch(param.EMFCalculationMethod)
+			{
+				case EMFCalculationMethod.URLimitFourierSynthesis:
+					return new PointChargeElectromagneticField_URLimitFourierSynthesis(param);
+
+				case EMFCalculationMethod.DiffusionApproximation:
+					return new PointChargeElectromagneticField_DiffusionApproximation(param);
+
+				case EMFCalculationMethod.FreeSpace:
+					return new PointChargeElectromagneticField_FreeSpace(param);
+
+				default:
+					throw new Exception("Invalid Calculation Method.");
+			}
 		}
 
 		/********************************************************************************************
@@ -65,39 +63,36 @@ namespace Yburn.Fireball
 			double lorentzFactor
 			);
 
-		public EuclideanVector3D CalculateSingleNucleusMagneticField(
+		public EuclideanVector3D CalculatePointChargeMagneticField(
 			double effectiveTime,
-			EuclideanVector2D coordinatesInReactionPlane,
+			EuclideanVector2D positionInReactionPlane,
 			double lorentzFactor
 			)
 		{
-			return null;
+			EuclideanVector2D azimutalPart =
+				CalculatePointChargeAzimutalMagneticField(
+					effectiveTime, positionInReactionPlane.Norm, lorentzFactor)
+				* EuclideanVector2D.CreateAzimutalUnitVectorAtPosition(positionInReactionPlane);
+
+			return new EuclideanVector3D(azimutalPart, 0);
 		}
 
-		public EuclideanVector3D CalculateMagneticField(
-			double t,
-			EuclideanVector3D coordinates,
-			double nucleiVelocity,
-			double impactParameter
+		public EuclideanVector3D CalculatePointChargeElectricField(
+			double effectiveTime,
+			EuclideanVector2D positionInReactionPlane,
+			double lorentzFactor
 			)
 		{
-			double lorentzFactor = CalculateLorentzFactor(nucleiVelocity);
-			EuclideanVector2D nucleusPosition = new EuclideanVector2D(impactParameter / 2, 0);
-			EuclideanVector2D coordinatesInReactionPlane = new EuclideanVector2D(coordinates.X, coordinates.Y);
+			EuclideanVector2D radialPart =
+				CalculatePointChargeRadialElectricField(
+					effectiveTime, positionInReactionPlane.Norm, lorentzFactor)
+				* EuclideanVector2D.CreateRadialUnitVectorAtPosition(positionInReactionPlane);
 
-			// Nucleus A is located at negative x and moves in positive z direction
-			EuclideanVector3D fieldNucleusA = CalculateSingleNucleusMagneticField(
-				t - coordinates.Z / nucleiVelocity,
-				coordinatesInReactionPlane + nucleusPosition,
-				lorentzFactor);
+			double longitudinalPart =
+				CalculatePointChargeLongitudinalElectricField(
+					effectiveTime, positionInReactionPlane.Norm, lorentzFactor);
 
-			// Nucleus B is located at positive x and moves in negative z direction
-			EuclideanVector3D fieldNucleusB = CalculateSingleNucleusMagneticField(
-				t + coordinates.Z / nucleiVelocity,
-				coordinatesInReactionPlane - nucleusPosition,
-				lorentzFactor);
-
-			return fieldNucleusA + fieldNucleusB;
+			return new EuclideanVector3D(radialPart, longitudinalPart);
 		}
 
 		/********************************************************************************************
@@ -128,20 +123,13 @@ namespace Yburn.Fireball
 
 		private double[] FourierFrequency;
 
-		private double CalculateLorentzFactor(
-			double velocity
-			)
-		{
-			return 1 / Math.Sqrt(1 - velocity * velocity);
-		}
-
-		private class ElectromagneticField_URLimitFourierSynthesis : ElectromagneticField
+		private class PointChargeElectromagneticField_URLimitFourierSynthesis : PointChargeElectromagneticField
 		{
 			/********************************************************************************************
 			 * Constructors
 			 ********************************************************************************************/
 
-			public ElectromagneticField_URLimitFourierSynthesis(FireballParam param)
+			public PointChargeElectromagneticField_URLimitFourierSynthesis(FireballParam param)
 				: base(param)
 			{
 				FourierFrequency = GetFourierFrequencyValueArray();
@@ -173,7 +161,7 @@ namespace Yburn.Fireball
 
 				integral *= 0.5;
 
-				return PhysConst.ElementaryCharge / (2 * PhysConst.PI * QGPConductivity) * integral;
+				return PhysConst.ElementaryCharge / (2 * Math.PI * QGPConductivity) * integral;
 			}
 
 			public override double CalculatePointChargeLongitudinalElectricField(
@@ -202,7 +190,7 @@ namespace Yburn.Fireball
 
 				integral *= 0.5;
 
-				return PhysConst.ElementaryCharge / (4 * PhysConst.PI) * integral;
+				return PhysConst.ElementaryCharge / (4 * Math.PI) * integral;
 			}
 
 			public override double CalculatePointChargeRadialElectricField(
@@ -215,10 +203,6 @@ namespace Yburn.Fireball
 				return CalculatePointChargeAzimutalMagneticField(
 					effectiveTime, radialDistance, lorentzFactor);
 			}
-
-			/********************************************************************************************
-			 * Private/protected static members, functions and properties
-			 ********************************************************************************************/
 
 			/********************************************************************************************
 			 * Private/protected members, functions and properties
@@ -270,13 +254,14 @@ namespace Yburn.Fireball
 			}
 		}
 
-		private class ElectromagneticField_DiffusionApproximation : ElectromagneticField
+		private class PointChargeElectromagneticField_DiffusionApproximation : PointChargeElectromagneticField
 		{
 			/********************************************************************************************
 			 * Constructors
 			 ********************************************************************************************/
 
-			public ElectromagneticField_DiffusionApproximation(FireballParam param) : base(param)
+			public PointChargeElectromagneticField_DiffusionApproximation(FireballParam param)
+				: base(param)
 			{
 			}
 
@@ -290,7 +275,7 @@ namespace Yburn.Fireball
 				double lorentzFactor
 				)
 			{
-				return 0.125 * PhysConst.ElementaryCharge / PhysConst.PI
+				return 0.125 * PhysConst.ElementaryCharge / Math.PI
 					* (radialDistance * QGPConductivity) / (effectiveTime * effectiveTime)
 					* Math.Exp(-0.25 * radialDistance * radialDistance * QGPConductivity / effectiveTime);
 			}
@@ -301,7 +286,7 @@ namespace Yburn.Fireball
 				double lorentzFactor
 				)
 			{
-				return -0.25 * PhysConst.ElementaryCharge / PhysConst.PI
+				return -0.25 * PhysConst.ElementaryCharge / Math.PI
 					* (effectiveTime - 0.25 * radialDistance * radialDistance * QGPConductivity)
 					/ (lorentzFactor * lorentzFactor * effectiveTime * effectiveTime * effectiveTime)
 					* Math.Exp(-0.25 * radialDistance * radialDistance * QGPConductivity / effectiveTime);
@@ -317,23 +302,16 @@ namespace Yburn.Fireball
 				return CalculatePointChargeAzimutalMagneticField(
 					effectiveTime, radialDistance, lorentzFactor);
 			}
-
-			/********************************************************************************************
-			 * Private/protected static members, functions and properties
-			 ********************************************************************************************/
-
-			/********************************************************************************************
-			 * Private/protected members, functions and properties
-			 ********************************************************************************************/
 		}
 
-		private class ElectromagneticField_FreeSpace : ElectromagneticField
+		private class PointChargeElectromagneticField_FreeSpace : PointChargeElectromagneticField
 		{
 			/********************************************************************************************
 			 * Constructors
 			 ********************************************************************************************/
 
-			public ElectromagneticField_FreeSpace(FireballParam param) : base(param)
+			public PointChargeElectromagneticField_FreeSpace(FireballParam param)
+				: base(param)
 			{
 			}
 
@@ -353,7 +331,7 @@ namespace Yburn.Fireball
 						* velocity * velocity * effectiveTime * effectiveTime,
 					1.5);
 
-				return PhysConst.ElementaryCharge * lorentzFactor / (4 * PhysConst.PI)
+				return PhysConst.ElementaryCharge * lorentzFactor / (4 * Math.PI)
 					* velocity * radialDistance / denominator;
 			}
 
@@ -369,7 +347,7 @@ namespace Yburn.Fireball
 						* velocity * velocity * effectiveTime * effectiveTime,
 					1.5);
 
-				return PhysConst.ElementaryCharge * lorentzFactor / (4 * PhysConst.PI)
+				return PhysConst.ElementaryCharge * lorentzFactor / (4 * Math.PI)
 					* (-velocity * effectiveTime) / denominator;
 			}
 
@@ -385,17 +363,9 @@ namespace Yburn.Fireball
 						* velocity * velocity * effectiveTime * effectiveTime,
 					1.5);
 
-				return PhysConst.ElementaryCharge * lorentzFactor / (4 * PhysConst.PI)
+				return PhysConst.ElementaryCharge * lorentzFactor / (4 * Math.PI)
 					* radialDistance / denominator;
 			}
-
-			/********************************************************************************************
-			 * Private/protected static members, functions and properties
-			 ********************************************************************************************/
-
-			/********************************************************************************************
-			 * Private/protected members, functions and properties
-			 ********************************************************************************************/
 		}
 	}
 }

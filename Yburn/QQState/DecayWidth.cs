@@ -234,7 +234,7 @@ namespace Yburn.QQState
 			integral *= 0.5;
 
 			// MeV^3 * mb  -->  MeV^3 * 0.1 fm^2  -->  0.1 MeV
-			return 0.5 / PhysConst.PI / PhysConst.PI * integral * 0.1 / PhysConst.HBARC / PhysConst.HBARC;
+			return 0.5 / Math.PI / Math.PI * integral * 0.1 / PhysConst.HBARC / PhysConst.HBARC;
 		}
 
 		private double[] GetHadronicCrossSection()
@@ -291,7 +291,7 @@ namespace Yburn.QQState
 
 			// include 16 gluonic degrees of freedom
 			// MeV^3 * mb  -->  MeV^3 * 0.1 fm^2  -->  0.1 MeV
-			return 16 * 0.5 / PhysConst.PI / PhysConst.PI * integral
+			return 16 * 0.5 / Math.PI / Math.PI * integral
 				* 0.1 / PhysConst.HBARC / PhysConst.HBARC;
 		}
 
@@ -326,7 +326,7 @@ namespace Yburn.QQState
 
 				// the unit is mb (factor of 10 is for conversion to from fm^-2 to mb)
 				crossSection[j] =
-					10 * PhysConst.PI * PhysConst.PI / 9.0 * BoundState.AlphaUltraSoft
+					10 * Math.PI * Math.PI / 9.0 * BoundState.AlphaUltraSoft
 					* BoundParam.QuarkMassMeV / PhysConst.HBARC
 					* EnergyMeV[j] / Math.Sqrt(BoundParam.QuarkMassMeV
 					* (EnergyMeV[j] - MinEnergyMeV))

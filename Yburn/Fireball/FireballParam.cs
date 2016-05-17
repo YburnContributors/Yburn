@@ -18,11 +18,15 @@ namespace Yburn.Fireball
 
 		public int NucleonNumberA;
 
+		public int ProtonNumberA;
+
 		public double DiffusenessAFm;
 
 		public double NuclearRadiusAFm;
 
 		public int NucleonNumberB;
+
+		public int ProtonNumberB;
 
 		public double DiffusenessBFm;
 
@@ -95,6 +99,8 @@ namespace Yburn.Fireball
 			param.NuclearRadiusAFm = NuclearRadiusAFm;
 			param.NuclearRadiusBFm = NuclearRadiusBFm;
 			param.NumberGridCells = NumberGridCells;
+			param.ProtonNumberA = ProtonNumberA;
+			param.ProtonNumberB = ProtonNumberB;
 			param.QGPConductivityMeV = QGPConductivityMeV;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthList;
 			param.TemperatureProfile = TemperatureProfile;
