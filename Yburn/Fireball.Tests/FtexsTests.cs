@@ -20,6 +20,7 @@ namespace Yburn.Fireball.Tests
 		}
 
 		[TestMethod]
+		[Ignore]
 		[ExpectedException(typeof(NonSquareArrayException))]
 		public void ThrowIfNonSquareArray()
 		{
