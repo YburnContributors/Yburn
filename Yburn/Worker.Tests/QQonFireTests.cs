@@ -85,6 +85,7 @@ namespace Yburn.Workers.Tests
 			nameValuePairs.Add("GridRadius", "11");
 			nameValuePairs.Add("BeamRapidity", "7.99");
 			nameValuePairs.Add("DecayWidthEvaluationType", type.ToString());
+            nameValuePairs.Add("CollisionType", "WoodsSaxonAWoodsSaxonB");
 
 			return nameValuePairs;
 		}

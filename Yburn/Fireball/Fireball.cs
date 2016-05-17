@@ -72,7 +72,19 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				return Temperature.Values[0, 0];
+                if (Param.CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+                {
+                    return Temperature.Values[0, 0];
+                }
+                else if (Param.CollisionType == CollisionType.WoodsSaxonAGaussianB)
+                {
+                    // include a factor of 2 because only a half has been integrated
+                    return Temperature.GetMaxValue();
+                }
+                else
+                {
+                    throw new Exception("Invalid CollisionType.");
+                }
 			}
 		}
 
@@ -143,9 +155,9 @@ namespace Yburn.Fireball
 				throw new Exception("No output fields are given.");
 			}
 
-			for(int i = 0; i < Param.NumberGridCells; i++)
+			for(int i = 0; i < Param.NumberGridCellsInX; i++)
 			{
-				for(int j = 0; j < Param.NumberGridCells; j++)
+				for(int j = 0; j < Param.NumberGridCellsInY; j++)
 				{
 					stringBuilder.AppendFormat("{0,8}{1,8}",
 						X[i].ToString(),
@@ -171,9 +183,20 @@ namespace Yburn.Fireball
 		{
 			SimpleFireballField field = GetFireballField(fieldName, state, pTindex);
 
-			// include a fcator of 4 because only a quarter has been integrated
-			return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm
-				* field.TrapezoidalRuleSummedValues();
+            if (Param.CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+            {
+                // include a factor of 4 because only a quarter has been integrated
+                return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm * field.TrapezoidalRuleSummedValues();
+            }
+            else if (Param.CollisionType == CollisionType.WoodsSaxonAGaussianB)
+            {
+                // include a factor of 2 because only a half has been integrated
+                return 2 * Param.GridCellSizeFm * Param.GridCellSizeFm * field.TrapezoidalRuleSummedValues();
+            }
+            else
+            {
+                throw new Exception("Invalid CollisionType.");
+            }
 		}
 
 		// Calculates the number of binary collisions NcollQGP that occur in the transverse plane
@@ -242,9 +265,22 @@ namespace Yburn.Fireball
 				}
 			}
 
-			// include a fcator of 4 because only a quarter has been integrated
-			CollisionInQGP *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
-			CollisionsInHadronicRegion *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
+            if (Param.CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+            {
+                // include a factor of 4 because only a quarter has been integrated
+                CollisionInQGP *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
+                CollisionsInHadronicRegion *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
+            }
+            else if (Param.CollisionType == CollisionType.WoodsSaxonAGaussianB)
+            {
+                // include a factor of 2 because only a half has been integrated
+                CollisionInQGP *= 2 * Param.GridCellSizeFm * Param.GridCellSizeFm;
+                CollisionsInHadronicRegion *= 2 * Param.GridCellSizeFm * Param.GridCellSizeFm;
+            }
+            else
+            {
+                throw new Exception("Invalid CollisionType.");
+            }
 		}
 
 		/********************************************************************************************
@@ -374,7 +410,7 @@ namespace Yburn.Fireball
 
 		private void InitDecayWidth()
 		{
-			DecayWidth = new FireballDecayWidth(Param.NumberGridCells, Param.NumberGridCells,
+			DecayWidth = new FireballDecayWidth(X,Y,
 				Param.GridCellSizeFm, Param.TransverseMomentaGeV, Temperature, VX, VY,
 				Param.FormationTimesFm, CurrentTime, Param.DecayWidthEvaluationType,
 				Param.DecayWidthAveragingAngles, Param.TemperatureDecayWidthList);
@@ -405,7 +441,7 @@ namespace Yburn.Fireball
 		private void InitDampingFactor()
 		{
 			DampingFactor = new StateSpecificFireballField(FireballFieldType.DampingFactor,
-				Param.NumberGridCells, Param.NumberGridCells, Param.TransverseMomentaGeV.Length,
+				Param.NumberGridCellsInX, Param.NumberGridCellsInY, Param.TransverseMomentaGeV.Length,
 				(i, j, k, l) =>
 				{
 					return 1;
@@ -414,18 +450,37 @@ namespace Yburn.Fireball
 
 		private void InitXY()
 		{
-			X = new double[Param.NumberGridCells];
-			Y = new double[Param.NumberGridCells];
+			X = new double[Param.NumberGridCellsInX];
+			Y = new double[Param.NumberGridCellsInY];
 
-			for(int j = 0; j < Param.NumberGridCells; j++)
-			{
-				X[j] = Y[j] = Param.GridCellSizeFm * j;
-			}
-		}
+            if (Param.CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
+            {
+                for (int j = 0; j < Param.NumberGridCellsInX; j++)
+                {
+                    X[j] = Y[j] = Param.GridCellSizeFm * j;
+                }
+            }
+            else if (Param.CollisionType == CollisionType.WoodsSaxonAGaussianB)
+            {
+                for (int j = 0; j < Param.NumberGridCellsInY; j++)
+                {
+                    Y[j] = Param.GridCellSizeFm * j;
+                }
+
+                for (int j = 0; j < Param.NumberGridCellsInX; j++)
+                {
+                    X[j] = Param.GridCellSizeFm * (j + 1 - Param.NumberGridCells);
+                }
+            }
+            else
+            {
+                throw new Exception("Invalid CollisionType.");
+            }
+        }
 
 		private void InitTemperature()
 		{
-			Temperature = new FireballTemperature(Param.NumberGridCells, Param.NumberGridCells,
+			Temperature = new FireballTemperature(Param.NumberGridCellsInX, Param.NumberGridCellsInY,
 				GlauberCalculation.TemperatureScalingField, Param.InitialCentralTemperatureMeV,
 				Param.ThermalTimeFm, CurrentTime);
 
@@ -441,13 +496,13 @@ namespace Yburn.Fireball
 		private void InitV()
 		{
 			VX = new SimpleFireballField(FireballFieldType.VX,
-				Param.NumberGridCells, Param.NumberGridCells, (i, j) =>
+				Param.NumberGridCellsInX, Param.NumberGridCellsInY, (i, j) =>
 				{
 					return 0;
 				});
 
 			VY = new SimpleFireballField(FireballFieldType.VY,
-				Param.NumberGridCells, Param.NumberGridCells, (i, j) =>
+				Param.NumberGridCellsInX, Param.NumberGridCellsInY, (i, j) =>
 				{
 					return 0;
 				});
@@ -516,7 +571,7 @@ namespace Yburn.Fireball
 			)
 		{
 			return new SimpleFireballField(FireballFieldType.UnscaledSuppression,
-				Param.NumberGridCells, Param.NumberGridCells, (i, j) =>
+				Param.NumberGridCellsInX, Param.NumberGridCellsInY, (i, j) =>
 				{
 					return DampingFactor.Values[pTindex, (int)state][i, j]
 						* GlauberCalculation.Overlap.Values[i, j];

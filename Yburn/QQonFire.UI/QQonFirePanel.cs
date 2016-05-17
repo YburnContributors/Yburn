@@ -98,7 +98,8 @@ namespace Yburn.QQonFire.UI
 			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
 			CbxTemperatureProfile.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("TemperatureProfile"));
 			CbxProtonProtonBaseline.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ProtonProtonBaseline"));
-			MsxFireballFieldTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("FireballFieldType"));
+            CbxCollisionType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("CollisionType"));
+            MsxFireballFieldTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("FireballFieldType"));
 			MsxPotentialTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("PotentialType"));
 			MsxBottomiumStates.AddItems(JobOrganizer.GetWorkerEnumEntries("BottomiumState"));
 		}
@@ -113,7 +114,8 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["NuclearRadiusA"] = TbxNuclearRadiusA.Text;
 			nameValuePairs["NuclearRadiusB"] = TbxNuclearRadiusB.Text;
 			nameValuePairs["ImpactParam"] = TbxImpactParam.Text;
-			nameValuePairs["ExpansionMode"] = CbxExpansionMode.Text;
+            nameValuePairs["CollisionType"] = CbxCollisionType.Text;
+            nameValuePairs["ExpansionMode"] = CbxExpansionMode.Text;
 			nameValuePairs["TemperatureProfile"] = CbxTemperatureProfile.Text;
 			nameValuePairs["ProtonProtonBaseline"] = CbxProtonProtonBaseline.Text;
 			nameValuePairs["InitialCentralTemperature"] = TbxInitialCentralTemperature.Text;
@@ -154,8 +156,9 @@ namespace Yburn.QQonFire.UI
 			TbxNuclearRadiusA.Text = nameValuePairs["NuclearRadiusA"].ToString();
 			TbxNuclearRadiusB.Text = nameValuePairs["NuclearRadiusB"].ToString();
 			TbxImpactParam.Text = nameValuePairs["ImpactParam"].ToString();
-			CbxExpansionMode.Text = nameValuePairs["ExpansionMode"].ToString();
-			CbxTemperatureProfile.Text = nameValuePairs["TemperatureProfile"].ToString();
+            CbxCollisionType.Text = nameValuePairs["CollisionType"].ToString();
+            CbxExpansionMode.Text = nameValuePairs["ExpansionMode"].ToString();
+            CbxTemperatureProfile.Text = nameValuePairs["TemperatureProfile"].ToString();
 			CbxProtonProtonBaseline.Text = nameValuePairs["ProtonProtonBaseline"].ToString();
 			TbxInitialCentralTemperature.Text = nameValuePairs["InitialCentralTemperature"].ToString();
 			TbxMinimalCentralTemperature.Text = nameValuePairs["MinimalCentralTemperature"].ToString();
@@ -284,5 +287,20 @@ namespace Yburn.QQonFire.UI
 		private void LblImpactParam_Click(object sender, EventArgs e)
 		{
 		}
-	}
+
+        private void CbxExpansionMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cBxProtonLeadCollision_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void LblProtonLeadCollision_Click(object sender, EventArgs e)
+        {
+
+        }
+    }
 }
