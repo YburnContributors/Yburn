@@ -85,46 +85,26 @@ namespace Yburn.Workers
 			return array;
 		}
 
-		public static EnumType[] ToEnumArray<EnumType>(
+		public static TEnum[] ToEnumArray<TEnum>(
 			this string stringifiedList
-			)
+			) where TEnum : struct, IConvertible
 		{
 			if(string.IsNullOrEmpty(stringifiedList))
 			{
-				return new EnumType[] { };
+				return new TEnum[] { };
 			}
 			else
 			{
 				string[] splittedList = stringifiedList.Split(new char[] { ' ', '\t', ',', ';' },
 					StringSplitOptions.RemoveEmptyEntries);
 
-				EnumType[] enumArray = new EnumType[splittedList.Length];
+				TEnum[] enumArray = new TEnum[splittedList.Length];
 				for(int i = 0; i < enumArray.Length; i++)
 				{
-					enumArray[i] = (EnumType)Enum.Parse(typeof(EnumType), splittedList[i]);
+					enumArray[i] = (TEnum)Enum.Parse(typeof(TEnum), splittedList[i]);
 				}
 
 				return enumArray;
-			}
-		}
-
-		public static string ToStringifiedList(
-			this string[] array
-			)
-		{
-			if(array == null || array.Length == 0)
-			{
-				return string.Empty;
-			}
-			else
-			{
-				string stringifiedList = array[0];
-				for(int i = 1; i < array.Length; i++)
-				{
-					stringifiedList += "," + array[i];
-				}
-
-				return stringifiedList;
 			}
 		}
 
@@ -168,9 +148,9 @@ namespace Yburn.Workers
 			}
 		}
 
-		public static string ToStringifiedList(
-			this int[] array
-			)
+		public static string ToStringifiedList<T>(
+			this T[] array
+			) where T : IConvertible
 		{
 			if(array == null || array.Length == 0)
 			{
@@ -188,9 +168,9 @@ namespace Yburn.Workers
 			}
 		}
 
-		public static string ToStringifiedList(
-			this int[][] array
-			)
+		public static string ToStringifiedList<T>(
+			this T[][] array
+			) where T : IConvertible
 		{
 			if(array == null || array.Length == 0)
 			{
@@ -198,30 +178,10 @@ namespace Yburn.Workers
 			}
 			else
 			{
-				string stringifiedList = array[0].ToStringifiedList();
+				string stringifiedList = array[0].ToStringifiedList<T>();
 				for(int i = 1; i < array.Length; i++)
 				{
-					stringifiedList += ";" + array[i].ToStringifiedList();
-				}
-
-				return stringifiedList;
-			}
-		}
-
-		public static string ToStringifiedList<EnumType>(
-			this EnumType[] array
-			)
-		{
-			if(array == null || array.Length == 0)
-			{
-				return string.Empty;
-			}
-			else
-			{
-				string stringifiedList = array[0].ToString();
-				for(int i = 1; i < array.Length; i++)
-				{
-					stringifiedList += "," + array[i].ToString();
+					stringifiedList += ";" + array[i].ToStringifiedList<T>();
 				}
 
 				return stringifiedList;

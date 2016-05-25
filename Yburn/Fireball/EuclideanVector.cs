@@ -71,6 +71,14 @@ namespace Yburn.Fireball
 			return scalar * vector;
 		}
 
+		public static TSelf operator /(
+			EuclideanVector<TSelf> vector,
+			double scalar
+			)
+		{
+			return 1 / scalar * vector;
+		}
+
 		public static double operator *(
 			EuclideanVector<TSelf> left,
 			EuclideanVector<TSelf> right
@@ -89,6 +97,18 @@ namespace Yburn.Fireball
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
+
+		public double this[int index]
+		{
+			get
+			{
+				return Components[index];
+			}
+			set
+			{
+				Components[index] = value;
+			}
+		}
 
 		public int Dimension
 		{
@@ -115,7 +135,7 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		protected double[] Components;
+		private double[] Components;
 	}
 
 	public class EuclideanVector2D : EuclideanVector<EuclideanVector2D>
@@ -174,11 +194,11 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				return Components[0];
+				return this[0];
 			}
 			set
 			{
-				Components[0] = value;
+				this[0] = value;
 			}
 		}
 
@@ -186,11 +206,11 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				return Components[1];
+				return this[1];
 			}
 			set
 			{
-				Components[1] = value;
+				this[1] = value;
 			}
 		}
 
@@ -232,11 +252,11 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				return Components[0];
+				return this[0];
 			}
 			set
 			{
-				Components[0] = value;
+				this[0] = value;
 			}
 		}
 
@@ -244,11 +264,11 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				return Components[1];
+				return this[1];
 			}
 			set
 			{
-				Components[1] = value;
+				this[1] = value;
 			}
 		}
 
@@ -256,11 +276,11 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				return Components[2];
+				return this[2];
 			}
 			set
 			{
-				Components[2] = value;
+				this[2] = value;
 			}
 		}
 	}

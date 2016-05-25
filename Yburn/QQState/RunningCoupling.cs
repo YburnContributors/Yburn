@@ -1,7 +1,5 @@
 ﻿using MathNet.Numerics.Interpolation;
 using System;
-using System.Collections.Generic;
-using System.IO;
 
 namespace Yburn.QQState
 {
@@ -138,22 +136,15 @@ namespace Yburn.QQState
 	public class NumericalRunningCoupling : RunningCoupling
 	{
 		/********************************************************************************************
-		 * Public static members, functions and properties
-		 ********************************************************************************************/
-
-		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
 		public NumericalRunningCoupling()
 			: base(RunningCouplingType.NonPerturbative_ITP)
 		{
-			List<string> allLines = new List<string>(File.ReadAllLines("..\\..\\AlphaS_qQCD.txt"));
-			RemoveCommentaryAndEmptyLines(allLines);
-
 			double[] momenta;
 			double[] alphas;
-			ExtractValues(allLines, out momenta, out alphas);
+			ExtractValues("..\\..\\AlphaS_qQCD.txt", out momenta, out alphas);
 			alphas = NormalizeToLOperturbative(momenta, alphas);
 
 			AlphaInterpolator = CubicSpline.InterpolateNaturalSorted(momenta, alphas);
@@ -167,21 +158,7 @@ namespace Yburn.QQState
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static void RemoveCommentaryAndEmptyLines(
-			List<string> allLines
-			)
-		{
-			for(int j = allLines.Count - 1; j >= 0; j--)
-			{
-				if(string.IsNullOrWhiteSpace(allLines[j])
-					|| allLines[j].StartsWith("#"))
-				{
-					allLines.RemoveAt(j);
-				}
-			}
-		}
-
-		private double[] NormalizeToLOperturbative(
+		private static double[] NormalizeToLOperturbative(
 			double[] momenta,
 			double[] alphas
 			)
@@ -198,21 +175,16 @@ namespace Yburn.QQState
 		}
 
 		private static void ExtractValues(
-			List<string> allLines,
+			string pathFile,
 			out double[] momenta,
 			out double[] alphas
 			)
 		{
-			momenta = new double[allLines.Count];
-			alphas = new double[allLines.Count];
-			for(int j = allLines.Count - 1; j >= 0; j--)
-			{
-				string[] values = allLines[j].Split(new char[] { ' ', '\t' },
-					StringSplitOptions.RemoveEmptyEntries);
+			double[][] alphaSTable;
+			TableFileReader.Read("..\\..\\AlphaS_qQCD.txt", out alphaSTable);
 
-				momenta[j] = double.Parse(values[0]);
-				alphas[j] = double.Parse(values[1]);
-			}
+			momenta = alphaSTable[0];
+			alphas = alphaSTable[1];
 		}
 
 		/********************************************************************************************

@@ -105,28 +105,28 @@ namespace Yburn.Workers
 				: value.ToIntArrayArray();
 		}
 
-		public static EnumType TryGetEnum<EnumType>(
+		public static TEnum TryGetEnum<TEnum>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			EnumType defaultIfNull
-			)
+			TEnum defaultIfNull
+			) where TEnum : struct, IConvertible
 		{
 			string value = TryGetString(nameValuePairs, key);
 			return string.IsNullOrEmpty(value) ?
 				defaultIfNull
-				: (EnumType)Enum.Parse(typeof(EnumType), value);
+				: (TEnum)Enum.Parse(typeof(TEnum), value);
 		}
 
-		public static EnumType[] TryGetEnumArray<EnumType>(
+		public static TEnum[] TryGetEnumArray<TEnum>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			EnumType[] defaultIfNull
-			)
+			TEnum[] defaultIfNull
+			) where TEnum : struct, IConvertible
 		{
 			string value = TryGetString(nameValuePairs, key);
 			return string.IsNullOrEmpty(value) ?
 				defaultIfNull
-				: value.ToEnumArray<EnumType>();
+				: value.ToEnumArray<TEnum>();
 		}
 
 		public static string TryGetString(

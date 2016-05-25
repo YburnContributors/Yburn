@@ -89,7 +89,7 @@ InitialCentralTemperature = 550
 MinimalCentralTemperature = 160
 ThermalTime               = 0.1
 GridCellSize              = 1 #0.4
-NumberGridCells           = 11 #26
+GridRadius                = 10
 BeamRapidity              = 7.99
 
 # QQStates

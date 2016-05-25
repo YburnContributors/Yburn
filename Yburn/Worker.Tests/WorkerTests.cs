@@ -57,12 +57,12 @@ namespace Yburn.Workers.Tests
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static void AssertIsConvertedTo<T>(
+		private static void AssertIsConvertedTo<TEnum>(
 			string stringifiedList,
-			T[] expectedArray
-			)
+			TEnum[] expectedArray
+			) where TEnum : struct, IConvertible
 		{
-			AssertSameEntries(expectedArray, stringifiedList.ToEnumArray<T>());
+			AssertSameEntries(expectedArray, stringifiedList.ToEnumArray<TEnum>());
 		}
 
 		private static void AssertSameEntries<T>(

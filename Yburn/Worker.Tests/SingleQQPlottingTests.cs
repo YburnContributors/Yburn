@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yburn.Tests.Util;
+using System.Globalization;
 
 namespace Yburn.Workers.Tests
 {
@@ -21,6 +22,12 @@ namespace Yburn.Workers.Tests
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
+
+		[TestInitialize]
+		public void TestInitialize()
+		{
+			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+		}
 
 		[TestCleanup]
 		public void CleanTestFiles()

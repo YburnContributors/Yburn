@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Yburn.Fireball
 {
@@ -16,33 +12,27 @@ namespace Yburn.Fireball
 			FireballParam param
 			)
 		{
+			ImpactParameter = param.ImpactParamFm;
+
 			PointChargeEMF = PointChargeElectromagneticField.Create(param);
-			InitializeProtonDistributions(param);
+
+			DensityFunction.CreatePair(param, out ChargeNumberDensityA, out ChargeNumberDensityB);
+			ChargeNumberDensityA.NormalizeTo(param.ProtonNumberA);
+			ChargeNumberDensityB.NormalizeTo(param.ProtonNumberB);
 		}
 
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public WoodsSaxonPotential ProtonDistributionNucleonA
-		{
-			get; private set;
-		}
-
-		public WoodsSaxonPotential ProtonDistributionNucleonB
-		{
-			get; private set;
-		}
-
 		public EuclideanVector3D CalculateMagneticField(
 			double time,
 			EuclideanVector3D position,
-			double nucleiVelocity,
-			double impactParameter
+			double nucleiVelocity
 			)
 		{
 			double lorentzFactor = CalculateLorentzFactor(nucleiVelocity);
-			EuclideanVector2D nucleusPosition = new EuclideanVector2D(impactParameter / 2, 0);
+			EuclideanVector2D nucleusPosition = new EuclideanVector2D(ImpactParameter / 2, 0);
 			EuclideanVector2D positionInReactionPlane = new EuclideanVector2D(position.X, position.Y);
 
 			// Nucleus A is located at negative x and moves in positive z direction
@@ -50,14 +40,14 @@ namespace Yburn.Fireball
 				time - position.Z / nucleiVelocity,
 				positionInReactionPlane + nucleusPosition,
 				lorentzFactor,
-				ProtonDistributionNucleonA);
+				ChargeNumberDensityA);
 
 			// Nucleus B is located at positive x and moves in negative z direction
 			EuclideanVector3D fieldNucleusB = CalculateSingleNucleusMagneticField(
 				time + position.Z / nucleiVelocity,
 				positionInReactionPlane - nucleusPosition,
 				lorentzFactor,
-				ProtonDistributionNucleonB);
+				ChargeNumberDensityB);
 
 			return fieldNucleusA + fieldNucleusB;
 		}
@@ -66,103 +56,33 @@ namespace Yburn.Fireball
 			double effectiveTime,
 			EuclideanVector2D positionInReactionPlane,
 			double lorentzFactor,
-			WoodsSaxonPotential protonDistribution
+			DensityFunction chargeNumberDensity
 			)
 		{
-			return CalculateSingleNucleusMagneticField_Cartesian(
-				effectiveTime,
-				positionInReactionPlane,
-				lorentzFactor,
-				protonDistribution);
-		}
+			TwoVariableIntegrandVectorValued<EuclideanVector3D> integrand = (x, y) =>
+				chargeNumberDensity.GetColumnDensity(x, y)
+				* PointChargeEMF.CalculatePointChargeMagneticField(
+					effectiveTime,
+					positionInReactionPlane - new EuclideanVector2D(x, y),
+					lorentzFactor);
 
-		public EuclideanVector3D CalculateSingleNucleusMagneticField_Cartesian(
-			double effectiveTime,
-			EuclideanVector2D positionInReactionPlane,
-			double lorentzFactor,
-			WoodsSaxonPotential protonDistribution
-			)
-		{
-			double h = 0.2;
-			int steps = 1;
-			while(protonDistribution.Value(h * steps) >= 1e-12)
-			{
-				steps++;
-			}
+			EuclideanVector3D integral = Quadrature.UseGaussLegendreOverAllQuadrants(
+				integrand, chargeNumberDensity.NuclearRadius);
 
-			EuclideanVector3D integral = new EuclideanVector3D(0, 0, 0);
-
-			for(int i = 1 - steps; i <= steps - 1; i++)
-			{
-				for(int j = 1 - steps; j <= steps - 1; j++)
-				{
-					integral += protonDistribution.GetColumnDensity(i * h, j * h)
-						* PointChargeEMF.CalculatePointChargeMagneticField(
-							effectiveTime,
-							positionInReactionPlane - new EuclideanVector2D(i * h, j * h),
-							lorentzFactor);
-				}
-			}
-
-			return h * h * integral;
-		}
-
-		public EuclideanVector3D CalculateSingleNucleusMagneticField_Polar(
-			double effectiveTime,
-			EuclideanVector2D positionInReactionPlane,
-			double lorentzFactor,
-			WoodsSaxonPotential protonDistribution
-			)
-		{
-			double dr = 0.1;
-			int radialSteps = 1;
-			while(protonDistribution.Value(dr * radialSteps) >= 1e-12)
-			{
-				radialSteps++;
-			}
-
-			int azimutalSteps = 100;
-			double dphi = 2 * Math.PI / azimutalSteps;
-
-			EuclideanVector3D integral = new EuclideanVector3D(0, 0, 0);
-
-			// first and last step of radial quadrature vanish
-			for(int radialIndex = 1; radialIndex < radialSteps; radialIndex++)
-			{
-				// first and last step of azimutal quadrature identical
-				for(int azimutalIndex = 0; azimutalIndex < azimutalSteps; azimutalIndex++)
-				{
-					double r = radialIndex * dr;
-					double phi = azimutalIndex * dphi;
-
-					integral += r * protonDistribution.GetColumnDensity(r, 0)
-						* PointChargeEMF.CalculatePointChargeMagneticField(
-							effectiveTime,
-							positionInReactionPlane
-								- EuclideanVector2D.CreateFromPolarCoordinates(r, phi),
-							lorentzFactor);
-				}
-			}
-
-			return dr * dphi * integral;
+			return integral;
 		}
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
+		private DensityFunction ChargeNumberDensityA;
+
+		private DensityFunction ChargeNumberDensityB;
+
 		private PointChargeElectromagneticField PointChargeEMF;
 
-		private void InitializeProtonDistributions(FireballParam param)
-		{
-			ProtonDistributionNucleonA = new WoodsSaxonPotential(
-				param.NuclearRadiusAFm, param.DiffusenessAFm, param.NucleonNumberA);
-			ProtonDistributionNucleonA.NormalizeTo(param.ProtonNumberA);
-
-			ProtonDistributionNucleonB = new WoodsSaxonPotential(
-				param.NuclearRadiusBFm, param.DiffusenessBFm, param.NucleonNumberB);
-			ProtonDistributionNucleonB.NormalizeTo(param.ProtonNumberB);
-		}
+		private double ImpactParameter;
 
 		private double CalculateLorentzFactor(
 			double velocity

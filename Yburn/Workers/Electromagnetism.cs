@@ -28,9 +28,6 @@ namespace Yburn.Workers
 			FireballParam param = new FireballParam();
 
 			param.EMFCalculationMethod = emfCalculationMethod;
-			param.FourierFrequencySteps = FourierFrequencySteps;
-			param.MaxFourierFrequency = MaxFourierFrequency;
-			param.MinFourierFrequency = MinFourierFrequency;
 			param.QGPConductivityMeV = QGPConductivityMeV;
 
 			return param;
@@ -135,7 +132,7 @@ namespace Yburn.Workers
 			nameValuePairs["StartEffectiveTime"] = StartEffectiveTime.ToString();
 			nameValuePairs["StopEffectiveTime"] = StopEffectiveTime.ToString();
 			nameValuePairs["EffectiveTimeSamples"] = EffectiveTimeSamples.ToString();
-			nameValuePairs["EMFCalculationMethodSelection"] = EMFCalculationMethodSelection.ToStringifiedList<EMFCalculationMethod>();
+			nameValuePairs["EMFCalculationMethodSelection"] = EMFCalculationMethodSelection.ToStringifiedList();
 			nameValuePairs["Outfile"] = Outfile;
 
 			return nameValuePairs;

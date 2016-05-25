@@ -72,19 +72,19 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-                if (Param.CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
-                {
-                    return Temperature.Values[0, 0];
-                }
-                else if (Param.CollisionType == CollisionType.WoodsSaxonAGaussianB)
-                {
-                    // include a factor of 2 because only a half has been integrated
-                    return Temperature.GetMaxValue();
-                }
-                else
-                {
-                    throw new Exception("Invalid CollisionType.");
-                }
+				if(Param.ShapeFunctionB == ShapeFunction.WoodsSaxonPotential)
+				{
+					return Temperature.Values[0, 0];
+				}
+				else if(Param.ShapeFunctionB == ShapeFunction.GaussianDistribution)
+				{
+					// include a factor of 2 because only a half has been integrated
+					return Temperature.GetMaxValue();
+				}
+				else
+				{
+					throw new Exception("Invalid ShapeFunctionB.");
+				}
 			}
 		}
 
@@ -183,20 +183,20 @@ namespace Yburn.Fireball
 		{
 			SimpleFireballField field = GetFireballField(fieldName, state, pTindex);
 
-            if (Param.CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
-            {
-                // include a factor of 4 because only a quarter has been integrated
-                return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm * field.TrapezoidalRuleSummedValues();
-            }
-            else if (Param.CollisionType == CollisionType.WoodsSaxonAGaussianB)
-            {
-                // include a factor of 2 because only a half has been integrated
-                return 2 * Param.GridCellSizeFm * Param.GridCellSizeFm * field.TrapezoidalRuleSummedValues();
-            }
-            else
-            {
-                throw new Exception("Invalid CollisionType.");
-            }
+			if(Param.ShapeFunctionB == ShapeFunction.WoodsSaxonPotential)
+			{
+				// include a factor of 4 because only a quarter has been integrated
+				return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm * field.TrapezoidalRuleSummedValues();
+			}
+			else if(Param.ShapeFunctionB == ShapeFunction.GaussianDistribution)
+			{
+				// include a factor of 2 because only a half has been integrated
+				return 2 * Param.GridCellSizeFm * Param.GridCellSizeFm * field.TrapezoidalRuleSummedValues();
+			}
+			else
+			{
+				throw new Exception("Invalid ShapeFunctionB.");
+			}
 		}
 
 		// Calculates the number of binary collisions NcollQGP that occur in the transverse plane
@@ -265,22 +265,22 @@ namespace Yburn.Fireball
 				}
 			}
 
-            if (Param.CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
-            {
-                // include a factor of 4 because only a quarter has been integrated
-                CollisionInQGP *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
-                CollisionsInHadronicRegion *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
-            }
-            else if (Param.CollisionType == CollisionType.WoodsSaxonAGaussianB)
-            {
-                // include a factor of 2 because only a half has been integrated
-                CollisionInQGP *= 2 * Param.GridCellSizeFm * Param.GridCellSizeFm;
-                CollisionsInHadronicRegion *= 2 * Param.GridCellSizeFm * Param.GridCellSizeFm;
-            }
-            else
-            {
-                throw new Exception("Invalid CollisionType.");
-            }
+			if(Param.ShapeFunctionB == ShapeFunction.WoodsSaxonPotential)
+			{
+				// include a factor of 4 because only a quarter has been integrated
+				CollisionInQGP *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
+				CollisionsInHadronicRegion *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
+			}
+			else if(Param.ShapeFunctionB == ShapeFunction.GaussianDistribution)
+			{
+				// include a factor of 2 because only a half has been integrated
+				CollisionInQGP *= 2 * Param.GridCellSizeFm * Param.GridCellSizeFm;
+				CollisionsInHadronicRegion *= 2 * Param.GridCellSizeFm * Param.GridCellSizeFm;
+			}
+			else
+			{
+				throw new Exception("Invalid ShapeFunctionB.");
+			}
 		}
 
 		/********************************************************************************************
@@ -410,7 +410,7 @@ namespace Yburn.Fireball
 
 		private void InitDecayWidth()
 		{
-			DecayWidth = new FireballDecayWidth(X,Y,
+			DecayWidth = new FireballDecayWidth(X, Y,
 				Param.GridCellSizeFm, Param.TransverseMomentaGeV, Temperature, VX, VY,
 				Param.FormationTimesFm, CurrentTime, Param.DecayWidthEvaluationType,
 				Param.DecayWidthAveragingAngles, Param.TemperatureDecayWidthList);
@@ -453,30 +453,30 @@ namespace Yburn.Fireball
 			X = new double[Param.NumberGridCellsInX];
 			Y = new double[Param.NumberGridCellsInY];
 
-            if (Param.CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
-            {
-                for (int j = 0; j < Param.NumberGridCellsInX; j++)
-                {
-                    X[j] = Y[j] = Param.GridCellSizeFm * j;
-                }
-            }
-            else if (Param.CollisionType == CollisionType.WoodsSaxonAGaussianB)
-            {
-                for (int j = 0; j < Param.NumberGridCellsInY; j++)
-                {
-                    Y[j] = Param.GridCellSizeFm * j;
-                }
+			if(Param.ShapeFunctionB == ShapeFunction.WoodsSaxonPotential)
+			{
+				for(int j = 0; j < Param.NumberGridCellsInX; j++)
+				{
+					X[j] = Y[j] = Param.GridCellSizeFm * j;
+				}
+			}
+			else if(Param.ShapeFunctionB == ShapeFunction.GaussianDistribution)
+			{
+				for(int j = 0; j < Param.NumberGridCellsInY; j++)
+				{
+					Y[j] = Param.GridCellSizeFm * j;
+				}
 
-                for (int j = 0; j < Param.NumberGridCellsInX; j++)
-                {
-                    X[j] = Param.GridCellSizeFm * (j + 1 - Param.NumberGridCells);
-                }
-            }
-            else
-            {
-                throw new Exception("Invalid CollisionType.");
-            }
-        }
+				for(int j = 0; j < Param.NumberGridCellsInX; j++)
+				{
+					X[j] = Param.GridCellSizeFm * (j + 1 - Param.NumberGridCells);
+				}
+			}
+			else
+			{
+				throw new Exception("Invalid ShapeFunctionB.");
+			}
+		}
 
 		private void InitTemperature()
 		{

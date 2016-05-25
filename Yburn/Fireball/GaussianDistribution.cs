@@ -2,88 +2,47 @@
 
 namespace Yburn.Fireball
 {
-	public class GaussianDistribution
+	public class GaussianDistribution : DensityFunction
 	{
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
 		public GaussianDistribution(
-			double rmsRadius,
+			double nuclearRadius,
 			int nucleonNumber
-			)
+			) : base(nuclearRadius, nucleonNumber)
 		{
-			RmsRadius = rmsRadius;
-			NucleonNumber = nucleonNumber;
-			NormalizationConstant = 1;
-
-			AssertValidMembers();
 		}
 
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		// in fm^-3
-		public double Value(
-			double radius
-			)
-		{
-			return NormalizationConstant * UnnormalizedGaussian(radius);
-		}
-
-		public void NormalizeTo(
-			double normalizationValue
-			)
-		{
-			NormalizationConstant = normalizationValue / CalculateVolumeIntegral();
-		}
-
-		public double GetColumnDensity(
+		public override double GetColumnDensity(
 			double x,
 			double y
 			)
 		{
 			double r = Math.Sqrt(x * x + y * y);
-			return Math.Sqrt(2 * Math.PI * Math.Pow(RmsRadius, 2)) * Value(r);
+			return Math.Sqrt(2 * Math.PI * Math.Pow(NuclearRadius, 2)) * Value(r);
 		}
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		// in fm
-		private double RmsRadius;
-
-		private int NucleonNumber;
-
-		// in fm^-3
-		private double NormalizationConstant;
-
-		private void AssertValidMembers()
-		{
-			if(NucleonNumber <= 0)
-			{
-				throw new Exception("NucleonNumber <= 0.");
-			}
-
-			if(RmsRadius <= 0)
-			{
-				throw new Exception("RmsRadius <= 0.");
-			}
-		}
-
 		// in fm^3
-		private double CalculateVolumeIntegral()
+		protected override double CalculateVolumeIntegral()
 		{
-			return Math.Pow(2 * Math.PI * Math.Pow(RmsRadius, 2), 1.5);
+			return Math.Pow(2 * Math.PI * NuclearRadius * NuclearRadius, 1.5);
 		}
 
-		private double UnnormalizedGaussian(
+		protected override double UnnormalizedDensity(
 			double radius
 			)
 		{
-			return Math.Exp(-Math.Pow(radius / RmsRadius, 2) / 2);
+			return Math.Exp(-0.5 * Math.Pow(radius / NuclearRadius, 2));
 		}
 	}
 }

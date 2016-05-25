@@ -134,7 +134,8 @@ namespace Yburn.Tests.Util
 				nameValuePairs["BjorkenLifeTime"] = "3333";
 				nameValuePairs["LifeTime"] = "3333";
 				nameValuePairs["DecayWidthEvaluationType"] = "AveragedTemperature";
-                nameValuePairs["CollisionType"] = "WoodsSaxonAWoodsSaxonB";
+				nameValuePairs["ShapeFunctionA"] = "GaussianDistribution";
+				nameValuePairs["ShapeFunctionB"] = "WoodsSaxonPotential";
 
 				return nameValuePairs;
 			}

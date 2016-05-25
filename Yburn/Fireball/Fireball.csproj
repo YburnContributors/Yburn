@@ -33,6 +33,7 @@
   <ItemGroup>
     <Compile Include="BinBoundaryCalculator.cs" />
     <Compile Include="BottomiumCascade.cs" />
+    <Compile Include="DensityFunction.cs" />
     <Compile Include="GaussianDistribution.cs" />
     <Compile Include="EuclideanVector.cs" />
     <Compile Include="DecayWidthAverager.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="PhysConst.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QQDataDoc.cs" />
+    <Compile Include="Quadrature.cs" />
     <Compile Include="StateSpecificFireballField.cs" />
     <Compile Include="SimpleFireballField.cs" />
     <Compile Include="QGPSuppression.cs" />
@@ -63,6 +65,12 @@
       <HintPath>..\packages\Meta.Numerics.3.0.0\lib\Meta.Numerics.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Yburn\Yburn.csproj">
+      <Project>{EB474E7F-D6F1-408D-A30B-CF662B311C93}</Project>
+      <Name>Yburn</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

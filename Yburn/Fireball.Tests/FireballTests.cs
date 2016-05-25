@@ -34,12 +34,12 @@ namespace Yburn.Fireball.Tests
 			CalculateFireballEvolution();
 
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
-			Assert.AreEqual(0.68735662450554291, qgpSuppressionFactors[(int)BottomiumState.Y1S], 1e-4);
-			Assert.AreEqual(0.14694835743748225, qgpSuppressionFactors[(int)BottomiumState.x1P], 1e-4);
-			Assert.AreEqual(0.18302631971728495, qgpSuppressionFactors[(int)BottomiumState.Y2S], 1e-4);
-			Assert.AreEqual(0.043377555420717834, qgpSuppressionFactors[(int)BottomiumState.x2P], 1e-4);
-			Assert.AreEqual(0.055872843005052776, qgpSuppressionFactors[(int)BottomiumState.Y3S], 1e-4);
-			Assert.AreEqual(0.022662140834388896, qgpSuppressionFactors[(int)BottomiumState.x3P], 1e-4);
+			Assert.AreEqual(0.68735662437240208, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
+			Assert.AreEqual(0.14694835740192158, qgpSuppressionFactors[(int)BottomiumState.x1P]);
+			Assert.AreEqual(0.18302631965053007, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
+			Assert.AreEqual(0.043377555418212643, qgpSuppressionFactors[(int)BottomiumState.x2P]);
+			Assert.AreEqual(0.055872842998975665, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
+			Assert.AreEqual(0.022662140834380177, qgpSuppressionFactors[(int)BottomiumState.x3P]);
 		}
 
 		[TestMethod]
@@ -49,12 +49,12 @@ namespace Yburn.Fireball.Tests
 			CalculateFireballEvolution();
 
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
-			Assert.AreEqual(0.27229850669580641, qgpSuppressionFactors[(int)BottomiumState.Y1S], 4e-4);
-			Assert.AreEqual(0.021115017239003504, qgpSuppressionFactors[(int)BottomiumState.x1P], 4e-4);
-			Assert.AreEqual(0.029253999798176698, qgpSuppressionFactors[(int)BottomiumState.Y2S], 4e-4);
-			Assert.AreEqual(0.0085912564232263084, qgpSuppressionFactors[(int)BottomiumState.x2P], 4e-4);
-			Assert.AreEqual(0.010894507768678827, qgpSuppressionFactors[(int)BottomiumState.Y3S], 4e-4);
-			Assert.AreEqual(0.0049171614280425, qgpSuppressionFactors[(int)BottomiumState.x3P], 4e-4);
+			Assert.AreEqual(0.27229850657076948, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
+			Assert.AreEqual(0.02111501723733869, qgpSuppressionFactors[(int)BottomiumState.x1P]);
+			Assert.AreEqual(0.029253999794417004, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
+			Assert.AreEqual(0.008591256423154045, qgpSuppressionFactors[(int)BottomiumState.x2P]);
+			Assert.AreEqual(0.010894507768336408, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
+			Assert.AreEqual(0.0049171614281235529, qgpSuppressionFactors[(int)BottomiumState.x3P]);
 		}
 
 		[TestMethod]
@@ -64,12 +64,12 @@ namespace Yburn.Fireball.Tests
 			CalculateFireballEvolution();
 
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
-			Assert.AreEqual(0.65398639785152268, qgpSuppressionFactors[(int)BottomiumState.Y1S], 1e-15);
-			Assert.AreEqual(0.12166054713738836, qgpSuppressionFactors[(int)BottomiumState.x1P], 1e-15);
-			Assert.AreEqual(0.15830120452031807, qgpSuppressionFactors[(int)BottomiumState.Y2S], 1e-15);
-			Assert.AreEqual(0.037575441317286427, qgpSuppressionFactors[(int)BottomiumState.x2P], 1e-15);
-			Assert.AreEqual(0.047287591234820583, qgpSuppressionFactors[(int)BottomiumState.Y3S], 1e-15);
-			Assert.AreEqual(0.020521127911300879, qgpSuppressionFactors[(int)BottomiumState.x3P], 1e-15);
+			Assert.AreEqual(0.65398639771067846, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
+			Assert.AreEqual(0.12166054711179025, qgpSuppressionFactors[(int)BottomiumState.x1P]);
+			Assert.AreEqual(0.15830120446823065, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
+			Assert.AreEqual(0.037575441315405834, qgpSuppressionFactors[(int)BottomiumState.x2P]);
+			Assert.AreEqual(0.047287591230614393, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
+			Assert.AreEqual(0.020521127911320304, qgpSuppressionFactors[(int)BottomiumState.x3P]);
 		}
 
 		/********************************************************************************************
@@ -107,24 +107,25 @@ namespace Yburn.Fireball.Tests
 			param.BeamRapidity = 7.99;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthList.GetList(
 					"..\\..\\bbdata-Pert1LoopCut3.txt", DecayWidthType.GammaTot, new string[] { "Complex" });
-            param.CollisionType = CollisionType.WoodsSaxonAWoodsSaxonB;
+			param.ShapeFunctionA = ShapeFunction.WoodsSaxonPotential;
+			param.ShapeFunctionB = ShapeFunction.WoodsSaxonPotential;
 
-            if (param.CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
-            {
-                param.NumberGridCellsInX = param.NumberGridCells;
-                param.NumberGridCellsInY = param.NumberGridCells;
-            }
-            else if (param.CollisionType == CollisionType.WoodsSaxonAGaussianB)
-            {
-                param.NumberGridCellsInX = 2 * param.NumberGridCells - 1;
-                param.NumberGridCellsInY = param.NumberGridCells;
-            }
-            else
-            {
-                throw new Exception("Invalid CollisionType.");
-            }
+			if(param.ShapeFunctionB == ShapeFunction.WoodsSaxonPotential)
+			{
+				param.NumberGridCellsInX = param.NumberGridCells;
+				param.NumberGridCellsInY = param.NumberGridCells;
+			}
+			else if(param.ShapeFunctionB == ShapeFunction.GaussianDistribution)
+			{
+				param.NumberGridCellsInX = 2 * param.NumberGridCells - 1;
+				param.NumberGridCellsInY = param.NumberGridCells;
+			}
+			else
+			{
+				throw new Exception("Invalid ShapeFunctionB.");
+			}
 
-            return param;
+			return param;
 		}
 
 		/********************************************************************************************

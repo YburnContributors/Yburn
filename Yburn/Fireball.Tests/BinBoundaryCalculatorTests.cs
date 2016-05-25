@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Globalization;
 
 namespace Yburn.Fireball.Tests
 {
@@ -15,6 +16,7 @@ namespace Yburn.Fireball.Tests
 		[TestInitialize]
 		public void TestInitialize()
 		{
+			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 			CancellationTokenSource = new CancellationTokenSource();
 			CancellationToken = CancellationTokenSource.Token;
 		}
@@ -74,13 +76,13 @@ namespace Yburn.Fireball.Tests
 		{
 			double[] nparts = calculator.MeanParticipantsInBin[0];
 			Assert.AreEqual(7, nparts.Length);
-			Assert.AreEqual(383.63733145209432, nparts[0], 1e-12);
-			Assert.AreEqual(340.22338305772513, nparts[1], 1e-12);
-			Assert.AreEqual(268.4305732594392, nparts[2], 1e-12);
-			Assert.AreEqual(187.36409577512202, nparts[3], 1e-12);
-			Assert.AreEqual(131.944740579625, nparts[4], 1e-12);
-			Assert.AreEqual(89.250454152613017, nparts[5], 1e-12);
-			Assert.AreEqual(19.648149728827331, nparts[6], 1e-12);
+			Assert.AreEqual(383.63733145093579, nparts[0]);
+			Assert.AreEqual(340.22338305697463, nparts[1]);
+			Assert.AreEqual(268.43057325955959, nparts[2]);
+			Assert.AreEqual(187.36409577622058, nparts[3]);
+			Assert.AreEqual(131.9447405813884, nparts[4]);
+			Assert.AreEqual(89.250454154885873, nparts[5]);
+			Assert.AreEqual(19.648149650345417, nparts[6]);
 		}
 
 		/********************************************************************************************
@@ -110,24 +112,25 @@ namespace Yburn.Fireball.Tests
 			param.DiffusenessBFm = 0.546;
 
 			param.TemperatureDecayWidthList = GetTemperatureDecayWidthList();
-            param.CollisionType = CollisionType.WoodsSaxonAWoodsSaxonB;
+			param.ShapeFunctionA = ShapeFunction.WoodsSaxonPotential;
+			param.ShapeFunctionB = ShapeFunction.WoodsSaxonPotential;
 
-            if (param.CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
-            {
-                param.NumberGridCellsInX = NumberGridCells;
-                param.NumberGridCellsInY = NumberGridCells;
-            }
-            else if (param.CollisionType == CollisionType.WoodsSaxonAGaussianB)
-            {
-                param.NumberGridCellsInX = 2 * NumberGridCells - 1;
-                param.NumberGridCellsInY = NumberGridCells;
-            }
-            else
-            {
-                throw new Exception("Invalid CollisionType.");
-            }
+			if(param.ShapeFunctionB == ShapeFunction.WoodsSaxonPotential)
+			{
+				param.NumberGridCellsInX = NumberGridCells;
+				param.NumberGridCellsInY = NumberGridCells;
+			}
+			else if(param.ShapeFunctionB == ShapeFunction.GaussianDistribution)
+			{
+				param.NumberGridCellsInX = 2 * NumberGridCells - 1;
+				param.NumberGridCellsInY = NumberGridCells;
+			}
+			else
+			{
+				throw new Exception("Invalid ShapeFunctionB.");
+			}
 
-            return param;
+			return param;
 		}
 	}
 }

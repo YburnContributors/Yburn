@@ -601,11 +601,11 @@ namespace Yburn.Workers
 			{
 				return typeof(BottomiumState);
 			}
-            else if (enumName == "CollisionType")
-            {
-                return typeof(CollisionType);
-            }
-            else if(enumName == "DecayWidthType")
+			else if(enumName == "ShapeFunction")
+			{
+				return typeof(ShapeFunction);
+			}
+			else if(enumName == "DecayWidthType")
 			{
 				return typeof(DecayWidthType);
 			}
@@ -721,7 +721,9 @@ namespace Yburn.Workers
 
 		private double BeamRapidity;
 
-        private CollisionType CollisionType;
+		private ShapeFunction ShapeFunctionA;
+
+		private ShapeFunction ShapeFunctionB;
 
 		private Fireball.Fireball CreateFireball()
 		{
@@ -775,21 +777,22 @@ namespace Yburn.Workers
 			param.DecayWidthAveragingAngles = DecayWidthAveragingAngles;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthList.GetList(
 					GetQQDataPathFile(), DecayWidthType, PotentialTypes);
-            param.CollisionType = CollisionType;
-            if (CollisionType == CollisionType.WoodsSaxonAWoodsSaxonB)
-            {
-                param.NumberGridCellsInX = NumberGridCells;
-                param.NumberGridCellsInY = NumberGridCells;
-            }
-            else if (CollisionType == CollisionType.WoodsSaxonAGaussianB)
-            {
-                param.NumberGridCellsInX = 2 * NumberGridCells - 1;
-                param.NumberGridCellsInY = NumberGridCells;
-            }
-            else
-            {
-                throw new Exception("Invalid CollisionType.");
-            }
+			param.ShapeFunctionA = ShapeFunctionA;
+			param.ShapeFunctionB = ShapeFunctionB;
+			if(ShapeFunctionB == ShapeFunction.WoodsSaxonPotential)
+			{
+				param.NumberGridCellsInX = NumberGridCells;
+				param.NumberGridCellsInY = NumberGridCells;
+			}
+			else if(ShapeFunctionB == ShapeFunction.GaussianDistribution)
+			{
+				param.NumberGridCellsInX = 2 * NumberGridCells - 1;
+				param.NumberGridCellsInY = NumberGridCells;
+			}
+			else
+			{
+				throw new Exception("Invalid ShapeFunctionB.");
+			}
 
 			return param;
 		}
@@ -998,8 +1001,9 @@ namespace Yburn.Workers
 			BjorkenLifeTime = Extractor.TryGetDouble(nameValuePairs, "BjorkenLifeTime", BjorkenLifeTime);
 			BottomiumStates = Extractor.TryGetString(nameValuePairs, "BottomiumStates", BottomiumStates);
 			CentralityBinBoundaries = Extractor.TryGetIntArrayArray(nameValuePairs, "CentralityBinBoundaries", CentralityBinBoundaries);
-            CollisionType = Extractor.TryGetEnum<CollisionType>(nameValuePairs, "CollisionType", CollisionType);
-            DecayWidthAveragingAngles = Extractor.TryGetDoubleArray(nameValuePairs, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
+			ShapeFunctionA = Extractor.TryGetEnum<ShapeFunction>(nameValuePairs, "ShapeFunctionA", ShapeFunctionA);
+			ShapeFunctionB = Extractor.TryGetEnum<ShapeFunction>(nameValuePairs, "ShapeFunctionB", ShapeFunctionB);
+			DecayWidthAveragingAngles = Extractor.TryGetDoubleArray(nameValuePairs, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
 			DecayWidthEvaluationType = Extractor.TryGetEnum<DecayWidthEvaluationType>(nameValuePairs, "DecayWidthEvaluationType", DecayWidthEvaluationType);
 			DecayWidthType = Extractor.TryGetEnum<DecayWidthType>(nameValuePairs, "DecayWidthType", DecayWidthType);
 			DiffusenessA = Extractor.TryGetDouble(nameValuePairs, "DiffusenessA", DiffusenessA);
@@ -1066,7 +1070,8 @@ namespace Yburn.Workers
 			nameValuePairs["Outfile"] = Outfile;
 			nameValuePairs["BjorkenLifeTime"] = BjorkenLifeTime.ToString();
 			nameValuePairs["LifeTime"] = LifeTime.ToString();
-            nameValuePairs["CollisionType"] = CollisionType.ToString();
+			nameValuePairs["ShapeFunctionA"] = ShapeFunctionA.ToString();
+			nameValuePairs["ShapeFunctionB"] = ShapeFunctionB.ToString();
 
 			return nameValuePairs;
 		}
@@ -1109,7 +1114,8 @@ namespace Yburn.Workers
 				AppendLogHeaderLine(stringBuilder, "FormationTimes", FormationTimes);
 				AppendLogHeaderLine(stringBuilder, "ThermalTime", ThermalTime);
 				AppendLogHeaderLine(stringBuilder, "TransverseMomenta", TransverseMomenta);
-                AppendLogHeaderLine(stringBuilder, "CollisionType", CollisionType);
+				AppendLogHeaderLine(stringBuilder, "ShapeFunctionA", ShapeFunctionA);
+				AppendLogHeaderLine(stringBuilder, "ShapeFunctionB", ShapeFunctionB);
 
 				return stringBuilder.ToString();
 			}

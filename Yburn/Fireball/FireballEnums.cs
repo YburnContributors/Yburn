@@ -10,13 +10,13 @@
 		x3P
 	};
 
-    public enum CollisionType
-    {
-        WoodsSaxonAWoodsSaxonB,
-        WoodsSaxonAGaussianB
-    };
+	public enum ShapeFunction
+	{
+		WoodsSaxonPotential,
+		GaussianDistribution
+	};
 
-    public enum DecayWidthType
+	public enum DecayWidthType
 	{
 		None,
 		GammaDamp,

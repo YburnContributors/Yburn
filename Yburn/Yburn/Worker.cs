@@ -109,7 +109,7 @@ namespace Yburn
 		//	 double[] value
 		//	 )
 		//{
-		//	AppendLogHeaderLine(stringBuilder, name, Converter.DoubleArrayToString(value));
+		//	AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
 		//}
 
 		//protected static void AppendLogHeaderLine(
@@ -118,7 +118,7 @@ namespace Yburn
 		//	 double[][] value
 		//	 )
 		//{
-		//	AppendLogHeaderLine(stringBuilder, name, Converter.DoubleArrayArrayToString(value));
+		//	AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
 		//}
 
 		//protected static void AppendLogHeaderLine(
@@ -127,7 +127,7 @@ namespace Yburn
 		//	 int[] value
 		//	 )
 		//{
-		//	AppendLogHeaderLine(stringBuilder, name, Converter.IntArrayToString(value));
+		//	AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
 		//}
 
 		//protected static void AppendLogHeaderLine(
@@ -136,7 +136,7 @@ namespace Yburn
 		//	 int[][] value
 		//	 )
 		//{
-		//	AppendLogHeaderLine(stringBuilder, name, Converter.IntArrayArrayToString(value));
+		//	AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
 		//}
 
 		protected static void AppendLogHeaderLine(

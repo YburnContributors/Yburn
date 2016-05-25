@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Globalization;
+using System.Threading;
 
 namespace Yburn.Fireball.Tests
 {
@@ -8,6 +10,12 @@ namespace Yburn.Fireball.Tests
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
+
+		[TestInitialize]
+		public void TestInitialize()
+		{
+			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+		}
 
 		[TestMethod]
 		public void CalculateSingleNucleusMagneticField()
@@ -28,8 +36,6 @@ namespace Yburn.Fireball.Tests
 		 ********************************************************************************************/
 
 		private static readonly double EffectiveTime = 0.4;
-
-		private static readonly double ImpactParameter = 2.0;
 
 		private static readonly double LorentzFactor = 100.0;
 
@@ -55,9 +61,6 @@ namespace Yburn.Fireball.Tests
 			FireballParam param = new FireballParam();
 
 			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
-			param.FourierFrequencySteps = 1000;
-			param.MaxFourierFrequency = 1e3;
-			param.MinFourierFrequency = 1e-3;
 			param.QGPConductivityMeV = 5.8;
 
 			param.DiffusenessAFm = 0.546;
@@ -68,6 +71,7 @@ namespace Yburn.Fireball.Tests
 			param.NuclearRadiusBFm = 6.62;
 			param.ProtonNumberA = 82;
 			param.ProtonNumberB = 82;
+			param.ImpactParamFm = 2.0;
 
 			return param;
 		}
@@ -80,6 +84,8 @@ namespace Yburn.Fireball.Tests
 		{
 			FireballElectromagneticField emf =
 				new FireballElectromagneticField(CreateFireballParam());
+			PrivateObject privateEMF = new PrivateObject(emf);
+			DensityFunction density = (DensityFunction)privateEMF.GetField("ChargeNumberDensityA");
 
 			EuclideanVector3D[] fieldValues = new EuclideanVector3D[PositionsInReactionPlane.Length];
 			for(int i = 0; i < PositionsInReactionPlane.Length; i++)
@@ -88,7 +94,7 @@ namespace Yburn.Fireball.Tests
 						EffectiveTime,
 						PositionsInReactionPlane[i],
 						LorentzFactor,
-						emf.ProtonDistributionNucleonA);
+						density);
 			}
 
 			return fieldValues;
@@ -105,8 +111,7 @@ namespace Yburn.Fireball.Tests
 				fieldValues[i] = emf.CalculateMagneticField(
 						Time,
 						Positions[i],
-						NucleiVelocity,
-						ImpactParameter);
+						NucleiVelocity);
 			}
 
 			return fieldValues;
@@ -114,35 +119,35 @@ namespace Yburn.Fireball.Tests
 
 		private void AssertCorrectSingleNucleusMagneticFieldValues(EuclideanVector3D[] fieldValues)
 		{
-			Assert.AreEqual(-8.1598459753170567E-19, fieldValues[0].X);
-			Assert.AreEqual(6.5541761151600369E-18, fieldValues[0].Y);
+			Assert.AreEqual(0, fieldValues[0].X);
+			Assert.AreEqual(0, fieldValues[0].Y);
 			Assert.AreEqual(0, fieldValues[0].Z);
 
-			Assert.AreEqual(-1.523789143681731E-18, fieldValues[1].X);
-			Assert.AreEqual(0.0888009191906366, fieldValues[1].Y);
+			Assert.AreEqual(0, fieldValues[1].X);
+			Assert.AreEqual(0.08880091919, fieldValues[1].Y, 1e-11);
 			Assert.AreEqual(0, fieldValues[1].Z);
 
-			Assert.AreEqual(-0.16906670076139624, fieldValues[2].X);
-			Assert.AreEqual(0.084533350380698646, fieldValues[2].Y);
+			Assert.AreEqual(-0.16906670076, fieldValues[2].X, 1e-11);
+			Assert.AreEqual(0.08453335038, fieldValues[2].Y, 1e-11);
 			Assert.AreEqual(0, fieldValues[2].Z);
 		}
 
 		private void AssertCorrectMagneticFieldValues(EuclideanVector3D[] fieldValues)
 		{
-			Assert.AreEqual(-5.3364238191853149E-20, fieldValues[0].X);
-			Assert.AreEqual(9.86623976961809E-17, fieldValues[0].Y);
+			Assert.AreEqual(0, fieldValues[0].X, 1e-18);
+			Assert.AreEqual(0, fieldValues[0].Y, 1e-18);
 			Assert.AreEqual(0, fieldValues[0].Z);
 
-			Assert.AreEqual(2.2769755079442495E-19, fieldValues[1].X);
-			Assert.AreEqual(0.003347177956242457, fieldValues[1].Y);
+			Assert.AreEqual(0, fieldValues[1].X, 1e-18);
+			Assert.AreEqual(0.00334717796, fieldValues[1].Y, 1e-11);
 			Assert.AreEqual(0, fieldValues[1].Z);
 
-			Assert.AreEqual(-0.0066707489691250708, fieldValues[2].X);
-			Assert.AreEqual(0.0033235710128827959, fieldValues[2].Y);
+			Assert.AreEqual(-0.00667074897, fieldValues[2].X, 1e-11);
+			Assert.AreEqual(0.00332357101, fieldValues[2].Y, 1e-11);
 			Assert.AreEqual(0, fieldValues[2].Z);
 
-			Assert.AreEqual(-0.080193604428246038, fieldValues[3].X);
-			Assert.AreEqual(0.079160521928345773, fieldValues[3].Y);
+			Assert.AreEqual(-0.08019360443, fieldValues[3].X, 1e-11);
+			Assert.AreEqual(0.07916052193, fieldValues[3].Y, 1e-11);
 			Assert.AreEqual(0, fieldValues[3].Z);
 		}
 	}

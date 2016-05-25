@@ -36,9 +36,9 @@ namespace Yburn.Fireball
 
 		public int NumberGridCells;
 
-        public int NumberGridCellsInX;
+		public int NumberGridCellsInX;
 
-        public int NumberGridCellsInY;
+		public int NumberGridCellsInY;
 
 		public double ImpactParamFm;
 
@@ -70,15 +70,11 @@ namespace Yburn.Fireball
 
 		public EMFCalculationMethod EMFCalculationMethod;
 
-		public double MinFourierFrequency;
-
-		public double MaxFourierFrequency;
-
-		public int FourierFrequencySteps;
-
 		public string FtexsLogPathFile;
 
-        public CollisionType CollisionType;
+		public ShapeFunction ShapeFunctionA;
+
+		public ShapeFunction ShapeFunctionB;
 
 		public FireballParam Clone()
 		{
@@ -92,13 +88,10 @@ namespace Yburn.Fireball
 			param.EMFCalculationMethod = EMFCalculationMethod;
 			param.ExpansionMode = ExpansionMode;
 			param.FormationTimesFm = FormationTimesFm;
-			param.FourierFrequencySteps = FourierFrequencySteps;
 			param.FtexsLogPathFile = FtexsLogPathFile;
 			param.GridCellSizeFm = GridCellSizeFm;
 			param.ImpactParamFm = ImpactParamFm;
 			param.InitialCentralTemperatureMeV = InitialCentralTemperatureMeV;
-			param.MaxFourierFrequency = MaxFourierFrequency;
-			param.MinFourierFrequency = MinFourierFrequency;
 			param.MinimalCentralTemperatureMeV = MinimalCentralTemperatureMeV;
 			param.NucleonNumberA = NucleonNumberA;
 			param.NucleonNumberB = NucleonNumberB;
@@ -112,9 +105,10 @@ namespace Yburn.Fireball
 			param.TemperatureProfile = TemperatureProfile;
 			param.ThermalTimeFm = ThermalTimeFm;
 			param.TransverseMomentaGeV = TransverseMomentaGeV;
-            param.CollisionType = CollisionType;
-            param.NumberGridCellsInX = NumberGridCellsInX;
-            param.NumberGridCellsInY = NumberGridCellsInY;
+			param.ShapeFunctionA = ShapeFunctionA;
+			param.ShapeFunctionB = ShapeFunctionB;
+			param.NumberGridCellsInX = NumberGridCellsInX;
+			param.NumberGridCellsInY = NumberGridCellsInY;
 
 			return param;
 		}

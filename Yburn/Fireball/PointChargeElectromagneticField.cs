@@ -9,14 +9,15 @@ namespace Yburn.Fireball
 		 * Constructors
 		 ********************************************************************************************/
 
-		public PointChargeElectromagneticField(FireballParam param)
+		protected PointChargeElectromagneticField(FireballParam param)
 		{
 			EMFCalculationMethod = param.EMFCalculationMethod;
 			QGPConductivityMeV = param.QGPConductivityMeV;
-			MinFourierFrequency = param.MinFourierFrequency;
-			MaxFourierFrequency = param.MaxFourierFrequency;
-			FourierFrequencySteps = param.FourierFrequencySteps;
 		}
+
+		/********************************************************************************************
+		 * Public static members, functions and properties
+		 ********************************************************************************************/
 
 		public static PointChargeElectromagneticField Create(
 			FireballParam param
@@ -115,14 +116,6 @@ namespace Yburn.Fireball
 			}
 		}
 
-		private double MinFourierFrequency;
-
-		private double MaxFourierFrequency;
-
-		private int FourierFrequencySteps;
-
-		private double[] FourierFrequency;
-
 		private class PointChargeElectromagneticField_URLimitFourierSynthesis : PointChargeElectromagneticField
 		{
 			/********************************************************************************************
@@ -132,7 +125,6 @@ namespace Yburn.Fireball
 			public PointChargeElectromagneticField_URLimitFourierSynthesis(FireballParam param)
 				: base(param)
 			{
-				FourierFrequency = GetFourierFrequencyValueArray();
 			}
 
 			/********************************************************************************************
@@ -145,21 +137,10 @@ namespace Yburn.Fireball
 				double lorentzFactor
 				)
 			{
-				double integral = 0;
-				for(int j = 1; j < FourierFrequencySteps; j++)
-				{
-					integral += PointChargeAzimutalMagneticFieldIntegrand(
-							effectiveTime, radialDistance, lorentzFactor, j)
-						* (FourierFrequency[j + 1] - FourierFrequency[j - 1]);
-				}
+				OneVariableIntegrand integrand = k => PointChargeAzimutalMagneticFieldIntegrand(
+					k, effectiveTime, radialDistance, lorentzFactor);
 
-				// first step vanishes because BesselJ(1, 0) = 0
-				integral += PointChargeAzimutalMagneticFieldIntegrand(
-						effectiveTime, radialDistance, lorentzFactor, FourierFrequencySteps)
-					* (FourierFrequency[FourierFrequencySteps]
-						- FourierFrequency[FourierFrequencySteps - 1]);
-
-				integral *= 0.5;
+				double integral = Quadrature.UseGaussLegendreOverPositiveAxis(integrand, 1);
 
 				return PhysConst.ElementaryCharge / (2 * Math.PI * QGPConductivity) * integral;
 			}
@@ -170,25 +151,10 @@ namespace Yburn.Fireball
 				double lorentzFactor
 				)
 			{
-				double integral = 0;
-				for(int j = 1; j < FourierFrequencySteps; j++)
-				{
-					integral += PointChargeLongitudinalElectricFieldIntegrand(
-							effectiveTime, radialDistance, lorentzFactor, j)
-						* (FourierFrequency[j + 1] - FourierFrequency[j - 1]);
-				}
+				OneVariableIntegrand integrand = k => PointChargeLongitudinalElectricFieldIntegrand(
+					k, effectiveTime, radialDistance, lorentzFactor);
 
-				// first and last steps
-				integral += PointChargeLongitudinalElectricFieldIntegrand(
-						effectiveTime, radialDistance, lorentzFactor, 0)
-					* (FourierFrequency[1] - FourierFrequency[0]);
-
-				integral += PointChargeLongitudinalElectricFieldIntegrand(
-						effectiveTime, radialDistance, lorentzFactor, FourierFrequencySteps)
-					* (FourierFrequency[FourierFrequencySteps]
-						- FourierFrequency[FourierFrequencySteps - 1]);
-
-				integral *= 0.5;
+				double integral = Quadrature.UseGaussLegendreOverPositiveAxis(integrand, 1);
 
 				return PhysConst.ElementaryCharge / (4 * Math.PI) * integral;
 			}
@@ -208,49 +174,51 @@ namespace Yburn.Fireball
 			 * Private/protected members, functions and properties
 			 ********************************************************************************************/
 
-			private double[] GetFourierFrequencyValueArray()
-			{
-				double[] fourierFrequency = new double[FourierFrequencySteps + 1];
-
-				double dk = Math.Exp(Math.Log(MaxFourierFrequency / MinFourierFrequency) / FourierFrequencySteps);
-				fourierFrequency[0] = MinFourierFrequency;
-
-				for(int n = 0; n < FourierFrequencySteps; n++)
-				{
-					fourierFrequency[n + 1] = fourierFrequency[n] * dk;
-				}
-
-				return fourierFrequency;
-			}
-
 			private double PointChargeAzimutalMagneticFieldIntegrand(
+				double fourierFrequency,
 				double effectiveTime,
 				double radialDistance,
-				double lorentzFactor,
-				int fourierFrequencyIndex
+				double lorentzFactor
 				)
 			{
-				double x = Math.Sqrt(1 + 4 * FourierFrequency[fourierFrequencyIndex] * FourierFrequency[fourierFrequencyIndex]
-					/ (lorentzFactor * lorentzFactor * QGPConductivity * QGPConductivity));
+				double x;
+				double exponentialPart;
+				CalculateShorthands(
+					fourierFrequency, effectiveTime, lorentzFactor, out x, out exponentialPart);
 
-				return AdvancedMath.BesselJ(1, FourierFrequency[fourierFrequencyIndex] * radialDistance)
-						* FourierFrequency[fourierFrequencyIndex] * FourierFrequency[fourierFrequencyIndex] / x
-						* Math.Exp(0.5 * QGPConductivity * lorentzFactor * lorentzFactor * effectiveTime * (1 - x));
+				return AdvancedMath.BesselJ(1, fourierFrequency * radialDistance)
+						* fourierFrequency * fourierFrequency / x * exponentialPart;
 			}
 
 			private double PointChargeLongitudinalElectricFieldIntegrand(
+				double fourierFrequency,
 				double effectiveTime,
 				double radialDistance,
-				double lorentzFactor,
-				int fourierFrequencyIndex
+				double lorentzFactor
 				)
 			{
-				double x = Math.Sqrt(1 + 4 * FourierFrequency[fourierFrequencyIndex] * FourierFrequency[fourierFrequencyIndex]
-					/ (lorentzFactor * lorentzFactor * QGPConductivity * QGPConductivity));
+				double x;
+				double exponentialPart;
+				CalculateShorthands(
+					fourierFrequency, effectiveTime, lorentzFactor, out x, out exponentialPart);
 
-				return AdvancedMath.BesselJ(0, FourierFrequency[fourierFrequencyIndex] * radialDistance)
-						* FourierFrequency[fourierFrequencyIndex] * (1 - x) / x
-						* Math.Exp(0.5 * QGPConductivity * lorentzFactor * lorentzFactor * effectiveTime * (1 - x));
+				return AdvancedMath.BesselJ(0, fourierFrequency * radialDistance)
+						* fourierFrequency * (1 - x) / x * exponentialPart;
+			}
+
+			private void CalculateShorthands(
+				double fourierFrequency,
+				double effectiveTime,
+				double lorentzFactor,
+				out double x,
+				out double exponentialPart
+				)
+			{
+				x = Math.Sqrt(
+					1 + 4 * Math.Pow(fourierFrequency / (lorentzFactor * QGPConductivity), 2));
+
+				exponentialPart = Math.Exp(
+					0.5 * QGPConductivity * lorentzFactor * lorentzFactor * effectiveTime * (1 - x));
 			}
 		}
 
@@ -275,9 +243,11 @@ namespace Yburn.Fireball
 				double lorentzFactor
 				)
 			{
-				return 0.125 * PhysConst.ElementaryCharge / Math.PI
-					* (radialDistance * QGPConductivity) / (effectiveTime * effectiveTime)
-					* Math.Exp(-0.25 * radialDistance * radialDistance * QGPConductivity / effectiveTime);
+				double exponentialPart = CalculateExponentialPart(effectiveTime, radialDistance);
+
+				return PhysConst.ElementaryCharge * (radialDistance * QGPConductivity)
+					/ (8 * Math.PI * effectiveTime * effectiveTime)
+					* exponentialPart;
 			}
 
 			public override double CalculatePointChargeLongitudinalElectricField(
@@ -286,10 +256,12 @@ namespace Yburn.Fireball
 				double lorentzFactor
 				)
 			{
-				return -0.25 * PhysConst.ElementaryCharge / Math.PI
-					* (effectiveTime - 0.25 * radialDistance * radialDistance * QGPConductivity)
-					/ (lorentzFactor * lorentzFactor * effectiveTime * effectiveTime * effectiveTime)
-					* Math.Exp(-0.25 * radialDistance * radialDistance * QGPConductivity / effectiveTime);
+				double exponentialPart = CalculateExponentialPart(effectiveTime, radialDistance);
+
+				return PhysConst.ElementaryCharge
+					* (0.25 * radialDistance * radialDistance * QGPConductivity - effectiveTime)
+					/ (4 * Math.PI * lorentzFactor * lorentzFactor * effectiveTime * effectiveTime * effectiveTime)
+					* exponentialPart;
 			}
 
 			public override double CalculatePointChargeRadialElectricField(
@@ -301,6 +273,18 @@ namespace Yburn.Fireball
 				// identical with azimutal magnetic field component in this limit
 				return CalculatePointChargeAzimutalMagneticField(
 					effectiveTime, radialDistance, lorentzFactor);
+			}
+
+			/********************************************************************************************
+			 * Private/protected members, functions and properties
+			 ********************************************************************************************/
+
+			private double CalculateExponentialPart(
+				double effectiveTime,
+				double radialDistance
+				)
+			{
+				return Math.Exp(-0.25 * radialDistance * radialDistance * QGPConductivity / effectiveTime);
 			}
 		}
 
@@ -325,14 +309,12 @@ namespace Yburn.Fireball
 				double lorentzFactor
 				)
 			{
-				double velocity = Math.Sqrt(1 - 1 / (lorentzFactor * lorentzFactor));
-				double denominator = Math.Pow(
-					radialDistance * radialDistance + lorentzFactor * lorentzFactor
-						* velocity * velocity * effectiveTime * effectiveTime,
-					1.5);
+				double velocity;
+				double denominator = CalculateDenominator(
+					effectiveTime, radialDistance, lorentzFactor, out velocity);
 
-				return PhysConst.ElementaryCharge * lorentzFactor / (4 * Math.PI)
-					* velocity * radialDistance / denominator;
+				return PhysConst.ElementaryCharge * lorentzFactor * velocity * radialDistance
+					/ (4 * Math.PI * denominator);
 			}
 
 			public override double CalculatePointChargeLongitudinalElectricField(
@@ -341,14 +323,12 @@ namespace Yburn.Fireball
 				double lorentzFactor
 				)
 			{
-				double velocity = Math.Sqrt(1 - 1 / (lorentzFactor * lorentzFactor));
-				double denominator = Math.Pow(
-					radialDistance * radialDistance + lorentzFactor * lorentzFactor
-						* velocity * velocity * effectiveTime * effectiveTime,
-					1.5);
+				double velocity;
+				double denominator = CalculateDenominator(
+					effectiveTime, radialDistance, lorentzFactor, out velocity);
 
-				return PhysConst.ElementaryCharge * lorentzFactor / (4 * Math.PI)
-					* (-velocity * effectiveTime) / denominator;
+				return PhysConst.ElementaryCharge * lorentzFactor * (-velocity * effectiveTime)
+					/ (4 * Math.PI * denominator);
 			}
 
 			public override double CalculatePointChargeRadialElectricField(
@@ -357,14 +337,37 @@ namespace Yburn.Fireball
 				double lorentzFactor
 				)
 			{
-				double velocity = Math.Sqrt(1 - 1 / (lorentzFactor * lorentzFactor));
-				double denominator = Math.Pow(
-					radialDistance * radialDistance + lorentzFactor * lorentzFactor
-						* velocity * velocity * effectiveTime * effectiveTime,
-					1.5);
+				double velocity;
+				double denominator = CalculateDenominator(
+					effectiveTime, radialDistance, lorentzFactor, out velocity);
 
-				return PhysConst.ElementaryCharge * lorentzFactor / (4 * Math.PI)
-					* radialDistance / denominator;
+				return PhysConst.ElementaryCharge * lorentzFactor * radialDistance
+					/ (4 * Math.PI * denominator);
+			}
+
+			/********************************************************************************************
+			 * Private/protected members, functions and properties
+			 ********************************************************************************************/
+
+			private double CalculateDenominator(
+				double effectiveTime,
+				double radialDistance,
+				double lorentzFactor,
+				out double velocity
+				)
+			{
+				velocity = CalculateVelocity(lorentzFactor);
+
+				return Math.Pow(
+					radialDistance * radialDistance + Math.Pow(lorentzFactor * velocity * effectiveTime, 2),
+					1.5);
+			}
+
+			private double CalculateVelocity(
+				double lorentzFactor
+				)
+			{
+				return Math.Sqrt(1 - 1 / (lorentzFactor * lorentzFactor));
 			}
 		}
 	}
