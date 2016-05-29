@@ -14,6 +14,7 @@ using System.IO;
 using System.Text;
 using Yburn.Fireball;
 using Yburn.QQState;
+using Yburn.Util;
 
 namespace Yburn.Workers
 {
@@ -839,8 +840,8 @@ namespace Yburn.Workers
 
 		protected double[][][][] CalculateQGPSuppressionFactors()
 		{
-			QGPSuppression qgpSuppression = new QGPSuppression(
-				CreateFireballParam(), NumberCentralityBins, ImpactParamsAtBinBoundaries, JobCancelToken);
+			QGPSuppression qgpSuppression = new QGPSuppression(CreateFireballParam(),
+				NumberCentralityBins, ImpactParamsAtBinBoundaries, JobCancelToken);
 			qgpSuppression.TrackStatus(StatusValues);
 
 			return qgpSuppression.CalculateQGPSuppressionFactors();

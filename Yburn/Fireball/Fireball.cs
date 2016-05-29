@@ -551,6 +551,9 @@ namespace Yburn.Fireball
 				case "Temperature":
 					return Temperature;
 
+				case "TemperatureScalingField":
+					return GlauberCalculation.TemperatureScalingField;
+
 				case "VX":
 					return VX;
 
