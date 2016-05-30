@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Yburn.Workers
+namespace Yburn.Util
 {
 	public static class Converter
 	{

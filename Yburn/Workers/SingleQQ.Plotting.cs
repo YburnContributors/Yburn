@@ -6,6 +6,7 @@ using System.IO;
 using System.Text;
 using Yburn.Fireball;
 using Yburn.QQState;
+using Yburn.Util;
 
 namespace Yburn.Workers
 {

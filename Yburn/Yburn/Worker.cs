@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using Yburn.Interfaces;
+using Yburn.Util;
 
 namespace Yburn
 {
@@ -97,47 +98,74 @@ namespace Yburn
 		protected static void AppendLogHeaderLine(
 			 StringBuilder stringBuilder,
 			 string name,
+			 bool value
+			 )
+		{
+			AppendLogHeaderLine(stringBuilder, name, value.ToString());
+		}
+
+		protected static void AppendLogHeaderLine(
+			 StringBuilder stringBuilder,
+			 string name,
 			 double value
 			 )
 		{
 			AppendLogHeaderLine(stringBuilder, name, value.ToString("G4"));
 		}
 
-		//protected static void AppendLogHeaderLine(
-		//	 StringBuilder stringBuilder,
-		//	 string name,
-		//	 double[] value
-		//	 )
-		//{
-		//	AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
-		//}
+		protected static void AppendLogHeaderLine(
+			 StringBuilder stringBuilder,
+			 string name,
+			 double[] value
+			 )
+		{
+			AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
+		}
 
-		//protected static void AppendLogHeaderLine(
-		//	 StringBuilder stringBuilder,
-		//	 string name,
-		//	 double[][] value
-		//	 )
-		//{
-		//	AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
-		//}
+		protected static void AppendLogHeaderLine(
+			 StringBuilder stringBuilder,
+			 string name,
+			 double[][] value
+			 )
+		{
+			AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
+		}
 
-		//protected static void AppendLogHeaderLine(
-		//	 StringBuilder stringBuilder,
-		//	 string name,
-		//	 int[] value
-		//	 )
-		//{
-		//	AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
-		//}
+		protected static void AppendLogHeaderLine(
+			 StringBuilder stringBuilder,
+			 string name,
+			 Enum value
+			 )
+		{
+			AppendLogHeaderLine(stringBuilder, name, value.ToString());
+		}
 
-		//protected static void AppendLogHeaderLine(
-		//	 StringBuilder stringBuilder,
-		//	 string name,
-		//	 int[][] value
-		//	 )
-		//{
-		//	AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
-		//}
+		protected static void AppendLogHeaderLine(
+			 StringBuilder stringBuilder,
+			 string name,
+			 int value
+			 )
+		{
+			AppendLogHeaderLine(stringBuilder, name, value.ToString());
+		}
+
+		protected static void AppendLogHeaderLine(
+			 StringBuilder stringBuilder,
+			 string name,
+			 int[] value
+			 )
+		{
+			AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
+		}
+
+		protected static void AppendLogHeaderLine(
+			 StringBuilder stringBuilder,
+			 string name,
+			 int[][] value
+			 )
+		{
+			AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
+		}
 
 		protected static void AppendLogHeaderLine(
 		 StringBuilder stringBuilder,
@@ -149,12 +177,12 @@ namespace Yburn
 		}
 
 		protected static void AppendLogHeaderLine(
-			 StringBuilder stringBuilder,
-			 string name,
-			 object value
-			 )
+		 StringBuilder stringBuilder,
+		 string name,
+		 string[] value
+		 )
 		{
-			AppendLogHeaderLine(stringBuilder, name, value.ToString());
+			stringBuilder.AppendLine(string.Format("#{0,35}    {1}", name, value.ToStringifiedList()));
 		}
 
 		/********************************************************************************************

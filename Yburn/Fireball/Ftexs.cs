@@ -59,7 +59,7 @@ namespace Yburn.Fireball
 			AssertValidMembers();
 
 			NX = T.GetLength(0);
-            NY = T.GetLength(1);
+			NY = T.GetLength(1);
 			DXY = gridCellSize;
 
 			LogFile = logFile;
@@ -140,15 +140,15 @@ namespace Yburn.Fireball
 
 			for(int k = 0; k < NY; k++)
 			{
-                if (NX == NY)
-                {
-                    // pressure gradient is zero due to symmetry
-                    DPX[0, k] = 0;
-                }
-                else
-                {
-                    DPX[0, k] = (Math.Pow(T[0, k], 4) - Math.Pow(T[1, k], 4)) * Tau / 4.0;
-                }
+				if(NX == NY)
+				{
+					// pressure gradient is zero due to symmetry
+					DPX[0, k] = 0;
+				}
+				else
+				{
+					DPX[0, k] = (Math.Pow(T[0, k], 4) - Math.Pow(T[1, k], 4)) * Tau / 4.0;
+				}
 				for(int j = 1; j < NX - 1; j++)
 				{
 					DPX[j, k] = 0.5 * (Math.Pow(T[j + 1, k], 4) - Math.Pow(T[j - 1, k], 4)) * Tau / 4.0;
@@ -264,13 +264,6 @@ namespace Yburn.Fireball
 			return Math.Log(x + Math.Sqrt(x * x - 1));
 		}
 
-		private static bool IsSquareArray(
-			double[,] array
-			)
-		{
-			return array.GetLength(0) == array.GetLength(1);
-		}
-
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
@@ -299,11 +292,11 @@ namespace Yburn.Fireball
 		// Number of grid points in the spacial direction X
 		private int NX;
 
-        // Number of grid points in the spacial direction Y
-        private int NY;
+		// Number of grid points in the spacial direction Y
+		private int NY;
 
-        // Maximum allowed Courant-Friedrichs-Levy number
-        private double MaxCFL;
+		// Maximum allowed Courant-Friedrichs-Levy number
+		private double MaxCFL;
 
 		// Name of log file
 		private string LogFile;
@@ -358,21 +351,6 @@ namespace Yburn.Fireball
 
 		private void AssertValidMembers()
 		{
-//			if(!IsSquareArray(T))
-//			{
-//				throw new NonSquareArrayException("T");
-//			}
-//
-//			if(!IsSquareArray(VX))
-//			{
-//				throw new NonSquareArrayException("VX");
-//			}
-//
-//			if(!IsSquareArray(VY))
-//			{
-//				throw new NonSquareArrayException("VY");
-//			}
-//
 			if(T.Length != VX.Length)
 			{
 				throw new Exception("VX is not of the same size as T.");
@@ -669,16 +647,6 @@ namespace Yburn.Fireball
 				// Note disposing has been done.
 				bDisposing = true;
 			}
-		}
-	}
-
-	public class NonSquareArrayException : Exception
-	{
-		public NonSquareArrayException(
-			string fieldName
-			)
-			: base(fieldName + " is not a square array.")
-		{
 		}
 	}
 }

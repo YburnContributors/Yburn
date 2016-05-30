@@ -1,5 +1,5 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Yburn.Fireball.Tests
 {
@@ -17,15 +17,6 @@ namespace Yburn.Fireball.Tests
 			{
 				FtexsSolver.Dispose();
 			}
-		}
-
-		[TestMethod]
-		[Ignore]
-		[ExpectedException(typeof(NonSquareArrayException))]
-		public void ThrowIfNonSquareArray()
-		{
-			SetNonSquareArrayProperties();
-			InitializeFtexsSolver();
 		}
 
 		[TestMethod]
@@ -139,16 +130,6 @@ namespace Yburn.Fireball.Tests
 			FtexsSolver = new Ftexs(
 				GridCellSize, InitialTime, MaxCFL, Temperature,
 				VelocityX, VelocityY, ArtViscStrength, LogFileName);
-		}
-
-		private void SetNonSquareArrayProperties()
-		{
-			GridCellNumberX = 5;
-			GridCellNumberY = 6;
-
-			Temperature = new double[GridCellNumberX, GridCellNumberY];
-			VelocityX = new double[GridCellNumberX, GridCellNumberY];
-			VelocityY = new double[GridCellNumberX, GridCellNumberY];
 		}
 
 		private void SetBjorkenFlowProperties()

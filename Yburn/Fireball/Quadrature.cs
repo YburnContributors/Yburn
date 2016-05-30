@@ -1,4 +1,5 @@
 ﻿using System;
+using Yburn.Util;
 
 namespace Yburn.Fireball
 {

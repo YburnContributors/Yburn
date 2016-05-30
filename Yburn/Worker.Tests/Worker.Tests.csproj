@@ -71,6 +71,10 @@
       <Project>{3a5b70f6-b463-45f2-982a-3bce9eb9f247}</Project>
       <Name>QQState</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Util\Util.csproj">
+      <Project>{59e7bc95-adee-49ac-a6c8-4df0f322209e}</Project>
+      <Name>Util</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Workers\Workers.csproj">
       <Project>{cde3fc2a-a046-466f-afe6-9b6c860552fa}</Project>
       <Name>Workers</Name>

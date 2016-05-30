@@ -67,9 +67,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Yburn\Yburn.csproj">
-      <Project>{EB474E7F-D6F1-408D-A30B-CF662B311C93}</Project>
-      <Name>Yburn</Name>
+    <ProjectReference Include="..\Util\Util.csproj">
+      <Project>{59e7bc95-adee-49ac-a6c8-4df0f322209e}</Project>
+      <Name>Util</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
