@@ -55,11 +55,6 @@ UseAveragedTemperature = True
 QGPConductivityMeV   = 5.8
 EMFCalculationMethod = URLimitFourierSynthesis
 
-# Fourier Synthesis
-MinFourierFrequency   = 0.001
-MaxFourierFrequency   = 1000
-FourierFrequencySteps = 1000
-
 # Single Point Charge
 LorentzFactor                 = 100
 RadialDistance                = 7.4
@@ -74,12 +69,16 @@ EMFCalculationMethodSelection = URLimitFourierSynthesis,DiffusionApproximation,F
 ###########################
 
 # Glauber
-DiffusenessA   = 0.546		# diffuseness of Woods-Saxon potential
-DiffusenessB   = 0.546
+ShapeFunctionA = WoodsSaxonPotential
 NucleonNumberA = 208		# nucleon number
-NucleonNumberB = 208
+ProtonNumberA  = 82			# proton number
 NuclearRadiusA = 6.62		# radius of Woods-Saxon potential
+DiffusenessA   = 0.546		# diffuseness of Woods-Saxon potential
+ShapeFunctionB = WoodsSaxonPotential
+NucleonNumberB = 208
+ProtonNumberB  = 82
 NuclearRadiusB = 6.62
+DiffusenessB   = 0.546
 ImpactParam    = 0
 
 # Hydrodynamics

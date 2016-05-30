@@ -11,14 +11,11 @@ namespace Yburn.Tests.Util
 				Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 				nameValuePairs["DiffusenessA"] = "3333";
 				nameValuePairs["DiffusenessB"] = "3333";
-				nameValuePairs["EffectiveTimeSamples"] = "3333";
 				nameValuePairs["EMFCalculationMethod"] = "URLimitFourierSynthesis";
 				nameValuePairs["EMFCalculationMethodSelection"] = "URLimitFourierSynthesis";
-				nameValuePairs["FourierFrequencySteps"] = "3333";
+				nameValuePairs["EffectiveTimeSamples"] = "3333";
 				nameValuePairs["ImpactParam"] = "3333";
 				nameValuePairs["LorentzFactor"] = "3333";
-				nameValuePairs["MaxFourierFrequency"] = "3333";
-				nameValuePairs["MinFourierFrequency"] = "3333";
 				nameValuePairs["NuclearRadiusA"] = "3333";
 				nameValuePairs["NuclearRadiusB"] = "3333";
 				nameValuePairs["NucleonNumberA"] = "3333";
@@ -28,6 +25,8 @@ namespace Yburn.Tests.Util
 				nameValuePairs["ProtonNumberB"] = "3333";
 				nameValuePairs["QGPConductivityMeV"] = "3333";
 				nameValuePairs["RadialDistance"] = "3333";
+				nameValuePairs["ShapeFunctionA"] = "GaussianDistribution";
+				nameValuePairs["ShapeFunctionB"] = "WoodsSaxonPotential";
 				nameValuePairs["StartEffectiveTime"] = "3333";
 				nameValuePairs["StopEffectiveTime"] = "3333";
 

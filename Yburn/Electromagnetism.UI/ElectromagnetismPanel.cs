@@ -95,6 +95,8 @@ namespace Yburn.Electromagnetism.UI
 		private void InitializeComboBoxes()
 		{
 			CbxEMFCalculationMethod.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFCalculationMethod"));
+			CbxShapeFunctionA.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ShapeFunction"));
+			CbxShapeFunctionB.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ShapeFunction"));
 			MsxEMFCalculationMethodSelection.AddItems(JobOrganizer.GetWorkerEnumEntries("EMFCalculationMethod"));
 		}
 
@@ -103,25 +105,24 @@ namespace Yburn.Electromagnetism.UI
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 			nameValuePairs["DiffusenessA"] = TbxDiffusenessA.Text;
 			nameValuePairs["DiffusenessB"] = TbxDiffusenessB.Text;
-			nameValuePairs["NucleonNumberA"] = TbxNucleonNumberA.Text;
-			nameValuePairs["NucleonNumberB"] = TbxNucleonNumberB.Text;
+			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
+			nameValuePairs["EMFCalculationMethodSelection"] = MsxEMFCalculationMethodSelection.SelectionString;
+			nameValuePairs["EffectiveTimeSamples"] = TbxEffectiveTimeSamples.Text;
+			nameValuePairs["ImpactParam"] = TbxImpactParam.Text;
+			nameValuePairs["LorentzFactor"] = TbxLorentzFactor.Text;
 			nameValuePairs["NuclearRadiusA"] = TbxNuclearRadiusA.Text;
 			nameValuePairs["NuclearRadiusB"] = TbxNuclearRadiusB.Text;
+			nameValuePairs["NucleonNumberA"] = TbxNucleonNumberA.Text;
+			nameValuePairs["NucleonNumberB"] = TbxNucleonNumberB.Text;
+			nameValuePairs["Outfile"] = TbxOutfile.Text;
 			nameValuePairs["ProtonNumberA"] = TbxProtonNumberA.Text;
 			nameValuePairs["ProtonNumberB"] = TbxProtonNumberB.Text;
-			nameValuePairs["ImpactParam"] = TbxImpactParam.Text;
 			nameValuePairs["QGPConductivityMeV"] = TbxQGPConductivityMeV.Text;
-			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
-			nameValuePairs["MinFourierFrequency"] = TbxMinFourierFrequency.Text;
-			nameValuePairs["MaxFourierFrequency"] = TbxMaxFourierFrequency.Text;
-			nameValuePairs["FourierFrequencySteps"] = TbxFourierFrequencySteps.Text;
-			nameValuePairs["LorentzFactor"] = TbxLorentzFactor.Text;
 			nameValuePairs["RadialDistance"] = TbxRadialDistance.Text;
+			nameValuePairs["ShapeFunctionA"] = CbxShapeFunctionA.Text;
+			nameValuePairs["ShapeFunctionB"] = CbxShapeFunctionB.Text;
 			nameValuePairs["StartEffectiveTime"] = TbxStartEffectiveTime.Text;
 			nameValuePairs["StopEffectiveTime"] = TbxStopEffectiveTime.Text;
-			nameValuePairs["EffectiveTimeSamples"] = TbxEffectiveTimeSamples.Text;
-			nameValuePairs["EMFCalculationMethodSelection"] = MsxEMFCalculationMethodSelection.SelectionString;
-			nameValuePairs["Outfile"] = TbxOutfile.Text;
 
 			return nameValuePairs;
 		}
@@ -130,27 +131,26 @@ namespace Yburn.Electromagnetism.UI
 			Dictionary<string, string> nameValuePairs
 			)
 		{
+			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"].ToString();
+			CbxShapeFunctionA.Text = nameValuePairs["ShapeFunctionA"].ToString();
+			CbxShapeFunctionB.Text = nameValuePairs["ShapeFunctionB"].ToString();
+			MsxEMFCalculationMethodSelection.SelectionString = nameValuePairs["EMFCalculationMethodSelection"].ToString();
 			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA"].ToString();
 			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB"].ToString();
-			TbxNucleonNumberA.Text = nameValuePairs["NucleonNumberA"].ToString();
-			TbxNucleonNumberB.Text = nameValuePairs["NucleonNumberB"].ToString();
+			TbxEffectiveTimeSamples.Text = nameValuePairs["EffectiveTimeSamples"].ToString();
+			TbxImpactParam.Text = nameValuePairs["ImpactParam"].ToString();
+			TbxLorentzFactor.Text = nameValuePairs["LorentzFactor"].ToString();
 			TbxNuclearRadiusA.Text = nameValuePairs["NuclearRadiusA"].ToString();
 			TbxNuclearRadiusB.Text = nameValuePairs["NuclearRadiusB"].ToString();
+			TbxNucleonNumberA.Text = nameValuePairs["NucleonNumberA"].ToString();
+			TbxNucleonNumberB.Text = nameValuePairs["NucleonNumberB"].ToString();
+			TbxOutfile.Text = nameValuePairs["Outfile"];
 			TbxProtonNumberA.Text = nameValuePairs["ProtonNumberA"].ToString();
 			TbxProtonNumberB.Text = nameValuePairs["ProtonNumberB"].ToString();
-			TbxImpactParam.Text = nameValuePairs["ImpactParam"].ToString();
 			TbxQGPConductivityMeV.Text = nameValuePairs["QGPConductivityMeV"].ToString();
-			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"].ToString();
-			TbxMinFourierFrequency.Text = nameValuePairs["MinFourierFrequency"].ToString();
-			TbxMaxFourierFrequency.Text = nameValuePairs["MaxFourierFrequency"].ToString();
-			TbxFourierFrequencySteps.Text = nameValuePairs["FourierFrequencySteps"].ToString();
-			TbxLorentzFactor.Text = nameValuePairs["LorentzFactor"].ToString();
 			TbxRadialDistance.Text = nameValuePairs["RadialDistance"].ToString();
 			TbxStartEffectiveTime.Text = nameValuePairs["StartEffectiveTime"].ToString();
 			TbxStopEffectiveTime.Text = nameValuePairs["StopEffectiveTime"].ToString();
-			TbxEffectiveTimeSamples.Text = nameValuePairs["EffectiveTimeSamples"].ToString();
-			MsxEMFCalculationMethodSelection.SelectionString = nameValuePairs["EMFCalculationMethodSelection"].ToString();
-			TbxOutfile.Text = nameValuePairs["Outfile"];
 		}
 
 		private void InitializeMenuEntry()
@@ -166,22 +166,8 @@ namespace Yburn.Electromagnetism.UI
 			)
 		{
 			toolTipMaker.Add(
-				"The electromagnetic fields are calculated via Fourier synthesis from their\r\n"
-				+ "counterparts in Fourier space. To perform this numerically, one has to choose\r\n"
-				+ "cutoffs and a discretization of the unbounded Fourier integral.",
-				GbxFourierSynthesis);
-			toolTipMaker.Add(
 				"Chosen approximation for the calculation of the electromagnetic field.",
 				LblEMFCalculationMethod, CbxEMFCalculationMethod);
-			toolTipMaker.Add(
-				"Minimum Fourier frequency in 1/fm to be considered in the Fourier synthesis.",
-				LblMinFourierFrequency, TbxMinFourierFrequency);
-			toolTipMaker.Add(
-				"Maximum Fourier frequency in 1/fm to be considered in the Fourier synthesis.",
-				LblMaxFourierFrequency, TbxMaxFourierFrequency);
-			toolTipMaker.Add(
-				"Number of Fourier frequency steps to be considered in the Fourier synthesis.",
-				LblFourierFrequencySteps, TbxFourierFrequencySteps);
 			toolTipMaker.Add(
 				"Name of the output file. The standard output path can be set\r\n"
 				+ "in the menu \"File\" using \"Set output path\".",
@@ -204,6 +190,261 @@ namespace Yburn.Electromagnetism.UI
 		}
 
 		private void GbxOutput_Enter(object sender, EventArgs e)
+		{
+
+		}
+
+		private void CtrlTextBoxLog_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void VSplit_SplitterMoved(object sender, SplitterEventArgs e)
+		{
+
+		}
+
+		private void LayoutBottom_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		private void GbxGeneralParameters_Enter(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LayoutGeneralParameters_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		private void CbxEMFCalculationMethod_SelectedIndexChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblEMFCalculationMethod_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblQGPConductivityMeV_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxQGPConductivityMeV_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void GbxSinglePointCharge_Enter(object sender, EventArgs e)
+		{
+
+		}
+
+		private void tableLayoutPanel2_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		private void MsxEMFCalculationMethodSelection_Load(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblEMFCalculationMethodSelection_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblEffectiveTimeSamples_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxEffectiveTimeSamples_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxLorentzFactor_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblRadialDistance_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxRadialDistance_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblStartEffectiveTime_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxStartEffectiveTime_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblStopEffectiveTime_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxStopEffectiveTime_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblLorentzFactor_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		private void LblOutfile_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxOutfile_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void HSplit_SplitterMoved(object sender, SplitterEventArgs e)
+		{
+
+		}
+
+		private void GbxGlauber_Enter(object sender, EventArgs e)
+		{
+
+		}
+
+		private void CtrlStatusTrackingCtrl_Load(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblShapeFunctionB_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LayoutGlauber_Paint(object sender, PaintEventArgs e)
+		{
+
+		}
+
+		private void LblShapeFunctionA_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void CbxShapeFunctionA_SelectedIndexChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void label1_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void CbxShapeFunctionB_SelectedIndexChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblDiffusenessA_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxDiffusenessA_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblDiffusenessB_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxDiffusenessB_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblNucleonNumberA_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxNucleonNumberA_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblNucleonNumberB_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxNucleonNumberB_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblNuclearRadiusA_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxNuclearRadiusA_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblNuclearRadiusB_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxNuclearRadiusB_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblImpactParam_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxImpactParam_TextChanged(object sender, EventArgs e)
+		{
+
+		}
+
+		private void LblProtonNumberA_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void TbxProtonNumberA_TextChanged(object sender, EventArgs e)
 		{
 
 		}

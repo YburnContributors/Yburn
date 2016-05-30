@@ -41,6 +41,7 @@
 			this.LblFeedDown3P = new System.Windows.Forms.Label();
 			this.TbxFeedDown3P = new System.Windows.Forms.TextBox();
 			this.LblPotentialTypes = new System.Windows.Forms.Label();
+			this.MsxPotentialTypes = new Yburn.UI.MultiSelectBox();
 			this.LblDecayWidthType = new System.Windows.Forms.Label();
 			this.CbxDecayWidthType = new System.Windows.Forms.ComboBox();
 			this.CbxDecayWidthEvaluationType = new System.Windows.Forms.ComboBox();
@@ -88,7 +89,9 @@
 			this.GbxOutput = new System.Windows.Forms.GroupBox();
 			this.LayoutOutput = new System.Windows.Forms.TableLayoutPanel();
 			this.LblBottomiumStates = new System.Windows.Forms.Label();
+			this.MsxBottomiumStates = new Yburn.UI.MultiSelectBox();
 			this.LblFireballFieldTypes = new System.Windows.Forms.Label();
+			this.MsxFireballFieldTypes = new Yburn.UI.MultiSelectBox();
 			this.LblSnapRate = new System.Windows.Forms.Label();
 			this.TbxSnapRate = new System.Windows.Forms.TextBox();
 			this.LblOutfile = new System.Windows.Forms.Label();
@@ -107,11 +110,8 @@
 			this.TbxMeanParticipantsInBin = new System.Windows.Forms.TextBox();
 			this.HSplit = new System.Windows.Forms.SplitContainer();
 			this.CtrlTextBoxLog = new System.Windows.Forms.RichTextBox();
-			this.TbxtF3S2 = new System.Windows.Forms.TextBox();
-			this.MsxPotentialTypes = new Yburn.UI.MultiSelectBox();
-			this.MsxBottomiumStates = new Yburn.UI.MultiSelectBox();
-			this.MsxFireballFieldTypes = new Yburn.UI.MultiSelectBox();
 			this.CtrlStatusTrackingCtrl = new Yburn.UI.StatusTrackingCtrl();
+			this.TbxtF3S2 = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.VSplit)).BeginInit();
 			this.VSplit.Panel1.SuspendLayout();
 			this.VSplit.Panel2.SuspendLayout();
@@ -307,6 +307,16 @@
 			this.LblPotentialTypes.Size = new System.Drawing.Size(235, 79);
 			this.LblPotentialTypes.TabIndex = 0;
 			this.LblPotentialTypes.Text = "PotentialTypes";
+			// 
+			// MsxPotentialTypes
+			// 
+			this.MsxPotentialTypes.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.MsxPotentialTypes.Location = new System.Drawing.Point(244, 79);
+			this.MsxPotentialTypes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
+			this.MsxPotentialTypes.Name = "MsxPotentialTypes";
+			this.MsxPotentialTypes.SelectionString = "";
+			this.MsxPotentialTypes.Size = new System.Drawing.Size(192, 72);
+			this.MsxPotentialTypes.TabIndex = 21;
 			// 
 			// LblDecayWidthType
 			// 
@@ -865,6 +875,16 @@
 			this.LblBottomiumStates.TabIndex = 0;
 			this.LblBottomiumStates.Text = "BottomiumStates";
 			// 
+			// MsxBottomiumStates
+			// 
+			this.MsxBottomiumStates.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.MsxBottomiumStates.Location = new System.Drawing.Point(245, 5);
+			this.MsxBottomiumStates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.MsxBottomiumStates.Name = "MsxBottomiumStates";
+			this.MsxBottomiumStates.SelectionString = "";
+			this.MsxBottomiumStates.Size = new System.Drawing.Size(190, 69);
+			this.MsxBottomiumStates.TabIndex = 27;
+			// 
 			// LblFireballFieldTypes
 			// 
 			this.LblFireballFieldTypes.AutoSize = true;
@@ -875,6 +895,16 @@
 			this.LblFireballFieldTypes.Size = new System.Drawing.Size(235, 79);
 			this.LblFireballFieldTypes.TabIndex = 0;
 			this.LblFireballFieldTypes.Text = "FireballFieldTypes";
+			// 
+			// MsxFireballFieldTypes
+			// 
+			this.MsxFireballFieldTypes.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.MsxFireballFieldTypes.Location = new System.Drawing.Point(245, 84);
+			this.MsxFireballFieldTypes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.MsxFireballFieldTypes.Name = "MsxFireballFieldTypes";
+			this.MsxFireballFieldTypes.SelectionString = "";
+			this.MsxFireballFieldTypes.Size = new System.Drawing.Size(190, 69);
+			this.MsxFireballFieldTypes.TabIndex = 28;
 			// 
 			// LblSnapRate
 			// 
@@ -1062,44 +1092,6 @@
 			this.CtrlTextBoxLog.Text = "";
 			this.CtrlTextBoxLog.WordWrap = false;
 			// 
-			// TbxtF3S2
-			// 
-			this.TbxtF3S2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxtF3S2.Location = new System.Drawing.Point(3, 263);
-			this.TbxtF3S2.Name = "TbxtF3S2";
-			this.TbxtF3S2.Size = new System.Drawing.Size(158, 31);
-			this.TbxtF3S2.TabIndex = 10;
-			// 
-			// MsxPotentialTypes
-			// 
-			this.MsxPotentialTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MsxPotentialTypes.Location = new System.Drawing.Point(244, 79);
-			this.MsxPotentialTypes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
-			this.MsxPotentialTypes.Name = "MsxPotentialTypes";
-			this.MsxPotentialTypes.SelectionString = "";
-			this.MsxPotentialTypes.Size = new System.Drawing.Size(192, 72);
-			this.MsxPotentialTypes.TabIndex = 21;
-			// 
-			// MsxBottomiumStates
-			// 
-			this.MsxBottomiumStates.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MsxBottomiumStates.Location = new System.Drawing.Point(245, 5);
-			this.MsxBottomiumStates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.MsxBottomiumStates.Name = "MsxBottomiumStates";
-			this.MsxBottomiumStates.SelectionString = "";
-			this.MsxBottomiumStates.Size = new System.Drawing.Size(190, 69);
-			this.MsxBottomiumStates.TabIndex = 27;
-			// 
-			// MsxFireballFieldTypes
-			// 
-			this.MsxFireballFieldTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MsxFireballFieldTypes.Location = new System.Drawing.Point(245, 84);
-			this.MsxFireballFieldTypes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-			this.MsxFireballFieldTypes.Name = "MsxFireballFieldTypes";
-			this.MsxFireballFieldTypes.SelectionString = "";
-			this.MsxFireballFieldTypes.Size = new System.Drawing.Size(190, 69);
-			this.MsxFireballFieldTypes.TabIndex = 28;
-			// 
 			// CtrlStatusTrackingCtrl
 			// 
 			this.CtrlStatusTrackingCtrl.Location = new System.Drawing.Point(3, 3);
@@ -1107,6 +1099,14 @@
 			this.CtrlStatusTrackingCtrl.Name = "CtrlStatusTrackingCtrl";
 			this.CtrlStatusTrackingCtrl.Size = new System.Drawing.Size(900, 50);
 			this.CtrlStatusTrackingCtrl.TabIndex = 0;
+			// 
+			// TbxtF3S2
+			// 
+			this.TbxtF3S2.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxtF3S2.Location = new System.Drawing.Point(3, 263);
+			this.TbxtF3S2.Name = "TbxtF3S2";
+			this.TbxtF3S2.Size = new System.Drawing.Size(158, 31);
+			this.TbxtF3S2.TabIndex = 10;
 			// 
 			// QQonFirePanel
 			// 

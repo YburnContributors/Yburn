@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yburn.Tests.Util;
+using System.Globalization;
 
 namespace Yburn.Workers.Tests
 {
@@ -21,6 +22,12 @@ namespace Yburn.Workers.Tests
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
+
+		[TestInitialize]
+		public void TestInitialize()
+		{
+			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+		}
 
 		[TestCleanup]
 		public void CleanTestFiles()
@@ -88,9 +95,6 @@ namespace Yburn.Workers.Tests
 		private Dictionary<string, string> GetPointChargeFieldPlotParams()
 		{
 			Dictionary<string, string> paramList = new Dictionary<string, string>();
-			paramList["MinFourierFrequency"] = "0.001";
-			paramList["MaxFourierFrequency"] = "1000";
-			paramList["FourierFrequencySteps"] = "1000";
 			paramList["LorentzFactor"] = "100";
 			paramList["RadialDistance"] = "7.4";
 			paramList["StartEffectiveTime"] = "0.0";

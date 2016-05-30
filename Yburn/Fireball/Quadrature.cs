@@ -142,61 +142,61 @@ namespace Yburn.Fireball
 
 		public static double UseGaussLegendreOverPositiveAxis(
 			OneVariableIntegrand integrand,
-			double characteristicScale
+			double characteristicLengthScale
 			)
 		{
-			OneVariableIntegrand transformedIntegrand = TransformIntegrandDomainToUnitInterval(
-				integrand, characteristicScale);
+			OneVariableIntegrand transformedIntegrand = TransformIntegrandToUnitInterval(
+				integrand, characteristicLengthScale);
 
 			return UseGaussLegendre(transformedIntegrand, 0, 1);
 		}
 
 		public static double UseGaussLegendreOverNegativeAxis(
 			OneVariableIntegrand integrand,
-			double characteristicScale
+			double characteristicLengthScale
 			)
 		{
-			OneVariableIntegrand transformedIntegrand = TransformIntegrandDomainToUnitInterval(
-				integrand, characteristicScale);
+			OneVariableIntegrand transformedIntegrand = TransformIntegrandToUnitInterval(
+				integrand, characteristicLengthScale);
 
 			return UseGaussLegendre(transformedIntegrand, -1, 0);
 		}
 
 		public static double UseGaussLegendreOverFirstQuadrant(
 			TwoVariableIntegrand integrand,
-			double characteristicScale
+			double characteristicLengthScale
 			)
 		{
 			Func<OneVariableIntegrand, double> quadratureFormula =
-				i => UseGaussLegendreOverPositiveAxis(i, characteristicScale);
+				i => UseGaussLegendreOverPositiveAxis(i, characteristicLengthScale);
 
 			return ApplyToIntegrand(quadratureFormula, quadratureFormula, integrand);
 		}
 
 		public static double UseGaussLegendreOverSecondQuadrant(
 			TwoVariableIntegrand integrand,
-			double characteristicScale
+			double characteristicLengthScale
 			)
 		{
 			Func<OneVariableIntegrand, double> quadratureFormulaX =
-				i => UseGaussLegendreOverNegativeAxis(i, characteristicScale);
+				i => UseGaussLegendreOverNegativeAxis(i, characteristicLengthScale);
 
 			Func<OneVariableIntegrand, double> quadratureFormulaY =
-				i => UseGaussLegendreOverPositiveAxis(i, characteristicScale);
+				i => UseGaussLegendreOverPositiveAxis(i, characteristicLengthScale);
 
 			return ApplyToIntegrand(quadratureFormulaX, quadratureFormulaY, integrand);
 		}
 
 		public static double UseGaussLegendreOverAllQuadrants(
 			TwoVariableIntegrand integrand,
-			double characteristicScale
+			double characteristicLengthScale
 			)
 		{
 			Func<OneVariableIntegrand, double> quadratureFormulaPositive =
-				i => UseGaussLegendreOverPositiveAxis(i, characteristicScale);
+				i => UseGaussLegendreOverPositiveAxis(i, characteristicLengthScale);
 
 			Func<OneVariableIntegrand, double> quadratureFormulaNegative =
-				i => UseGaussLegendreOverNegativeAxis(i, characteristicScale);
+				i => UseGaussLegendreOverNegativeAxis(i, characteristicLengthScale);
 
 			return ApplyToIntegrand(quadratureFormulaPositive, quadratureFormulaPositive, integrand)
 				+ ApplyToIntegrand(quadratureFormulaNegative, quadratureFormulaPositive, integrand)
@@ -206,11 +206,11 @@ namespace Yburn.Fireball
 
 		public static TVector UseGaussLegendreOverAllQuadrants<TVector>(
 			TwoVariableIntegrandVectorValued<TVector> integrand,
-			double characteristicScale
+			double characteristicLengthScale
 			) where TVector : EuclideanVector<TVector>, new()
 		{
 			Func<TwoVariableIntegrand, double> quadratureFormula =
-				i => UseGaussLegendreOverAllQuadrants(i, characteristicScale);
+				i => UseGaussLegendreOverAllQuadrants(i, characteristicLengthScale);
 
 			return ApplyToVectorValuedIntegrand(quadratureFormula, integrand);
 		}
@@ -282,32 +282,35 @@ namespace Yburn.Fireball
 			return gridPoints;
 		}
 
-		private static OneVariableIntegrand TransformIntegrandDomainToUnitInterval(
+		// The characteristic length scale L should be chosen such that the interval [-L, L] contains
+		// the predominant part of the unbounded integral.
+		// I.e. for integrating a particle shape function choose L ~ 'particle radius'.
+		private static OneVariableIntegrand TransformIntegrandToUnitInterval(
 			OneVariableIntegrand integrand,
-			double characteristicScale
+			double characteristicLengthScale
 			)
 		{
 			OneVariableIntegrand transformedIntegrand =
-				x => integrand(StretchUnitIntervalToFullAxis(x, characteristicScale))
-					* StretchUnitIntervalToFullAxisJacobian(x, characteristicScale);
+				x => integrand(StretchUnitIntervalToRealAxis(x, characteristicLengthScale))
+					* StretchUnitIntervalToRealAxisJacobian(x, characteristicLengthScale);
 
 			return transformedIntegrand;
 		}
 
-		private static double StretchUnitIntervalToFullAxis(
+		private static double StretchUnitIntervalToRealAxis(
 				double x,
-				double characteristicScale
+				double characteristicLengthScale
 				)
 		{
-			return -characteristicScale * Math.Sign(x) * Math.Log(1 - Math.Abs(x));
+			return -characteristicLengthScale * Math.Sign(x) * Math.Log(1 - Math.Abs(x));
 		}
 
-		private static double StretchUnitIntervalToFullAxisJacobian(
+		private static double StretchUnitIntervalToRealAxisJacobian(
 				double x,
-				double characteristicScale
+				double characteristicLengthScale
 				)
 		{
-			return characteristicScale / (1 - Math.Abs(x));
+			return characteristicLengthScale / (1 - Math.Abs(x));
 		}
 	}
 }
