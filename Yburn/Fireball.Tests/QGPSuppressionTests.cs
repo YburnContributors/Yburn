@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yburn.Tests.Util;
 
 namespace Yburn.Fireball.Tests
 {
@@ -42,15 +43,15 @@ namespace Yburn.Fireball.Tests
 			double[] flatImpactParams
 			)
 		{
-			Assert.AreEqual(0, flatImpactParams[0]);
-			Assert.AreEqual(3.2, flatImpactParams[1]);
-			Assert.AreEqual(4.4, flatImpactParams[2]);
-			Assert.AreEqual(6.8, flatImpactParams[3]);
-			Assert.AreEqual(8.4, flatImpactParams[4]);
-			Assert.AreEqual(9.6, flatImpactParams[5]);
-			Assert.AreEqual(10.8, flatImpactParams[6]);
-			Assert.AreEqual(12, flatImpactParams[7]);
-			Assert.AreEqual(21.2, flatImpactParams[8]);
+			AssertHelper.AssertRoundedEqual(0, flatImpactParams[0]);
+			AssertHelper.AssertRoundedEqual(3.2, flatImpactParams[1]);
+			AssertHelper.AssertRoundedEqual(4.4, flatImpactParams[2]);
+			AssertHelper.AssertRoundedEqual(6.8, flatImpactParams[3]);
+			AssertHelper.AssertRoundedEqual(8.4, flatImpactParams[4]);
+			AssertHelper.AssertRoundedEqual(9.6, flatImpactParams[5]);
+			AssertHelper.AssertRoundedEqual(10.8, flatImpactParams[6]);
+			AssertHelper.AssertRoundedEqual(12, flatImpactParams[7]);
+			AssertHelper.AssertRoundedEqual(21.2, flatImpactParams[8]);
 		}
 
 		/********************************************************************************************

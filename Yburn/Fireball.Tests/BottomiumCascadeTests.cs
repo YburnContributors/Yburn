@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yburn.Tests.Util;
 
 namespace Yburn.Fireball.Tests
 {
@@ -76,7 +77,7 @@ namespace Yburn.Fireball.Tests
 			{
 				for(int j = 0; j < multipliedMatrix.GetLength(1); j++)
 				{
-					Assert.AreEqual(UnitMatrix(i, j), multipliedMatrix[i, j], 1e-16);
+					AssertHelper.AssertRoundedEqual(UnitMatrix(i, j), multipliedMatrix[i, j]);
 				}
 			}
 		}

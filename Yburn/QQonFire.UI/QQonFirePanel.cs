@@ -98,8 +98,8 @@ namespace Yburn.QQonFire.UI
 			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
 			CbxTemperatureProfile.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("TemperatureProfile"));
 			CbxProtonProtonBaseline.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ProtonProtonBaseline"));
-			CbxShapeFunctionA.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ShapeFunction"));
-			CbxShapeFunctionB.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ShapeFunction"));
+			CbxShapeFunctionTypeA.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ShapeFunction"));
+			CbxShapeFunctionTypeB.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ShapeFunction"));
 			MsxFireballFieldTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("FireballFieldType"));
 			MsxPotentialTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("PotentialType"));
 			MsxBottomiumStates.AddItems(JobOrganizer.GetWorkerEnumEntries("BottomiumState"));
@@ -115,8 +115,8 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["NuclearRadiusA"] = TbxNuclearRadiusA.Text;
 			nameValuePairs["NuclearRadiusB"] = TbxNuclearRadiusB.Text;
 			nameValuePairs["ImpactParam"] = TbxImpactParam.Text;
-			nameValuePairs["ShapeFunctionA"] = CbxShapeFunctionA.Text;
-			nameValuePairs["ShapeFunctionB"] = CbxShapeFunctionB.Text;
+			nameValuePairs["ShapeFunctionTypeA"] = CbxShapeFunctionTypeA.Text;
+			nameValuePairs["ShapeFunctionTypeB"] = CbxShapeFunctionTypeB.Text;
 			nameValuePairs["ExpansionMode"] = CbxExpansionMode.Text;
 			nameValuePairs["TemperatureProfile"] = CbxTemperatureProfile.Text;
 			nameValuePairs["ProtonProtonBaseline"] = CbxProtonProtonBaseline.Text;
@@ -158,8 +158,8 @@ namespace Yburn.QQonFire.UI
 			TbxNuclearRadiusA.Text = nameValuePairs["NuclearRadiusA"].ToString();
 			TbxNuclearRadiusB.Text = nameValuePairs["NuclearRadiusB"].ToString();
 			TbxImpactParam.Text = nameValuePairs["ImpactParam"].ToString();
-			CbxShapeFunctionA.Text = nameValuePairs["ShapeFunctionA"].ToString();
-			CbxShapeFunctionB.Text = nameValuePairs["ShapeFunctionB"].ToString();
+			CbxShapeFunctionTypeA.Text = nameValuePairs["ShapeFunctionTypeA"].ToString();
+			CbxShapeFunctionTypeB.Text = nameValuePairs["ShapeFunctionTypeB"].ToString();
 			CbxExpansionMode.Text = nameValuePairs["ExpansionMode"].ToString();
 			CbxTemperatureProfile.Text = nameValuePairs["TemperatureProfile"].ToString();
 			CbxProtonProtonBaseline.Text = nameValuePairs["ProtonProtonBaseline"].ToString();

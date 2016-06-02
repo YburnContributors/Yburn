@@ -28,7 +28,7 @@ namespace Yburn.UI.Tests
 			QQonFirePanel.Initialize(BackgroundService);
 			QQonFirePanel.ControlsValues = ParameterSamples.QQonFireSamples;
 
-			DictionaryCompareTool.AssertAllElementsEqual(
+			AssertHelper.AssertAllElementsEqual(
 				ParameterSamples.QQonFireSamples, QQonFirePanel.ControlsValues);
 		}
 

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Yburn.Tests.Util;
 
 namespace Yburn.Fireball.Tests
 {
@@ -85,7 +86,7 @@ namespace Yburn.Fireball.Tests
 			EuclideanVector2D vector = new EuclideanVector2D(0, 1);
 			double angle = vector.AzimutalAngle;
 
-			Assert.AreEqual(0.5 * Math.PI, angle);
+			AssertHelper.AssertRoundedEqual(0.5 * Math.PI, angle);
 		}
 
 		[TestMethod]
@@ -154,8 +155,8 @@ namespace Yburn.Fireball.Tests
 			EuclideanVector2D vector =
 				EuclideanVector2D.CreateFromPolarCoordinates(radius, azimutalAngle);
 
-			Assert.AreEqual(0, vector.X, 1e-15);
-			Assert.AreEqual(2, vector.Y);
+			AssertHelper.AssertRoundedEqual(0, vector.X);
+			AssertHelper.AssertRoundedEqual(2, vector.Y);
 		}
 
 		[TestMethod]
@@ -170,8 +171,8 @@ namespace Yburn.Fireball.Tests
 				EuclideanVector2D vector =
 					EuclideanVector2D.CreateAzimutalUnitVectorAtPosition(position);
 
-				Assert.AreEqual(-positions[i, 1] / Math.Sqrt(2), vector.X, 1e-15);
-				Assert.AreEqual(positions[i, 0] / Math.Sqrt(2), vector.Y, 1e-15);
+				AssertHelper.AssertRoundedEqual(-positions[i, 1], Math.Sqrt(2) * vector.X);
+				AssertHelper.AssertRoundedEqual(positions[i, 0], Math.Sqrt(2) * vector.Y);
 			}
 		}
 
@@ -187,8 +188,8 @@ namespace Yburn.Fireball.Tests
 				EuclideanVector2D vector =
 					EuclideanVector2D.CreateRadialUnitVectorAtPosition(position);
 
-				Assert.AreEqual(positions[i, 0] / Math.Sqrt(2), vector.X, 1e-15);
-				Assert.AreEqual(positions[i, 1] / Math.Sqrt(2), vector.Y, 1e-15);
+				AssertHelper.AssertRoundedEqual(positions[i, 0], Math.Sqrt(2) * vector.X);
+				AssertHelper.AssertRoundedEqual(positions[i, 1], Math.Sqrt(2) * vector.Y);
 			}
 		}
 	}

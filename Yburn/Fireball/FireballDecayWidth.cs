@@ -26,8 +26,8 @@ namespace Yburn.Fireball
 			: base(FireballFieldType.DecayWidth, xDimension, yDimension,
 				  transverseMomenta.Length)
 		{
-            InitXY();
-            GridCellSize = gridCellSize;
+			InitXY();
+			GridCellSize = gridCellSize;
 			Temperature = temperature;
 			VX = vx;
 			VY = vy;
@@ -41,9 +41,9 @@ namespace Yburn.Fireball
 			Initialize();
 		}
 
-        public FireballDecayWidth(
-            double[] xPosition,
-            double[] yPosition,
+		public FireballDecayWidth(
+			double[] xPosition,
+			double[] yPosition,
 			double gridCellSize,
 			double[] transverseMomenta,
 			FireballTemperature temperature,
@@ -58,11 +58,11 @@ namespace Yburn.Fireball
 			: base(FireballFieldType.DecayWidth, xPosition.Length, yPosition.Length,
 				  transverseMomenta.Length)
 		{
-            X = new double[XDimension];
-            Y = new double[YDimension];
-            X = xPosition;
-            Y = yPosition;
-            GridCellSize = gridCellSize;
+			X = new double[XDimension];
+			Y = new double[YDimension];
+			X = xPosition;
+			Y = yPosition;
+			GridCellSize = gridCellSize;
 			Temperature = temperature;
 			VX = vx;
 			VY = vy;
@@ -154,8 +154,9 @@ namespace Yburn.Fireball
 			});
 		}
 
-		// x,y are in the plane perpendicular to the symmetry axis. origin is in the middle between
-		// the two center of the nuclei. the x-axis is in the plane that the beam axis spans with the line connecting the two centers
+		// x, y are in the plane perpendicular to the symmetry axis. The origin is in the middle
+		// between the two center of the nuclei. The x-axis is in the plane that the beam axis spans
+		// with the line connecting the two centers.
 		private double[] X;
 
 		private double[] Y;

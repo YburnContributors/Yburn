@@ -53,7 +53,7 @@ namespace Yburn.Tests
 			BackgroundService.SetWorker(WorkerLoader.CreateInstance("SingleQQ"));
 			BackgroundService.TransferDataToWorker(ParameterSamples.SingleQQSamples);
 
-			DictionaryCompareTool.AssertAllElementsEqual(
+			AssertHelper.AssertAllElementsEqual(
 				ParameterSamples.SingleQQSamples, BackgroundService.GetDataFromWorker());
 		}
 
@@ -63,7 +63,7 @@ namespace Yburn.Tests
 			BackgroundService.SetWorker(WorkerLoader.CreateInstance("QQonFire"));
 			BackgroundService.TransferDataToWorker(ParameterSamples.QQonFireSamples);
 
-			DictionaryCompareTool.AssertAllElementsEqual(
+			AssertHelper.AssertAllElementsEqual(
 				ParameterSamples.QQonFireSamples, BackgroundService.GetDataFromWorker());
 		}
 
@@ -73,7 +73,7 @@ namespace Yburn.Tests
 			BackgroundService.SetWorker(WorkerLoader.CreateInstance("InMediumDecayWidth"));
 			BackgroundService.TransferDataToWorker(ParameterSamples.InMediumDecayWidthSamples);
 
-			DictionaryCompareTool.AssertAllElementsEqual(
+			AssertHelper.AssertAllElementsEqual(
 				ParameterSamples.InMediumDecayWidthSamples, BackgroundService.GetDataFromWorker());
 		}
 
@@ -188,7 +188,7 @@ namespace Yburn.Tests
 			Dictionary<string, string> testParams
 			)
 		{
-			DictionaryCompareTool.AssertAllElementsEqual(
+			AssertHelper.AssertAllElementsEqual(
 				testParams, BackgroundService.GetDataFromWorker());
 		}
 

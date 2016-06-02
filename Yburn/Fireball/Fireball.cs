@@ -72,18 +72,13 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				if(Param.ShapeFunctionB == ShapeFunction.WoodsSaxonPotential)
+				if(Param.AreParticlesABIdentical)
 				{
 					return Temperature.Values[0, 0];
 				}
-				else if(Param.ShapeFunctionB == ShapeFunction.GaussianDistribution)
-				{
-					// include a factor of 2 because only a half has been integrated
-					return Temperature.GetMaxValue();
-				}
 				else
 				{
-					throw new Exception("Invalid ShapeFunctionB.");
+					return Temperature.GetMaxValue();
 				}
 			}
 		}
@@ -96,10 +91,10 @@ namespace Yburn.Fireball
 
 		// advance the fireball fields in time by the amount dt (not necessarily small)
 		public void Advance(
-			double timeIntverval
+			double timeInterval
 			)
 		{
-			double endTime = CurrentTime + timeIntverval;
+			double endTime = CurrentTime + timeInterval;
 			while(CurrentTime < endTime)
 			{
 				SetTimeStep(endTime);
@@ -155,9 +150,9 @@ namespace Yburn.Fireball
 				throw new Exception("No output fields are given.");
 			}
 
-			for(int i = 0; i < Param.NumberGridCellsInX; i++)
+			for(int i = 0; i < Param.NumberGridPointsInX; i++)
 			{
-				for(int j = 0; j < Param.NumberGridCellsInY; j++)
+				for(int j = 0; j < Param.NumberGridPointsInY; j++)
 				{
 					stringBuilder.AppendFormat("{0,8}{1,8}",
 						X[i].ToString(),
@@ -183,19 +178,17 @@ namespace Yburn.Fireball
 		{
 			SimpleFireballField field = GetFireballField(fieldName, state, pTindex);
 
-			if(Param.ShapeFunctionB == ShapeFunction.WoodsSaxonPotential)
+			if(Param.AreParticlesABIdentical)
 			{
 				// include a factor of 4 because only a quarter has been integrated
-				return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm * field.TrapezoidalRuleSummedValues();
-			}
-			else if(Param.ShapeFunctionB == ShapeFunction.GaussianDistribution)
-			{
-				// include a factor of 2 because only a half has been integrated
-				return 2 * Param.GridCellSizeFm * Param.GridCellSizeFm * field.TrapezoidalRuleSummedValues();
+				return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm
+					* field.TrapezoidalRuleSummedValues();
 			}
 			else
 			{
-				throw new Exception("Invalid ShapeFunctionB.");
+				// include a factor of 2 because only a half has been integrated
+				return 2 * Param.GridCellSizeFm * Param.GridCellSizeFm
+					* field.TrapezoidalRuleSummedValues();
 			}
 		}
 
@@ -214,35 +207,35 @@ namespace Yburn.Fireball
 			// center point
 			if(Temperature.Values[0, 0] >= criticalTemperature)
 			{
-				CollisionInQGP += 0.5 * GlauberCalculation.Ncoll.Values[0, 0];
+				CollisionInQGP += 0.5 * GlauberCalculation.NcollField.Values[0, 0];
 			}
 			else
 			{
-				CollisionsInHadronicRegion += 0.5 * GlauberCalculation.Ncoll.Values[0, 0];
+				CollisionsInHadronicRegion += 0.5 * GlauberCalculation.NcollField.Values[0, 0];
 			}
 
 			// edges
-			for(int i = 0; i < Param.NumberGridCells; i++)
+			for(int i = 1; i < Param.NumberGridPoints; i++)
 			{
 				if(Temperature.Values[i, 0] >= criticalTemperature)
 				{
-					CollisionInQGP += GlauberCalculation.Ncoll.Values[i, 0];
+					CollisionInQGP += GlauberCalculation.NcollField.Values[i, 0];
 				}
 				else
 				{
-					CollisionsInHadronicRegion += GlauberCalculation.Ncoll.Values[i, 0];
+					CollisionsInHadronicRegion += GlauberCalculation.NcollField.Values[i, 0];
 				}
 			}
 
-			for(int j = 0; j < Param.NumberGridCells; j++)
+			for(int j = 1; j < Param.NumberGridPoints; j++)
 			{
 				if(Temperature.Values[0, j] >= criticalTemperature)
 				{
-					CollisionInQGP += GlauberCalculation.Ncoll.Values[0, j];
+					CollisionInQGP += GlauberCalculation.NcollField.Values[0, j];
 				}
 				else
 				{
-					CollisionsInHadronicRegion += GlauberCalculation.Ncoll.Values[0, j];
+					CollisionsInHadronicRegion += GlauberCalculation.NcollField.Values[0, j];
 				}
 			}
 
@@ -250,36 +243,32 @@ namespace Yburn.Fireball
 			CollisionsInHadronicRegion *= 0.5;
 
 			// the rest
-			for(int i = 1; i < Param.NumberGridCells; i++)
+			for(int i = 1; i < Param.NumberGridPoints; i++)
 			{
-				for(int j = 1; j < Param.NumberGridCells; j++)
+				for(int j = 1; j < Param.NumberGridPoints; j++)
 				{
 					if(Temperature.Values[i, j] >= criticalTemperature)
 					{
-						CollisionInQGP += GlauberCalculation.Ncoll.Values[i, j];
+						CollisionInQGP += GlauberCalculation.NcollField.Values[i, j];
 					}
 					else
 					{
-						CollisionsInHadronicRegion += GlauberCalculation.Ncoll.Values[i, j];
+						CollisionsInHadronicRegion += GlauberCalculation.NcollField.Values[i, j];
 					}
 				}
 			}
 
-			if(Param.ShapeFunctionB == ShapeFunction.WoodsSaxonPotential)
+			if(Param.AreParticlesABIdentical)
 			{
 				// include a factor of 4 because only a quarter has been integrated
 				CollisionInQGP *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
 				CollisionsInHadronicRegion *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
 			}
-			else if(Param.ShapeFunctionB == ShapeFunction.GaussianDistribution)
+			else
 			{
 				// include a factor of 2 because only a half has been integrated
 				CollisionInQGP *= 2 * Param.GridCellSizeFm * Param.GridCellSizeFm;
 				CollisionsInHadronicRegion *= 2 * Param.GridCellSizeFm * Param.GridCellSizeFm;
-			}
-			else
-			{
-				throw new Exception("Invalid ShapeFunctionB.");
 			}
 		}
 
@@ -328,8 +317,9 @@ namespace Yburn.Fireball
 
 		private double TimeStep;
 
-		// x,y are in the plane perpendicular to the symmetry axis. origin is in the middle between
-		// the two center of the nuclei. the x-axis is in the plane that the beam axis spans with the line connecting the two centers
+		// x, y are in the plane perpendicular to the symmetry axis. The origin is in the middle
+		// between the two center of the nuclei. The x-axis is in the plane that the beam axis spans
+		// with the line connecting the two centers.
 		private double[] X;
 
 		private double[] Y;
@@ -356,12 +346,12 @@ namespace Yburn.Fireball
 				throw new Exception("GridCellSize <= 0.");
 			}
 
-			if(Param.NumberGridCells <= 0)
+			if(Param.NumberGridPoints <= 0)
 			{
-				throw new Exception("NumberGridCells <= 0.");
+				throw new Exception("NumberGridPoints <= 0.");
 			}
 
-			if(Param.ImpactParamFm < 0)
+			if(Param.ImpactParameterFm < 0)
 			{
 				throw new Exception("ImpactParam < 0.");
 			}
@@ -410,10 +400,19 @@ namespace Yburn.Fireball
 
 		private void InitDecayWidth()
 		{
-			DecayWidth = new FireballDecayWidth(X, Y,
-				Param.GridCellSizeFm, Param.TransverseMomentaGeV, Temperature, VX, VY,
-				Param.FormationTimesFm, CurrentTime, Param.DecayWidthEvaluationType,
-				Param.DecayWidthAveragingAngles, Param.TemperatureDecayWidthList);
+			DecayWidth = new FireballDecayWidth(
+				X,
+				Y,
+				Param.GridCellSizeFm,
+				Param.TransverseMomentaGeV,
+				Temperature,
+				VX,
+				VY,
+				Param.FormationTimesFm,
+				CurrentTime,
+				Param.DecayWidthEvaluationType,
+				Param.DecayWidthAveragingAngles,
+				Param.TemperatureDecayWidthList);
 		}
 
 		private void AdvanceFields()
@@ -431,63 +430,47 @@ namespace Yburn.Fireball
 			}
 
 			DecayWidth.Advance(CurrentTime);
-			DampingFactor.SetValues((i, j, k, l) =>
-			{
-				return DampingFactor.Values[k, l][i, j]
-					* Math.Exp(-TimeStep * DecayWidth.Values[k, l][i, j] / PhysConst.HBARC);
-			});
+			DampingFactor.SetValues((i, j, k, l) => DampingFactor.Values[k, l][i, j]
+				* Math.Exp(-TimeStep * DecayWidth.Values[k, l][i, j] / PhysConst.HBARC));
 		}
 
 		private void InitDampingFactor()
 		{
-			DampingFactor = new StateSpecificFireballField(FireballFieldType.DampingFactor,
-				Param.NumberGridCellsInX, Param.NumberGridCellsInY, Param.TransverseMomentaGeV.Length,
-				(i, j, k, l) =>
-				{
-					return 1;
-				});
+			DampingFactor = new StateSpecificFireballField(
+				FireballFieldType.DampingFactor,
+				Param.NumberGridPointsInX,
+				Param.NumberGridPointsInY,
+				Param.TransverseMomentaGeV.Length,
+				(i, j, k, l) => 1);
 		}
 
 		private void InitXY()
 		{
-			X = new double[Param.NumberGridCellsInX];
-			Y = new double[Param.NumberGridCellsInY];
-
-			if(Param.ShapeFunctionB == ShapeFunction.WoodsSaxonPotential)
-			{
-				for(int j = 0; j < Param.NumberGridCellsInX; j++)
-				{
-					X[j] = Y[j] = Param.GridCellSizeFm * j;
-				}
-			}
-			else if(Param.ShapeFunctionB == ShapeFunction.GaussianDistribution)
-			{
-				for(int j = 0; j < Param.NumberGridCellsInY; j++)
-				{
-					Y[j] = Param.GridCellSizeFm * j;
-				}
-
-				for(int j = 0; j < Param.NumberGridCellsInX; j++)
-				{
-					X[j] = Param.GridCellSizeFm * (j + 1 - Param.NumberGridCells);
-				}
-			}
-			else
-			{
-				throw new Exception("Invalid ShapeFunctionB.");
-			}
+			X = Param.GenerateDiscretizedXAxis();
+			Y = Param.GenerateDiscretizedYAxis();
 		}
 
 		private void InitTemperature()
 		{
-			Temperature = new FireballTemperature(Param.NumberGridCellsInX, Param.NumberGridCellsInY,
-				GlauberCalculation.TemperatureScalingField, Param.InitialCentralTemperatureMeV,
-				Param.ThermalTimeFm, CurrentTime);
+			Temperature = new FireballTemperature(
+				Param.NumberGridPointsInX,
+				Param.NumberGridPointsInY,
+				GlauberCalculation.TemperatureScalingField,
+				Param.InitialCentralTemperatureMeV,
+				Param.ThermalTimeFm,
+				CurrentTime);
 
 			if(Param.ExpansionMode == ExpansionMode.Transverse)
 			{
-				Solver = new Ftexs(Param.GridCellSizeFm, CurrentTime, 0.25,
-					Temperature.Values, VX.Values, VY.Values, 0, Param.FtexsLogPathFile);
+				Solver = new Ftexs(
+					Param.GridCellSizeFm,
+					CurrentTime,
+					0.25,
+					Temperature.Values,
+					VX.Values,
+					VY.Values,
+					0,
+					Param.FtexsLogPathFile);
 			}
 
 			Param.InitialCentralTemperatureMeV = CentralTemperature;
@@ -495,17 +478,17 @@ namespace Yburn.Fireball
 
 		private void InitV()
 		{
-			VX = new SimpleFireballField(FireballFieldType.VX,
-				Param.NumberGridCellsInX, Param.NumberGridCellsInY, (i, j) =>
-				{
-					return 0;
-				});
+			VX = new SimpleFireballField(
+				FireballFieldType.VX,
+				Param.NumberGridPointsInX,
+				Param.NumberGridPointsInY,
+				(i, j) => 0);
 
-			VY = new SimpleFireballField(FireballFieldType.VY,
-				Param.NumberGridCellsInX, Param.NumberGridCellsInY, (i, j) =>
-				{
-					return 0;
-				});
+			VY = new SimpleFireballField(
+				FireballFieldType.VY,
+				Param.NumberGridPointsInX,
+				Param.NumberGridPointsInY,
+				(i, j) => 0);
 		}
 
 		private SimpleFireballField GetFireballField(
@@ -522,10 +505,10 @@ namespace Yburn.Fireball
 			switch(fieldName)
 			{
 				case "ColumnDensityA":
-					return GlauberCalculation.ColumnDensityA;
+					return GlauberCalculation.ColumnDensityFieldA;
 
 				case "ColumnDensityB":
-					return GlauberCalculation.ColumnDensityB;
+					return GlauberCalculation.ColumnDensityFieldB;
 
 				case "DampingFactor":
 					return DampingFactor.GetSimpleFireballField(pTindex, state);
@@ -534,19 +517,19 @@ namespace Yburn.Fireball
 					return DecayWidth.GetSimpleFireballField(pTindex, state);
 
 				case "NucleonDensityA":
-					return GlauberCalculation.NucleonDensityA;
+					return GlauberCalculation.NucleonDensityFieldA;
 
 				case "NucleonDensityB":
-					return GlauberCalculation.NucleonDensityB;
+					return GlauberCalculation.NucleonDensityFieldB;
 
 				case "Ncoll":
-					return GlauberCalculation.Ncoll;
+					return GlauberCalculation.NcollField;
 
 				case "Npart":
-					return GlauberCalculation.Npart;
+					return GlauberCalculation.NpartField;
 
 				case "Overlap":
-					return GlauberCalculation.Overlap;
+					return GlauberCalculation.OverlapField;
 
 				case "Temperature":
 					return Temperature;
@@ -573,12 +556,12 @@ namespace Yburn.Fireball
 			int pTindex
 			)
 		{
-			return new SimpleFireballField(FireballFieldType.UnscaledSuppression,
-				Param.NumberGridCellsInX, Param.NumberGridCellsInY, (i, j) =>
-				{
-					return DampingFactor.Values[pTindex, (int)state][i, j]
-						* GlauberCalculation.Overlap.Values[i, j];
-				});
+			return new SimpleFireballField(
+				FireballFieldType.UnscaledSuppression,
+				Param.NumberGridPointsInX,
+				Param.NumberGridPointsInY,
+				(i, j) => DampingFactor.Values[pTindex, (int)state][i, j]
+					* GlauberCalculation.OverlapField.Values[i, j]);
 		}
 
 		private void SetTimeStep(

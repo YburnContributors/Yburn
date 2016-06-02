@@ -12,13 +12,12 @@ namespace Yburn.Fireball
 			FireballParam param
 			)
 		{
-			ImpactParameter = param.ImpactParamFm;
+			ImpactParameter = param.ImpactParameterFm;
 
 			PointChargeEMF = PointChargeElectromagneticField.Create(param);
 
-			DensityFunction.CreatePair(param, out ChargeNumberDensityA, out ChargeNumberDensityB);
-			ChargeNumberDensityA.NormalizeTo(param.ProtonNumberA);
-			ChargeNumberDensityB.NormalizeTo(param.ProtonNumberB);
+			DensityFunction.CreateProtonDensityFunctionPair(
+				param, out ProtonDensityFunctionA, out ProtonDensityFunctionB);
 		}
 
 		/********************************************************************************************
@@ -40,14 +39,14 @@ namespace Yburn.Fireball
 				time - position.Z / nucleiVelocity,
 				positionInReactionPlane + nucleusPosition,
 				lorentzFactor,
-				ChargeNumberDensityA);
+				ProtonDensityFunctionA);
 
 			// Nucleus B is located at positive x and moves in negative z direction
 			EuclideanVector3D fieldNucleusB = CalculateSingleNucleusMagneticField(
 				time + position.Z / nucleiVelocity,
 				positionInReactionPlane - nucleusPosition,
 				lorentzFactor,
-				ChargeNumberDensityB);
+				ProtonDensityFunctionB);
 
 			return fieldNucleusA + fieldNucleusB;
 		}
@@ -56,18 +55,18 @@ namespace Yburn.Fireball
 			double effectiveTime,
 			EuclideanVector2D positionInReactionPlane,
 			double lorentzFactor,
-			DensityFunction chargeNumberDensity
+			DensityFunction protonDensityFunction
 			)
 		{
 			TwoVariableIntegrandVectorValued<EuclideanVector3D> integrand = (x, y) =>
-				chargeNumberDensity.GetColumnDensity(x, y)
+				protonDensityFunction.GetColumnDensity(x, y)
 				* PointChargeEMF.CalculatePointChargeMagneticField(
 					effectiveTime,
 					positionInReactionPlane - new EuclideanVector2D(x, y),
 					lorentzFactor);
 
 			EuclideanVector3D integral = Quadrature.UseGaussLegendreOverAllQuadrants(
-				integrand, chargeNumberDensity.NuclearRadius);
+				integrand, protonDensityFunction.NuclearRadius);
 
 			return integral;
 		}
@@ -76,9 +75,9 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private DensityFunction ChargeNumberDensityA;
+		private DensityFunction ProtonDensityFunctionA;
 
-		private DensityFunction ChargeNumberDensityB;
+		private DensityFunction ProtonDensityFunctionB;
 
 		private PointChargeElectromagneticField PointChargeEMF;
 

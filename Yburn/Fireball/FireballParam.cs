@@ -1,20 +1,32 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Yburn.Fireball
 {
 	public class FireballParam
 	{
 		/********************************************************************************************
-		   * Constructors
-		   ********************************************************************************************/
+		 * Constructors
+		 ********************************************************************************************/
 
 		public FireballParam()
 		{
 		}
 
 		/********************************************************************************************
-		   * Public members, functions and properties
-		   ********************************************************************************************/
+		 * Public members, functions and properties
+		 ********************************************************************************************/
+
+		public bool AreParticlesABIdentical
+		{
+			get
+			{
+				return ShapeFunctionTypeA == ShapeFunctionTypeB
+					& NucleonNumberA == NucleonNumberB
+					& NuclearRadiusAFm == NuclearRadiusBFm
+					& DiffusenessAFm == DiffusenessBFm;
+			}
+		}
 
 		public int NucleonNumberA;
 
@@ -34,13 +46,32 @@ namespace Yburn.Fireball
 
 		public double GridCellSizeFm;
 
-		public int NumberGridCells;
+		public int NumberGridPoints;
 
-		public int NumberGridCellsInX;
+		public int NumberGridPointsInX
+		{
+			get
+			{
+				if(AreParticlesABIdentical)
+				{
+					return NumberGridPoints;
+				}
+				else
+				{
+					return 2 * NumberGridPoints - 1;
+				}
+			}
+		}
 
-		public int NumberGridCellsInY;
+		public int NumberGridPointsInY
+		{
+			get
+			{
+				return NumberGridPoints;
+			}
+		}
 
-		public double ImpactParamFm;
+		public double ImpactParameterFm;
 
 		public double ThermalTimeFm;
 
@@ -72,9 +103,9 @@ namespace Yburn.Fireball
 
 		public string FtexsLogPathFile;
 
-		public ShapeFunction ShapeFunctionA;
+		public ShapeFunctionType ShapeFunctionTypeA;
 
-		public ShapeFunction ShapeFunctionB;
+		public ShapeFunctionType ShapeFunctionTypeB;
 
 		public FireballParam Clone()
 		{
@@ -90,14 +121,14 @@ namespace Yburn.Fireball
 			param.FormationTimesFm = FormationTimesFm;
 			param.FtexsLogPathFile = FtexsLogPathFile;
 			param.GridCellSizeFm = GridCellSizeFm;
-			param.ImpactParamFm = ImpactParamFm;
+			param.ImpactParameterFm = ImpactParameterFm;
 			param.InitialCentralTemperatureMeV = InitialCentralTemperatureMeV;
 			param.MinimalCentralTemperatureMeV = MinimalCentralTemperatureMeV;
 			param.NucleonNumberA = NucleonNumberA;
 			param.NucleonNumberB = NucleonNumberB;
 			param.NuclearRadiusAFm = NuclearRadiusAFm;
 			param.NuclearRadiusBFm = NuclearRadiusBFm;
-			param.NumberGridCells = NumberGridCells;
+			param.NumberGridPoints = NumberGridPoints;
 			param.ProtonNumberA = ProtonNumberA;
 			param.ProtonNumberB = ProtonNumberB;
 			param.QGPConductivityMeV = QGPConductivityMeV;
@@ -105,12 +136,44 @@ namespace Yburn.Fireball
 			param.TemperatureProfile = TemperatureProfile;
 			param.ThermalTimeFm = ThermalTimeFm;
 			param.TransverseMomentaGeV = TransverseMomentaGeV;
-			param.ShapeFunctionA = ShapeFunctionA;
-			param.ShapeFunctionB = ShapeFunctionB;
-			param.NumberGridCellsInX = NumberGridCellsInX;
-			param.NumberGridCellsInY = NumberGridCellsInY;
+			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
+			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
 
 			return param;
+		}
+
+		public double[] GenerateDiscretizedXAxis()
+		{
+			double[] x = new double[NumberGridPointsInX];
+
+			if(AreParticlesABIdentical)
+			{
+				for(int i = 0; i < x.Length; i++)
+				{
+					x[i] = GridCellSizeFm * i;
+				}
+			}
+			else
+			{
+				for(int i = 0; i < x.Length; i++)
+				{
+					x[i] = GridCellSizeFm * (i + 1 - NumberGridPoints);
+				}
+			}
+
+			return x;
+		}
+
+		public double[] GenerateDiscretizedYAxis()
+		{
+			double[] y = new double[NumberGridPointsInY];
+
+			for(int i = 0; i < y.Length; i++)
+			{
+				y[i] = GridCellSizeFm * i;
+			}
+
+			return y;
 		}
 	}
 }

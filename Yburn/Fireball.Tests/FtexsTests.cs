@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using Yburn.Tests.Util;
 
 namespace Yburn.Fireball.Tests
 {
@@ -55,7 +56,7 @@ namespace Yburn.Fireball.Tests
 		{
 			AssertEquallySizedFields(analyticalSolution, numericalSolution);
 
-			Assert.AreEqual(0, GetMaxDeviation(analyticalSolution, numericalSolution));
+			AssertHelper.AssertRoundedEqual(0, GetMaxDeviation(analyticalSolution, numericalSolution));
 		}
 
 		private static void AssertMaxDeviationBelow(

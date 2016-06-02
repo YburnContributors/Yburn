@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Globalization;
+using Yburn.Tests.Util;
 
 namespace Yburn.Fireball.Tests
 {
@@ -44,7 +45,7 @@ namespace Yburn.Fireball.Tests
 
 		private static double GridCellSize = 0.4;
 
-		private static int NumberGridCells = 26;
+		private static int NumberGridPoints = 26;
 
 		private List<KeyValuePair<double, double>>[] GetTemperatureDecayWidthList()
 		{
@@ -62,27 +63,27 @@ namespace Yburn.Fireball.Tests
 		{
 			double[] impactParams = calculator.ImpactParamsAtBinBoundaries[0];
 			Assert.AreEqual(8, impactParams.Length);
-			Assert.AreEqual(0, impactParams[0], 1e-14);
-			Assert.AreEqual(3.2, impactParams[1], 1e-14);
-			Assert.AreEqual(4.4, impactParams[2], 1e-14);
-			Assert.AreEqual(6.8, impactParams[3], 1e-14);
-			Assert.AreEqual(8.4, impactParams[4], 1e-14);
-			Assert.AreEqual(9.6, impactParams[5], 1e-14);
-			Assert.AreEqual(10.8, impactParams[6], 1e-14);
-			Assert.AreEqual(21.2, impactParams[7], 1e-14);
+			AssertHelper.AssertRoundedEqual(0, impactParams[0]);
+			AssertHelper.AssertRoundedEqual(3.2, impactParams[1]);
+			AssertHelper.AssertRoundedEqual(4.4, impactParams[2]);
+			AssertHelper.AssertRoundedEqual(6.8, impactParams[3]);
+			AssertHelper.AssertRoundedEqual(8.4, impactParams[4]);
+			AssertHelper.AssertRoundedEqual(9.6, impactParams[5]);
+			AssertHelper.AssertRoundedEqual(10.8, impactParams[6]);
+			AssertHelper.AssertRoundedEqual(21.2, impactParams[7]);
 		}
 
 		private static void AssertCorrectMeanParticipantsInBin(BinBoundaryCalculator calculator)
 		{
 			double[] nparts = calculator.MeanParticipantsInBin[0];
 			Assert.AreEqual(7, nparts.Length);
-			Assert.AreEqual(383.63733145093579, nparts[0]);
-			Assert.AreEqual(340.22338305697463, nparts[1]);
-			Assert.AreEqual(268.43057325955959, nparts[2]);
-			Assert.AreEqual(187.36409577622058, nparts[3]);
-			Assert.AreEqual(131.9447405813884, nparts[4]);
-			Assert.AreEqual(89.250454154885873, nparts[5]);
-			Assert.AreEqual(19.648149650345417, nparts[6]);
+			AssertHelper.AssertRoundedEqual(383.63733145093579, nparts[0]);
+			AssertHelper.AssertRoundedEqual(340.22338305697463, nparts[1]);
+			AssertHelper.AssertRoundedEqual(268.43057325955959, nparts[2]);
+			AssertHelper.AssertRoundedEqual(187.36409577622058, nparts[3]);
+			AssertHelper.AssertRoundedEqual(131.9447405813884, nparts[4]);
+			AssertHelper.AssertRoundedEqual(89.250454154885873, nparts[5]);
+			AssertHelper.AssertRoundedEqual(19.648149650345417, nparts[6]);
 		}
 
 		/********************************************************************************************
@@ -101,7 +102,7 @@ namespace Yburn.Fireball.Tests
 			param.FormationTimesFm = new double[] { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
 
 			param.GridCellSizeFm = GridCellSize;
-			param.NumberGridCells = NumberGridCells;
+			param.NumberGridPoints = NumberGridPoints;
 
 			param.NucleonNumberA = 208;
 			param.NuclearRadiusAFm = 6.62;
@@ -112,23 +113,8 @@ namespace Yburn.Fireball.Tests
 			param.DiffusenessBFm = 0.546;
 
 			param.TemperatureDecayWidthList = GetTemperatureDecayWidthList();
-			param.ShapeFunctionA = ShapeFunction.WoodsSaxonPotential;
-			param.ShapeFunctionB = ShapeFunction.WoodsSaxonPotential;
-
-			if(param.ShapeFunctionB == ShapeFunction.WoodsSaxonPotential)
-			{
-				param.NumberGridCellsInX = NumberGridCells;
-				param.NumberGridCellsInY = NumberGridCells;
-			}
-			else if(param.ShapeFunctionB == ShapeFunction.GaussianDistribution)
-			{
-				param.NumberGridCellsInX = 2 * NumberGridCells - 1;
-				param.NumberGridCellsInY = NumberGridCells;
-			}
-			else
-			{
-				throw new Exception("Invalid ShapeFunctionB.");
-			}
+			param.ShapeFunctionTypeA = ShapeFunctionType.WoodsSaxonPotential;
+			param.ShapeFunctionTypeB = ShapeFunctionType.WoodsSaxonPotential;
 
 			return param;
 		}

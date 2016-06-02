@@ -1,14 +1,29 @@
 ﻿using System.Collections.Generic;
 using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace Yburn.Tests.Util
 {
-	public static class DictionaryCompareTool
+	public static class AssertHelper
 	{
 		/********************************************************************************************
 		   * Public static members, functions and properties
 		   ********************************************************************************************/
+
+		public static void AssertRoundedEqual(
+			double expected,
+			double actual,
+			uint digits = 15
+			)
+		{
+			if(expected == 0)
+			{
+				actual = Math.Round(actual, Convert.ToInt32(digits));
+			}
+			string format = "G" + digits.ToString("D");
+			Assert.AreEqual(expected.ToString(format), actual.ToString(format));
+		}
 
 		public static void AssertAllElementsEqual(
 		   Dictionary<string, string> dict1,

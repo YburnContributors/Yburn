@@ -8,7 +8,7 @@ namespace Yburn.Fireball
 	public delegate double TwoVariableIntegrand(double x, double y);
 
 	public delegate TVector TwoVariableIntegrandVectorValued<TVector>(double x, double y)
-		where TVector : EuclideanVector<TVector>, new();
+		where TVector : EuclideanVectorBase<TVector>, new();
 
 	public static class Quadrature
 	{
@@ -133,7 +133,7 @@ namespace Yburn.Fireball
 			double upperLimitX,
 			double lowerLimitY,
 			double upperLimitY
-			) where TVector : EuclideanVector<TVector>, new()
+			) where TVector : EuclideanVectorBase<TVector>, new()
 		{
 			Func<TwoVariableIntegrand, double> quadratureFormula =
 				i => UseGaussLegendre(i, lowerLimitX, upperLimitX, lowerLimitY, upperLimitY);
@@ -208,7 +208,7 @@ namespace Yburn.Fireball
 		public static TVector UseGaussLegendreOverAllQuadrants<TVector>(
 			TwoVariableIntegrandVectorValued<TVector> integrand,
 			double characteristicLengthScale
-			) where TVector : EuclideanVector<TVector>, new()
+			) where TVector : EuclideanVectorBase<TVector>, new()
 		{
 			Func<TwoVariableIntegrand, double> quadratureFormula =
 				i => UseGaussLegendreOverAllQuadrants(i, characteristicLengthScale);
@@ -250,7 +250,7 @@ namespace Yburn.Fireball
 		private static TVector ApplyToVectorValuedIntegrand<TVector>(
 			Func<TwoVariableIntegrand, double> quadratureFormula,
 			TwoVariableIntegrandVectorValued<TVector> integrand
-			) where TVector : EuclideanVector<TVector>, new()
+			) where TVector : EuclideanVectorBase<TVector>, new()
 		{
 			TVector integral = new TVector();
 

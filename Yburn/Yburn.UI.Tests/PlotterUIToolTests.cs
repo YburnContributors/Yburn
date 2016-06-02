@@ -41,7 +41,7 @@ namespace Yburn.UI.Tests
 			Workers.SingleQQ singleQQ = new Workers.SingleQQ();
 			singleQQ.VariableNameValueList = PlotterUITool.ControlsValues;
 
-			DictionaryCompareTool.AssertFirstContainsSecond(
+			AssertHelper.AssertFirstContainsSecond(
 				singleQQ.VariableNameValueList, GetConvertedAlphaNameValuePairs());
 		}
 
@@ -53,7 +53,7 @@ namespace Yburn.UI.Tests
 			Workers.SingleQQ singleQQ = new Workers.SingleQQ();
 			singleQQ.VariableNameValueList = PlotterUITool.ControlsValues;
 
-			DictionaryCompareTool.AssertFirstContainsSecond(
+			AssertHelper.AssertFirstContainsSecond(
 				singleQQ.VariableNameValueList, GetConvertedPionGDFNameValuePairs());
 		}
 
@@ -65,7 +65,7 @@ namespace Yburn.UI.Tests
 			Workers.SingleQQ singleQQ = new Workers.SingleQQ();
 			singleQQ.VariableNameValueList = PlotterUITool.ControlsValues;
 
-			DictionaryCompareTool.AssertFirstContainsSecond(
+			AssertHelper.AssertFirstContainsSecond(
 				singleQQ.VariableNameValueList, GetConvertedPotentialNameValuePairs());
 		}
 

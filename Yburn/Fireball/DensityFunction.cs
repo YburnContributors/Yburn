@@ -24,42 +24,70 @@ namespace Yburn.Fireball
 		 * Public static members, functions and properties
 		 ********************************************************************************************/
 
-		public static void CreatePair(
+		public static void CreateNucleonDensityFunctionPair(
 			FireballParam param,
 			out DensityFunction densityA,
 			out DensityFunction densityB
 			)
 		{
-			switch(param.ShapeFunctionA)
+			CreateDensityFunctionPair(param, out densityA, out densityB);
+
+			densityA.NormalizeTo(param.NucleonNumberA);
+			densityB.NormalizeTo(param.NucleonNumberB);
+		}
+
+		public static void CreateProtonDensityFunctionPair(
+			FireballParam param,
+			out DensityFunction densityA,
+			out DensityFunction densityB
+			)
+		{
+			CreateDensityFunctionPair(param, out densityA, out densityB);
+
+			densityA.NormalizeTo(param.ProtonNumberA);
+			densityB.NormalizeTo(param.ProtonNumberB);
+		}
+
+		/********************************************************************************************
+		 * Private/protected static members, functions and properties
+		 ********************************************************************************************/
+
+		private static void CreateDensityFunctionPair(
+			FireballParam param,
+			out DensityFunction densityA,
+			out DensityFunction densityB
+			)
+		{
+			switch(param.ShapeFunctionTypeA)
 			{
-				case ShapeFunction.WoodsSaxonPotential:
+				case ShapeFunctionType.WoodsSaxonPotential:
 					densityA = new WoodsSaxonPotential(
 						param.NuclearRadiusAFm, param.DiffusenessAFm, param.NucleonNumberA);
 					break;
 
-				case ShapeFunction.GaussianDistribution:
+				case ShapeFunctionType.GaussianDistribution:
 					densityA = new GaussianDistribution(
 						param.NuclearRadiusAFm, param.NucleonNumberA);
 					break;
 
 				default:
-					throw new Exception("Invalid ShapeFunctionA.");
+					throw new Exception("Invalid ShapeFunctionTypeA.");
 			}
 
-			switch(param.ShapeFunctionB)
+			switch(param.ShapeFunctionTypeB)
 			{
-				case ShapeFunction.WoodsSaxonPotential:
+				case ShapeFunctionType.WoodsSaxonPotential:
 					densityB = new WoodsSaxonPotential(
 						param.NuclearRadiusBFm, param.DiffusenessBFm, param.NucleonNumberB);
 					break;
 
-				case ShapeFunction.GaussianDistribution:
+				case ShapeFunctionType.GaussianDistribution:
 					densityB = new GaussianDistribution(
 						param.NuclearRadiusBFm, param.NucleonNumberB);
 					break;
 
 				default:
-					throw new Exception("Invalid ShapeFunctionB.");
+					throw new Exception("Invalid ShapeFunctionTypeB.");
 			}
 		}
 

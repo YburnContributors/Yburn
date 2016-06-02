@@ -604,7 +604,7 @@ namespace Yburn.Workers
 			}
 			else if(enumName == "ShapeFunction")
 			{
-				return typeof(ShapeFunction);
+				return typeof(ShapeFunctionType);
 			}
 			else if(enumName == "DecayWidthType")
 			{
@@ -710,21 +710,21 @@ namespace Yburn.Workers
 		{
 			get
 			{
-				return NumberGridCells * GridCellSize;
+				return NumberGridPoints * GridCellSize;
 			}
 			set
 			{
-				NumberGridCells = (int)Math.Round(value / GridCellSize);
+				NumberGridPoints = (int)Math.Round(value / GridCellSize);
 			}
 		}
 
-		private int NumberGridCells;
+		private int NumberGridPoints;
 
 		private double BeamRapidity;
 
-		private ShapeFunction ShapeFunctionA;
+		private ShapeFunctionType ShapeFunctionTypeA;
 
-		private ShapeFunction ShapeFunctionB;
+		private ShapeFunctionType ShapeFunctionTypeB;
 
 		private Fireball.Fireball CreateFireball()
 		{
@@ -736,7 +736,7 @@ namespace Yburn.Workers
 			)
 		{
 			FireballParam param = CreateFireballParam();
-			param.ImpactParamFm = impactParam;
+			param.ImpactParameterFm = impactParam;
 			param.TransverseMomentaGeV = new double[] { 0 };
 			param.ExpansionMode = ExpansionMode.Longitudinal;
 
@@ -746,7 +746,7 @@ namespace Yburn.Workers
 		private Fireball.Fireball CreateFireballToDetermineMaxLifeTime()
 		{
 			FireballParam param = CreateFireballParam();
-			param.ImpactParamFm = 0;
+			param.ImpactParameterFm = 0;
 			param.TransverseMomentaGeV = new double[] { 0 };
 
 			return new Fireball.Fireball(param);
@@ -763,8 +763,8 @@ namespace Yburn.Workers
 			param.DiffusenessBFm = DiffusenessB;
 			param.NuclearRadiusBFm = NuclearRadiusB;
 			param.GridCellSizeFm = GridCellSize;
-			param.NumberGridCells = NumberGridCells;
-			param.ImpactParamFm = ImpactParam;
+			param.NumberGridPoints = NumberGridPoints;
+			param.ImpactParameterFm = ImpactParam;
 			param.ThermalTimeFm = ThermalTime;
 			param.FormationTimesFm = FormationTimes;
 			param.InitialCentralTemperatureMeV = InitialCentralTemperature;
@@ -778,22 +778,8 @@ namespace Yburn.Workers
 			param.DecayWidthAveragingAngles = DecayWidthAveragingAngles;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthList.GetList(
 					GetQQDataPathFile(), DecayWidthType, PotentialTypes);
-			param.ShapeFunctionA = ShapeFunctionA;
-			param.ShapeFunctionB = ShapeFunctionB;
-			if(ShapeFunctionB == ShapeFunction.WoodsSaxonPotential)
-			{
-				param.NumberGridCellsInX = NumberGridCells;
-				param.NumberGridCellsInY = NumberGridCells;
-			}
-			else if(ShapeFunctionB == ShapeFunction.GaussianDistribution)
-			{
-				param.NumberGridCellsInX = 2 * NumberGridCells - 1;
-				param.NumberGridCellsInY = NumberGridCells;
-			}
-			else
-			{
-				throw new Exception("Invalid ShapeFunctionB.");
-			}
+			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
+			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
 
 			return param;
 		}
@@ -870,7 +856,7 @@ namespace Yburn.Workers
 				StringBuilder gnuFileStringY = new StringBuilder();
 				StringBuilder gnuFileStringXY = new StringBuilder();
 
-				double range = GridCellSize * (NumberGridCells - 1);
+				double range = GridCellSize * (NumberGridPoints - 1);
 				gnuFileStringX.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
 					range.ToString("G3")));
 				gnuFileStringY.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
@@ -879,10 +865,10 @@ namespace Yburn.Workers
 					range.ToString("G3"), range.ToString("G3")));
 
 				string xPlotStringBegin = "p \"" + pathFile
-					+ "\" every " + NumberGridCells.ToString() + " index ";
+					+ "\" every " + NumberGridPoints.ToString() + " index ";
 				string xPlotStringEnd = " u 1:3 w p; pause .5";
 				string yPlotStringBegin = "p \"" + pathFile
-					+ "\" every ::::" + (NumberGridCells - 1).ToString() + " index ";
+					+ "\" every ::::" + (NumberGridPoints - 1).ToString() + " index ";
 				string yPlotStringEnd = " u 2:3 w p; pause .5";
 				string xYPlotStringBegin = "sp \"" + pathFile + "\" index ";
 				string xYPlotStringEnd = " u 1:2:3 w p; pause .5";
@@ -1027,8 +1013,8 @@ namespace Yburn.Workers
 			ParticipantsAtBinBoundaries = Extractor.TryGetDoubleArrayArray(nameValuePairs, "ParticipantsAtBinBoundaries", ParticipantsAtBinBoundaries);
 			PotentialTypes = Extractor.TryGetStringArray(nameValuePairs, "PotentialTypes", PotentialTypes);
 			ProtonProtonBaseline = Extractor.TryGetEnum<ProtonProtonBaseline>(nameValuePairs, "ProtonProtonBaseline", ProtonProtonBaseline);
-			ShapeFunctionA = Extractor.TryGetEnum<ShapeFunction>(nameValuePairs, "ShapeFunctionA", ShapeFunctionA);
-			ShapeFunctionB = Extractor.TryGetEnum<ShapeFunction>(nameValuePairs, "ShapeFunctionB", ShapeFunctionB);
+			ShapeFunctionTypeA = Extractor.TryGetEnum<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeA", ShapeFunctionTypeA);
+			ShapeFunctionTypeB = Extractor.TryGetEnum<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeB", ShapeFunctionTypeB);
 			SnapRate = Extractor.TryGetDouble(nameValuePairs, "SnapRate", SnapRate);
 			TemperatureProfile = Extractor.TryGetEnum<TemperatureProfile>(nameValuePairs, "TemperatureProfile", TemperatureProfile);
 			ThermalTime = Extractor.TryGetDouble(nameValuePairs, "ThermalTime", ThermalTime);
@@ -1067,8 +1053,8 @@ namespace Yburn.Workers
 			nameValuePairs["ParticipantsAtBinBoundaries"] = ParticipantsAtBinBoundaries.ToStringifiedList();
 			nameValuePairs["PotentialTypes"] = PotentialTypes.ToStringifiedList();
 			nameValuePairs["ProtonProtonBaseline"] = ProtonProtonBaseline.ToString();
-			nameValuePairs["ShapeFunctionA"] = ShapeFunctionA.ToString();
-			nameValuePairs["ShapeFunctionB"] = ShapeFunctionB.ToString();
+			nameValuePairs["ShapeFunctionTypeA"] = ShapeFunctionTypeA.ToString();
+			nameValuePairs["ShapeFunctionTypeB"] = ShapeFunctionTypeB.ToString();
 			nameValuePairs["SnapRate"] = SnapRate.ToString();
 			nameValuePairs["TemperatureProfile"] = TemperatureProfile.ToString();
 			nameValuePairs["ThermalTime"] = ThermalTime.ToString();
@@ -1115,8 +1101,8 @@ namespace Yburn.Workers
 				AppendLogHeaderLine(stringBuilder, "FormationTimes", FormationTimes);
 				AppendLogHeaderLine(stringBuilder, "ThermalTime", ThermalTime);
 				AppendLogHeaderLine(stringBuilder, "TransverseMomenta", TransverseMomenta);
-				AppendLogHeaderLine(stringBuilder, "ShapeFunctionA", ShapeFunctionA);
-				AppendLogHeaderLine(stringBuilder, "ShapeFunctionB", ShapeFunctionB);
+				AppendLogHeaderLine(stringBuilder, "ShapeFunctionTypeA", ShapeFunctionTypeA);
+				AppendLogHeaderLine(stringBuilder, "ShapeFunctionTypeB", ShapeFunctionTypeB);
 
 				return stringBuilder.ToString();
 			}

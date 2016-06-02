@@ -28,7 +28,7 @@ namespace Yburn.UI.Tests
 			ElectromagnetismPanel.Initialize(BackgroundService);
 			ElectromagnetismPanel.ControlsValues = ParameterSamples.ElectromagnetismSamples;
 
-			DictionaryCompareTool.AssertAllElementsEqual(
+			AssertHelper.AssertAllElementsEqual(
 				ParameterSamples.ElectromagnetismSamples, ElectromagnetismPanel.ControlsValues);
 		}
 

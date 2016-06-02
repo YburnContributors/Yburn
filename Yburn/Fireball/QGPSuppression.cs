@@ -216,7 +216,7 @@ namespace Yburn.Fireball
 		private Fireball CreateFireball()
 		{
 			FireballParam param = FireballParam.Clone();
-			param.ImpactParamFm = CurrentImpactParam;
+			param.ImpactParameterFm = CurrentImpactParam;
 
 			return new Fireball(param);
 		}

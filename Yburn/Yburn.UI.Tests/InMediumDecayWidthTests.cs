@@ -27,7 +27,7 @@ namespace Yburn.UI.Tests
 			InMediumDecayWidthPanel.Initialize(BackgroundService);
 			InMediumDecayWidthPanel.ControlsValues = ParameterSamples.InMediumDecayWidthSamples;
 
-			DictionaryCompareTool.AssertAllElementsEqual(
+			AssertHelper.AssertAllElementsEqual(
 				ParameterSamples.InMediumDecayWidthSamples, InMediumDecayWidthPanel.ControlsValues);
 		}
 

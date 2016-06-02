@@ -28,7 +28,7 @@ namespace Yburn.UI.Tests
 			SingleQQPanel.Initialize(BackgroundService);
 			SingleQQPanel.ControlsValues = ParameterSamples.SingleQQSamples;
 
-			DictionaryCompareTool.AssertAllElementsEqual(
+			AssertHelper.AssertAllElementsEqual(
 				ParameterSamples.SingleQQSamples, SingleQQPanel.ControlsValues);
 		}
 

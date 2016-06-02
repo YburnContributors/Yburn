@@ -95,8 +95,8 @@ namespace Yburn.Electromagnetism.UI
 		private void InitializeComboBoxes()
 		{
 			CbxEMFCalculationMethod.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFCalculationMethod"));
-			CbxShapeFunctionA.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ShapeFunction"));
-			CbxShapeFunctionB.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ShapeFunction"));
+			CbxShapeFunctionTypeA.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ShapeFunction"));
+			CbxShapeFunctionTypeB.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ShapeFunction"));
 			MsxEMFCalculationMethodSelection.AddItems(JobOrganizer.GetWorkerEnumEntries("EMFCalculationMethod"));
 		}
 
@@ -119,8 +119,8 @@ namespace Yburn.Electromagnetism.UI
 			nameValuePairs["ProtonNumberB"] = TbxProtonNumberB.Text;
 			nameValuePairs["QGPConductivityMeV"] = TbxQGPConductivityMeV.Text;
 			nameValuePairs["RadialDistance"] = TbxRadialDistance.Text;
-			nameValuePairs["ShapeFunctionA"] = CbxShapeFunctionA.Text;
-			nameValuePairs["ShapeFunctionB"] = CbxShapeFunctionB.Text;
+			nameValuePairs["ShapeFunctionTypeA"] = CbxShapeFunctionTypeA.Text;
+			nameValuePairs["ShapeFunctionTypeB"] = CbxShapeFunctionTypeB.Text;
 			nameValuePairs["StartEffectiveTime"] = TbxStartEffectiveTime.Text;
 			nameValuePairs["StopEffectiveTime"] = TbxStopEffectiveTime.Text;
 
@@ -132,8 +132,8 @@ namespace Yburn.Electromagnetism.UI
 			)
 		{
 			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"].ToString();
-			CbxShapeFunctionA.Text = nameValuePairs["ShapeFunctionA"].ToString();
-			CbxShapeFunctionB.Text = nameValuePairs["ShapeFunctionB"].ToString();
+			CbxShapeFunctionTypeA.Text = nameValuePairs["ShapeFunctionTypeA"].ToString();
+			CbxShapeFunctionTypeB.Text = nameValuePairs["ShapeFunctionTypeB"].ToString();
 			MsxEMFCalculationMethodSelection.SelectionString = nameValuePairs["EMFCalculationMethodSelection"].ToString();
 			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA"].ToString();
 			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB"].ToString();
@@ -339,7 +339,7 @@ namespace Yburn.Electromagnetism.UI
 
 		}
 
-		private void LblShapeFunctionB_Click(object sender, EventArgs e)
+		private void LblShapeFunctionTypeB_Click(object sender, EventArgs e)
 		{
 
 		}
@@ -349,12 +349,12 @@ namespace Yburn.Electromagnetism.UI
 
 		}
 
-		private void LblShapeFunctionA_Click(object sender, EventArgs e)
+		private void LblShapeFunctionTypeA_Click(object sender, EventArgs e)
 		{
 
 		}
 
-		private void CbxShapeFunctionA_SelectedIndexChanged(object sender, EventArgs e)
+		private void CbxShapeFunctionTypeA_SelectedIndexChanged(object sender, EventArgs e)
 		{
 
 		}
@@ -364,7 +364,7 @@ namespace Yburn.Electromagnetism.UI
 
 		}
 
-		private void CbxShapeFunctionB_SelectedIndexChanged(object sender, EventArgs e)
+		private void CbxShapeFunctionTypeB_SelectedIndexChanged(object sender, EventArgs e)
 		{
 
 		}

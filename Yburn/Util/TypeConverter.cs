@@ -2,7 +2,7 @@
 
 namespace Yburn.Util
 {
-	public static class Converter
+	public static class TypeConverter
 	{
 		/********************************************************************************************
 		 * Public static members, functions and properties

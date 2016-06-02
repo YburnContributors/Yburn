@@ -47,7 +47,7 @@ namespace Yburn.Workers
 			}
 			if(enumName == "ShapeFunction")
 			{
-				return typeof(ShapeFunction);
+				return typeof(ShapeFunctionType);
 			}
 			else
 			{
@@ -79,9 +79,9 @@ namespace Yburn.Workers
 
 		private double QGPConductivityMeV;
 
-		private ShapeFunction ShapeFunctionA;
+		private ShapeFunctionType ShapeFunctionTypeA;
 
-		private ShapeFunction ShapeFunctionB;
+		private ShapeFunctionType ShapeFunctionTypeB;
 
 		protected override void SetVariableNameValueList(
 			Dictionary<string, string> nameValuePairs
@@ -104,8 +104,8 @@ namespace Yburn.Workers
 			ProtonNumberB = Extractor.TryGetInt(nameValuePairs, "ProtonNumberB", ProtonNumberB);
 			QGPConductivityMeV = Extractor.TryGetDouble(nameValuePairs, "QGPConductivityMeV", QGPConductivityMeV);
 			RadialDistance = Extractor.TryGetDouble(nameValuePairs, "RadialDistance", RadialDistance);
-			ShapeFunctionA = Extractor.TryGetEnum<ShapeFunction>(nameValuePairs, "ShapeFunctionA", ShapeFunctionA);
-			ShapeFunctionB = Extractor.TryGetEnum<ShapeFunction>(nameValuePairs, "ShapeFunctionB", ShapeFunctionB);
+			ShapeFunctionTypeA = Extractor.TryGetEnum<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeA", ShapeFunctionTypeA);
+			ShapeFunctionTypeB = Extractor.TryGetEnum<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeB", ShapeFunctionTypeB);
 			StartEffectiveTime = Extractor.TryGetDouble(nameValuePairs, "StartEffectiveTime", StartEffectiveTime);
 			StopEffectiveTime = Extractor.TryGetDouble(nameValuePairs, "StopEffectiveTime", StopEffectiveTime);
 		}
@@ -129,8 +129,8 @@ namespace Yburn.Workers
 			nameValuePairs["ProtonNumberB"] = ProtonNumberB.ToString();
 			nameValuePairs["QGPConductivityMeV"] = QGPConductivityMeV.ToString();
 			nameValuePairs["RadialDistance"] = RadialDistance.ToString();
-			nameValuePairs["ShapeFunctionA"] = ShapeFunctionA.ToString();
-			nameValuePairs["ShapeFunctionB"] = ShapeFunctionB.ToString();
+			nameValuePairs["ShapeFunctionTypeA"] = ShapeFunctionTypeA.ToString();
+			nameValuePairs["ShapeFunctionTypeB"] = ShapeFunctionTypeB.ToString();
 			nameValuePairs["StartEffectiveTime"] = StartEffectiveTime.ToString();
 			nameValuePairs["StopEffectiveTime"] = StopEffectiveTime.ToString();
 

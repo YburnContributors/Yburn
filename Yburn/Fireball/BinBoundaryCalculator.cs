@@ -219,7 +219,7 @@ namespace Yburn.Fireball
 			)
 		{
 			FireballParam param = FireballParam.Clone();
-			param.ImpactParamFm = impactParam;
+			param.ImpactParameterFm = impactParam;
 
 			GlauberCalculation calc = new GlauberCalculation(param);
 			ncoll = calc.GetTotalNumberCollisions();
@@ -256,7 +256,7 @@ namespace Yburn.Fireball
 			)
 		{
 			FireballParam param = FireballParam.Clone();
-			param.ImpactParamFm = impactParam;
+			param.ImpactParameterFm = impactParam;
 			param.TransverseMomentaGeV = new double[] { 0 };
 			param.ExpansionMode = ExpansionMode.Longitudinal;
 

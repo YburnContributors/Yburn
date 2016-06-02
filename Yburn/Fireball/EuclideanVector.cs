@@ -2,14 +2,14 @@
 
 namespace Yburn.Fireball
 {
-	public abstract class EuclideanVector<TSelf>
-		where TSelf : EuclideanVector<TSelf>, new()
+	public abstract class EuclideanVectorBase<TSelf>
+		where TSelf : EuclideanVectorBase<TSelf>, new()
 	{
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-		protected EuclideanVector(double[] components)
+		protected EuclideanVectorBase(double[] components)
 		{
 			Components = (double[])components.Clone();
 		}
@@ -19,8 +19,8 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public static TSelf operator +(
-			EuclideanVector<TSelf> left,
-			EuclideanVector<TSelf> right
+			EuclideanVectorBase<TSelf> left,
+			EuclideanVectorBase<TSelf> right
 			)
 		{
 			TSelf result = new TSelf();
@@ -34,8 +34,8 @@ namespace Yburn.Fireball
 		}
 
 		public static TSelf operator -(
-			EuclideanVector<TSelf> left,
-			EuclideanVector<TSelf> right
+			EuclideanVectorBase<TSelf> left,
+			EuclideanVectorBase<TSelf> right
 			)
 		{
 			TSelf result = new TSelf();
@@ -50,7 +50,7 @@ namespace Yburn.Fireball
 
 		public static TSelf operator *(
 			double scalar,
-			EuclideanVector<TSelf> vector
+			EuclideanVectorBase<TSelf> vector
 			)
 		{
 			TSelf result = new TSelf();
@@ -64,7 +64,7 @@ namespace Yburn.Fireball
 		}
 
 		public static TSelf operator *(
-			EuclideanVector<TSelf> vector,
+			EuclideanVectorBase<TSelf> vector,
 			double scalar
 			)
 		{
@@ -72,7 +72,7 @@ namespace Yburn.Fireball
 		}
 
 		public static TSelf operator /(
-			EuclideanVector<TSelf> vector,
+			EuclideanVectorBase<TSelf> vector,
 			double scalar
 			)
 		{
@@ -80,8 +80,8 @@ namespace Yburn.Fireball
 		}
 
 		public static double operator *(
-			EuclideanVector<TSelf> left,
-			EuclideanVector<TSelf> right
+			EuclideanVectorBase<TSelf> left,
+			EuclideanVectorBase<TSelf> right
 			)
 		{
 			double result = 0;
@@ -138,7 +138,7 @@ namespace Yburn.Fireball
 		private double[] Components;
 	}
 
-	public class EuclideanVector2D : EuclideanVector<EuclideanVector2D>
+	public class EuclideanVector2D : EuclideanVectorBase<EuclideanVector2D>
 	{
 		/********************************************************************************************
 		 * Constructors
@@ -223,7 +223,7 @@ namespace Yburn.Fireball
 		}
 	}
 
-	public class EuclideanVector3D : EuclideanVector<EuclideanVector3D>
+	public class EuclideanVector3D : EuclideanVectorBase<EuclideanVector3D>
 	{
 		/********************************************************************************************
 		 * Constructors

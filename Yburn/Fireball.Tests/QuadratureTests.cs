@@ -2,6 +2,7 @@
 using System;
 using System.Globalization;
 using System.Threading;
+using Yburn.Tests.Util;
 
 namespace Yburn.Fireball.Tests
 {
@@ -25,7 +26,7 @@ namespace Yburn.Fireball.Tests
 			double[] gridPoints = { 0, 0.2, 0.3, 0.7, 0.8, 1 };
 			double result = Quadrature.UseSummedTrapezoidalRule(integrand, gridPoints);
 
-			Assert.AreEqual(0.5, result, eps);
+			AssertHelper.AssertRoundedEqual(0.5, result);
 		}
 
 		[TestMethod]
@@ -34,7 +35,7 @@ namespace Yburn.Fireball.Tests
 			OneVariableIntegrand integrand = x => x;
 			double result = Quadrature.UseUniformSummedTrapezoidalRule(integrand, 0, 1, 5);
 
-			Assert.AreEqual(0.5, result, eps);
+			AssertHelper.AssertRoundedEqual(0.5, result);
 		}
 
 		[TestMethod]
@@ -43,7 +44,7 @@ namespace Yburn.Fireball.Tests
 			TwoVariableIntegrand integrand = (x, y) => x;
 			double result = Quadrature.UseUniformSummedTrapezoidalRule(integrand, 0, 1, 0, 2, 5);
 
-			Assert.AreEqual(1, result, eps);
+			AssertHelper.AssertRoundedEqual(1, result);
 		}
 
 		[TestMethod]
@@ -52,7 +53,7 @@ namespace Yburn.Fireball.Tests
 			OneVariableIntegrand integrand = x => 1 / (x * x);
 			double result = Quadrature.UseExponentialSummedTrapezoidalRule(integrand, 1, 100, 2000);
 
-			Assert.AreEqual(0.99, result, 1e-5);
+			AssertHelper.AssertRoundedEqual(0.99, result, 5);
 		}
 
 		[TestMethod]
@@ -61,7 +62,7 @@ namespace Yburn.Fireball.Tests
 			OneVariableIntegrand integrand = x => Math.Exp(x);
 			double result = Quadrature.UseGaussLegendre(integrand, 0, 1);
 
-			Assert.AreEqual(Math.E - 1, result, eps);
+			AssertHelper.AssertRoundedEqual(Math.E - 1, result);
 		}
 
 		[TestMethod]
@@ -70,7 +71,7 @@ namespace Yburn.Fireball.Tests
 			TwoVariableIntegrand integrand = (x, y) => Math.Exp(x + 0.5 * y);
 			double result = Quadrature.UseGaussLegendre(integrand, 0, 1, 0, 2);
 
-			Assert.AreEqual(2 * Math.Pow(Math.E - 1, 2), result, eps);
+			AssertHelper.AssertRoundedEqual(2 * Math.Pow(Math.E - 1, 2), result);
 		}
 
 		[TestMethod]
@@ -81,8 +82,8 @@ namespace Yburn.Fireball.Tests
 			EuclideanVector2D result =
 				Quadrature.UseGaussLegendre<EuclideanVector2D>(integrand, 0, 1, 0, 2);
 
-			Assert.AreEqual(2 * Math.Pow(Math.E - 1, 2), result.X, eps);
-			Assert.AreEqual(2, result.Y, eps);
+			AssertHelper.AssertRoundedEqual(2 * Math.Pow(Math.E - 1, 2), result.X);
+			AssertHelper.AssertRoundedEqual(2, result.Y);
 		}
 
 		[TestMethod]
@@ -91,7 +92,7 @@ namespace Yburn.Fireball.Tests
 			OneVariableIntegrand integrand = x => Math.Exp(-x);
 			double result = Quadrature.UseGaussLegendreOverPositiveAxis(integrand, 1);
 
-			Assert.AreEqual(1, result, eps);
+			AssertHelper.AssertRoundedEqual(1, result);
 		}
 
 		[TestMethod]
@@ -100,7 +101,7 @@ namespace Yburn.Fireball.Tests
 			OneVariableIntegrand integrand = x => Math.Exp(x);
 			double result = Quadrature.UseGaussLegendreOverNegativeAxis(integrand, 1);
 
-			Assert.AreEqual(1, result, eps);
+			AssertHelper.AssertRoundedEqual(1, result);
 		}
 
 		[TestMethod]
@@ -109,7 +110,7 @@ namespace Yburn.Fireball.Tests
 			TwoVariableIntegrand integrand = (x, y) => Math.Exp(-x - y);
 			double result = Quadrature.UseGaussLegendreOverFirstQuadrant(integrand, 1);
 
-			Assert.AreEqual(1, result, eps);
+			AssertHelper.AssertRoundedEqual(1, result);
 		}
 
 		[TestMethod]
@@ -118,7 +119,7 @@ namespace Yburn.Fireball.Tests
 			TwoVariableIntegrand integrand = (x, y) => Math.Exp(x - y);
 			double result = Quadrature.UseGaussLegendreOverSecondQuadrant(integrand, 1);
 
-			Assert.AreEqual(1, result, eps);
+			AssertHelper.AssertRoundedEqual(1, result);
 		}
 
 		[TestMethod]
@@ -127,7 +128,7 @@ namespace Yburn.Fireball.Tests
 			TwoVariableIntegrand integrand = (x, y) => Math.Exp(-x * x - y * y) / Math.PI;
 			double result = Quadrature.UseGaussLegendreOverAllQuadrants(integrand, 1);
 
-			Assert.AreEqual(1, result, eps);
+			AssertHelper.AssertRoundedEqual(1, result);
 		}
 
 		[TestMethod]
@@ -140,14 +141,8 @@ namespace Yburn.Fireball.Tests
 
 			EuclideanVector2D result = Quadrature.UseGaussLegendreOverAllQuadrants(integrand, 1);
 
-			Assert.AreEqual(1, result.X, eps);
-			Assert.AreEqual(4, result.Y, eps);
+			AssertHelper.AssertRoundedEqual(1, result.X);
+			AssertHelper.AssertRoundedEqual(4, result.Y);
 		}
-
-		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-
-		private static readonly double eps = 1e-15;
 	}
 }

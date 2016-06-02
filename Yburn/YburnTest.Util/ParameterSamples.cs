@@ -25,8 +25,8 @@ namespace Yburn.Tests.Util
 				nameValuePairs["ProtonNumberB"] = "3333";
 				nameValuePairs["QGPConductivityMeV"] = "3333";
 				nameValuePairs["RadialDistance"] = "3333";
-				nameValuePairs["ShapeFunctionA"] = "GaussianDistribution";
-				nameValuePairs["ShapeFunctionB"] = "WoodsSaxonPotential";
+				nameValuePairs["ShapeFunctionTypeA"] = "GaussianDistribution";
+				nameValuePairs["ShapeFunctionTypeB"] = "WoodsSaxonPotential";
 				nameValuePairs["StartEffectiveTime"] = "3333";
 				nameValuePairs["StopEffectiveTime"] = "3333";
 
@@ -133,8 +133,8 @@ namespace Yburn.Tests.Util
 				nameValuePairs["BjorkenLifeTime"] = "3333";
 				nameValuePairs["LifeTime"] = "3333";
 				nameValuePairs["DecayWidthEvaluationType"] = "AveragedTemperature";
-				nameValuePairs["ShapeFunctionA"] = "GaussianDistribution";
-				nameValuePairs["ShapeFunctionB"] = "WoodsSaxonPotential";
+				nameValuePairs["ShapeFunctionTypeA"] = "GaussianDistribution";
+				nameValuePairs["ShapeFunctionTypeB"] = "WoodsSaxonPotential";
 
 				return nameValuePairs;
 			}

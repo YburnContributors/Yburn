@@ -54,7 +54,7 @@
             this.MenuItemFile});
 			this.MenuStrip.Location = new System.Drawing.Point(0, 0);
 			this.MenuStrip.Name = "MenuStrip";
-			this.MenuStrip.Size = new System.Drawing.Size(1182, 40);
+			this.MenuStrip.Size = new System.Drawing.Size(1182, 42);
 			this.MenuStrip.TabIndex = 0;
 			this.MenuStrip.Text = "MenuStrip";
 			// 
@@ -74,7 +74,7 @@
 			this.MenuItemFile.ShortcutKeyDisplayString = "Shift+Alt+S";
 			this.MenuItemFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-			this.MenuItemFile.Size = new System.Drawing.Size(64, 36);
+			this.MenuItemFile.Size = new System.Drawing.Size(64, 38);
 			this.MenuItemFile.Text = "&File";
 			// 
 			// MenuItemAbortProcess
@@ -161,12 +161,12 @@
 			this.LayoutBottom.Controls.Add(this.YburnConfigDataBox, 0, 0);
 			this.LayoutBottom.Controls.Add(this.QQonFirePanel, 0, 1);
 			this.LayoutBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LayoutBottom.Location = new System.Drawing.Point(0, 40);
+			this.LayoutBottom.Location = new System.Drawing.Point(0, 42);
 			this.LayoutBottom.Name = "LayoutBottom";
 			this.LayoutBottom.RowCount = 2;
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.LayoutBottom.Size = new System.Drawing.Size(1182, 609);
+			this.LayoutBottom.Size = new System.Drawing.Size(1182, 607);
 			this.LayoutBottom.TabIndex = 2;
 			// 
 			// YburnConfigDataBox

@@ -36,10 +36,10 @@
 			this.LblProtonNumberB = new System.Windows.Forms.Label();
 			this.TbxProtonNumberA = new System.Windows.Forms.TextBox();
 			this.LblProtonNumberA = new System.Windows.Forms.Label();
-			this.LblShapeFunctionA = new System.Windows.Forms.Label();
-			this.CbxShapeFunctionA = new System.Windows.Forms.ComboBox();
-			this.LblShapeFunctionB = new System.Windows.Forms.Label();
-			this.CbxShapeFunctionB = new System.Windows.Forms.ComboBox();
+			this.LblShapeFunctionTypeA = new System.Windows.Forms.Label();
+			this.CbxShapeFunctionTypeA = new System.Windows.Forms.ComboBox();
+			this.LblShapeFunctionTypeB = new System.Windows.Forms.Label();
+			this.CbxShapeFunctionTypeB = new System.Windows.Forms.ComboBox();
 			this.LblDiffusenessA = new System.Windows.Forms.Label();
 			this.TbxDiffusenessA = new System.Windows.Forms.TextBox();
 			this.LblDiffusenessB = new System.Windows.Forms.Label();
@@ -166,10 +166,10 @@
 			this.LayoutGlauber.Controls.Add(this.LblProtonNumberB, 0, 7);
 			this.LayoutGlauber.Controls.Add(this.TbxProtonNumberA, 1, 2);
 			this.LayoutGlauber.Controls.Add(this.LblProtonNumberA, 0, 2);
-			this.LayoutGlauber.Controls.Add(this.LblShapeFunctionA, 0, 0);
-			this.LayoutGlauber.Controls.Add(this.CbxShapeFunctionA, 1, 0);
-			this.LayoutGlauber.Controls.Add(this.LblShapeFunctionB, 0, 5);
-			this.LayoutGlauber.Controls.Add(this.CbxShapeFunctionB, 1, 5);
+			this.LayoutGlauber.Controls.Add(this.LblShapeFunctionTypeA, 0, 0);
+			this.LayoutGlauber.Controls.Add(this.CbxShapeFunctionTypeA, 1, 0);
+			this.LayoutGlauber.Controls.Add(this.LblShapeFunctionTypeB, 0, 5);
+			this.LayoutGlauber.Controls.Add(this.CbxShapeFunctionTypeB, 1, 5);
 			this.LayoutGlauber.Controls.Add(this.LblDiffusenessA, 0, 4);
 			this.LayoutGlauber.Controls.Add(this.TbxDiffusenessA, 1, 4);
 			this.LayoutGlauber.Controls.Add(this.LblDiffusenessB, 0, 9);
@@ -245,49 +245,49 @@
 			this.LblProtonNumberA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			this.LblProtonNumberA.Click += new System.EventHandler(this.LblProtonNumberA_Click);
 			// 
-			// LblShapeFunctionA
+			// LblShapeFunctionTypeA
 			// 
-			this.LblShapeFunctionA.AutoSize = true;
-			this.LblShapeFunctionA.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblShapeFunctionA.Location = new System.Drawing.Point(3, 0);
-			this.LblShapeFunctionA.Name = "LblShapeFunctionA";
-			this.LblShapeFunctionA.Size = new System.Drawing.Size(235, 25);
-			this.LblShapeFunctionA.TabIndex = 10;
-			this.LblShapeFunctionA.Text = "ShapeFunctionA";
-			this.LblShapeFunctionA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblShapeFunctionA.Click += new System.EventHandler(this.LblShapeFunctionA_Click);
+			this.LblShapeFunctionTypeA.AutoSize = true;
+			this.LblShapeFunctionTypeA.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblShapeFunctionTypeA.Location = new System.Drawing.Point(3, 0);
+			this.LblShapeFunctionTypeA.Name = "LblShapeFunctionTypeA";
+			this.LblShapeFunctionTypeA.Size = new System.Drawing.Size(235, 25);
+			this.LblShapeFunctionTypeA.TabIndex = 10;
+			this.LblShapeFunctionTypeA.Text = "ShapeFunctionTypeA";
+			this.LblShapeFunctionTypeA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblShapeFunctionTypeA.Click += new System.EventHandler(this.LblShapeFunctionTypeA_Click);
 			// 
-			// CbxShapeFunctionA
+			// CbxShapeFunctionTypeA
 			// 
-			this.CbxShapeFunctionA.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CbxShapeFunctionA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.CbxShapeFunctionA.Location = new System.Drawing.Point(244, 3);
-			this.CbxShapeFunctionA.Name = "CbxShapeFunctionA";
-			this.CbxShapeFunctionA.Size = new System.Drawing.Size(192, 33);
-			this.CbxShapeFunctionA.TabIndex = 0;
-			this.CbxShapeFunctionA.SelectedIndexChanged += new System.EventHandler(this.CbxShapeFunctionA_SelectedIndexChanged);
+			this.CbxShapeFunctionTypeA.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.CbxShapeFunctionTypeA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.CbxShapeFunctionTypeA.Location = new System.Drawing.Point(244, 3);
+			this.CbxShapeFunctionTypeA.Name = "CbxShapeFunctionTypeA";
+			this.CbxShapeFunctionTypeA.Size = new System.Drawing.Size(192, 33);
+			this.CbxShapeFunctionTypeA.TabIndex = 0;
+			this.CbxShapeFunctionTypeA.SelectedIndexChanged += new System.EventHandler(this.CbxShapeFunctionTypeA_SelectedIndexChanged);
 			// 
-			// LblShapeFunctionB
+			// LblShapeFunctionTypeB
 			// 
-			this.LblShapeFunctionB.AutoSize = true;
-			this.LblShapeFunctionB.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblShapeFunctionB.Location = new System.Drawing.Point(3, 125);
-			this.LblShapeFunctionB.Name = "LblShapeFunctionB";
-			this.LblShapeFunctionB.Size = new System.Drawing.Size(235, 25);
-			this.LblShapeFunctionB.TabIndex = 0;
-			this.LblShapeFunctionB.Text = "ShapeFunctionB";
-			this.LblShapeFunctionB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblShapeFunctionB.Click += new System.EventHandler(this.LblShapeFunctionB_Click);
+			this.LblShapeFunctionTypeB.AutoSize = true;
+			this.LblShapeFunctionTypeB.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblShapeFunctionTypeB.Location = new System.Drawing.Point(3, 125);
+			this.LblShapeFunctionTypeB.Name = "LblShapeFunctionTypeB";
+			this.LblShapeFunctionTypeB.Size = new System.Drawing.Size(235, 25);
+			this.LblShapeFunctionTypeB.TabIndex = 0;
+			this.LblShapeFunctionTypeB.Text = "ShapeFunctionTypeB";
+			this.LblShapeFunctionTypeB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblShapeFunctionTypeB.Click += new System.EventHandler(this.LblShapeFunctionTypeB_Click);
 			// 
-			// CbxShapeFunctionB
+			// CbxShapeFunctionTypeB
 			// 
-			this.CbxShapeFunctionB.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CbxShapeFunctionB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.CbxShapeFunctionB.Location = new System.Drawing.Point(244, 128);
-			this.CbxShapeFunctionB.Name = "CbxShapeFunctionB";
-			this.CbxShapeFunctionB.Size = new System.Drawing.Size(192, 33);
-			this.CbxShapeFunctionB.TabIndex = 0;
-			this.CbxShapeFunctionB.SelectedIndexChanged += new System.EventHandler(this.CbxShapeFunctionB_SelectedIndexChanged);
+			this.CbxShapeFunctionTypeB.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.CbxShapeFunctionTypeB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.CbxShapeFunctionTypeB.Location = new System.Drawing.Point(244, 128);
+			this.CbxShapeFunctionTypeB.Name = "CbxShapeFunctionTypeB";
+			this.CbxShapeFunctionTypeB.Size = new System.Drawing.Size(192, 33);
+			this.CbxShapeFunctionTypeB.TabIndex = 0;
+			this.CbxShapeFunctionTypeB.SelectedIndexChanged += new System.EventHandler(this.CbxShapeFunctionTypeB_SelectedIndexChanged);
 			// 
 			// LblDiffusenessA
 			// 
@@ -842,10 +842,10 @@
 		private System.Windows.Forms.Label LblEMFCalculationMethod;
 		private System.Windows.Forms.GroupBox GbxGlauber;
 		private System.Windows.Forms.TableLayoutPanel LayoutGlauber;
-		private System.Windows.Forms.Label LblShapeFunctionA;
-		private System.Windows.Forms.ComboBox CbxShapeFunctionA;
-		private System.Windows.Forms.Label LblShapeFunctionB;
-		private System.Windows.Forms.ComboBox CbxShapeFunctionB;
+		private System.Windows.Forms.Label LblShapeFunctionTypeA;
+		private System.Windows.Forms.ComboBox CbxShapeFunctionTypeA;
+		private System.Windows.Forms.Label LblShapeFunctionTypeB;
+		private System.Windows.Forms.ComboBox CbxShapeFunctionTypeB;
 		private System.Windows.Forms.Label LblDiffusenessA;
 		private System.Windows.Forms.TextBox TbxDiffusenessA;
 		private System.Windows.Forms.Label LblDiffusenessB;

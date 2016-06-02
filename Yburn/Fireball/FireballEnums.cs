@@ -10,7 +10,7 @@
 		x3P
 	};
 
-	public enum ShapeFunction
+	public enum ShapeFunctionType
 	{
 		WoodsSaxonPotential,
 		GaussianDistribution

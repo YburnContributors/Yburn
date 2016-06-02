@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Yburn.Tests.Util;
 
 namespace Yburn.Fireball.Tests
 {
@@ -35,7 +36,7 @@ namespace Yburn.Fireball.Tests
 		{
 			DecayWidthAverager averager = new DecayWidthAverager(TemperatureDecayWidthList);
 
-			Assert.AreEqual(0, averager.GetDecayWidth(60, 0));
+			AssertHelper.AssertRoundedEqual(0, averager.GetDecayWidth(60, 0));
 		}
 
 		[TestMethod]
@@ -43,7 +44,7 @@ namespace Yburn.Fireball.Tests
 		{
 			DecayWidthAverager averager = new DecayWidthAverager(TemperatureDecayWidthList);
 
-			Assert.AreEqual(double.PositiveInfinity, averager.GetDecayWidth(60000, 0));
+			AssertHelper.AssertRoundedEqual(double.PositiveInfinity, averager.GetDecayWidth(60000, 0));
 		}
 
 		[TestMethod]
@@ -57,14 +58,14 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void GivenSingleValue_ReturnOnlyOneValue()
 		{
-			List<KeyValuePair<double, double>> singleEnryList
+			List<KeyValuePair<double, double>> singleEntryList
 				= new List<KeyValuePair<double, double>>();
-			singleEnryList.Add(new KeyValuePair<double, double>(500, 650));
-			DecayWidthAverager averager = new DecayWidthAverager(singleEnryList);
+			singleEntryList.Add(new KeyValuePair<double, double>(500, 650));
+			DecayWidthAverager averager = new DecayWidthAverager(singleEntryList);
 
-			Assert.AreEqual(0, averager.GetDecayWidth(100, 0.2));
-			Assert.AreEqual(650, averager.GetDecayWidth(500, 0.2));
-			Assert.AreEqual(double.PositiveInfinity, averager.GetDecayWidth(999, 0.2));
+			AssertHelper.AssertRoundedEqual(0, averager.GetDecayWidth(100, 0.2));
+			AssertHelper.AssertRoundedEqual(650, averager.GetDecayWidth(500, 0.2));
+			AssertHelper.AssertRoundedEqual(double.PositiveInfinity, averager.GetDecayWidth(999, 0.2));
 		}
 
 		[TestMethod]
@@ -72,8 +73,8 @@ namespace Yburn.Fireball.Tests
 		{
 			DecayWidthAverager averager = new DecayWidthAverager(TemperatureDecayWidthList);
 
-			Assert.AreEqual(InterpolatedDecayWidth.GetValue(160), averager.GetDecayWidth(160, 0.2));
-			Assert.AreEqual(InterpolatedDecayWidth.GetValue(160), averager.GetDecayWidth(160, 0.8));
+			AssertHelper.AssertRoundedEqual(InterpolatedDecayWidth.GetValue(160), averager.GetDecayWidth(160, 0.2));
+			AssertHelper.AssertRoundedEqual(InterpolatedDecayWidth.GetValue(160), averager.GetDecayWidth(160, 0.8));
 		}
 
 		[TestMethod]
@@ -82,7 +83,7 @@ namespace Yburn.Fireball.Tests
 			DecayWidthAverager averager = new DecayWidthAverager(TemperatureDecayWidthList,
 				new double[] { 0, Math.PI / 3, 2 * Math.PI / 3, Math.PI });
 
-			Assert.AreEqual(InterpolatedDecayWidth.GetValue(160), averager.GetDecayWidth(160, 0));
+			AssertHelper.AssertRoundedEqual(InterpolatedDecayWidth.GetValue(160), averager.GetDecayWidth(160, 0));
 		}
 
 		[TestMethod]
@@ -97,19 +98,19 @@ namespace Yburn.Fireball.Tests
 		public void GivenForwardAngle_MaximumBlueshift()
 		{
 			// effective temperature: T * sqrt(1-v*v)/(1-v)
-			Assert.AreEqual(InterpolatedDecayWidth.GetValue(160), GetDecayWidth(160, 0, 0));
-			Assert.AreEqual(InterpolatedDecayWidth.GetValue(244.404037064311), GetDecayWidth(160, 0.4, 0), 1e-12);
-			Assert.AreEqual(double.PositiveInfinity, GetDecayWidth(160, 0.9, 0), 1e-12);
+			AssertHelper.AssertRoundedEqual(InterpolatedDecayWidth.GetValue(160), GetDecayWidth(160, 0, 0));
+			AssertHelper.AssertRoundedEqual(InterpolatedDecayWidth.GetValue(244.404037064311), GetDecayWidth(160, 0.4, 0));
+			AssertHelper.AssertRoundedEqual(double.PositiveInfinity, GetDecayWidth(160, 0.9, 0));
 		}
 
 		[TestMethod]
 		public void GivenOneAngle_AngleDependentShift()
 		{
 			// effective temperature: T * sqrt(1-v*v)/(1-v*cos(theta))
-			Assert.AreEqual(double.PositiveInfinity, GetDecayWidth(250, 0.9, 0));
-			Assert.AreEqual(InterpolatedDecayWidth.GetValue(198.13177016094),
-				GetDecayWidth(250, 0.9, 60), 1e-12);
-			Assert.AreEqual(0, GetDecayWidth(250, 0.9, 180));
+			AssertHelper.AssertRoundedEqual(double.PositiveInfinity, GetDecayWidth(250, 0.9, 0));
+			AssertHelper.AssertRoundedEqual(InterpolatedDecayWidth.GetValue(198.13177016094),
+				GetDecayWidth(250, 0.9, 60));
+			AssertHelper.AssertRoundedEqual(0, GetDecayWidth(250, 0.9, 180));
 		}
 
 		[TestMethod]
@@ -126,25 +127,25 @@ namespace Yburn.Fireball.Tests
 
 			DecayWidthAverager averager = new DecayWidthAverager(TemperatureDecayWidthList, angles);
 
-			Assert.AreEqual(averagedDecayWidth, averager.GetDecayWidth(200, 0.5), 1e-13);
+			AssertHelper.AssertRoundedEqual(averagedDecayWidth, averager.GetDecayWidth(200, 0.5));
 
-			Assert.AreEqual(double.PositiveInfinity, averager.GetDecayWidth(250, 0.9));
+			AssertHelper.AssertRoundedEqual(double.PositiveInfinity, averager.GetDecayWidth(250, 0.9));
 
-			Assert.AreEqual(0.125 * GetDecayWidth(100, 0.9, angles[0]),
-				averager.GetDecayWidth(100, 0.9), 1e-13);
+			AssertHelper.AssertRoundedEqual(0.125 * GetDecayWidth(100, 0.9, angles[0]),
+				averager.GetDecayWidth(100, 0.9));
 		}
 
 		[TestMethod]
 		public void CalculateDecayWidthFromAveragedTemperature()
 		{
 			// averaged temperature: T * sqrt(1-v*v) * artanh(v)/v
-			Assert.AreEqual(141.571763304332,
-				DecayWidthAverager.GetAveragedTemperature(160, 0.7), 1e-13);
+			AssertHelper.AssertRoundedEqual(141.571763304332,
+				DecayWidthAverager.GetAveragedTemperature(160, 0.7));
 
 			DecayWidthAverager averager = new DecayWidthAverager(TemperatureDecayWidthList);
 
-			Assert.AreEqual(241.571763304332,
-				averager.GetDecayWidthUsingAveragedTemperature(160, 0.7), 1e-13);
+			AssertHelper.AssertRoundedEqual(241.571763304332,
+				averager.GetDecayWidthUsingAveragedTemperature(160, 0.7));
 		}
 
 		/********************************************************************************************
