@@ -2,13 +2,13 @@
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yburn.SingleQQ.UI;
+using Yburn.QQonFire.UI;
 using Yburn.Tests.Util;
 
 namespace Yburn.UI.Tests
 {
 	[TestClass]
-	public class SingleQQTests
+	public class QQonFireUITests
 	{
 		/********************************************************************************************
 		 * Public members, functions and properties
@@ -18,18 +18,18 @@ namespace Yburn.UI.Tests
 		public void TestInitialize()
 		{
 			BackgroundService = new BackgroundService();
-			BackgroundService.SetWorker(new Workers.SingleQQ());
+			BackgroundService.SetWorker(new Workers.QQonFire());
 		}
 
 		[TestMethod]
-		public void ManipulateSingleQQPanelControls()
+		public void ManipulateQQonFirePanelControls()
 		{
-			SingleQQPanel = new SingleQQPanel();
-			SingleQQPanel.Initialize(BackgroundService);
-			SingleQQPanel.ControlsValues = ParameterSamples.SingleQQSamples;
+			QQonFirePanel = new QQonFirePanel();
+			QQonFirePanel.Initialize(BackgroundService);
+			QQonFirePanel.ControlsValues = ParameterSamples.QQonFireSamples;
 
 			AssertHelper.AssertAllElementsEqual(
-				ParameterSamples.SingleQQSamples, SingleQQPanel.ControlsValues);
+				ParameterSamples.QQonFireSamples, QQonFirePanel.ControlsValues);
 		}
 
 		[TestMethod]
@@ -42,7 +42,7 @@ namespace Yburn.UI.Tests
 			try
 			{
 				BackgroundService.ProcessParameterFile(emptyParameterFile);
-				SingleQQMainWindow mainWindow = new SingleQQMainWindow("", BackgroundService);
+				QQonFireMainWindow mainWindow = new QQonFireMainWindow("", BackgroundService);
 			}
 			catch(NullReferenceException)
 			{
@@ -56,9 +56,9 @@ namespace Yburn.UI.Tests
 		}
 
 		[TestMethod]
-		public void SingleQQ_BackgroundworkerCanFillAllComboBoxes()
+		public void QQonFire_BackgroundworkerCanFillAllComboBoxes()
 		{
-			SingleQQPanel panel = new SingleQQPanel();
+			QQonFirePanel panel = new QQonFirePanel();
 			panel.Initialize(BackgroundService);
 
 			AssertAllComboBoxesHaveItems(panel.Controls);
@@ -68,7 +68,7 @@ namespace Yburn.UI.Tests
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private SingleQQPanel SingleQQPanel;
+		private QQonFirePanel QQonFirePanel;
 
 		private BackgroundService BackgroundService;
 

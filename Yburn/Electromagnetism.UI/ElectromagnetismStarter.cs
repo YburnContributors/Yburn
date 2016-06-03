@@ -4,7 +4,7 @@ using Yburn.Interfaces;
 
 namespace Yburn.Electromagnetism.UI
 {
-	public class ElectromagnetismStarter : YburnUI
+	public class ElectromagnetismStarter : WorkerStarter
 	{
 		/********************************************************************************************
 		 * Constructors

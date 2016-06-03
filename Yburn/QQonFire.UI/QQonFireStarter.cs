@@ -4,7 +4,7 @@ using Yburn.Interfaces;
 
 namespace Yburn.QQonFire.UI
 {
-	public class QQonFireStarter : YburnUI
+	public class QQonFireStarter : WorkerStarter
 	{
 		/********************************************************************************************
 		 * Constructors

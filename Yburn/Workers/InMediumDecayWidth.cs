@@ -148,7 +148,7 @@ namespace Yburn.Workers
 				printer.GetListUsingAveragedTemperature() : printer.GetList();
 		}
 
-		protected override void SetVariableNameValueList(
+		protected override void SetVariableNameValuePairs(
 			Dictionary<string, string> nameValuePairs
 			)
 		{
@@ -164,7 +164,7 @@ namespace Yburn.Workers
 			UseAveragedTemperature = Extractor.TryGetBool(nameValuePairs, "UseAveragedTemperature", UseAveragedTemperature);
 		}
 
-		protected override Dictionary<string, string> GetVariableNameValueList()
+		protected override Dictionary<string, string> GetVariableNameValuePairs()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 			nameValuePairs["BottomiumStates"] = BottomiumStates;

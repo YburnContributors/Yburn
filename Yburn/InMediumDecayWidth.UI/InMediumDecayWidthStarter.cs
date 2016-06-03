@@ -4,7 +4,7 @@ using Yburn.Interfaces;
 
 namespace Yburn.InMediumDecayWidth.UI
 {
-	public class InMediumDecayWidthStarter : YburnUI
+	public class InMediumDecayWidthStarter : WorkerStarter
 	{
 		/********************************************************************************************
 		 * Constructors

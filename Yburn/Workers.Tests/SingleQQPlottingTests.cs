@@ -39,7 +39,7 @@ namespace Yburn.Workers.Tests
 		public void PlotAlpha()
 		{
 			SingleQQ singleQQ = new SingleQQ();
-			singleQQ.VariableNameValueList = GetAlphaPlotParams();
+			singleQQ.VariableNameValuePairs = GetAlphaPlotParams();
 
 			WaitForGnuplotThenKillIt(singleQQ.PlotAlpha());
 		}
@@ -48,7 +48,7 @@ namespace Yburn.Workers.Tests
 		public void PlotPionGDF()
 		{
 			SingleQQ singleQQ = new SingleQQ();
-			singleQQ.VariableNameValueList = GetPionGDFPlotParams();
+			singleQQ.VariableNameValuePairs = GetPionGDFPlotParams();
 
 			WaitForGnuplotThenKillIt(singleQQ.PlotPionGDF());
 		}
@@ -57,7 +57,7 @@ namespace Yburn.Workers.Tests
 		public void PlotComplexPotential()
 		{
 			SingleQQ singleQQ = new SingleQQ();
-			singleQQ.VariableNameValueList = GetComplexPotentialPlotParams();
+			singleQQ.VariableNameValuePairs = GetComplexPotentialPlotParams();
 
 			WaitForGnuplotThenKillIt(singleQQ.PlotQQPotential());
 		}

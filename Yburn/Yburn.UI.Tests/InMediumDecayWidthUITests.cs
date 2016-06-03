@@ -7,7 +7,7 @@ using Yburn.Tests.Util;
 namespace Yburn.UI.Tests
 {
 	[TestClass]
-	public class InMediumDecayWidthTests
+	public class InMediumDecayWidthUITests
 	{
 		/********************************************************************************************
 		 * Public members, functions and properties

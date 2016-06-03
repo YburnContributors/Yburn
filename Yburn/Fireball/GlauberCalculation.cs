@@ -217,7 +217,7 @@ namespace Yburn.Fireball
 				FireballFieldType.Ncoll,
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
-				(i, j) => InelasticppCrossSectionFm * OverlapField.Values[i, j]);
+				(i, j) => InelasticppCrossSectionFm * OverlapField[i, j]);
 		}
 
 		private void InitNpartField()
@@ -227,11 +227,11 @@ namespace Yburn.Fireball
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
 				(i, j) =>
-					ColumnDensityFieldA.Values[i, j] * (1.0 - Math.Pow(
-						1.0 - InelasticppCrossSectionFm * ColumnDensityFieldB.Values[i, j]
+					ColumnDensityFieldA[i, j] * (1.0 - Math.Pow(
+						1.0 - InelasticppCrossSectionFm * ColumnDensityFieldB[i, j]
 						/ Param.NucleonNumberB, Param.NucleonNumberB))
-					+ ColumnDensityFieldB.Values[i, j] * (1.0 - Math.Pow(
-						1.0 - InelasticppCrossSectionFm * ColumnDensityFieldA.Values[i, j]
+					+ ColumnDensityFieldB[i, j] * (1.0 - Math.Pow(
+						1.0 - InelasticppCrossSectionFm * ColumnDensityFieldA[i, j]
 						/ Param.NucleonNumberA, Param.NucleonNumberA)));
 		}
 
@@ -241,7 +241,7 @@ namespace Yburn.Fireball
 				FireballFieldType.Overlap,
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
-				(i, j) => ColumnDensityFieldA.Values[i, j] * ColumnDensityFieldB.Values[i, j]);
+				(i, j) => ColumnDensityFieldA[i, j] * ColumnDensityFieldB[i, j]);
 		}
 
 		private void InitXY()
@@ -299,24 +299,24 @@ namespace Yburn.Fireball
 						switch(Param.TemperatureProfile)
 						{
 							case TemperatureProfile.Ncoll:
-								return norm * NcollField.Values[i, j];
+								return norm * NcollField[i, j];
 
 							case TemperatureProfile.Npart:
-								return norm * NpartField.Values[i, j];
+								return norm * NpartField[i, j];
 
 							case TemperatureProfile.Ncoll13:
-								return norm * Math.Pow(NcollField.Values[i, j], 1 / 3.0);
+								return norm * Math.Pow(NcollField[i, j], 1 / 3.0);
 
 							case TemperatureProfile.Npart13:
-								return norm * Math.Pow(NpartField.Values[i, j], 1 / 3.0);
+								return norm * Math.Pow(NpartField[i, j], 1 / 3.0);
 
 							case TemperatureProfile.NmixPHOBOS13:
 								return norm * Math.Pow(GetNmixPHOBOS(
-									NcollField.Values[i, j], NpartField.Values[i, j]), 1 / 3.0);
+									NcollField[i, j], NpartField[i, j]), 1 / 3.0);
 
 							case TemperatureProfile.NmixALICE13:
 								return norm * Math.Pow(GetNmixALICE(
-									NcollField.Values[i, j], NpartField.Values[i, j]), 1 / 3.0);
+									NcollField[i, j], NpartField[i, j]), 1 / 3.0);
 
 							default:
 								throw new Exception("Invalid Profile.");

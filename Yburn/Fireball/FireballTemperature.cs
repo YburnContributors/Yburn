@@ -35,16 +35,16 @@ namespace Yburn.Fireball
 			Ftexs solver
 			)
 		{
-			Values = solver.T;
+			DiscreteValues = solver.T;
 		}
 
 		public void Advance(
 			double newTime
 			)
 		{
-			SetValues((i, j) =>
+			InitializeDiscreteValues((i, j) =>
 			{
-				return Tnorm.Values[i, j] / Math.Pow(newTime, 1 / 3.0);
+				return Tnorm[i, j] / Math.Pow(newTime, 1 / 3.0);
 			});
 		}
 
@@ -99,7 +99,7 @@ namespace Yburn.Fireball
 			double norm = InitialCentralTemperature * Math.Pow(ThermalTime, 1 / 3.0);
 			Tnorm = new SimpleFireballField(FireballFieldType.Tnorm, XDimension, YDimension, (i, j) =>
 				{
-					return norm * TemperatureScalingField.Values[i, j];
+					return norm * TemperatureScalingField[i, j];
 				});
 		}
 	}

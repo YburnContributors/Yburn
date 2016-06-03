@@ -189,7 +189,8 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set format y \"%g\"");
 			plotFile.AppendLine();
 
-			string[] titleList = Array.ConvertAll(EMFCalculationMethodSelection, item => item.ToString());
+			string[] titleList = Array.ConvertAll(
+				EMFCalculationMethodSelection, item => item.ToString());
 			AppendPlotCommands(plotFile, titleList);
 
 			File.WriteAllText(FormattedPlotPathFile, plotFile.ToString());
@@ -229,7 +230,8 @@ namespace Yburn.Workers
 				* (PhysConst.HBARC / PhysConst.AveragePionMass)
 				* (PhysConst.HBARC / PhysConst.AveragePionMass);
 			List<double> fieldValues = new List<double>();
-			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(CreateFireballParam(method));
+			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
+				CreatePointChargeFireballParam(method));
 			foreach(double timeValue in timeValues)
 			{
 				fieldValues.Add(normalization * emf.CalculatePointChargeAzimutalMagneticField(
@@ -255,7 +257,8 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set format y \"%g\"");
 			plotFile.AppendLine();
 
-			string[] titleList = Array.ConvertAll(EMFCalculationMethodSelection, item => item.ToString());
+			string[] titleList = Array.ConvertAll(
+				EMFCalculationMethodSelection, item => item.ToString());
 			AppendPlotCommands(plotFile, titleList);
 
 			File.WriteAllText(FormattedPlotPathFile, plotFile.ToString());
@@ -295,11 +298,13 @@ namespace Yburn.Workers
 				* (PhysConst.HBARC / PhysConst.AveragePionMass)
 				* (PhysConst.HBARC / PhysConst.AveragePionMass);
 			List<double> fieldValues = new List<double>();
-			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(CreateFireballParam(method));
+			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
+				CreatePointChargeFireballParam(method));
 			foreach(double timeValue in timeValues)
 			{
-				fieldValues.Add(normalization * Math.Abs(emf.CalculatePointChargeLongitudinalElectricField(
-					timeValue, RadialDistance, LorentzFactor)));
+				fieldValues.Add(normalization * Math.Abs(
+					emf.CalculatePointChargeLongitudinalElectricField(
+						timeValue, RadialDistance, LorentzFactor)));
 			}
 
 			return fieldValues;
@@ -321,7 +326,8 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set format y \"%g\"");
 			plotFile.AppendLine();
 
-			string[] titleList = Array.ConvertAll(EMFCalculationMethodSelection, item => item.ToString());
+			string[] titleList = Array.ConvertAll(
+				EMFCalculationMethodSelection, item => item.ToString());
 			AppendPlotCommands(plotFile, titleList);
 
 			File.WriteAllText(FormattedPlotPathFile, plotFile.ToString());
@@ -361,7 +367,8 @@ namespace Yburn.Workers
 				* (PhysConst.HBARC / PhysConst.AveragePionMass)
 				* (PhysConst.HBARC / PhysConst.AveragePionMass);
 			List<double> fieldValues = new List<double>();
-			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(CreateFireballParam(method));
+			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
+				CreatePointChargeFireballParam(method));
 			foreach(double timeValue in timeValues)
 			{
 				fieldValues.Add(normalization * emf.CalculatePointChargeRadialElectricField(

@@ -4,7 +4,7 @@ using Yburn.Interfaces;
 
 namespace Yburn.SingleQQ.UI
 {
-	public class SingleQQStarter : YburnUI
+	public class SingleQQStarter : WorkerStarter
 	{
 		/********************************************************************************************
 		 * Constructors

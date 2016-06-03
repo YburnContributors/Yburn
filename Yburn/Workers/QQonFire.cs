@@ -714,7 +714,7 @@ namespace Yburn.Workers
 			}
 			set
 			{
-				NumberGridPoints = (int)Math.Round(value / GridCellSize);
+				NumberGridPoints = Convert.ToInt32(Math.Round(value / GridCellSize));
 			}
 		}
 
@@ -980,7 +980,7 @@ namespace Yburn.Workers
 			}
 		}
 
-		protected override void SetVariableNameValueList(
+		protected override void SetVariableNameValuePairs(
 			Dictionary<string, string> nameValuePairs
 			)
 		{
@@ -1021,7 +1021,7 @@ namespace Yburn.Workers
 			TransverseMomenta = Extractor.TryGetDoubleArray(nameValuePairs, "TransverseMomenta", TransverseMomenta);
 		}
 
-		protected override Dictionary<string, string> GetVariableNameValueList()
+		protected override Dictionary<string, string> GetVariableNameValuePairs()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 			nameValuePairs["BeamRapidity"] = BeamRapidity.ToString();

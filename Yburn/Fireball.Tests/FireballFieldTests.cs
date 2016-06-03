@@ -47,7 +47,7 @@ namespace Yburn.Fireball.Tests
 			FireballFieldType fireballFieldType,
 			int xDimension,
 			int yDimension,
-			SimpleFireballFieldFunction function
+			SimpleFireballFieldDiscreteFunction function
 			)
 		{
 			bool threwException = false;

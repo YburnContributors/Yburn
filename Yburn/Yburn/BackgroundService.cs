@@ -152,14 +152,14 @@ namespace Yburn
 
 		public Dictionary<string, string> GetDataFromWorker()
 		{
-			return Worker.VariableNameValueList;
+			return Worker.VariableNameValuePairs;
 		}
 
 		public void TransferDataToWorker(
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			Worker.VariableNameValueList = nameValuePairs;
+			Worker.VariableNameValuePairs = nameValuePairs;
 		}
 
 		/********************************************************************************************

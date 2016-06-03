@@ -1,6 +1,6 @@
 ﻿namespace Yburn.Interfaces
 {
-	public interface YburnUI
+	public interface WorkerStarter
 	{
 		void Run();
 

@@ -200,6 +200,7 @@
 			this.ElectromagnetismPanel.Name = "ElectromagnetismPanel";
 			this.ElectromagnetismPanel.Size = new System.Drawing.Size(1176, 525);
 			this.ElectromagnetismPanel.TabIndex = 0;
+			this.ElectromagnetismPanel.Load += new System.EventHandler(this.ElectromagnetismPanel_Load);
 			// 
 			// YburnConfigDataBox
 			// 

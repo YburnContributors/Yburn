@@ -297,5 +297,10 @@ namespace Yburn.Electromagnetism.UI
 		{
 
 		}
+
+		private void ElectromagnetismPanel_Load(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

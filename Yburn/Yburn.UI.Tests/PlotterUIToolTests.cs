@@ -39,10 +39,10 @@ namespace Yburn.UI.Tests
 			PlotterUITool.CreateAlphaPlotParamForm(GetSingleQQPanelAlphaParams());
 
 			Workers.SingleQQ singleQQ = new Workers.SingleQQ();
-			singleQQ.VariableNameValueList = PlotterUITool.ControlsValues;
+			singleQQ.VariableNameValuePairs = PlotterUITool.ControlsValues;
 
 			AssertHelper.AssertFirstContainsSecond(
-				singleQQ.VariableNameValueList, GetConvertedAlphaNameValuePairs());
+				singleQQ.VariableNameValuePairs, GetConvertedAlphaNameValuePairs());
 		}
 
 		[TestMethod]
@@ -51,10 +51,10 @@ namespace Yburn.UI.Tests
 			PlotterUITool.CreatePionGDFPlotParamForm(GetSingleQQPanelPionGDFParams());
 
 			Workers.SingleQQ singleQQ = new Workers.SingleQQ();
-			singleQQ.VariableNameValueList = PlotterUITool.ControlsValues;
+			singleQQ.VariableNameValuePairs = PlotterUITool.ControlsValues;
 
 			AssertHelper.AssertFirstContainsSecond(
-				singleQQ.VariableNameValueList, GetConvertedPionGDFNameValuePairs());
+				singleQQ.VariableNameValuePairs, GetConvertedPionGDFNameValuePairs());
 		}
 
 		[TestMethod]
@@ -63,10 +63,10 @@ namespace Yburn.UI.Tests
 			PlotterUITool.CreatePotentialPlotParamForm(GetSingleQQPanelPotentialParams());
 
 			Workers.SingleQQ singleQQ = new Workers.SingleQQ();
-			singleQQ.VariableNameValueList = PlotterUITool.ControlsValues;
+			singleQQ.VariableNameValuePairs = PlotterUITool.ControlsValues;
 
 			AssertHelper.AssertFirstContainsSecond(
-				singleQQ.VariableNameValueList, GetConvertedPotentialNameValuePairs());
+				singleQQ.VariableNameValuePairs, GetConvertedPotentialNameValuePairs());
 		}
 
 		/********************************************************************************************

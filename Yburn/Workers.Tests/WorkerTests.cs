@@ -96,12 +96,12 @@ namespace Yburn.Workers.Tests
 			return typeof(int);
 		}
 
-		protected override Dictionary<string, string> GetVariableNameValueList()
+		protected override Dictionary<string, string> GetVariableNameValuePairs()
 		{
 			return null;
 		}
 
-		protected override void SetVariableNameValueList(
+		protected override void SetVariableNameValuePairs(
 			Dictionary<string, string> nameValuePairs
 			)
 		{

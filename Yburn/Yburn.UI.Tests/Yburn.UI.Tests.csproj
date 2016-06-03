@@ -52,12 +52,12 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="ElectromagnetismTests.cs" />
+    <Compile Include="ElectromagnetismUITests.cs" />
     <Compile Include="PlotterUIToolTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="InMediumDecayWidthTests.cs" />
-    <Compile Include="SingleQQTests.cs" />
-    <Compile Include="QQonFireTests.cs" />
+    <Compile Include="InMediumDecayWidthUITests.cs" />
+    <Compile Include="SingleQQUITests.cs" />
+    <Compile Include="QQonFireUITests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Electromagnetism.UI\Electromagnetism.UI.csproj">

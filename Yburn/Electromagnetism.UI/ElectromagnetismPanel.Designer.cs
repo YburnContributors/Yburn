@@ -56,6 +56,10 @@
 			this.TbxImpactParam = new System.Windows.Forms.TextBox();
 			this.GbxGeneralParameters = new System.Windows.Forms.GroupBox();
 			this.LayoutGeneralParameters = new System.Windows.Forms.TableLayoutPanel();
+			this.LblGridCellSize = new System.Windows.Forms.Label();
+			this.TbxGridCellSize = new System.Windows.Forms.TextBox();
+			this.LblGridRadius = new System.Windows.Forms.Label();
+			this.TbxGridRadius = new System.Windows.Forms.TextBox();
 			this.CbxEMFCalculationMethod = new System.Windows.Forms.ComboBox();
 			this.LblEMFCalculationMethod = new System.Windows.Forms.Label();
 			this.LblQGPConductivityMeV = new System.Windows.Forms.Label();
@@ -118,7 +122,6 @@
 			this.VSplit.Size = new System.Drawing.Size(794, 503);
 			this.VSplit.SplitterDistance = 500;
 			this.VSplit.TabIndex = 0;
-			this.VSplit.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.VSplit_SplitterMoved);
 			// 
 			// LayoutBottom
 			// 
@@ -141,7 +144,6 @@
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.LayoutBottom.Size = new System.Drawing.Size(500, 503);
 			this.LayoutBottom.TabIndex = 0;
-			this.LayoutBottom.Paint += new System.Windows.Forms.PaintEventHandler(this.LayoutBottom_Paint);
 			// 
 			// GbxGlauber
 			// 
@@ -155,7 +157,6 @@
 			this.GbxGlauber.TabIndex = 4;
 			this.GbxGlauber.TabStop = false;
 			this.GbxGlauber.Text = "Glauber";
-			this.GbxGlauber.Enter += new System.EventHandler(this.GbxGlauber_Enter);
 			// 
 			// LayoutGlauber
 			// 
@@ -202,7 +203,6 @@
 			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.LayoutGlauber.Size = new System.Drawing.Size(439, 266);
 			this.LayoutGlauber.TabIndex = 0;
-			this.LayoutGlauber.Paint += new System.Windows.Forms.PaintEventHandler(this.LayoutGlauber_Paint);
 			// 
 			// TbxProtonNumberB
 			// 
@@ -222,7 +222,7 @@
 			this.LblProtonNumberB.TabIndex = 13;
 			this.LblProtonNumberB.Text = "ProtonNumberB";
 			this.LblProtonNumberB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblProtonNumberB.Click += new System.EventHandler(this.label1_Click);
+
 			// 
 			// TbxProtonNumberA
 			// 
@@ -231,7 +231,6 @@
 			this.TbxProtonNumberA.Name = "TbxProtonNumberA";
 			this.TbxProtonNumberA.Size = new System.Drawing.Size(192, 31);
 			this.TbxProtonNumberA.TabIndex = 12;
-			this.TbxProtonNumberA.TextChanged += new System.EventHandler(this.TbxProtonNumberA_TextChanged);
 			// 
 			// LblProtonNumberA
 			// 
@@ -243,7 +242,6 @@
 			this.LblProtonNumberA.TabIndex = 11;
 			this.LblProtonNumberA.Text = "ProtonNumberA";
 			this.LblProtonNumberA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblProtonNumberA.Click += new System.EventHandler(this.LblProtonNumberA_Click);
 			// 
 			// LblShapeFunctionTypeA
 			// 
@@ -255,7 +253,6 @@
 			this.LblShapeFunctionTypeA.TabIndex = 10;
 			this.LblShapeFunctionTypeA.Text = "ShapeFunctionTypeA";
 			this.LblShapeFunctionTypeA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblShapeFunctionTypeA.Click += new System.EventHandler(this.LblShapeFunctionTypeA_Click);
 			// 
 			// CbxShapeFunctionTypeA
 			// 
@@ -265,7 +262,6 @@
 			this.CbxShapeFunctionTypeA.Name = "CbxShapeFunctionTypeA";
 			this.CbxShapeFunctionTypeA.Size = new System.Drawing.Size(192, 33);
 			this.CbxShapeFunctionTypeA.TabIndex = 0;
-			this.CbxShapeFunctionTypeA.SelectedIndexChanged += new System.EventHandler(this.CbxShapeFunctionTypeA_SelectedIndexChanged);
 			// 
 			// LblShapeFunctionTypeB
 			// 
@@ -277,7 +273,6 @@
 			this.LblShapeFunctionTypeB.TabIndex = 0;
 			this.LblShapeFunctionTypeB.Text = "ShapeFunctionTypeB";
 			this.LblShapeFunctionTypeB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblShapeFunctionTypeB.Click += new System.EventHandler(this.LblShapeFunctionTypeB_Click);
 			// 
 			// CbxShapeFunctionTypeB
 			// 
@@ -287,7 +282,6 @@
 			this.CbxShapeFunctionTypeB.Name = "CbxShapeFunctionTypeB";
 			this.CbxShapeFunctionTypeB.Size = new System.Drawing.Size(192, 33);
 			this.CbxShapeFunctionTypeB.TabIndex = 0;
-			this.CbxShapeFunctionTypeB.SelectedIndexChanged += new System.EventHandler(this.CbxShapeFunctionTypeB_SelectedIndexChanged);
 			// 
 			// LblDiffusenessA
 			// 
@@ -299,7 +293,6 @@
 			this.LblDiffusenessA.TabIndex = 0;
 			this.LblDiffusenessA.Text = "DiffusenessA (fm)";
 			this.LblDiffusenessA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblDiffusenessA.Click += new System.EventHandler(this.LblDiffusenessA_Click);
 			// 
 			// TbxDiffusenessA
 			// 
@@ -308,7 +301,6 @@
 			this.TbxDiffusenessA.Name = "TbxDiffusenessA";
 			this.TbxDiffusenessA.Size = new System.Drawing.Size(192, 31);
 			this.TbxDiffusenessA.TabIndex = 0;
-			this.TbxDiffusenessA.TextChanged += new System.EventHandler(this.TbxDiffusenessA_TextChanged);
 			// 
 			// LblDiffusenessB
 			// 
@@ -320,7 +312,6 @@
 			this.LblDiffusenessB.TabIndex = 0;
 			this.LblDiffusenessB.Text = "DiffusenessB (fm)";
 			this.LblDiffusenessB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblDiffusenessB.Click += new System.EventHandler(this.LblDiffusenessB_Click);
 			// 
 			// TbxDiffusenessB
 			// 
@@ -329,7 +320,6 @@
 			this.TbxDiffusenessB.Name = "TbxDiffusenessB";
 			this.TbxDiffusenessB.Size = new System.Drawing.Size(192, 31);
 			this.TbxDiffusenessB.TabIndex = 0;
-			this.TbxDiffusenessB.TextChanged += new System.EventHandler(this.TbxDiffusenessB_TextChanged);
 			// 
 			// LblNucleonNumberA
 			// 
@@ -341,7 +331,6 @@
 			this.LblNucleonNumberA.TabIndex = 0;
 			this.LblNucleonNumberA.Text = "NucleonNumberA";
 			this.LblNucleonNumberA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblNucleonNumberA.Click += new System.EventHandler(this.LblNucleonNumberA_Click);
 			// 
 			// TbxNucleonNumberA
 			// 
@@ -350,7 +339,6 @@
 			this.TbxNucleonNumberA.Name = "TbxNucleonNumberA";
 			this.TbxNucleonNumberA.Size = new System.Drawing.Size(192, 31);
 			this.TbxNucleonNumberA.TabIndex = 0;
-			this.TbxNucleonNumberA.TextChanged += new System.EventHandler(this.TbxNucleonNumberA_TextChanged);
 			// 
 			// LblNucleonNumberB
 			// 
@@ -362,7 +350,6 @@
 			this.LblNucleonNumberB.TabIndex = 0;
 			this.LblNucleonNumberB.Text = "NucleonNumberB";
 			this.LblNucleonNumberB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblNucleonNumberB.Click += new System.EventHandler(this.LblNucleonNumberB_Click);
 			// 
 			// TbxNucleonNumberB
 			// 
@@ -371,7 +358,6 @@
 			this.TbxNucleonNumberB.Name = "TbxNucleonNumberB";
 			this.TbxNucleonNumberB.Size = new System.Drawing.Size(192, 31);
 			this.TbxNucleonNumberB.TabIndex = 0;
-			this.TbxNucleonNumberB.TextChanged += new System.EventHandler(this.TbxNucleonNumberB_TextChanged);
 			// 
 			// LblNuclearRadiusA
 			// 
@@ -383,7 +369,6 @@
 			this.LblNuclearRadiusA.TabIndex = 0;
 			this.LblNuclearRadiusA.Text = "NuclearRadiusA (fm)";
 			this.LblNuclearRadiusA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblNuclearRadiusA.Click += new System.EventHandler(this.LblNuclearRadiusA_Click);
 			// 
 			// TbxNuclearRadiusA
 			// 
@@ -392,7 +377,6 @@
 			this.TbxNuclearRadiusA.Name = "TbxNuclearRadiusA";
 			this.TbxNuclearRadiusA.Size = new System.Drawing.Size(192, 31);
 			this.TbxNuclearRadiusA.TabIndex = 0;
-			this.TbxNuclearRadiusA.TextChanged += new System.EventHandler(this.TbxNuclearRadiusA_TextChanged);
 			// 
 			// LblNuclearRadiusB
 			// 
@@ -404,7 +388,6 @@
 			this.LblNuclearRadiusB.TabIndex = 0;
 			this.LblNuclearRadiusB.Text = "NuclearRadiusB (fm)";
 			this.LblNuclearRadiusB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblNuclearRadiusB.Click += new System.EventHandler(this.LblNuclearRadiusB_Click);
 			// 
 			// TbxNuclearRadiusB
 			// 
@@ -413,7 +396,6 @@
 			this.TbxNuclearRadiusB.Name = "TbxNuclearRadiusB";
 			this.TbxNuclearRadiusB.Size = new System.Drawing.Size(192, 31);
 			this.TbxNuclearRadiusB.TabIndex = 0;
-			this.TbxNuclearRadiusB.TextChanged += new System.EventHandler(this.TbxNuclearRadiusB_TextChanged);
 			// 
 			// LblImpactParam
 			// 
@@ -425,7 +407,6 @@
 			this.LblImpactParam.TabIndex = 0;
 			this.LblImpactParam.Text = "ImpactParam (fm)";
 			this.LblImpactParam.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblImpactParam.Click += new System.EventHandler(this.LblImpactParam_Click);
 			// 
 			// TbxImpactParam
 			// 
@@ -434,7 +415,6 @@
 			this.TbxImpactParam.Name = "TbxImpactParam";
 			this.TbxImpactParam.Size = new System.Drawing.Size(192, 31);
 			this.TbxImpactParam.TabIndex = 0;
-			this.TbxImpactParam.TextChanged += new System.EventHandler(this.TbxImpactParam_TextChanged);
 			// 
 			// GbxGeneralParameters
 			// 
@@ -444,17 +424,20 @@
 			this.GbxGeneralParameters.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxGeneralParameters.Name = "GbxGeneralParameters";
 			this.GbxGeneralParameters.Padding = new System.Windows.Forms.Padding(10);
-			this.GbxGeneralParameters.Size = new System.Drawing.Size(459, 94);
+			this.GbxGeneralParameters.Size = new System.Drawing.Size(459, 144);
 			this.GbxGeneralParameters.TabIndex = 3;
 			this.GbxGeneralParameters.TabStop = false;
 			this.GbxGeneralParameters.Text = "General Parameters";
-			this.GbxGeneralParameters.Enter += new System.EventHandler(this.GbxGeneralParameters_Enter);
 			// 
 			// LayoutGeneralParameters
 			// 
 			this.LayoutGeneralParameters.ColumnCount = 2;
 			this.LayoutGeneralParameters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
 			this.LayoutGeneralParameters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
+			this.LayoutGeneralParameters.Controls.Add(this.LblGridCellSize, 0, 2);
+			this.LayoutGeneralParameters.Controls.Add(this.TbxGridCellSize, 1, 3);
+			this.LayoutGeneralParameters.Controls.Add(this.LblGridRadius, 0, 3);
+			this.LayoutGeneralParameters.Controls.Add(this.TbxGridRadius, 1, 2);
 			this.LayoutGeneralParameters.Controls.Add(this.CbxEMFCalculationMethod, 1, 1);
 			this.LayoutGeneralParameters.Controls.Add(this.LblEMFCalculationMethod, 0, 1);
 			this.LayoutGeneralParameters.Controls.Add(this.LblQGPConductivityMeV, 0, 0);
@@ -463,12 +446,52 @@
 			this.LayoutGeneralParameters.Location = new System.Drawing.Point(10, 34);
 			this.LayoutGeneralParameters.Name = "LayoutGeneralParameters";
 			this.LayoutGeneralParameters.Padding = new System.Windows.Forms.Padding(5);
-			this.LayoutGeneralParameters.RowCount = 2;
+			this.LayoutGeneralParameters.RowCount = 4;
 			this.LayoutGeneralParameters.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutGeneralParameters.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutGeneralParameters.Size = new System.Drawing.Size(439, 50);
+			this.LayoutGeneralParameters.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutGeneralParameters.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutGeneralParameters.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.LayoutGeneralParameters.Size = new System.Drawing.Size(439, 100);
 			this.LayoutGeneralParameters.TabIndex = 0;
-			this.LayoutGeneralParameters.Paint += new System.Windows.Forms.PaintEventHandler(this.LayoutGeneralParameters_Paint);
+			// 
+			// LblGridCellSize
+			// 
+			this.LblGridCellSize.AutoSize = true;
+			this.LblGridCellSize.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblGridCellSize.Location = new System.Drawing.Point(8, 55);
+			this.LblGridCellSize.Name = "LblGridCellSize";
+			this.LblGridCellSize.Size = new System.Drawing.Size(229, 25);
+			this.LblGridCellSize.TabIndex = 0;
+			this.LblGridCellSize.Text = "GridCellSize (fm)";
+			this.LblGridCellSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// TbxGridCellSize
+			// 
+			this.TbxGridCellSize.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxGridCellSize.Location = new System.Drawing.Point(243, 83);
+			this.TbxGridCellSize.Name = "TbxGridCellSize";
+			this.TbxGridCellSize.Size = new System.Drawing.Size(188, 31);
+			this.TbxGridCellSize.TabIndex = 0;
+			// 
+			// LblGridRadius
+			// 
+			this.LblGridRadius.AutoSize = true;
+			this.LblGridRadius.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblGridRadius.Location = new System.Drawing.Point(8, 80);
+			this.LblGridRadius.Name = "LblGridRadius";
+			this.LblGridRadius.Size = new System.Drawing.Size(229, 25);
+			this.LblGridRadius.TabIndex = 0;
+			this.LblGridRadius.Text = "GridRadius (fm)";
+			this.LblGridRadius.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// TbxGridRadius
+			// 
+			this.TbxGridRadius.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxGridRadius.Location = new System.Drawing.Point(243, 58);
+			this.TbxGridRadius.Name = "TbxGridRadius";
+			this.TbxGridRadius.Size = new System.Drawing.Size(188, 31);
+			this.TbxGridRadius.TabIndex = 19;
 			// 
 			// CbxEMFCalculationMethod
 			// 
@@ -478,7 +501,6 @@
 			this.CbxEMFCalculationMethod.Name = "CbxEMFCalculationMethod";
 			this.CbxEMFCalculationMethod.Size = new System.Drawing.Size(188, 33);
 			this.CbxEMFCalculationMethod.TabIndex = 7;
-			this.CbxEMFCalculationMethod.SelectedIndexChanged += new System.EventHandler(this.CbxEMFCalculationMethod_SelectedIndexChanged);
 			// 
 			// LblEMFCalculationMethod
 			// 
@@ -490,7 +512,6 @@
 			this.LblEMFCalculationMethod.TabIndex = 1;
 			this.LblEMFCalculationMethod.Text = "EMFCalculationMethod";
 			this.LblEMFCalculationMethod.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblEMFCalculationMethod.Click += new System.EventHandler(this.LblEMFCalculationMethod_Click);
 			// 
 			// LblQGPConductivityMeV
 			// 
@@ -502,7 +523,6 @@
 			this.LblQGPConductivityMeV.TabIndex = 0;
 			this.LblQGPConductivityMeV.Text = "QGPConductivity (MeV)";
 			this.LblQGPConductivityMeV.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblQGPConductivityMeV.Click += new System.EventHandler(this.LblQGPConductivityMeV_Click);
 			// 
 			// TbxQGPConductivityMeV
 			// 
@@ -511,13 +531,12 @@
 			this.TbxQGPConductivityMeV.Name = "TbxQGPConductivityMeV";
 			this.TbxQGPConductivityMeV.Size = new System.Drawing.Size(188, 31);
 			this.TbxQGPConductivityMeV.TabIndex = 0;
-			this.TbxQGPConductivityMeV.TextChanged += new System.EventHandler(this.TbxQGPConductivityMeV_TextChanged);
 			// 
 			// GbxSinglePointCharge
 			// 
 			this.GbxSinglePointCharge.Controls.Add(this.tableLayoutPanel2);
 			this.GbxSinglePointCharge.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxSinglePointCharge.Location = new System.Drawing.Point(10, 454);
+			this.GbxSinglePointCharge.Location = new System.Drawing.Point(10, 504);
 			this.GbxSinglePointCharge.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxSinglePointCharge.Name = "GbxSinglePointCharge";
 			this.GbxSinglePointCharge.Padding = new System.Windows.Forms.Padding(10);
@@ -525,7 +544,6 @@
 			this.GbxSinglePointCharge.TabIndex = 2;
 			this.GbxSinglePointCharge.TabStop = false;
 			this.GbxSinglePointCharge.Text = "Single Point Charge";
-			this.GbxSinglePointCharge.Enter += new System.EventHandler(this.GbxSinglePointCharge_Enter);
 			// 
 			// tableLayoutPanel2
 			// 
@@ -557,7 +575,6 @@
 			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
 			this.tableLayoutPanel2.Size = new System.Drawing.Size(439, 200);
 			this.tableLayoutPanel2.TabIndex = 0;
-			this.tableLayoutPanel2.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel2_Paint);
 			// 
 			// MsxEMFCalculationMethodSelection
 			// 
@@ -568,7 +585,6 @@
 			this.MsxEMFCalculationMethodSelection.SelectionString = "";
 			this.MsxEMFCalculationMethodSelection.Size = new System.Drawing.Size(188, 68);
 			this.MsxEMFCalculationMethodSelection.TabIndex = 22;
-			this.MsxEMFCalculationMethodSelection.Load += new System.EventHandler(this.MsxEMFCalculationMethodSelection_Load);
 			// 
 			// LblEMFCalculationMethodSelection
 			// 
@@ -580,7 +596,6 @@
 			this.LblEMFCalculationMethodSelection.Size = new System.Drawing.Size(229, 75);
 			this.LblEMFCalculationMethodSelection.TabIndex = 11;
 			this.LblEMFCalculationMethodSelection.Text = "EMFCalculationMethodSelection";
-			this.LblEMFCalculationMethodSelection.Click += new System.EventHandler(this.LblEMFCalculationMethodSelection_Click);
 			// 
 			// LblEffectiveTimeSamples
 			// 
@@ -592,7 +607,6 @@
 			this.LblEffectiveTimeSamples.TabIndex = 10;
 			this.LblEffectiveTimeSamples.Text = "EffectiveTimeSamples";
 			this.LblEffectiveTimeSamples.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblEffectiveTimeSamples.Click += new System.EventHandler(this.LblEffectiveTimeSamples_Click);
 			// 
 			// TbxEffectiveTimeSamples
 			// 
@@ -601,7 +615,6 @@
 			this.TbxEffectiveTimeSamples.Name = "TbxEffectiveTimeSamples";
 			this.TbxEffectiveTimeSamples.Size = new System.Drawing.Size(188, 31);
 			this.TbxEffectiveTimeSamples.TabIndex = 9;
-			this.TbxEffectiveTimeSamples.TextChanged += new System.EventHandler(this.TbxEffectiveTimeSamples_TextChanged);
 			// 
 			// TbxLorentzFactor
 			// 
@@ -610,7 +623,6 @@
 			this.TbxLorentzFactor.Name = "TbxLorentzFactor";
 			this.TbxLorentzFactor.Size = new System.Drawing.Size(188, 31);
 			this.TbxLorentzFactor.TabIndex = 8;
-			this.TbxLorentzFactor.TextChanged += new System.EventHandler(this.TbxLorentzFactor_TextChanged);
 			// 
 			// LblRadialDistance
 			// 
@@ -622,7 +634,6 @@
 			this.LblRadialDistance.TabIndex = 0;
 			this.LblRadialDistance.Text = "RadialDistance (fm)";
 			this.LblRadialDistance.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblRadialDistance.Click += new System.EventHandler(this.LblRadialDistance_Click);
 			// 
 			// TbxRadialDistance
 			// 
@@ -631,7 +642,6 @@
 			this.TbxRadialDistance.Name = "TbxRadialDistance";
 			this.TbxRadialDistance.Size = new System.Drawing.Size(188, 31);
 			this.TbxRadialDistance.TabIndex = 0;
-			this.TbxRadialDistance.TextChanged += new System.EventHandler(this.TbxRadialDistance_TextChanged);
 			// 
 			// LblStartEffectiveTime
 			// 
@@ -643,7 +653,6 @@
 			this.LblStartEffectiveTime.TabIndex = 0;
 			this.LblStartEffectiveTime.Text = "StartEffectiveTime (fm/c)";
 			this.LblStartEffectiveTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblStartEffectiveTime.Click += new System.EventHandler(this.LblStartEffectiveTime_Click);
 			// 
 			// TbxStartEffectiveTime
 			// 
@@ -652,7 +661,6 @@
 			this.TbxStartEffectiveTime.Name = "TbxStartEffectiveTime";
 			this.TbxStartEffectiveTime.Size = new System.Drawing.Size(188, 31);
 			this.TbxStartEffectiveTime.TabIndex = 1;
-			this.TbxStartEffectiveTime.TextChanged += new System.EventHandler(this.TbxStartEffectiveTime_TextChanged);
 			// 
 			// LblStopEffectiveTime
 			// 
@@ -664,7 +672,6 @@
 			this.LblStopEffectiveTime.TabIndex = 7;
 			this.LblStopEffectiveTime.Text = "StopEffectiveTime (fm/c)";
 			this.LblStopEffectiveTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblStopEffectiveTime.Click += new System.EventHandler(this.LblStopEffectiveTime_Click);
 			// 
 			// TbxStopEffectiveTime
 			// 
@@ -673,7 +680,6 @@
 			this.TbxStopEffectiveTime.Name = "TbxStopEffectiveTime";
 			this.TbxStopEffectiveTime.Size = new System.Drawing.Size(188, 31);
 			this.TbxStopEffectiveTime.TabIndex = 2;
-			this.TbxStopEffectiveTime.TextChanged += new System.EventHandler(this.TbxStopEffectiveTime_TextChanged);
 			// 
 			// LblLorentzFactor
 			// 
@@ -685,13 +691,12 @@
 			this.LblLorentzFactor.TabIndex = 0;
 			this.LblLorentzFactor.Text = "LorentzFactor";
 			this.LblLorentzFactor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblLorentzFactor.Click += new System.EventHandler(this.LblLorentzFactor_Click);
 			// 
 			// GbxOutput
 			// 
 			this.GbxOutput.Controls.Add(this.tableLayoutPanel1);
 			this.GbxOutput.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxOutput.Location = new System.Drawing.Point(10, 718);
+			this.GbxOutput.Location = new System.Drawing.Point(10, 768);
 			this.GbxOutput.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxOutput.Name = "GbxOutput";
 			this.GbxOutput.Padding = new System.Windows.Forms.Padding(10);
@@ -699,7 +704,6 @@
 			this.GbxOutput.TabIndex = 1;
 			this.GbxOutput.TabStop = false;
 			this.GbxOutput.Text = "Output";
-			this.GbxOutput.Enter += new System.EventHandler(this.GbxOutput_Enter);
 			// 
 			// tableLayoutPanel1
 			// 
@@ -716,7 +720,6 @@
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 25);
 			this.tableLayoutPanel1.TabIndex = 0;
-			this.tableLayoutPanel1.Paint += new System.Windows.Forms.PaintEventHandler(this.tableLayoutPanel1_Paint);
 			// 
 			// LblOutfile
 			// 
@@ -728,7 +731,6 @@
 			this.LblOutfile.TabIndex = 0;
 			this.LblOutfile.Text = "Outfile";
 			this.LblOutfile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblOutfile.Click += new System.EventHandler(this.LblOutfile_Click);
 			// 
 			// TbxOutfile
 			// 
@@ -737,7 +739,6 @@
 			this.TbxOutfile.Name = "TbxOutfile";
 			this.TbxOutfile.Size = new System.Drawing.Size(188, 31);
 			this.TbxOutfile.TabIndex = 0;
-			this.TbxOutfile.TextChanged += new System.EventHandler(this.TbxOutfile_TextChanged);
 			// 
 			// HSplit
 			// 
@@ -757,7 +758,6 @@
 			this.HSplit.Size = new System.Drawing.Size(290, 503);
 			this.HSplit.SplitterDistance = 439;
 			this.HSplit.TabIndex = 0;
-			this.HSplit.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.HSplit_SplitterMoved);
 			// 
 			// CtrlTextBoxLog
 			// 
@@ -768,7 +768,6 @@
 			this.CtrlTextBoxLog.TabIndex = 9;
 			this.CtrlTextBoxLog.Text = "";
 			this.CtrlTextBoxLog.WordWrap = false;
-			this.CtrlTextBoxLog.TextChanged += new System.EventHandler(this.CtrlTextBoxLog_TextChanged);
 			// 
 			// CtrlStatusTrackingCtrl
 			// 
@@ -777,7 +776,6 @@
 			this.CtrlStatusTrackingCtrl.Name = "CtrlStatusTrackingCtrl";
 			this.CtrlStatusTrackingCtrl.Size = new System.Drawing.Size(900, 50);
 			this.CtrlStatusTrackingCtrl.TabIndex = 0;
-			this.CtrlStatusTrackingCtrl.Load += new System.EventHandler(this.CtrlStatusTrackingCtrl_Load);
 			// 
 			// ElectromagnetismPanel
 			// 
@@ -864,5 +862,9 @@
 		private System.Windows.Forms.TextBox TbxProtonNumberA;
 		private System.Windows.Forms.Label LblProtonNumberA;
 		private System.Windows.Forms.TextBox TbxProtonNumberB;
+		private System.Windows.Forms.Label LblGridCellSize;
+		private System.Windows.Forms.TextBox TbxGridCellSize;
+		private System.Windows.Forms.Label LblGridRadius;
+		private System.Windows.Forms.TextBox TbxGridRadius;
 	}
 }

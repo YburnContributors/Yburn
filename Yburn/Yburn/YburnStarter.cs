@@ -13,7 +13,7 @@ namespace Yburn
 		 ********************************************************************************************/
 
 		public static void Execute(
-			YburnUI ui,
+			WorkerStarter workerStarter,
 			string workerName
 			)
 		{
@@ -23,9 +23,9 @@ namespace Yburn
 
 				FullNameVersion = NameVersion + " - " + workerName;
 
-				ui.Title = FullNameVersion;
-				ui.JobOrganizer = CreateBackgroundService(workerName);
-				ui.Run();
+				workerStarter.Title = FullNameVersion;
+				workerStarter.JobOrganizer = CreateBackgroundService(workerName);
+				workerStarter.Run();
 			}
 			catch(Exception exception)
 			{

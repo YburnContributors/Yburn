@@ -459,7 +459,6 @@
 			this.LblShapeFunctionTypeB.TabIndex = 0;
 			this.LblShapeFunctionTypeB.Text = "ShapeFunctionTypeB";
 			this.LblShapeFunctionTypeB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblShapeFunctionTypeB.Click += new System.EventHandler(this.LblProtonLeadCollision_Click);
 			// 
 			// CbxShapeFunctionTypeB
 			// 
@@ -469,7 +468,6 @@
 			this.CbxShapeFunctionTypeB.Name = "CbxShapeFunctionTypeB";
 			this.CbxShapeFunctionTypeB.Size = new System.Drawing.Size(192, 33);
 			this.CbxShapeFunctionTypeB.TabIndex = 0;
-			this.CbxShapeFunctionTypeB.SelectedIndexChanged += new System.EventHandler(this.cBxProtonLeadCollision_SelectedIndexChanged);
 			// 
 			// LblDiffusenessA
 			// 
@@ -595,7 +593,6 @@
 			this.LblImpactParam.TabIndex = 0;
 			this.LblImpactParam.Text = "ImpactParam (fm)";
 			this.LblImpactParam.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			this.LblImpactParam.Click += new System.EventHandler(this.LblImpactParam_Click);
 			// 
 			// TbxImpactParam
 			// 
@@ -692,7 +689,6 @@
 			this.CbxExpansionMode.Name = "CbxExpansionMode";
 			this.CbxExpansionMode.Size = new System.Drawing.Size(192, 33);
 			this.CbxExpansionMode.TabIndex = 0;
-			this.CbxExpansionMode.SelectedIndexChanged += new System.EventHandler(this.CbxExpansionMode_SelectedIndexChanged);
 			// 
 			// LblTemperatureProfile
 			// 

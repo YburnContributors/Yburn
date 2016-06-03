@@ -74,7 +74,7 @@ namespace Yburn.Fireball
 			{
 				if(Param.AreParticlesABIdentical)
 				{
-					return Temperature.Values[0, 0];
+					return Temperature[0, 0];
 				}
 				else
 				{
@@ -160,7 +160,7 @@ namespace Yburn.Fireball
 					for(int k = 0; k < fields.Count; k++)
 					{
 						stringBuilder.AppendFormat("{0,20}",
-							fields[k].Values[i, j].ToString("G6"));
+							fields[k][i, j].ToString("G6"));
 					}
 
 					stringBuilder.AppendLine();
@@ -205,37 +205,37 @@ namespace Yburn.Fireball
 			CollisionsInHadronicRegion = 0;
 
 			// center point
-			if(Temperature.Values[0, 0] >= criticalTemperature)
+			if(Temperature[0, 0] >= criticalTemperature)
 			{
-				CollisionInQGP += 0.5 * GlauberCalculation.NcollField.Values[0, 0];
+				CollisionInQGP += 0.5 * GlauberCalculation.NcollField[0, 0];
 			}
 			else
 			{
-				CollisionsInHadronicRegion += 0.5 * GlauberCalculation.NcollField.Values[0, 0];
+				CollisionsInHadronicRegion += 0.5 * GlauberCalculation.NcollField[0, 0];
 			}
 
 			// edges
 			for(int i = 1; i < Param.NumberGridPoints; i++)
 			{
-				if(Temperature.Values[i, 0] >= criticalTemperature)
+				if(Temperature[i, 0] >= criticalTemperature)
 				{
-					CollisionInQGP += GlauberCalculation.NcollField.Values[i, 0];
+					CollisionInQGP += GlauberCalculation.NcollField[i, 0];
 				}
 				else
 				{
-					CollisionsInHadronicRegion += GlauberCalculation.NcollField.Values[i, 0];
+					CollisionsInHadronicRegion += GlauberCalculation.NcollField[i, 0];
 				}
 			}
 
 			for(int j = 1; j < Param.NumberGridPoints; j++)
 			{
-				if(Temperature.Values[0, j] >= criticalTemperature)
+				if(Temperature[0, j] >= criticalTemperature)
 				{
-					CollisionInQGP += GlauberCalculation.NcollField.Values[0, j];
+					CollisionInQGP += GlauberCalculation.NcollField[0, j];
 				}
 				else
 				{
-					CollisionsInHadronicRegion += GlauberCalculation.NcollField.Values[0, j];
+					CollisionsInHadronicRegion += GlauberCalculation.NcollField[0, j];
 				}
 			}
 
@@ -247,13 +247,13 @@ namespace Yburn.Fireball
 			{
 				for(int j = 1; j < Param.NumberGridPoints; j++)
 				{
-					if(Temperature.Values[i, j] >= criticalTemperature)
+					if(Temperature[i, j] >= criticalTemperature)
 					{
-						CollisionInQGP += GlauberCalculation.NcollField.Values[i, j];
+						CollisionInQGP += GlauberCalculation.NcollField[i, j];
 					}
 					else
 					{
-						CollisionsInHadronicRegion += GlauberCalculation.NcollField.Values[i, j];
+						CollisionsInHadronicRegion += GlauberCalculation.NcollField[i, j];
 					}
 				}
 			}
@@ -420,8 +420,8 @@ namespace Yburn.Fireball
 			if(Param.ExpansionMode == ExpansionMode.Transverse)
 			{
 				Solver.SolveUntil(CurrentTime);
-				VX.Values = Solver.VX;
-				VY.Values = Solver.VY;
+				VX.SetDiscreteValues(Solver.VX);
+				VY.SetDiscreteValues(Solver.VY);
 				Temperature.Advance(Solver);
 			}
 			else
@@ -466,9 +466,9 @@ namespace Yburn.Fireball
 					Param.GridCellSizeFm,
 					CurrentTime,
 					0.25,
-					Temperature.Values,
-					VX.Values,
-					VY.Values,
+					Temperature.GetDiscreteValues(),
+					VX.GetDiscreteValues(),
+					VY.GetDiscreteValues(),
 					0,
 					Param.FtexsLogPathFile);
 			}
@@ -561,7 +561,7 @@ namespace Yburn.Fireball
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
 				(i, j) => DampingFactor.Values[pTindex, (int)state][i, j]
-					* GlauberCalculation.OverlapField.Values[i, j]);
+					* GlauberCalculation.OverlapField[i, j]);
 		}
 
 		private void SetTimeStep(

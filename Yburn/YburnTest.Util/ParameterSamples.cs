@@ -14,6 +14,8 @@ namespace Yburn.Tests.Util
 				nameValuePairs["EMFCalculationMethod"] = "URLimitFourierSynthesis";
 				nameValuePairs["EMFCalculationMethodSelection"] = "URLimitFourierSynthesis";
 				nameValuePairs["EffectiveTimeSamples"] = "3333";
+				nameValuePairs["GridCellSize"] = "3333";
+				nameValuePairs["GridRadius"] = "3333";
 				nameValuePairs["ImpactParam"] = "3333";
 				nameValuePairs["LorentzFactor"] = "3333";
 				nameValuePairs["NuclearRadiusA"] = "3333";

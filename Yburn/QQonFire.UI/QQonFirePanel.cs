@@ -286,24 +286,5 @@ namespace Yburn.QQonFire.UI
 		{
 			JobOrganizer.RequestNewJob("ShowSnapsXY", ControlsValues);
 		}
-
-		private void LblImpactParam_Click(object sender, EventArgs e)
-		{
-		}
-
-		private void CbxExpansionMode_SelectedIndexChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void cBxProtonLeadCollision_SelectedIndexChanged(object sender, EventArgs e)
-		{
-
-		}
-
-		private void LblProtonLeadCollision_Click(object sender, EventArgs e)
-		{
-
-		}
 	}
 }

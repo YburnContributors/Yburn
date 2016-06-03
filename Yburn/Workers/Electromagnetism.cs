@@ -21,16 +21,12 @@ namespace Yburn.Workers
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		private FireballParam CreateFireballParam(
-			EMFCalculationMethod emfCalculationMethod
-			)
+		public void CalculateAverageMagneticFieldStrength()
 		{
-			FireballParam param = new FireballParam();
+			GlauberCalculation glauber = new GlauberCalculation(CreateFireballParam());
+			SimpleFireballField nCollField = glauber.NcollField;
 
-			param.EMFCalculationMethod = emfCalculationMethod;
-			param.QGPConductivityMeV = QGPConductivityMeV;
-
-			return param;
+			throw new NotImplementedException();
 		}
 
 		/********************************************************************************************
@@ -55,17 +51,21 @@ namespace Yburn.Workers
 			}
 		}
 
-		private double DiffusenessA;
+		private double DiffusenessAFm;
 
-		private double DiffusenessB;
+		private double DiffusenessBFm;
 
 		private EMFCalculationMethod EMFCalculationMethod;
 
-		private double ImpactParam;
+		private double GridCellSizeFm;
 
-		private double NuclearRadiusA;
+		private double GridRadiusFm;
 
-		private double NuclearRadiusB;
+		private double ImpactParameterFm;
+
+		private double NuclearRadiusAFm;
+
+		private double NuclearRadiusBFm;
 
 		private int NucleonNumberA;
 
@@ -83,21 +83,23 @@ namespace Yburn.Workers
 
 		private ShapeFunctionType ShapeFunctionTypeB;
 
-		protected override void SetVariableNameValueList(
+		protected override void SetVariableNameValuePairs(
 			Dictionary<string, string> nameValuePairs
 			)
 		{
 			DataFileName = Extractor.TryGetString(nameValuePairs, "DataFileName", DataFileName);
 			DataFileName = Extractor.TryGetString(nameValuePairs, "Outfile", DataFileName);
-			DiffusenessA = Extractor.TryGetDouble(nameValuePairs, "DiffusenessA", DiffusenessA);
-			DiffusenessB = Extractor.TryGetDouble(nameValuePairs, "DiffusenessB", DiffusenessB);
+			DiffusenessAFm = Extractor.TryGetDouble(nameValuePairs, "DiffusenessA", DiffusenessAFm);
+			DiffusenessBFm = Extractor.TryGetDouble(nameValuePairs, "DiffusenessB", DiffusenessBFm);
 			EMFCalculationMethod = Extractor.TryGetEnum<EMFCalculationMethod>(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
 			EMFCalculationMethodSelection = Extractor.TryGetEnumArray<EMFCalculationMethod>(nameValuePairs, "EMFCalculationMethodSelection", EMFCalculationMethodSelection);
 			EffectiveTimeSamples = Extractor.TryGetInt(nameValuePairs, "EffectiveTimeSamples", EffectiveTimeSamples);
-			ImpactParam = Extractor.TryGetDouble(nameValuePairs, "ImpactParam", ImpactParam);
+			GridCellSizeFm = Extractor.TryGetDouble(nameValuePairs, "GridCellSize", GridCellSizeFm);
+			GridRadiusFm = Extractor.TryGetDouble(nameValuePairs, "GridRadius", GridRadiusFm);
+			ImpactParameterFm = Extractor.TryGetDouble(nameValuePairs, "ImpactParam", ImpactParameterFm);
 			LorentzFactor = Extractor.TryGetDouble(nameValuePairs, "LorentzFactor", LorentzFactor);
-			NuclearRadiusA = Extractor.TryGetDouble(nameValuePairs, "NuclearRadiusA", NuclearRadiusA);
-			NuclearRadiusB = Extractor.TryGetDouble(nameValuePairs, "NuclearRadiusB", NuclearRadiusB);
+			NuclearRadiusAFm = Extractor.TryGetDouble(nameValuePairs, "NuclearRadiusA", NuclearRadiusAFm);
+			NuclearRadiusBFm = Extractor.TryGetDouble(nameValuePairs, "NuclearRadiusB", NuclearRadiusBFm);
 			NucleonNumberA = Extractor.TryGetInt(nameValuePairs, "NucleonNumberA", NucleonNumberA);
 			NucleonNumberB = Extractor.TryGetInt(nameValuePairs, "NucleonNumberB", NucleonNumberB);
 			ProtonNumberA = Extractor.TryGetInt(nameValuePairs, "ProtonNumberA", ProtonNumberA);
@@ -110,18 +112,20 @@ namespace Yburn.Workers
 			StopEffectiveTime = Extractor.TryGetDouble(nameValuePairs, "StopEffectiveTime", StopEffectiveTime);
 		}
 
-		protected override Dictionary<string, string> GetVariableNameValueList()
+		protected override Dictionary<string, string> GetVariableNameValuePairs()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs["DiffusenessA"] = DiffusenessA.ToString();
-			nameValuePairs["DiffusenessB"] = DiffusenessB.ToString();
+			nameValuePairs["DiffusenessA"] = DiffusenessAFm.ToString();
+			nameValuePairs["DiffusenessB"] = DiffusenessBFm.ToString();
 			nameValuePairs["EMFCalculationMethod"] = EMFCalculationMethod.ToString();
 			nameValuePairs["EMFCalculationMethodSelection"] = EMFCalculationMethodSelection.ToStringifiedList();
 			nameValuePairs["EffectiveTimeSamples"] = EffectiveTimeSamples.ToString();
-			nameValuePairs["ImpactParam"] = ImpactParam.ToString();
+			nameValuePairs["GridCellSize"] = GridCellSizeFm.ToString();
+			nameValuePairs["GridRadius"] = GridRadiusFm.ToString();
+			nameValuePairs["ImpactParam"] = ImpactParameterFm.ToString();
 			nameValuePairs["LorentzFactor"] = LorentzFactor.ToString();
-			nameValuePairs["NuclearRadiusA"] = NuclearRadiusA.ToString();
-			nameValuePairs["NuclearRadiusB"] = NuclearRadiusB.ToString();
+			nameValuePairs["NuclearRadiusA"] = NuclearRadiusAFm.ToString();
+			nameValuePairs["NuclearRadiusB"] = NuclearRadiusBFm.ToString();
 			nameValuePairs["NucleonNumberA"] = NucleonNumberA.ToString();
 			nameValuePairs["NucleonNumberB"] = NucleonNumberB.ToString();
 			nameValuePairs["Outfile"] = Outfile;
@@ -165,11 +169,45 @@ namespace Yburn.Workers
 			get
 			{
 				StringBuilder stringBuilder = new StringBuilder(base.LogHeader);
-				AppendLogHeaderLine(stringBuilder, "QGPConductivityMeV", QGPConductivityMeV);
-				AppendLogHeaderLine(stringBuilder, "EMFCalculationMethod", EMFCalculationMethod);
+				AppendLogHeaderLines(stringBuilder, GetVariableNameValuePairs());
 
 				return stringBuilder.ToString();
 			}
+		}
+
+		private FireballParam CreateFireballParam()
+		{
+			FireballParam param = new FireballParam();
+
+			param.DiffusenessAFm = DiffusenessAFm;
+			param.DiffusenessBFm = DiffusenessBFm;
+			param.EMFCalculationMethod = EMFCalculationMethod;
+			param.GridCellSizeFm = GridCellSizeFm;
+			param.GridRadiusFm = GridRadiusFm;
+			param.ImpactParameterFm = ImpactParameterFm;
+			param.NuclearRadiusAFm = NuclearRadiusAFm;
+			param.NuclearRadiusBFm = NuclearRadiusBFm;
+			param.NucleonNumberA = NucleonNumberA;
+			param.NucleonNumberB = NucleonNumberB;
+			param.ProtonNumberA = ProtonNumberA;
+			param.ProtonNumberB = ProtonNumberB;
+			param.QGPConductivityMeV = QGPConductivityMeV;
+			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
+			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
+
+			return param;
+		}
+
+		private FireballParam CreatePointChargeFireballParam(
+			EMFCalculationMethod emfCalculationMethod
+			)
+		{
+			FireballParam param = new FireballParam();
+
+			param.EMFCalculationMethod = emfCalculationMethod;
+			param.QGPConductivityMeV = QGPConductivityMeV;
+
+			return param;
 		}
 	}
 }

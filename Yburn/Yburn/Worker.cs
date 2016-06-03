@@ -38,7 +38,7 @@ namespace Yburn
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			VariableNameValueList = nameValuePairs;
+			VariableNameValuePairs = nameValuePairs;
 			LogMessages.Clear();
 
 			OnJobStart();
@@ -46,15 +46,15 @@ namespace Yburn
 			OnJobFinished();
 		}
 
-		public Dictionary<string, string> VariableNameValueList
+		public Dictionary<string, string> VariableNameValuePairs
 		{
 			get
 			{
-				return GetVariableNameValueList();
+				return GetVariableNameValuePairs();
 			}
 			set
 			{
-				SetVariableNameValueList(value ?? new Dictionary<string, string>());
+				SetVariableNameValuePairs(value ?? new Dictionary<string, string>());
 			}
 		}
 
@@ -93,6 +93,17 @@ namespace Yburn
 				throw new Exception("Invalid QQ-data file.");
 			}
 			return pathFile;
+		}
+
+		protected static void AppendLogHeaderLines(
+			 StringBuilder stringBuilder,
+			 Dictionary<string, string> nameValuePairs
+			)
+		{
+			foreach(KeyValuePair<string, string> nameValuePair in nameValuePairs)
+			{
+				AppendLogHeaderLine(stringBuilder, nameValuePair.Key, nameValuePair.Value);
+			}
 		}
 
 		protected static void AppendLogHeaderLine(
@@ -215,9 +226,9 @@ namespace Yburn
 			string enumName
 			);
 
-		protected abstract Dictionary<string, string> GetVariableNameValueList();
+		protected abstract Dictionary<string, string> GetVariableNameValuePairs();
 
-		protected abstract void SetVariableNameValueList(
+		protected abstract void SetVariableNameValuePairs(
 			Dictionary<string, string> nameValuePairs
 			);
 

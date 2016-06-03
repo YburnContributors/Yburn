@@ -233,7 +233,7 @@ namespace Yburn.Workers.Tests
 			)
 		{
 			StatusValues = new string[3];
-			VariableNameValueList = GetQQonFireVariables(type);
+			VariableNameValuePairs = GetQQonFireVariables(type);
 			NumberCentralityBins = new int[] { 7, 1 };
 
 			return CalculateQGPSuppressionFactors();

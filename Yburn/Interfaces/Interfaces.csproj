@@ -35,7 +35,7 @@
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="JobOrganizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="YburnUI.cs" />
+    <Compile Include="WorkerStarter.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />

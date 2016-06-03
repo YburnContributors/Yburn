@@ -2,13 +2,13 @@
 using System.IO;
 using System.Windows.Forms;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yburn.QQonFire.UI;
+using Yburn.Electromagnetism.UI;
 using Yburn.Tests.Util;
 
 namespace Yburn.UI.Tests
 {
 	[TestClass]
-	public class QQonFireTests
+	public class ElectromagnetismUITests
 	{
 		/********************************************************************************************
 		 * Public members, functions and properties
@@ -18,18 +18,18 @@ namespace Yburn.UI.Tests
 		public void TestInitialize()
 		{
 			BackgroundService = new BackgroundService();
-			BackgroundService.SetWorker(new Workers.QQonFire());
+			BackgroundService.SetWorker(new Workers.Electromagnetism());
 		}
 
 		[TestMethod]
-		public void ManipulateQQonFirePanelControls()
+		public void ManipulateElectromagnetismPanelControls()
 		{
-			QQonFirePanel = new QQonFirePanel();
-			QQonFirePanel.Initialize(BackgroundService);
-			QQonFirePanel.ControlsValues = ParameterSamples.QQonFireSamples;
+			ElectromagnetismPanel = new ElectromagnetismPanel();
+			ElectromagnetismPanel.Initialize(BackgroundService);
+			ElectromagnetismPanel.ControlsValues = ParameterSamples.ElectromagnetismSamples;
 
 			AssertHelper.AssertAllElementsEqual(
-				ParameterSamples.QQonFireSamples, QQonFirePanel.ControlsValues);
+				ParameterSamples.ElectromagnetismSamples, ElectromagnetismPanel.ControlsValues);
 		}
 
 		[TestMethod]
@@ -42,7 +42,7 @@ namespace Yburn.UI.Tests
 			try
 			{
 				BackgroundService.ProcessParameterFile(emptyParameterFile);
-				QQonFireMainWindow mainWindow = new QQonFireMainWindow("", BackgroundService);
+				ElectromagnetismMainWindow mainWindow = new ElectromagnetismMainWindow("", BackgroundService);
 			}
 			catch(NullReferenceException)
 			{
@@ -56,9 +56,9 @@ namespace Yburn.UI.Tests
 		}
 
 		[TestMethod]
-		public void QQonFire_BackgroundworkerCanFillAllComboBoxes()
+		public void Electromagnetism_BackgroundworkerCanFillAllComboBoxes()
 		{
-			QQonFirePanel panel = new QQonFirePanel();
+			ElectromagnetismPanel panel = new ElectromagnetismPanel();
 			panel.Initialize(BackgroundService);
 
 			AssertAllComboBoxesHaveItems(panel.Controls);
@@ -68,7 +68,7 @@ namespace Yburn.UI.Tests
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private QQonFirePanel QQonFirePanel;
+		private ElectromagnetismPanel ElectromagnetismPanel;
 
 		private BackgroundService BackgroundService;
 

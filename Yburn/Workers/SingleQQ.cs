@@ -484,7 +484,7 @@ namespace Yburn.Workers
 
 		private bool UseFixedAlpha;
 
-		protected override void SetVariableNameValueList(
+		protected override void SetVariableNameValuePairs(
 			Dictionary<string, string> nameValuePairs
 			)
 		{
@@ -540,7 +540,7 @@ namespace Yburn.Workers
 			WaveVector = Extractor.TryGetDouble(nameValuePairs, "WaveVector", WaveVector);
 		}
 
-		protected override Dictionary<string, string> GetVariableNameValueList()
+		protected override Dictionary<string, string> GetVariableNameValuePairs()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 			nameValuePairs["AccuracyAlpha"] = AccuracyAlpha.ToString();

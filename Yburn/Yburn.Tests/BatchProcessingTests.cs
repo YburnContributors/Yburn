@@ -169,12 +169,12 @@ namespace Yburn.Tests
 			return DummyBatchPathFile;
 		}
 
-		protected override Dictionary<string, string> GetVariableNameValueList()
+		protected override Dictionary<string, string> GetVariableNameValuePairs()
 		{
 			return new Dictionary<string, string>();
 		}
 
-		protected override void SetVariableNameValueList(
+		protected override void SetVariableNameValuePairs(
 			Dictionary<string, string> param
 			)
 		{

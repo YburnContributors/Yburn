@@ -46,6 +46,18 @@ namespace Yburn.Fireball
 
 		public double GridCellSizeFm;
 
+		public double GridRadiusFm
+		{
+			get
+			{
+				return NumberGridPoints * GridCellSizeFm;
+			}
+			set
+			{
+				NumberGridPoints = Convert.ToInt32(Math.Round(value / GridCellSizeFm));
+			}
+		}
+
 		public int NumberGridPoints;
 
 		public int NumberGridPointsInX

@@ -39,7 +39,7 @@ namespace Yburn.Workers.Tests
 		public void PlotPointChargeAzimutalMagneticField()
 		{
 			Electromagnetism electromagnetism = new Electromagnetism();
-			electromagnetism.VariableNameValueList = GetPointChargeFieldPlotParams();
+			electromagnetism.VariableNameValuePairs = GetPointChargeFieldPlotParams();
 
 			WaitForGnuplotThenKillIt(electromagnetism.PlotPointChargeAzimutalMagneticField());
 		}
@@ -48,7 +48,7 @@ namespace Yburn.Workers.Tests
 		public void PlotPointChargeLongitudinalElectricField()
 		{
 			Electromagnetism electromagnetism = new Electromagnetism();
-			electromagnetism.VariableNameValueList = GetPointChargeFieldPlotParams();
+			electromagnetism.VariableNameValuePairs = GetPointChargeFieldPlotParams();
 
 			WaitForGnuplotThenKillIt(electromagnetism.PlotPointChargeLongitudinalElectricField());
 		}
@@ -57,7 +57,7 @@ namespace Yburn.Workers.Tests
 		public void PlotPointChargeRadialElectricField()
 		{
 			Electromagnetism electromagnetism = new Electromagnetism();
-			electromagnetism.VariableNameValueList = GetPointChargeFieldPlotParams();
+			electromagnetism.VariableNameValuePairs = GetPointChargeFieldPlotParams();
 
 			WaitForGnuplotThenKillIt(electromagnetism.PlotPointChargeRadialElectricField());
 		}

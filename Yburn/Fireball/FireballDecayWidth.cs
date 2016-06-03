@@ -84,9 +84,9 @@ namespace Yburn.Fireball
 			double newTime
 			)
 		{
-			LinearInterpolation2D interpT = new LinearInterpolation2D(X, Y, Temperature.Values);
-			LinearInterpolation2D interpVX = new LinearInterpolation2D(X, Y, VX.Values);
-			LinearInterpolation2D interpVY = new LinearInterpolation2D(X, Y, VY.Values);
+			LinearInterpolation2D interpT = new LinearInterpolation2D(X, Y, Temperature.GetDiscreteValues());
+			LinearInterpolation2D interpVX = new LinearInterpolation2D(X, Y, VX.GetDiscreteValues());
+			LinearInterpolation2D interpVY = new LinearInterpolation2D(X, Y, VY.GetDiscreteValues());
 
 			SetValues((i, j, k, l) =>
 			{
@@ -149,7 +149,7 @@ namespace Yburn.Fireball
 			SetValues((i, j, k, l) =>
 			{
 				return IsStateAlreadyFormed(k, l, InitialTime) ?
-					 GetDecayWidth((BottomiumState)l, Temperature.Values[i, j], 0) / GammaT[k, l]
+					 GetDecayWidth((BottomiumState)l, Temperature[i, j], 0) / GammaT[k, l]
 					: double.PositiveInfinity;
 			});
 		}
@@ -310,8 +310,8 @@ namespace Yburn.Fireball
 			)
 		{
 			double pathLength = qqBeta * time;
-			double vxVal = VX.Values[i, j];
-			double vyVal = VY.Values[i, j];
+			double vxVal = VX[i, j];
+			double vyVal = VY[i, j];
 			double v = Math.Sqrt(vxVal * vxVal + vyVal * vyVal);
 
 			x = vxVal > 0 ? X[i] + pathLength * vxVal / v : X[i];
