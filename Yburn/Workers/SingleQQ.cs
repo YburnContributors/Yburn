@@ -774,58 +774,6 @@ namespace Yburn.Workers
 				Temperature);
 		}
 
-		protected override string LogHeader
-		{
-			get
-			{
-				StringBuilder stringBuilder = new StringBuilder(base.LogHeader);
-				AppendLogHeaderLine(stringBuilder, "ColorState", ColorState);
-				AppendLogHeaderLine(stringBuilder, "SpinState", SpinState);
-				AppendLogHeaderLine(stringBuilder, "PotentialType", PotentialType);
-				AppendLogHeaderLine(stringBuilder, "RunningCouplingType", RunningCouplingType);
-				AppendLogHeaderLine(stringBuilder, "AccuracyAlpha", AccuracyAlpha);
-				AppendLogHeaderLine(stringBuilder, "AccuracyWaveFunction", AccuracyWaveFunction);
-				AppendLogHeaderLine(stringBuilder, "AggressivenessAlpha", AggressivenessAlpha);
-				AppendLogHeaderLine(stringBuilder, "BoundMass", BoundMass);
-				AppendLogHeaderLine(stringBuilder, "MaxEnergy", MaxEnergy);
-				AppendLogHeaderLine(stringBuilder, "Energy", Energy);
-				AppendLogHeaderLine(stringBuilder, "EnergySteps", EnergySteps);
-				AppendLogHeaderLine(stringBuilder, "GammaDamp", GammaDamp);
-				AppendLogHeaderLine(stringBuilder, "QuantumNumberL", QuantumNumberL);
-				AppendLogHeaderLine(stringBuilder, "MaxShootingTrials", MaxShootingTrials);
-				AppendLogHeaderLine(stringBuilder, "QuantumNumberN", QuantumNumberN);
-				AppendLogHeaderLine(stringBuilder, "QuarkMass", QuarkMass);
-				AppendLogHeaderLine(stringBuilder, "MaxRadius", MaxRadius);
-				AppendLogHeaderLine(stringBuilder, "StepNumber", StepNumber);
-				AppendLogHeaderLine(stringBuilder, "SoftScale", SoftScale);
-				AppendLogHeaderLine(stringBuilder, "SpinCouplingStrength", SpinCouplingStrength);
-				AppendLogHeaderLine(stringBuilder, "SpinCouplingRange", SpinCouplingRange);
-				AppendLogHeaderLine(stringBuilder, "Temperature", Temperature);
-				AppendLogHeaderLine(stringBuilder, "Tchem", Tchem);
-				AppendLogHeaderLine(stringBuilder, "Tcrit", Tcrit);
-				AppendLogHeaderLine(stringBuilder, "Outfile", Outfile);
-				AppendLogHeaderLine(stringBuilder, "AlphaHard", AlphaHard);
-				AppendLogHeaderLine(stringBuilder, "AlphaSoft", AlphaSoft);
-				AppendLogHeaderLine(stringBuilder, "AlphaThermal", AlphaThermal);
-				AppendLogHeaderLine(stringBuilder, "AlphaUltraSoft", AlphaUltraSoft);
-				AppendLogHeaderLine(stringBuilder, "DebyeMass", DebyeMass);
-				AppendLogHeaderLine(stringBuilder, "StepSize", StepSize);
-				AppendLogHeaderLine(stringBuilder, "GammaDiss", GammaDiss);
-				AppendLogHeaderLine(stringBuilder, "GammaTot", GammaTot);
-				AppendLogHeaderLine(stringBuilder, "WaveVector", WaveVector);
-				AppendLogHeaderLine(stringBuilder, "StepsPerPeriod", StepsPerPeriod);
-				AppendLogHeaderLine(stringBuilder, "NumberExtrema", NumberExtrema);
-				AppendLogHeaderLine(stringBuilder, "AvInvRadius", AvInvRadius);
-				AppendLogHeaderLine(stringBuilder, "RMS", RMS);
-				AppendLogHeaderLine(stringBuilder, "Sigma", Sigma);
-				AppendLogHeaderLine(stringBuilder, "SigmaEff", SigmaEff);
-				AppendLogHeaderLine(stringBuilder, "Trials", Trials);
-				AppendLogHeaderLine(stringBuilder, "UltraSoftScale", UltraSoftScale);
-
-				return stringBuilder.ToString();
-			}
-		}
-
 		protected override void StartJob(
 			string jobId
 			)

@@ -200,25 +200,6 @@ namespace Yburn.Workers
 			}
 		}
 
-		protected override string LogHeader
-		{
-			get
-			{
-				StringBuilder stringBuilder = new StringBuilder(base.LogHeader);
-				AppendLogHeaderLine(stringBuilder, "MinTemperature", MinTemperature);
-				AppendLogHeaderLine(stringBuilder, "MaxTemperature", MaxTemperature);
-				AppendLogHeaderLine(stringBuilder, "TemperatureStepSize", TemperatureStepSize);
-				AppendLogHeaderLine(stringBuilder, "MediumVelocity", MediumVelocity);
-				AppendLogHeaderLine(stringBuilder, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
-				AppendLogHeaderLine(stringBuilder, "UseAveragedTemperature", UseAveragedTemperature);
-				AppendLogHeaderLine(stringBuilder, "DecayWidthType", DecayWidthType);
-				AppendLogHeaderLine(stringBuilder, "PotentialTypes", PotentialTypes);
-				AppendLogHeaderLine(stringBuilder, "BottomiumStates", BottomiumStates);
-
-				return stringBuilder.ToString();
-			}
-		}
-
 		private void AssertInputValid_PlotInMediumDecayWidth()
 		{
 			if(BottomiumStates.ToEnumArray<BottomiumState>().Length == 0)

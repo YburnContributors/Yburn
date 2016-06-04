@@ -164,17 +164,6 @@ namespace Yburn.Workers
 			}
 		}
 
-		protected override string LogHeader
-		{
-			get
-			{
-				StringBuilder stringBuilder = new StringBuilder(base.LogHeader);
-				AppendLogHeaderLines(stringBuilder, GetVariableNameValuePairs());
-
-				return stringBuilder.ToString();
-			}
-		}
-
 		private FireballParam CreateFireballParam()
 		{
 			FireballParam param = new FireballParam();

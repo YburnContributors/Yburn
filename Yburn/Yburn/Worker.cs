@@ -95,17 +95,6 @@ namespace Yburn
 			return pathFile;
 		}
 
-		protected static void AppendLogHeaderLines(
-			 StringBuilder stringBuilder,
-			 Dictionary<string, string> nameValuePairs
-			)
-		{
-			foreach(KeyValuePair<string, string> nameValuePair in nameValuePairs)
-			{
-				AppendLogHeaderLine(stringBuilder, nameValuePair.Key, nameValuePair.Value);
-			}
-		}
-
 		protected static void AppendLogHeaderLine(
 			 StringBuilder stringBuilder,
 			 string name,
@@ -193,7 +182,8 @@ namespace Yburn
 		 string[] value
 		 )
 		{
-			stringBuilder.AppendLine(string.Format("#{0,35}    {1}", name, value.ToStringifiedList()));
+			stringBuilder.AppendLine(
+				string.Format("#{0,35}    {1}", name, value.ToStringifiedList()));
 		}
 
 		/********************************************************************************************
@@ -231,6 +221,16 @@ namespace Yburn
 		protected abstract void SetVariableNameValuePairs(
 			Dictionary<string, string> nameValuePairs
 			);
+
+		protected void AppendLogHeaderVariableNameValuePairs(
+			 StringBuilder stringBuilder
+			)
+		{
+			foreach(KeyValuePair<string, string> nameValuePair in VariableNameValuePairs)
+			{
+				AppendLogHeaderLine(stringBuilder, nameValuePair.Key, nameValuePair.Value);
+			}
+		}
 
 		protected void PrepareJob(
 			string jobTitle
@@ -278,7 +278,7 @@ namespace Yburn
 
 		private string JobStartTimeStampString;
 
-		protected virtual string LogHeader
+		protected string LogHeader
 		{
 			get
 			{
@@ -286,6 +286,7 @@ namespace Yburn
 				AppendLogHeaderLine(stringBuilder, "Name and Version", NameVersion);
 				AppendLogHeaderLine(stringBuilder, "Job specifier", CurrentJobTitle);
 				AppendLogHeaderLine(stringBuilder, "Job started at", JobStartTimeStampString);
+				AppendLogHeaderVariableNameValuePairs(stringBuilder);
 
 				return stringBuilder.ToString();
 			}

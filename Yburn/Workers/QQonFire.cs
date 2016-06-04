@@ -1062,50 +1062,5 @@ namespace Yburn.Workers
 
 			return nameValuePairs;
 		}
-
-		protected override string LogHeader
-		{
-			get
-			{
-				StringBuilder stringBuilder = new StringBuilder(base.LogHeader);
-				AppendLogHeaderLine(stringBuilder, "BeamRapidity", BeamRapidity);
-				AppendLogHeaderLine(stringBuilder, "BjorkenLifeTime", BjorkenLifeTime);
-				AppendLogHeaderLine(stringBuilder, "BottomiumStates", BottomiumStates);
-				AppendLogHeaderLine(stringBuilder, "CentralityBinBoundaries", CentralityBinBoundaries);
-				AppendLogHeaderLine(stringBuilder, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
-				AppendLogHeaderLine(stringBuilder, "DecayWidthEvaluationType", DecayWidthEvaluationType);
-				AppendLogHeaderLine(stringBuilder, "DecayWidthType", DecayWidthType);
-				AppendLogHeaderLine(stringBuilder, "DiffusenessA", DiffusenessA);
-				AppendLogHeaderLine(stringBuilder, "DiffusenessB", DiffusenessB);
-				AppendLogHeaderLine(stringBuilder, "ExpansionMode", ExpansionMode);
-				AppendLogHeaderLine(stringBuilder, "FeedDown3P", FeedDown3P);
-				AppendLogHeaderLine(stringBuilder, "FireballFieldTypes", FireballFieldTypes);
-				AppendLogHeaderLine(stringBuilder, "GridCellSize", GridCellSize);
-				AppendLogHeaderLine(stringBuilder, "GridRadius", GridRadius);
-				AppendLogHeaderLine(stringBuilder, "ImpactParam", ImpactParam);
-				AppendLogHeaderLine(stringBuilder, "ImpactParamsAtBinBoundaries", ImpactParamsAtBinBoundaries);
-				AppendLogHeaderLine(stringBuilder, "InitialCentralTemperature", InitialCentralTemperature);
-				AppendLogHeaderLine(stringBuilder, "LifeTime", LifeTime);
-				AppendLogHeaderLine(stringBuilder, "MinimalCentralTemperature", MinimalCentralTemperature);
-				AppendLogHeaderLine(stringBuilder, "NuclearRadiusA", NuclearRadiusA);
-				AppendLogHeaderLine(stringBuilder, "NuclearRadiusB", NuclearRadiusB);
-				AppendLogHeaderLine(stringBuilder, "NucleonNumberA", NucleonNumberA);
-				AppendLogHeaderLine(stringBuilder, "NucleonNumberB", NucleonNumberB);
-				AppendLogHeaderLine(stringBuilder, "ParticipantsAtBinBoundaries", ParticipantsAtBinBoundaries);
-				AppendLogHeaderLine(stringBuilder, "MeanParticipantsInBin", MeanParticipantsInBin);
-				AppendLogHeaderLine(stringBuilder, "Outfile", Outfile);
-				AppendLogHeaderLine(stringBuilder, "PotentialTypes", PotentialTypes);
-				AppendLogHeaderLine(stringBuilder, "SnapRate", SnapRate);
-				AppendLogHeaderLine(stringBuilder, "TemperatureProfile", TemperatureProfile);
-				AppendLogHeaderLine(stringBuilder, "ProtonProtonBaseline", ProtonProtonBaseline);
-				AppendLogHeaderLine(stringBuilder, "FormationTimes", FormationTimes);
-				AppendLogHeaderLine(stringBuilder, "ThermalTime", ThermalTime);
-				AppendLogHeaderLine(stringBuilder, "TransverseMomenta", TransverseMomenta);
-				AppendLogHeaderLine(stringBuilder, "ShapeFunctionTypeA", ShapeFunctionTypeA);
-				AppendLogHeaderLine(stringBuilder, "ShapeFunctionTypeB", ShapeFunctionTypeB);
-
-				return stringBuilder.ToString();
-			}
-		}
 	}
 }
