@@ -264,6 +264,7 @@ namespace Yburn.QQState
 		}
 	}
 
+	[Serializable]
 	public class NonPositiveAccuracyException : Exception
 	{
 		public NonPositiveAccuracyException()
@@ -272,6 +273,7 @@ namespace Yburn.QQState
 		}
 	}
 
+	[Serializable]
 	public class NoSolutionFoundException : Exception
 	{
 		public NoSolutionFoundException(
@@ -282,6 +284,7 @@ namespace Yburn.QQState
 		}
 	}
 
+	[Serializable]
 	public class MissingRseSolverException : Exception
 	{
 		public MissingRseSolverException()
@@ -290,6 +293,7 @@ namespace Yburn.QQState
 		}
 	}
 
+	[Serializable]
 	public class MissingAccuracyMeasureException : Exception
 	{
 		public MissingAccuracyMeasureException()
@@ -298,6 +302,7 @@ namespace Yburn.QQState
 		}
 	}
 
+	[Serializable]
 	public class ZeroAggressivenessException : Exception
 	{
 		public ZeroAggressivenessException()

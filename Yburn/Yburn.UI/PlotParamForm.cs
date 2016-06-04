@@ -7,6 +7,6 @@
 
 	public delegate void PlotRequestEventHandler(
 		object sender,
-		PlotRequestEventArgs args
+		PlotRequestEventArgs e
 		);
 }

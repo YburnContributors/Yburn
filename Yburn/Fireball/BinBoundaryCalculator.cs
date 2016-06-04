@@ -356,6 +356,7 @@ namespace Yburn.Fireball
 		}
 	}
 
+	[Serializable]
 	public class NotEnoughCentralityBinBoundariesSpecifiedException : Exception
 	{
 		public NotEnoughCentralityBinBoundariesSpecifiedException()
@@ -364,6 +365,7 @@ namespace Yburn.Fireball
 		}
 	}
 
+	[Serializable]
 	public class CentralityBinBoundariesOutOfRangeException : ArgumentOutOfRangeException
 	{
 		public CentralityBinBoundariesOutOfRangeException()
@@ -372,6 +374,7 @@ namespace Yburn.Fireball
 		}
 	}
 
+	[Serializable]
 	public class CentralityBinBoundariesDisorderedException : Exception
 	{
 		public CentralityBinBoundariesDisorderedException()

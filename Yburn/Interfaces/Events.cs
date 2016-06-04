@@ -4,7 +4,7 @@ namespace Yburn.Interfaces
 {
 	public delegate void JobStartEventHandler(
 		object sender,
-		JobStartEventArgs args
+		JobStartEventArgs e
 		);
 
 	public class JobStartEventArgs : EventArgs
@@ -17,7 +17,7 @@ namespace Yburn.Interfaces
 
 	public delegate void JobFinishedEventHandler(
 		object sender,
-		JobFinishedEventArgs args
+		JobFinishedEventArgs e
 		);
 
 	public class JobFinishedEventArgs : EventArgs

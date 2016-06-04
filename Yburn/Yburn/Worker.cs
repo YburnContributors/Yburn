@@ -306,6 +306,7 @@ namespace Yburn
 		}
 	}
 
+	[Serializable]
 	public class InvalidJobException : Exception
 	{
 		public InvalidJobException(

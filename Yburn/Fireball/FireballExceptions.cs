@@ -2,6 +2,7 @@
 
 namespace Yburn.Fireball
 {
+	[Serializable]
 	public class InvalidFireballFieldTypeException : Exception
 	{
 		public InvalidFireballFieldTypeException(
@@ -12,6 +13,7 @@ namespace Yburn.Fireball
 		}
 	}
 
+	[Serializable]
 	public class InvalidFireballFieldFunctionException : Exception
 	{
 		public InvalidFireballFieldFunctionException()

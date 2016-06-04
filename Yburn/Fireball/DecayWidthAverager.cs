@@ -207,6 +207,7 @@ namespace Yburn.Fireball
 		}
 	}
 
+	[Serializable]
 	public class AveragingAnglesDisorderedException : Exception
 	{
 		public AveragingAnglesDisorderedException()

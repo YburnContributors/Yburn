@@ -154,6 +154,7 @@ namespace Yburn.Fireball
 		}
 	}
 
+	[Serializable]
 	public class ArrayEmptyException : Exception
 	{
 		public ArrayEmptyException(
@@ -164,6 +165,7 @@ namespace Yburn.Fireball
 		}
 	}
 
+	[Serializable]
 	public class ArrayDisorderedException : Exception
 	{
 		public ArrayDisorderedException(
@@ -174,6 +176,7 @@ namespace Yburn.Fireball
 		}
 	}
 
+	[Serializable]
 	public class InvalidArraySizesException : Exception
 	{
 		public InvalidArraySizesException(

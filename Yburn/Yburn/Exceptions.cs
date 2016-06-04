@@ -2,6 +2,7 @@
 
 namespace Yburn
 {
+	[Serializable]
 	public class DeclineWhileBusyException : Exception
 	{
 		public DeclineWhileBusyException()
@@ -10,6 +11,7 @@ namespace Yburn
 		}
 	}
 
+	[Serializable]
 	public class InvalidOutputPathException : Exception
 	{
 		public InvalidOutputPathException()
