@@ -154,7 +154,7 @@ namespace Yburn.Fireball
 			return param;
 		}
 
-		public double[] GenerateDiscretizedXAxis()
+		public double[] GenerateDiscreteXAxis()
 		{
 			double[] x = new double[NumberGridPointsInX];
 
@@ -176,7 +176,7 @@ namespace Yburn.Fireball
 			return x;
 		}
 
-		public double[] GenerateDiscretizedYAxis()
+		public double[] GenerateDiscreteYAxis()
 		{
 			double[] y = new double[NumberGridPointsInY];
 

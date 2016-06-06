@@ -38,10 +38,6 @@ namespace Yburn.Fireball.Tests
 
 		private static readonly double EffectiveTime = 0.4;
 
-		private static readonly double LorentzFactor = 100.0;
-
-		private static readonly double NucleiVelocity = 0.9;
-
 		private static readonly EuclideanVector3D[] Positions =
 			new EuclideanVector3D[] {
 				new EuclideanVector3D(0.0, 0.0, 0.0),
@@ -64,6 +60,7 @@ namespace Yburn.Fireball.Tests
 			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
 			param.QGPConductivityMeV = 5.8;
 
+			param.BeamRapidity = 7.99;
 			param.DiffusenessAFm = 0.546;
 			param.DiffusenessBFm = 0.546;
 			param.NucleonNumberA = 208;
@@ -94,7 +91,6 @@ namespace Yburn.Fireball.Tests
 				fieldValues[i] = emf.CalculateSingleNucleusMagneticField(
 						EffectiveTime,
 						PositionsInReactionPlane[i],
-						LorentzFactor,
 						density);
 			}
 
@@ -109,10 +105,7 @@ namespace Yburn.Fireball.Tests
 			EuclideanVector3D[] fieldValues = new EuclideanVector3D[Positions.Length];
 			for(int i = 0; i < Positions.Length; i++)
 			{
-				fieldValues[i] = emf.CalculateMagneticField(
-						Time,
-						Positions[i],
-						NucleiVelocity);
+				fieldValues[i] = emf.CalculateMagneticField(Time, Positions[i]);
 			}
 
 			return fieldValues;
@@ -151,8 +144,8 @@ namespace Yburn.Fireball.Tests
 			AssertHelper.AssertRoundedEqual(0.00332357101, fieldValues[2].Y, roundedDigits);
 			AssertHelper.AssertRoundedEqual(0, fieldValues[2].Z);
 
-			AssertHelper.AssertRoundedEqual(-0.08019360443, fieldValues[3].X, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0.07916052193, fieldValues[3].Y, roundedDigits);
+			AssertHelper.AssertRoundedEqual(-0.0424120515, fieldValues[3].X, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0.0412806221, fieldValues[3].Y, roundedDigits);
 			AssertHelper.AssertRoundedEqual(0, fieldValues[3].Z);
 		}
 	}

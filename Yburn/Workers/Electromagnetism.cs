@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using Yburn.Fireball;
 using Yburn.Util;
 
@@ -23,8 +22,25 @@ namespace Yburn.Workers
 
 		public void CalculateAverageMagneticFieldStrength()
 		{
-			GlauberCalculation glauber = new GlauberCalculation(CreateFireballParam());
-			SimpleFireballField nCollField = glauber.NcollField;
+			FireballParam param = CreateFireballParam();
+			GlauberCalculation glauber = new GlauberCalculation(param);
+			FireballElectromagneticField emf = new FireballElectromagneticField(param);
+
+			double[,] nCollFieldValues = glauber.NcollField.GetDiscreteValues();
+			double[] x = param.GenerateDiscreteXAxis();
+			double[] y = param.GenerateDiscreteYAxis();
+
+			Func<double, double, EuclideanVector3D>[,] magneticFieldValues =
+				new Func<double, double, EuclideanVector3D>[x.Length, y.Length];
+			for(int i = 0; i < x.Length; i++)
+			{
+				for(int j = 0; j < y.Length; j++)
+				{
+					magneticFieldValues[i, j] = (t, z) => emf.CalculateMagneticField(
+						t,
+						new EuclideanVector3D(x[i], y[j], z));
+				}
+			}
 
 			throw new NotImplementedException();
 		}

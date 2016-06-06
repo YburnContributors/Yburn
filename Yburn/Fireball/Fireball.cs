@@ -446,8 +446,8 @@ namespace Yburn.Fireball
 
 		private void InitXY()
 		{
-			X = Param.GenerateDiscretizedXAxis();
-			Y = Param.GenerateDiscretizedYAxis();
+			X = Param.GenerateDiscreteXAxis();
+			Y = Param.GenerateDiscreteYAxis();
 		}
 
 		private void InitTemperature()
