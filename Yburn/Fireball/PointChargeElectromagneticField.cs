@@ -64,7 +64,7 @@ namespace Yburn.Fireball
 			double lorentzFactor
 			);
 
-		public EuclideanVector3D CalculatePointChargeMagneticField(
+		public EuclideanVector2D CalculatePointChargeMagneticField(
 			double effectiveTime,
 			EuclideanVector2D positionInReactionPlane,
 			double lorentzFactor
@@ -75,7 +75,7 @@ namespace Yburn.Fireball
 					effectiveTime, positionInReactionPlane.Norm, lorentzFactor)
 				* EuclideanVector2D.CreateAzimutalUnitVectorAtPosition(positionInReactionPlane);
 
-			return new EuclideanVector3D(azimutalPart, 0);
+			return azimutalPart;
 		}
 
 		public EuclideanVector3D CalculatePointChargeElectricField(
