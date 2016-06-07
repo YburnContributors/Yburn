@@ -147,7 +147,7 @@ namespace Yburn.Fireball
 				}
 				else
 				{
-					DPX[0, k] = (Math.Pow(T[0, k], 4) - Math.Pow(T[1, k], 4)) * Tau / 4.0;
+					DPX[0, k] = (Math.Pow(T[1, k], 4) - Math.Pow(T[0, k], 4)) * Tau / 4.0;
 				}
 				for(int j = 1; j < NX - 1; j++)
 				{
@@ -423,10 +423,28 @@ namespace Yburn.Fireball
 			// X-currents
 			for(int k = 0; k < NY; k++)
 			{
-				// boundary conditions at lower X-boundary
-				JSX[0, k] = -JSX[1, k];
-				JMXX[0, k] = JMXX[1, k];
-				JMYX[0, k] = -JMYX[1, k];
+                // boundary conditions at lower X-boundary
+                if (NX == NY)
+                {
+                    JSX[0, k] = -JSX[1, k];
+                    JMXX[0, k] = JMXX[1, k];
+                    JMYX[0, k] = -JMYX[1, k];
+                }
+                else
+                {
+                    if (VXedge[0, k] < 0)
+                    {
+                        JSX[0, k] = S[0, k] * VXedge[0, k];
+                        JMXX[0, k] = MX[0, k] * VXedge[0, k];
+                        JMYX[0, k] = MY[0, k] * VXedge[0, k];
+                    }
+                    else
+                    {
+                        JSX[0, k] = 0;
+                        JMXX[0, k] = 0;
+                        JMYX[0, k] = 0;
+                    }
+                }
 
 				for(int j = 1; j < NX; j++)
 				{
@@ -460,7 +478,7 @@ namespace Yburn.Fireball
 			}
 
 			// Y-currents
-			for(int j = 0; j < NY; j++)
+			for(int j = 0; j < NX; j++)
 			{
 				// boundary conditions at lower Y-boundary
 				JSY[j, 0] = -JSY[j, 1];
@@ -503,7 +521,7 @@ namespace Yburn.Fireball
 		{
 			for(int j = 1; j < NX - 1; j++)
 			{
-				for(int k = 1; k < NX - 1; k++)
+				for(int k = 1; k < NY - 1; k++)
 				{
 					ArtViscX[j, k] = ArtViscStrength * (MX[j + 1, k] + MX[j - 1, k] + MX[j, k + 1] + MX[j, k - 1] - 4 * MX[j, k]);
 					ArtViscY[j, k] = ArtViscStrength * (MY[j + 1, k] + MY[j - 1, k] + MY[j, k + 1] + MY[j, k - 1] - 4 * MY[j, k]);
@@ -594,8 +612,16 @@ namespace Yburn.Fireball
 
 			for(int k = 0; k < NY; k++)
 			{
-				// pressure gradient is zero due to symmetry
-				DPX[0, k] = 0;
+				if(NX == NY)
+				{
+					// pressure gradient is zero due to symmetry
+					DPX[0, k] = 0;
+				}
+				else
+				{
+					DPX[0, k] = (Math.Pow(T[1, k], 4) - Math.Pow(T[0, k], 4)) * Tau / 4.0;
+				}
+
 				for(int j = 1; j < NX - 1; j++)
 				{
 					DPX[j, k] = 0.5 * (Math.Pow(T[j + 1, k], 4) - Math.Pow(T[j - 1, k], 4)) * Tau / 4.0;

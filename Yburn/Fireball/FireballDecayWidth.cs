@@ -314,8 +314,8 @@ namespace Yburn.Fireball
 			double vyVal = VY[i, j];
 			double v = Math.Sqrt(vxVal * vxVal + vyVal * vyVal);
 
-			x = vxVal > 0 ? X[i] + pathLength * vxVal / v : X[i];
-			y = vyVal > 0 ? Y[j] + pathLength * vyVal / v : Y[j];
+			x = vxVal != 0 ? X[i] + pathLength * vxVal / v : X[i];
+			y = vyVal != 0 ? Y[j] + pathLength * vyVal / v : Y[j];
 		}
 
 		private bool IsInDomainOfCalculation(
@@ -324,7 +324,9 @@ namespace Yburn.Fireball
 			)
 		{
 			return x <= X[XDimension - 1]
-				&& y <= Y[YDimension - 1];
+                && x >= X[0]
+				&& y <= Y[YDimension - 1]
+                && y >= Y[0];
 		}
 	}
 }

@@ -84,19 +84,19 @@ ImpactParam    = 0
 # Hydrodynamics
 ExpansionMode             = Transverse
 TemperatureProfile        = NmixPHOBOS13
-InitialCentralTemperature = 550
+InitialCentralTemperature = 513
 MinimalCentralTemperature = 160
 ThermalTime               = 0.1
-GridCellSize              = 1 #0.4
-GridRadius                = 10
-BeamRapidity              = 7.99
+GridCellSize              = 0.4 #0.4
+GridRadius                = 10.4
+BeamRapidity              = 8.585
 
 # QQStates
 DecayWidthEvaluationType  = AveragedDecayWidth
 DecayWidthAveragingAngles = 0,30,60,90,120,150,180
 DecayWidthType            = GammaTot
 PotentialTypes            = Complex
-FeedDown3P                = 0.06
+FeedDown3P                = 0.03
 FormationTimes            = 0.4,0.4,0.4,0.4,0.4,0.4
 TransverseMomenta         = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
 ProtonProtonBaseline      = CMS2012
@@ -104,7 +104,7 @@ ProtonProtonBaseline      = CMS2012
 # Output
 BottomiumStates         =
 FireballFields          =
-SnapRate                = 5
+SnapRate                = 0
 CentralityBinBoundaries = 0,5,10,20,30,40,50,60,100;0,10,30,50,100;0,100
 
 # Si nucleus parameters
