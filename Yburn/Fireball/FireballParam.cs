@@ -113,8 +113,6 @@ namespace Yburn.Fireball
 
 		public EMFCalculationMethod EMFCalculationMethod;
 
-		public string FtexsLogPathFile;
-
 		public ShapeFunctionType ShapeFunctionTypeA;
 
 		public ShapeFunctionType ShapeFunctionTypeB;
@@ -131,7 +129,6 @@ namespace Yburn.Fireball
 			param.EMFCalculationMethod = EMFCalculationMethod;
 			param.ExpansionMode = ExpansionMode;
 			param.FormationTimesFm = FormationTimesFm;
-			param.FtexsLogPathFile = FtexsLogPathFile;
 			param.GridCellSizeFm = GridCellSizeFm;
 			param.ImpactParameterFm = ImpactParameterFm;
 			param.InitialCentralTemperatureMeV = InitialCentralTemperatureMeV;

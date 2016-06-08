@@ -1,39 +1,33 @@
-﻿//////////////////////////////////////////////////////////////////////////////////////////////////////////
-// The class Ftexs (Fireball Transverse Expansion Solver) implements a solver specified for the Euler   //
-// equations of the relativistic perfect fluid in (quasi) two dimensions. It is specified to the case   //
-// of the expanding fireball formed in relativistic heavy ion collisions, i.e. it calculates energy     //
-// density and velocity distributions for the case of a transverse expanding medium superposed with a   //
-// Bjorken expansion in the longitudinal direction.                                                     //
-//                                                                                                      //
-// The following set of equations is solved:                                                            //
-//                                                                                                      //
-// del_Tau S = - del_X ( S VX ) - del_Y ( S VY ),                                                       //
-// del_Tau MX = - del_X ( MX VX + P ) - del_Y ( MX VY ),                                                //
-// del_Tau MY = - del_X ( MY VX ) - del_Y ( MY VY + P ),                                                //
-//                                                                                                      //
-// GAMMA = 1/sqrt(1 - VX^2 - VY^2),                                                                     //
-// MX = VX Tau GAMMA^2 T^4,                                                                             //
-// MY = VY Tau GAMMA^2 T^4,                                                                             //
-// P = (1/4) * Tau T^4,                                                                                 //
-// S = Tau GAMMA T^3,                                                                                   //
-//                                                                                                      //
-// where the variables correspond to (up to constant prefactors) Lorentz factor (GAMMA), momentum       //
-// density (MX,MY), pressure (P), entropy density (S), temperature (T) and velocity (VX,VY),            //
-// respectively, which are functions of the coordinates of space (X,Y) and longitudinal proper time     //
-// (Tau).                                                                                               //
-//////////////////////////////////////////////////////////////////////////////////////////////////////////
+﻿/**************************************************************************************************
+ * The class Ftexs (Fireball Transverse Expansion Solver) implements a solver specified for the
+ * Euler equations of the relativistic perfect fluid in (quasi) two dimensions. It is specified to
+ * the case of the expanding fireball formed in relativistic heavy ion collisions, i.e. it
+ * calculates energy density and velocity distributions for the case of a transverse expanding
+ * medium superposed with a Bjorken expansion in the longitudinal direction. The following set of
+ * equations is solved:
+ *
+ * del_Tau S = - del_X ( S VX ) - del_Y ( S VY ),
+ * del_Tau MX = - del_X ( MX VX + P ) - del_Y ( MX VY ),
+ * del_Tau MY = - del_X ( MY VX ) - del_Y ( MY VY + P ),
+ *
+ * GAMMA = 1/sqrt(1 - VX^2 - VY^2),
+ * MX = VX Tau GAMMA^2 T^4,
+ * MY = VY Tau GAMMA^2 T^4,
+ * P = (1/4) * Tau T^4,
+ * S = Tau GAMMA T^3,
+ *
+ * where the variables correspond to (up to constant prefactors) Lorentz factor (GAMMA), momentum
+ * density (MX,MY), pressure (P), entropy density (S), temperature (T) and velocity (VX,VY),
+ * respectively, which are functions of the coordinates of space (X,Y) and longitudinal proper time
+ * (Tau).
+ **************************************************************************************************/
 
 using System;
-using System.IO;
 
 namespace Yburn.Fireball
 {
-	public class Ftexs : IDisposable
+	public class Ftexs
 	{
-		/********************************************************************************************
-		 * Public static members, functions and properties
-		 ********************************************************************************************/
-
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
@@ -45,8 +39,7 @@ namespace Yburn.Fireball
 			double[,] initialTemperature,
 			double[,] initialXvelocity,
 			double[,] initialYvelocity,
-			double artViscStrength = 0, // Coefficient of artificial viscosity
-			string logFile = ""
+			double artViscStrength = 0 // Coefficient of artificial viscosity
 			)
 		{
 			T = initialTemperature;
@@ -61,13 +54,6 @@ namespace Yburn.Fireball
 			NX = T.GetLength(0);
 			NY = T.GetLength(1);
 			DXY = gridCellSize;
-
-			LogFile = logFile;
-			if(!string.IsNullOrEmpty(LogFile))
-			{
-				LogFileStream = new FileStream(LogFile, FileMode.Create, FileAccess.Write);
-				LogStreamWriter = new StreamWriter(LogFileStream);
-			}
 
 			Tau = TauI = initialTime;
 			NTau = 0;
@@ -179,11 +165,6 @@ namespace Yburn.Fireball
 			}
 		}
 
-		~Ftexs()
-		{
-			Dispose(false);
-		}
-
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
@@ -207,15 +188,6 @@ namespace Yburn.Fireball
 		{
 			get;
 			private set;
-		}
-
-		// Do not make this method virtual. A derived class should not be able to override this method.
-		public void Dispose()
-		{
-			Dispose(true);
-			// Call GC.SupressFinalize to take this object off the finalization queue
-			// and prevent finalization code for this object from executing a second time.
-			GC.SuppressFinalize(this);
 		}
 
 		public void SolveUntil(
@@ -243,11 +215,6 @@ namespace Yburn.Fireball
 				NTau++;
 
 				Advance();
-
-				if(!string.IsNullOrEmpty(LogFile))
-				{
-					LogStreamWriter.WriteLine("Tau = " + Tau + ", dTau = " + DTau + ", NTau = " + NTau);
-				}
 			}
 
 			TauI = Tau;
@@ -267,9 +234,6 @@ namespace Yburn.Fireball
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
-
-		// Track whether Dispose has been called.
-		private bool Disposed = false;
 
 		// initial temporal boundary of the domain of calculation
 		private double TauI;
@@ -297,14 +261,6 @@ namespace Yburn.Fireball
 
 		// Maximum allowed Courant-Friedrichs-Levy number
 		private double MaxCFL;
-
-		// Name of log file
-		private string LogFile;
-
-		// Writing useful info into log file
-		private FileStream LogFileStream;
-
-		private StreamWriter LogStreamWriter;
 
 		// helper variable
 		private double C;
@@ -557,14 +513,6 @@ namespace Yburn.Fireball
 
 					dAbsV = Math.Sqrt(1.0 - 1.0 / dGAMMA2);
 
-					// for highly relativistic flows, rounding erros may cause the velocity to equal 1
-					if(dAbsV == 1)
-					{
-						LogStreamWriter.WriteLine("|V| = 1");
-						LogStreamWriter.WriteLine(string.Format("{0,15}{1,15}{2,15}{3,15}{4,15}{5,15}", "Tau", "j", "k", "KK", "|V|", "GAMMA2"));
-						LogStreamWriter.WriteLine(string.Format("{0,15}{1,15}{2,15}{3,15}{4,15}{5,15}", Tau, j, k, dKK, dAbsV, dGAMMA2));
-					}
-
 					VX[j, k] = dMperp == 0 ? 0 : MX[j, k] / dMperp * dAbsV;
 					VY[j, k] = dMperp == 0 ? 0 : MY[j, k] / dMperp * dAbsV;
 
@@ -612,40 +560,6 @@ namespace Yburn.Fireball
 					DPY[j, k] = 0.5 * (Math.Pow(T[j, k + 1], 4) - Math.Pow(T[j, k - 1], 4)) * Tau / 4.0;
 				}
 				DPY[j, NY - 1] = (Math.Pow(T[j, NY - 1], 4) - Math.Pow(T[j, NY - 2], 4)) * Tau / 4.0;
-			}
-		}
-
-		// If bDisposing equals true, the method has been called by the user's code. Managed and unmanaged resources
-		// can be disposed. If disposing equals false, the method has been called by the runtime from inside the
-		// finalizer and you should not reference other objects. Only unmanaged resources can be disposed.
-		protected virtual void Dispose(
-			bool bDisposing
-			)
-		{
-			if(!Disposed)
-			{
-				if(bDisposing)
-				{
-					// Dispose managed resources.
-				}
-
-				// Dispose unmanaged resources.
-				if(LogStreamWriter != null)
-				{
-					LogStreamWriter.Close();
-					LogStreamWriter.Dispose();
-					LogStreamWriter = null;
-				}
-
-				if(LogFileStream != null)
-				{
-					LogFileStream.Close();
-					LogFileStream.Dispose();
-					LogFileStream = null;
-				}
-
-				// Note disposing has been done.
-				bDisposing = true;
 			}
 		}
 	}

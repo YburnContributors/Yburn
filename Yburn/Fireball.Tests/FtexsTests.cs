@@ -11,15 +11,6 @@ namespace Yburn.Fireball.Tests
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		[TestCleanup]
-		public void TestCleanup()
-		{
-			if(FtexsSolver != null)
-			{
-				FtexsSolver.Dispose();
-			}
-		}
-
 		[TestMethod]
 		public void SolveBjorkenflow()
 		{
@@ -124,13 +115,11 @@ namespace Yburn.Fireball.Tests
 
 		private double ArtViscStrength = 0;
 
-		private string LogFileName = "FtexsTestsLogFile.txt";
-
 		private void InitializeFtexsSolver()
 		{
 			FtexsSolver = new Ftexs(
 				GridCellSize, InitialTime, MaxCFL, Temperature,
-				VelocityX, VelocityY, ArtViscStrength, LogFileName);
+				VelocityX, VelocityY, ArtViscStrength);
 		}
 
 		private void SetBjorkenFlowProperties()
