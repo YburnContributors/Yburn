@@ -125,4 +125,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="RemoveObjAndBin" AfterTargets="Clean">
+    <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
+    <RemoveDir Directories="$(TargetDir)" />
+  </Target>
 </Project>
