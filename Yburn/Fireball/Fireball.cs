@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Yburn.Fireball
 {
-	public class Fireball : IDisposable
+	public class Fireball
 	{
 		/********************************************************************************************
 		 * Constructors
@@ -32,11 +32,6 @@ namespace Yburn.Fireball
 			InitTemperature();
 			InitDecayWidth();
 			InitDampingFactor();
-		}
-
-		~Fireball()
-		{
-			Dispose(false);
 		}
 
 		/********************************************************************************************
@@ -81,12 +76,6 @@ namespace Yburn.Fireball
 					return Temperature.GetMaxValue();
 				}
 			}
-		}
-
-		public void Dispose()
-		{
-			Dispose(true);
-			GC.SuppressFinalize(this);
 		}
 
 		// advance the fireball fields in time by the amount dt (not necessarily small)
@@ -297,9 +286,6 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		// Track whether Dispose has been called.
-		private bool Disposed = false;
-
 		private FireballParam Param;
 
 		private GlauberCalculation GlauberCalculation;
@@ -469,8 +455,7 @@ namespace Yburn.Fireball
 					Temperature.GetDiscreteValues(),
 					VX.GetDiscreteValues(),
 					VY.GetDiscreteValues(),
-					0,
-					Param.FtexsLogPathFile);
+					0);
 			}
 
 			Param.InitialCentralTemperatureMeV = CentralTemperature;
@@ -569,29 +554,6 @@ namespace Yburn.Fireball
 			)
 		{
 			TimeStep = Math.Min(endTime - CurrentTime, CurrentTime * TimeFactor);
-		}
-
-		protected virtual void Dispose(
-			bool isCalledFromUserCode
-			)
-		{
-			if(!Disposed)
-			{
-				if(isCalledFromUserCode)
-				{
-					DisposeManagedResources();
-				}
-
-				Disposed = true;
-			}
-		}
-
-		private void DisposeManagedResources()
-		{
-			if(Solver != null)
-			{
-				Solver.Dispose();
-			}
 		}
 	}
 }

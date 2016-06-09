@@ -157,28 +157,27 @@ namespace Yburn.Workers
 
 				impactParams.Add(step * GridCellSize);
 
-				using(Fireball.Fireball fireball = CreateFireballToCalcDirectPionDecayWidth(
-					impactParams[step]))
+				Fireball.Fireball fireball = CreateFireballToCalcDirectPionDecayWidth(
+					impactParams[step]);
+
+				// Set BjorkenLifeTime for the LogHeader
+				if(step == 0)
 				{
-					// Set BjorkenLifeTime for the LogHeader
-					if(step == 0)
-					{
-						BjorkenLifeTime = fireball.BjorkenLifeTime;
-					}
-
-					// calculate the areas
-					double nCollQGP;
-					double nCollPion;
-					fireball.CalculateNcolls(MinimalCentralTemperature, out nCollQGP, out nCollPion);
-					nCollQGPs.Add(nCollQGP);
-					nCollPions.Add(nCollPion);
-					nColls.Add(fireball.IntegrateFireballField("Ncoll"));
-
-					StatusValues[0] = impactParams[step].ToString("G3");
-					StatusValues[1] = nColls[step].ToString("G4");
-					StatusValues[2] = nCollQGPs[step].ToString("G4");
-					StatusValues[3] = nCollPions[step].ToString("G4");
+					BjorkenLifeTime = fireball.BjorkenLifeTime;
 				}
+
+				// calculate the areas
+				double nCollQGP;
+				double nCollPion;
+				fireball.CalculateNcolls(MinimalCentralTemperature, out nCollQGP, out nCollPion);
+				nCollQGPs.Add(nCollQGP);
+				nCollPions.Add(nCollPion);
+				nColls.Add(fireball.IntegrateFireballField("Ncoll"));
+
+				StatusValues[0] = impactParams[step].ToString("G3");
+				StatusValues[1] = nColls[step].ToString("G4");
+				StatusValues[2] = nCollQGPs[step].ToString("G4");
+				StatusValues[3] = nCollPions[step].ToString("G4");
 
 				step++;
 			}
@@ -579,14 +578,6 @@ namespace Yburn.Workers
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static string FtexsLogPathFile
-		{
-			get
-			{
-				return YburnConfigFile.OutputPath + "FtexsLogFile.txt";
-			}
-		}
-
 		private static readonly int NumberBottomiumStates
 			= Enum.GetValues(typeof(BottomiumState)).Length;
 
@@ -774,7 +765,6 @@ namespace Yburn.Workers
 			param.DecayWidthEvaluationType = DecayWidthEvaluationType;
 			param.ExpansionMode = ExpansionMode;
 			param.TemperatureProfile = TemperatureProfile;
-			param.FtexsLogPathFile = FtexsLogPathFile;
 			param.DecayWidthAveragingAngles = DecayWidthAveragingAngles;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthListHelper.GetList(
 					GetQQDataPathFile(), DecayWidthType, PotentialTypes);
@@ -842,104 +832,100 @@ namespace Yburn.Workers
 				throw new Exception("SnapRate <= 0.");
 			}
 
-			using(Fireball.Fireball fireball = CreateFireball())
+			Fireball.Fireball fireball = CreateFireball();
+			BjorkenLifeTime = fireball.BjorkenLifeTime;
+
+			// extract path and file name of outfile and extension separately
+			string pathFile = BuildPlotPathFile(YburnConfigFile.OutputPath + Outfile);
+
+			// All data is saved in the output file. Additionally, the corresponding gnuplot files (.plt)
+			// are created to facilitate graphical visualization of the data.
+			StringBuilder dataFileString = new StringBuilder();
+			StringBuilder gnuFileStringX = new StringBuilder();
+			StringBuilder gnuFileStringY = new StringBuilder();
+			StringBuilder gnuFileStringXY = new StringBuilder();
+
+			double range = GridCellSize * (NumberGridPoints - 1);
+			gnuFileStringX.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
+				range.ToString("G3")));
+			gnuFileStringY.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
+				range.ToString("G3")));
+			gnuFileStringXY.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\nset yr[0:{1,3}]\r\n\r\n",
+				range.ToString("G3"), range.ToString("G3")));
+
+			string xPlotStringBegin = "p \"" + pathFile
+				+ "\" every " + NumberGridPoints.ToString() + " index ";
+			string xPlotStringEnd = " u 1:3 w p; pause .5";
+			string yPlotStringBegin = "p \"" + pathFile
+				+ "\" every ::::" + (NumberGridPoints - 1).ToString() + " index ";
+			string yPlotStringEnd = " u 2:3 w p; pause .5";
+			string xYPlotStringBegin = "sp \"" + pathFile + "\" index ";
+			string xYPlotStringEnd = " u 1:2:3 w p; pause .5";
+
+			int index = 0;
+			double dt = 1.0 / SnapRate;
+			double currentTime;
+			while(fireball.CentralTemperature > MinimalCentralTemperature)
 			{
-				BjorkenLifeTime = fireball.BjorkenLifeTime;
-
-				// extract path and file name of outfile and extension separately
-				string pathFile = BuildPlotPathFile(YburnConfigFile.OutputPath + Outfile);
-
-				// All data is saved in the output file. Additionally, the corresponding gnuplot files (.plt)
-				// are created to facilitate graphical visualization of the data.
-				StringBuilder dataFileString = new StringBuilder();
-				StringBuilder gnuFileStringX = new StringBuilder();
-				StringBuilder gnuFileStringY = new StringBuilder();
-				StringBuilder gnuFileStringXY = new StringBuilder();
-
-				double range = GridCellSize * (NumberGridPoints - 1);
-				gnuFileStringX.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
-					range.ToString("G3")));
-				gnuFileStringY.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
-					range.ToString("G3")));
-				gnuFileStringXY.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\nset yr[0:{1,3}]\r\n\r\n",
-					range.ToString("G3"), range.ToString("G3")));
-
-				string xPlotStringBegin = "p \"" + pathFile
-					+ "\" every " + NumberGridPoints.ToString() + " index ";
-				string xPlotStringEnd = " u 1:3 w p; pause .5";
-				string yPlotStringBegin = "p \"" + pathFile
-					+ "\" every ::::" + (NumberGridPoints - 1).ToString() + " index ";
-				string yPlotStringEnd = " u 2:3 w p; pause .5";
-				string xYPlotStringBegin = "sp \"" + pathFile + "\" index ";
-				string xYPlotStringEnd = " u 1:2:3 w p; pause .5";
-
-				int index = 0;
-				double dt = 1.0 / SnapRate;
-				double currentTime;
-				while(fireball.CentralTemperature > MinimalCentralTemperature)
+				// quit here if process has been aborted
+				if(JobCancelToken.IsCancellationRequested)
 				{
-					// quit here if process has been aborted
-					if(JobCancelToken.IsCancellationRequested)
-					{
-						break;
-					}
-
-					// advance fireball except for the first snapshot
-					if(index != 0)
-					{
-						fireball.Advance(dt);
-					}
-
-					// get status of calculation
-					currentTime = fireball.CurrentTime;
-					StatusValues[0] = currentTime.ToString("G3");
-
-					dataFileString.AppendLine("\r\n\r\n#Time = "
-						+ currentTime.ToString() + ", Index " + index);
-					dataFileString.Append(fireball.FieldsToString(FireballFieldTypes, BottomiumStates));
-
-					gnuFileStringX.AppendLine(xPlotStringBegin + index + xPlotStringEnd);
-					gnuFileStringY.AppendLine(yPlotStringBegin + index + yPlotStringEnd);
-					gnuFileStringXY.AppendLine(xYPlotStringBegin + index + xYPlotStringEnd);
-
-					index++;
+					break;
 				}
 
-				LifeTime = fireball.LifeTime;
+				// advance fireball except for the first snapshot
+				if(index != 0)
+				{
+					fireball.Advance(dt);
+				}
 
-				// append final results in the output file and exchange the old header with a new one
-				LogMessages.Clear();
-				LogMessages.Append(LogHeader + "#\r\n#\r\n" + LogFooter);
-				dataFileString.Append(LogMessages.ToString());
-				dataFileString.Insert(0, LogHeader);
+				// get status of calculation
+				currentTime = fireball.CurrentTime;
+				StatusValues[0] = currentTime.ToString("G3");
 
-				File.WriteAllText(pathFile, dataFileString.ToString());
-				File.WriteAllText(pathFile + "-plotX.plt", gnuFileStringX.ToString());
-				File.WriteAllText(pathFile + "-plotY.plt", gnuFileStringY.ToString());
-				File.WriteAllText(pathFile + "-plotXY.plt", gnuFileStringXY.ToString());
+				dataFileString.AppendLine("\r\n\r\n#Time = "
+					+ currentTime.ToString() + ", Index " + index);
+				dataFileString.Append(fireball.FieldsToString(FireballFieldTypes, BottomiumStates));
+
+				gnuFileStringX.AppendLine(xPlotStringBegin + index + xPlotStringEnd);
+				gnuFileStringY.AppendLine(yPlotStringBegin + index + yPlotStringEnd);
+				gnuFileStringXY.AppendLine(xYPlotStringBegin + index + xYPlotStringEnd);
+
+				index++;
 			}
+
+			LifeTime = fireball.LifeTime;
+
+			// append final results in the output file and exchange the old header with a new one
+			LogMessages.Clear();
+			LogMessages.Append(LogHeader + "#\r\n#\r\n" + LogFooter);
+			dataFileString.Append(LogMessages.ToString());
+			dataFileString.Insert(0, LogHeader);
+
+			File.WriteAllText(pathFile, dataFileString.ToString());
+			File.WriteAllText(pathFile + "-plotX.plt", gnuFileStringX.ToString());
+			File.WriteAllText(pathFile + "-plotY.plt", gnuFileStringY.ToString());
+			File.WriteAllText(pathFile + "-plotXY.plt", gnuFileStringXY.ToString());
 		}
 
 		// get Bjorken- and QGP lifetime for ImpactParam = 0
 		private void DetermineMaxLifeTime()
 		{
-			using(Fireball.Fireball fireball = CreateFireballToDetermineMaxLifeTime())
+			Fireball.Fireball fireball = CreateFireballToDetermineMaxLifeTime();
+			// Evolving the fireball to calculate the maximum QGP LifeTime
+			while(fireball.CentralTemperature > MinimalCentralTemperature)
 			{
-				// Evolving the fireball to calculate the maximum QGP LifeTime
-				while(fireball.CentralTemperature > MinimalCentralTemperature)
+				// quit here if process has been aborted
+				if(JobCancelToken.IsCancellationRequested)
 				{
-					// quit here if process has been aborted
-					if(JobCancelToken.IsCancellationRequested)
-					{
-						return;
-					}
-
-					fireball.Advance(0.1);
+					return;
 				}
 
-				LifeTime = fireball.LifeTime;
-				BjorkenLifeTime = fireball.BjorkenLifeTime;
+				fireball.Advance(0.1);
 			}
+
+			LifeTime = fireball.LifeTime;
+			BjorkenLifeTime = fireball.BjorkenLifeTime;
 		}
 
 		private string[][] GetCentralityBinStrings(

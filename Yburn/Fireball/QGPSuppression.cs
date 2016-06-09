@@ -184,14 +184,12 @@ namespace Yburn.Fireball
 			while(!HasFinishedCurrentBin
 				&& !CancellationToken.IsCancellationRequested)
 			{
-				using(Fireball fireball = CreateFireball())
-				{
-					double centralTemperature = fireball.CentralTemperature;
+				Fireball fireball = CreateFireball();
+				double centralTemperature = fireball.CentralTemperature;
 
-					CalculateFireballEvolution(fireball);
-					CollectResults(fireball);
-					UpdateStatus(centralTemperature, fireball.LifeTime);
-				}
+				CalculateFireballEvolution(fireball);
+				CollectResults(fireball);
+				UpdateStatus(centralTemperature, fireball.LifeTime);
 
 				CurrentImpactParam += FireballParam.GridCellSizeFm;
 			}

@@ -19,15 +19,6 @@ namespace Yburn.Fireball.Tests
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 		}
 
-		[TestCleanup]
-		public void TestCleanup()
-		{
-			if(Fireball != null)
-			{
-				Fireball.Dispose();
-			}
-		}
-
 		[TestMethod]
 		public void FireballEvolution_AveragedTemperature()
 		{
