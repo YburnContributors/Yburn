@@ -70,14 +70,14 @@
 			this.LblEMFCalculationMethodSelection = new System.Windows.Forms.Label();
 			this.LblEffectiveTimeSamples = new System.Windows.Forms.Label();
 			this.TbxEffectiveTimeSamples = new System.Windows.Forms.TextBox();
-			this.TbxLorentzFactor = new System.Windows.Forms.TextBox();
+			this.TbxPointChargeVelocity = new System.Windows.Forms.TextBox();
 			this.LblRadialDistance = new System.Windows.Forms.Label();
 			this.TbxRadialDistance = new System.Windows.Forms.TextBox();
 			this.LblStartEffectiveTime = new System.Windows.Forms.Label();
 			this.TbxStartEffectiveTime = new System.Windows.Forms.TextBox();
 			this.LblStopEffectiveTime = new System.Windows.Forms.Label();
 			this.TbxStopEffectiveTime = new System.Windows.Forms.TextBox();
-			this.LblLorentzFactor = new System.Windows.Forms.Label();
+			this.LblPointChargeVelocity = new System.Windows.Forms.Label();
 			this.GbxOutput = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
 			this.LblOutfile = new System.Windows.Forms.Label();
@@ -222,7 +222,6 @@
 			this.LblProtonNumberB.TabIndex = 13;
 			this.LblProtonNumberB.Text = "ProtonNumberB";
 			this.LblProtonNumberB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-
 			// 
 			// TbxProtonNumberA
 			// 
@@ -554,14 +553,14 @@
 			this.tableLayoutPanel2.Controls.Add(this.LblEMFCalculationMethodSelection, 0, 5);
 			this.tableLayoutPanel2.Controls.Add(this.LblEffectiveTimeSamples, 0, 4);
 			this.tableLayoutPanel2.Controls.Add(this.TbxEffectiveTimeSamples, 0, 4);
-			this.tableLayoutPanel2.Controls.Add(this.TbxLorentzFactor, 1, 0);
+			this.tableLayoutPanel2.Controls.Add(this.TbxPointChargeVelocity, 1, 0);
 			this.tableLayoutPanel2.Controls.Add(this.LblRadialDistance, 0, 1);
 			this.tableLayoutPanel2.Controls.Add(this.TbxRadialDistance, 1, 1);
 			this.tableLayoutPanel2.Controls.Add(this.LblStartEffectiveTime, 0, 2);
 			this.tableLayoutPanel2.Controls.Add(this.TbxStartEffectiveTime, 1, 2);
 			this.tableLayoutPanel2.Controls.Add(this.LblStopEffectiveTime, 0, 3);
 			this.tableLayoutPanel2.Controls.Add(this.TbxStopEffectiveTime, 1, 3);
-			this.tableLayoutPanel2.Controls.Add(this.LblLorentzFactor, 0, 0);
+			this.tableLayoutPanel2.Controls.Add(this.LblPointChargeVelocity, 0, 0);
 			this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel2.Location = new System.Drawing.Point(10, 34);
 			this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -616,13 +615,13 @@
 			this.TbxEffectiveTimeSamples.Size = new System.Drawing.Size(188, 31);
 			this.TbxEffectiveTimeSamples.TabIndex = 9;
 			// 
-			// TbxLorentzFactor
+			// TbxPointChargeVelocity
 			// 
-			this.TbxLorentzFactor.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxLorentzFactor.Location = new System.Drawing.Point(243, 8);
-			this.TbxLorentzFactor.Name = "TbxLorentzFactor";
-			this.TbxLorentzFactor.Size = new System.Drawing.Size(188, 31);
-			this.TbxLorentzFactor.TabIndex = 8;
+			this.TbxPointChargeVelocity.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxPointChargeVelocity.Location = new System.Drawing.Point(243, 8);
+			this.TbxPointChargeVelocity.Name = "TbxPointChargeVelocity";
+			this.TbxPointChargeVelocity.Size = new System.Drawing.Size(188, 31);
+			this.TbxPointChargeVelocity.TabIndex = 8;
 			// 
 			// LblRadialDistance
 			// 
@@ -681,16 +680,16 @@
 			this.TbxStopEffectiveTime.Size = new System.Drawing.Size(188, 31);
 			this.TbxStopEffectiveTime.TabIndex = 2;
 			// 
-			// LblLorentzFactor
+			// LblPointChargeVelocity
 			// 
-			this.LblLorentzFactor.AutoSize = true;
-			this.LblLorentzFactor.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblLorentzFactor.Location = new System.Drawing.Point(8, 5);
-			this.LblLorentzFactor.Name = "LblLorentzFactor";
-			this.LblLorentzFactor.Size = new System.Drawing.Size(229, 25);
-			this.LblLorentzFactor.TabIndex = 0;
-			this.LblLorentzFactor.Text = "LorentzFactor";
-			this.LblLorentzFactor.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblPointChargeVelocity.AutoSize = true;
+			this.LblPointChargeVelocity.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblPointChargeVelocity.Location = new System.Drawing.Point(8, 5);
+			this.LblPointChargeVelocity.Name = "LblPointChargeVelocity";
+			this.LblPointChargeVelocity.Size = new System.Drawing.Size(229, 25);
+			this.LblPointChargeVelocity.TabIndex = 0;
+			this.LblPointChargeVelocity.Text = "PointChargeVelocity";
+			this.LblPointChargeVelocity.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// GbxOutput
 			// 
@@ -826,8 +825,8 @@
 		private System.Windows.Forms.TextBox TbxStartEffectiveTime;
 		private System.Windows.Forms.Label LblStopEffectiveTime;
 		private System.Windows.Forms.TextBox TbxStopEffectiveTime;
-		private System.Windows.Forms.Label LblLorentzFactor;
-		private System.Windows.Forms.TextBox TbxLorentzFactor;
+		private System.Windows.Forms.Label LblPointChargeVelocity;
+		private System.Windows.Forms.TextBox TbxPointChargeVelocity;
 		private System.Windows.Forms.Label LblEffectiveTimeSamples;
 		private System.Windows.Forms.TextBox TbxEffectiveTimeSamples;
 		private System.Windows.Forms.Label LblEMFCalculationMethodSelection;

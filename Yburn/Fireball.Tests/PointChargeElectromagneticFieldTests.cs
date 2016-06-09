@@ -58,9 +58,11 @@ namespace Yburn.Fireball.Tests
 			return param;
 		}
 
-		private static readonly double[] EffectiveTimes = new double[] { 0.1, 0.4, 1.0, 4.0, 10.0 };
+		private static readonly double QGPConductivityMeV = 5.8;
 
-		private static readonly double LorentzFactor = 100.0;
+		private static readonly double PointChargeVelocity = 0.99995;
+
+		private static readonly double[] EffectiveTimes = new double[] { 0.1, 0.4, 1.0, 4.0, 10.0 };
 
 		private static readonly double RadialDistance = 7.4;
 
@@ -70,18 +72,18 @@ namespace Yburn.Fireball.Tests
 
 		private double[,] CalculatePointChargeFields(EMFCalculationMethod method)
 		{
-			PointChargeElectromagneticField emf =
-				PointChargeElectromagneticField.Create(CreateFireballParam(method));
+			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
+				method, QGPConductivityMeV, PointChargeVelocity);
 
 			double[,] fieldValues = new double[3, EffectiveTimes.Length];
 			for(int i = 0; i < EffectiveTimes.Length; i++)
 			{
 				fieldValues[0, i] = emf.CalculatePointChargeAzimutalMagneticField(
-					EffectiveTimes[i], RadialDistance, LorentzFactor);
+					EffectiveTimes[i], RadialDistance);
 				fieldValues[1, i] = emf.CalculatePointChargeLongitudinalElectricField(
-					EffectiveTimes[i], RadialDistance, LorentzFactor);
+					EffectiveTimes[i], RadialDistance);
 				fieldValues[2, i] = emf.CalculatePointChargeRadialElectricField(
-					EffectiveTimes[i], RadialDistance, LorentzFactor);
+					EffectiveTimes[i], RadialDistance);
 			}
 
 			return fieldValues;
@@ -89,23 +91,23 @@ namespace Yburn.Fireball.Tests
 
 		private void AssertCorrectPointChargeFields_URLimitFourierSynthesis(double[,] fieldValues)
 		{
-			AssertHelper.AssertRoundedEqual(0.00494740617644823, fieldValues[0, 0]);
-			AssertHelper.AssertRoundedEqual(0.0059385262927476, fieldValues[0, 1]);
-			AssertHelper.AssertRoundedEqual(0.0017557799444454323, fieldValues[0, 2]);
-			AssertHelper.AssertRoundedEqual(0.00014832195167545627, fieldValues[0, 3]);
-			AssertHelper.AssertRoundedEqual(2.518937294604581E-05, fieldValues[0, 4]);
+			AssertHelper.AssertRoundedEqual(0.0049474011562835622, fieldValues[0, 0]);
+			AssertHelper.AssertRoundedEqual(0.0059385275681660592, fieldValues[0, 1]);
+			AssertHelper.AssertRoundedEqual(0.0017557798644070881, fieldValues[0, 2]);
+			AssertHelper.AssertRoundedEqual(0.00014832194661731433, fieldValues[0, 3]);
+			AssertHelper.AssertRoundedEqual(2.5189372551999923E-05, fieldValues[0, 4]);
 
-			AssertHelper.AssertRoundedEqual(1.2001516913746505E-05, fieldValues[1, 0]);
-			AssertHelper.AssertRoundedEqual(7.6222006082363156E-08, fieldValues[1, 1]);
-			AssertHelper.AssertRoundedEqual(-9.5482506233525629E-07, fieldValues[1, 2]);
-			AssertHelper.AssertRoundedEqual(-1.2243343485310766E-07, fieldValues[1, 3]);
-			AssertHelper.AssertRoundedEqual(-2.2214152781911365E-08, fieldValues[1, 4]);
+			AssertHelper.AssertRoundedEqual(1.2001240098041743E-05, fieldValues[1, 0]);
+			AssertHelper.AssertRoundedEqual(7.6219080569357165E-08, fieldValues[1, 1]);
+			AssertHelper.AssertRoundedEqual(-9.5480139553502289E-07, fieldValues[1, 2]);
+			AssertHelper.AssertRoundedEqual(-1.2243037559096488E-07, fieldValues[1, 3]);
+			AssertHelper.AssertRoundedEqual(-2.2213597473717023E-08, fieldValues[1, 4]);
 
-			AssertHelper.AssertRoundedEqual(0.00494740617644823, fieldValues[2, 0]);
-			AssertHelper.AssertRoundedEqual(0.0059385262927476, fieldValues[2, 1]);
-			AssertHelper.AssertRoundedEqual(0.0017557799444454323, fieldValues[2, 2]);
-			AssertHelper.AssertRoundedEqual(0.00014832195167545627, fieldValues[2, 3]);
-			AssertHelper.AssertRoundedEqual(2.518937294604581E-05, fieldValues[2, 4]);
+			AssertHelper.AssertRoundedEqual(0.0049474011562835622, fieldValues[2, 0]);
+			AssertHelper.AssertRoundedEqual(0.0059385275681660592, fieldValues[2, 1]);
+			AssertHelper.AssertRoundedEqual(0.0017557798644070881, fieldValues[2, 2]);
+			AssertHelper.AssertRoundedEqual(0.00014832194661731433, fieldValues[2, 3]);
+			AssertHelper.AssertRoundedEqual(2.5189372551999923E-05, fieldValues[2, 4]);
 		}
 
 		private void AssertCorrectPointChargeFields_DiffusionApproximation(double[,] fieldValues)
@@ -116,11 +118,11 @@ namespace Yburn.Fireball.Tests
 			AssertHelper.AssertRoundedEqual(0.00014811951578589806, fieldValues[0, 3]);
 			AssertHelper.AssertRoundedEqual(2.5173609831507704E-05, fieldValues[0, 4]);
 
-			AssertHelper.AssertRoundedEqual(1.3031473594348137E-05, fieldValues[1, 0]);
-			AssertHelper.AssertRoundedEqual(3.2880409339029518E-08, fieldValues[1, 1]);
-			AssertHelper.AssertRoundedEqual(-9.63035292991319E-07, fieldValues[1, 2]);
-			AssertHelper.AssertRoundedEqual(-1.2249641241026189E-07, fieldValues[1, 3]);
-			AssertHelper.AssertRoundedEqual(-2.2215977990481151E-08, fieldValues[1, 4]);
+			AssertHelper.AssertRoundedEqual(1.3031147807508825E-05, fieldValues[1, 0]);
+			AssertHelper.AssertRoundedEqual(3.2879587328797416E-08, fieldValues[1, 1]);
+			AssertHelper.AssertRoundedEqual(-9.6301121710903459E-07, fieldValues[1, 2]);
+			AssertHelper.AssertRoundedEqual(-1.2249334999995673E-07, fieldValues[1, 3]);
+			AssertHelper.AssertRoundedEqual(-2.221542259103232E-08, fieldValues[1, 4]);
 
 			AssertHelper.AssertRoundedEqual(0.0046867553901049569, fieldValues[2, 0]);
 			AssertHelper.AssertRoundedEqual(0.0059898207639691742, fieldValues[2, 1]);
@@ -131,23 +133,23 @@ namespace Yburn.Fireball.Tests
 
 		private void AssertCorrectPointChargeFields_FreeSpace(double[,] fieldValues)
 		{
-			AssertHelper.AssertRoundedEqual(0.0092627885485511326, fieldValues[0, 0]);
-			AssertHelper.AssertRoundedEqual(0.00026494041156239194, fieldValues[0, 1]);
-			AssertHelper.AssertRoundedEqual(1.7688661294938162E-05, fieldValues[0, 2]);
-			AssertHelper.AssertRoundedEqual(2.7851588500794764E-07, fieldValues[0, 3]);
-			AssertHelper.AssertRoundedEqual(1.783270431181584E-08, fieldValues[0, 4]);
+			AssertHelper.AssertRoundedEqual(0.009262679881516021, fieldValues[0, 0]);
+			AssertHelper.AssertRoundedEqual(0.000264934116228407, fieldValues[0, 1]);
+			AssertHelper.AssertRoundedEqual(1.7688222647396556E-05, fieldValues[0, 2]);
+			AssertHelper.AssertRoundedEqual(2.7850892498847166E-07, fieldValues[0, 3]);
+			AssertHelper.AssertRoundedEqual(1.7832258486247548E-08, fieldValues[0, 4]);
 
-			AssertHelper.AssertRoundedEqual(-0.00012517281822366395, fieldValues[1, 0]);
-			AssertHelper.AssertRoundedEqual(-1.4321103327696862E-05, fieldValues[1, 1]);
-			AssertHelper.AssertRoundedEqual(-2.3903596344511026E-06, fieldValues[1, 2]);
-			AssertHelper.AssertRoundedEqual(-1.5054912703132303E-07, fieldValues[1, 3]);
-			AssertHelper.AssertRoundedEqual(-2.4098249070021406E-08, fieldValues[1, 4]);
+			AssertHelper.AssertRoundedEqual(-0.00012517134975021649, fieldValues[1, 0]);
+			AssertHelper.AssertRoundedEqual(-1.4320763039373351E-05, fieldValues[1, 1]);
+			AssertHelper.AssertRoundedEqual(-2.3903003577562913E-06, fieldValues[1, 2]);
+			AssertHelper.AssertRoundedEqual(-1.5054536485863333E-07, fieldValues[1, 3]);
+			AssertHelper.AssertRoundedEqual(-2.4097646603037224E-08, fieldValues[1, 4]);
 
-			AssertHelper.AssertRoundedEqual(0.00926325172271691, fieldValues[2, 0]);
-			AssertHelper.AssertRoundedEqual(0.00026495365957657934, fieldValues[2, 1]);
-			AssertHelper.AssertRoundedEqual(1.7689545794340915E-05, fieldValues[2, 2]);
-			AssertHelper.AssertRoundedEqual(2.7852981184671959E-07, fieldValues[2, 3]);
-			AssertHelper.AssertRoundedEqual(1.7833596013909644E-08, fieldValues[2, 4]);
+			AssertHelper.AssertRoundedEqual(0.009263143038667954, fieldValues[2, 0]);
+			AssertHelper.AssertRoundedEqual(0.00026494736359658684, fieldValues[2, 1]);
+			AssertHelper.AssertRoundedEqual(1.7689107102751692E-05, fieldValues[2, 2]);
+			AssertHelper.AssertRoundedEqual(2.7852285113102822E-07, fieldValues[2, 3]);
+			AssertHelper.AssertRoundedEqual(1.7833150143754736E-08, fieldValues[2, 4]);
 		}
 	}
 }

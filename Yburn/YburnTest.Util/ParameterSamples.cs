@@ -17,12 +17,12 @@ namespace Yburn.Tests.Util
 				nameValuePairs["GridCellSize"] = "3333";
 				nameValuePairs["GridRadius"] = "3333";
 				nameValuePairs["ImpactParam"] = "3333";
-				nameValuePairs["LorentzFactor"] = "3333";
 				nameValuePairs["NuclearRadiusA"] = "3333";
 				nameValuePairs["NuclearRadiusB"] = "3333";
 				nameValuePairs["NucleonNumberA"] = "3333";
 				nameValuePairs["NucleonNumberB"] = "3333";
 				nameValuePairs["Outfile"] = "stdout.txt";
+				nameValuePairs["PointChargeVelocity"] = "3333";
 				nameValuePairs["ProtonNumberA"] = "3333";
 				nameValuePairs["ProtonNumberB"] = "3333";
 				nameValuePairs["QGPConductivityMeV"] = "3333";

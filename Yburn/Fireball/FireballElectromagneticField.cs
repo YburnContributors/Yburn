@@ -12,10 +12,7 @@ namespace Yburn.Fireball
 			FireballParam param
 			)
 		{
-			ImpactParameter = param.ImpactParameterFm;
-			BeamRapidity = param.BeamRapidity;
-
-			PointChargeEMF = PointChargeElectromagneticField.Create(param);
+			Param = param.Clone();
 
 			DensityFunction.CreateProtonDensityFunctionPair(
 				param, out ProtonDensityFunctionA, out ProtonDensityFunctionB);
@@ -30,36 +27,43 @@ namespace Yburn.Fireball
 			EuclideanVector3D position
 			)
 		{
-			EuclideanVector2D nucleusPosition = new EuclideanVector2D(ImpactParameter / 2, 0);
-			EuclideanVector2D positionInReactionPlane = new EuclideanVector2D(position.X, position.Y);
+			EuclideanVector3D nucleusOffset = new EuclideanVector3D(
+				0.5 * Param.ImpactParameterFm, 0, 0);
 
 			// Nucleus A is located at negative x and moves in positive z direction
 			EuclideanVector3D fieldNucleusA = CalculateSingleNucleusMagneticField(
-				time - position.Z / ParticleVelocity,
-				positionInReactionPlane + nucleusPosition,
+				time,
+				position + nucleusOffset,
+				Param.ParticleVelocity,
 				ProtonDensityFunctionA);
 
 			// Nucleus B is located at positive x and moves in negative z direction
 			EuclideanVector3D fieldNucleusB = CalculateSingleNucleusMagneticField(
-				time + position.Z / ParticleVelocity,
-				positionInReactionPlane - nucleusPosition,
-				ProtonDensityFunctionB);
+				time,
+				position - nucleusOffset,
+				-Param.ParticleVelocity,
+				ProtonDensityFunctionA);
 
 			return fieldNucleusA + fieldNucleusB;
 		}
 
 		public EuclideanVector3D CalculateSingleNucleusMagneticField(
-			double effectiveTime,
-			EuclideanVector2D positionInReactionPlane,
+			double time,
+			EuclideanVector3D position,
+			double nucleusVelocity,
 			DensityFunction protonDensityFunction
 			)
 		{
+			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
+				Param.EMFCalculationMethod, Param.QGPConductivityMeV, nucleusVelocity);
+
 			TwoVariableIntegrandVectorValued<EuclideanVector2D> integrand = (x, y) =>
 				protonDensityFunction.GetColumnDensity(x, y)
-				* PointChargeEMF.CalculatePointChargeMagneticField(
-					effectiveTime,
-					positionInReactionPlane - new EuclideanVector2D(x, y),
-					ParticleLorentzFactor);
+				* pcEMF.CalculatePointChargeMagneticField(
+					time,
+					position.X - x,
+					position.Y - y,
+					position.Z);
 
 			EuclideanVector2D integral = Quadrature.UseGaussLegendreOverAllQuadrants(
 				integrand, protonDensityFunction.NuclearRadius);
@@ -71,30 +75,10 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private readonly DensityFunction ProtonDensityFunctionA;
+		private FireballParam Param;
 
-		private readonly DensityFunction ProtonDensityFunctionB;
+		private DensityFunction ProtonDensityFunctionA;
 
-		private readonly PointChargeElectromagneticField PointChargeEMF;
-
-		private readonly double ImpactParameter;
-
-		private readonly double BeamRapidity;
-
-		private double ParticleVelocity
-		{
-			get
-			{
-				return Math.Tanh(BeamRapidity);
-			}
-		}
-
-		private double ParticleLorentzFactor
-		{
-			get
-			{
-				return 1 / Math.Sqrt(1 - ParticleVelocity * ParticleVelocity);
-			}
-		}
+		private DensityFunction ProtonDensityFunctionB;
 	}
 }

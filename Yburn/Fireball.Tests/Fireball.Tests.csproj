@@ -57,6 +57,7 @@
     <Compile Include="BottomiumCascadeTests.cs" />
     <Compile Include="EuclideanVectorTests.cs" />
     <Compile Include="FireballElectromagneticFieldTests.cs" />
+    <Compile Include="MagneticFieldStrengthAveragerTests.cs" />
     <Compile Include="PointChargeElectromagneticFieldTests.cs" />
     <Compile Include="DecayWidthAveragerTests.cs" />
     <Compile Include="FireballFieldTests.cs" />
@@ -105,8 +106,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="RemoveObjAndBin" AfterTargets="Clean">
+  <Target Name="RemoveObj" AfterTargets="Clean">
     <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
-    <RemoveDir Directories="$(TargetDir)" />
   </Target>
 </Project>

@@ -56,7 +56,7 @@ QGPConductivityMeV   = 5.8
 EMFCalculationMethod = URLimitFourierSynthesis
 
 # Single Point Charge
-LorentzFactor                 = 100
+PointChargeVelocity           = 0.99995
 RadialDistance                = 7.4
 StartEffectiveTime            = 0.0
 StopEffectiveTime             = 10.0
@@ -79,17 +79,17 @@ NucleonNumberB = 208
 ProtonNumberB  = 82
 NuclearRadiusB = 6.62
 DiffusenessB   = 0.546
-ImpactParam    = 0
+ImpactParam    = 7
 
 # Hydrodynamics
 ExpansionMode             = Transverse
 TemperatureProfile        = NmixPHOBOS13
-InitialCentralTemperature = 513
+InitialCentralTemperature = 480
 MinimalCentralTemperature = 160
 ThermalTime               = 0.1
-GridCellSize              = 0.4 #0.4
-GridRadius                = 10.4
-BeamRapidity              = 8.585
+GridCellSize              = 0.4
+GridRadius                = 10
+BeamRapidity              = 7.987
 
 # QQStates
 DecayWidthEvaluationType  = AveragedDecayWidth

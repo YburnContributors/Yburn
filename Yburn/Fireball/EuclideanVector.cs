@@ -169,12 +169,28 @@ namespace Yburn.Fireball
 		}
 
 		public static EuclideanVector2D CreateAzimutalUnitVectorAtPosition(
+			double x,
+			double y
+			)
+		{
+			return CreateAzimutalUnitVectorAtPosition(new EuclideanVector2D(x, y));
+		}
+
+		public static EuclideanVector2D CreateAzimutalUnitVectorAtPosition(
 			EuclideanVector2D position
 			)
 		{
 			double angle = position.AzimutalAngle;
 
 			return EuclideanVector2D.CreateFromPolarCoordinates(1, angle + 0.5 * Math.PI);
+		}
+
+		public static EuclideanVector2D CreateRadialUnitVectorAtPosition(
+			double x,
+			double y
+			)
+		{
+			return CreateRadialUnitVectorAtPosition(new EuclideanVector2D(x, y));
 		}
 
 		public static EuclideanVector2D CreateRadialUnitVectorAtPosition(

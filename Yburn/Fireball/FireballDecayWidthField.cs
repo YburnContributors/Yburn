@@ -3,18 +3,18 @@ using System.Collections.Generic;
 
 namespace Yburn.Fireball
 {
-	public class FireballDecayWidth : StateSpecificFireballField
+	public class FireballDecayWidthField : StateSpecificFireballField
 	{
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-		public FireballDecayWidth(
+		public FireballDecayWidthField(
 			int xDimension,
 			int yDimension,
 			double gridCellSize,
 			double[] transverseMomenta,
-			FireballTemperature temperature,
+			FireballTemperatureField temperature,
 			SimpleFireballField vx,
 			SimpleFireballField vy,
 			double[] formationTimes,
@@ -41,12 +41,12 @@ namespace Yburn.Fireball
 			Initialize();
 		}
 
-		public FireballDecayWidth(
+		public FireballDecayWidthField(
 			double[] xPosition,
 			double[] yPosition,
 			double gridCellSize,
 			double[] transverseMomenta,
-			FireballTemperature temperature,
+			FireballTemperatureField temperature,
 			SimpleFireballField vx,
 			SimpleFireballField vy,
 			double[] formationTimes,
@@ -131,7 +131,7 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private FireballTemperature Temperature;
+		private FireballTemperatureField Temperature;
 
 		// tranverse expansion velocity of the fireball as measured in the lab frame
 		private SimpleFireballField VX;
@@ -324,9 +324,9 @@ namespace Yburn.Fireball
 			)
 		{
 			return x <= X[XDimension - 1]
-                && x >= X[0]
+				&& x >= X[0]
 				&& y <= Y[YDimension - 1]
-                && y >= Y[0];
+				&& y >= Y[0];
 		}
 	}
 }

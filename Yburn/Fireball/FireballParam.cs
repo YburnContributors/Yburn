@@ -95,6 +95,18 @@ namespace Yburn.Fireball
 
 		public double BeamRapidity;
 
+		public double ParticleVelocity
+		{
+			get
+			{
+				return Math.Tanh(BeamRapidity);
+			}
+			set
+			{
+				BeamRapidity = Artanh(value);
+			}
+		}
+
 		public double[] TransverseMomentaGeV;
 
 		public DecayWidthEvaluationType DecayWidthEvaluationType;
@@ -186,6 +198,16 @@ namespace Yburn.Fireball
 			}
 
 			return y;
+		}
+
+		/********************************************************************************************
+		 * Private/protected static members, functions and properties
+		 ********************************************************************************************/
+		private static double Artanh(
+			double x
+			)
+		{
+			return 0.5 * Math.Log((1.0 + x) / (1.0 - x));
 		}
 	}
 }

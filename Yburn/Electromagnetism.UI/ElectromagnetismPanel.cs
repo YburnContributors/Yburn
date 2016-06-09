@@ -111,7 +111,7 @@ namespace Yburn.Electromagnetism.UI
 			nameValuePairs["GridCellSize"] = TbxGridCellSize.Text;
 			nameValuePairs["GridRadius"] = TbxGridRadius.Text;
 			nameValuePairs["ImpactParam"] = TbxImpactParam.Text;
-			nameValuePairs["LorentzFactor"] = TbxLorentzFactor.Text;
+			nameValuePairs["PointChargeVelocity"] = TbxPointChargeVelocity.Text;
 			nameValuePairs["NuclearRadiusA"] = TbxNuclearRadiusA.Text;
 			nameValuePairs["NuclearRadiusB"] = TbxNuclearRadiusB.Text;
 			nameValuePairs["NucleonNumberA"] = TbxNucleonNumberA.Text;
@@ -143,7 +143,7 @@ namespace Yburn.Electromagnetism.UI
 			TbxGridCellSize.Text = nameValuePairs["GridCellSize"].ToString();
 			TbxGridRadius.Text = nameValuePairs["GridRadius"].ToString();
 			TbxImpactParam.Text = nameValuePairs["ImpactParam"].ToString();
-			TbxLorentzFactor.Text = nameValuePairs["LorentzFactor"].ToString();
+			TbxPointChargeVelocity.Text = nameValuePairs["PointChargeVelocity"].ToString();
 			TbxNuclearRadiusA.Text = nameValuePairs["NuclearRadiusA"].ToString();
 			TbxNuclearRadiusB.Text = nameValuePairs["NuclearRadiusB"].ToString();
 			TbxNucleonNumberA.Text = nameValuePairs["NucleonNumberA"].ToString();
@@ -163,6 +163,7 @@ namespace Yburn.Electromagnetism.UI
 			MenuEntry.MenuItemPlotPointChargeAzimutalMagneticField.Click += new EventHandler(MenuItemPlotPointChargeAzimutalMagneticField_Click);
 			MenuEntry.MenuItemPlotPointChargeLongitudinalElectricField.Click += new EventHandler(MenuItemPlotPointChargeLongitudinalElectricField_Click);
 			MenuEntry.MenuItemPlotPointChargeRadialElectricField.Click += new EventHandler(MenuItemPlotPointChargeRadialElectricField_Click);
+			MenuEntry.MenuItemPlotCentralMagneticFieldStrength.Click += new EventHandler(MenuItemPlotCentralMagneticFieldStrength_Click);
 		}
 
 		private void MakeToolTips(
@@ -191,6 +192,11 @@ namespace Yburn.Electromagnetism.UI
 		private void MenuItemPlotPointChargeRadialElectricField_Click(object sender, EventArgs e)
 		{
 			JobOrganizer.RequestNewJob("PlotPointChargeRadialElectricField", ControlsValues);
+		}
+
+		private void MenuItemPlotCentralMagneticFieldStrength_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotCentralMagneticFieldStrength", ControlsValues);
 		}
 	}
 }

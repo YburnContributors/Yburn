@@ -38,13 +38,14 @@
     <Compile Include="EuclideanVector.cs" />
     <Compile Include="DecayWidthAverager.cs" />
     <Compile Include="FireballElectromagneticField.cs" />
+    <Compile Include="MagneticFieldStrengthAverager.cs" />
     <Compile Include="PointChargeElectromagneticField.cs" />
     <Compile Include="Fireball.cs" />
-    <Compile Include="FireballDecayWidth.cs" />
+    <Compile Include="FireballDecayWidthField.cs" />
     <Compile Include="FireballEnums.cs" />
     <Compile Include="FireballField.cs" />
     <Compile Include="FireballParam.cs" />
-    <Compile Include="FireballTemperature.cs" />
+    <Compile Include="FireballTemperatureField.cs" />
     <Compile Include="Ftexs.cs" />
     <Compile Include="GlauberCalculation.cs" />
     <Compile Include="FireballExceptions.cs" />
@@ -56,7 +57,7 @@
     <Compile Include="StateSpecificFireballField.cs" />
     <Compile Include="SimpleFireballField.cs" />
     <Compile Include="QGPSuppression.cs" />
-    <Compile Include="TemperatureDecayWidthList.cs" />
+    <Compile Include="TemperatureDecayWidthListHelper.cs" />
     <Compile Include="TransverseMomentumAverager.cs" />
     <Compile Include="WoodsSaxonPotential.cs" />
   </ItemGroup>
@@ -80,8 +81,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="RemoveObjAndBin" AfterTargets="Clean">
+  <Target Name="RemoveObj" AfterTargets="Clean">
     <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
-    <RemoveDir Directories="$(TargetDir)" />
   </Target>
 </Project>

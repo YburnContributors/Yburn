@@ -2,13 +2,13 @@
 
 namespace Yburn.Fireball
 {
-	public class FireballTemperature : SimpleFireballField
+	public class FireballTemperatureField : SimpleFireballField
 	{
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-		public FireballTemperature(
+		public FireballTemperatureField(
 			int xDimension,
 			int yDimension,
 			SimpleFireballField temperatureScalingField,

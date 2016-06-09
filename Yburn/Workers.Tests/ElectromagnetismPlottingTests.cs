@@ -95,7 +95,7 @@ namespace Yburn.Workers.Tests
 		private Dictionary<string, string> GetPointChargeFieldPlotParams()
 		{
 			Dictionary<string, string> paramList = new Dictionary<string, string>();
-			paramList["LorentzFactor"] = "100";
+			paramList["PointChargeVelocity"] = "0.9";
 			paramList["RadialDistance"] = "7.4";
 			paramList["StartEffectiveTime"] = "0.0";
 			paramList["StopEffectiveTime"] = "10.0";

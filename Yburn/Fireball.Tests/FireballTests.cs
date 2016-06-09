@@ -106,7 +106,7 @@ namespace Yburn.Fireball.Tests
 			param.GridCellSizeFm = 0.4;
 			param.NumberGridPoints = 26;
 			param.BeamRapidity = 7.99;
-			param.TemperatureDecayWidthList = TemperatureDecayWidthList.GetList(
+			param.TemperatureDecayWidthList = TemperatureDecayWidthListHelper.GetList(
 					"..\\..\\bbdata-Pert1LoopCut3.txt", DecayWidthType.GammaTot, new string[] { "Complex" });
 			param.ShapeFunctionTypeA = ShapeFunctionType.WoodsSaxonPotential;
 			param.ShapeFunctionTypeB = ShapeFunctionType.WoodsSaxonPotential;

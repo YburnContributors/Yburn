@@ -9,10 +9,16 @@ namespace Yburn.Fireball
 		 * Constructors
 		 ********************************************************************************************/
 
-		protected PointChargeElectromagneticField(FireballParam param)
+		protected PointChargeElectromagneticField(
+			EMFCalculationMethod emfCalculationMethod,
+			double qgpConductivityMeV,
+			double pointChargeVelocity
+			)
 		{
-			EMFCalculationMethod = param.EMFCalculationMethod;
-			QGPConductivityMeV = param.QGPConductivityMeV;
+			EMFCalculationMethod = emfCalculationMethod;
+			QGPConductivityPerFm = qgpConductivityMeV / PhysConst.HBARC;
+			PointChargeVelocity = pointChargeVelocity;
+			PointChargeLorentzFactor = CalculatePointChargeLorentzFactor();
 		}
 
 		/********************************************************************************************
@@ -20,19 +26,30 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public static PointChargeElectromagneticField Create(
-			FireballParam param
+			EMFCalculationMethod emfCalculationMethod,
+			double qgpConductivityMeV,
+			double pointChargeVelocity
 			)
 		{
-			switch(param.EMFCalculationMethod)
+			switch(emfCalculationMethod)
 			{
 				case EMFCalculationMethod.URLimitFourierSynthesis:
-					return new PointChargeElectromagneticField_URLimitFourierSynthesis(param);
+					return new PointChargeElectromagneticField_URLimitFourierSynthesis(
+						emfCalculationMethod,
+						qgpConductivityMeV,
+						pointChargeVelocity);
 
 				case EMFCalculationMethod.DiffusionApproximation:
-					return new PointChargeElectromagneticField_DiffusionApproximation(param);
+					return new PointChargeElectromagneticField_DiffusionApproximation(
+						emfCalculationMethod,
+						qgpConductivityMeV,
+						pointChargeVelocity);
 
 				case EMFCalculationMethod.FreeSpace:
-					return new PointChargeElectromagneticField_FreeSpace(param);
+					return new PointChargeElectromagneticField_FreeSpace(
+						emfCalculationMethod,
+						qgpConductivityMeV,
+						pointChargeVelocity);
 
 				default:
 					throw new Exception("Invalid Calculation Method.");
@@ -43,58 +60,51 @@ namespace Yburn.Fireball
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		// for a point charge (with charge e) moving along the beam axis
-		public abstract double CalculatePointChargeAzimutalMagneticField(
-			double effectiveTime,
-			double radialDistance,
-			double lorentzFactor
-			);
-
-		// for a point charge (with charge e) moving along the beam axis
-		public abstract double CalculatePointChargeLongitudinalElectricField(
-			double effectiveTime,
-			double radialDistance,
-			double lorentzFactor
-			);
-
-		// for a point charge (with charge e) moving along the beam axis
-		public abstract double CalculatePointChargeRadialElectricField(
-			double effectiveTime,
-			double radialDistance,
-			double lorentzFactor
-			);
-
 		public EuclideanVector2D CalculatePointChargeMagneticField(
-			double effectiveTime,
-			EuclideanVector2D positionInReactionPlane,
-			double lorentzFactor
+			double t,
+			double x,
+			double y,
+			double z
 			)
 		{
-			EuclideanVector2D azimutalPart =
-				CalculatePointChargeAzimutalMagneticField(
-					effectiveTime, positionInReactionPlane.Norm, lorentzFactor)
-				* EuclideanVector2D.CreateAzimutalUnitVectorAtPosition(positionInReactionPlane);
+			EuclideanVector2D azimutalPart = CalculatePointChargeAzimutalMagneticField(
+					CalculateEffectiveTime(t, z), CalculateRadialDistance(x, y))
+				* EuclideanVector2D.CreateAzimutalUnitVectorAtPosition(x, y);
 
 			return azimutalPart;
 		}
 
 		public EuclideanVector3D CalculatePointChargeElectricField(
-			double effectiveTime,
-			EuclideanVector2D positionInReactionPlane,
-			double lorentzFactor
+			double t,
+			double x,
+			double y,
+			double z
 			)
 		{
-			EuclideanVector2D radialPart =
-				CalculatePointChargeRadialElectricField(
-					effectiveTime, positionInReactionPlane.Norm, lorentzFactor)
-				* EuclideanVector2D.CreateRadialUnitVectorAtPosition(positionInReactionPlane);
+			EuclideanVector2D radialPart = CalculatePointChargeRadialElectricField(
+					CalculateEffectiveTime(t, z), CalculateRadialDistance(x, y))
+				* EuclideanVector2D.CreateRadialUnitVectorAtPosition(x, y);
 
-			double longitudinalPart =
-				CalculatePointChargeLongitudinalElectricField(
-					effectiveTime, positionInReactionPlane.Norm, lorentzFactor);
+			double longitudinalPart = CalculatePointChargeLongitudinalElectricField(
+				CalculateEffectiveTime(t, z), CalculateRadialDistance(x, y));
 
 			return new EuclideanVector3D(radialPart, longitudinalPart);
 		}
+
+		public abstract double CalculatePointChargeAzimutalMagneticField(
+			double effectiveTime,
+			double radialDistance
+			);
+
+		public abstract double CalculatePointChargeLongitudinalElectricField(
+			double effectiveTime,
+			double radialDistance
+			);
+
+		public abstract double CalculatePointChargeRadialElectricField(
+			double effectiveTime,
+			double radialDistance
+			);
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
@@ -102,272 +112,284 @@ namespace Yburn.Fireball
 
 		private EMFCalculationMethod EMFCalculationMethod;
 
-		private double QGPConductivity;
+		private double QGPConductivityPerFm;
 
-		private double QGPConductivityMeV
+		private double PointChargeVelocity;
+
+		private double PointChargeLorentzFactor;
+
+		private double CalculatePointChargeLorentzFactor()
 		{
-			get
-			{
-				return QGPConductivity * PhysConst.HBARC;
-			}
-			set
-			{
-				QGPConductivity = value / PhysConst.HBARC;
-			}
+			return 1 / Math.Sqrt(1 - PointChargeVelocity * PointChargeVelocity);
 		}
 
-		private class PointChargeElectromagneticField_URLimitFourierSynthesis : PointChargeElectromagneticField
+		private double CalculateEffectiveTime(
+			double t,
+			double z
+			)
 		{
-			/********************************************************************************************
-			 * Constructors
-			 ********************************************************************************************/
+			return t - z / PointChargeVelocity;
+		}
 
-			public PointChargeElectromagneticField_URLimitFourierSynthesis(FireballParam param)
-				: base(param)
+		private double CalculateRadialDistance(
+			double x,
+			double y)
+		{
+			return Math.Sqrt(x * x + y * y);
+		}
+
+		private class PointChargeElectromagneticField_URLimitFourierSynthesis
+			: PointChargeElectromagneticField
+		{
+			/****************************************************************************************
+			 * Constructors
+			 ****************************************************************************************/
+
+			public PointChargeElectromagneticField_URLimitFourierSynthesis(
+				EMFCalculationMethod emfCalculationMethod,
+				double qgpConductivityMeV,
+				double pointChargeVelocity
+				) : base(emfCalculationMethod, qgpConductivityMeV, pointChargeVelocity)
 			{
 			}
 
-			/********************************************************************************************
+			/****************************************************************************************
 			 * Public members, functions and properties
-			 ********************************************************************************************/
+			 ****************************************************************************************/
 
 			public override double CalculatePointChargeAzimutalMagneticField(
 				double effectiveTime,
-				double radialDistance,
-				double lorentzFactor
+				double radialDistance
 				)
 			{
-				OneVariableIntegrand integrand = k => PointChargeAzimutalMagneticFieldIntegrand(
-					k, effectiveTime, radialDistance, lorentzFactor);
-
-				double integral = Quadrature.UseGaussLegendreOverPositiveAxis(integrand, 1);
-
-				return PhysConst.ElementaryCharge / (2 * Math.PI * QGPConductivity) * integral;
+				// up to sign identical with radial electric field component in this limit
+				return Math.Sign(PointChargeVelocity) * CalculatePointChargeRadialElectricField(
+					effectiveTime, radialDistance);
 			}
 
 			public override double CalculatePointChargeLongitudinalElectricField(
 				double effectiveTime,
-				double radialDistance,
-				double lorentzFactor
+				double radialDistance
 				)
 			{
 				OneVariableIntegrand integrand = k => PointChargeLongitudinalElectricFieldIntegrand(
-					k, effectiveTime, radialDistance, lorentzFactor);
+					k, effectiveTime, radialDistance);
 
 				double integral = Quadrature.UseGaussLegendreOverPositiveAxis(integrand, 1);
 
-				return PhysConst.ElementaryCharge / (4 * Math.PI) * integral;
+				return Math.Sign(PointChargeVelocity) * PhysConst.ElementaryCharge / (4 * Math.PI)
+					* integral;
 			}
 
 			public override double CalculatePointChargeRadialElectricField(
 				double effectiveTime,
-				double radialDistance,
-				double lorentzFactor
+				double radialDistance
 				)
 			{
-				// identical with azimutal magnetic field component in this limit
-				return CalculatePointChargeAzimutalMagneticField(
-					effectiveTime, radialDistance, lorentzFactor);
+				OneVariableIntegrand integrand = k => PointChargeRadialElectricFieldIntegrand(
+					k, effectiveTime, radialDistance);
+
+				double integral = Quadrature.UseGaussLegendreOverPositiveAxis(integrand, 1);
+
+				return PhysConst.ElementaryCharge / (2 * Math.PI * QGPConductivityPerFm) * integral;
 			}
 
-			/********************************************************************************************
+			/****************************************************************************************
 			 * Private/protected members, functions and properties
-			 ********************************************************************************************/
-
-			private double PointChargeAzimutalMagneticFieldIntegrand(
-				double fourierFrequency,
-				double effectiveTime,
-				double radialDistance,
-				double lorentzFactor
-				)
-			{
-				double x;
-				double exponentialPart;
-				CalculateShorthands(
-					fourierFrequency, effectiveTime, lorentzFactor, out x, out exponentialPart);
-
-				return AdvancedMath.BesselJ(1, fourierFrequency * radialDistance)
-						* fourierFrequency * fourierFrequency / x * exponentialPart;
-			}
+			 ****************************************************************************************/
 
 			private double PointChargeLongitudinalElectricFieldIntegrand(
 				double fourierFrequency,
 				double effectiveTime,
-				double radialDistance,
-				double lorentzFactor
+				double radialDistance
 				)
 			{
 				double x;
 				double exponentialPart;
 				CalculateShorthands(
-					fourierFrequency, effectiveTime, lorentzFactor, out x, out exponentialPart);
+					fourierFrequency, effectiveTime, out x, out exponentialPart);
 
 				return AdvancedMath.BesselJ(0, fourierFrequency * radialDistance)
 						* fourierFrequency * (1 - x) / x * exponentialPart;
 			}
 
+			private double PointChargeRadialElectricFieldIntegrand(
+				double fourierFrequency,
+				double effectiveTime,
+				double radialDistance
+				)
+			{
+				double x;
+				double exponentialPart;
+				CalculateShorthands(
+					fourierFrequency, effectiveTime, out x, out exponentialPart);
+
+				return AdvancedMath.BesselJ(1, fourierFrequency * radialDistance)
+						* fourierFrequency * fourierFrequency / x * exponentialPart;
+			}
+
 			private void CalculateShorthands(
 				double fourierFrequency,
 				double effectiveTime,
-				double lorentzFactor,
 				out double x,
 				out double exponentialPart
 				)
 			{
-				x = Math.Sqrt(
-					1 + 4 * Math.Pow(fourierFrequency / (lorentzFactor * QGPConductivity), 2));
+				x = Math.Sqrt(1 + 4 * Math.Pow(
+					fourierFrequency / (PointChargeLorentzFactor * QGPConductivityPerFm), 2));
 
-				exponentialPart = Math.Exp(
-					0.5 * QGPConductivity * lorentzFactor * lorentzFactor * effectiveTime * (1 - x));
+				exponentialPart = Math.Exp(0.5 * QGPConductivityPerFm
+					* PointChargeLorentzFactor * PointChargeLorentzFactor * effectiveTime * (1 - x));
 			}
 		}
 
-		private class PointChargeElectromagneticField_DiffusionApproximation : PointChargeElectromagneticField
+		private class PointChargeElectromagneticField_DiffusionApproximation
+			: PointChargeElectromagneticField
 		{
-			/********************************************************************************************
+			/****************************************************************************************
 			 * Constructors
-			 ********************************************************************************************/
+			 ****************************************************************************************/
 
-			public PointChargeElectromagneticField_DiffusionApproximation(FireballParam param)
-				: base(param)
+			public PointChargeElectromagneticField_DiffusionApproximation(
+				EMFCalculationMethod emfCalculationMethod,
+				double qgpConductivityMeV,
+				double pointChargeVelocity
+				) : base(emfCalculationMethod, qgpConductivityMeV, pointChargeVelocity)
 			{
 			}
 
-			/********************************************************************************************
+			/****************************************************************************************
 			 * Public members, functions and properties
-			 ********************************************************************************************/
+			 ****************************************************************************************/
 
 			public override double CalculatePointChargeAzimutalMagneticField(
 				double effectiveTime,
-				double radialDistance,
-				double lorentzFactor
+				double radialDistance
 				)
 			{
-				double exponentialPart = CalculateExponentialPart(effectiveTime, radialDistance);
-
-				return PhysConst.ElementaryCharge * (radialDistance * QGPConductivity)
-					/ (8 * Math.PI * effectiveTime * effectiveTime)
-					* exponentialPart;
+				// up to sign identical with radial electric field component in this limit
+				return Math.Sign(PointChargeVelocity) * CalculatePointChargeRadialElectricField(
+					effectiveTime, radialDistance);
 			}
 
 			public override double CalculatePointChargeLongitudinalElectricField(
 				double effectiveTime,
-				double radialDistance,
-				double lorentzFactor
+				double radialDistance
 				)
 			{
-				double exponentialPart = CalculateExponentialPart(effectiveTime, radialDistance);
+				if(effectiveTime == 0)
+				{
+					return 0;
+				}
+				else
+				{
+					double exponentialPart = CalculateExponentialPart(effectiveTime, radialDistance);
 
-				return PhysConst.ElementaryCharge
-					* (0.25 * radialDistance * radialDistance * QGPConductivity - effectiveTime)
-					/ (4 * Math.PI * lorentzFactor * lorentzFactor * effectiveTime * effectiveTime * effectiveTime)
-					* exponentialPart;
+					return Math.Sign(PointChargeVelocity) * PhysConst.ElementaryCharge
+						* (0.25 * radialDistance * radialDistance * QGPConductivityPerFm
+							- effectiveTime)
+						/ (4 * Math.PI * PointChargeLorentzFactor * PointChargeLorentzFactor
+							* effectiveTime * effectiveTime * effectiveTime)
+						* exponentialPart;
+				}
 			}
 
 			public override double CalculatePointChargeRadialElectricField(
 				double effectiveTime,
-				double radialDistance,
-				double lorentzFactor
+				double radialDistance
 				)
 			{
-				// identical with azimutal magnetic field component in this limit
-				return CalculatePointChargeAzimutalMagneticField(
-					effectiveTime, radialDistance, lorentzFactor);
+				if(effectiveTime == 0)
+				{
+					return 0;
+				}
+				else
+				{
+					double exponentialPart = CalculateExponentialPart(effectiveTime, radialDistance);
+
+					return PhysConst.ElementaryCharge * (radialDistance * QGPConductivityPerFm)
+						/ (8 * Math.PI * effectiveTime * effectiveTime)
+						* exponentialPart;
+				}
 			}
 
-			/********************************************************************************************
+			/****************************************************************************************
 			 * Private/protected members, functions and properties
-			 ********************************************************************************************/
+			 ****************************************************************************************/
 
 			private double CalculateExponentialPart(
 				double effectiveTime,
 				double radialDistance
 				)
 			{
-				return Math.Exp(-0.25 * radialDistance * radialDistance * QGPConductivity / effectiveTime);
+				return Math.Exp(-0.25 * radialDistance * radialDistance * QGPConductivityPerFm
+					/ effectiveTime);
 			}
 		}
 
-		private class PointChargeElectromagneticField_FreeSpace : PointChargeElectromagneticField
+		private class PointChargeElectromagneticField_FreeSpace
+			: PointChargeElectromagneticField
 		{
-			/********************************************************************************************
+			/****************************************************************************************
 			 * Constructors
-			 ********************************************************************************************/
+			 ****************************************************************************************/
 
-			public PointChargeElectromagneticField_FreeSpace(FireballParam param)
-				: base(param)
+			public PointChargeElectromagneticField_FreeSpace(
+				EMFCalculationMethod emfCalculationMethod,
+				double qgpConductivityMeV,
+				double pointChargeVelocity
+				) : base(emfCalculationMethod, qgpConductivityMeV, pointChargeVelocity)
 			{
 			}
 
-			/********************************************************************************************
+			/****************************************************************************************
 			 * Public members, functions and properties
-			 ********************************************************************************************/
+			 ****************************************************************************************/
 
 			public override double CalculatePointChargeAzimutalMagneticField(
 				double effectiveTime,
-				double radialDistance,
-				double lorentzFactor
+				double radialDistance
 				)
 			{
-				double velocity;
-				double denominator = CalculateDenominator(
-					effectiveTime, radialDistance, lorentzFactor, out velocity);
+				double denominator = CalculateDenominator(effectiveTime, radialDistance);
 
-				return PhysConst.ElementaryCharge * lorentzFactor * velocity * radialDistance
-					/ (4 * Math.PI * denominator);
+				return PhysConst.ElementaryCharge * PointChargeLorentzFactor * PointChargeVelocity
+					* radialDistance / (4 * Math.PI * denominator);
 			}
 
 			public override double CalculatePointChargeLongitudinalElectricField(
 				double effectiveTime,
-				double radialDistance,
-				double lorentzFactor
+				double radialDistance
 				)
 			{
-				double velocity;
-				double denominator = CalculateDenominator(
-					effectiveTime, radialDistance, lorentzFactor, out velocity);
+				double denominator = CalculateDenominator(effectiveTime, radialDistance);
 
-				return PhysConst.ElementaryCharge * lorentzFactor * (-velocity * effectiveTime)
-					/ (4 * Math.PI * denominator);
+				return -PhysConst.ElementaryCharge * PointChargeLorentzFactor * PointChargeVelocity
+					* effectiveTime / (4 * Math.PI * denominator);
 			}
 
 			public override double CalculatePointChargeRadialElectricField(
 				double effectiveTime,
-				double radialDistance,
-				double lorentzFactor
+				double radialDistance
 				)
 			{
-				double velocity;
-				double denominator = CalculateDenominator(
-					effectiveTime, radialDistance, lorentzFactor, out velocity);
+				double denominator = CalculateDenominator(effectiveTime, radialDistance);
 
-				return PhysConst.ElementaryCharge * lorentzFactor * radialDistance
-					/ (4 * Math.PI * denominator);
+				return PhysConst.ElementaryCharge * PointChargeLorentzFactor
+					* radialDistance / (4 * Math.PI * denominator);
 			}
 
-			/********************************************************************************************
+			/****************************************************************************************
 			 * Private/protected members, functions and properties
-			 ********************************************************************************************/
+			 ****************************************************************************************/
 
 			private double CalculateDenominator(
 				double effectiveTime,
-				double radialDistance,
-				double lorentzFactor,
-				out double velocity
+				double radialDistance
 				)
 			{
-				velocity = CalculateVelocity(lorentzFactor);
-
-				return Math.Pow(
-					radialDistance * radialDistance + Math.Pow(lorentzFactor * velocity * effectiveTime, 2),
-					1.5);
-			}
-
-			private double CalculateVelocity(
-				double lorentzFactor
-				)
-			{
-				return Math.Sqrt(1 - 1 / (lorentzFactor * lorentzFactor));
+				return Math.Pow(radialDistance * radialDistance + Math.Pow(
+					PointChargeLorentzFactor * PointChargeVelocity * effectiveTime, 2), 1.5);
 			}
 		}
 	}

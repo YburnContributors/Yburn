@@ -487,7 +487,7 @@ namespace Yburn.Workers
 		{
 			CurrentJobTitle = "ShowDecayWidthInput";
 
-			List<KeyValuePair<double, double>>[] tGammaList = TemperatureDecayWidthList.GetList(
+			List<KeyValuePair<double, double>>[] tGammaList = TemperatureDecayWidthListHelper.GetList(
 				GetQQDataPathFile(), DecayWidthType, PotentialTypes);
 
 			LogMessages.Clear();
@@ -776,7 +776,7 @@ namespace Yburn.Workers
 			param.TemperatureProfile = TemperatureProfile;
 			param.FtexsLogPathFile = FtexsLogPathFile;
 			param.DecayWidthAveragingAngles = DecayWidthAveragingAngles;
-			param.TemperatureDecayWidthList = TemperatureDecayWidthList.GetList(
+			param.TemperatureDecayWidthList = TemperatureDecayWidthListHelper.GetList(
 					GetQQDataPathFile(), DecayWidthType, PotentialTypes);
 			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
 			param.ShapeFunctionTypeB = ShapeFunctionTypeB;

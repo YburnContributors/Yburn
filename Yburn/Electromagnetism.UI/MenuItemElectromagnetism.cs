@@ -13,12 +13,14 @@ namespace Yburn.Electromagnetism.UI
 		public ToolStripMenuItem MenuItemPlotPointChargeAzimutalMagneticField;
 		public ToolStripMenuItem MenuItemPlotPointChargeLongitudinalElectricField;
 		public ToolStripMenuItem MenuItemPlotPointChargeRadialElectricField;
+		public ToolStripMenuItem MenuItemPlotCentralMagneticFieldStrength;
 
 		private void InitializeComponent()
 		{
 			this.MenuItemPlotPointChargeAzimutalMagneticField = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotPointChargeLongitudinalElectricField = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotPointChargeRadialElectricField = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemPlotCentralMagneticFieldStrength = new System.Windows.Forms.ToolStripMenuItem();
 			//
 			// MenuItemPlotPointChargeAzimutalMagneticField
 			//
@@ -38,12 +40,19 @@ namespace Yburn.Electromagnetism.UI
 			this.MenuItemPlotPointChargeRadialElectricField.Size = new System.Drawing.Size(361, 24);
 			this.MenuItemPlotPointChargeRadialElectricField.Text = "Plot point charge &radial electric field";
 			//
+			// MenuItemPlotCentralMagneticFieldStrength
+			//
+			this.MenuItemPlotCentralMagneticFieldStrength.Name = "MenuItemPlotCentralMagneticFieldStrength";
+			this.MenuItemPlotCentralMagneticFieldStrength.Size = new System.Drawing.Size(361, 24);
+			this.MenuItemPlotCentralMagneticFieldStrength.Text = "Plot &central magnetic field strength";
+			//
 			// MenuItemElectromagnetism
 			//
 			this.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
 				this.MenuItemPlotPointChargeAzimutalMagneticField,
 				this.MenuItemPlotPointChargeLongitudinalElectricField,
-				this.MenuItemPlotPointChargeRadialElectricField});
+				this.MenuItemPlotPointChargeRadialElectricField,
+				this.MenuItemPlotCentralMagneticFieldStrength});
 			this.Size = new System.Drawing.Size(84, 24);
 			this.Text = "&Electromagnetism";
 		}

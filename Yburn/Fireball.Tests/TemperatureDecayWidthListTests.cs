@@ -14,21 +14,21 @@ namespace Yburn.Fireball.Tests
 		[ExpectedException(typeof(ArgumentException))]
 		public void ThrowIfDecayWidthType_None()
 		{
-			TemperatureDecayWidthList.GetList(DummyFileName, DecayWidthType.None, null);
+			TemperatureDecayWidthListHelper.GetList(DummyFileName, DecayWidthType.None, null);
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ArgumentException))]
 		public void ThrowIfPotentialTypes_Empty()
 		{
-			TemperatureDecayWidthList.GetList(DummyFileName, DecayWidthType.None, null);
+			TemperatureDecayWidthListHelper.GetList(DummyFileName, DecayWidthType.None, null);
 		}
 
 		[TestMethod]
 		[ExpectedException(typeof(ArgumentException))]
 		public void ThrowIfPotentialTypes_Null()
 		{
-			TemperatureDecayWidthList.GetList(DummyFileName, DecayWidthType.None, null);
+			TemperatureDecayWidthListHelper.GetList(DummyFileName, DecayWidthType.None, null);
 		}
 
 		/********************************************************************************************

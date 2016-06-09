@@ -120,7 +120,7 @@ namespace Yburn.Workers
 			BottomiumState state
 			)
 		{
-			List<KeyValuePair<double, double>> list = TemperatureDecayWidthList.GetList(
+			List<KeyValuePair<double, double>> list = TemperatureDecayWidthListHelper.GetList(
 				DataPathFile, state, DecayWidthType, PotentialTypes);
 
 			return AveragingAngles == null || AveragingAngles.Length == 0 ?

@@ -9,7 +9,7 @@ using System.IO;
 
 namespace Yburn.Fireball
 {
-	public static class TemperatureDecayWidthList
+	public static class TemperatureDecayWidthListHelper
 	{
 		/********************************************************************************************
 		 * Public static members, functions and properties

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 
 namespace Yburn.Util
 {
@@ -7,6 +8,47 @@ namespace Yburn.Util
 		/********************************************************************************************
 		 * Public static members, functions and properties
 		 ********************************************************************************************/
+
+		public static string ToUIString<T>(
+			this T value) where T : IFormattable
+		{
+			if(typeof(T) == typeof(double))
+			{
+				return value.ToString("G4", CultureInfo.InvariantCulture);
+			}
+			return value.ToString("G", CultureInfo.InvariantCulture);
+		}
+
+		public static T[] ToArray<T>(
+			this string stringifiedList,
+			char[] separator = null
+			) where T : IConvertible
+		{
+			string[] splittedList = stringifiedList.ToStringArray(separator);
+
+			T[] array = new T[splittedList.Length];
+			for(int i = 0; i < array.Length; i++)
+			{
+				array[i] = (T)Convert.ChangeType(splittedList[i], typeof(T));
+			}
+
+			return array;
+		}
+
+		public static T[][] ToJaggedArray<T>(
+			this string stringifiedList
+			) where T : IConvertible
+		{
+			string[] splittedList = stringifiedList.ToStringArray(new char[] { '\t', ';' });
+
+			T[][] jaggedArray = new T[splittedList.Length][];
+			for(int i = 0; i < jaggedArray.Length; i++)
+			{
+				jaggedArray[i] = splittedList[i].ToArray<T>(new char[] { ' ', ',' });
+			}
+
+			return jaggedArray;
+		}
 
 		public static string[] ToStringArray(
 			this string stringifiedList,
@@ -109,7 +151,7 @@ namespace Yburn.Util
 		}
 
 		public static string ToStringifiedList(
-			this double[] array
+			this string[] array
 			)
 		{
 			if(array == null || array.Length == 0)
@@ -118,39 +160,13 @@ namespace Yburn.Util
 			}
 			else
 			{
-				string stringifiedList = array[0].ToString("G4");
-				for(int i = 1; i < array.Length; i++)
-				{
-					stringifiedList += "," + array[i].ToString("G4");
-				}
-
-				return stringifiedList;
-			}
-		}
-
-		public static string ToStringifiedList(
-			this double[][] array
-			)
-		{
-			if(array == null || array.Length == 0)
-			{
-				return string.Empty;
-			}
-			else
-			{
-				string stringifiedList = array[0].ToStringifiedList();
-				for(int i = 1; i < array.Length; i++)
-				{
-					stringifiedList += ";" + array[i].ToStringifiedList();
-				}
-
-				return stringifiedList;
+				return string.Join(",", array);
 			}
 		}
 
 		public static string ToStringifiedList<T>(
 			this T[] array
-			) where T : IConvertible
+			) where T : IFormattable
 		{
 			if(array == null || array.Length == 0)
 			{
@@ -158,10 +174,10 @@ namespace Yburn.Util
 			}
 			else
 			{
-				string stringifiedList = array[0].ToString();
+				string stringifiedList = array[0].ToUIString();
 				for(int i = 1; i < array.Length; i++)
 				{
-					stringifiedList += "," + array[i].ToString();
+					stringifiedList += "," + array[i].ToUIString();
 				}
 
 				return stringifiedList;
@@ -170,7 +186,7 @@ namespace Yburn.Util
 
 		public static string ToStringifiedList<T>(
 			this T[][] array
-			) where T : IConvertible
+			) where T : IFormattable
 		{
 			if(array == null || array.Length == 0)
 			{

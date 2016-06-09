@@ -307,9 +307,9 @@ namespace Yburn.Fireball
 		// Solver for the Euler equations for a relativistic perfect fluid
 		private Ftexs Solver;
 
-		private FireballTemperature Temperature;
+		private FireballTemperatureField Temperature;
 
-		private FireballDecayWidth DecayWidth;
+		private FireballDecayWidthField DecayWidth;
 
 		private StateSpecificFireballField DampingFactor;
 
@@ -400,7 +400,7 @@ namespace Yburn.Fireball
 
 		private void InitDecayWidth()
 		{
-			DecayWidth = new FireballDecayWidth(
+			DecayWidth = new FireballDecayWidthField(
 				X,
 				Y,
 				Param.GridCellSizeFm,
@@ -452,7 +452,7 @@ namespace Yburn.Fireball
 
 		private void InitTemperature()
 		{
-			Temperature = new FireballTemperature(
+			Temperature = new FireballTemperatureField(
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
 				GlauberCalculation.TemperatureScalingField,

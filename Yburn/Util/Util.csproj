@@ -37,6 +37,9 @@
     <Compile Include="FileReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
@@ -45,8 +48,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <Target Name="RemoveObjAndBin" AfterTargets="Clean">
+  <Target Name="RemoveObj" AfterTargets="Clean">
     <RemoveDir Directories="$(BaseIntermediateOutputPath)" />
-    <RemoveDir Directories="$(TargetDir)" />
   </Target>
 </Project>
