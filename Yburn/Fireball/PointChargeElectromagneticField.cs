@@ -60,7 +60,7 @@ namespace Yburn.Fireball
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public EuclideanVector2D CalculatePointChargeMagneticField(
+		public EuclideanVector3D CalculatePointChargeMagneticField(
 			double t,
 			double x,
 			double y,
@@ -71,7 +71,7 @@ namespace Yburn.Fireball
 					CalculateEffectiveTime(t, z), CalculateRadialDistance(x, y))
 				* EuclideanVector2D.CreateAzimutalUnitVectorAtPosition(x, y);
 
-			return azimutalPart;
+			return new EuclideanVector3D(azimutalPart, 0);
 		}
 
 		public EuclideanVector3D CalculatePointChargeElectricField(
@@ -172,10 +172,10 @@ namespace Yburn.Fireball
 				double radialDistance
 				)
 			{
-				OneVariableIntegrand integrand = k => PointChargeLongitudinalElectricFieldIntegrand(
+				IntegrandIn1D integrand = k => PointChargeLongitudinalElectricFieldIntegrand(
 					k, effectiveTime, radialDistance);
 
-				double integral = Quadrature.UseGaussLegendreOverPositiveAxis(integrand, 1);
+				double integral = Quadrature.UseGaussLegendre_PositiveAxis(integrand, 1);
 
 				return Math.Sign(PointChargeVelocity) * PhysConst.ElementaryCharge / (4 * Math.PI)
 					* integral;
@@ -186,10 +186,10 @@ namespace Yburn.Fireball
 				double radialDistance
 				)
 			{
-				OneVariableIntegrand integrand = k => PointChargeRadialElectricFieldIntegrand(
+				IntegrandIn1D integrand = k => PointChargeRadialElectricFieldIntegrand(
 					k, effectiveTime, radialDistance);
 
-				double integral = Quadrature.UseGaussLegendreOverPositiveAxis(integrand, 1);
+				double integral = Quadrature.UseGaussLegendre_PositiveAxis(integrand, 1);
 
 				return PhysConst.ElementaryCharge / (2 * Math.PI * QGPConductivityPerFm) * integral;
 			}

@@ -77,13 +77,13 @@ namespace Yburn.Fireball.Tests
 		{
 			double[] nparts = calculator.MeanParticipantsInBin[0];
 			Assert.AreEqual(7, nparts.Length);
-			AssertHelper.AssertRoundedEqual(383.63733145093579, nparts[0]);
-			AssertHelper.AssertRoundedEqual(340.22338305697463, nparts[1]);
-			AssertHelper.AssertRoundedEqual(268.43057325955959, nparts[2]);
-			AssertHelper.AssertRoundedEqual(187.36409577622058, nparts[3]);
-			AssertHelper.AssertRoundedEqual(131.9447405813884, nparts[4]);
+			AssertHelper.AssertRoundedEqual(383.63733145093573, nparts[0]);
+			AssertHelper.AssertRoundedEqual(340.22338305697457, nparts[1]);
+			AssertHelper.AssertRoundedEqual(268.43057325955948, nparts[2]);
+			AssertHelper.AssertRoundedEqual(187.36409577622052, nparts[3]);
+			AssertHelper.AssertRoundedEqual(131.94474058138835, nparts[4]);
 			AssertHelper.AssertRoundedEqual(89.250454154885873, nparts[5]);
-			AssertHelper.AssertRoundedEqual(19.648149650345417, nparts[6]);
+			AssertHelper.AssertRoundedEqual(19.648149650345413, nparts[6]);
 		}
 
 		/********************************************************************************************

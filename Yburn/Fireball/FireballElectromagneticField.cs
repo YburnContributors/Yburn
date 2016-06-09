@@ -24,7 +24,8 @@ namespace Yburn.Fireball
 
 		public EuclideanVector3D CalculateMagneticField(
 			double time,
-			EuclideanVector3D position
+			EuclideanVector3D position,
+			QuadraturePrecision precision = QuadraturePrecision.Use64Points
 			)
 		{
 			EuclideanVector3D nucleusOffset = new EuclideanVector3D(
@@ -35,14 +36,16 @@ namespace Yburn.Fireball
 				time,
 				position + nucleusOffset,
 				Param.ParticleVelocity,
-				ProtonDensityFunctionA);
+				ProtonDensityFunctionA,
+				precision);
 
 			// Nucleus B is located at positive x and moves in negative z direction
 			EuclideanVector3D fieldNucleusB = CalculateSingleNucleusMagneticField(
 				time,
 				position - nucleusOffset,
 				-Param.ParticleVelocity,
-				ProtonDensityFunctionA);
+				ProtonDensityFunctionA,
+				precision);
 
 			return fieldNucleusA + fieldNucleusB;
 		}
@@ -51,13 +54,14 @@ namespace Yburn.Fireball
 			double time,
 			EuclideanVector3D position,
 			double nucleusVelocity,
-			DensityFunction protonDensityFunction
+			DensityFunction protonDensityFunction,
+			QuadraturePrecision precision = QuadraturePrecision.Use64Points
 			)
 		{
 			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
 				Param.EMFCalculationMethod, Param.QGPConductivityMeV, nucleusVelocity);
 
-			TwoVariableIntegrandVectorValued<EuclideanVector2D> integrand = (x, y) =>
+			IntegrandIn2D<EuclideanVector3D> integrand = (x, y) =>
 				protonDensityFunction.GetColumnDensity(x, y)
 				* pcEMF.CalculatePointChargeMagneticField(
 					time,
@@ -65,10 +69,13 @@ namespace Yburn.Fireball
 					position.Y - y,
 					position.Z);
 
-			EuclideanVector2D integral = Quadrature.UseGaussLegendreOverAllQuadrants(
-				integrand, protonDensityFunction.NuclearRadius);
+			EuclideanVector3D integral = Quadrature.UseGaussLegendre_RealPlane(
+				integrand,
+				protonDensityFunction.NuclearRadius,
+				protonDensityFunction.NuclearRadius,
+				precision);
 
-			return new EuclideanVector3D(integral, 0);
+			return integral;
 		}
 
 		/********************************************************************************************

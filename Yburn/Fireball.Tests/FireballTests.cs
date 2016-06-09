@@ -26,12 +26,12 @@ namespace Yburn.Fireball.Tests
 			CalculateFireballEvolution();
 
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
-			AssertHelper.AssertRoundedEqual(0.68735662437240208, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
-			AssertHelper.AssertRoundedEqual(0.14694835740192158, qgpSuppressionFactors[(int)BottomiumState.x1P]);
-			AssertHelper.AssertRoundedEqual(0.18302631965053007, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
-			AssertHelper.AssertRoundedEqual(0.043377555418212643, qgpSuppressionFactors[(int)BottomiumState.x2P]);
-			AssertHelper.AssertRoundedEqual(0.055872842998975665, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
-			AssertHelper.AssertRoundedEqual(0.022662140834380177, qgpSuppressionFactors[(int)BottomiumState.x3P]);
+			AssertHelper.AssertRoundedEqual(0.68735662437240219, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
+			AssertHelper.AssertRoundedEqual(0.14694835740192164, qgpSuppressionFactors[(int)BottomiumState.x1P]);
+			AssertHelper.AssertRoundedEqual(0.18302631965053015, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
+			AssertHelper.AssertRoundedEqual(0.04337755541821265, qgpSuppressionFactors[(int)BottomiumState.x2P]);
+			AssertHelper.AssertRoundedEqual(0.055872842998975672, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
+			AssertHelper.AssertRoundedEqual(0.022662140834380173, qgpSuppressionFactors[(int)BottomiumState.x3P]);
 		}
 
 		[TestMethod]
@@ -41,12 +41,12 @@ namespace Yburn.Fireball.Tests
 			CalculateFireballEvolution();
 
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
-			AssertHelper.AssertRoundedEqual(0.27229850657076948, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
+			AssertHelper.AssertRoundedEqual(0.27229850657076959, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
 			AssertHelper.AssertRoundedEqual(0.02111501723733869, qgpSuppressionFactors[(int)BottomiumState.x1P]);
 			AssertHelper.AssertRoundedEqual(0.029253999794417004, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
-			AssertHelper.AssertRoundedEqual(0.008591256423154045, qgpSuppressionFactors[(int)BottomiumState.x2P]);
-			AssertHelper.AssertRoundedEqual(0.010894507768336408, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
-			AssertHelper.AssertRoundedEqual(0.0049171614281235529, qgpSuppressionFactors[(int)BottomiumState.x3P]);
+			AssertHelper.AssertRoundedEqual(0.0085912564231540433, qgpSuppressionFactors[(int)BottomiumState.x2P]);
+			AssertHelper.AssertRoundedEqual(0.01089450776833641, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
+			AssertHelper.AssertRoundedEqual(0.0049171614281235511, qgpSuppressionFactors[(int)BottomiumState.x3P]);
 		}
 
 		[TestMethod]
@@ -56,11 +56,11 @@ namespace Yburn.Fireball.Tests
 			CalculateFireballEvolution();
 
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
-			AssertHelper.AssertRoundedEqual(0.65398639771067846, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
+			AssertHelper.AssertRoundedEqual(0.65398639771067857, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
 			AssertHelper.AssertRoundedEqual(0.12166054711179025, qgpSuppressionFactors[(int)BottomiumState.x1P]);
-			AssertHelper.AssertRoundedEqual(0.15830120446823065, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
-			AssertHelper.AssertRoundedEqual(0.037575441315405834, qgpSuppressionFactors[(int)BottomiumState.x2P]);
-			AssertHelper.AssertRoundedEqual(0.047287591230614393, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
+			AssertHelper.AssertRoundedEqual(0.15830120446823068, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
+			AssertHelper.AssertRoundedEqual(0.037575441315405828, qgpSuppressionFactors[(int)BottomiumState.x2P]);
+			AssertHelper.AssertRoundedEqual(0.047287591230614406, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
 			AssertHelper.AssertRoundedEqual(0.020521127911320304, qgpSuppressionFactors[(int)BottomiumState.x3P]);
 		}
 

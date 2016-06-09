@@ -91,19 +91,19 @@ namespace Yburn.Fireball.Tests
 
 		private void AssertCorrectPointChargeFields_URLimitFourierSynthesis(double[,] fieldValues)
 		{
-			AssertHelper.AssertRoundedEqual(0.0049474011562835622, fieldValues[0, 0]);
+			AssertHelper.AssertRoundedEqual(0.0049474011562835631, fieldValues[0, 0]);
 			AssertHelper.AssertRoundedEqual(0.0059385275681660592, fieldValues[0, 1]);
 			AssertHelper.AssertRoundedEqual(0.0017557798644070881, fieldValues[0, 2]);
 			AssertHelper.AssertRoundedEqual(0.00014832194661731433, fieldValues[0, 3]);
 			AssertHelper.AssertRoundedEqual(2.5189372551999923E-05, fieldValues[0, 4]);
 
-			AssertHelper.AssertRoundedEqual(1.2001240098041743E-05, fieldValues[1, 0]);
-			AssertHelper.AssertRoundedEqual(7.6219080569357165E-08, fieldValues[1, 1]);
-			AssertHelper.AssertRoundedEqual(-9.5480139553502289E-07, fieldValues[1, 2]);
+			AssertHelper.AssertRoundedEqual(1.2001240098041735E-05, fieldValues[1, 0]);
+			AssertHelper.AssertRoundedEqual(7.6219080569357483E-08, fieldValues[1, 1]);
+			AssertHelper.AssertRoundedEqual(-9.5480139553502267E-07, fieldValues[1, 2]);
 			AssertHelper.AssertRoundedEqual(-1.2243037559096488E-07, fieldValues[1, 3]);
 			AssertHelper.AssertRoundedEqual(-2.2213597473717023E-08, fieldValues[1, 4]);
 
-			AssertHelper.AssertRoundedEqual(0.0049474011562835622, fieldValues[2, 0]);
+			AssertHelper.AssertRoundedEqual(0.0049474011562835631, fieldValues[2, 0]);
 			AssertHelper.AssertRoundedEqual(0.0059385275681660592, fieldValues[2, 1]);
 			AssertHelper.AssertRoundedEqual(0.0017557798644070881, fieldValues[2, 2]);
 			AssertHelper.AssertRoundedEqual(0.00014832194661731433, fieldValues[2, 3]);

@@ -22,7 +22,7 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void UseSummedTrapezoidalRule()
 		{
-			OneVariableIntegrand integrand = x => x;
+			IntegrandIn1D integrand = x => x;
 			double[] gridPoints = { 0, 0.2, 0.3, 0.7, 0.8, 1 };
 			double result = Quadrature.UseSummedTrapezoidalRule(integrand, gridPoints);
 
@@ -32,8 +32,8 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void UseUniformSummedTrapezoidalRule()
 		{
-			OneVariableIntegrand integrand = x => x;
-			double result = Quadrature.UseUniformSummedTrapezoidalRule(integrand, 0, 1, 5);
+			IntegrandIn1D integrand = x => x;
+			double result = Quadrature.UseUniformSummedTrapezoidalRule(integrand, 0, 1, 500);
 
 			AssertHelper.AssertRoundedEqual(0.5, result);
 		}
@@ -41,8 +41,8 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void UseUniformSummedTrapezoidalRuleIn2Dimensions()
 		{
-			TwoVariableIntegrand integrand = (x, y) => x;
-			double result = Quadrature.UseUniformSummedTrapezoidalRule(integrand, 0, 1, 0, 2, 5);
+			IntegrandIn2D integrand = (x, y) => x;
+			double result = Quadrature.UseUniformSummedTrapezoidalRule(integrand, 0, 1, 0, 2, 500);
 
 			AssertHelper.AssertRoundedEqual(1, result);
 		}
@@ -50,7 +50,7 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void UseExponentialSummedTrapezoidalRule()
 		{
-			OneVariableIntegrand integrand = x => 1 / (x * x);
+			IntegrandIn1D integrand = x => 1 / (x * x);
 			double result = Quadrature.UseExponentialSummedTrapezoidalRule(integrand, 1, 100, 2000);
 
 			AssertHelper.AssertRoundedEqual(0.99, result, 5);
@@ -59,7 +59,7 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void UseGaussLegendre()
 		{
-			OneVariableIntegrand integrand = x => Math.Exp(x);
+			IntegrandIn1D integrand = x => Math.Exp(x);
 			double result = Quadrature.UseGaussLegendre(integrand, 0, 1);
 
 			AssertHelper.AssertRoundedEqual(Math.E - 1, result);
@@ -68,7 +68,7 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void UseGaussLegendreIn2Dimensions()
 		{
-			TwoVariableIntegrand integrand = (x, y) => Math.Exp(x + 0.5 * y);
+			IntegrandIn2D integrand = (x, y) => Math.Exp(x + 0.5 * y);
 			double result = Quadrature.UseGaussLegendre(integrand, 0, 1, 0, 2);
 
 			AssertHelper.AssertRoundedEqual(2 * Math.Pow(Math.E - 1, 2), result);
@@ -77,69 +77,68 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void UseGaussLegendreIn2DimensionsVectorValued()
 		{
-			TwoVariableIntegrandVectorValued<EuclideanVector2D> integrand =
+			IntegrandIn2D<EuclideanVector2D> integrand =
 				(x, y) => new EuclideanVector2D(Math.Exp(x + 0.5 * y), x * y * y * y);
-			EuclideanVector2D result =
-				Quadrature.UseGaussLegendre<EuclideanVector2D>(integrand, 0, 1, 0, 2);
+			EuclideanVector2D result = Quadrature.UseGaussLegendre(integrand, 0, 1, 0, 2);
 
 			AssertHelper.AssertRoundedEqual(2 * Math.Pow(Math.E - 1, 2), result.X);
 			AssertHelper.AssertRoundedEqual(2, result.Y);
 		}
 
 		[TestMethod]
-		public void UseGaussLegendreOverPositiveAxis()
+		public void UseGaussLegendre_PositiveAxis()
 		{
-			OneVariableIntegrand integrand = x => Math.Exp(-x);
-			double result = Quadrature.UseGaussLegendreOverPositiveAxis(integrand, 1);
+			IntegrandIn1D integrand = x => Math.Exp(-x);
+			double result = Quadrature.UseGaussLegendre_PositiveAxis(integrand, 1);
 
 			AssertHelper.AssertRoundedEqual(1, result);
 		}
 
 		[TestMethod]
-		public void UseGaussLegendreOverNegativeAxis()
+		public void UseGaussLegendre_NegativeAxis()
 		{
-			OneVariableIntegrand integrand = x => Math.Exp(x);
-			double result = Quadrature.UseGaussLegendreOverNegativeAxis(integrand, 1);
+			IntegrandIn1D integrand = x => Math.Exp(x);
+			double result = Quadrature.UseGaussLegendre_NegativeAxis(integrand, 1);
 
 			AssertHelper.AssertRoundedEqual(1, result);
 		}
 
 		[TestMethod]
-		public void UseGaussLegendreOverFirstQuadrant()
+		public void UseGaussLegendre_FirstQuadrant()
 		{
-			TwoVariableIntegrand integrand = (x, y) => Math.Exp(-x - y);
-			double result = Quadrature.UseGaussLegendreOverFirstQuadrant(integrand, 1);
+			IntegrandIn2D integrand = (x, y) => Math.Exp(-x - y);
+			double result = Quadrature.UseGaussLegendre_FirstQuadrant(integrand, 1, 1);
 
 			AssertHelper.AssertRoundedEqual(1, result);
 		}
 
 		[TestMethod]
-		public void UseGaussLegendreOverSecondQuadrant()
+		public void UseGaussLegendre_SecondQuadrant()
 		{
-			TwoVariableIntegrand integrand = (x, y) => Math.Exp(x - y);
-			double result = Quadrature.UseGaussLegendreOverSecondQuadrant(integrand, 1);
+			IntegrandIn2D integrand = (x, y) => Math.Exp(x - y);
+			double result = Quadrature.UseGaussLegendre_SecondQuadrant(integrand, 1, 1);
 
 			AssertHelper.AssertRoundedEqual(1, result);
 		}
 
 		[TestMethod]
-		public void UseGaussLegendreOverAllQuadrants()
+		public void UseGaussLegendre_RealPlane()
 		{
-			TwoVariableIntegrand integrand = (x, y) => Math.Exp(-x * x - y * y) / Math.PI;
-			double result = Quadrature.UseGaussLegendreOverAllQuadrants(integrand, 1);
+			IntegrandIn2D integrand = (x, y) => Math.Exp(-x * x - y * y) / Math.PI;
+			double result = Quadrature.UseGaussLegendre_RealPlane(integrand, 1, 1);
 
 			AssertHelper.AssertRoundedEqual(1, result);
 		}
 
 		[TestMethod]
-		public void UseGaussLegendreOverAllQuadrantsVectorValued()
+		public void UseGaussLegendre_RealPlaneVectorValued()
 		{
-			TwoVariableIntegrandVectorValued<EuclideanVector2D> integrand = (x, y) =>
+			IntegrandIn2D<EuclideanVector2D> integrand = (x, y) =>
 				new EuclideanVector2D(
 					Math.Exp(-x * x - y * y) / Math.PI,
 					Math.Exp(-Math.Abs(x) - Math.Abs(y)));
 
-			EuclideanVector2D result = Quadrature.UseGaussLegendreOverAllQuadrants(integrand, 1);
+			EuclideanVector2D result = Quadrature.UseGaussLegendre_RealPlane(integrand, 1, 1);
 
 			AssertHelper.AssertRoundedEqual(1, result.X);
 			AssertHelper.AssertRoundedEqual(4, result.Y);

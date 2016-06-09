@@ -126,8 +126,8 @@ namespace Yburn.Fireball
 			double y
 			)
 		{
-			OneVariableIntegrand integrand = z => Value(Math.Sqrt(x * x + y * y + z * z));
-			double integral = Quadrature.UseGaussLegendreOverPositiveAxis(integrand, NuclearRadius);
+			IntegrandIn1D integrand = z => Value(Math.Sqrt(x * x + y * y + z * z));
+			double integral = Quadrature.UseGaussLegendre_PositiveAxis(integrand, NuclearRadius);
 
 			// factor two because integral runs from minus to plus infinity
 			return 2 * integral;
@@ -156,8 +156,8 @@ namespace Yburn.Fireball
 		// in fm^3
 		protected virtual double CalculateVolumeIntegral()
 		{
-			OneVariableIntegrand integrand = r => r * r * UnnormalizedDensity(r);
-			double integral = Quadrature.UseGaussLegendreOverPositiveAxis(integrand, NuclearRadius);
+			IntegrandIn1D integrand = r => r * r * UnnormalizedDensity(r);
+			double integral = Quadrature.UseGaussLegendre_PositiveAxis(integrand, NuclearRadius);
 
 			return 4 * Math.PI * integral;
 		}

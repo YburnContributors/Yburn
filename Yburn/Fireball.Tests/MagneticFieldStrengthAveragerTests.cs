@@ -18,7 +18,7 @@ namespace Yburn.Fireball.Tests
 			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 		}
 
-		//[TestMethod]
+		[TestMethod]
 		public void CalculateAverageMagneticFieldStrength()
 		{
 			MagneticFieldStrengthAverager averager =
@@ -26,7 +26,7 @@ namespace Yburn.Fireball.Tests
 
 			double result = averager.CalculateAverageMagneticFieldStrength();
 
-			AssertHelper.AssertRoundedEqual(0.357439412449575, result);
+			AssertHelper.AssertRoundedEqual(0.41503035843345487, result);
 		}
 
 		private FireballParam CreateFireballParam()

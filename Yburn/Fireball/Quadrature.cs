@@ -3,13 +3,29 @@ using Yburn.Util;
 
 namespace Yburn.Fireball
 {
-	public delegate double OneVariableIntegrand(double x);
+	public delegate double IntegrandIn1D(double x);
 
-	public delegate double TwoVariableIntegrand(double x, double y);
+	public delegate double IntegrandIn2D(double x, double y);
 
-	public delegate TVector TwoVariableIntegrandVectorValued<TVector>(double x, double y)
+	public delegate TVector IntegrandIn1D<TVector>(double x)
 		where TVector : EuclideanVectorBase<TVector>, new();
 
+	public delegate TVector IntegrandIn2D<TVector>(double x, double y)
+		where TVector : EuclideanVectorBase<TVector>, new();
+
+	public enum QuadraturePrecision
+	{
+		Use8Points,
+		Use16Points,
+		Use32Points,
+		Use64Points
+	}
+
+	/// <summary>
+	/// The length scale L for unbounded integration should be chosen such that the interval [-L, L]
+	/// contains the predominant part of the unbounded integral.
+	/// I.e. for integrating a particle shape function choose L ~ 'particle radius'.
+	/// </summary>
 	public static class Quadrature
 	{
 		/********************************************************************************************
@@ -18,7 +34,7 @@ namespace Yburn.Fireball
 
 		static Quadrature()
 		{
-			InitializeGaussLegendre(out GaussLegendreGridPoints, out GaussLegendreWeights);
+			InitializeGaussLegendre();
 		}
 
 		/********************************************************************************************
@@ -26,25 +42,25 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public static double UseSummedTrapezoidalRule(
-			OneVariableIntegrand integrand,
-			double[] gridPoints
+			IntegrandIn1D integrand,
+			double[] abscissae
 			)
 		{
-			int steps = gridPoints.Length - 1;
-			double integral = integrand(gridPoints[0]) * (gridPoints[1] - gridPoints[0]);
+			double[] weights = new double[abscissae.Length];
 
-			for(int i = 1; i < steps; i++)
+			weights[0] = abscissae[1] - abscissae[0];
+			for(int i = 1; i < weights.Length - 1; i++)
 			{
-				integral += integrand(gridPoints[i]) * (gridPoints[i + 1] - gridPoints[i - 1]);
+				weights[i] = abscissae[i + 1] - abscissae[i - 1];
 			}
+			weights[weights.Length - 1] =
+				abscissae[weights.Length - 1] - abscissae[weights.Length - 2];
 
-			integral += integrand(gridPoints[steps]) * (gridPoints[steps] - gridPoints[steps - 1]);
-
-			return integral *= 0.5;
+			return 0.5 * PerformSum(integrand, abscissae, weights);
 		}
 
 		public static double UseUniformSummedTrapezoidalRule(
-			OneVariableIntegrand integrand,
+			IntegrandIn1D integrand,
 			double lowerLimit,
 			double upperLimit,
 			int steps
@@ -62,7 +78,7 @@ namespace Yburn.Fireball
 		}
 
 		public static double UseUniformSummedTrapezoidalRule(
-			TwoVariableIntegrand integrand,
+			IntegrandIn2D integrand,
 			double lowerLimitX,
 			double upperLimitX,
 			double lowerLimitY,
@@ -70,17 +86,17 @@ namespace Yburn.Fireball
 			int steps
 			)
 		{
-			Func<OneVariableIntegrand, double> quadratureFormulaX =
+			Func<IntegrandIn1D, double> formulaX =
 				i => UseUniformSummedTrapezoidalRule(i, lowerLimitX, upperLimitX, steps);
 
-			Func<OneVariableIntegrand, double> quadratureFormulaY =
+			Func<IntegrandIn1D, double> formulaY =
 				i => UseUniformSummedTrapezoidalRule(i, lowerLimitY, upperLimitY, steps);
 
-			return ApplyToIntegrand(quadratureFormulaX, quadratureFormulaY, integrand);
+			return Apply1DFormulaeToIntegrandIn2D(integrand, formulaX, formulaY);
 		}
 
 		public static double UseExponentialSummedTrapezoidalRule(
-			OneVariableIntegrand integrand,
+			IntegrandIn1D integrand,
 			double lowerLimit,
 			double upperLimit,
 			int steps
@@ -92,174 +108,345 @@ namespace Yburn.Fireball
 		}
 
 		public static double UseGaussLegendre(
-			OneVariableIntegrand integrand,
+			IntegrandIn1D integrand,
 			double lowerLimit,
-			double upperLimit
+			double upperLimit,
+			QuadraturePrecision precision = QuadraturePrecision.Use64Points
 			)
 		{
+			double[] abscissae;
+			double[] weights;
+			GetGaussLegendreAbscissaeAndWeights(precision, out abscissae, out weights);
+
 			double jacobian = 0.5 * (upperLimit - lowerLimit);
 			double offset = 0.5 * (upperLimit + lowerLimit);
 
-			double integral = 0;
-			for(int i = 0; i < 64; i++)
+			double[] transformedAbscissae = new double[abscissae.Length];
+			for(int i = 0; i < transformedAbscissae.Length; i++)
 			{
-				integral += GaussLegendreWeights[i]
-					* integrand(jacobian * GaussLegendreGridPoints[i] + offset);
+				transformedAbscissae[i] = jacobian * abscissae[i] + offset;
 			}
 
-			return jacobian * integral;
-		}
-
-		public static double UseGaussLegendre(
-			TwoVariableIntegrand integrand,
-			double lowerLimitX,
-			double upperLimitX,
-			double lowerLimitY,
-			double upperLimitY
-			)
-		{
-			Func<OneVariableIntegrand, double> quadratureFormulaX =
-				i => UseGaussLegendre(i, lowerLimitX, upperLimitX);
-
-			Func<OneVariableIntegrand, double> quadratureFormulaY =
-				i => UseGaussLegendre(i, lowerLimitY, upperLimitY);
-
-			return ApplyToIntegrand(quadratureFormulaX, quadratureFormulaY, integrand);
+			return jacobian * PerformSum(integrand, transformedAbscissae, weights);
 		}
 
 		public static TVector UseGaussLegendre<TVector>(
-			TwoVariableIntegrandVectorValued<TVector> integrand,
+			IntegrandIn1D<TVector> integrand,
+			double lowerLimit,
+			double upperLimit,
+			QuadraturePrecision precision = QuadraturePrecision.Use64Points
+			) where TVector : EuclideanVectorBase<TVector>, new()
+		{
+			double[] abscissae;
+			double[] weights;
+			GetGaussLegendreAbscissaeAndWeights(precision, out abscissae, out weights);
+
+			double jacobian = 0.5 * (upperLimit - lowerLimit);
+			double offset = 0.5 * (upperLimit + lowerLimit);
+
+			double[] transformedAbscissae = new double[abscissae.Length];
+			for(int i = 0; i < transformedAbscissae.Length; i++)
+			{
+				transformedAbscissae[i] = jacobian * abscissae[i] + offset;
+			}
+
+			return jacobian * PerformSum(integrand, transformedAbscissae, weights);
+		}
+
+		public static double UseGaussLegendre(
+			IntegrandIn2D integrand,
 			double lowerLimitX,
 			double upperLimitX,
 			double lowerLimitY,
-			double upperLimitY
+			double upperLimitY,
+			QuadraturePrecision precision = QuadraturePrecision.Use64Points
+			)
+		{
+			Func<IntegrandIn1D, double> formulaX =
+				i => UseGaussLegendre(i, lowerLimitX, upperLimitX, precision);
+
+			Func<IntegrandIn1D, double> formulaY =
+				i => UseGaussLegendre(i, lowerLimitY, upperLimitY, precision);
+
+			return Apply1DFormulaeToIntegrandIn2D(integrand, formulaX, formulaY);
+		}
+
+		public static TVector UseGaussLegendre<TVector>(
+			IntegrandIn2D<TVector> integrand,
+			double lowerLimitX,
+			double upperLimitX,
+			double lowerLimitY,
+			double upperLimitY,
+			QuadraturePrecision precision = QuadraturePrecision.Use64Points
 			) where TVector : EuclideanVectorBase<TVector>, new()
 		{
-			Func<TwoVariableIntegrand, double> quadratureFormula =
-				i => UseGaussLegendre(i, lowerLimitX, upperLimitX, lowerLimitY, upperLimitY);
+			Func<IntegrandIn1D<TVector>, TVector> formulaX =
+				i => UseGaussLegendre(i, lowerLimitX, upperLimitX, precision);
 
-			return ApplyToVectorValuedIntegrand(quadratureFormula, integrand);
+			Func<IntegrandIn1D<TVector>, TVector> formulaY =
+				i => UseGaussLegendre(i, lowerLimitY, upperLimitY, precision);
+
+			return Apply1DFormulaeToIntegrandIn2D(integrand, formulaX, formulaY);
 		}
 
-		public static double UseGaussLegendreOverPositiveAxis(
-			OneVariableIntegrand integrand,
-			double characteristicLengthScale
+		public static double UseGaussLegendre_RealPlane(
+			IntegrandIn2D integrand,
+			double lengthScaleX,
+			double lengthScaleY,
+			QuadraturePrecision precisionPerQuadrant = QuadraturePrecision.Use64Points
 			)
 		{
-			OneVariableIntegrand transformedIntegrand = TransformIntegrandToUnitInterval(
-				integrand, characteristicLengthScale);
+			Func<IntegrandIn1D, double> formulaPositive =
+				i => UseGaussLegendre_PositiveAxis(i, lengthScaleX, precisionPerQuadrant);
 
-			return UseGaussLegendre(transformedIntegrand, 0, 1);
+			Func<IntegrandIn1D, double> formulaNegative =
+				i => UseGaussLegendre_NegativeAxis(i, lengthScaleY, precisionPerQuadrant);
+
+			return Apply1DFormulaeToIntegrandIn2D(integrand, formulaPositive, formulaPositive)
+				+ Apply1DFormulaeToIntegrandIn2D(integrand, formulaNegative, formulaPositive)
+				+ Apply1DFormulaeToIntegrandIn2D(integrand, formulaNegative, formulaNegative)
+				+ Apply1DFormulaeToIntegrandIn2D(integrand, formulaPositive, formulaNegative);
 		}
 
-		public static double UseGaussLegendreOverNegativeAxis(
-			OneVariableIntegrand integrand,
-			double characteristicLengthScale
-			)
-		{
-			OneVariableIntegrand transformedIntegrand = TransformIntegrandToUnitInterval(
-				integrand, characteristicLengthScale);
-
-			return UseGaussLegendre(transformedIntegrand, -1, 0);
-		}
-
-		public static double UseGaussLegendreOverFirstQuadrant(
-			TwoVariableIntegrand integrand,
-			double characteristicLengthScale
-			)
-		{
-			Func<OneVariableIntegrand, double> quadratureFormula =
-				i => UseGaussLegendreOverPositiveAxis(i, characteristicLengthScale);
-
-			return ApplyToIntegrand(quadratureFormula, quadratureFormula, integrand);
-		}
-
-		public static double UseGaussLegendreOverSecondQuadrant(
-			TwoVariableIntegrand integrand,
-			double characteristicLengthScale
-			)
-		{
-			Func<OneVariableIntegrand, double> quadratureFormulaX =
-				i => UseGaussLegendreOverNegativeAxis(i, characteristicLengthScale);
-
-			Func<OneVariableIntegrand, double> quadratureFormulaY =
-				i => UseGaussLegendreOverPositiveAxis(i, characteristicLengthScale);
-
-			return ApplyToIntegrand(quadratureFormulaX, quadratureFormulaY, integrand);
-		}
-
-		public static double UseGaussLegendreOverAllQuadrants(
-			TwoVariableIntegrand integrand,
-			double characteristicLengthScale
-			)
-		{
-			Func<OneVariableIntegrand, double> quadratureFormulaPositive =
-				i => UseGaussLegendreOverPositiveAxis(i, characteristicLengthScale);
-
-			Func<OneVariableIntegrand, double> quadratureFormulaNegative =
-				i => UseGaussLegendreOverNegativeAxis(i, characteristicLengthScale);
-
-			return ApplyToIntegrand(quadratureFormulaPositive, quadratureFormulaPositive, integrand)
-				+ ApplyToIntegrand(quadratureFormulaNegative, quadratureFormulaPositive, integrand)
-				+ ApplyToIntegrand(quadratureFormulaPositive, quadratureFormulaNegative, integrand)
-				+ ApplyToIntegrand(quadratureFormulaNegative, quadratureFormulaNegative, integrand);
-		}
-
-		public static TVector UseGaussLegendreOverAllQuadrants<TVector>(
-			TwoVariableIntegrandVectorValued<TVector> integrand,
-			double characteristicLengthScale
+		public static TVector UseGaussLegendre_RealPlane<TVector>(
+			IntegrandIn2D<TVector> integrand,
+			double lengthScaleX,
+			double lengthScaleY,
+			QuadraturePrecision precisionPerQuadrant = QuadraturePrecision.Use64Points
 			) where TVector : EuclideanVectorBase<TVector>, new()
 		{
-			Func<TwoVariableIntegrand, double> quadratureFormula =
-				i => UseGaussLegendreOverAllQuadrants(i, characteristicLengthScale);
+			Func<IntegrandIn1D<TVector>, TVector> formulaPositive =
+				i => UseGaussLegendre_PositiveAxis(i, lengthScaleX, precisionPerQuadrant);
 
-			return ApplyToVectorValuedIntegrand(quadratureFormula, integrand);
+			Func<IntegrandIn1D<TVector>, TVector> formulaNegative =
+				i => UseGaussLegendre_NegativeAxis(i, lengthScaleY, precisionPerQuadrant);
+
+			return Apply1DFormulaeToIntegrandIn2D(integrand, formulaPositive, formulaPositive)
+				+ Apply1DFormulaeToIntegrandIn2D(integrand, formulaNegative, formulaPositive)
+				+ Apply1DFormulaeToIntegrandIn2D(integrand, formulaNegative, formulaNegative)
+				+ Apply1DFormulaeToIntegrandIn2D(integrand, formulaPositive, formulaNegative);
+		}
+
+		public static double UseGaussLegendre_PositiveAxis(
+			IntegrandIn1D integrand,
+			double lengthScale,
+			QuadraturePrecision precision = QuadraturePrecision.Use64Points
+			)
+		{
+			double[] abscissae;
+			double[] weights;
+			GetGaussLegendreAbscissaeAndWeights(precision, out abscissae, out weights);
+
+			double[] transformedAbscissae;
+			double[] transformedWeights;
+			TransformToPositiveAxis(
+				lengthScale,
+				abscissae,
+				weights,
+				out transformedAbscissae,
+				out transformedWeights);
+
+			return PerformSum(integrand, transformedAbscissae, transformedWeights);
+		}
+
+		public static TVector UseGaussLegendre_PositiveAxis<TVector>(
+			IntegrandIn1D<TVector> integrand,
+			double lengthScale,
+			QuadraturePrecision precision = QuadraturePrecision.Use64Points
+			) where TVector : EuclideanVectorBase<TVector>, new()
+		{
+			double[] abscissae;
+			double[] weights;
+			GetGaussLegendreAbscissaeAndWeights(precision, out abscissae, out weights);
+
+			double[] transformedAbscissae;
+			double[] transformedWeights;
+			TransformToPositiveAxis(
+				lengthScale,
+				abscissae,
+				weights,
+				out transformedAbscissae,
+				out transformedWeights);
+
+			return PerformSum(integrand, transformedAbscissae, transformedWeights);
+		}
+
+		public static double UseGaussLegendre_NegativeAxis(
+			IntegrandIn1D integrand,
+			double lengthScale,
+			QuadraturePrecision precision = QuadraturePrecision.Use64Points
+			)
+		{
+			double[] abscissae;
+			double[] weights;
+			GetGaussLegendreAbscissaeAndWeights(precision, out abscissae, out weights);
+
+			double[] transformedAbscissae;
+			double[] transformedWeights;
+			TransformToNegativeAxis(
+				lengthScale,
+				abscissae,
+				weights,
+				out transformedAbscissae,
+				out transformedWeights);
+
+			return PerformSum(integrand, transformedAbscissae, transformedWeights);
+		}
+
+		public static TVector UseGaussLegendre_NegativeAxis<TVector>(
+			IntegrandIn1D<TVector> integrand,
+			double lengthScale,
+			QuadraturePrecision precision = QuadraturePrecision.Use64Points
+			) where TVector : EuclideanVectorBase<TVector>, new()
+		{
+			double[] abscissae;
+			double[] weights;
+			GetGaussLegendreAbscissaeAndWeights(precision, out abscissae, out weights);
+
+			double[] transformedAbscissae;
+			double[] transformedWeights;
+			TransformToNegativeAxis(
+				lengthScale,
+				abscissae,
+				weights,
+				out transformedAbscissae,
+				out transformedWeights);
+
+			return PerformSum(integrand, transformedAbscissae, transformedWeights);
+		}
+
+		public static double UseGaussLegendre_FirstQuadrant(
+			IntegrandIn2D integrand,
+			double lengthScaleX,
+			double lengthScaleY,
+			QuadraturePrecision precisionPerAxis = QuadraturePrecision.Use64Points
+			)
+		{
+			Func<IntegrandIn1D, double> formulaX =
+				i => UseGaussLegendre_PositiveAxis(i, lengthScaleX, precisionPerAxis);
+
+			Func<IntegrandIn1D, double> formulaY =
+				i => UseGaussLegendre_PositiveAxis(i, lengthScaleY, precisionPerAxis);
+
+			return Apply1DFormulaeToIntegrandIn2D(integrand, formulaX, formulaY);
+		}
+
+		public static double UseGaussLegendre_SecondQuadrant(
+			IntegrandIn2D integrand,
+			double lengthScaleX,
+			double lengthScaleY,
+			QuadraturePrecision precisionPerAxis = QuadraturePrecision.Use64Points
+			)
+		{
+			Func<IntegrandIn1D, double> formulaX =
+				i => UseGaussLegendre_NegativeAxis(i, lengthScaleX, precisionPerAxis);
+
+			Func<IntegrandIn1D, double> formulaY =
+				i => UseGaussLegendre_PositiveAxis(i, lengthScaleY, precisionPerAxis);
+
+			return Apply1DFormulaeToIntegrandIn2D(integrand, formulaX, formulaY);
 		}
 
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static readonly double[] GaussLegendreGridPoints;
-
-		private static readonly double[] GaussLegendreWeights;
-
-		private static void InitializeGaussLegendre(
-			out double[] GaussLegendreGridPoints,
-			out double[] GaussLegendreWeights
+		private static double PerformSum(
+			IntegrandIn1D integrand,
+			double[] abscissae,
+			double[] weights
 			)
 		{
-			double[][] glTable;
-			TableFileReader.Read("..\\..\\GaussLegendre_64GridPoints.txt", out glTable);
-			GaussLegendreGridPoints = glTable[0];
-			GaussLegendreWeights = glTable[1];
-		}
-
-		public static double ApplyToIntegrand(
-			Func<OneVariableIntegrand, double> quadratureFormulaX,
-			Func<OneVariableIntegrand, double> quadratureFormulaY,
-			TwoVariableIntegrand integrand
-			)
-		{
-			OneVariableIntegrand integrandWithXIntegrationPerformed =
-				y => quadratureFormulaX(x => integrand(x, y));
-
-			return quadratureFormulaY(integrandWithXIntegrationPerformed);
-		}
-
-		private static TVector ApplyToVectorValuedIntegrand<TVector>(
-			Func<TwoVariableIntegrand, double> quadratureFormula,
-			TwoVariableIntegrandVectorValued<TVector> integrand
-			) where TVector : EuclideanVectorBase<TVector>, new()
-		{
-			TVector integral = new TVector();
-
-			for(int i = 0; i < integral.Dimension; i++)
+			double integral = 0;
+			for(int i = 0; i < abscissae.Length; i++)
 			{
-				integral[i] = quadratureFormula((x, y) => integrand(x, y)[i]);
+				integral += weights[i] * integrand(abscissae[i]);
 			}
 
 			return integral;
+		}
+
+		private static TVector PerformSum<TVector>(
+			IntegrandIn1D<TVector> integrand,
+			double[] abscissae,
+			double[] weights
+			) where TVector : EuclideanVectorBase<TVector>, new()
+		{
+			TVector integral = new TVector();
+			for(int i = 0; i < abscissae.Length; i++)
+			{
+				integral += weights[i] * integrand(abscissae[i]);
+			}
+
+			return integral;
+		}
+
+		private static double[] GaussLegendre8Abscissae;
+
+		private static double[] GaussLegendre8Weights;
+
+		private static double[] GaussLegendre16Abscissae;
+
+		private static double[] GaussLegendre16Weights;
+
+		private static double[] GaussLegendre32Abscissae;
+
+		private static double[] GaussLegendre32Weights;
+
+		private static double[] GaussLegendre64Abscissae;
+
+		private static double[] GaussLegendre64Weights;
+
+		private static void InitializeGaussLegendre()
+		{
+			string dir = "..\\..\\";
+			GetAbscissaeAndWeightsFromFile(dir + "GaussLegendre8.txt",
+				out GaussLegendre8Abscissae, out GaussLegendre8Weights);
+
+			GetAbscissaeAndWeightsFromFile(dir + "GaussLegendre16.txt",
+				out GaussLegendre16Abscissae, out GaussLegendre16Weights);
+
+			GetAbscissaeAndWeightsFromFile(dir + "GaussLegendre32.txt",
+				out GaussLegendre32Abscissae, out GaussLegendre32Weights);
+
+			GetAbscissaeAndWeightsFromFile(dir + "GaussLegendre64.txt",
+				out GaussLegendre64Abscissae, out GaussLegendre64Weights);
+		}
+
+		private static void GetAbscissaeAndWeightsFromFile(
+			string pathFile,
+			out double[] abscissae,
+			out double[] weights
+			)
+		{
+			double[][] glTable;
+			TableFileReader.Read(pathFile, out glTable);
+			abscissae = glTable[0];
+			weights = glTable[1];
+		}
+
+		public static double Apply1DFormulaeToIntegrandIn2D(
+			IntegrandIn2D integrand,
+			Func<IntegrandIn1D, double> formulaX,
+			Func<IntegrandIn1D, double> formulaY
+			)
+		{
+			IntegrandIn1D integrandWithXIntegrationPerformed =
+				y => formulaX(x => integrand(x, y));
+
+			return formulaY(integrandWithXIntegrationPerformed);
+		}
+
+		public static TVector Apply1DFormulaeToIntegrandIn2D<TVector>(
+			IntegrandIn2D<TVector> integrand,
+			Func<IntegrandIn1D<TVector>, TVector> formulaX,
+			Func<IntegrandIn1D<TVector>, TVector> formulaY
+			) where TVector : EuclideanVectorBase<TVector>, new()
+		{
+			IntegrandIn1D<TVector> integrandWithXIntegrationPerformed =
+				y => formulaX(x => integrand(x, y));
+
+			return formulaY(integrandWithXIntegrationPerformed);
 		}
 
 		private static double[] GetExponentialGridPoints(
@@ -283,35 +470,95 @@ namespace Yburn.Fireball
 			return gridPoints;
 		}
 
-		// The characteristic length scale L should be chosen such that the interval [-L, L] contains
-		// the predominant part of the unbounded integral.
-		// I.e. for integrating a particle shape function choose L ~ 'particle radius'.
-		private static OneVariableIntegrand TransformIntegrandToUnitInterval(
-			OneVariableIntegrand integrand,
-			double characteristicLengthScale
+		private static void GetGaussLegendreAbscissaeAndWeights(
+			QuadraturePrecision precision,
+			out double[] abscissae,
+			out double[] weights
 			)
 		{
-			OneVariableIntegrand transformedIntegrand =
-				x => integrand(StretchUnitIntervalToRealAxis(x, characteristicLengthScale))
-					* StretchUnitIntervalToRealAxisJacobian(x, characteristicLengthScale);
+			switch(precision)
+			{
+				case QuadraturePrecision.Use8Points:
+					abscissae = GaussLegendre8Abscissae;
+					weights = GaussLegendre8Weights;
+					break;
 
-			return transformedIntegrand;
+				case QuadraturePrecision.Use16Points:
+					abscissae = GaussLegendre16Abscissae;
+					weights = GaussLegendre16Weights;
+					break;
+
+				case QuadraturePrecision.Use32Points:
+					abscissae = GaussLegendre32Abscissae;
+					weights = GaussLegendre32Weights;
+					break;
+
+				case QuadraturePrecision.Use64Points:
+					abscissae = GaussLegendre64Abscissae;
+					weights = GaussLegendre64Weights;
+					break;
+
+				default:
+					throw new Exception("Invalid Precision.");
+			}
 		}
 
-		private static double StretchUnitIntervalToRealAxis(
-				double x,
-				double characteristicLengthScale
-				)
+		private static void TransformToPositiveAxis(
+			double lengthScale,
+			double[] abscissae,
+			double[] weights,
+			out double[] transformedAbscissae,
+			out double[] transformedWeights
+			)
 		{
-			return -characteristicLengthScale * Math.Sign(x) * Math.Log(1 - Math.Abs(x));
+			int length = abscissae.Length;
+			transformedAbscissae = new double[length];
+			transformedWeights = new double[length];
+
+			for(int i = 0; i < length; i++)
+			{
+				double x = 0.5 * abscissae[i] + 0.5;
+				transformedAbscissae[i] = MapUnitIntervalToRealAxis(x, lengthScale);
+				transformedWeights[i] = 0.5 * weights[i]
+					* MapUnitIntervalToRealAxis_Jacobian(x, lengthScale);
+			}
 		}
 
-		private static double StretchUnitIntervalToRealAxisJacobian(
+		private static void TransformToNegativeAxis(
+			double lengthScale,
+			double[] abscissae,
+			double[] weights,
+			out double[] transformedAbscissae,
+			out double[] transformedWeights
+			)
+		{
+			int length = abscissae.Length;
+			transformedAbscissae = new double[length];
+			transformedWeights = new double[length];
+
+			for(int i = 0; i < length; i++)
+			{
+				double x = 0.5 * abscissae[i] - 0.5;
+				transformedAbscissae[i] = MapUnitIntervalToRealAxis(x, lengthScale);
+				transformedWeights[i] = 0.5 * weights[i]
+					* MapUnitIntervalToRealAxis_Jacobian(x, lengthScale);
+			}
+		}
+
+		private static double MapUnitIntervalToRealAxis(
 				double x,
-				double characteristicLengthScale
+				double lengthScale
 				)
 		{
-			return characteristicLengthScale / (1 - Math.Abs(x));
+			return -lengthScale * Math.Sign(x) * Math.Log(1 - Math.Abs(x));
+		}
+
+		private static double MapUnitIntervalToRealAxis_Jacobian(
+				double x,
+				double lengthScale
+				)
+		{
+			return lengthScale / (1 - Math.Abs(x));
 		}
 	}
 }

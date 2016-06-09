@@ -40,12 +40,13 @@ namespace Yburn.Fireball
 			{
 				for(int j = 0; j < y.Length; j++)
 				{
-					OneVariableIntegrand integrand = z => emf.CalculateMagneticField(
+					IntegrandIn1D integrand = z => emf.CalculateMagneticField(
 						formationTimeFm,
-						new EuclideanVector3D(x[i], y[j], z)).Norm;
+						new EuclideanVector3D(x[i], y[j], z),
+						QuadraturePrecision.Use8Points).Norm;
 
-					magneticFieldValues[i, j] = Quadrature.UseUniformSummedTrapezoidalRule(
-						integrand, -mediumExpanseFm, mediumExpanseFm, 10);
+					magneticFieldValues[i, j] = Quadrature.UseGaussLegendre(
+						integrand, -mediumExpanseFm, mediumExpanseFm, QuadraturePrecision.Use8Points);
 				}
 			}
 
