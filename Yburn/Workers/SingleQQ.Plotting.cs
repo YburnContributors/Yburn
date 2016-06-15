@@ -152,18 +152,6 @@ namespace Yburn.Workers
 
 		private delegate List<List<double>> DataListCreator();
 
-		private string DataFileName = string.Empty;
-
-		private string RunningCouplingTypeSelection = string.Empty;
-
-		private double MinEnergy;
-
-		private double MinRadius;
-
-		private int Samples;
-
-		private double EnergyScale;
-
 		private string DataPathFile
 		{
 			get

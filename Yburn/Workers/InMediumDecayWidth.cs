@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -9,7 +8,7 @@ using Yburn.Util;
 
 namespace Yburn.Workers
 {
-	public class InMediumDecayWidth : Worker
+	public partial class InMediumDecayWidth : Worker
 	{
 		/********************************************************************************************
 		 * Constructors
@@ -79,26 +78,6 @@ namespace Yburn.Workers
 			}
 		}
 
-		private string BottomiumStates = string.Empty;
-
-		private DecayWidthType DecayWidthType;
-
-		private double[] DecayWidthAveragingAngles = new double[0];
-
-		private double MediumVelocity;
-
-		private string[] PotentialTypes = new string[0];
-
-		private double MinTemperature;
-
-		private double MaxTemperature;
-
-		private double TemperatureStepSize;
-
-		private bool UseAveragedTemperature;
-
-		private string Outfile = "stdout.txt";
-
 		private string DataPathFile
 		{
 			get
@@ -137,7 +116,7 @@ namespace Yburn.Workers
 
 		private string GetTemperatureDecayWidthList()
 		{
-			BottomiumState[] bottomiumStates = BottomiumStates.ToValueArray<BottomiumState>();
+			BottomiumState[] bottomiumStates = BottomiumStates;
 
 			TemperatureDecayWidthPrinter printer = new TemperatureDecayWidthPrinter(
 				YburnConfigFile.QQDataPathFile, bottomiumStates, DecayWidthType, PotentialTypes,
@@ -146,39 +125,6 @@ namespace Yburn.Workers
 
 			return UseAveragedTemperature ?
 				printer.GetListUsingAveragedTemperature() : printer.GetList();
-		}
-
-		protected override void SetVariableNameValuePairs(
-			Dictionary<string, string> nameValuePairs
-			)
-		{
-			BottomiumStates = Extractor.TryGetValue(nameValuePairs, "BottomiumStates", BottomiumStates);
-			DecayWidthAveragingAngles = Extractor.TryGetValueArray(nameValuePairs, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
-			DecayWidthType = Extractor.TryGetValue(nameValuePairs, "DecayWidthType", DecayWidthType);
-			MaxTemperature = Extractor.TryGetValue(nameValuePairs, "MaxTemperature", MaxTemperature);
-			MediumVelocity = Extractor.TryGetValue(nameValuePairs, "MediumVelocity", MediumVelocity);
-			MinTemperature = Extractor.TryGetValue(nameValuePairs, "MinTemperature", MinTemperature);
-			Outfile = Extractor.TryGetValue(nameValuePairs, "Outfile", Outfile);
-			PotentialTypes = Extractor.TryGetValueArray(nameValuePairs, "PotentialTypes", PotentialTypes);
-			TemperatureStepSize = Extractor.TryGetValue(nameValuePairs, "TemperatureStepSize", TemperatureStepSize);
-			UseAveragedTemperature = Extractor.TryGetValue(nameValuePairs, "UseAveragedTemperature", UseAveragedTemperature);
-		}
-
-		protected override Dictionary<string, string> GetVariableNameValuePairs()
-		{
-			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs["BottomiumStates"] = BottomiumStates;
-			nameValuePairs["DecayWidthAveragingAngles"] = DecayWidthAveragingAngles.ToUIString();
-			nameValuePairs["DecayWidthType"] = DecayWidthType.ToString();
-			nameValuePairs["MaxTemperature"] = MaxTemperature.ToString();
-			nameValuePairs["MediumVelocity"] = MediumVelocity.ToString();
-			nameValuePairs["MinTemperature"] = MinTemperature.ToString();
-			nameValuePairs["Outfile"] = Outfile;
-			nameValuePairs["PotentialTypes"] = PotentialTypes.ToStringifiedList();
-			nameValuePairs["TemperatureStepSize"] = TemperatureStepSize.ToString();
-			nameValuePairs["UseAveragedTemperature"] = UseAveragedTemperature.ToString();
-
-			return nameValuePairs;
 		}
 
 		protected override void StartJob(
@@ -202,7 +148,7 @@ namespace Yburn.Workers
 
 		private void AssertInputValid_PlotInMediumDecayWidth()
 		{
-			if(BottomiumStates.ToValueArray<BottomiumState>().Length == 0)
+			if(BottomiumStates.Length == 0)
 			{
 				throw new Exception("No bottomium states given.");
 			}
@@ -236,7 +182,7 @@ namespace Yburn.Workers
 			StringBuilder plotFile
 			)
 		{
-			BottomiumState[] bottomiumStates = BottomiumStates.ToValueArray<BottomiumState>();
+			BottomiumState[] bottomiumStates = BottomiumStates;
 			int colNumber = 2;
 			foreach(BottomiumState state in bottomiumStates)
 			{
@@ -251,7 +197,7 @@ namespace Yburn.Workers
 			StringBuilder plotFile
 			)
 		{
-			BottomiumState[] bottomiumStates = BottomiumStates.ToValueArray<BottomiumState>();
+			BottomiumState[] bottomiumStates = BottomiumStates;
 			int colNumber = 2;
 			foreach(BottomiumState state in bottomiumStates)
 			{

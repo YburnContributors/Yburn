@@ -32,8 +32,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Electromagnetism.cs" />
+    <Compile Include="Electromagnetism.Params.cs" />
     <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InMediumDecayWidth.cs" />
+    <Compile Include="InMediumDecayWidth.Params.cs" />
+    <Compile Include="QQonFire.Params.cs" />
+    <Compile Include="SingleQQ.Params.cs" />
     <Compile Include="SingleQQ.Plotting.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QQonFire.cs" />

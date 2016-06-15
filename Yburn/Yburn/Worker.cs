@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Text;
 using System.Threading;
 using Yburn.Interfaces;
@@ -15,7 +14,6 @@ namespace Yburn
 
 		public Worker()
 		{
-			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 		}
 
 		/********************************************************************************************

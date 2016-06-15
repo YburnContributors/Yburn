@@ -52,21 +52,7 @@ namespace Yburn.Workers
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private int EffectiveTimeSamples;
-
-		private EMFCalculationMethod[] EMFCalculationMethodSelection = new EMFCalculationMethod[0];
-
-		private double PointChargeVelocity;
-
-		private double RadialDistance;
-
-		private double StartEffectiveTime;
-
-		private double StopEffectiveTime;
-
 		private delegate List<List<double>> DataListCreator();
-
-		private string DataFileName = string.Empty;
 
 		private string DataPathFile
 		{

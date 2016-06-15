@@ -52,8 +52,8 @@
 			this.TbxNuclearRadiusA = new System.Windows.Forms.TextBox();
 			this.LblNuclearRadiusB = new System.Windows.Forms.Label();
 			this.TbxNuclearRadiusB = new System.Windows.Forms.TextBox();
-			this.LblImpactParam = new System.Windows.Forms.Label();
-			this.TbxImpactParam = new System.Windows.Forms.TextBox();
+			this.LblImpactParameter = new System.Windows.Forms.Label();
+			this.TbxImpactParameter = new System.Windows.Forms.TextBox();
 			this.GbxGeneralParameters = new System.Windows.Forms.GroupBox();
 			this.LayoutGeneralParameters = new System.Windows.Forms.TableLayoutPanel();
 			this.LblGridCellSize = new System.Windows.Forms.Label();
@@ -183,8 +183,8 @@
 			this.LayoutGlauber.Controls.Add(this.TbxNuclearRadiusA, 1, 3);
 			this.LayoutGlauber.Controls.Add(this.LblNuclearRadiusB, 0, 8);
 			this.LayoutGlauber.Controls.Add(this.TbxNuclearRadiusB, 1, 8);
-			this.LayoutGlauber.Controls.Add(this.LblImpactParam, 0, 10);
-			this.LayoutGlauber.Controls.Add(this.TbxImpactParam, 1, 10);
+			this.LayoutGlauber.Controls.Add(this.LblImpactParameter, 0, 10);
+			this.LayoutGlauber.Controls.Add(this.TbxImpactParameter, 1, 10);
 			this.LayoutGlauber.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LayoutGlauber.Location = new System.Drawing.Point(10, 34);
 			this.LayoutGlauber.Name = "LayoutGlauber";
@@ -398,22 +398,22 @@
 			// 
 			// LblImpactParam
 			// 
-			this.LblImpactParam.AutoSize = true;
-			this.LblImpactParam.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblImpactParam.Location = new System.Drawing.Point(3, 250);
-			this.LblImpactParam.Name = "LblImpactParam";
-			this.LblImpactParam.Size = new System.Drawing.Size(235, 25);
-			this.LblImpactParam.TabIndex = 0;
-			this.LblImpactParam.Text = "ImpactParam (fm)";
-			this.LblImpactParam.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblImpactParameter.AutoSize = true;
+			this.LblImpactParameter.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblImpactParameter.Location = new System.Drawing.Point(3, 250);
+			this.LblImpactParameter.Name = "LblImpactParam";
+			this.LblImpactParameter.Size = new System.Drawing.Size(235, 25);
+			this.LblImpactParameter.TabIndex = 0;
+			this.LblImpactParameter.Text = "ImpactParameter (fm)";
+			this.LblImpactParameter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// TbxImpactParam
 			// 
-			this.TbxImpactParam.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxImpactParam.Location = new System.Drawing.Point(244, 253);
-			this.TbxImpactParam.Name = "TbxImpactParam";
-			this.TbxImpactParam.Size = new System.Drawing.Size(192, 31);
-			this.TbxImpactParam.TabIndex = 0;
+			this.TbxImpactParameter.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxImpactParameter.Location = new System.Drawing.Point(244, 253);
+			this.TbxImpactParameter.Name = "TbxImpactParam";
+			this.TbxImpactParameter.Size = new System.Drawing.Size(192, 31);
+			this.TbxImpactParameter.TabIndex = 0;
 			// 
 			// GbxGeneralParameters
 			// 
@@ -855,8 +855,8 @@
 		private System.Windows.Forms.TextBox TbxNuclearRadiusA;
 		private System.Windows.Forms.Label LblNuclearRadiusB;
 		private System.Windows.Forms.TextBox TbxNuclearRadiusB;
-		private System.Windows.Forms.Label LblImpactParam;
-		private System.Windows.Forms.TextBox TbxImpactParam;
+		private System.Windows.Forms.Label LblImpactParameter;
+		private System.Windows.Forms.TextBox TbxImpactParameter;
 		private System.Windows.Forms.Label LblProtonNumberB;
 		private System.Windows.Forms.TextBox TbxProtonNumberA;
 		private System.Windows.Forms.Label LblProtonNumberA;

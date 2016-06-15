@@ -93,7 +93,7 @@ namespace Yburn.Fireball
 		}
 
 		// temperature is normalized such that T(0, 0, ThermalTimeFm) = T0
-		// for a central collision (ImpactParam = 0) and TransversMomentum = 0
+		// for a central collision (ImpactParameter = 0) and TransverseMomentum = 0
 		private void InitTnorm()
 		{
 			double norm = InitialCentralTemperature * Math.Pow(ThermalTime, 1 / 3.0);

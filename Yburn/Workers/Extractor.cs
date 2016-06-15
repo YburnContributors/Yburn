@@ -10,21 +10,7 @@ namespace Yburn.Workers
 		 * Public static members, functions and properties
 		 ********************************************************************************************/
 
-		public static T TryGetValue<T>(
-			Dictionary<string, string> nameValuePairs,
-			string key,
-			T defaultIfNull
-			) where T : IConvertible
-		{
-			string stringifiedValue;
-			nameValuePairs.TryGetValue(key, out stringifiedValue);
-
-			return string.IsNullOrEmpty(stringifiedValue) ?
-				defaultIfNull
-				: stringifiedValue.ToValue<T>();
-		}
-
-		public static void TryGetValue<T>(
+		public static void TryExtract<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
 			ref T value
@@ -39,19 +25,7 @@ namespace Yburn.Workers
 			}
 		}
 
-		public static T[] TryGetValueArray<T>(
-			Dictionary<string, string> nameValuePairs,
-			string key,
-			T[] defaultIfNull
-			) where T : IConvertible
-		{
-			string value = TryGetValue(nameValuePairs, key, string.Empty);
-			return string.IsNullOrEmpty(value) ?
-				defaultIfNull
-				: value.ToValueArray<T>();
-		}
-
-		public static void TryGetValue<T>(
+		public static void TryExtract<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
 			ref T[] value
@@ -66,19 +40,7 @@ namespace Yburn.Workers
 			}
 		}
 
-		public static T[][] TryGetJaggedValueArray<T>(
-			Dictionary<string, string> nameValuePairs,
-			string key,
-			T[][] defaultIfNull
-			) where T : IConvertible
-		{
-			string value = TryGetValue(nameValuePairs, key, string.Empty);
-			return string.IsNullOrEmpty(value) ?
-				defaultIfNull
-				: value.ToValueJaggedArray<T>();
-		}
-
-		public static void TryGetValue<T>(
+		public static void TryExtract<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
 			ref T[][] value
@@ -93,29 +55,29 @@ namespace Yburn.Workers
 			}
 		}
 
-		public static void TrySetValue<T>(
+		public static void Store<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
 			T value
-			) where T : IFormattable
+			) where T : IConvertible
 		{
 			nameValuePairs[key] = value.ToUIString();
 		}
 
-		public static void TrySetValue<T>(
+		public static void Store<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
 			T[] value
-			) where T : IFormattable
+			) where T : IConvertible
 		{
 			nameValuePairs[key] = value.ToUIString();
 		}
 
-		public static void TrySetValue<T>(
+		public static void Store<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
 			T[][] value
-			) where T : IFormattable
+			) where T : IConvertible
 		{
 			nameValuePairs[key] = value.ToUIString();
 		}

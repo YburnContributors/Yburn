@@ -80,8 +80,9 @@ namespace Yburn.UI.Tests
 		private static Dictionary<string, string> GetConvertedAlphaNameValuePairs()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+
 			nameValuePairs.Add("MinEnergy", "-440");
-			nameValuePairs.Add("MaxEnergy", "10000");
+			nameValuePairs.Add("MaxEnergy", "1E+04");
 			nameValuePairs.Add("Samples", "1000");
 			nameValuePairs.Add("DataFileName", "stdout.txt");
 			nameValuePairs.Add("RunningCouplingTypeSelection", "LOperturbative_Cutoff3");
@@ -162,7 +163,7 @@ namespace Yburn.UI.Tests
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 			nameValuePairs.Add("PotentialType", "Complex");
 			nameValuePairs.Add("AlphaSoft", "0.5");
-			nameValuePairs.Add("Sigma", "192000");
+			nameValuePairs.Add("Sigma", "1.92E+05");
 			nameValuePairs.Add("ColorState", "Octet");
 			nameValuePairs.Add("Temperature", "3333");
 			nameValuePairs.Add("DebyeMass", "550");

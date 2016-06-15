@@ -19,7 +19,7 @@ namespace Yburn.Fireball.Tests
 			double result = averager.CalculateAverageMagneticFieldStrength(
 				QuadraturePrecision.Use8Points);
 
-			AssertHelper.AssertRoundedEqual(0.41503035843345487, result);
+			AssertHelper.AssertRoundedEqual(0.46319460194338846, result);
 		}
 
 		private FireballParam CreateFireballParam()

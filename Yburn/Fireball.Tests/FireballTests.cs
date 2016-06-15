@@ -87,7 +87,7 @@ namespace Yburn.Fireball.Tests
 			param.FormationTimesFm = new double[] { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
 			param.ThermalTimeFm = 0.1;
 			param.GridCellSizeFm = 0.4;
-			param.NumberGridPoints = 26;
+			param.GridRadiusFm = 10;
 			param.BeamRapidity = 7.99;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthListHelper.GetList(
 					"..\\..\\bbdata-Pert1LoopCut3.txt", DecayWidthType.GammaTot, new string[] { "Complex" });

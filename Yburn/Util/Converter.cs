@@ -12,18 +12,21 @@ namespace Yburn.Util
 
 		public static string ToUIString<T>(
 			this T value
-			) where T : IFormattable
+			) where T : IConvertible
 		{
 			if(value is double)
 			{
-				return value.ToString("G4", CultureInfo.InvariantCulture);
+				return string.Format(CultureInfo.InvariantCulture, "{0:G4}", value);
 			}
-			return value.ToString("G", CultureInfo.InvariantCulture);
+			else
+			{
+				return string.Format(CultureInfo.InvariantCulture, "{0:G}", value);
+			}
 		}
 
 		public static string ToUIString<T>(
 			this T[] array
-			) where T : IFormattable
+			) where T : IConvertible
 		{
 			if(array == null || array.Length == 0)
 			{
@@ -43,7 +46,7 @@ namespace Yburn.Util
 
 		public static string ToUIString<T>(
 			this T[][] array
-			) where T : IFormattable
+			) where T : IConvertible
 		{
 			if(array == null || array.Length == 0)
 			{
@@ -75,7 +78,7 @@ namespace Yburn.Util
 			char[] separator = null
 			) where T : IConvertible
 		{
-			string[] splittedList = stringifiedList.ToStringArray(separator);
+			string[] splittedList = SplitUIString(stringifiedList, separator);
 
 			T[] array = new T[splittedList.Length];
 			for(int i = 0; i < array.Length; i++)
@@ -90,7 +93,7 @@ namespace Yburn.Util
 			this string stringifiedList
 			) where T : IConvertible
 		{
-			string[] splittedList = stringifiedList.ToStringArray(new char[] { '\t', ';' });
+			string[] splittedList = SplitUIString(stringifiedList, new char[] { '\t', ';' });
 
 			T[][] jaggedArray = new T[splittedList.Length][];
 			for(int i = 0; i < jaggedArray.Length; i++)
@@ -101,26 +104,12 @@ namespace Yburn.Util
 			return jaggedArray;
 		}
 
-		public static string ToStringifiedList(
-			this string[] array
-			)
-		{
-			if(array == null || array.Length == 0)
-			{
-				return string.Empty;
-			}
-			else
-			{
-				return string.Join(",", array);
-			}
-		}
-
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static string[] ToStringArray(
-			this string stringifiedList,
+		private static string[] SplitUIString(
+			string stringifiedList,
 			char[] separator = null
 			)
 		{
@@ -130,7 +119,7 @@ namespace Yburn.Util
 			}
 			if(string.IsNullOrEmpty(stringifiedList))
 			{
-				return new string[] { };
+				return new string[0];
 			}
 			else
 			{

@@ -109,7 +109,7 @@ namespace Yburn.Electromagnetism.UI
 			nameValuePairs["EffectiveTimeSamples"] = TbxEffectiveTimeSamples.Text;
 			nameValuePairs["GridCellSize"] = TbxGridCellSize.Text;
 			nameValuePairs["GridRadius"] = TbxGridRadius.Text;
-			nameValuePairs["ImpactParam"] = TbxImpactParam.Text;
+			nameValuePairs["ImpactParameter"] = TbxImpactParameter.Text;
 			nameValuePairs["PointChargeVelocity"] = TbxPointChargeVelocity.Text;
 			nameValuePairs["NuclearRadiusA"] = TbxNuclearRadiusA.Text;
 			nameValuePairs["NuclearRadiusB"] = TbxNuclearRadiusB.Text;
@@ -132,28 +132,28 @@ namespace Yburn.Electromagnetism.UI
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"].ToString();
-			CbxShapeFunctionTypeA.Text = nameValuePairs["ShapeFunctionTypeA"].ToString();
-			CbxShapeFunctionTypeB.Text = nameValuePairs["ShapeFunctionTypeB"].ToString();
-			MsxEMFCalculationMethodSelection.SelectionString = nameValuePairs["EMFCalculationMethodSelection"].ToString();
-			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA"].ToString();
-			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB"].ToString();
-			TbxEffectiveTimeSamples.Text = nameValuePairs["EffectiveTimeSamples"].ToString();
-			TbxGridCellSize.Text = nameValuePairs["GridCellSize"].ToString();
-			TbxGridRadius.Text = nameValuePairs["GridRadius"].ToString();
-			TbxImpactParam.Text = nameValuePairs["ImpactParam"].ToString();
-			TbxPointChargeVelocity.Text = nameValuePairs["PointChargeVelocity"].ToString();
-			TbxNuclearRadiusA.Text = nameValuePairs["NuclearRadiusA"].ToString();
-			TbxNuclearRadiusB.Text = nameValuePairs["NuclearRadiusB"].ToString();
-			TbxNucleonNumberA.Text = nameValuePairs["NucleonNumberA"].ToString();
-			TbxNucleonNumberB.Text = nameValuePairs["NucleonNumberB"].ToString();
+			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"];
+			CbxShapeFunctionTypeA.Text = nameValuePairs["ShapeFunctionTypeA"];
+			CbxShapeFunctionTypeB.Text = nameValuePairs["ShapeFunctionTypeB"];
+			MsxEMFCalculationMethodSelection.SelectionString = nameValuePairs["EMFCalculationMethodSelection"];
+			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA"];
+			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB"];
+			TbxEffectiveTimeSamples.Text = nameValuePairs["EffectiveTimeSamples"];
+			TbxGridCellSize.Text = nameValuePairs["GridCellSize"];
+			TbxGridRadius.Text = nameValuePairs["GridRadius"];
+			TbxImpactParameter.Text = nameValuePairs["ImpactParameter"];
+			TbxPointChargeVelocity.Text = nameValuePairs["PointChargeVelocity"];
+			TbxNuclearRadiusA.Text = nameValuePairs["NuclearRadiusA"];
+			TbxNuclearRadiusB.Text = nameValuePairs["NuclearRadiusB"];
+			TbxNucleonNumberA.Text = nameValuePairs["NucleonNumberA"];
+			TbxNucleonNumberB.Text = nameValuePairs["NucleonNumberB"];
 			TbxOutfile.Text = nameValuePairs["Outfile"];
-			TbxProtonNumberA.Text = nameValuePairs["ProtonNumberA"].ToString();
-			TbxProtonNumberB.Text = nameValuePairs["ProtonNumberB"].ToString();
-			TbxQGPConductivityMeV.Text = nameValuePairs["QGPConductivityMeV"].ToString();
-			TbxRadialDistance.Text = nameValuePairs["RadialDistance"].ToString();
-			TbxStartEffectiveTime.Text = nameValuePairs["StartEffectiveTime"].ToString();
-			TbxStopEffectiveTime.Text = nameValuePairs["StopEffectiveTime"].ToString();
+			TbxProtonNumberA.Text = nameValuePairs["ProtonNumberA"];
+			TbxProtonNumberB.Text = nameValuePairs["ProtonNumberB"];
+			TbxQGPConductivityMeV.Text = nameValuePairs["QGPConductivityMeV"];
+			TbxRadialDistance.Text = nameValuePairs["RadialDistance"];
+			TbxStartEffectiveTime.Text = nameValuePairs["StartEffectiveTime"];
+			TbxStopEffectiveTime.Text = nameValuePairs["StopEffectiveTime"];
 		}
 
 		private void InitializeMenuEntry()
