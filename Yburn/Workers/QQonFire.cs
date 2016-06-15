@@ -970,41 +970,41 @@ namespace Yburn.Workers
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			BeamRapidity = Extractor.TryGetDouble(nameValuePairs, "BeamRapidity", BeamRapidity);
-			BjorkenLifeTime = Extractor.TryGetDouble(nameValuePairs, "BjorkenLifeTime", BjorkenLifeTime);
-			BottomiumStates = Extractor.TryGetString(nameValuePairs, "BottomiumStates", BottomiumStates);
-			CentralityBinBoundaries = Extractor.TryGetIntArrayArray(nameValuePairs, "CentralityBinBoundaries", CentralityBinBoundaries);
-			DecayWidthAveragingAngles = Extractor.TryGetDoubleArray(nameValuePairs, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
-			DecayWidthEvaluationType = Extractor.TryGetEnum<DecayWidthEvaluationType>(nameValuePairs, "DecayWidthEvaluationType", DecayWidthEvaluationType);
-			DecayWidthType = Extractor.TryGetEnum<DecayWidthType>(nameValuePairs, "DecayWidthType", DecayWidthType);
-			DiffusenessA = Extractor.TryGetDouble(nameValuePairs, "DiffusenessA", DiffusenessA);
-			DiffusenessB = Extractor.TryGetDouble(nameValuePairs, "DiffusenessB", DiffusenessB);
-			ExpansionMode = Extractor.TryGetEnum<ExpansionMode>(nameValuePairs, "ExpansionMode", ExpansionMode);
-			FeedDown3P = Extractor.TryGetDouble(nameValuePairs, "FeedDown3P", FeedDown3P);
-			FireballFieldTypes = Extractor.TryGetStringArray(nameValuePairs, "FireballFieldTypes", FireballFieldTypes);
-			FormationTimes = Extractor.TryGetDoubleArray(nameValuePairs, "FormationTimes", FormationTimes);
-			GridCellSize = Extractor.TryGetDouble(nameValuePairs, "GridCellSize", GridCellSize);
-			GridRadius = Extractor.TryGetDouble(nameValuePairs, "GridRadius", GridRadius);
-			ImpactParam = Extractor.TryGetDouble(nameValuePairs, "ImpactParam", ImpactParam);
-			ImpactParamsAtBinBoundaries = Extractor.TryGetDoubleArrayArray(nameValuePairs, "ImpactParamsAtBinBoundaries", ImpactParamsAtBinBoundaries);
-			InitialCentralTemperature = Extractor.TryGetDouble(nameValuePairs, "InitialCentralTemperature", InitialCentralTemperature);
-			LifeTime = Extractor.TryGetDouble(nameValuePairs, "LifeTime", LifeTime);
-			MeanParticipantsInBin = Extractor.TryGetDoubleArrayArray(nameValuePairs, "MeanParticipantsInBin", MeanParticipantsInBin);
-			MinimalCentralTemperature = Extractor.TryGetDouble(nameValuePairs, "MinimalCentralTemperature", MinimalCentralTemperature);
-			NuclearRadiusA = Extractor.TryGetDouble(nameValuePairs, "NuclearRadiusA", NuclearRadiusA);
-			NuclearRadiusB = Extractor.TryGetDouble(nameValuePairs, "NuclearRadiusB", NuclearRadiusB);
-			NucleonNumberA = Extractor.TryGetInt(nameValuePairs, "NucleonNumberA", NucleonNumberA);
-			NucleonNumberB = Extractor.TryGetInt(nameValuePairs, "NucleonNumberB", NucleonNumberB);
-			Outfile = Extractor.TryGetString(nameValuePairs, "Outfile", Outfile);
-			ParticipantsAtBinBoundaries = Extractor.TryGetDoubleArrayArray(nameValuePairs, "ParticipantsAtBinBoundaries", ParticipantsAtBinBoundaries);
-			PotentialTypes = Extractor.TryGetStringArray(nameValuePairs, "PotentialTypes", PotentialTypes);
-			ProtonProtonBaseline = Extractor.TryGetEnum<ProtonProtonBaseline>(nameValuePairs, "ProtonProtonBaseline", ProtonProtonBaseline);
-			ShapeFunctionTypeA = Extractor.TryGetEnum<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeA", ShapeFunctionTypeA);
-			ShapeFunctionTypeB = Extractor.TryGetEnum<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeB", ShapeFunctionTypeB);
-			SnapRate = Extractor.TryGetDouble(nameValuePairs, "SnapRate", SnapRate);
-			TemperatureProfile = Extractor.TryGetEnum<TemperatureProfile>(nameValuePairs, "TemperatureProfile", TemperatureProfile);
-			ThermalTime = Extractor.TryGetDouble(nameValuePairs, "ThermalTime", ThermalTime);
-			TransverseMomenta = Extractor.TryGetDoubleArray(nameValuePairs, "TransverseMomenta", TransverseMomenta);
+			BeamRapidity = Extractor.TryGetValue(nameValuePairs, "BeamRapidity", BeamRapidity);
+			BjorkenLifeTime = Extractor.TryGetValue(nameValuePairs, "BjorkenLifeTime", BjorkenLifeTime);
+			BottomiumStates = Extractor.TryGetValue(nameValuePairs, "BottomiumStates", BottomiumStates);
+			CentralityBinBoundaries = Extractor.TryGetJaggedValueArray(nameValuePairs, "CentralityBinBoundaries", CentralityBinBoundaries);
+			DecayWidthAveragingAngles = Extractor.TryGetValueArray(nameValuePairs, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
+			DecayWidthEvaluationType = Extractor.TryGetValue(nameValuePairs, "DecayWidthEvaluationType", DecayWidthEvaluationType);
+			DecayWidthType = Extractor.TryGetValue<DecayWidthType>(nameValuePairs, "DecayWidthType", DecayWidthType);
+			DiffusenessA = Extractor.TryGetValue(nameValuePairs, "DiffusenessA", DiffusenessA);
+			DiffusenessB = Extractor.TryGetValue(nameValuePairs, "DiffusenessB", DiffusenessB);
+			ExpansionMode = Extractor.TryGetValue<ExpansionMode>(nameValuePairs, "ExpansionMode", ExpansionMode);
+			FeedDown3P = Extractor.TryGetValue(nameValuePairs, "FeedDown3P", FeedDown3P);
+			FireballFieldTypes = Extractor.TryGetValueArray(nameValuePairs, "FireballFieldTypes", FireballFieldTypes);
+			FormationTimes = Extractor.TryGetValueArray(nameValuePairs, "FormationTimes", FormationTimes);
+			GridCellSize = Extractor.TryGetValue(nameValuePairs, "GridCellSize", GridCellSize);
+			GridRadius = Extractor.TryGetValue(nameValuePairs, "GridRadius", GridRadius);
+			ImpactParam = Extractor.TryGetValue(nameValuePairs, "ImpactParam", ImpactParam);
+			ImpactParamsAtBinBoundaries = Extractor.TryGetJaggedValueArray(nameValuePairs, "ImpactParamsAtBinBoundaries", ImpactParamsAtBinBoundaries);
+			InitialCentralTemperature = Extractor.TryGetValue(nameValuePairs, "InitialCentralTemperature", InitialCentralTemperature);
+			LifeTime = Extractor.TryGetValue(nameValuePairs, "LifeTime", LifeTime);
+			MeanParticipantsInBin = Extractor.TryGetJaggedValueArray(nameValuePairs, "MeanParticipantsInBin", MeanParticipantsInBin);
+			MinimalCentralTemperature = Extractor.TryGetValue(nameValuePairs, "MinimalCentralTemperature", MinimalCentralTemperature);
+			NuclearRadiusA = Extractor.TryGetValue(nameValuePairs, "NuclearRadiusA", NuclearRadiusA);
+			NuclearRadiusB = Extractor.TryGetValue(nameValuePairs, "NuclearRadiusB", NuclearRadiusB);
+			NucleonNumberA = Extractor.TryGetValue(nameValuePairs, "NucleonNumberA", NucleonNumberA);
+			NucleonNumberB = Extractor.TryGetValue(nameValuePairs, "NucleonNumberB", NucleonNumberB);
+			Outfile = Extractor.TryGetValue(nameValuePairs, "Outfile", Outfile);
+			ParticipantsAtBinBoundaries = Extractor.TryGetJaggedValueArray(nameValuePairs, "ParticipantsAtBinBoundaries", ParticipantsAtBinBoundaries);
+			PotentialTypes = Extractor.TryGetValueArray(nameValuePairs, "PotentialTypes", PotentialTypes);
+			ProtonProtonBaseline = Extractor.TryGetValue<ProtonProtonBaseline>(nameValuePairs, "ProtonProtonBaseline", ProtonProtonBaseline);
+			ShapeFunctionTypeA = Extractor.TryGetValue<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeA", ShapeFunctionTypeA);
+			ShapeFunctionTypeB = Extractor.TryGetValue<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeB", ShapeFunctionTypeB);
+			SnapRate = Extractor.TryGetValue(nameValuePairs, "SnapRate", SnapRate);
+			TemperatureProfile = Extractor.TryGetValue<TemperatureProfile>(nameValuePairs, "TemperatureProfile", TemperatureProfile);
+			ThermalTime = Extractor.TryGetValue(nameValuePairs, "ThermalTime", ThermalTime);
+			TransverseMomenta = Extractor.TryGetValueArray(nameValuePairs, "TransverseMomenta", TransverseMomenta);
 		}
 
 		protected override Dictionary<string, string> GetVariableNameValuePairs()
@@ -1013,8 +1013,8 @@ namespace Yburn.Workers
 			nameValuePairs["BeamRapidity"] = BeamRapidity.ToString();
 			nameValuePairs["BjorkenLifeTime"] = BjorkenLifeTime.ToString();
 			nameValuePairs["BottomiumStates"] = BottomiumStates;
-			nameValuePairs["CentralityBinBoundaries"] = CentralityBinBoundaries.ToStringifiedList();
-			nameValuePairs["DecayWidthAveragingAngles"] = DecayWidthAveragingAngles.ToStringifiedList();
+			nameValuePairs["CentralityBinBoundaries"] = CentralityBinBoundaries.ToUIString();
+			nameValuePairs["DecayWidthAveragingAngles"] = DecayWidthAveragingAngles.ToUIString();
 			nameValuePairs["DecayWidthEvaluationType"] = DecayWidthEvaluationType.ToString();
 			nameValuePairs["DecayWidthType"] = DecayWidthType.ToString();
 			nameValuePairs["DiffusenessA"] = DiffusenessA.ToString();
@@ -1022,21 +1022,21 @@ namespace Yburn.Workers
 			nameValuePairs["ExpansionMode"] = ExpansionMode.ToString();
 			nameValuePairs["FeedDown3P"] = FeedDown3P.ToString();
 			nameValuePairs["FireballFieldTypes"] = FireballFieldTypes.ToStringifiedList();
-			nameValuePairs["FormationTimes"] = FormationTimes.ToStringifiedList();
+			nameValuePairs["FormationTimes"] = FormationTimes.ToUIString();
 			nameValuePairs["GridCellSize"] = GridCellSize.ToString();
 			nameValuePairs["GridRadius"] = GridRadius.ToString();
 			nameValuePairs["ImpactParam"] = ImpactParam.ToString();
-			nameValuePairs["ImpactParamsAtBinBoundaries"] = ImpactParamsAtBinBoundaries.ToStringifiedList();
+			nameValuePairs["ImpactParamsAtBinBoundaries"] = ImpactParamsAtBinBoundaries.ToUIString();
 			nameValuePairs["InitialCentralTemperature"] = InitialCentralTemperature.ToString();
 			nameValuePairs["LifeTime"] = LifeTime.ToString();
-			nameValuePairs["MeanParticipantsInBin"] = MeanParticipantsInBin.ToStringifiedList();
+			nameValuePairs["MeanParticipantsInBin"] = MeanParticipantsInBin.ToUIString();
 			nameValuePairs["MinimalCentralTemperature"] = MinimalCentralTemperature.ToString();
 			nameValuePairs["NuclearRadiusA"] = NuclearRadiusA.ToString();
 			nameValuePairs["NuclearRadiusB"] = NuclearRadiusB.ToString();
 			nameValuePairs["NucleonNumberA"] = NucleonNumberA.ToString();
 			nameValuePairs["NucleonNumberB"] = NucleonNumberB.ToString();
 			nameValuePairs["Outfile"] = Outfile;
-			nameValuePairs["ParticipantsAtBinBoundaries"] = ParticipantsAtBinBoundaries.ToStringifiedList();
+			nameValuePairs["ParticipantsAtBinBoundaries"] = ParticipantsAtBinBoundaries.ToUIString();
 			nameValuePairs["PotentialTypes"] = PotentialTypes.ToStringifiedList();
 			nameValuePairs["ProtonProtonBaseline"] = ProtonProtonBaseline.ToString();
 			nameValuePairs["ShapeFunctionTypeA"] = ShapeFunctionTypeA.ToString();
@@ -1044,7 +1044,7 @@ namespace Yburn.Workers
 			nameValuePairs["SnapRate"] = SnapRate.ToString();
 			nameValuePairs["TemperatureProfile"] = TemperatureProfile.ToString();
 			nameValuePairs["ThermalTime"] = ThermalTime.ToString();
-			nameValuePairs["TransverseMomenta"] = TransverseMomenta.ToStringifiedList();
+			nameValuePairs["TransverseMomenta"] = TransverseMomenta.ToUIString();
 
 			return nameValuePairs;
 		}

@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Globalization;
 using Yburn.Tests.Util;
 
 namespace Yburn.Fireball.Tests
@@ -17,7 +16,6 @@ namespace Yburn.Fireball.Tests
 		[TestInitialize]
 		public void TestInitialize()
 		{
-			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 			CancellationTokenSource = new CancellationTokenSource();
 			CancellationToken = CancellationTokenSource.Token;
 		}

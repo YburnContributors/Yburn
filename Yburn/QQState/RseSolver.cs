@@ -7,8 +7,8 @@
  * where x is real while f and z may be complex.
  **************************************************************************************************/
 
-using System;
 using Meta.Numerics;
+using System;
 
 namespace Yburn.QQState
 {

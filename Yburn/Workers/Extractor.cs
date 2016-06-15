@@ -10,145 +10,114 @@ namespace Yburn.Workers
 		 * Public static members, functions and properties
 		 ********************************************************************************************/
 
-		public static bool TryGetBool(
+		public static T TryGetValue<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			bool defaultIfNull
-			)
+			T defaultIfNull
+			) where T : IConvertible
 		{
-			string value = TryGetString(nameValuePairs, key);
-			return string.IsNullOrEmpty(value) ?
+			string stringifiedValue;
+			nameValuePairs.TryGetValue(key, out stringifiedValue);
+
+			return string.IsNullOrEmpty(stringifiedValue) ?
 				defaultIfNull
-				: bool.Parse(value);
+				: stringifiedValue.ToValue<T>();
 		}
 
-		public static double TryGetDouble(
+		public static void TryGetValue<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			double defaultIfNull
-			)
+			ref T value
+			) where T : IConvertible
 		{
-			string value = TryGetString(nameValuePairs, key);
-			return string.IsNullOrEmpty(value) ?
-				defaultIfNull
-				: double.Parse(value);
+			string stringifiedValue;
+			nameValuePairs.TryGetValue(key, out stringifiedValue);
+
+			if(!string.IsNullOrEmpty(stringifiedValue))
+			{
+				value = stringifiedValue.ToValue<T>();
+			}
 		}
 
-		public static string[] TryGetStringArray(
+		public static T[] TryGetValueArray<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			string[] defaultIfNull
-			)
+			T[] defaultIfNull
+			) where T : IConvertible
 		{
-			string value = TryGetString(nameValuePairs, key);
+			string value = TryGetValue(nameValuePairs, key, string.Empty);
 			return string.IsNullOrEmpty(value) ?
 				defaultIfNull
-				: value.ToStringArray();
+				: value.ToValueArray<T>();
 		}
 
-		public static double[] TryGetDoubleArray(
+		public static void TryGetValue<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			double[] defaultIfNull
-			)
+			ref T[] value
+			) where T : IConvertible
 		{
-			string value = TryGetString(nameValuePairs, key);
-			return string.IsNullOrEmpty(value) ?
-				defaultIfNull
-				: value.ToDoubleArray();
+			string stringifiedValue;
+			nameValuePairs.TryGetValue(key, out stringifiedValue);
+
+			if(!string.IsNullOrEmpty(stringifiedValue))
+			{
+				value = stringifiedValue.ToValueArray<T>();
+			}
 		}
 
-		public static double[][] TryGetDoubleArrayArray(
+		public static T[][] TryGetJaggedValueArray<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			double[][] defaultIfNull
-			)
+			T[][] defaultIfNull
+			) where T : IConvertible
 		{
-			string value = TryGetString(nameValuePairs, key);
+			string value = TryGetValue(nameValuePairs, key, string.Empty);
 			return string.IsNullOrEmpty(value) ?
 				defaultIfNull
-				: value.ToDoubleArrayArray();
+				: value.ToValueJaggedArray<T>();
 		}
 
-		public static int TryGetInt(
+		public static void TryGetValue<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			int defaultIfNull
-			)
+			ref T[][] value
+			) where T : IConvertible
 		{
-			string value = TryGetString(nameValuePairs, key);
-			return string.IsNullOrEmpty(value) ?
-				defaultIfNull
-				: int.Parse(value);
+			string stringifiedValue;
+			nameValuePairs.TryGetValue(key, out stringifiedValue);
+
+			if(!string.IsNullOrEmpty(stringifiedValue))
+			{
+				value = stringifiedValue.ToValueJaggedArray<T>();
+			}
 		}
 
-		public static int[] TryGetIntArray(
+		public static void TrySetValue<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			int[] defaultIfNull
-			)
+			T value
+			) where T : IFormattable
 		{
-			string value = TryGetString(nameValuePairs, key);
-			return string.IsNullOrEmpty(value) ?
-				defaultIfNull
-				: value.ToIntArray();
+			nameValuePairs[key] = value.ToUIString();
 		}
 
-		public static int[][] TryGetIntArrayArray(
+		public static void TrySetValue<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			int[][] defaultIfNull
-			)
+			T[] value
+			) where T : IFormattable
 		{
-			string value = TryGetString(nameValuePairs, key);
-			return string.IsNullOrEmpty(value) ?
-				defaultIfNull
-				: value.ToIntArrayArray();
+			nameValuePairs[key] = value.ToUIString();
 		}
 
-		public static TEnum TryGetEnum<TEnum>(
+		public static void TrySetValue<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			TEnum defaultIfNull
-			) where TEnum : struct, IConvertible
+			T[][] value
+			) where T : IFormattable
 		{
-			string value = TryGetString(nameValuePairs, key);
-			return string.IsNullOrEmpty(value) ?
-				defaultIfNull
-				: (TEnum)Enum.Parse(typeof(TEnum), value);
-		}
-
-		public static TEnum[] TryGetEnumArray<TEnum>(
-			Dictionary<string, string> nameValuePairs,
-			string key,
-			TEnum[] defaultIfNull
-			) where TEnum : struct, IConvertible
-		{
-			string value = TryGetString(nameValuePairs, key);
-			return string.IsNullOrEmpty(value) ?
-				defaultIfNull
-				: value.ToEnumArray<TEnum>();
-		}
-
-		public static string TryGetString(
-			Dictionary<string, string> nameValuePairs,
-			string key
-			)
-		{
-			return TryGetString(nameValuePairs, key, null);
-		}
-
-		public static string TryGetString(
-			Dictionary<string, string> nameValuePairs,
-			string key,
-			string defaultIfNull
-			)
-		{
-			string value;
-			nameValuePairs.TryGetValue(key, out value);
-			return string.IsNullOrEmpty(value) ?
-				defaultIfNull
-				: value;
+			nameValuePairs[key] = value.ToUIString();
 		}
 	}
 }

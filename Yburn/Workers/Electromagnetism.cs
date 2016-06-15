@@ -78,29 +78,29 @@ namespace Yburn.Workers
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			DataFileName = Extractor.TryGetString(nameValuePairs, "DataFileName", DataFileName);
-			DataFileName = Extractor.TryGetString(nameValuePairs, "Outfile", DataFileName);
-			DiffusenessAFm = Extractor.TryGetDouble(nameValuePairs, "DiffusenessA", DiffusenessAFm);
-			DiffusenessBFm = Extractor.TryGetDouble(nameValuePairs, "DiffusenessB", DiffusenessBFm);
-			EMFCalculationMethod = Extractor.TryGetEnum<EMFCalculationMethod>(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
-			EMFCalculationMethodSelection = Extractor.TryGetEnumArray<EMFCalculationMethod>(nameValuePairs, "EMFCalculationMethodSelection", EMFCalculationMethodSelection);
-			EffectiveTimeSamples = Extractor.TryGetInt(nameValuePairs, "EffectiveTimeSamples", EffectiveTimeSamples);
-			GridCellSizeFm = Extractor.TryGetDouble(nameValuePairs, "GridCellSize", GridCellSizeFm);
-			GridRadiusFm = Extractor.TryGetDouble(nameValuePairs, "GridRadius", GridRadiusFm);
-			ImpactParameterFm = Extractor.TryGetDouble(nameValuePairs, "ImpactParam", ImpactParameterFm);
-			NuclearRadiusAFm = Extractor.TryGetDouble(nameValuePairs, "NuclearRadiusA", NuclearRadiusAFm);
-			NuclearRadiusBFm = Extractor.TryGetDouble(nameValuePairs, "NuclearRadiusB", NuclearRadiusBFm);
-			NucleonNumberA = Extractor.TryGetInt(nameValuePairs, "NucleonNumberA", NucleonNumberA);
-			NucleonNumberB = Extractor.TryGetInt(nameValuePairs, "NucleonNumberB", NucleonNumberB);
-			PointChargeVelocity = Extractor.TryGetDouble(nameValuePairs, "PointChargeVelocity", PointChargeVelocity);
-			ProtonNumberA = Extractor.TryGetInt(nameValuePairs, "ProtonNumberA", ProtonNumberA);
-			ProtonNumberB = Extractor.TryGetInt(nameValuePairs, "ProtonNumberB", ProtonNumberB);
-			QGPConductivityMeV = Extractor.TryGetDouble(nameValuePairs, "QGPConductivityMeV", QGPConductivityMeV);
-			RadialDistance = Extractor.TryGetDouble(nameValuePairs, "RadialDistance", RadialDistance);
-			ShapeFunctionTypeA = Extractor.TryGetEnum<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeA", ShapeFunctionTypeA);
-			ShapeFunctionTypeB = Extractor.TryGetEnum<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeB", ShapeFunctionTypeB);
-			StartEffectiveTime = Extractor.TryGetDouble(nameValuePairs, "StartEffectiveTime", StartEffectiveTime);
-			StopEffectiveTime = Extractor.TryGetDouble(nameValuePairs, "StopEffectiveTime", StopEffectiveTime);
+			DataFileName = Extractor.TryGetValue(nameValuePairs, "DataFileName", DataFileName);
+			DataFileName = Extractor.TryGetValue(nameValuePairs, "Outfile", DataFileName);
+			DiffusenessAFm = Extractor.TryGetValue(nameValuePairs, "DiffusenessA", DiffusenessAFm);
+			DiffusenessBFm = Extractor.TryGetValue(nameValuePairs, "DiffusenessB", DiffusenessBFm);
+			EMFCalculationMethod = Extractor.TryGetValue(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
+			EMFCalculationMethodSelection = Extractor.TryGetValueArray(nameValuePairs, "EMFCalculationMethodSelection", EMFCalculationMethodSelection);
+			EffectiveTimeSamples = Extractor.TryGetValue(nameValuePairs, "EffectiveTimeSamples", EffectiveTimeSamples);
+			GridCellSizeFm = Extractor.TryGetValue(nameValuePairs, "GridCellSize", GridCellSizeFm);
+			GridRadiusFm = Extractor.TryGetValue(nameValuePairs, "GridRadius", GridRadiusFm);
+			ImpactParameterFm = Extractor.TryGetValue(nameValuePairs, "ImpactParam", ImpactParameterFm);
+			NuclearRadiusAFm = Extractor.TryGetValue(nameValuePairs, "NuclearRadiusA", NuclearRadiusAFm);
+			NuclearRadiusBFm = Extractor.TryGetValue(nameValuePairs, "NuclearRadiusB", NuclearRadiusBFm);
+			NucleonNumberA = Extractor.TryGetValue(nameValuePairs, "NucleonNumberA", NucleonNumberA);
+			NucleonNumberB = Extractor.TryGetValue(nameValuePairs, "NucleonNumberB", NucleonNumberB);
+			PointChargeVelocity = Extractor.TryGetValue(nameValuePairs, "PointChargeVelocity", PointChargeVelocity);
+			ProtonNumberA = Extractor.TryGetValue(nameValuePairs, "ProtonNumberA", ProtonNumberA);
+			ProtonNumberB = Extractor.TryGetValue(nameValuePairs, "ProtonNumberB", ProtonNumberB);
+			QGPConductivityMeV = Extractor.TryGetValue(nameValuePairs, "QGPConductivityMeV", QGPConductivityMeV);
+			RadialDistance = Extractor.TryGetValue(nameValuePairs, "RadialDistance", RadialDistance);
+			ShapeFunctionTypeA = Extractor.TryGetValue<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeA", ShapeFunctionTypeA);
+			ShapeFunctionTypeB = Extractor.TryGetValue<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeB", ShapeFunctionTypeB);
+			StartEffectiveTime = Extractor.TryGetValue(nameValuePairs, "StartEffectiveTime", StartEffectiveTime);
+			StopEffectiveTime = Extractor.TryGetValue(nameValuePairs, "StopEffectiveTime", StopEffectiveTime);
 		}
 
 		protected override Dictionary<string, string> GetVariableNameValuePairs()
@@ -109,7 +109,7 @@ namespace Yburn.Workers
 			nameValuePairs["DiffusenessA"] = DiffusenessAFm.ToString();
 			nameValuePairs["DiffusenessB"] = DiffusenessBFm.ToString();
 			nameValuePairs["EMFCalculationMethod"] = EMFCalculationMethod.ToString();
-			nameValuePairs["EMFCalculationMethodSelection"] = EMFCalculationMethodSelection.ToStringifiedList();
+			nameValuePairs["EMFCalculationMethodSelection"] = EMFCalculationMethodSelection.ToUIString();
 			nameValuePairs["EffectiveTimeSamples"] = EffectiveTimeSamples.ToString();
 			nameValuePairs["GridCellSize"] = GridCellSizeFm.ToString();
 			nameValuePairs["GridRadius"] = GridRadiusFm.ToString();

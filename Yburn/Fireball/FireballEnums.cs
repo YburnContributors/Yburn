@@ -10,24 +10,12 @@
 		x3P
 	};
 
-	public enum ShapeFunctionType
-	{
-		WoodsSaxonPotential,
-		GaussianDistribution
-	};
-
 	public enum DecayWidthType
 	{
 		None,
 		GammaDamp,
 		GammaDiss,
 		GammaTot
-	};
-
-	public enum ExpansionMode
-	{
-		Longitudinal,
-		Transverse
 	};
 
 	public enum DecayWidthEvaluationType
@@ -44,6 +32,12 @@
 		DiffusionApproximation,
 		FreeSpace
 	}
+
+	public enum ExpansionMode
+	{
+		Longitudinal,
+		Transverse
+	};
 
 	public enum FireballFieldType
 	{
@@ -67,6 +61,12 @@
 	public enum ProtonProtonBaseline
 	{
 		CMS2012
+	};
+
+	public enum ShapeFunctionType
+	{
+		WoodsSaxonPotential,
+		GaussianDistribution
 	};
 
 	public enum TemperatureProfile

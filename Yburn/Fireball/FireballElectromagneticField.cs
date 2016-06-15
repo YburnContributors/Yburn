@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Yburn.Fireball
+﻿namespace Yburn.Fireball
 {
 	public class FireballElectromagneticField
 	{

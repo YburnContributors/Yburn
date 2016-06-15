@@ -31,7 +31,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BatchFileReader.cs" />
-    <Compile Include="TypeConverter.cs" />
+    <Compile Include="ParaFileWriter.cs" />
+    <Compile Include="Converter.cs" />
     <Compile Include="TableFileReader.cs" />
     <Compile Include="ParaFileReader.cs" />
     <Compile Include="FileReader.cs" />

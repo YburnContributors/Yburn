@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yburn.Interfaces;
 
 namespace Yburn.Tests

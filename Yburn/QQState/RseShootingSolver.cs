@@ -15,9 +15,9 @@
  * after every shoot.
  **************************************************************************************************/
 
+using Meta.Numerics;
 using System;
 using System.Threading;
-using Meta.Numerics;
 
 namespace Yburn.QQState
 {

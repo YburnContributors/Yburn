@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Yburn.Fireball
+﻿namespace Yburn.Fireball
 {
 	public class MagneticFieldStrengthAverager
 	{
@@ -23,7 +17,9 @@ namespace Yburn.Fireball
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public double CalculateAverageMagneticFieldStrength()
+		public double CalculateAverageMagneticFieldStrength(
+			QuadraturePrecision precision
+			)
 		{
 			GlauberCalculation glauber = new GlauberCalculation(Param);
 			FireballElectromagneticField emf = new FireballElectromagneticField(Param);
@@ -43,10 +39,10 @@ namespace Yburn.Fireball
 					IntegrandIn1D integrand = z => emf.CalculateMagneticField(
 						formationTimeFm,
 						new EuclideanVector3D(x[i], y[j], z),
-						QuadraturePrecision.Use8Points).Norm;
+						precision).Norm;
 
 					magneticFieldValues[i, j] = Quadrature.UseGaussLegendre(
-						integrand, -mediumExpanseFm, mediumExpanseFm, QuadraturePrecision.Use8Points);
+						integrand, -mediumExpanseFm, mediumExpanseFm, precision);
 				}
 			}
 

@@ -1,6 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Globalization;
-using System.Threading;
 using Yburn.Tests.Util;
 
 namespace Yburn.Fireball.Tests
@@ -12,19 +10,14 @@ namespace Yburn.Fireball.Tests
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		[TestInitialize]
-		public void TestInitialize()
-		{
-			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-		}
-
 		[TestMethod]
 		public void CalculateAverageMagneticFieldStrength()
 		{
 			MagneticFieldStrengthAverager averager =
 				new MagneticFieldStrengthAverager(CreateFireballParam());
 
-			double result = averager.CalculateAverageMagneticFieldStrength();
+			double result = averager.CalculateAverageMagneticFieldStrength(
+				QuadraturePrecision.Use8Points);
 
 			AssertHelper.AssertRoundedEqual(0.41503035843345487, result);
 		}
@@ -40,7 +33,7 @@ namespace Yburn.Fireball.Tests
 			param.FormationTimesFm = new double[] { 0.4, 0.4, 0.4, 0.4, 0.4, 0.4 };
 			param.GridCellSizeFm = 1;
 			param.GridRadiusFm = 10;
-			param.ImpactParameterFm = 7;
+			param.ImpactParameterFm = 7.0;
 			param.NuclearRadiusAFm = 6.62;
 			param.NuclearRadiusBFm = 6.62;
 			param.NucleonNumberA = 208;

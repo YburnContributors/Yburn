@@ -1,7 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Threading;
 using Yburn.Fireball;
 using Yburn.Tests.Util;
 
@@ -13,12 +11,6 @@ namespace Yburn.Workers.Tests
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
-
-		[TestInitialize]
-		public void TestInitialize()
-		{
-			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-		}
 
 		[TestMethod]
 		public void CalculateInitialPopulations_CMS2012()

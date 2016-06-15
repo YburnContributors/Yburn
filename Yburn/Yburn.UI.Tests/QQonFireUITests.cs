@@ -1,7 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.IO;
 using System.Windows.Forms;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Yburn.QQonFire.UI;
 using Yburn.Tests.Util;
 

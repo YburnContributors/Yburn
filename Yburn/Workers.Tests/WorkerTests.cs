@@ -22,10 +22,10 @@ namespace Yburn.Workers.Tests
 		}
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentException))]
+		[ExpectedException(typeof(FormatException))]
 		public void ThrowIfInvalidEnumEntry()
 		{
-			"invalid entry".ToEnumArray<PotentialType>();
+			"invalid entry".ToValueArray<PotentialType>();
 		}
 
 		[TestMethod]
@@ -63,7 +63,7 @@ namespace Yburn.Workers.Tests
 			TEnum[] expectedArray
 			) where TEnum : struct, IConvertible
 		{
-			AssertSameEntries(expectedArray, stringifiedList.ToEnumArray<TEnum>());
+			AssertSameEntries(expectedArray, stringifiedList.ToValueArray<TEnum>());
 		}
 
 		private static void AssertSameEntries<T>(
