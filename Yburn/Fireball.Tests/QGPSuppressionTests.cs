@@ -1,5 +1,5 @@
-﻿using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading;
 using Yburn.Tests.Util;
 
 namespace Yburn.Fireball.Tests

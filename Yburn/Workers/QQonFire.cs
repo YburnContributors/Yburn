@@ -14,11 +14,10 @@ using System.IO;
 using System.Text;
 using Yburn.Fireball;
 using Yburn.QQState;
-using Yburn.Util;
 
 namespace Yburn.Workers
 {
-	public class QQonFire : Worker
+	public partial class QQonFire : Worker
 	{
 		/********************************************************************************************
 		 * Public static members, functions and properties
@@ -52,7 +51,7 @@ namespace Yburn.Workers
 		{
 			get
 			{
-				return new string[] { "ImpactParam (fm)", "InitialCentralTemperature (MeV)", "LifeTime (fm/c)" };
+				return new string[] { "ImpactParameter (fm)", "InitialCentralTemperature (MeV)", "LifeTime (fm/c)" };
 			}
 		}
 
@@ -216,12 +215,15 @@ namespace Yburn.Workers
 		{
 			PrepareJob("CalculateBinBoundaries", BinBoundsStatusTitles);
 
+			int[] numberCentralityBins;
+			string[][] centralityBinStrings;
 			List<double> impactParams;
 			List<double> nColls;
 			List<double> nParts;
 			List<double> dSigmadbs;
 			List<double> sigmas;
-			CalculateBinBoundaries(out impactParams, out nColls, out nParts, out dSigmadbs, out sigmas);
+			CalculateBinBoundaries(out numberCentralityBins, out centralityBinStrings,
+				out impactParams, out nColls, out nParts, out dSigmadbs, out sigmas);
 
 			if(JobCancelToken.IsCancellationRequested)
 			{
@@ -251,13 +253,13 @@ namespace Yburn.Workers
 				"Centrality",
 				"Bin size",
 				"<Npart>"));
-			for(int binGroupIndex = 0; binGroupIndex < NumberCentralityBins.Length; binGroupIndex++)
+			for(int binGroupIndex = 0; binGroupIndex < numberCentralityBins.Length; binGroupIndex++)
 			{
 				LogMessages.AppendLine("#");
-				for(int binIndex = 0; binIndex < NumberCentralityBins[binGroupIndex]; binIndex++)
+				for(int binIndex = 0; binIndex < numberCentralityBins[binGroupIndex]; binIndex++)
 				{
 					LogMessages.AppendLine(string.Format("#{0,11}{1,8} < b < {2,4}{3,12}",
-						CentralityBinStrings[binGroupIndex][binIndex],
+						centralityBinStrings[binGroupIndex][binIndex],
 						ImpactParamsAtBinBoundaries[binGroupIndex][binIndex].ToString("G4"),
 						ImpactParamsAtBinBoundaries[binGroupIndex][binIndex + 1].ToString("G4"),
 						MeanParticipantsInBin[binGroupIndex][binIndex].ToString("G4")));
@@ -270,6 +272,8 @@ namespace Yburn.Workers
 		}
 
 		private void CalculateBinBoundaries(
+			out int[] numberCentralityBins,
+			out string[][] centralityBinStrings,
 			out List<double> impactParams,
 			out List<double> nColls,
 			out List<double> nParts,
@@ -288,8 +292,8 @@ namespace Yburn.Workers
 			dSigmadbs = calculator.DSigmaDbs;
 			sigmas = calculator.Sigmas;
 
-			NumberCentralityBins = calculator.NumberCentralityBins;
-			CentralityBinStrings = GetCentralityBinStrings();
+			centralityBinStrings = GetCentralityBinStrings();
+			numberCentralityBins = calculator.NumberCentralityBins;
 			ImpactParamsAtBinBoundaries = calculator.ImpactParamsAtBinBoundaries;
 			ParticipantsAtBinBoundaries = calculator.ParticipantsAtBinBoundaries;
 			MeanParticipantsInBin = calculator.MeanParticipantsInBin;
@@ -299,17 +303,20 @@ namespace Yburn.Workers
 		{
 			PrepareJob("CalculateSuppression", BinBoundsStatusTitles);
 
+			int[] numberCentralityBins;
+			string[][] centralityBinStrings;
 			List<double> impactParams;
 			List<double> nColls;
 			List<double> nParts;
 			List<double> dSigmadbs;
 			List<double> sigmas;
-			CalculateBinBoundaries(out impactParams, out nColls, out nParts, out dSigmadbs, out sigmas);
+			CalculateBinBoundaries(out numberCentralityBins, out centralityBinStrings,
+				out impactParams, out nColls, out nParts, out dSigmadbs, out sigmas);
 
 			SetStatusVariables(SuppressionStatusTitles);
 			DetermineMaxLifeTime();
 
-			double[][][][] qgpSuppressionFactors = CalculateQGPSuppressionFactors();
+			double[][][][] qgpSuppressionFactors = CalculateQGPSuppressionFactors(numberCentralityBins);
 
 			// quit here if process has been aborted
 			if(JobCancelToken.IsCancellationRequested)
@@ -334,14 +341,14 @@ namespace Yburn.Workers
 
 			results.Append("\r\n#\r\n");
 
-			for(int binGroupIndex = 0; binGroupIndex < NumberCentralityBins.Length; binGroupIndex++)
+			for(int binGroupIndex = 0; binGroupIndex < numberCentralityBins.Length; binGroupIndex++)
 			{
-				for(int binIndex = 0; binIndex < NumberCentralityBins[binGroupIndex]; binIndex++)
+				for(int binIndex = 0; binIndex < numberCentralityBins[binGroupIndex]; binIndex++)
 				{
 					for(int pTIndex = 0; pTIndex < TransverseMomenta.Length; pTIndex++)
 					{
 						results.AppendFormat("{0,12}{1,12}{2,12}",
-							CentralityBinStrings[binGroupIndex][binIndex],
+							centralityBinStrings[binGroupIndex][binIndex],
 							MeanParticipantsInBin[binGroupIndex][binIndex].ToString("G4"),
 							TransverseMomenta[pTIndex].ToString("G4"));
 
@@ -355,7 +362,7 @@ namespace Yburn.Workers
 					}
 
 					results.AppendFormat("{0,12}{1,12}{2,12}",
-						CentralityBinStrings[binGroupIndex][binIndex],
+						centralityBinStrings[binGroupIndex][binIndex],
 						MeanParticipantsInBin[binGroupIndex][binIndex].ToString("G4"),
 						"<pT>");
 
@@ -375,7 +382,7 @@ namespace Yburn.Workers
 					results.AppendLine();
 				}
 
-				if(binGroupIndex < NumberCentralityBins.Length - 1)
+				if(binGroupIndex < numberCentralityBins.Length - 1)
 				{
 					results.AppendLine();
 				}
@@ -395,10 +402,10 @@ namespace Yburn.Workers
 			// calculate final suppression factors
 			double[][] rAAs = new double[TransverseMomenta.Length][];
 			// run through the centrality bin groups
-			for(int binGroupIndex = 0; binGroupIndex < NumberCentralityBins.Length; binGroupIndex++)
+			for(int binGroupIndex = 0; binGroupIndex < numberCentralityBins.Length; binGroupIndex++)
 			{
 				// run through the centrality bins
-				for(int binIndex = 0; binIndex < NumberCentralityBins[binGroupIndex]; binIndex++)
+				for(int binIndex = 0; binIndex < numberCentralityBins[binGroupIndex]; binIndex++)
 				{
 					// run through the pT bins
 					for(int pTIndex = 0; pTIndex < TransverseMomenta.Length; pTIndex++)
@@ -406,7 +413,7 @@ namespace Yburn.Workers
 						rAAs[pTIndex] = CalculateFullSuppressionFactors(qgpSuppressionFactors[binGroupIndex][binIndex][pTIndex]);
 
 						results.AppendFormat("{0,12}{1,12}{2,12}",
-							CentralityBinStrings[binGroupIndex][binIndex],
+							centralityBinStrings[binGroupIndex][binIndex],
 							MeanParticipantsInBin[binGroupIndex][binIndex].ToString("G4"),
 							TransverseMomenta[pTIndex].ToString("G4"));
 
@@ -420,7 +427,7 @@ namespace Yburn.Workers
 					}
 
 					results.AppendFormat("{0,12}{1,12}{2,12}",
-						CentralityBinStrings[binGroupIndex][binIndex],
+						centralityBinStrings[binGroupIndex][binIndex],
 						MeanParticipantsInBin[binGroupIndex][binIndex].ToString("G4"),
 						"<pT>");
 
@@ -440,7 +447,7 @@ namespace Yburn.Workers
 					results.AppendLine();
 				}
 
-				if(binGroupIndex < NumberCentralityBins.Length - 1)
+				if(binGroupIndex < numberCentralityBins.Length - 1)
 				{
 					results.AppendLine();
 				}
@@ -631,92 +638,6 @@ namespace Yburn.Workers
 			}
 		}
 
-		private double BjorkenLifeTime;
-
-		private DecayWidthType DecayWidthType;
-
-		private double DiffusenessA;
-
-		private double DiffusenessB;
-
-		private ExpansionMode ExpansionMode;
-
-		protected double FeedDown3P;
-
-		private string[] FireballFieldTypes = new string[0];
-
-		private double ImpactParam;
-
-		private double LifeTime;
-
-		private int NucleonNumberA;
-
-		private int NucleonNumberB;
-
-		private string Outfile = "stdout.txt";
-
-		private string[] PotentialTypes = new string[0];
-
-		protected ProtonProtonBaseline ProtonProtonBaseline;
-
-		private TemperatureProfile TemperatureProfile;
-
-		private double[] TransverseMomenta = new double[0];
-
-		private double NuclearRadiusA;
-
-		private double NuclearRadiusB;
-
-		private DecayWidthEvaluationType DecayWidthEvaluationType;
-
-		private double[] DecayWidthAveragingAngles = new double[0];
-
-		private double SnapRate;
-
-		private int[][] CentralityBinBoundaries = new int[0][];
-
-		protected int[] NumberCentralityBins;
-
-		private string[][] CentralityBinStrings;
-
-		private double[][] ImpactParamsAtBinBoundaries = new double[0][];
-
-		private double[][] ParticipantsAtBinBoundaries = new double[0][];
-
-		private double[][] MeanParticipantsInBin = new double[0][];
-
-		private string BottomiumStates = string.Empty;
-
-		private double InitialCentralTemperature;
-
-		private double MinimalCentralTemperature;
-
-		private double[] FormationTimes = new double[0];
-
-		private double ThermalTime;
-
-		private double GridCellSize;
-
-		private double GridRadius
-		{
-			get
-			{
-				return NumberGridPoints * GridCellSize;
-			}
-			set
-			{
-				NumberGridPoints = Convert.ToInt32(Math.Round(value / GridCellSize));
-			}
-		}
-
-		private int NumberGridPoints;
-
-		private double BeamRapidity;
-
-		private ShapeFunctionType ShapeFunctionTypeA;
-
-		private ShapeFunctionType ShapeFunctionTypeB;
-
 		private Fireball.Fireball CreateFireball()
 		{
 			return new Fireball.Fireball(CreateFireballParam());
@@ -754,8 +675,8 @@ namespace Yburn.Workers
 			param.DiffusenessBFm = DiffusenessB;
 			param.NuclearRadiusBFm = NuclearRadiusB;
 			param.GridCellSizeFm = GridCellSize;
-			param.NumberGridPoints = NumberGridPoints;
-			param.ImpactParameterFm = ImpactParam;
+			param.GridRadiusFm = GridRadius;
+			param.ImpactParameterFm = ImpactParameter;
 			param.ThermalTimeFm = ThermalTime;
 			param.FormationTimesFm = FormationTimes;
 			param.InitialCentralTemperatureMeV = InitialCentralTemperature;
@@ -781,7 +702,7 @@ namespace Yburn.Workers
 			int indexOfDot = outPathFile.LastIndexOf(".");
 			string tempPathFile = outPathFile.Substring(0, indexOfDot);
 			string extension = outPathFile.Substring(indexOfDot, outPathFile.Length - indexOfDot);
-			return (tempPathFile + "-b" + ImpactParam + extension).Replace("\\", "/");
+			return (tempPathFile + "-b" + ImpactParameter + extension).Replace("\\", "/");
 		}
 
 		private double[] CalculateFullSuppressionFactors(
@@ -814,10 +735,12 @@ namespace Yburn.Workers
 			};
 		}
 
-		protected double[][][][] CalculateQGPSuppressionFactors()
+		protected double[][][][] CalculateQGPSuppressionFactors(
+			int[] numberCentralityBins
+			)
 		{
 			QGPSuppression qgpSuppression = new QGPSuppression(CreateFireballParam(),
-				NumberCentralityBins, ImpactParamsAtBinBoundaries, JobCancelToken);
+				numberCentralityBins, ImpactParamsAtBinBoundaries, JobCancelToken);
 			qgpSuppression.TrackStatus(StatusValues);
 
 			return qgpSuppression.CalculateQGPSuppressionFactors();
@@ -845,22 +768,23 @@ namespace Yburn.Workers
 			StringBuilder gnuFileStringY = new StringBuilder();
 			StringBuilder gnuFileStringXY = new StringBuilder();
 
-			double range = GridCellSize * (NumberGridPoints - 1);
+			int numberGridPoints = Convert.ToInt32(Math.Round(GridRadius / GridCellSize)) + 1;
+
 			gnuFileStringX.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
-				range.ToString("G3")));
+				GridRadius.ToString("G3")));
 			gnuFileStringY.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
-				range.ToString("G3")));
+				GridRadius.ToString("G3")));
 			gnuFileStringXY.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\nset yr[0:{1,3}]\r\n\r\n",
-				range.ToString("G3"), range.ToString("G3")));
+				GridRadius.ToString("G3"), GridRadius.ToString("G3")));
 
 			string xPlotStringBegin = "p \"" + pathFile
-				+ "\" every " + NumberGridPoints.ToString() + " index ";
+				+ "\" every " + numberGridPoints.ToString() + " index ";
 			string xPlotStringEnd = " u 1:3 w p; pause .5";
 			string yPlotStringBegin = "p \"" + pathFile
-				+ "\" every ::::" + (NumberGridPoints - 1).ToString() + " index ";
+				+ "\" every ::::" + (numberGridPoints - 1).ToString() + " index ";
 			string yPlotStringEnd = " u 2:3 w p; pause .5";
-			string xYPlotStringBegin = "sp \"" + pathFile + "\" index ";
-			string xYPlotStringEnd = " u 1:2:3 w p; pause .5";
+			string xyPlotStringBegin = "sp \"" + pathFile + "\" index ";
+			string xyPlotStringEnd = " u 1:2:3 w p; pause .5";
 
 			int index = 0;
 			double dt = 1.0 / SnapRate;
@@ -889,7 +813,7 @@ namespace Yburn.Workers
 
 				gnuFileStringX.AppendLine(xPlotStringBegin + index + xPlotStringEnd);
 				gnuFileStringY.AppendLine(yPlotStringBegin + index + yPlotStringEnd);
-				gnuFileStringXY.AppendLine(xYPlotStringBegin + index + xYPlotStringEnd);
+				gnuFileStringXY.AppendLine(xyPlotStringBegin + index + xyPlotStringEnd);
 
 				index++;
 			}
@@ -908,7 +832,7 @@ namespace Yburn.Workers
 			File.WriteAllText(pathFile + "-plotXY.plt", gnuFileStringXY.ToString());
 		}
 
-		// get Bjorken- and QGP lifetime for ImpactParam = 0
+		// get Bjorken- and QGP lifetime for ImpactParameter = 0
 		private void DetermineMaxLifeTime()
 		{
 			Fireball.Fireball fireball = CreateFireballToDetermineMaxLifeTime();
@@ -964,89 +888,6 @@ namespace Yburn.Workers
 				default:
 					throw new Exception("Invalid Baseline.");
 			}
-		}
-
-		protected override void SetVariableNameValuePairs(
-			Dictionary<string, string> nameValuePairs
-			)
-		{
-			BeamRapidity = Extractor.TryGetDouble(nameValuePairs, "BeamRapidity", BeamRapidity);
-			BjorkenLifeTime = Extractor.TryGetDouble(nameValuePairs, "BjorkenLifeTime", BjorkenLifeTime);
-			BottomiumStates = Extractor.TryGetString(nameValuePairs, "BottomiumStates", BottomiumStates);
-			CentralityBinBoundaries = Extractor.TryGetIntArrayArray(nameValuePairs, "CentralityBinBoundaries", CentralityBinBoundaries);
-			DecayWidthAveragingAngles = Extractor.TryGetDoubleArray(nameValuePairs, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
-			DecayWidthEvaluationType = Extractor.TryGetEnum<DecayWidthEvaluationType>(nameValuePairs, "DecayWidthEvaluationType", DecayWidthEvaluationType);
-			DecayWidthType = Extractor.TryGetEnum<DecayWidthType>(nameValuePairs, "DecayWidthType", DecayWidthType);
-			DiffusenessA = Extractor.TryGetDouble(nameValuePairs, "DiffusenessA", DiffusenessA);
-			DiffusenessB = Extractor.TryGetDouble(nameValuePairs, "DiffusenessB", DiffusenessB);
-			ExpansionMode = Extractor.TryGetEnum<ExpansionMode>(nameValuePairs, "ExpansionMode", ExpansionMode);
-			FeedDown3P = Extractor.TryGetDouble(nameValuePairs, "FeedDown3P", FeedDown3P);
-			FireballFieldTypes = Extractor.TryGetStringArray(nameValuePairs, "FireballFieldTypes", FireballFieldTypes);
-			FormationTimes = Extractor.TryGetDoubleArray(nameValuePairs, "FormationTimes", FormationTimes);
-			GridCellSize = Extractor.TryGetDouble(nameValuePairs, "GridCellSize", GridCellSize);
-			GridRadius = Extractor.TryGetDouble(nameValuePairs, "GridRadius", GridRadius);
-			ImpactParam = Extractor.TryGetDouble(nameValuePairs, "ImpactParam", ImpactParam);
-			ImpactParamsAtBinBoundaries = Extractor.TryGetDoubleArrayArray(nameValuePairs, "ImpactParamsAtBinBoundaries", ImpactParamsAtBinBoundaries);
-			InitialCentralTemperature = Extractor.TryGetDouble(nameValuePairs, "InitialCentralTemperature", InitialCentralTemperature);
-			LifeTime = Extractor.TryGetDouble(nameValuePairs, "LifeTime", LifeTime);
-			MeanParticipantsInBin = Extractor.TryGetDoubleArrayArray(nameValuePairs, "MeanParticipantsInBin", MeanParticipantsInBin);
-			MinimalCentralTemperature = Extractor.TryGetDouble(nameValuePairs, "MinimalCentralTemperature", MinimalCentralTemperature);
-			NuclearRadiusA = Extractor.TryGetDouble(nameValuePairs, "NuclearRadiusA", NuclearRadiusA);
-			NuclearRadiusB = Extractor.TryGetDouble(nameValuePairs, "NuclearRadiusB", NuclearRadiusB);
-			NucleonNumberA = Extractor.TryGetInt(nameValuePairs, "NucleonNumberA", NucleonNumberA);
-			NucleonNumberB = Extractor.TryGetInt(nameValuePairs, "NucleonNumberB", NucleonNumberB);
-			Outfile = Extractor.TryGetString(nameValuePairs, "Outfile", Outfile);
-			ParticipantsAtBinBoundaries = Extractor.TryGetDoubleArrayArray(nameValuePairs, "ParticipantsAtBinBoundaries", ParticipantsAtBinBoundaries);
-			PotentialTypes = Extractor.TryGetStringArray(nameValuePairs, "PotentialTypes", PotentialTypes);
-			ProtonProtonBaseline = Extractor.TryGetEnum<ProtonProtonBaseline>(nameValuePairs, "ProtonProtonBaseline", ProtonProtonBaseline);
-			ShapeFunctionTypeA = Extractor.TryGetEnum<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeA", ShapeFunctionTypeA);
-			ShapeFunctionTypeB = Extractor.TryGetEnum<ShapeFunctionType>(nameValuePairs, "ShapeFunctionTypeB", ShapeFunctionTypeB);
-			SnapRate = Extractor.TryGetDouble(nameValuePairs, "SnapRate", SnapRate);
-			TemperatureProfile = Extractor.TryGetEnum<TemperatureProfile>(nameValuePairs, "TemperatureProfile", TemperatureProfile);
-			ThermalTime = Extractor.TryGetDouble(nameValuePairs, "ThermalTime", ThermalTime);
-			TransverseMomenta = Extractor.TryGetDoubleArray(nameValuePairs, "TransverseMomenta", TransverseMomenta);
-		}
-
-		protected override Dictionary<string, string> GetVariableNameValuePairs()
-		{
-			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs["BeamRapidity"] = BeamRapidity.ToString();
-			nameValuePairs["BjorkenLifeTime"] = BjorkenLifeTime.ToString();
-			nameValuePairs["BottomiumStates"] = BottomiumStates;
-			nameValuePairs["CentralityBinBoundaries"] = CentralityBinBoundaries.ToStringifiedList();
-			nameValuePairs["DecayWidthAveragingAngles"] = DecayWidthAveragingAngles.ToStringifiedList();
-			nameValuePairs["DecayWidthEvaluationType"] = DecayWidthEvaluationType.ToString();
-			nameValuePairs["DecayWidthType"] = DecayWidthType.ToString();
-			nameValuePairs["DiffusenessA"] = DiffusenessA.ToString();
-			nameValuePairs["DiffusenessB"] = DiffusenessB.ToString();
-			nameValuePairs["ExpansionMode"] = ExpansionMode.ToString();
-			nameValuePairs["FeedDown3P"] = FeedDown3P.ToString();
-			nameValuePairs["FireballFieldTypes"] = FireballFieldTypes.ToStringifiedList();
-			nameValuePairs["FormationTimes"] = FormationTimes.ToStringifiedList();
-			nameValuePairs["GridCellSize"] = GridCellSize.ToString();
-			nameValuePairs["GridRadius"] = GridRadius.ToString();
-			nameValuePairs["ImpactParam"] = ImpactParam.ToString();
-			nameValuePairs["ImpactParamsAtBinBoundaries"] = ImpactParamsAtBinBoundaries.ToStringifiedList();
-			nameValuePairs["InitialCentralTemperature"] = InitialCentralTemperature.ToString();
-			nameValuePairs["LifeTime"] = LifeTime.ToString();
-			nameValuePairs["MeanParticipantsInBin"] = MeanParticipantsInBin.ToStringifiedList();
-			nameValuePairs["MinimalCentralTemperature"] = MinimalCentralTemperature.ToString();
-			nameValuePairs["NuclearRadiusA"] = NuclearRadiusA.ToString();
-			nameValuePairs["NuclearRadiusB"] = NuclearRadiusB.ToString();
-			nameValuePairs["NucleonNumberA"] = NucleonNumberA.ToString();
-			nameValuePairs["NucleonNumberB"] = NucleonNumberB.ToString();
-			nameValuePairs["Outfile"] = Outfile;
-			nameValuePairs["ParticipantsAtBinBoundaries"] = ParticipantsAtBinBoundaries.ToStringifiedList();
-			nameValuePairs["PotentialTypes"] = PotentialTypes.ToStringifiedList();
-			nameValuePairs["ProtonProtonBaseline"] = ProtonProtonBaseline.ToString();
-			nameValuePairs["ShapeFunctionTypeA"] = ShapeFunctionTypeA.ToString();
-			nameValuePairs["ShapeFunctionTypeB"] = ShapeFunctionTypeB.ToString();
-			nameValuePairs["SnapRate"] = SnapRate.ToString();
-			nameValuePairs["TemperatureProfile"] = TemperatureProfile.ToString();
-			nameValuePairs["ThermalTime"] = ThermalTime.ToString();
-			nameValuePairs["TransverseMomenta"] = TransverseMomenta.ToStringifiedList();
-
-			return nameValuePairs;
 		}
 	}
 }

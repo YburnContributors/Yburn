@@ -16,7 +16,7 @@ namespace Yburn.Tests.Util
 				nameValuePairs["EffectiveTimeSamples"] = "3333";
 				nameValuePairs["GridCellSize"] = "3333";
 				nameValuePairs["GridRadius"] = "3333";
-				nameValuePairs["ImpactParam"] = "3333";
+				nameValuePairs["ImpactParameter"] = "3333";
 				nameValuePairs["NuclearRadiusA"] = "3333";
 				nameValuePairs["NuclearRadiusB"] = "3333";
 				nameValuePairs["NucleonNumberA"] = "3333";
@@ -110,7 +110,7 @@ namespace Yburn.Tests.Util
 				nameValuePairs["DiffusenessA"] = "3333";
 				nameValuePairs["DiffusenessB"] = "3333";
 				nameValuePairs["FireballFieldTypes"] = "Temperature";
-				nameValuePairs["ImpactParam"] = "3333";
+				nameValuePairs["ImpactParameter"] = "3333";
 				nameValuePairs["FeedDown3P"] = "3333";
 				nameValuePairs["NucleonNumberA"] = "3333";
 				nameValuePairs["NucleonNumberB"] = "3333";

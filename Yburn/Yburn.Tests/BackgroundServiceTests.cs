@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Threading;
@@ -19,7 +18,6 @@ namespace Yburn.Tests
 		[TestInitialize]
 		public void TestInitialize()
 		{
-			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 			BackgroundService = new BackgroundService();
 			FileCleaner = new FileCleaner();
 		}

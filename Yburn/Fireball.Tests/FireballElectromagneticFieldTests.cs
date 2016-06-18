@@ -1,6 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Globalization;
-using System.Threading;
 using Yburn.Tests.Util;
 
 namespace Yburn.Fireball.Tests
@@ -11,12 +9,6 @@ namespace Yburn.Fireball.Tests
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
-
-		[TestInitialize]
-		public void TestInitialize()
-		{
-			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-		}
 
 		[TestMethod]
 		public void CalculateSingleNucleusMagneticField()

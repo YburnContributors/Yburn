@@ -6,8 +6,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading;
 
 namespace Yburn.Fireball
 {
@@ -37,7 +39,16 @@ namespace Yburn.Fireball
 	public static class QQDataDoc
 	{
 		/********************************************************************************************
-		 * Public members, functions and properties
+		 * Constructors
+		 ********************************************************************************************/
+
+		static QQDataDoc()
+		{
+			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+		}
+
+		/********************************************************************************************
+		 * Public static members, functions and properties
 		 ********************************************************************************************/
 
 		public static void CreateNewDataDoc(

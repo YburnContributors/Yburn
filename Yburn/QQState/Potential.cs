@@ -1,6 +1,6 @@
-﻿using System;
-using Meta.Numerics;
+﻿using Meta.Numerics;
 using Meta.Numerics.Functions;
+using System;
 
 namespace Yburn.QQState
 {

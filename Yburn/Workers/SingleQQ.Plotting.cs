@@ -152,18 +152,6 @@ namespace Yburn.Workers
 
 		private delegate List<List<double>> DataListCreator();
 
-		private string DataFileName = string.Empty;
-
-		private string RunningCouplingTypeSelection = string.Empty;
-
-		private double MinEnergy;
-
-		private double MinRadius;
-
-		private int Samples;
-
-		private double EnergyScale;
-
 		private string DataPathFile
 		{
 			get
@@ -393,7 +381,7 @@ namespace Yburn.Workers
 			int plotColumn = 2;
 
 			foreach(RunningCouplingType type in
-				RunningCouplingTypeSelection.ToEnumArray<RunningCouplingType>())
+				RunningCouplingTypeSelection.ToValueArray<RunningCouplingType>())
 			{
 				string title = type.ToString().Replace("_", "\\\\_");
 				if(isFirstCommand)
@@ -430,7 +418,7 @@ namespace Yburn.Workers
 			)
 		{
 			foreach(RunningCouplingType type in
-				RunningCouplingTypeSelection.ToEnumArray<RunningCouplingType>())
+				RunningCouplingTypeSelection.ToValueArray<RunningCouplingType>())
 			{
 				List<double> alphaValues = GetAlphaValueList(energyValues, type);
 				dataList.Add(alphaValues);

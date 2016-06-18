@@ -159,7 +159,7 @@ namespace Yburn.Fireball
 
 			if(Param.ImpactParameterFm < 0)
 			{
-				throw new Exception("ImpactParam < 0.");
+				throw new Exception("ImpactParameter < 0.");
 			}
 		}
 

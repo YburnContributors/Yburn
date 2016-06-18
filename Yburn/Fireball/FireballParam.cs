@@ -46,19 +46,19 @@ namespace Yburn.Fireball
 
 		public double GridCellSizeFm;
 
-		public double GridRadiusFm
+		public double GridRadiusFm;
+
+		public int NumberGridPoints
 		{
 			get
 			{
-				return NumberGridPoints * GridCellSizeFm;
+				return Convert.ToInt32(Math.Round(GridRadiusFm / GridCellSizeFm)) + 1;
 			}
 			set
 			{
-				NumberGridPoints = Convert.ToInt32(Math.Round(value / GridCellSizeFm));
+				GridRadiusFm = (value - 1) * GridCellSizeFm;
 			}
 		}
-
-		public int NumberGridPoints;
 
 		public int NumberGridPointsInX
 		{
@@ -142,6 +142,7 @@ namespace Yburn.Fireball
 			param.ExpansionMode = ExpansionMode;
 			param.FormationTimesFm = FormationTimesFm;
 			param.GridCellSizeFm = GridCellSizeFm;
+			param.GridRadiusFm = GridRadiusFm;
 			param.ImpactParameterFm = ImpactParameterFm;
 			param.InitialCentralTemperatureMeV = InitialCentralTemperatureMeV;
 			param.MinimalCentralTemperatureMeV = MinimalCentralTemperatureMeV;
@@ -149,7 +150,6 @@ namespace Yburn.Fireball
 			param.NucleonNumberB = NucleonNumberB;
 			param.NuclearRadiusAFm = NuclearRadiusAFm;
 			param.NuclearRadiusBFm = NuclearRadiusBFm;
-			param.NumberGridPoints = NumberGridPoints;
 			param.ProtonNumberA = ProtonNumberA;
 			param.ProtonNumberB = ProtonNumberB;
 			param.QGPConductivityMeV = QGPConductivityMeV;

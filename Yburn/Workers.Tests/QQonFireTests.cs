@@ -14,12 +14,6 @@ namespace Yburn.Workers.Tests
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		[TestInitialize]
-		public void TestInitialize()
-		{
-			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-		}
-
 		[TestMethod]
 		public void CalculateInitialPopulations_CMS2012()
 		{
@@ -83,7 +77,7 @@ namespace Yburn.Workers.Tests
 			nameValuePairs.Add("FormationTimes", "0.3,0.3,0.3,0.3,0.3,0.3");
 			nameValuePairs.Add("ThermalTime", "0.1");
 			nameValuePairs.Add("GridCellSize", "1");
-			nameValuePairs.Add("GridRadius", "11");
+			nameValuePairs.Add("GridRadius", "10");
 			nameValuePairs.Add("BeamRapidity", "7.99");
 			nameValuePairs.Add("DecayWidthEvaluationType", type.ToString());
 			nameValuePairs.Add("ShapeFunctionTypeA", "WoodsSaxonPotential");
@@ -234,9 +228,9 @@ namespace Yburn.Workers.Tests
 		{
 			StatusValues = new string[3];
 			VariableNameValuePairs = GetQQonFireVariables(type);
-			NumberCentralityBins = new int[] { 7, 1 };
+			int[] numberCentralityBins = new int[] { 7, 1 };
 
-			return CalculateQGPSuppressionFactors();
+			return CalculateQGPSuppressionFactors(numberCentralityBins);
 		}
 	}
 }

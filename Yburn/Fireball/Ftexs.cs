@@ -379,28 +379,28 @@ namespace Yburn.Fireball
 			// X-currents
 			for(int k = 0; k < NY; k++)
 			{
-                // boundary conditions at lower X-boundary
-                if (NX == NY)
-                {
-                    JSX[0, k] = -JSX[1, k];
-                    JMXX[0, k] = JMXX[1, k];
-                    JMYX[0, k] = -JMYX[1, k];
-                }
-                else
-                {
-                    if (VXedge[0, k] < 0)
-                    {
-                        JSX[0, k] = S[0, k] * VXedge[0, k];
-                        JMXX[0, k] = MX[0, k] * VXedge[0, k];
-                        JMYX[0, k] = MY[0, k] * VXedge[0, k];
-                    }
-                    else
-                    {
-                        JSX[0, k] = 0;
-                        JMXX[0, k] = 0;
-                        JMYX[0, k] = 0;
-                    }
-                }
+				// boundary conditions at lower X-boundary
+				if(NX == NY)
+				{
+					JSX[0, k] = -JSX[1, k];
+					JMXX[0, k] = JMXX[1, k];
+					JMYX[0, k] = -JMYX[1, k];
+				}
+				else
+				{
+					if(VXedge[0, k] < 0)
+					{
+						JSX[0, k] = S[0, k] * VXedge[0, k];
+						JMXX[0, k] = MX[0, k] * VXedge[0, k];
+						JMYX[0, k] = MY[0, k] * VXedge[0, k];
+					}
+					else
+					{
+						JSX[0, k] = 0;
+						JMXX[0, k] = 0;
+						JMYX[0, k] = 0;
+					}
+				}
 
 				for(int j = 1; j < NX; j++)
 				{

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using Yburn.Interfaces;
-using Yburn.Util;
 
 namespace Yburn
 {
@@ -46,18 +45,6 @@ namespace Yburn
 			OnJobFinished();
 		}
 
-		public Dictionary<string, string> VariableNameValuePairs
-		{
-			get
-			{
-				return GetVariableNameValuePairs();
-			}
-			set
-			{
-				SetVariableNameValuePairs(value ?? new Dictionary<string, string>());
-			}
-		}
-
 		public string[] StatusTitles
 		{
 			get;
@@ -81,6 +68,18 @@ namespace Yburn
 			return Enum.GetNames(GetEnumTypeByName(enumName));
 		}
 
+		public Dictionary<string, string> VariableNameValuePairs
+		{
+			get
+			{
+				return GetVariableNameValuePairs();
+			}
+			set
+			{
+				SetVariableNameValuePairs(value ?? new Dictionary<string, string>());
+			}
+		}
+
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
@@ -95,95 +94,13 @@ namespace Yburn
 			return pathFile;
 		}
 
-		protected static void AppendLogHeaderLine(
-			 StringBuilder stringBuilder,
-			 string name,
-			 bool value
-			 )
-		{
-			AppendLogHeaderLine(stringBuilder, name, value.ToString());
-		}
-
-		protected static void AppendLogHeaderLine(
-			 StringBuilder stringBuilder,
-			 string name,
-			 double value
-			 )
-		{
-			AppendLogHeaderLine(stringBuilder, name, value.ToString("G4"));
-		}
-
-		protected static void AppendLogHeaderLine(
-			 StringBuilder stringBuilder,
-			 string name,
-			 double[] value
-			 )
-		{
-			AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
-		}
-
-		protected static void AppendLogHeaderLine(
-			 StringBuilder stringBuilder,
-			 string name,
-			 double[][] value
-			 )
-		{
-			AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
-		}
-
-		protected static void AppendLogHeaderLine(
-			 StringBuilder stringBuilder,
-			 string name,
-			 Enum value
-			 )
-		{
-			AppendLogHeaderLine(stringBuilder, name, value.ToString());
-		}
-
-		protected static void AppendLogHeaderLine(
-			 StringBuilder stringBuilder,
-			 string name,
-			 int value
-			 )
-		{
-			AppendLogHeaderLine(stringBuilder, name, value.ToString());
-		}
-
-		protected static void AppendLogHeaderLine(
-			 StringBuilder stringBuilder,
-			 string name,
-			 int[] value
-			 )
-		{
-			AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
-		}
-
-		protected static void AppendLogHeaderLine(
-			 StringBuilder stringBuilder,
-			 string name,
-			 int[][] value
-			 )
-		{
-			AppendLogHeaderLine(stringBuilder, name, value.ToStringifiedList());
-		}
-
-		protected static void AppendLogHeaderLine(
+		private static void AppendLogHeaderLine(
 		 StringBuilder stringBuilder,
 		 string name,
 		 string value
 		 )
 		{
 			stringBuilder.AppendLine(string.Format("#{0,35}    {1}", name, value));
-		}
-
-		protected static void AppendLogHeaderLine(
-		 StringBuilder stringBuilder,
-		 string name,
-		 string[] value
-		 )
-		{
-			stringBuilder.AppendLine(
-				string.Format("#{0,35}    {1}", name, value.ToStringifiedList()));
 		}
 
 		/********************************************************************************************
@@ -222,7 +139,7 @@ namespace Yburn
 			Dictionary<string, string> nameValuePairs
 			);
 
-		protected void AppendLogHeaderVariableNameValuePairs(
+		private void AppendVariableNameValuePairs(
 			 StringBuilder stringBuilder
 			)
 		{
@@ -286,7 +203,7 @@ namespace Yburn
 				AppendLogHeaderLine(stringBuilder, "Name and Version", NameVersion);
 				AppendLogHeaderLine(stringBuilder, "Job specifier", CurrentJobTitle);
 				AppendLogHeaderLine(stringBuilder, "Job started at", JobStartTimeStampString);
-				AppendLogHeaderVariableNameValuePairs(stringBuilder);
+				AppendVariableNameValuePairs(stringBuilder);
 
 				return stringBuilder.ToString();
 			}

@@ -1,15 +1,14 @@
-﻿using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yburn;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 
-namespace UtilTests
+namespace Yburn.Util.Tests
 {
 	[TestClass]
 	public class ParaFileWriterTests
 	{
 		/********************************************************************************************
-       * Public members, functions and properties
-       ********************************************************************************************/
+         * Public members, functions and properties
+         ********************************************************************************************/
 
 		[TestInitialize]
 		public void TestInitialize()
@@ -75,8 +74,8 @@ namespace UtilTests
 		}
 
 		/********************************************************************************************
-       * Private/protected static members, functions and properties
-       ********************************************************************************************/
+         * Private/protected static members, functions and properties
+         ********************************************************************************************/
 
 		private Dictionary<string, string> NameValuePairs;
 

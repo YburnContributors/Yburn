@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Yburn.QQState
+﻿namespace Yburn.QQState
 {
 	public static class PhysConst
 	{

@@ -4,16 +4,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Threading;
 
-namespace Yburn
+namespace Yburn.Util
 {
 	public class ParaFileWriter
 	{
 		/********************************************************************************************
-       * Public static members, functions and properties
-       ********************************************************************************************/
+         * Public static members, functions and properties
+         ********************************************************************************************/
 
 		public static void Write(
 			string pathFile,
@@ -29,6 +31,15 @@ namespace Yburn
 		{
 			return IsNullOrEmpty(nameValuePairs) ?
 				string.Empty : GetNonEmptyParaFileText(nameValuePairs);
+		}
+
+		/********************************************************************************************
+		 * Constructors
+		 ********************************************************************************************/
+
+		protected ParaFileWriter()
+		{
+			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 		}
 
 		/********************************************************************************************

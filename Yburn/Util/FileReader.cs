@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Threading;
 
 namespace Yburn.Util
 {
@@ -11,6 +13,7 @@ namespace Yburn.Util
 
 		protected FileReader()
 		{
+			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 		}
 
 		/********************************************************************************************

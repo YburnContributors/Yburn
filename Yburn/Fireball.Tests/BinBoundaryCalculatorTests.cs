@@ -1,8 +1,7 @@
-﻿using System;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Threading;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Globalization;
 using Yburn.Tests.Util;
 
 namespace Yburn.Fireball.Tests
@@ -17,7 +16,6 @@ namespace Yburn.Fireball.Tests
 		[TestInitialize]
 		public void TestInitialize()
 		{
-			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
 			CancellationTokenSource = new CancellationTokenSource();
 			CancellationToken = CancellationTokenSource.Token;
 		}
@@ -45,7 +43,7 @@ namespace Yburn.Fireball.Tests
 
 		private static double GridCellSize = 0.4;
 
-		private static int NumberGridPoints = 26;
+		private static int GridRadiusFm = 10;
 
 		private List<KeyValuePair<double, double>>[] GetTemperatureDecayWidthList()
 		{
@@ -102,7 +100,7 @@ namespace Yburn.Fireball.Tests
 			param.FormationTimesFm = new double[] { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
 
 			param.GridCellSizeFm = GridCellSize;
-			param.NumberGridPoints = NumberGridPoints;
+			param.GridRadiusFm = GridRadiusFm;
 
 			param.NucleonNumberA = 208;
 			param.NuclearRadiusAFm = 6.62;

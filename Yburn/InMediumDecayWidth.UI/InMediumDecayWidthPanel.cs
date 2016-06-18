@@ -120,12 +120,12 @@ namespace Yburn.InMediumDecayWidth.UI
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			TbxMinTemperature.Text = nameValuePairs["MinTemperature"].ToString();
-			TbxMaxTemperature.Text = nameValuePairs["MaxTemperature"].ToString();
-			TbxMediumVelocity.Text = nameValuePairs["MediumVelocity"].ToString();
-			TbxDecayWidthAveragingAngles.Text = nameValuePairs["DecayWidthAveragingAngles"].ToString();
-			TbxTemperatureStepSize.Text = nameValuePairs["TemperatureStepSize"].ToString();
-			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"].ToString();
+			TbxMinTemperature.Text = nameValuePairs["MinTemperature"];
+			TbxMaxTemperature.Text = nameValuePairs["MaxTemperature"];
+			TbxMediumVelocity.Text = nameValuePairs["MediumVelocity"];
+			TbxDecayWidthAveragingAngles.Text = nameValuePairs["DecayWidthAveragingAngles"];
+			TbxTemperatureStepSize.Text = nameValuePairs["TemperatureStepSize"];
+			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"];
 			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];
 			MsxBottomiumStates.SelectionString = nameValuePairs["BottomiumStates"];
 			ChkUseAveragedTemperature.Checked = bool.Parse(nameValuePairs["UseAveragedTemperature"]);

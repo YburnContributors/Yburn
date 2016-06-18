@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using Meta.Numerics;
+﻿using Meta.Numerics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using System.Collections.Generic;
 using Yburn.Tests.Util;
 
 namespace Yburn.QQState.Tests
