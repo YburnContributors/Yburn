@@ -5,8 +5,8 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Yburn.FileUtil;
 using Yburn.Interfaces;
-using Yburn.Util;
 
 namespace Yburn
 {

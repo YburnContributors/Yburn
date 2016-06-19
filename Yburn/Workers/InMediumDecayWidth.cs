@@ -4,7 +4,6 @@ using System.IO;
 using System.Text;
 using Yburn.Fireball;
 using Yburn.QQState;
-using Yburn.Util;
 
 namespace Yburn.Workers
 {
@@ -32,7 +31,7 @@ namespace Yburn.Workers
 			LogMessages.AppendFormat("#\r\n#\r\n");
 			LogMessages.AppendFormat(temperatureDecayWidthList);
 
-			File.WriteAllText(YburnConfigFile.OutputPath + Outfile,
+			File.WriteAllText(YburnConfigFile.OutputPath + DataFileName,
 				LogHeader + "#\r\n#\r\n" + temperatureDecayWidthList);
 		}
 
@@ -43,9 +42,13 @@ namespace Yburn.Workers
 			StringBuilder plotFile = new StringBuilder();
 			AppendHeader_InMediumDecayWidth(plotFile);
 			plotFile.AppendLine();
-			plotFile.Append("plot");
-			AppendPlotCommands_AveragedDecayWidth(plotFile);
-			AppendPlotCommands_AveragedTemperature(plotFile);
+
+			string[][] titleList = new string[2][];
+			titleList[0] = Array.ConvertAll(BottomiumStates,
+				state => GetBottomiumStateGnuplotCode(state) + ", {/Symbol G}_{averaged}(T)");
+			titleList[1] = Array.ConvertAll(BottomiumStates,
+				state => GetBottomiumStateGnuplotCode(state) + ", {/Symbol G}(T_{averaged})");
+			AppendPlotCommands(plotFile, titleList, "linespoints");
 
 			WritePlotFile(plotFile);
 
@@ -76,42 +79,6 @@ namespace Yburn.Workers
 			{
 				throw new Exception("Invalid enum name \"" + enumName + "\".");
 			}
-		}
-
-		private string DataPathFile
-		{
-			get
-			{
-				return YburnConfigFile.OutputPath + Outfile;
-			}
-		}
-
-		private string FormattedDataPathFile
-		{
-			get
-			{
-				return DataPathFile.Replace("\\", "/");
-			}
-		}
-
-		private string FormattedPlotPathFile
-		{
-			get
-			{
-				return FormattedDataPathFile + ".plt";
-			}
-		}
-
-		private void WritePlotFile(
-			StringBuilder plotFile
-			)
-		{
-			File.WriteAllText(FormattedPlotPathFile, plotFile.ToString());
-		}
-
-		private Process StartGnuplot()
-		{
-			return Process.Start("wgnuplot", "\"" + FormattedPlotPathFile + "\" --persist");
 		}
 
 		private string GetTemperatureDecayWidthList()
@@ -173,38 +140,8 @@ namespace Yburn.Workers
 		{
 			get
 			{
-				return "In medium decay widths {/Symnbol G}_{nl}, averaged over angles "
+				return "In medium decay widths {/Symbol G}_{nl}, averaged over angles "
 					+ DecayWidthAveragingAngles.ToUIString();
-			}
-		}
-
-		private void AppendPlotCommands_AveragedDecayWidth(
-			StringBuilder plotFile
-			)
-		{
-			BottomiumState[] bottomiumStates = BottomiumStates;
-			int colNumber = 2;
-			foreach(BottomiumState state in bottomiumStates)
-			{
-				plotFile.AppendLine("	\"" + FormattedDataPathFile
-					+ "\" index 0 using 1:" + colNumber + " with linespoints title \""
-					+ GetBottomiumStateGnuplotCode(state) + ", {/Symbol G}_{averaged}(T)\",	\\");
-				colNumber++;
-			}
-		}
-
-		private void AppendPlotCommands_AveragedTemperature(
-			StringBuilder plotFile
-			)
-		{
-			BottomiumState[] bottomiumStates = BottomiumStates;
-			int colNumber = 2;
-			foreach(BottomiumState state in bottomiumStates)
-			{
-				plotFile.AppendLine("	\"" + FormattedDataPathFile
-					+ "\" index 1 using 1:" + colNumber + " with linespoints title \""
-				+ GetBottomiumStateGnuplotCode(state) + ", {/Symbol G}(T_{averaged})\",	\\");
-				colNumber++;
 			}
 		}
 

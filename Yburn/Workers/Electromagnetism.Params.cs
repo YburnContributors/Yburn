@@ -3,7 +3,7 @@ using Yburn.Fireball;
 
 namespace Yburn.Workers
 {
-	public partial class Electromagnetism
+	partial class Electromagnetism
 	{
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
@@ -13,6 +13,7 @@ namespace Yburn.Workers
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
+			Extractor.Store(nameValuePairs, "DataFileName", DataFileName);
 			Extractor.Store(nameValuePairs, "DiffusenessA", DiffusenessAFm);
 			Extractor.Store(nameValuePairs, "DiffusenessB", DiffusenessBFm);
 			Extractor.Store(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
@@ -25,7 +26,6 @@ namespace Yburn.Workers
 			Extractor.Store(nameValuePairs, "NuclearRadiusB", NuclearRadiusBFm);
 			Extractor.Store(nameValuePairs, "NucleonNumberA", NucleonNumberA);
 			Extractor.Store(nameValuePairs, "NucleonNumberB", NucleonNumberB);
-			Extractor.Store(nameValuePairs, "Outfile", Outfile);
 			Extractor.Store(nameValuePairs, "PointChargeVelocity", PointChargeVelocity);
 			Extractor.Store(nameValuePairs, "ProtonNumberA", ProtonNumberA);
 			Extractor.Store(nameValuePairs, "ProtonNumberB", ProtonNumberB);
@@ -56,7 +56,6 @@ namespace Yburn.Workers
 			Extractor.TryExtract(nameValuePairs, "NuclearRadiusB", ref NuclearRadiusBFm);
 			Extractor.TryExtract(nameValuePairs, "NucleonNumberA", ref NucleonNumberA);
 			Extractor.TryExtract(nameValuePairs, "NucleonNumberB", ref NucleonNumberB);
-			Extractor.TryExtract(nameValuePairs, "Outfile", ref DataFileName);
 			Extractor.TryExtract(nameValuePairs, "PointChargeVelocity", ref PointChargeVelocity);
 			Extractor.TryExtract(nameValuePairs, "ProtonNumberA", ref ProtonNumberA);
 			Extractor.TryExtract(nameValuePairs, "ProtonNumberB", ref ProtonNumberB);
@@ -67,8 +66,6 @@ namespace Yburn.Workers
 			Extractor.TryExtract(nameValuePairs, "StartEffectiveTime", ref StartEffectiveTime);
 			Extractor.TryExtract(nameValuePairs, "StopEffectiveTime", ref StopEffectiveTime);
 		}
-
-		private string DataFileName = string.Empty;
 
 		private double DiffusenessAFm;
 
@@ -93,8 +90,6 @@ namespace Yburn.Workers
 		private int NucleonNumberA;
 
 		private int NucleonNumberB;
-
-		private string Outfile = "stdout.txt";
 
 		private double PointChargeVelocity;
 

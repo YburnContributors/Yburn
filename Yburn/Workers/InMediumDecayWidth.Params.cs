@@ -3,7 +3,7 @@ using Yburn.Fireball;
 
 namespace Yburn.Workers
 {
-	public partial class InMediumDecayWidth
+	partial class InMediumDecayWidth
 	{
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
@@ -14,12 +14,12 @@ namespace Yburn.Workers
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
 			Extractor.Store(nameValuePairs, "BottomiumStates", BottomiumStates);
+			Extractor.Store(nameValuePairs, "DataFileName", DataFileName);
 			Extractor.Store(nameValuePairs, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
 			Extractor.Store(nameValuePairs, "DecayWidthType", DecayWidthType);
 			Extractor.Store(nameValuePairs, "MaxTemperature", MaxTemperature);
 			Extractor.Store(nameValuePairs, "MediumVelocity", MediumVelocity);
 			Extractor.Store(nameValuePairs, "MinTemperature", MinTemperature);
-			Extractor.Store(nameValuePairs, "Outfile", Outfile);
 			Extractor.Store(nameValuePairs, "PotentialTypes", PotentialTypes);
 			Extractor.Store(nameValuePairs, "TemperatureStepSize", TemperatureStepSize);
 			Extractor.Store(nameValuePairs, "UseAveragedTemperature", UseAveragedTemperature);
@@ -32,12 +32,12 @@ namespace Yburn.Workers
 			)
 		{
 			Extractor.TryExtract(nameValuePairs, "BottomiumStates", ref BottomiumStates);
+			Extractor.TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
 			Extractor.TryExtract(nameValuePairs, "DecayWidthAveragingAngles", ref DecayWidthAveragingAngles);
 			Extractor.TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
 			Extractor.TryExtract(nameValuePairs, "MaxTemperature", ref MaxTemperature);
 			Extractor.TryExtract(nameValuePairs, "MediumVelocity", ref MediumVelocity);
 			Extractor.TryExtract(nameValuePairs, "MinTemperature", ref MinTemperature);
-			Extractor.TryExtract(nameValuePairs, "Outfile", ref Outfile);
 			Extractor.TryExtract(nameValuePairs, "PotentialTypes", ref PotentialTypes);
 			Extractor.TryExtract(nameValuePairs, "TemperatureStepSize", ref TemperatureStepSize);
 			Extractor.TryExtract(nameValuePairs, "UseAveragedTemperature", ref UseAveragedTemperature);
@@ -54,8 +54,6 @@ namespace Yburn.Workers
 		private double MediumVelocity;
 
 		private double MinTemperature;
-
-		private string Outfile = "stdout.txt";
 
 		private string[] PotentialTypes = new string[0];
 

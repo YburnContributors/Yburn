@@ -3,7 +3,7 @@ using Yburn.QQState;
 
 namespace Yburn.Workers
 {
-	public partial class SingleQQ
+	partial class SingleQQ
 	{
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
@@ -37,7 +37,6 @@ namespace Yburn.Workers
 			Extractor.Store(nameValuePairs, "MinEnergy", MinEnergy);
 			Extractor.Store(nameValuePairs, "MinRadius", MinRadius);
 			Extractor.Store(nameValuePairs, "NumberExtrema", NumberExtrema);
-			Extractor.Store(nameValuePairs, "Outfile", Outfile);
 			Extractor.Store(nameValuePairs, "PotentialType", PotentialType);
 			Extractor.Store(nameValuePairs, "QuantumNumberL", QuantumNumberL);
 			Extractor.Store(nameValuePairs, "QuantumNumberN", QuantumNumberN);
@@ -94,8 +93,6 @@ namespace Yburn.Workers
 			Extractor.TryExtract(nameValuePairs, "MinEnergy", ref MinEnergy);
 			Extractor.TryExtract(nameValuePairs, "MinRadius", ref MinRadius);
 			Extractor.TryExtract(nameValuePairs, "NumberExtrema", ref NumberExtrema);
-			Extractor.TryExtract(nameValuePairs, "Outfile", ref DataFileName);
-			Extractor.TryExtract(nameValuePairs, "Outfile", ref Outfile);
 			Extractor.TryExtract(nameValuePairs, "PotentialType", ref PotentialType);
 			Extractor.TryExtract(nameValuePairs, "QuantumNumberL", ref QuantumNumberL);
 			Extractor.TryExtract(nameValuePairs, "QuantumNumberN", ref QuantumNumberN);
@@ -142,8 +139,6 @@ namespace Yburn.Workers
 
 		private ColorState ColorState;
 
-		private string DataFileName = string.Empty;
-
 		private double DebyeMass;
 
 		private double Energy;
@@ -169,8 +164,6 @@ namespace Yburn.Workers
 		private double MinRadius;
 
 		private int NumberExtrema;
-
-		private string Outfile = "stdout.txt";
 
 		private PotentialType PotentialType;
 

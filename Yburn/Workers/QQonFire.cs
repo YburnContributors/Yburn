@@ -106,8 +106,8 @@ namespace Yburn.Workers
 					ShowDecayWidthInput();
 					break;
 
-				case "ShowInitialPopulations":
-					ShowInitialPopulations();
+				case "ShowInitialQQPopulations":
+					ShowInitialQQPopulations();
 					break;
 
 				case "ShowProtonProtonYields":
@@ -208,7 +208,7 @@ namespace Yburn.Workers
 
 			LogMessages.Append(LogFooter);
 
-			File.WriteAllText(YburnConfigFile.OutputPath + Outfile, LogMessages.ToString());
+			File.WriteAllText(YburnConfigFile.OutputPath + DataFileName, LogMessages.ToString());
 		}
 
 		public void CalculateBinBoundaries()
@@ -268,7 +268,7 @@ namespace Yburn.Workers
 
 			LogMessages.Append(LogFooter);
 
-			File.WriteAllText(YburnConfigFile.OutputPath + Outfile, LogMessages.ToString());
+			File.WriteAllText(YburnConfigFile.OutputPath + DataFileName, LogMessages.ToString());
 		}
 
 		private void CalculateBinBoundaries(
@@ -456,7 +456,7 @@ namespace Yburn.Workers
 			// store information in LogString, print it out and save it to file
 			string logString = LogHeader + "\r\n\r\n" + results.ToString() + LogFooter;
 
-			File.WriteAllText(YburnConfigFile.OutputPath + Outfile, logString);
+			File.WriteAllText(YburnConfigFile.OutputPath + DataFileName, logString);
 
 			LogMessages.Clear();
 			LogMessages.Append(logString);
@@ -536,13 +536,13 @@ namespace Yburn.Workers
 			LogMessages.AppendLine();
 		}
 
-		public void ShowInitialPopulations()
+		public void ShowInitialQQPopulations()
 		{
-			CurrentJobTitle = "ShowInitialPopulations";
+			CurrentJobTitle = "ShowInitialQQPopulations";
 
 			LogMessages.Clear();
 			LogMessages.AppendFormat("Initial populations:\r\n\r\n{0}\r\n\r\n",
-				BottomiumCascade.GetInitialPopulationsString(GetProtonProtonYields()));
+				BottomiumCascade.GetInitialQQPopulationsString(GetProtonProtonYields()));
 		}
 
 		public void ShowProtonProtonYields()
@@ -557,19 +557,19 @@ namespace Yburn.Workers
 		public void ShowSnapsX()
 		{
 			Process.Start("wgnuplot", "--persist \""
-				+ BuildPlotPathFile(YburnConfigFile.OutputPath + Outfile) + "-plotX.plt\"");
+				+ BuildPlotPathFile(YburnConfigFile.OutputPath + DataFileName) + "-plotX.plt\"");
 		}
 
 		public void ShowSnapsY()
 		{
 			Process.Start("wgnuplot", "--persist \""
-				+ BuildPlotPathFile(YburnConfigFile.OutputPath + Outfile) + "-plotY.plt\"");
+				+ BuildPlotPathFile(YburnConfigFile.OutputPath + DataFileName) + "-plotY.plt\"");
 		}
 
 		public void ShowSnapsXY()
 		{
 			Process.Start("wgnuplot", "--persist \""
-				+ BuildPlotPathFile(YburnConfigFile.OutputPath + Outfile) + "-plotXY.plt\"");
+				+ BuildPlotPathFile(YburnConfigFile.OutputPath + DataFileName) + "-plotXY.plt\"");
 		}
 
 		public void ShowY1SFeedDown()
@@ -759,7 +759,7 @@ namespace Yburn.Workers
 			BjorkenLifeTime = fireball.BjorkenLifeTime;
 
 			// extract path and file name of outfile and extension separately
-			string pathFile = BuildPlotPathFile(YburnConfigFile.OutputPath + Outfile);
+			string pathFile = BuildPlotPathFile(YburnConfigFile.OutputPath + DataFileName);
 
 			// All data is saved in the output file. Additionally, the corresponding gnuplot files (.plt)
 			// are created to facilitate graphical visualization of the data.

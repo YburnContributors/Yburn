@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using Yburn.Fireball;
 using Yburn.QQState;
-using Yburn.Util;
 
 namespace Yburn.Workers.Tests
 {

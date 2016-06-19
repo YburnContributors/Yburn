@@ -111,7 +111,7 @@ namespace Yburn.InMediumDecayWidth.UI
 			nameValuePairs["PotentialTypes"] = MsxPotentialTypes.SelectionString;
 			nameValuePairs["BottomiumStates"] = MsxBottomiumStates.SelectionString;
 			nameValuePairs["UseAveragedTemperature"] = ChkUseAveragedTemperature.Checked.ToString();
-			nameValuePairs["Outfile"] = TbxOutfile.Text;
+			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
 
 			return nameValuePairs;
 		}
@@ -129,7 +129,7 @@ namespace Yburn.InMediumDecayWidth.UI
 			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];
 			MsxBottomiumStates.SelectionString = nameValuePairs["BottomiumStates"];
 			ChkUseAveragedTemperature.Checked = bool.Parse(nameValuePairs["UseAveragedTemperature"]);
-			TbxOutfile.Text = nameValuePairs["Outfile"];
+			TbxDataFileName.Text = nameValuePairs["DataFileName"];
 		}
 
 		private void InitializeMenuEntry()
@@ -181,7 +181,7 @@ namespace Yburn.InMediumDecayWidth.UI
 			toolTipMaker.Add(
 				"Name of the output file. The standard output path can be set\r\n"
 				+ "in the menu \"File\" using \"Set output path\".",
-				LblOutfile, TbxOutfile);
+				LblDataFileName, TbxDataFileName);
 		}
 
 		private void MenuItemCalculateInMediumDecayWidths_Click(object sender, EventArgs e)

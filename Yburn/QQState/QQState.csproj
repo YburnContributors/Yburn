@@ -11,7 +11,6 @@
     <AssemblyName>QQState</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DecayWidth.cs" />
-    <Compile Include="PhysConst.cs" />
     <Compile Include="RseShootingSolver.cs" />
     <Compile Include="PionGDF.cs" />
     <Compile Include="QQBoundState.cs" />
@@ -60,9 +58,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Util\Util.csproj">
+    <ProjectReference Include="..\FileUtil\FileUtil.csproj">
       <Project>{59e7bc95-adee-49ac-a6c8-4df0f322209e}</Project>
-      <Name>Util</Name>
+      <Name>FileUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhysUtil\PhysUtil.csproj">
+      <Project>{96E5E846-3417-4A44-A4F1-7ED8DCA43F43}</Project>
+      <Name>PhysUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

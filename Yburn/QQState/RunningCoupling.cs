@@ -1,6 +1,7 @@
 ﻿using MathNet.Numerics.Interpolation;
 using System;
-using Yburn.Util;
+using Yburn.FileUtil;
+using Yburn.PhysUtil;
 
 namespace Yburn.QQState
 {

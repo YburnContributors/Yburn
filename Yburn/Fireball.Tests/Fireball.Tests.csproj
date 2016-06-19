@@ -16,7 +16,6 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,7 +54,6 @@
   <ItemGroup>
     <Compile Include="BinBoundaryCalculatorTests.cs" />
     <Compile Include="BottomiumCascadeTests.cs" />
-    <Compile Include="EuclideanVectorTests.cs" />
     <Compile Include="FireballElectromagneticFieldTests.cs" />
     <Compile Include="MagneticFieldStrengthAveragerTests.cs" />
     <Compile Include="PointChargeElectromagneticFieldTests.cs" />
@@ -63,10 +61,8 @@
     <Compile Include="FireballFieldTests.cs" />
     <Compile Include="FireballTests.cs" />
     <Compile Include="FtexsTests.cs" />
-    <Compile Include="LinearInterpolationTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QGPSuppressionTests.cs" />
-    <Compile Include="QuadratureTests.cs" />
     <Compile Include="TemperatureDecayWidthListTests.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -74,9 +70,13 @@
       <Project>{38653203-8c76-4f0c-9d56-171d1d1cf775}</Project>
       <Name>Fireball</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YburnTest.Util\YburnTests.Util.csproj">
+    <ProjectReference Include="..\PhysUtil\PhysUtil.csproj">
+      <Project>{96e5e846-3417-4a44-a4f1-7ed8dca43f43}</Project>
+      <Name>PhysUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TestUtil\TestUtil.csproj">
       <Project>{E908B7FC-78BE-483A-B2FC-E52734275C45}</Project>
-      <Name>YburnTests.Util</Name>
+      <Name>TestUtil</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

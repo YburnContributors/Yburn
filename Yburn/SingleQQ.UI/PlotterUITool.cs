@@ -204,7 +204,7 @@ namespace Yburn.SingleQQ.UI
 			Dictionary<string, string> standardParams = GetControlsValues();
 			standardParams["AlphaSoft"] = TryGetString(param, "AlphaSoft", AlphaSoft);
 			standardParams["ColorState"] = TryGetString(param, "ColorState", ColorState);
-			standardParams["DataFileName"] = TryGetString(param, "Outfile", DataFileName);
+			standardParams["DataFileName"] = TryGetString(param, "DataFileName", DataFileName);
 			standardParams["DebyeMass"] = TryGetString(param, "DebyeMass", DebyeMass);
 			standardParams["EnergyScale"] = TryGetString(param, "Energy", EnergyScale);
 			standardParams["RunningCouplingTypeSelection"] = TryGetString(param, "RunningCouplingType", RunningCouplingTypeSelection);

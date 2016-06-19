@@ -1,9 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Threading;
 using Yburn.Fireball;
-using Yburn.Tests.Util;
+using Yburn.TestUtil;
 
 namespace Yburn.Workers.Tests
 {
@@ -15,11 +13,11 @@ namespace Yburn.Workers.Tests
 		 ********************************************************************************************/
 
 		[TestMethod]
-		public void CalculateInitialPopulations_CMS2012()
+		public void CalculateInitialQQPopulations_CMS2012()
 		{
 			double[] ppYields = GetProtonProtonYieldsInQQonFire(ProtonProtonBaseline.CMS2012);
-			double[] initialPopulations = BottomiumCascade.GetInitialPopulations(ppYields);
-			AssertCorrectInitialPopulations_CMS2012(initialPopulations);
+			double[] initialQQPopulations = BottomiumCascade.GetInitialQQPopulations(ppYields);
+			AssertCorrectInitialQQPopulations_CMS2012(initialQQPopulations);
 		}
 
 		[TestMethod]
@@ -42,16 +40,16 @@ namespace Yburn.Workers.Tests
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static void AssertCorrectInitialPopulations_CMS2012(
-			double[] initialPopulations
+		private static void AssertCorrectInitialQQPopulations_CMS2012(
+			double[] initialQQPopulations
 			)
 		{
-			AssertHelper.AssertRoundedEqual(13.811371002243353, initialPopulations[0]);
-			AssertHelper.AssertRoundedEqual(43.69470939802315, initialPopulations[1]);
-			AssertHelper.AssertRoundedEqual(17.730737923019689, initialPopulations[2]);
-			AssertHelper.AssertRoundedEqual(45.626563577477171, initialPopulations[3]);
-			AssertHelper.AssertRoundedEqual(10.893164282464253, initialPopulations[4]);
-			AssertHelper.AssertRoundedEqual(7.6588791939455149E+99, initialPopulations[5]);
+			AssertHelper.AssertRoundedEqual(13.811371002243353, initialQQPopulations[0]);
+			AssertHelper.AssertRoundedEqual(43.69470939802315, initialQQPopulations[1]);
+			AssertHelper.AssertRoundedEqual(17.730737923019689, initialQQPopulations[2]);
+			AssertHelper.AssertRoundedEqual(45.626563577477171, initialQQPopulations[3]);
+			AssertHelper.AssertRoundedEqual(10.893164282464253, initialQQPopulations[4]);
+			AssertHelper.AssertRoundedEqual(7.6588791939455149E+99, initialQQPopulations[5]);
 		}
 
 		private static Dictionary<string, string> GetQQonFireVariables(

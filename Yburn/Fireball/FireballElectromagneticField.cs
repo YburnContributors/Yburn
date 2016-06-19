@@ -1,4 +1,6 @@
-﻿namespace Yburn.Fireball
+﻿using Yburn.PhysUtil;
+
+namespace Yburn.Fireball
 {
 	public class FireballElectromagneticField
 	{
@@ -66,6 +68,66 @@
 					position.X - x,
 					position.Y - y,
 					position.Z);
+
+			EuclideanVector3D integral = Quadrature.UseGaussLegendre_RealPlane(
+				integrand,
+				protonDensityFunction.NuclearRadius,
+				protonDensityFunction.NuclearRadius,
+				precision);
+
+			return integral;
+		}
+
+		public EuclideanVector3D CalculateMagneticField_LCF(
+			double properTime,
+			EuclideanVector2D position,
+			double rapidity,
+			QuadraturePrecision precision = QuadraturePrecision.Use64Points
+			)
+		{
+			EuclideanVector2D nucleusOffset = new EuclideanVector2D(
+				0.5 * Param.ImpactParameterFm, 0);
+
+			// Nucleus A is located at negative x and moves in positive z direction
+			EuclideanVector3D fieldNucleusA = CalculateSingleNucleusMagneticField_LCF(
+				properTime,
+				position + nucleusOffset,
+				rapidity,
+				Param.ParticleVelocity,
+				ProtonDensityFunctionA,
+				precision);
+
+			// Nucleus B is located at positive x and moves in negative z direction
+			EuclideanVector3D fieldNucleusB = CalculateSingleNucleusMagneticField_LCF(
+				properTime,
+				position - nucleusOffset,
+				rapidity,
+				-Param.ParticleVelocity,
+				ProtonDensityFunctionA,
+				precision);
+
+			return fieldNucleusA + fieldNucleusB;
+		}
+
+		public EuclideanVector3D CalculateSingleNucleusMagneticField_LCF(
+			double properTime,
+			EuclideanVector2D position,
+			double rapidity,
+			double nucleusVelocity,
+			DensityFunction protonDensityFunction,
+			QuadraturePrecision precision = QuadraturePrecision.Use64Points
+			)
+		{
+			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
+				Param.EMFCalculationMethod, Param.QGPConductivityMeV, nucleusVelocity);
+
+			IntegrandIn2D<EuclideanVector3D> integrand = (x, y) =>
+				protonDensityFunction.GetColumnDensity(x, y)
+				* pcEMF.CalculatePointChargeMagneticField_LCF(
+					properTime,
+					position.X - x,
+					position.Y - y,
+					rapidity);
 
 			EuclideanVector3D integral = Quadrature.UseGaussLegendre_RealPlane(
 				integrand,

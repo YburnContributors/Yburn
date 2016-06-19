@@ -44,8 +44,8 @@
 			this.TbxQuantumNumberL = new System.Windows.Forms.TextBox();
 			this.LblQuantumNumberN = new System.Windows.Forms.Label();
 			this.TbxQuantumNumberN = new System.Windows.Forms.TextBox();
-			this.LblOutfile = new System.Windows.Forms.Label();
-			this.TbxOutfile = new System.Windows.Forms.TextBox();
+			this.LblDataFileName = new System.Windows.Forms.Label();
+			this.TbxDataFileName = new System.Windows.Forms.TextBox();
 			this.LblSigma = new System.Windows.Forms.Label();
 			this.TbxSigma = new System.Windows.Forms.TextBox();
 			this.LblTemperature = new System.Windows.Forms.Label();
@@ -215,8 +215,8 @@
 			this.LayoutContext.Controls.Add(this.TbxQuantumNumberL, 1, 4);
 			this.LayoutContext.Controls.Add(this.LblQuantumNumberN, 0, 5);
 			this.LayoutContext.Controls.Add(this.TbxQuantumNumberN, 1, 5);
-			this.LayoutContext.Controls.Add(this.LblOutfile, 0, 6);
-			this.LayoutContext.Controls.Add(this.TbxOutfile, 1, 6);
+			this.LayoutContext.Controls.Add(this.LblDataFileName, 0, 6);
+			this.LayoutContext.Controls.Add(this.TbxDataFileName, 1, 6);
 			this.LayoutContext.Controls.Add(this.LblSigma, 0, 7);
 			this.LayoutContext.Controls.Add(this.TbxSigma, 1, 7);
 			this.LayoutContext.Controls.Add(this.LblTemperature, 0, 8);
@@ -364,23 +364,23 @@
 			this.TbxQuantumNumberN.Size = new System.Drawing.Size(165, 22);
 			this.TbxQuantumNumberN.TabIndex = 5;
 			// 
-			// LblOutfile
+			// LblDataFileName
 			// 
-			this.LblOutfile.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblOutfile.Location = new System.Drawing.Point(3, 150);
-			this.LblOutfile.Name = "LblOutfile";
-			this.LblOutfile.Size = new System.Drawing.Size(202, 25);
-			this.LblOutfile.TabIndex = 24;
-			this.LblOutfile.Text = "Outfile";
-			this.LblOutfile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblDataFileName.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblDataFileName.Location = new System.Drawing.Point(3, 150);
+			this.LblDataFileName.Name = "LblDataFileName";
+			this.LblDataFileName.Size = new System.Drawing.Size(202, 25);
+			this.LblDataFileName.TabIndex = 24;
+			this.LblDataFileName.Text = "DataFileName";
+			this.LblDataFileName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxOutfile
+			// TbxDataFileName
 			// 
-			this.TbxOutfile.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxOutfile.Location = new System.Drawing.Point(211, 153);
-			this.TbxOutfile.Name = "TbxOutfile";
-			this.TbxOutfile.Size = new System.Drawing.Size(165, 22);
-			this.TbxOutfile.TabIndex = 6;
+			this.TbxDataFileName.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxDataFileName.Location = new System.Drawing.Point(211, 153);
+			this.TbxDataFileName.Name = "TbxDataFileName";
+			this.TbxDataFileName.Size = new System.Drawing.Size(165, 22);
+			this.TbxDataFileName.TabIndex = 6;
 			// 
 			// LblSigma
 			// 
@@ -1308,7 +1308,7 @@
 		private System.Windows.Forms.Label LblMaxShootingTrials;
 		private System.Windows.Forms.Label LblQuantumNumberN;
 		private System.Windows.Forms.Label LblNumberExtrema;
-		private System.Windows.Forms.Label LblOutfile;
+		private System.Windows.Forms.Label LblDataFileName;
 		private System.Windows.Forms.Label LblPotentialType;
 		private System.Windows.Forms.Label LblQuarkMass;
 		private System.Windows.Forms.Label LblRunningCouplingType;
@@ -1347,7 +1347,7 @@
 		private System.Windows.Forms.TextBox TbxMaxShootingTrials;
 		private System.Windows.Forms.TextBox TbxQuantumNumberN;
 		private System.Windows.Forms.TextBox TbxNumberExtrema;
-		private System.Windows.Forms.TextBox TbxOutfile;
+		private System.Windows.Forms.TextBox TbxDataFileName;
 		private System.Windows.Forms.ComboBox CbxPotentialType;
 		private System.Windows.Forms.TextBox TbxQuarkMass;
 		private System.Windows.Forms.ComboBox CbxRunningCouplingType;

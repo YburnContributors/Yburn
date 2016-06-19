@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
@@ -97,14 +98,7 @@ namespace Yburn.Fireball
 			double velocity
 			)
 		{
-			return temperature * Math.Sqrt(1.0 - velocity * velocity) * Artanh(velocity) / velocity;
-		}
-
-		private static double Artanh(
-			double x
-			)
-		{
-			return 0.5 * Math.Log((1.0 + x) / (1.0 - x));
+			return temperature * Math.Sqrt(1.0 - velocity * velocity) * Functions.Artanh(velocity) / velocity;
 		}
 
 		/********************************************************************************************

@@ -3,7 +3,7 @@ using Yburn.Fireball;
 
 namespace Yburn.Workers
 {
-	public partial class QQonFire
+	partial class QQonFire
 	{
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
@@ -17,6 +17,7 @@ namespace Yburn.Workers
 			Extractor.Store(nameValuePairs, "BjorkenLifeTime", BjorkenLifeTime);
 			Extractor.Store(nameValuePairs, "BottomiumStates", BottomiumStates);
 			Extractor.Store(nameValuePairs, "CentralityBinBoundaries", CentralityBinBoundaries);
+			Extractor.Store(nameValuePairs, "DataFileName", DataFileName);
 			Extractor.Store(nameValuePairs, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
 			Extractor.Store(nameValuePairs, "DecayWidthEvaluationType", DecayWidthEvaluationType);
 			Extractor.Store(nameValuePairs, "DecayWidthType", DecayWidthType);
@@ -38,7 +39,6 @@ namespace Yburn.Workers
 			Extractor.Store(nameValuePairs, "NuclearRadiusB", NuclearRadiusB);
 			Extractor.Store(nameValuePairs, "NucleonNumberA", NucleonNumberA);
 			Extractor.Store(nameValuePairs, "NucleonNumberB", NucleonNumberB);
-			Extractor.Store(nameValuePairs, "Outfile", Outfile);
 			Extractor.Store(nameValuePairs, "ParticipantsAtBinBoundaries", ParticipantsAtBinBoundaries);
 			Extractor.Store(nameValuePairs, "PotentialTypes", PotentialTypes);
 			Extractor.Store(nameValuePairs, "ProtonProtonBaseline", ProtonProtonBaseline);
@@ -60,6 +60,7 @@ namespace Yburn.Workers
 			Extractor.TryExtract(nameValuePairs, "BjorkenLifeTime", ref BjorkenLifeTime);
 			Extractor.TryExtract(nameValuePairs, "BottomiumStates", ref BottomiumStates);
 			Extractor.TryExtract(nameValuePairs, "CentralityBinBoundaries", ref CentralityBinBoundaries);
+			Extractor.TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
 			Extractor.TryExtract(nameValuePairs, "DecayWidthAveragingAngles", ref DecayWidthAveragingAngles);
 			Extractor.TryExtract(nameValuePairs, "DecayWidthEvaluationType", ref DecayWidthEvaluationType);
 			Extractor.TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
@@ -81,7 +82,6 @@ namespace Yburn.Workers
 			Extractor.TryExtract(nameValuePairs, "NuclearRadiusB", ref NuclearRadiusB);
 			Extractor.TryExtract(nameValuePairs, "NucleonNumberA", ref NucleonNumberA);
 			Extractor.TryExtract(nameValuePairs, "NucleonNumberB", ref NucleonNumberB);
-			Extractor.TryExtract(nameValuePairs, "Outfile", ref Outfile);
 			Extractor.TryExtract(nameValuePairs, "ParticipantsAtBinBoundaries", ref ParticipantsAtBinBoundaries);
 			Extractor.TryExtract(nameValuePairs, "PotentialTypes", ref PotentialTypes);
 			Extractor.TryExtract(nameValuePairs, "ProtonProtonBaseline", ref ProtonProtonBaseline);
@@ -142,8 +142,6 @@ namespace Yburn.Workers
 		private int NucleonNumberA;
 
 		private int NucleonNumberB;
-
-		private string Outfile = "stdout.txt";
 
 		private double[][] ParticipantsAtBinBoundaries = new double[0][];
 

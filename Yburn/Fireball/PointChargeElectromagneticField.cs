@@ -1,5 +1,6 @@
 ﻿using Meta.Numerics.Functions;
 using System;
+using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
@@ -74,6 +75,30 @@ namespace Yburn.Fireball
 			return new EuclideanVector3D(azimutalPart, 0);
 		}
 
+		public EuclideanVector3D CalculatePointChargeMagneticField_LCF(
+			double tau,
+			double x,
+			double y,
+			double rapidity
+			)
+		{
+			double t;
+			double z;
+			TransformToIF(tau, rapidity, out t, out z);
+			double effectiveTime = CalculateEffectiveTime(t, z);
+			double radialDistance = CalculateRadialDistance(x, y);
+
+			double azimutalPart =
+				Math.Cosh(rapidity) * CalculatePointChargeAzimutalMagneticField(
+					effectiveTime, radialDistance)
+				- Math.Sinh(rapidity) * CalculatePointChargeRadialElectricField(
+					effectiveTime, radialDistance);
+
+			return new EuclideanVector3D(
+				azimutalPart * EuclideanVector2D.CreateAzimutalUnitVectorAtPosition(x, y),
+				0);
+		}
+
 		public EuclideanVector3D CalculatePointChargeElectricField(
 			double t,
 			double x,
@@ -136,6 +161,28 @@ namespace Yburn.Fireball
 			double y)
 		{
 			return Math.Sqrt(x * x + y * y);
+		}
+
+		protected void TransformToLCF(
+			double t,
+			double z,
+			out double tau,
+			out double rapidity
+			)
+		{
+			tau = Math.Sqrt(t * t - z * z);
+			rapidity = Functions.Artanh(z / t);
+		}
+
+		protected void TransformToIF(
+			double tau,
+			double rapidity,
+			out double t,
+			out double z
+			)
+		{
+			t = tau * Math.Cosh(rapidity);
+			z = tau * Math.Sinh(rapidity);
 		}
 
 		private class PointChargeElectromagneticField_URLimitFourierSynthesis

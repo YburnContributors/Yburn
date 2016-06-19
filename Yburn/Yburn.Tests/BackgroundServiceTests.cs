@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using Yburn.Interfaces;
-using Yburn.Tests.Util;
+using Yburn.TestUtil;
 
 namespace Yburn.Tests
 {

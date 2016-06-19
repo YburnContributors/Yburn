@@ -1,6 +1,7 @@
 ﻿using Meta.Numerics;
 using Meta.Numerics.Functions;
 using System;
+using Yburn.PhysUtil;
 
 namespace Yburn.QQState
 {

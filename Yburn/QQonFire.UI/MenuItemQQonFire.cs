@@ -20,7 +20,7 @@ namespace Yburn.QQonFire.UI
 		public ToolStripMenuItem MenuItemShowBranchingRatio;
 		public ToolStripMenuItem MenuItemShowCumulativeMatrix;
 		public ToolStripMenuItem MenuItemShowInverseCumulativeMatrix;
-		public ToolStripMenuItem MenuItemShowInitialPopulations;
+		public ToolStripMenuItem MenuItemShowInitialQQPopulations;
 		public ToolStripMenuItem MenuItemShowProtonProtonYields;
 		public ToolStripMenuItem MenuItemShowFeedDown;
 		public ToolStripMenuItem MenuItemShowSnapsX;
@@ -42,7 +42,7 @@ namespace Yburn.QQonFire.UI
 			this.MenuItemShowBranchingRatio = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowCumulativeMatrix = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowInverseCumulativeMatrix = new System.Windows.Forms.ToolStripMenuItem();
-			this.MenuItemShowInitialPopulations = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemShowInitialQQPopulations = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowProtonProtonYields = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowFeedDown = new System.Windows.Forms.ToolStripMenuItem();
 			//
@@ -141,11 +141,11 @@ namespace Yburn.QQonFire.UI
 			this.MenuItemShowInverseCumulativeMatrix.Size = new System.Drawing.Size(361, 24);
 			this.MenuItemShowInverseCumulativeMatrix.Text = "Show &inverse cumulative matrix";
 			//
-			// MenuItemShowInitialPopulations
+			// MenuItemShowInitialQQPopulations
 			//
-			this.MenuItemShowInitialPopulations.Name = "MenuItemShowInitialPopulations";
-			this.MenuItemShowInitialPopulations.Size = new System.Drawing.Size(361, 24);
-			this.MenuItemShowInitialPopulations.Text = "Show initial &populations";
+			this.MenuItemShowInitialQQPopulations.Name = "MenuItemShowInitialQQPopulations";
+			this.MenuItemShowInitialQQPopulations.Size = new System.Drawing.Size(361, 24);
+			this.MenuItemShowInitialQQPopulations.Text = "Show initial QQ &populations";
 			//
 			// MenuItemShowProtonProtonYields
 			//
@@ -170,7 +170,7 @@ namespace Yburn.QQonFire.UI
 			this.MenuItemShowCumulativeMatrix,
 			this.MenuItemShowInverseCumulativeMatrix,
 			this.MenuItemShowProtonProtonYields,
-			this.MenuItemShowInitialPopulations,
+			this.MenuItemShowInitialQQPopulations,
 			this.MenuItemShowFeedDown});
 			this.Size = new System.Drawing.Size(84, 24);
 			this.Text = "&QQonFire";

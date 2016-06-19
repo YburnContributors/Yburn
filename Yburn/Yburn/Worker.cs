@@ -6,7 +6,7 @@ using Yburn.Interfaces;
 
 namespace Yburn
 {
-	public abstract class Worker
+	public abstract partial class Worker
 	{
 		/********************************************************************************************
 		 * Constructors
@@ -68,18 +68,6 @@ namespace Yburn
 			return Enum.GetNames(GetEnumTypeByName(enumName));
 		}
 
-		public Dictionary<string, string> VariableNameValuePairs
-		{
-			get
-			{
-				return GetVariableNameValuePairs();
-			}
-			set
-			{
-				SetVariableNameValuePairs(value ?? new Dictionary<string, string>());
-			}
-		}
-
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
@@ -92,6 +80,17 @@ namespace Yburn
 				throw new Exception("Invalid QQ-data file.");
 			}
 			return pathFile;
+		}
+
+		private static void AppendVariableNameValuePairs(
+			 StringBuilder stringBuilder,
+			 Dictionary<string, string> nameValuePairs
+			)
+		{
+			foreach(KeyValuePair<string, string> nameValuePair in nameValuePairs)
+			{
+				AppendLogHeaderLine(stringBuilder, nameValuePair.Key, nameValuePair.Value);
+			}
 		}
 
 		private static void AppendLogHeaderLine(
@@ -138,16 +137,6 @@ namespace Yburn
 		protected abstract void SetVariableNameValuePairs(
 			Dictionary<string, string> nameValuePairs
 			);
-
-		private void AppendVariableNameValuePairs(
-			 StringBuilder stringBuilder
-			)
-		{
-			foreach(KeyValuePair<string, string> nameValuePair in VariableNameValuePairs)
-			{
-				AppendLogHeaderLine(stringBuilder, nameValuePair.Key, nameValuePair.Value);
-			}
-		}
 
 		protected void PrepareJob(
 			string jobTitle
@@ -203,7 +192,7 @@ namespace Yburn
 				AppendLogHeaderLine(stringBuilder, "Name and Version", NameVersion);
 				AppendLogHeaderLine(stringBuilder, "Job specifier", CurrentJobTitle);
 				AppendLogHeaderLine(stringBuilder, "Job started at", JobStartTimeStampString);
-				AppendVariableNameValuePairs(stringBuilder);
+				AppendVariableNameValuePairs(stringBuilder, VariableNameValuePairs);
 
 				return stringBuilder.ToString();
 			}

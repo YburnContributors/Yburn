@@ -4,6 +4,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.IO;
 using System.Text;
+using Yburn.PhysUtil;
 
 namespace Yburn.QQState.Tests
 {

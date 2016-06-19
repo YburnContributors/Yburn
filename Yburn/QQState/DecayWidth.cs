@@ -7,6 +7,7 @@ using Meta.Numerics;
 using System;
 using System.Collections.Generic;
 using System.Threading;
+using Yburn.PhysUtil;
 
 namespace Yburn.QQState
 {

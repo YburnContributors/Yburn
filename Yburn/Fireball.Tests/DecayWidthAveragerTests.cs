@@ -1,7 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
-using Yburn.Tests.Util;
+using Yburn.PhysUtil;
+using Yburn.TestUtil;
 
 namespace Yburn.Fireball.Tests
 {

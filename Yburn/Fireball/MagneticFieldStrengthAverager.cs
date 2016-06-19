@@ -1,4 +1,6 @@
-﻿namespace Yburn.Fireball
+﻿using Yburn.PhysUtil;
+
+namespace Yburn.Fireball
 {
 	public class MagneticFieldStrengthAverager
 	{
@@ -17,21 +19,19 @@
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public double CalculateAverageMagneticFieldStrength(
+		public double CalculateAverageMagneticFieldStrengthInLabFrame(
 			QuadraturePrecision precision
 			)
 		{
 			GlauberCalculation glauber = new GlauberCalculation(Param);
 			FireballElectromagneticField emf = new FireballElectromagneticField(Param);
 
-			double[,] nCollFieldValues = glauber.NcollField.GetDiscreteValues();
 			double[] x = Param.GenerateDiscreteXAxis();
 			double[] y = Param.GenerateDiscreteYAxis();
 			double formationTimeFm = Param.FormationTimesFm[0];
 			double mediumExpanseFm = Param.ParticleVelocity * formationTimeFm;
 
-			double[,] magneticFieldValues =
-				new double[x.Length, y.Length];
+			double[,] magneticFieldColumnDensityValues = new double[x.Length, y.Length];
 			for(int i = 0; i < x.Length; i++)
 			{
 				for(int j = 0; j < y.Length; j++)
@@ -41,25 +41,63 @@
 						new EuclideanVector3D(x[i], y[j], z),
 						precision).Norm;
 
-					magneticFieldValues[i, j] = Quadrature.UseGaussLegendre(
-						integrand, -mediumExpanseFm, mediumExpanseFm, precision);
+					magneticFieldColumnDensityValues[i, j] = Quadrature.UseGaussLegendre(
+							integrand, -mediumExpanseFm, mediumExpanseFm, precision);
+
+					magneticFieldColumnDensityValues[i, j] *= glauber.NcollField[i, j];
 				}
 			}
 
-			SimpleFireballField magneticField = new SimpleFireballField(
-				FireballFieldType.Ncoll, magneticFieldValues);
+			SimpleFireballField magneticFieldColumnDensity = new SimpleFireballField(
+				FireballFieldType.Ncoll, magneticFieldColumnDensityValues);
 
-			double integral = 2 * Param.GridCellSizeFm * Param.GridCellSizeFm
-				* magneticField.TrapezoidalRuleSummedValues();
-
-			if(Param.AreParticlesABIdentical)
-			{
-				integral *= 2;
-			}
-			integral /= mediumExpanseFm * glauber.GetTotalNumberCollisions();
-
-			return integral;
+			return magneticFieldColumnDensity.TrapezoidalRuleSummedValues()
+				/ (2 * mediumExpanseFm * glauber.NcollField.TrapezoidalRuleSummedValues());
 		}
+
+		public double CalculateAverageMagneticFieldStrengthInLCF(
+			QuadraturePrecision precision
+			)
+		{
+			GlauberCalculation glauber = new GlauberCalculation(Param);
+			FireballElectromagneticField emf = new FireballElectromagneticField(Param);
+
+			double[] x = Param.GenerateDiscreteXAxis();
+			double[] y = Param.GenerateDiscreteYAxis();
+			double formationTimeFm = Param.FormationTimesFm[0];
+
+			double[,] magneticFieldColumnDensityValues = new double[x.Length, y.Length];
+			for(int i = 0; i < x.Length; i++)
+			{
+				for(int j = 0; j < y.Length; j++)
+				{
+					IntegrandIn1D integrand = rapidity => emf.CalculateMagneticField_LCF(
+							formationTimeFm,
+							new EuclideanVector2D(x[i], y[j]),
+							rapidity,
+							precision).Norm
+						* Functions.NormalDistributionProbabilityDensity(
+							rapidity, 0, RapidityDistributionWidth);
+
+					magneticFieldColumnDensityValues[i, j] =
+						Quadrature.UseGaussLegendre_RealAxis(
+							integrand, Param.ParticleVelocity, precision)
+						* glauber.NcollField[i, j];
+				}
+			}
+
+			SimpleFireballField magneticFieldColumnDensity = new SimpleFireballField(
+				FireballFieldType.Ncoll, magneticFieldColumnDensityValues);
+
+			return magneticFieldColumnDensity.TrapezoidalRuleSummedValues()
+				/ glauber.NcollField.TrapezoidalRuleSummedValues();
+		}
+
+		/********************************************************************************************
+		 * Private/protected static members, functions and properties
+		 ********************************************************************************************/
+
+		private static readonly double RapidityDistributionWidth = 2.7;
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties

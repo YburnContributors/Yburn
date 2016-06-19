@@ -131,7 +131,7 @@ namespace Yburn.SingleQQ.UI
 			nameValuePairs["MinRadius"] = MinRadius;
 			nameValuePairs["MaxShootingTrials"] = TbxMaxShootingTrials.Text;
 			nameValuePairs["NumberExtrema"] = TbxNumberExtrema.Text;
-			nameValuePairs["Outfile"] = TbxOutfile.Text;
+			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
 			nameValuePairs["PotentialType"] = CbxPotentialType.Text;
 			nameValuePairs["QuantumNumberL"] = TbxQuantumNumberL.Text;
 			nameValuePairs["QuantumNumberN"] = TbxQuantumNumberN.Text;
@@ -188,7 +188,7 @@ namespace Yburn.SingleQQ.UI
 			MinEnergy = nameValuePairs["MinEnergy"];
 			MinRadius = nameValuePairs["MinRadius"];
 			TbxNumberExtrema.Text = nameValuePairs["NumberExtrema"];
-			TbxOutfile.Text = nameValuePairs["Outfile"];
+			TbxDataFileName.Text = nameValuePairs["DataFileName"];
 			CbxPotentialType.Text = nameValuePairs["PotentialType"];
 			TbxQuantumNumberL.Text = nameValuePairs["QuantumNumberL"];
 			TbxQuantumNumberN.Text = nameValuePairs["QuantumNumberN"];
@@ -272,7 +272,7 @@ namespace Yburn.SingleQQ.UI
 			toolTipMaker.Add(
 				"Name of the output file. The standard output path can be set\r\n"
 				+ "in the menu \"File\" using \"Set output path\".",
-				LblOutfile, TbxOutfile);
+				LblDataFileName, TbxDataFileName);
 			toolTipMaker.Add(
 				"Different interaction potentials:\r\n\r\n"
 				+ "Complex - Complex potential used e.g. in Nendzig, Wolschin (2014),\r\n"

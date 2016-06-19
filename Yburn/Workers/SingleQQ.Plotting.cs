@@ -4,13 +4,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
-using Yburn.Fireball;
 using Yburn.QQState;
-using Yburn.Util;
 
 namespace Yburn.Workers
 {
-	public partial class SingleQQ
+	partial class SingleQQ
 	{
 		/********************************************************************************************
 		 * Public members, functions and properties
@@ -114,79 +112,8 @@ namespace Yburn.Workers
 		}
 
 		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-
-		private static string GetBottomiumStateGnuplotCode(
-			BottomiumState state
-			)
-		{
-			switch(state)
-			{
-				case BottomiumState.Y1S:
-					return "{/Symbol U}(1S)";
-
-				case BottomiumState.x1P:
-					return "{/Symbol c}(1P)";
-
-				case BottomiumState.Y2S:
-					return "{/Symbol U}(2S)";
-
-				case BottomiumState.x2P:
-					return "{/Symbol c}(2P)";
-
-				case BottomiumState.Y3S:
-					return "{/Symbol U}(3S)";
-
-				case BottomiumState.x3P:
-					return "{/Symbol c}(3P)";
-
-				default:
-					throw new Exception("Invalid BottomiumState.");
-			}
-		}
-
-		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
-
-		private delegate List<List<double>> DataListCreator();
-
-		private string DataPathFile
-		{
-			get
-			{
-				return YburnConfigFile.OutputPath + DataFileName;
-			}
-		}
-
-		private string FormattedDataPathFile
-		{
-			get
-			{
-				return DataPathFile.Replace("\\", "/");
-			}
-		}
-
-		private string FormattedPlotPathFile
-		{
-			get
-			{
-				return FormattedDataPathFile + ".plt";
-			}
-		}
-
-		private void WritePlotFile(
-			StringBuilder plotFile
-			)
-		{
-			File.WriteAllText(FormattedPlotPathFile, plotFile.ToString());
-		}
-
-		private Process StartGnuplot()
-		{
-			return Process.Start("wgnuplot", "\"" + FormattedPlotPathFile + "\" --persist");
-		}
 
 		private void AssertInputValid_PlotPotential()
 		{
@@ -305,7 +232,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("     \"" + FormattedDataPathFile
 				+ "\" index 0 using 1:3 with lines title \"Im V\"");
 
-			File.WriteAllText(FormattedPlotPathFile, plotFile.ToString());
+			WritePlotFile(plotFile);
 		}
 
 		private void AssertInputValid_PlotAlpha()
@@ -328,35 +255,6 @@ namespace Yburn.Workers
 			}
 		}
 
-		private void CreateDataFile(
-			DataListCreator dataListCreator
-			)
-		{
-			List<List<double>> dataList = dataListCreator();
-
-			StringBuilder plotFile = new StringBuilder();
-			for(int i = 0; i < dataList[0].Count; i++)
-			{
-				WriteLine(dataList, plotFile, i);
-			}
-
-			File.WriteAllText(DataPathFile, plotFile.ToString());
-		}
-
-		private void WriteLine(
-			List<List<double>> dataList,
-			StringBuilder plotFile,
-			int index
-			)
-		{
-			foreach(List<double> list in dataList)
-			{
-				plotFile.AppendFormat("{0,-25}",
-					list[index].ToString());
-			}
-			plotFile.AppendLine();
-		}
-
 		private void CreateAlphaPlotFile()
 		{
 			StringBuilder plotFile = new StringBuilder();
@@ -370,7 +268,7 @@ namespace Yburn.Workers
 
 			AppendAlphaPlotCommands(plotFile);
 
-			File.WriteAllText(FormattedPlotPathFile, plotFile.ToString());
+			WritePlotFile(plotFile);
 		}
 
 		private void AppendAlphaPlotCommands(

@@ -94,8 +94,8 @@
 			this.MsxFireballFieldTypes = new Yburn.UI.MultiSelectBox();
 			this.LblSnapRate = new System.Windows.Forms.Label();
 			this.TbxSnapRate = new System.Windows.Forms.TextBox();
-			this.LblOutfile = new System.Windows.Forms.Label();
-			this.TbxOutfile = new System.Windows.Forms.TextBox();
+			this.LblDataFileName = new System.Windows.Forms.Label();
+			this.TbxDataFileName = new System.Windows.Forms.TextBox();
 			this.LblBjorkenLifeTime = new System.Windows.Forms.Label();
 			this.TbxBjorkenLifeTime = new System.Windows.Forms.TextBox();
 			this.LblLifeTime = new System.Windows.Forms.Label();
@@ -829,8 +829,8 @@
 			this.LayoutOutput.Controls.Add(this.MsxFireballFieldTypes, 1, 1);
 			this.LayoutOutput.Controls.Add(this.LblSnapRate, 0, 2);
 			this.LayoutOutput.Controls.Add(this.TbxSnapRate, 1, 2);
-			this.LayoutOutput.Controls.Add(this.LblOutfile, 0, 3);
-			this.LayoutOutput.Controls.Add(this.TbxOutfile, 1, 3);
+			this.LayoutOutput.Controls.Add(this.LblDataFileName, 0, 3);
+			this.LayoutOutput.Controls.Add(this.TbxDataFileName, 1, 3);
 			this.LayoutOutput.Controls.Add(this.LblBjorkenLifeTime, 0, 4);
 			this.LayoutOutput.Controls.Add(this.TbxBjorkenLifeTime, 1, 4);
 			this.LayoutOutput.Controls.Add(this.LblLifeTime, 0, 5);
@@ -921,24 +921,24 @@
 			this.TbxSnapRate.Size = new System.Drawing.Size(192, 31);
 			this.TbxSnapRate.TabIndex = 29;
 			// 
-			// LblOutfile
+			// LblDataFileName
 			// 
-			this.LblOutfile.AutoSize = true;
-			this.LblOutfile.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblOutfile.Location = new System.Drawing.Point(3, 183);
-			this.LblOutfile.Name = "LblOutfile";
-			this.LblOutfile.Size = new System.Drawing.Size(235, 25);
-			this.LblOutfile.TabIndex = 0;
-			this.LblOutfile.Text = "Outfile";
-			this.LblOutfile.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblDataFileName.AutoSize = true;
+			this.LblDataFileName.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblDataFileName.Location = new System.Drawing.Point(3, 183);
+			this.LblDataFileName.Name = "LblDataFileName";
+			this.LblDataFileName.Size = new System.Drawing.Size(235, 25);
+			this.LblDataFileName.TabIndex = 0;
+			this.LblDataFileName.Text = "DataFileName";
+			this.LblDataFileName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxOutfile
+			// TbxDataFileName
 			// 
-			this.TbxOutfile.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxOutfile.Location = new System.Drawing.Point(244, 186);
-			this.TbxOutfile.Name = "TbxOutfile";
-			this.TbxOutfile.Size = new System.Drawing.Size(192, 31);
-			this.TbxOutfile.TabIndex = 30;
+			this.TbxDataFileName.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxDataFileName.Location = new System.Drawing.Point(244, 186);
+			this.TbxDataFileName.Name = "TbxDataFileName";
+			this.TbxDataFileName.Size = new System.Drawing.Size(192, 31);
+			this.TbxDataFileName.TabIndex = 30;
 			// 
 			// LblBjorkenLifeTime
 			// 
@@ -1198,8 +1198,8 @@
 		private Yburn.UI.MultiSelectBox MsxFireballFieldTypes;
 		private System.Windows.Forms.Label LblSnapRate;
 		private System.Windows.Forms.TextBox TbxSnapRate;
-		private System.Windows.Forms.Label LblOutfile;
-		private System.Windows.Forms.TextBox TbxOutfile;
+		private System.Windows.Forms.Label LblDataFileName;
+		private System.Windows.Forms.TextBox TbxDataFileName;
 		private System.Windows.Forms.Label LblBjorkenLifeTime;
 		private System.Windows.Forms.TextBox TbxBjorkenLifeTime;
 		private System.Windows.Forms.Label LblLifeTime;

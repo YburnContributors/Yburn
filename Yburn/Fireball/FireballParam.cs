@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
@@ -103,7 +104,7 @@ namespace Yburn.Fireball
 			}
 			set
 			{
-				BeamRapidity = Artanh(value);
+				BeamRapidity = Functions.Artanh(value);
 			}
 		}
 
@@ -195,16 +196,6 @@ namespace Yburn.Fireball
 			}
 
 			return y;
-		}
-
-		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-		private static double Artanh(
-			double x
-			)
-		{
-			return 0.5 * Math.Log((1.0 + x) / (1.0 - x));
 		}
 	}
 }

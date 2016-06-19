@@ -179,7 +179,7 @@ namespace Yburn.Workers
 				List<string> dataList = new List<string>();
 				dataList.Add(LogHeader + "#\r\n#");
 				dataList.AddRange(CreateWaveFunctionDataList(boundState));
-				File.WriteAllLines(YburnConfigFile.OutputPath + Outfile, dataList);
+				File.WriteAllLines(YburnConfigFile.OutputPath + DataFileName, dataList);
 			}
 			catch
 			{
@@ -226,7 +226,7 @@ namespace Yburn.Workers
 				List<string> dataList = new List<string>();
 				dataList.Add(LogHeader + "#\r\n#");
 				dataList.AddRange(CreateWaveFunctionDataList(freeState));
-				File.WriteAllLines(YburnConfigFile.OutputPath + Outfile, dataList);
+				File.WriteAllLines(YburnConfigFile.OutputPath + DataFileName, dataList);
 			}
 			catch
 			{
@@ -298,7 +298,7 @@ namespace Yburn.Workers
 				dataList.Add(string.Empty);
 				dataList.Add(string.Empty);
 				dataList.AddRange(decayWidth.CrossSectionStringList);
-				File.WriteAllLines(YburnConfigFile.OutputPath + Outfile, dataList);
+				File.WriteAllLines(YburnConfigFile.OutputPath + DataFileName, dataList);
 			}
 			catch
 			{
@@ -334,7 +334,7 @@ namespace Yburn.Workers
 				List<string> dataList = new List<string>();
 				dataList.Add(LogHeader + "#\r\n#");
 				dataList.AddRange(CreateWaveFunctionDataList(boundState));
-				File.WriteAllLines(YburnConfigFile.OutputPath + Outfile, dataList);
+				File.WriteAllLines(YburnConfigFile.OutputPath + DataFileName, dataList);
 			}
 			catch
 			{

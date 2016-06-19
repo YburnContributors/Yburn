@@ -12,7 +12,6 @@
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -109,9 +108,9 @@
       <Project>{742600e8-00ef-4a05-bb96-31449ae45336}</Project>
       <Name>Interfaces</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Yburn.UI\Yburn.UI.csproj">
+    <ProjectReference Include="..\UI\UI.csproj">
       <Project>{5d018a3b-a201-4940-adcd-52704681b94d}</Project>
-      <Name>Yburn.UI</Name>
+      <Name>UI</Name>
     </ProjectReference>
     <ProjectReference Include="..\Yburn\Yburn.csproj">
       <Project>{eb474e7f-d6f1-408d-a30b-cf662b311c93}</Project>

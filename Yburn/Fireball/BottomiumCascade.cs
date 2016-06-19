@@ -98,7 +98,7 @@ namespace Yburn.Fireball
 			return GetMatrixString(CalculateInverseCumulativeMatrix());
 		}
 
-		public static double[] GetInitialPopulations(
+		public static double[] GetInitialQQPopulations(
 			double[] ppYields
 			)
 		{
@@ -107,22 +107,22 @@ namespace Yburn.Fireball
 				throw new Exception("ppYields.Length != BottomiumStatesCount.");
 			}
 
-			double[] initialPopulations = new double[BottomiumStatesCount];
+			double[] initialQQPopulations = new double[BottomiumStatesCount];
 			double[,] inverseCMatrix = CalculateInverseCumulativeMatrix();
 			double[] popsBeforeMuonDecay = GetppPopulationsBeforeMuonDecay(ppYields);
 			for(int i = 0; i < BottomiumStatesCount; i++)
 			{
-				initialPopulations[i] = 0;
+				initialQQPopulations[i] = 0;
 				for(int j = 0; j < BottomiumStatesCount; j++)
 				{
-					initialPopulations[i] += inverseCMatrix[i, j] * popsBeforeMuonDecay[j];
+					initialQQPopulations[i] += inverseCMatrix[i, j] * popsBeforeMuonDecay[j];
 				}
 			}
 
-			return initialPopulations;
+			return initialQQPopulations;
 		}
 
-		public static string GetInitialPopulationsString(
+		public static string GetInitialQQPopulationsString(
 			double[] ppYields
 			)
 		{
@@ -135,7 +135,7 @@ namespace Yburn.Fireball
 			popsString.AppendLine();
 			popsString.AppendLine();
 
-			double[] pops = GetInitialPopulations(ppYields);
+			double[] pops = GetInitialQQPopulations(ppYields);
 			foreach(BottomiumState eState in Enum.GetValues(typeof(BottomiumState)))
 			{
 				popsString.AppendFormat("{0,10}",
@@ -175,7 +175,7 @@ namespace Yburn.Fireball
 			double[] ppYields
 			)
 		{
-			CascadeVector initialPops = new CascadeVector(GetInitialPopulations(ppYields));
+			CascadeVector initialPops = new CascadeVector(GetInitialQQPopulations(ppYields));
 			CascadeMatrix bMatrix = new CascadeMatrix(CalculateBranchingRatioMatrix());
 			CascadeMatrix cMatrix = new CascadeMatrix(CalculateCumulativeMatrix());
 
@@ -240,7 +240,7 @@ namespace Yburn.Fireball
 			double[,] cMatrix = CalculateCumulativeMatrix();
 			for(int i = 0; i < BottomiumStatesCount; i++)
 			{
-				double[] reducedPops = GetReducedInitialPopulations(
+				double[] reducedPops = GetReducedInitialQQPopulations(
 					ppYields, qgpSuppressionFactor);
 
 				tmpPop[i] = 0;
@@ -355,7 +355,7 @@ namespace Yburn.Fireball
 			};
 		}
 
-		private static double[] GetReducedInitialPopulations(
+		private static double[] GetReducedInitialQQPopulations(
 			double[] ppYields,
 			double[] relativeOccupation
 			)
@@ -366,13 +366,13 @@ namespace Yburn.Fireball
 				throw new Exception("Incorrect input.");
 			}
 
-			double[] initialPopulations = GetInitialPopulations(ppYields);
+			double[] initialQQPopulations = GetInitialQQPopulations(ppYields);
 			for(int i = 0; i < BottomiumStatesCount; i++)
 			{
-				initialPopulations[i] *= relativeOccupation[i];
+				initialQQPopulations[i] *= relativeOccupation[i];
 			}
 
-			return initialPopulations;
+			return initialQQPopulations;
 		}
 
 		private static string GetMatrixString(

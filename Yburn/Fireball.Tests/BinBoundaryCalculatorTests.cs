@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading;
-using Yburn.Tests.Util;
+using Yburn.TestUtil;
 
 namespace Yburn.Fireball.Tests
 {

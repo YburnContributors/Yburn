@@ -16,7 +16,6 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -71,17 +70,17 @@
       <Project>{3a5b70f6-b463-45f2-982a-3bce9eb9f247}</Project>
       <Name>QQState</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Util\Util.csproj">
+    <ProjectReference Include="..\FileUtil\FileUtil.csproj">
       <Project>{59e7bc95-adee-49ac-a6c8-4df0f322209e}</Project>
-      <Name>Util</Name>
+      <Name>FileUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Workers\Workers.csproj">
       <Project>{cde3fc2a-a046-466f-afe6-9b6c860552fa}</Project>
       <Name>Workers</Name>
     </ProjectReference>
-    <ProjectReference Include="..\YburnTest.Util\YburnTests.Util.csproj">
+    <ProjectReference Include="..\TestUtil\TestUtil.csproj">
       <Project>{e908b7fc-78be-483a-b2fc-e52734275c45}</Project>
-      <Name>YburnTests.Util</Name>
+      <Name>TestUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\Yburn\Yburn.csproj">
       <Project>{eb474e7f-d6f1-408d-a30b-cf662b311c93}</Project>

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Yburn.Tests.Util;
+using Yburn.PhysUtil;
+using Yburn.TestUtil;
 
 namespace Yburn.Fireball.Tests
 {
@@ -11,15 +12,27 @@ namespace Yburn.Fireball.Tests
 		 ********************************************************************************************/
 
 		[TestMethod]
-		public void CalculateAverageMagneticFieldStrength()
+		public void CalculateAverageMagneticFieldStrengthInLabFrame()
 		{
 			MagneticFieldStrengthAverager averager =
 				new MagneticFieldStrengthAverager(CreateFireballParam());
 
-			double result = averager.CalculateAverageMagneticFieldStrength(
+			double result = averager.CalculateAverageMagneticFieldStrengthInLabFrame(
 				QuadraturePrecision.Use8Points);
 
-			AssertHelper.AssertRoundedEqual(0.46319460194338846, result);
+			AssertHelper.AssertRoundedEqual(0.70708322492671616, result);
+		}
+
+		[TestMethod]
+		public void CalculateAverageMagneticFieldStrengthInLCF()
+		{
+			MagneticFieldStrengthAverager averager =
+				new MagneticFieldStrengthAverager(CreateFireballParam());
+
+			double result = averager.CalculateAverageMagneticFieldStrengthInLCF(
+				QuadraturePrecision.Use8Points);
+
+			AssertHelper.AssertRoundedEqual(0.22539532179428509, result);
 		}
 
 		private FireballParam CreateFireballParam()
@@ -33,7 +46,7 @@ namespace Yburn.Fireball.Tests
 			param.FormationTimesFm = new double[] { 0.4, 0.4, 0.4, 0.4, 0.4, 0.4 };
 			param.GridCellSizeFm = 1;
 			param.GridRadiusFm = 10;
-			param.ImpactParameterFm = 7.0;
+			param.ImpactParameterFm = 7;
 			param.NuclearRadiusAFm = 6.62;
 			param.NuclearRadiusBFm = 6.62;
 			param.NucleonNumberA = 208;

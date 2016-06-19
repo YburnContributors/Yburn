@@ -140,7 +140,7 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["ImpactParamsAtBinBoundaries"] = TbxImpactParamsAtBinBoundaries.Text;
 			nameValuePairs["ParticipantsAtBinBoundaries"] = TbxParticipantsAtBinBoundaries.Text;
 			nameValuePairs["MeanParticipantsInBin"] = TbxMeanParticipantsInBin.Text;
-			nameValuePairs["Outfile"] = TbxOutfile.Text;
+			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
 			nameValuePairs["BjorkenLifeTime"] = TbxBjorkenLifeTime.Text;
 			nameValuePairs["LifeTime"] = TbxLifeTime.Text;
 
@@ -183,7 +183,7 @@ namespace Yburn.QQonFire.UI
 			TbxImpactParamsAtBinBoundaries.Text = nameValuePairs["ImpactParamsAtBinBoundaries"];
 			TbxParticipantsAtBinBoundaries.Text = nameValuePairs["ParticipantsAtBinBoundaries"];
 			TbxMeanParticipantsInBin.Text = nameValuePairs["MeanParticipantsInBin"];
-			TbxOutfile.Text = nameValuePairs["Outfile"];
+			TbxDataFileName.Text = nameValuePairs["DataFileName"];
 			TbxBjorkenLifeTime.Text = nameValuePairs["BjorkenLifeTime"];
 			TbxLifeTime.Text = nameValuePairs["LifeTime"];
 		}
@@ -202,7 +202,7 @@ namespace Yburn.QQonFire.UI
 			MenuEntry.MenuItemShowBranchingRatio.Click += new EventHandler(MenuItemShowBranchingRatio_Click);
 			MenuEntry.MenuItemShowCumulativeMatrix.Click += new EventHandler(MenuItemShowCumulativeMatrix_Click);
 			MenuEntry.MenuItemShowInverseCumulativeMatrix.Click += new EventHandler(MenuItemShowInverseCumulativeMatrix_Click);
-			MenuEntry.MenuItemShowInitialPopulations.Click += new EventHandler(MenuItemShowInitialPopulations_Click);
+			MenuEntry.MenuItemShowInitialQQPopulations.Click += new EventHandler(MenuItemShowInitialQQPopulations_Click);
 			MenuEntry.MenuItemShowProtonProtonYields.Click += new EventHandler(MenuItemShowProtonProtonYields_Click);
 			MenuEntry.MenuItemShowFeedDown.Click += new EventHandler(MenuItemShowFeedDown_Click);
 		}
@@ -252,9 +252,9 @@ namespace Yburn.QQonFire.UI
 			JobOrganizer.RequestNewJob("ShowInverseCumulativeMatrix", ControlsValues);
 		}
 
-		private void MenuItemShowInitialPopulations_Click(object sender, EventArgs e)
+		private void MenuItemShowInitialQQPopulations_Click(object sender, EventArgs e)
 		{
-			JobOrganizer.RequestNewJob("ShowInitialPopulations", ControlsValues);
+			JobOrganizer.RequestNewJob("ShowInitialQQPopulations", ControlsValues);
 		}
 
 		private void MenuItemShowProtonProtonYields_Click(object sender, EventArgs e)

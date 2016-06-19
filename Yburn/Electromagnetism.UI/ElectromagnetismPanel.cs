@@ -115,7 +115,7 @@ namespace Yburn.Electromagnetism.UI
 			nameValuePairs["NuclearRadiusB"] = TbxNuclearRadiusB.Text;
 			nameValuePairs["NucleonNumberA"] = TbxNucleonNumberA.Text;
 			nameValuePairs["NucleonNumberB"] = TbxNucleonNumberB.Text;
-			nameValuePairs["Outfile"] = TbxOutfile.Text;
+			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
 			nameValuePairs["ProtonNumberA"] = TbxProtonNumberA.Text;
 			nameValuePairs["ProtonNumberB"] = TbxProtonNumberB.Text;
 			nameValuePairs["QGPConductivityMeV"] = TbxQGPConductivityMeV.Text;
@@ -147,7 +147,7 @@ namespace Yburn.Electromagnetism.UI
 			TbxNuclearRadiusB.Text = nameValuePairs["NuclearRadiusB"];
 			TbxNucleonNumberA.Text = nameValuePairs["NucleonNumberA"];
 			TbxNucleonNumberB.Text = nameValuePairs["NucleonNumberB"];
-			TbxOutfile.Text = nameValuePairs["Outfile"];
+			TbxDataFileName.Text = nameValuePairs["DataFileName"];
 			TbxProtonNumberA.Text = nameValuePairs["ProtonNumberA"];
 			TbxProtonNumberB.Text = nameValuePairs["ProtonNumberB"];
 			TbxQGPConductivityMeV.Text = nameValuePairs["QGPConductivityMeV"];
@@ -175,7 +175,7 @@ namespace Yburn.Electromagnetism.UI
 			toolTipMaker.Add(
 				"Name of the output file. The standard output path can be set\r\n"
 				+ "in the menu \"File\" using \"Set output path\".",
-				LblOutfile, TbxOutfile);
+				LblDataFileName, TbxDataFileName);
 		}
 
 		private void MenuItemPlotPointChargeAzimutalMagneticField_Click(object sender, EventArgs e)
