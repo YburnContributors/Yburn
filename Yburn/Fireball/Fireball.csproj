@@ -63,6 +63,10 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FileUtil\FileUtil.csproj">
+      <Project>{59e7bc95-adee-49ac-a6c8-4df0f322209e}</Project>
+      <Name>FileUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PhysUtil\PhysUtil.csproj">
       <Project>{96E5E846-3417-4A44-A4F1-7ED8DCA43F43}</Project>
       <Name>PhysUtil</Name>
