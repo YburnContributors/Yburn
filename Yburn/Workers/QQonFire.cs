@@ -110,8 +110,8 @@ namespace Yburn.Workers
 					ShowInitialQQPopulations();
 					break;
 
-				case "ShowProtonProtonYields":
-					ShowProtonProtonYields();
+				case "ShowProtonProtonDimuonDecays":
+					ShowProtonProtonDimuonDecays();
 					break;
 
 				case "ShowSnapsX":
@@ -542,16 +542,16 @@ namespace Yburn.Workers
 
 			LogMessages.Clear();
 			LogMessages.AppendFormat("Initial populations:\r\n\r\n{0}\r\n\r\n",
-				BottomiumCascade.GetInitialQQPopulationsString(GetProtonProtonYields()));
+				BottomiumCascade.GetInitialQQPopulationsString(ProtonProtonBaseline, FeedDown3P));
 		}
 
-		public void ShowProtonProtonYields()
+		public void ShowProtonProtonDimuonDecays()
 		{
-			CurrentJobTitle = "ShowProtonProtonYields";
+			CurrentJobTitle = "ShowProtonProtonDimuonDecays";
 
 			LogMessages.Clear();
-			LogMessages.AppendFormat("pp yields:\r\n\r\n{0}\r\n\r\n",
-				BottomiumCascade.GetProtonProtonYieldsString(GetProtonProtonYields()));
+			LogMessages.AppendFormat("Scaled pp dimuon decays:\r\n\r\n{0}\r\n\r\n",
+				BottomiumCascade.GetProtonProtonDimuonDecaysString(ProtonProtonBaseline, FeedDown3P));
 		}
 
 		public void ShowSnapsX()
@@ -578,7 +578,7 @@ namespace Yburn.Workers
 
 			LogMessages.Clear();
 			LogMessages.AppendFormat("Y1S feed down:\r\n\r\n{0}\r\n\r\n",
-				BottomiumCascade.GetY1SFeedDownString(GetProtonProtonYields()));
+				BottomiumCascade.GetY1SFeedDownString(ProtonProtonBaseline, FeedDown3P));
 		}
 
 		/********************************************************************************************
@@ -668,29 +668,30 @@ namespace Yburn.Workers
 		{
 			FireballParam param = new FireballParam();
 
-			param.NucleonNumberA = NucleonNumberA;
+			param.BeamRapidity = BeamRapidity;
+			param.DecayWidthAveragingAngles = DecayWidthAveragingAngles;
+			param.DecayWidthEvaluationType = DecayWidthEvaluationType;
 			param.DiffusenessAFm = DiffusenessA;
-			param.NuclearRadiusAFm = NuclearRadiusA;
-			param.NucleonNumberB = NucleonNumberB;
 			param.DiffusenessBFm = DiffusenessB;
-			param.NuclearRadiusBFm = NuclearRadiusB;
+			param.ExpansionMode = ExpansionMode;
+			param.FormationTimesFm = FormationTimes;
 			param.GridCellSizeFm = GridCellSize;
 			param.GridRadiusFm = GridRadius;
 			param.ImpactParameterFm = ImpactParameter;
-			param.ThermalTimeFm = ThermalTime;
-			param.FormationTimesFm = FormationTimes;
 			param.InitialCentralTemperatureMeV = InitialCentralTemperature;
 			param.MinimalCentralTemperatureMeV = MinimalCentralTemperature;
-			param.BeamRapidity = BeamRapidity;
-			param.TransverseMomentaGeV = TransverseMomenta;
-			param.DecayWidthEvaluationType = DecayWidthEvaluationType;
-			param.ExpansionMode = ExpansionMode;
-			param.TemperatureProfile = TemperatureProfile;
-			param.DecayWidthAveragingAngles = DecayWidthAveragingAngles;
-			param.TemperatureDecayWidthList = TemperatureDecayWidthListHelper.GetList(
-					GetQQDataPathFile(), DecayWidthType, PotentialTypes);
+			param.NuclearRadiusAFm = NuclearRadiusA;
+			param.NuclearRadiusBFm = NuclearRadiusB;
+			param.NucleonNumberA = NucleonNumberA;
+			param.NucleonNumberB = NucleonNumberB;
+			param.ProtonProtonBaseline = ProtonProtonBaseline;
 			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
 			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
+			param.TemperatureDecayWidthList = TemperatureDecayWidthListHelper.GetList(
+				GetQQDataPathFile(), DecayWidthType, PotentialTypes);
+			param.TemperatureProfile = TemperatureProfile;
+			param.ThermalTimeFm = ThermalTime;
+			param.TransverseMomentaGeV = TransverseMomenta;
 
 			return param;
 		}
@@ -709,22 +710,26 @@ namespace Yburn.Workers
 			double[] qgpSuppressionFactors
 			)
 		{
-			double[] ppYields = GetProtonProtonYields();
-			double[] ppQGPSuppressionFactors = { 1, 1, 1, 1, 1, 1 };
+			double[] ppDimuonDecays = BottomiumCascade.GetProtonProtonDimuonDecays(
+				ProtonProtonBaseline, FeedDown3P);
+			//double[] ppQGPSuppressionFactors = { 1, 1, 1, 1, 1, 1 };
 
-			double ppResult1S = BottomiumCascade.GetDimuonDecays(
-				ppYields, ppQGPSuppressionFactors, BottomiumState.Y1S);
-			double ppResult2S = BottomiumCascade.GetDimuonDecays(
-				ppYields, ppQGPSuppressionFactors, BottomiumState.Y2S);
-			double ppResult3S = BottomiumCascade.GetDimuonDecays(
-				ppYields, ppQGPSuppressionFactors, BottomiumState.Y3S);
+			//double ppResult1S = BottomiumCascade.GetDimuonDecays(
+			//	ppYields, ppQGPSuppressionFactors, BottomiumState.Y1S);
+			//double ppResult2S = BottomiumCascade.GetDimuonDecays(
+			//	ppYields, ppQGPSuppressionFactors, BottomiumState.Y2S);
+			//double ppResult3S = BottomiumCascade.GetDimuonDecays(
+			//	ppYields, ppQGPSuppressionFactors, BottomiumState.Y3S);
+			double ppResult1S = ppDimuonDecays[(int)BottomiumState.Y1S];
+			double ppResult2S = ppDimuonDecays[(int)BottomiumState.Y2S];
+			double ppResult3S = ppDimuonDecays[(int)BottomiumState.Y3S];
 
 			double heavyIonResult1S = BottomiumCascade.GetDimuonDecays(
-				ppYields, qgpSuppressionFactors, BottomiumState.Y1S);
+				ProtonProtonBaseline, FeedDown3P, qgpSuppressionFactors, BottomiumState.Y1S);
 			double heavyIonResult2S = BottomiumCascade.GetDimuonDecays(
-				ppYields, qgpSuppressionFactors, BottomiumState.Y2S);
+				ProtonProtonBaseline, FeedDown3P, qgpSuppressionFactors, BottomiumState.Y2S);
 			double heavyIonResult3S = BottomiumCascade.GetDimuonDecays(
-				ppYields, qgpSuppressionFactors, BottomiumState.Y3S);
+				ProtonProtonBaseline, FeedDown3P, qgpSuppressionFactors, BottomiumState.Y3S);
 
 			return new double[] {
 				heavyIonResult1S / ppResult1S,
@@ -869,25 +874,6 @@ namespace Yburn.Workers
 			}
 
 			return centralityBinStrings;
-		}
-
-		protected double[] GetProtonProtonYields()
-		{
-			switch(ProtonProtonBaseline)
-			{
-				case ProtonProtonBaseline.CMS2012:
-					return new double[] {
-						1.0, // Y1S
-						0.271, // x1P
-						0.56, // Y2S
-						0.105, // x2P
-						0.41, // Y3S
-						FeedDown3P // x3P
-					};
-
-				default:
-					throw new Exception("Invalid Baseline.");
-			}
 		}
 	}
 }

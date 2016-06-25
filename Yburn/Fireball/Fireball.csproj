@@ -32,8 +32,7 @@
   <ItemGroup>
     <Compile Include="BinBoundaryCalculator.cs" />
     <Compile Include="BottomiumCascade.cs" />
-    <Compile Include="DensityFunction.cs" />
-    <Compile Include="GaussianDistribution.cs" />
+    <Compile Include="NuclearDensityFunction.cs" />
     <Compile Include="DecayWidthAverager.cs" />
     <Compile Include="FireballElectromagneticField.cs" />
     <Compile Include="MagneticFieldStrengthAverager.cs" />
@@ -54,7 +53,6 @@
     <Compile Include="QGPSuppression.cs" />
     <Compile Include="TemperatureDecayWidthListHelper.cs" />
     <Compile Include="TransverseMomentumAverager.cs" />
-    <Compile Include="WoodsSaxonPotential.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Meta.Numerics">

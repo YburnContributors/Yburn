@@ -14,7 +14,7 @@ namespace Yburn.Fireball
 		{
 			Param = param.Clone();
 
-			DensityFunction.CreateProtonDensityFunctionPair(
+			NuclearDensityFunction.CreateProtonDensityFunctionPair(
 				param, out ProtonDensityFunctionA, out ProtonDensityFunctionB);
 		}
 
@@ -22,7 +22,7 @@ namespace Yburn.Fireball
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public EuclideanVector3D CalculateMagneticField(
+		public EuclideanVector3D CalculateMagneticFieldInCMS(
 			double time,
 			EuclideanVector3D position,
 			QuadraturePrecision precision = QuadraturePrecision.Use64Points
@@ -32,7 +32,7 @@ namespace Yburn.Fireball
 				0.5 * Param.ImpactParameterFm, 0, 0);
 
 			// Nucleus A is located at negative x and moves in positive z direction
-			EuclideanVector3D fieldNucleusA = CalculateSingleNucleusMagneticField(
+			EuclideanVector3D fieldNucleusA = CalculateSingleNucleusMagneticFieldInCMS(
 				time,
 				position + nucleusOffset,
 				Param.ParticleVelocity,
@@ -40,7 +40,7 @@ namespace Yburn.Fireball
 				precision);
 
 			// Nucleus B is located at positive x and moves in negative z direction
-			EuclideanVector3D fieldNucleusB = CalculateSingleNucleusMagneticField(
+			EuclideanVector3D fieldNucleusB = CalculateSingleNucleusMagneticFieldInCMS(
 				time,
 				position - nucleusOffset,
 				-Param.ParticleVelocity,
@@ -50,11 +50,11 @@ namespace Yburn.Fireball
 			return fieldNucleusA + fieldNucleusB;
 		}
 
-		public EuclideanVector3D CalculateSingleNucleusMagneticField(
+		public EuclideanVector3D CalculateSingleNucleusMagneticFieldInCMS(
 			double time,
 			EuclideanVector3D position,
 			double nucleusVelocity,
-			DensityFunction protonDensityFunction,
+			NuclearDensityFunction protonDensityFunction,
 			QuadraturePrecision precision = QuadraturePrecision.Use64Points
 			)
 		{
@@ -78,7 +78,7 @@ namespace Yburn.Fireball
 			return integral;
 		}
 
-		public EuclideanVector3D CalculateMagneticField_LCF(
+		public EuclideanVector3D CalculateMagneticFieldInLCF(
 			double properTime,
 			EuclideanVector2D position,
 			double rapidity,
@@ -89,7 +89,7 @@ namespace Yburn.Fireball
 				0.5 * Param.ImpactParameterFm, 0);
 
 			// Nucleus A is located at negative x and moves in positive z direction
-			EuclideanVector3D fieldNucleusA = CalculateSingleNucleusMagneticField_LCF(
+			EuclideanVector3D fieldNucleusA = CalculateSingleNucleusMagneticFieldInLCF(
 				properTime,
 				position + nucleusOffset,
 				rapidity,
@@ -98,7 +98,7 @@ namespace Yburn.Fireball
 				precision);
 
 			// Nucleus B is located at positive x and moves in negative z direction
-			EuclideanVector3D fieldNucleusB = CalculateSingleNucleusMagneticField_LCF(
+			EuclideanVector3D fieldNucleusB = CalculateSingleNucleusMagneticFieldInLCF(
 				properTime,
 				position - nucleusOffset,
 				rapidity,
@@ -109,12 +109,12 @@ namespace Yburn.Fireball
 			return fieldNucleusA + fieldNucleusB;
 		}
 
-		public EuclideanVector3D CalculateSingleNucleusMagneticField_LCF(
+		public EuclideanVector3D CalculateSingleNucleusMagneticFieldInLCF(
 			double properTime,
 			EuclideanVector2D position,
 			double rapidity,
 			double nucleusVelocity,
-			DensityFunction protonDensityFunction,
+			NuclearDensityFunction protonDensityFunction,
 			QuadraturePrecision precision = QuadraturePrecision.Use64Points
 			)
 		{
@@ -144,8 +144,8 @@ namespace Yburn.Fireball
 
 		private FireballParam Param;
 
-		private DensityFunction ProtonDensityFunctionA;
+		private NuclearDensityFunction ProtonDensityFunctionA;
 
-		private DensityFunction ProtonDensityFunctionB;
+		private NuclearDensityFunction ProtonDensityFunctionB;
 	}
 }

@@ -99,17 +99,14 @@ namespace Yburn.Fireball
 		}
 
 		public static double[] GetInitialQQPopulations(
-			double[] ppYields
+			ProtonProtonBaseline ProtonProtonBaseline,
+			double FeedDown3P
 			)
 		{
-			if(ppYields.Length != BottomiumStatesCount)
-			{
-				throw new Exception("ppYields.Length != BottomiumStatesCount.");
-			}
-
 			double[] initialQQPopulations = new double[BottomiumStatesCount];
 			double[,] inverseCMatrix = CalculateInverseCumulativeMatrix();
-			double[] popsBeforeMuonDecay = GetppPopulationsBeforeMuonDecay(ppYields);
+			double[] popsBeforeMuonDecay = GetppPopulationsBeforeMuonDecay(
+				ProtonProtonBaseline, FeedDown3P);
 			for(int i = 0; i < BottomiumStatesCount; i++)
 			{
 				initialQQPopulations[i] = 0;
@@ -123,7 +120,8 @@ namespace Yburn.Fireball
 		}
 
 		public static string GetInitialQQPopulationsString(
-			double[] ppYields
+			ProtonProtonBaseline ProtonProtonBaseline,
+			double FeedDown3P
 			)
 		{
 			StringBuilder popsString = new StringBuilder();
@@ -135,7 +133,7 @@ namespace Yburn.Fireball
 			popsString.AppendLine();
 			popsString.AppendLine();
 
-			double[] pops = GetInitialQQPopulations(ppYields);
+			double[] pops = GetInitialQQPopulations(ProtonProtonBaseline, FeedDown3P);
 			foreach(BottomiumState eState in Enum.GetValues(typeof(BottomiumState)))
 			{
 				popsString.AppendFormat("{0,10}",
@@ -147,35 +145,39 @@ namespace Yburn.Fireball
 			return popsString.ToString();
 		}
 
-		public static string GetProtonProtonYieldsString(
-			double[] ppYields
+		public static string GetProtonProtonDimuonDecaysString(
+			ProtonProtonBaseline ProtonProtonBaseline,
+			double FeedDown3P
 			)
 		{
-			StringBuilder ppYieldsString = new StringBuilder();
+			StringBuilder ppDimuonDecaysString = new StringBuilder();
 			foreach(string sStateName in Enum.GetNames(typeof(BottomiumState)))
 			{
-				ppYieldsString.AppendFormat("{0,10}", sStateName);
+				ppDimuonDecaysString.AppendFormat("{0,10}", sStateName);
 			}
 
-			ppYieldsString.AppendLine();
-			ppYieldsString.AppendLine();
+			ppDimuonDecaysString.AppendLine();
+			ppDimuonDecaysString.AppendLine();
 
+			double[] ppDimuonDecays = GetProtonProtonDimuonDecays(ProtonProtonBaseline, FeedDown3P);
 			foreach(BottomiumState eState in Enum.GetValues(typeof(BottomiumState)))
 			{
-				ppYieldsString.AppendFormat("{0,10}",
-					ppYields[(int)eState].ToString("G4"));
+				ppDimuonDecaysString.AppendFormat("{0,10}",
+					ppDimuonDecays[(int)eState].ToString("G4"));
 			}
 
-			ppYieldsString.AppendLine();
+			ppDimuonDecaysString.AppendLine();
 
-			return ppYieldsString.ToString();
+			return ppDimuonDecaysString.ToString();
 		}
 
 		public static double[] GetY1SFeedDown(
-			double[] ppYields
+			ProtonProtonBaseline ProtonProtonBaseline,
+			double FeedDown3P
 			)
 		{
-			CascadeVector initialPops = new CascadeVector(GetInitialQQPopulations(ppYields));
+			CascadeVector initialPops = new CascadeVector(
+				GetInitialQQPopulations(ProtonProtonBaseline, FeedDown3P));
 			CascadeMatrix bMatrix = new CascadeMatrix(CalculateBranchingRatioMatrix());
 			CascadeMatrix cMatrix = new CascadeMatrix(CalculateCumulativeMatrix());
 
@@ -206,7 +208,8 @@ namespace Yburn.Fireball
 		}
 
 		public static string GetY1SFeedDownString(
-			double[] ppYields
+			ProtonProtonBaseline ProtonProtonBaseline,
+			double FeedDown3P
 			)
 		{
 			StringBuilder feedDownString = new StringBuilder();
@@ -218,7 +221,7 @@ namespace Yburn.Fireball
 			feedDownString.AppendLine();
 			feedDownString.AppendLine();
 
-			double[] feedDown = GetY1SFeedDown(ppYields);
+			double[] feedDown = GetY1SFeedDown(ProtonProtonBaseline, FeedDown3P);
 			foreach(BottomiumState eState in Enum.GetValues(typeof(BottomiumState)))
 			{
 				feedDownString.AppendFormat("{0,10}",
@@ -231,7 +234,8 @@ namespace Yburn.Fireball
 		}
 
 		public static double GetDimuonDecays(
-			double[] ppYields,
+			ProtonProtonBaseline ProtonProtonBaseline,
+			double FeedDown3P,
 			double[] qgpSuppressionFactor,
 			BottomiumState eState
 			)
@@ -241,7 +245,7 @@ namespace Yburn.Fireball
 			for(int i = 0; i < BottomiumStatesCount; i++)
 			{
 				double[] reducedPops = GetReducedInitialQQPopulations(
-					ppYields, qgpSuppressionFactor);
+					ProtonProtonBaseline, FeedDown3P, qgpSuppressionFactor);
 
 				tmpPop[i] = 0;
 				for(int j = 0; j < BottomiumStatesCount; j++)
@@ -263,6 +267,38 @@ namespace Yburn.Fireball
 
 				default:
 					throw new Exception("Invalid state.");
+			}
+		}
+
+		public static double[] GetProtonProtonDimuonDecays(
+			ProtonProtonBaseline ProtonProtonBaseline,
+			double FeedDown3P
+			)
+		{
+			switch(ProtonProtonBaseline)
+			{
+				case ProtonProtonBaseline.CMS2012:
+					return new double[] {
+						1.0, // Y1S
+						0.271, // x1P
+						0.56, // Y2S
+						0.105, // x2P
+						0.41, // Y3S
+						FeedDown3P // x3P
+					};
+
+				case ProtonProtonBaseline.Estimate502TeV:
+					return new double[] {
+						1.0, // Y1S
+						0.271, // x1P
+						0.56, // Y2S
+						0.105, // x2P
+						0.41, // Y3S
+						FeedDown3P // x3P
+					};
+
+				default:
+					throw new Exception("Invalid Baseline.");
 			}
 		}
 
@@ -341,32 +377,30 @@ namespace Yburn.Fireball
 		private const double B1Smu = 0.0248;
 
 		private static double[] GetppPopulationsBeforeMuonDecay(
-			double[] ppYields
+			ProtonProtonBaseline ProtonProtonBaseline,
+			double FeedDown3P
 			)
 		{
+			double[] ppDimuonDecays = GetProtonProtonDimuonDecays(ProtonProtonBaseline, FeedDown3P);
+
 			CascadeMatrix bMatrix = new CascadeMatrix(CalculateBranchingRatioMatrix());
 			return new double[] {
-				ppYields[(int)BottomiumState.Y1S] / B1Smu,
-				ppYields[(int)BottomiumState.x1P] / B1Smu / bMatrix.GetElement("Y1S", "x1P"),
-				ppYields[(int)BottomiumState.Y2S] / B2Smu,
-				ppYields[(int)BottomiumState.x2P] / B1Smu / bMatrix.GetElement("Y1S", "x2P"),
-				ppYields[(int)BottomiumState.Y3S] / B3Smu,
-				ppYields[(int)BottomiumState.x3P] / B1Smu / bMatrix.GetElement("Y1S", "x3P")
+				ppDimuonDecays[(int)BottomiumState.Y1S] / B1Smu,
+				ppDimuonDecays[(int)BottomiumState.x1P] / B1Smu / bMatrix.GetElement("Y1S", "x1P"),
+				ppDimuonDecays[(int)BottomiumState.Y2S] / B2Smu,
+				ppDimuonDecays[(int)BottomiumState.x2P] / B1Smu / bMatrix.GetElement("Y1S", "x2P"),
+				ppDimuonDecays[(int)BottomiumState.Y3S] / B3Smu,
+				ppDimuonDecays[(int)BottomiumState.x3P] / B1Smu / bMatrix.GetElement("Y1S", "x3P")
 			};
 		}
 
 		private static double[] GetReducedInitialQQPopulations(
-			double[] ppYields,
+			ProtonProtonBaseline ProtonProtonBaseline,
+			double FeedDown3P,
 			double[] relativeOccupation
 			)
 		{
-			if(ppYields.Length != BottomiumStatesCount
-				|| relativeOccupation.Length != BottomiumStatesCount)
-			{
-				throw new Exception("Incorrect input.");
-			}
-
-			double[] initialQQPopulations = GetInitialQQPopulations(ppYields);
+			double[] initialQQPopulations = GetInitialQQPopulations(ProtonProtonBaseline, FeedDown3P);
 			for(int i = 0; i < BottomiumStatesCount; i++)
 			{
 				initialQQPopulations[i] *= relativeOccupation[i];

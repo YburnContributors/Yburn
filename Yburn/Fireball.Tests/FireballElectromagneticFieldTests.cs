@@ -68,12 +68,12 @@ namespace Yburn.Fireball.Tests
 			FireballParam param = CreateFireballParam();
 			FireballElectromagneticField emf = new FireballElectromagneticField(param);
 			PrivateObject privateEMF = new PrivateObject(emf);
-			DensityFunction density = (DensityFunction)privateEMF.GetField("ProtonDensityFunctionA");
+			NuclearDensityFunction density = (NuclearDensityFunction)privateEMF.GetField("ProtonDensityFunctionA");
 
 			EuclideanVector3D[] fieldValues = new EuclideanVector3D[Positions.Length];
 			for(int i = 0; i < Positions.Length; i++)
 			{
-				fieldValues[i] = emf.CalculateSingleNucleusMagneticField(
+				fieldValues[i] = emf.CalculateSingleNucleusMagneticFieldInCMS(
 						Time,
 						Positions[i],
 						param.ParticleVelocity,
@@ -91,7 +91,7 @@ namespace Yburn.Fireball.Tests
 			EuclideanVector3D[] fieldValues = new EuclideanVector3D[Positions.Length];
 			for(int i = 0; i < Positions.Length; i++)
 			{
-				fieldValues[i] = emf.CalculateMagneticField(Time, Positions[i]);
+				fieldValues[i] = emf.CalculateMagneticFieldInCMS(Time, Positions[i]);
 			}
 
 			return fieldValues;
@@ -99,37 +99,43 @@ namespace Yburn.Fireball.Tests
 
 		private void AssertCorrectSingleNucleusMagneticFieldValues(EuclideanVector3D[] fieldValues)
 		{
-			AssertHelper.AssertRoundedEqual(0, fieldValues[0].X);
-			AssertHelper.AssertRoundedEqual(0, fieldValues[0].Y);
-			AssertHelper.AssertRoundedEqual(0, fieldValues[0].Z);
+			uint roundedDigits = 14;
 
-			AssertHelper.AssertRoundedEqual(0, fieldValues[1].X);
-			AssertHelper.AssertRoundedEqual(0.088800919190011027, fieldValues[1].Y);
-			AssertHelper.AssertRoundedEqual(0, fieldValues[1].Z);
+			AssertHelper.AssertRoundedEqual(0, fieldValues[0].X, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0, fieldValues[0].Y, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0, fieldValues[0].Z, roundedDigits);
 
-			AssertHelper.AssertRoundedEqual(-0.16906670076021077, fieldValues[2].X);
-			AssertHelper.AssertRoundedEqual(0.084533350380106786, fieldValues[2].Y);
-			AssertHelper.AssertRoundedEqual(0, fieldValues[2].Z);
+			AssertHelper.AssertRoundedEqual(0, fieldValues[1].X, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0.088835376061350557, fieldValues[1].Y, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0, fieldValues[1].Z, roundedDigits);
+
+			AssertHelper.AssertRoundedEqual(-0.16913152546087232, fieldValues[2].X, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0.084565866489620917, fieldValues[2].Y, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0, fieldValues[2].Z, roundedDigits);
+
+			AssertHelper.AssertRoundedEqual(-0.0097934633586487085, fieldValues[3].X, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0.00489673165924602, fieldValues[3].Y, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0, fieldValues[3].Z, roundedDigits);
 		}
 
 		private void AssertCorrectMagneticFieldValues(EuclideanVector3D[] fieldValues)
 		{
-			uint roundedDigits = 14;
+			uint roundedDigits = 15;
 
 			AssertHelper.AssertRoundedEqual(0, fieldValues[0].X, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0.54102943400050552, fieldValues[0].Y, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0.54123199912271935, fieldValues[0].Y, roundedDigits);
 			AssertHelper.AssertRoundedEqual(0, fieldValues[0].Z, roundedDigits);
 
 			AssertHelper.AssertRoundedEqual(0, fieldValues[1].X, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0.52302485032356349, fieldValues[1].Y, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0.52321932562404094, fieldValues[1].Y, roundedDigits);
 			AssertHelper.AssertRoundedEqual(0, fieldValues[1].Z, roundedDigits);
 
-			AssertHelper.AssertRoundedEqual(0.025290863243184331, fieldValues[2].X, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0.49768392486013513, fieldValues[2].Y, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0.025301883103653389, fieldValues[2].X, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0.49786733766273539, fieldValues[2].Y, roundedDigits);
 			AssertHelper.AssertRoundedEqual(0, fieldValues[2].Z, roundedDigits);
 
-			AssertHelper.AssertRoundedEqual(-0.0058621636408420471, fieldValues[3].X, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0.028971135436686207, fieldValues[3].Y, roundedDigits);
+			AssertHelper.AssertRoundedEqual(-0.0058636488341155353, fieldValues[3].X, roundedDigits);
+			AssertHelper.AssertRoundedEqual(0.028979123920509407, fieldValues[3].Y, roundedDigits);
 			AssertHelper.AssertRoundedEqual(0, fieldValues[3].Z, roundedDigits);
 		}
 	}

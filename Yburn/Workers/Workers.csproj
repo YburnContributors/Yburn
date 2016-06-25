@@ -51,7 +51,7 @@
       <Name>Fireball</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhysUtil\PhysUtil.csproj">
-      <Project>{96E5E846-3417-4A44-A4F1-7ED8DCA43F43}</Project>
+      <Project>{96e5e846-3417-4a44-a4f1-7ed8dca43f43}</Project>
       <Name>PhysUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\QQState\QQState.csproj">

@@ -15,8 +15,11 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void CalculateInitialQQPopulations_CMS2012()
 		{
-			double[] ppYields = GetProtonProtonYieldsInQQonFire(ProtonProtonBaseline.CMS2012);
-			double[] initialQQPopulations = BottomiumCascade.GetInitialQQPopulations(ppYields);
+			ProtonProtonBaseline = ProtonProtonBaseline.CMS2012;
+			FeedDown3P = 0.06;
+
+			double[] initialQQPopulations = BottomiumCascade.GetInitialQQPopulations(
+				ProtonProtonBaseline, FeedDown3P);
 			AssertCorrectInitialQQPopulations_CMS2012(initialQQPopulations);
 		}
 
@@ -209,16 +212,6 @@ namespace Yburn.Workers.Tests
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
-
-		private double[] GetProtonProtonYieldsInQQonFire(
-			ProtonProtonBaseline baseline
-			)
-		{
-			FeedDown3P = 0.06;
-			ProtonProtonBaseline = ProtonProtonBaseline.CMS2012;
-
-			return GetProtonProtonYields();
-		}
 
 		private double[][][][] CalculateQGPSuppressionFactorsInQQonFire(
 			DecayWidthEvaluationType type

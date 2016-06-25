@@ -278,8 +278,7 @@ namespace Yburn.Workers
 			bool isFirstCommand = true;
 			int plotColumn = 2;
 
-			foreach(RunningCouplingType type in
-				RunningCouplingTypeSelection.ToValueArray<RunningCouplingType>())
+			foreach(RunningCouplingType type in RunningCouplingTypeSelection)
 			{
 				string title = type.ToString().Replace("_", "\\\\_");
 				if(isFirstCommand)
@@ -315,8 +314,7 @@ namespace Yburn.Workers
 			List<double> energyValues
 			)
 		{
-			foreach(RunningCouplingType type in
-				RunningCouplingTypeSelection.ToValueArray<RunningCouplingType>())
+			foreach(RunningCouplingType type in RunningCouplingTypeSelection)
 			{
 				List<double> alphaValues = GetAlphaValueList(energyValues, type);
 				dataList.Add(alphaValues);

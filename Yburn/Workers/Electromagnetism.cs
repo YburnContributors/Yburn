@@ -58,8 +58,20 @@ namespace Yburn.Workers
 					PlotPointChargeRadialElectricField();
 					break;
 
+				case "PlotSingleNucleusMagneticFieldStrength":
+					PlotSingleNucleusMagneticFieldStrength();
+					break;
+
 				case "PlotCentralMagneticFieldStrength":
 					PlotCentralMagneticFieldStrength();
+					break;
+
+				case "PlotAverageMagneticFieldStrength":
+					PlotAverageMagneticFieldStrength();
+					break;
+
+				case "PlotOrthoParaStateOverlap":
+					PlotOrthoParaStateOverlap();
 					break;
 
 				default:
@@ -73,19 +85,23 @@ namespace Yburn.Workers
 		{
 			FireballParam param = new FireballParam();
 
-			param.EMFCalculationMethod = emfCalculationMethod;
-			param.QGPConductivityMeV = QGPConductivityMeV;
-
 			param.BeamRapidity = 7.99;
 			param.DiffusenessAFm = DiffusenessAFm;
 			param.DiffusenessBFm = DiffusenessBFm;
+			param.EMFCalculationMethod = emfCalculationMethod;
+			param.FormationTimesFm = new double[] { 0.4, 0.4, 0.4, 0.4, 0.4, 0.4 };
+			param.GridCellSizeFm = 0.4;
+			param.GridRadiusFm = 10;
+			param.ImpactParameterFm = ImpactParameterFm;
 			param.NucleonNumberA = NucleonNumberA;
 			param.NucleonNumberB = NucleonNumberB;
 			param.NuclearRadiusAFm = NuclearRadiusAFm;
 			param.NuclearRadiusBFm = NuclearRadiusBFm;
 			param.ProtonNumberA = ProtonNumberA;
 			param.ProtonNumberB = ProtonNumberB;
-			param.ImpactParameterFm = ImpactParameterFm;
+			param.QGPConductivityMeV = QGPConductivityMeV;
+			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
+			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
 
 			return param;
 		}

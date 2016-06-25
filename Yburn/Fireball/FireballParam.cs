@@ -130,6 +130,8 @@ namespace Yburn.Fireball
 
 		public ShapeFunctionType ShapeFunctionTypeB;
 
+		public ProtonProtonBaseline ProtonProtonBaseline;
+
 		public FireballParam Clone()
 		{
 			FireballParam param = new FireballParam();
@@ -147,19 +149,20 @@ namespace Yburn.Fireball
 			param.ImpactParameterFm = ImpactParameterFm;
 			param.InitialCentralTemperatureMeV = InitialCentralTemperatureMeV;
 			param.MinimalCentralTemperatureMeV = MinimalCentralTemperatureMeV;
-			param.NucleonNumberA = NucleonNumberA;
-			param.NucleonNumberB = NucleonNumberB;
 			param.NuclearRadiusAFm = NuclearRadiusAFm;
 			param.NuclearRadiusBFm = NuclearRadiusBFm;
+			param.NucleonNumberA = NucleonNumberA;
+			param.NucleonNumberB = NucleonNumberB;
 			param.ProtonNumberA = ProtonNumberA;
 			param.ProtonNumberB = ProtonNumberB;
+			param.ProtonProtonBaseline = ProtonProtonBaseline;
 			param.QGPConductivityMeV = QGPConductivityMeV;
+			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
+			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthList;
 			param.TemperatureProfile = TemperatureProfile;
 			param.ThermalTimeFm = ThermalTimeFm;
 			param.TransverseMomentaGeV = TransverseMomentaGeV;
-			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
-			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
 
 			return param;
 		}

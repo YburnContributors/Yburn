@@ -17,10 +17,10 @@ namespace Yburn.Fireball.Tests
 			MagneticFieldStrengthAverager averager =
 				new MagneticFieldStrengthAverager(CreateFireballParam());
 
-			double result = averager.CalculateAverageMagneticFieldStrengthInLabFrame(
+			double result = averager.CalculateAverageMagneticFieldStrengthInCMS(
 				QuadraturePrecision.Use8Points);
 
-			AssertHelper.AssertRoundedEqual(0.70708322492671616, result);
+			AssertHelper.AssertRoundedEqual(0.92227717072318494, result, 13);
 		}
 
 		[TestMethod]
@@ -32,7 +32,7 @@ namespace Yburn.Fireball.Tests
 			double result = averager.CalculateAverageMagneticFieldStrengthInLCF(
 				QuadraturePrecision.Use8Points);
 
-			AssertHelper.AssertRoundedEqual(0.22539532179428509, result);
+			AssertHelper.AssertRoundedEqual(0.26371992483427792, result, 13);
 		}
 
 		private FireballParam CreateFireballParam()

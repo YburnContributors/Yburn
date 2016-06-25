@@ -60,7 +60,7 @@ namespace Yburn
 			List<double> abscissaList = new List<double>();
 
 			double step = (stopValue - startValue) / samples;
-			for(int i = 1; i <= samples; i++)
+			for(int i = 0; i <= samples; i++)
 			{
 				abscissaList.Add(startValue + step * i);
 			}
@@ -124,6 +124,16 @@ namespace Yburn
 
 		protected void AppendPlotCommands(
 			StringBuilder plotFile,
+			string title,
+			string plotStyle = "lines"
+			)
+		{
+			string[] titleList = new string[] { title };
+			AppendPlotCommands(plotFile, titleList, plotStyle);
+		}
+
+		protected void AppendPlotCommands(
+			StringBuilder plotFile,
 			string[] titleList,
 			string plotStyle = "lines"
 			)
@@ -159,6 +169,17 @@ namespace Yburn
 					plotColumn++;
 				}
 			}
+		}
+
+		protected void AppendSavePlotAsPNG(
+			StringBuilder plotFile
+			)
+		{
+			plotFile.AppendLine();
+			plotFile.AppendLine("set terminal pngcairo enhanced");
+			plotFile.AppendLine("set output \"" + FormattedDataPathFile + ".png\"");
+			plotFile.AppendLine("replot");
+			plotFile.AppendLine("set output");
 		}
 
 		protected Process StartGnuplot()

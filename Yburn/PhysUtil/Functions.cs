@@ -15,16 +15,25 @@ namespace Yburn.PhysUtil
 			return 0.5 * Math.Log((1.0 + x) / (1.0 - x));
 		}
 
-		public static double NormalDistributionProbabilityDensity(
+		public static double UnnormalizedGaussianDistribution(
+			double x,
+			double expectationValue,
+			double standardDeviation
+			)
+		{
+			return Math.Exp(-0.5 * Math.Pow((x - expectationValue) / standardDeviation, 2));
+		}
+
+		public static double NormalDistribution(
 			double x,
 			double expectationValue,
 			double standardDeviation
 			)
 		{
 			double normalization = Math.Sqrt(2 * Math.PI) * standardDeviation;
-			double exponent = -0.5 * Math.Pow((x - expectationValue) / standardDeviation, 2);
 
-			return Math.Exp(exponent) / normalization;
+			return UnnormalizedGaussianDistribution(x, expectationValue, standardDeviation)
+				/ normalization;
 		}
 	}
 }

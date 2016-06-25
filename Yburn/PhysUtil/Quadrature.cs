@@ -13,6 +13,10 @@ namespace Yburn.PhysUtil
 	public delegate TVector IntegrandIn2D<TVector>(double x, double y)
 		where TVector : EuclideanVectorBase<TVector>, new();
 
+	/********************************************************************************************
+	 * Enums
+	 ********************************************************************************************/
+
 	public enum QuadraturePrecision
 	{
 		Use8Points,
@@ -212,6 +216,22 @@ namespace Yburn.PhysUtil
 			IntegrandIn2D<TVector> integrand,
 			double lengthScaleX,
 			double lengthScaleY,
+			QuadraturePrecision precisionPerAxis = QuadraturePrecision.Use64Points
+			) where TVector : EuclideanVectorBase<TVector>, new()
+		{
+			Func<IntegrandIn1D<TVector>, TVector> formulaX =
+				i => UseGaussLegendre_RealAxis(i, lengthScaleX, precisionPerAxis);
+
+			Func<IntegrandIn1D<TVector>, TVector> formulaY =
+				i => UseGaussLegendre_RealAxis(i, lengthScaleY, precisionPerAxis);
+
+			return Apply1DFormulaeToIntegrandIn2D(integrand, formulaX, formulaY);
+		}
+
+		public static TVector UseGaussLegendre_RealPlane_Old<TVector>(
+			IntegrandIn2D<TVector> integrand,
+			double lengthScaleX,
+			double lengthScaleY,
 			QuadraturePrecision precisionPerQuadrant = QuadraturePrecision.Use64Points
 			) where TVector : EuclideanVectorBase<TVector>, new()
 		{
@@ -232,6 +252,28 @@ namespace Yburn.PhysUtil
 			double lengthScale,
 			QuadraturePrecision precision = QuadraturePrecision.Use64Points
 			)
+		{
+			double[] abscissae;
+			double[] weights;
+			GetGaussLegendreAbscissaeAndWeights(precision, out abscissae, out weights);
+
+			double[] transformedAbscissae;
+			double[] transformedWeights;
+			TransformToRealAxis(
+				lengthScale,
+				abscissae,
+				weights,
+				out transformedAbscissae,
+				out transformedWeights);
+
+			return PerformSum(integrand, transformedAbscissae, transformedWeights);
+		}
+
+		public static TVector UseGaussLegendre_RealAxis<TVector>(
+			IntegrandIn1D<TVector> integrand,
+			double lengthScale,
+			QuadraturePrecision precision = QuadraturePrecision.Use64Points
+			) where TVector : EuclideanVectorBase<TVector>, new()
 		{
 			double[] abscissae;
 			double[] weights;

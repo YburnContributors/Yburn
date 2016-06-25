@@ -203,7 +203,7 @@ namespace Yburn.QQonFire.UI
 			MenuEntry.MenuItemShowCumulativeMatrix.Click += new EventHandler(MenuItemShowCumulativeMatrix_Click);
 			MenuEntry.MenuItemShowInverseCumulativeMatrix.Click += new EventHandler(MenuItemShowInverseCumulativeMatrix_Click);
 			MenuEntry.MenuItemShowInitialQQPopulations.Click += new EventHandler(MenuItemShowInitialQQPopulations_Click);
-			MenuEntry.MenuItemShowProtonProtonYields.Click += new EventHandler(MenuItemShowProtonProtonYields_Click);
+			MenuEntry.MenuItemShowProtonProtonDimuonDecays.Click += new EventHandler(MenuItemShowProtonProtonDimuonDecays_Click);
 			MenuEntry.MenuItemShowFeedDown.Click += new EventHandler(MenuItemShowFeedDown_Click);
 		}
 
@@ -257,9 +257,9 @@ namespace Yburn.QQonFire.UI
 			JobOrganizer.RequestNewJob("ShowInitialQQPopulations", ControlsValues);
 		}
 
-		private void MenuItemShowProtonProtonYields_Click(object sender, EventArgs e)
+		private void MenuItemShowProtonProtonDimuonDecays_Click(object sender, EventArgs e)
 		{
-			JobOrganizer.RequestNewJob("ShowProtonProtonYields", ControlsValues);
+			JobOrganizer.RequestNewJob("ShowProtonProtonDimuonDecays", ControlsValues);
 		}
 
 		private void MenuItemShowFeedDown_Click(object sender, EventArgs e)

@@ -21,7 +21,7 @@ namespace Yburn.QQonFire.UI
 		public ToolStripMenuItem MenuItemShowCumulativeMatrix;
 		public ToolStripMenuItem MenuItemShowInverseCumulativeMatrix;
 		public ToolStripMenuItem MenuItemShowInitialQQPopulations;
-		public ToolStripMenuItem MenuItemShowProtonProtonYields;
+		public ToolStripMenuItem MenuItemShowProtonProtonDimuonDecays;
 		public ToolStripMenuItem MenuItemShowFeedDown;
 		public ToolStripMenuItem MenuItemShowSnapsX;
 		public ToolStripMenuItem MenuItemShowSnapsY;
@@ -43,7 +43,7 @@ namespace Yburn.QQonFire.UI
 			this.MenuItemShowCumulativeMatrix = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowInverseCumulativeMatrix = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowInitialQQPopulations = new System.Windows.Forms.ToolStripMenuItem();
-			this.MenuItemShowProtonProtonYields = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemShowProtonProtonDimuonDecays = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowFeedDown = new System.Windows.Forms.ToolStripMenuItem();
 			//
 			// MenuItemBinBounds
@@ -147,11 +147,11 @@ namespace Yburn.QQonFire.UI
 			this.MenuItemShowInitialQQPopulations.Size = new System.Drawing.Size(361, 24);
 			this.MenuItemShowInitialQQPopulations.Text = "Show initial QQ &populations";
 			//
-			// MenuItemShowProtonProtonYields
+			// MenuItemShowProtonProtonDimuonDecays
 			//
-			this.MenuItemShowProtonProtonYields.Name = "MenuItemShowProtonProtonYields";
-			this.MenuItemShowProtonProtonYields.Size = new System.Drawing.Size(361, 24);
-			this.MenuItemShowProtonProtonYields.Text = "Show pp yie&lds";
+			this.MenuItemShowProtonProtonDimuonDecays.Name = "MenuItemShowProtonProtonDimuonDecays";
+			this.MenuItemShowProtonProtonDimuonDecays.Size = new System.Drawing.Size(361, 24);
+			this.MenuItemShowProtonProtonDimuonDecays.Text = "Show pp dimuon deca&ys";
 			//
 			// MenuItemShowFeedDown
 			//
@@ -169,7 +169,7 @@ namespace Yburn.QQonFire.UI
 			this.MenuItemShowBranchingRatio,
 			this.MenuItemShowCumulativeMatrix,
 			this.MenuItemShowInverseCumulativeMatrix,
-			this.MenuItemShowProtonProtonYields,
+			this.MenuItemShowProtonProtonDimuonDecays,
 			this.MenuItemShowInitialQQPopulations,
 			this.MenuItemShowFeedDown});
 			this.Size = new System.Drawing.Size(84, 24);

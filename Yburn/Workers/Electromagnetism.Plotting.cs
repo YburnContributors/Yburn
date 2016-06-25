@@ -40,10 +40,34 @@ namespace Yburn.Workers
 			return StartGnuplot();
 		}
 
+		public Process PlotSingleNucleusMagneticFieldStrength()
+		{
+			CreateDataFile(CreateSingleNucleusMagneticFieldStrengthDataList);
+			CreateSingleNucleusMagneticFieldStrengthPlotFile();
+
+			return StartGnuplot();
+		}
+
 		public Process PlotCentralMagneticFieldStrength()
 		{
 			CreateDataFile(CreateCentralMagneticFieldStrengthDataList);
 			CreateCentralMagneticFieldStrengthPlotFile();
+
+			return StartGnuplot();
+		}
+
+		public Process PlotAverageMagneticFieldStrength()
+		{
+			CreateDataFile(CreateAverageMagneticFieldStrengthDataList);
+			CreateAverageMagneticFieldStrengthPlotFile();
+
+			return StartGnuplot();
+		}
+
+		public Process PlotOrthoParaStateOverlap()
+		{
+			CreateDataFile(CreateOrthoParaStateOverlapDataList);
+			CreateOrthoParaStateOverlapPlotFile();
 
 			return StartGnuplot();
 		}
@@ -238,6 +262,67 @@ namespace Yburn.Workers
 			return dataList;
 		}
 
+		private double[] ParticleRapidityValues = new double[] { -3, -2, -1, 0, 1, 2, 3 };
+
+		private void CreateSingleNucleusMagneticFieldStrengthPlotFile()
+		{
+			StringBuilder plotFile = new StringBuilder();
+			plotFile.AppendLine("reset");
+			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title \"Single nucleus magnetic field strength");
+			plotFile.AppendLine("set xlabel \"{/Symbol r} (fm)\"");
+			plotFile.AppendLine("set ylabel \"|B| (1/fm^2)\"");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set logscale y 10");
+			plotFile.AppendLine("set format y \"%g\"");
+			plotFile.AppendLine();
+
+			string[] titleList = Array.ConvertAll(
+				ParticleRapidityValues, value => "y = " + value.ToString());
+			AppendPlotCommands(plotFile, titleList, "linespoints");
+
+			AppendSavePlotAsPNG(plotFile);
+
+			WritePlotFile(plotFile);
+		}
+
+		private List<List<double>> CreateSingleNucleusMagneticFieldStrengthDataList()
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<double> radialDistanceValues = GetLinearAbscissaList(0, 20, 20);
+			radialDistanceValues.Remove(0);
+			dataList.Add(radialDistanceValues);
+
+			foreach(double rapidityValue in ParticleRapidityValues)
+			{
+				FireballParam param = CreateFireballParam(
+					EMFCalculationMethod.DiffusionApproximation);
+
+				PlotFunction fieldValue = radialDistance =>
+				{
+					FireballElectromagneticField emf = new FireballElectromagneticField(param);
+					NuclearDensityFunction densityA;
+					NuclearDensityFunction densityB;
+
+					NuclearDensityFunction.CreateProtonDensityFunctionPair(
+						param, out densityA, out densityB);
+
+					return emf.CalculateSingleNucleusMagneticFieldInLCF(
+						param.FormationTimesFm[0],
+						new EuclideanVector2D(radialDistance, 0),
+						rapidityValue,
+						param.ParticleVelocity,
+						densityA).Norm;
+				};
+
+				AddPlotFunctionLists(dataList, radialDistanceValues, fieldValue);
+			}
+
+			return dataList;
+		}
+
 		private void CreateCentralMagneticFieldStrengthPlotFile()
 		{
 			StringBuilder plotFile = new StringBuilder();
@@ -245,14 +330,16 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title \"Central magnetic field strength");
-			plotFile.AppendLine("set xlabel \"t (fm/c)\"");
-			plotFile.AppendLine("set ylabel \"eB_{y}/m_{/Symbol p}^2\"");
+			plotFile.AppendLine("set xlabel \"b (fm)\"");
+			plotFile.AppendLine("set ylabel \"|B(0,0,0)| (1/fm^2)\"");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set logscale y 10");
 			plotFile.AppendLine("set format y \"%g\"");
 			plotFile.AppendLine();
 
-			AppendPlotCommands(plotFile, EMFCalculationMethodSelectionTitleList);
+			AppendPlotCommands(plotFile, EMFCalculationMethodSelectionTitleList, "linespoints");
+
+			AppendSavePlotAsPNG(plotFile);
 
 			WritePlotFile(plotFile);
 		}
@@ -261,24 +348,109 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> timeValues = GetLinearAbscissaList(
-				StartEffectiveTime, StopEffectiveTime, EffectiveTimeSamples);
-			dataList.Add(timeValues);
-
-			double normalization = PhysConst.ElementaryCharge
-				* (PhysConst.HBARC / PhysConst.AveragePionMass)
-				* (PhysConst.HBARC / PhysConst.AveragePionMass);
+			List<double> impactParamValues = GetLinearAbscissaList(0, 30, 15);
+			dataList.Add(impactParamValues);
 
 			foreach(EMFCalculationMethod method in EMFCalculationMethodSelection)
 			{
-				FireballElectromagneticField emf =
-					new FireballElectromagneticField(CreateFireballParam(method));
+				FireballParam param = CreateFireballParam(method);
 
-				PlotFunction fieldValue = time => normalization * emf.CalculateMagneticField(
-					time, new EuclideanVector3D(0, 0, 0)).Y;
+				PlotFunction fieldValue = impactParam =>
+				{
+					param.ImpactParameterFm = impactParam;
+					FireballElectromagneticField emf = new FireballElectromagneticField(param);
 
-				AddPlotFunctionLists(dataList, timeValues, fieldValue);
+					return emf.CalculateMagneticFieldInCMS(
+						param.FormationTimesFm[0], new EuclideanVector3D(0, 0, 0)).Norm;
+				};
+
+				AddPlotFunctionLists(dataList, impactParamValues, fieldValue);
 			}
+
+			return dataList;
+		}
+
+		private void CreateAverageMagneticFieldStrengthPlotFile()
+		{
+			StringBuilder plotFile = new StringBuilder();
+			plotFile.AppendLine("reset");
+			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title \"Average magnetic field strength");
+			plotFile.AppendLine("set xlabel \"b (fm)\"");
+			plotFile.AppendLine("set ylabel \"<B> (1/fm^2)\"");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set logscale y 10");
+			plotFile.AppendLine("set format y \"%g\"");
+			plotFile.AppendLine();
+
+			AppendPlotCommands(
+				plotFile, EMFCalculationMethod.DiffusionApproximation.ToString(), "linespoints");
+
+			AppendSavePlotAsPNG(plotFile);
+
+			WritePlotFile(plotFile);
+		}
+
+		private List<List<double>> CreateAverageMagneticFieldStrengthDataList()
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<double> impactParamValues = GetLinearAbscissaList(0, 30, 15);
+			dataList.Add(impactParamValues);
+
+			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
+
+			PlotFunction fieldValue = impactParam =>
+			{
+				param.ImpactParameterFm = impactParam;
+				MagneticFieldStrengthAverager avg = new MagneticFieldStrengthAverager(param);
+
+				return avg.CalculateAverageMagneticFieldStrengthInLCF(QuadraturePrecision.Use8Points);
+			};
+
+			AddPlotFunctionLists(dataList, impactParamValues, fieldValue);
+
+			return dataList;
+		}
+
+		private void CreateOrthoParaStateOverlapPlotFile()
+		{
+			StringBuilder plotFile = new StringBuilder();
+			plotFile.AppendLine("reset");
+			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title \"Ortho/para state overlap");
+			plotFile.AppendLine("set xlabel \"b (fm)\"");
+			plotFile.AppendLine("set ylabel \"|<Y(B)|{/Symbol h}_b(0)>|^2\"");
+			plotFile.AppendLine();
+
+			AppendPlotCommands(
+				plotFile, EMFCalculationMethod.DiffusionApproximation.ToString(), "linespoints");
+
+			AppendSavePlotAsPNG(plotFile);
+
+			WritePlotFile(plotFile);
+		}
+
+		private List<List<double>> CreateOrthoParaStateOverlapDataList()
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<double> impactParamValues = GetLinearAbscissaList(0, 30, 15);
+			dataList.Add(impactParamValues);
+
+			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
+
+			PlotFunction shiftValue = impactParam =>
+			{
+				param.ImpactParameterFm = impactParam;
+				MagneticFieldStrengthAverager avg = new MagneticFieldStrengthAverager(param);
+
+				return avg.CalculateOverlapBetweenParaAndShiftedOrthoState(QuadraturePrecision.Use8Points);
+			};
+
+			AddPlotFunctionLists(dataList, impactParamValues, shiftValue);
 
 			return dataList;
 		}

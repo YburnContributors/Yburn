@@ -4,6 +4,17 @@ using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
+	/********************************************************************************************
+	 * Enums
+	 ********************************************************************************************/
+
+	public enum EMFCalculationMethod
+	{
+		URLimitFourierSynthesis,
+		DiffusionApproximation,
+		FreeSpace
+	}
+
 	public abstract class PointChargeElectromagneticField
 	{
 		/********************************************************************************************

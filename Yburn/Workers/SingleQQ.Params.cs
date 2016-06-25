@@ -177,7 +177,7 @@ namespace Yburn.Workers
 
 		private RunningCouplingType RunningCouplingType;
 
-		private string RunningCouplingTypeSelection = string.Empty;
+		private RunningCouplingType[] RunningCouplingTypeSelection = new RunningCouplingType[0];
 
 		private int Samples;
 

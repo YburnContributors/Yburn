@@ -162,7 +162,10 @@ namespace Yburn.Electromagnetism.UI
 			MenuEntry.MenuItemPlotPointChargeAzimutalMagneticField.Click += new EventHandler(MenuItemPlotPointChargeAzimutalMagneticField_Click);
 			MenuEntry.MenuItemPlotPointChargeLongitudinalElectricField.Click += new EventHandler(MenuItemPlotPointChargeLongitudinalElectricField_Click);
 			MenuEntry.MenuItemPlotPointChargeRadialElectricField.Click += new EventHandler(MenuItemPlotPointChargeRadialElectricField_Click);
+			MenuEntry.MenuItemPlotSingleNucleusMagneticFieldStrength.Click += new EventHandler(MenuItemPlotSingleNucleusMagneticFieldStrength_Click);
 			MenuEntry.MenuItemPlotCentralMagneticFieldStrength.Click += new EventHandler(MenuItemPlotCentralMagneticFieldStrength_Click);
+			MenuEntry.MenuItemPlotAverageMagneticFieldStrength.Click += new EventHandler(MenuItemPlotAverageMagneticFieldStrength_Click);
+			MenuEntry.MenuItemPlotOrthoParaStateOverlap.Click += new EventHandler(MenuItemPlotOrthoParaStateOverlap_Click);
 		}
 
 		private void MakeToolTips(
@@ -193,9 +196,24 @@ namespace Yburn.Electromagnetism.UI
 			JobOrganizer.RequestNewJob("PlotPointChargeRadialElectricField", ControlsValues);
 		}
 
+		private void MenuItemPlotSingleNucleusMagneticFieldStrength_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotSingleNucleusMagneticFieldStrength", ControlsValues);
+		}
+
 		private void MenuItemPlotCentralMagneticFieldStrength_Click(object sender, EventArgs e)
 		{
 			JobOrganizer.RequestNewJob("PlotCentralMagneticFieldStrength", ControlsValues);
+		}
+
+		private void MenuItemPlotAverageMagneticFieldStrength_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotAverageMagneticFieldStrength", ControlsValues);
+		}
+
+		private void MenuItemPlotOrthoParaStateOverlap_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotOrthoParaStateOverlap", ControlsValues);
 		}
 	}
 }

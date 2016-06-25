@@ -1,4 +1,6 @@
-﻿namespace Yburn.Fireball
+﻿using System.ComponentModel;
+
+namespace Yburn.Fireball
 {
 	public enum BottomiumState
 	{
@@ -25,13 +27,6 @@
 		AveragedTemperature,
 		AveragedDecayWidth
 	};
-
-	public enum EMFCalculationMethod
-	{
-		URLimitFourierSynthesis,
-		DiffusionApproximation,
-		FreeSpace
-	}
 
 	public enum ExpansionMode
 	{
@@ -60,13 +55,10 @@
 
 	public enum ProtonProtonBaseline
 	{
-		CMS2012
-	};
-
-	public enum ShapeFunctionType
-	{
-		WoodsSaxonPotential,
-		GaussianDistribution
+		[Description("pp@2.76TeV (CMS2012)")]
+		CMS2012,
+		[Description("pp@5.02TeV (Not yet available!)")]
+		Estimate502TeV
 	};
 
 	public enum TemperatureProfile

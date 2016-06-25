@@ -132,7 +132,7 @@ namespace Yburn.PhysUtil.Tests
 
 			EuclideanVector2D result = Quadrature.UseGaussLegendre_RealPlane(integrand, 1, 1);
 
-			AssertHelper.AssertRoundedEqual(1, result.X);
+			AssertHelper.AssertRoundedEqual(1, result.X, 4);
 			AssertHelper.AssertRoundedEqual(4, result.Y);
 		}
 	}

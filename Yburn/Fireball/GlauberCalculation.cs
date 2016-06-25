@@ -135,15 +135,31 @@ namespace Yburn.Fireball
 
 		private static readonly double NmixALICEFittingConstant = 0.8;
 
-		// inelastic cross section for pp collisions is 64 mb = 6.4 fm^2 at 2.76 TeV
-        // inelastic cross section for pp collisions is 68 mb = 6.8 fm^2 at 5.02 TeV
-		private static readonly double InelasticppCrossSectionFm = 6.8;
+		private double InelasticppCrossSectionFm
+		{
+			get
+			{
+				switch(Param.ProtonProtonBaseline)
+				{
+					// inelastic cross section for pp collisions is 64 mb = 6.4 fm^2 at 2.76 TeV
+					case ProtonProtonBaseline.CMS2012:
+						return 6.4;
+
+					// inelastic cross section for pp collisions is 68 mb = 6.8 fm^2 at 5.02 TeV
+					case ProtonProtonBaseline.Estimate502TeV:
+						return 6.8;
+
+					default:
+						throw new Exception("Invalid Baseline.");
+				}
+			}
+		}
 
 		private FireballParam Param;
 
-		private DensityFunction NucleonDensityFunctionA;
+		private NuclearDensityFunction NucleonDensityFunctionA;
 
-		private DensityFunction NucleonDensityFunctionB;
+		private NuclearDensityFunction NucleonDensityFunctionB;
 
 		private void AssertValidMembers()
 		{
@@ -172,7 +188,7 @@ namespace Yburn.Fireball
 
 		private void InitNucleonDensityFunctionsAB()
 		{
-			DensityFunction.CreateNucleonDensityFunctionPair(
+			NuclearDensityFunction.CreateNucleonDensityFunctionPair(
 				Param, out NucleonDensityFunctionA, out NucleonDensityFunctionB);
 		}
 
