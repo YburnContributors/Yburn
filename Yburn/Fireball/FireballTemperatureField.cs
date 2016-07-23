@@ -12,14 +12,14 @@ namespace Yburn.Fireball
 			int xDimension,
 			int yDimension,
 			SimpleFireballField temperatureScalingField,
-			double initialCentralTemperature,
+			double initialMaximumTemperature,
 			double thermalTime,
 			double initialTime
 			)
 			: base(FireballFieldType.Temperature, xDimension, yDimension)
 		{
 			TemperatureScalingField = temperatureScalingField;
-			InitialCentralTemperature = initialCentralTemperature;
+			InitialMaximumTemperature = initialMaximumTemperature;
 			ThermalTime = thermalTime;
 			InitialTime = initialTime;
 
@@ -55,7 +55,7 @@ namespace Yburn.Fireball
 		// auxiliary field for the calculation of the temperature profile Temperature
 		private SimpleFireballField Tnorm;
 
-		private double InitialCentralTemperature;
+		private double InitialMaximumTemperature;
 
 		private double InitialTime;
 
@@ -70,9 +70,9 @@ namespace Yburn.Fireball
 				throw new InvalidFireballFieldFunctionException();
 			}
 
-			if(InitialCentralTemperature <= 0)
+			if(InitialMaximumTemperature <= 0)
 			{
-				throw new Exception("InitialCentralTemperature <= 0.");
+				throw new Exception("InitialMaximumTemperature <= 0.");
 			}
 
 			if(ThermalTime <= 0)
@@ -96,7 +96,7 @@ namespace Yburn.Fireball
 		// for a central collision (ImpactParameter = 0) and TransverseMomentum = 0
 		private void InitTnorm()
 		{
-			double norm = InitialCentralTemperature * Math.Pow(ThermalTime, 1 / 3.0);
+			double norm = InitialMaximumTemperature * Math.Pow(ThermalTime, 1 / 3.0);
 			Tnorm = new SimpleFireballField(FireballFieldType.Tnorm, XDimension, YDimension, (i, j) =>
 				{
 					return norm * TemperatureScalingField[i, j];

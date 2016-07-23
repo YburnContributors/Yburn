@@ -76,10 +76,10 @@
 			this.CbxExpansionMode = new System.Windows.Forms.ComboBox();
 			this.LblTemperatureProfile = new System.Windows.Forms.Label();
 			this.CbxTemperatureProfile = new System.Windows.Forms.ComboBox();
-			this.LblInitialCentralTemperature = new System.Windows.Forms.Label();
-			this.TbxInitialCentralTemperature = new System.Windows.Forms.TextBox();
-			this.LblMinimalCentralTemperature = new System.Windows.Forms.Label();
-			this.TbxMinimalCentralTemperature = new System.Windows.Forms.TextBox();
+			this.LblInitialMaximumTemperature = new System.Windows.Forms.Label();
+			this.TbxInitialMaximumTemperature = new System.Windows.Forms.TextBox();
+			this.LblBreakupTemperature = new System.Windows.Forms.Label();
+			this.TbxBreakupTemperature = new System.Windows.Forms.TextBox();
 			this.LblThermalTime = new System.Windows.Forms.Label();
 			this.TbxThermalTime = new System.Windows.Forms.TextBox();
 			this.LblGridCellSize = new System.Windows.Forms.Label();
@@ -626,10 +626,10 @@
 			this.LayoutHydro.Controls.Add(this.CbxExpansionMode, 1, 0);
 			this.LayoutHydro.Controls.Add(this.LblTemperatureProfile, 0, 1);
 			this.LayoutHydro.Controls.Add(this.CbxTemperatureProfile, 1, 1);
-			this.LayoutHydro.Controls.Add(this.LblInitialCentralTemperature, 0, 2);
-			this.LayoutHydro.Controls.Add(this.TbxInitialCentralTemperature, 1, 2);
-			this.LayoutHydro.Controls.Add(this.LblMinimalCentralTemperature, 0, 3);
-			this.LayoutHydro.Controls.Add(this.TbxMinimalCentralTemperature, 1, 3);
+			this.LayoutHydro.Controls.Add(this.LblInitialMaximumTemperature, 0, 2);
+			this.LayoutHydro.Controls.Add(this.TbxInitialMaximumTemperature, 1, 2);
+			this.LayoutHydro.Controls.Add(this.LblBreakupTemperature, 0, 3);
+			this.LayoutHydro.Controls.Add(this.TbxBreakupTemperature, 1, 3);
 			this.LayoutHydro.Controls.Add(this.LblThermalTime, 0, 4);
 			this.LayoutHydro.Controls.Add(this.TbxThermalTime, 1, 4);
 			this.LayoutHydro.Controls.Add(this.LblGridCellSize, 0, 5);
@@ -710,43 +710,43 @@
 			this.CbxTemperatureProfile.Size = new System.Drawing.Size(192, 33);
 			this.CbxTemperatureProfile.TabIndex = 10;
 			// 
-			// LblInitialCentralTemperature
+			// LblInitialMaximumTemperature
 			// 
-			this.LblInitialCentralTemperature.AutoSize = true;
-			this.LblInitialCentralTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblInitialCentralTemperature.Location = new System.Drawing.Point(3, 50);
-			this.LblInitialCentralTemperature.Name = "LblInitialCentralTemperature";
-			this.LblInitialCentralTemperature.Size = new System.Drawing.Size(235, 25);
-			this.LblInitialCentralTemperature.TabIndex = 0;
-			this.LblInitialCentralTemperature.Text = "InitialCentralTemperature (MeV)";
-			this.LblInitialCentralTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblInitialMaximumTemperature.AutoSize = true;
+			this.LblInitialMaximumTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblInitialMaximumTemperature.Location = new System.Drawing.Point(3, 50);
+			this.LblInitialMaximumTemperature.Name = "LblInitialMaximumTemperature";
+			this.LblInitialMaximumTemperature.Size = new System.Drawing.Size(235, 25);
+			this.LblInitialMaximumTemperature.TabIndex = 0;
+			this.LblInitialMaximumTemperature.Text = "InitialMaximumTemperature (MeV)";
+			this.LblInitialMaximumTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxInitialCentralTemperature
+			// TbxInitialMaximumTemperature
 			// 
-			this.TbxInitialCentralTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxInitialCentralTemperature.Location = new System.Drawing.Point(244, 53);
-			this.TbxInitialCentralTemperature.Name = "TbxInitialCentralTemperature";
-			this.TbxInitialCentralTemperature.Size = new System.Drawing.Size(192, 31);
-			this.TbxInitialCentralTemperature.TabIndex = 11;
+			this.TbxInitialMaximumTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxInitialMaximumTemperature.Location = new System.Drawing.Point(244, 53);
+			this.TbxInitialMaximumTemperature.Name = "TbxInitialMaximumTemperature";
+			this.TbxInitialMaximumTemperature.Size = new System.Drawing.Size(192, 31);
+			this.TbxInitialMaximumTemperature.TabIndex = 11;
 			// 
-			// LblMinimalCentralTemperature
+			// LblBreakupTemperature
 			// 
-			this.LblMinimalCentralTemperature.AutoSize = true;
-			this.LblMinimalCentralTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblMinimalCentralTemperature.Location = new System.Drawing.Point(3, 75);
-			this.LblMinimalCentralTemperature.Name = "LblMinimalCentralTemperature";
-			this.LblMinimalCentralTemperature.Size = new System.Drawing.Size(235, 25);
-			this.LblMinimalCentralTemperature.TabIndex = 0;
-			this.LblMinimalCentralTemperature.Text = "MinimalCentralTemperature (MeV)";
-			this.LblMinimalCentralTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblBreakupTemperature.AutoSize = true;
+			this.LblBreakupTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblBreakupTemperature.Location = new System.Drawing.Point(3, 75);
+			this.LblBreakupTemperature.Name = "LblBreakupTemperature";
+			this.LblBreakupTemperature.Size = new System.Drawing.Size(235, 25);
+			this.LblBreakupTemperature.TabIndex = 0;
+			this.LblBreakupTemperature.Text = "BreakupTemperature (MeV)";
+			this.LblBreakupTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxMinimalCentralTemperature
+			// TbxBreakupTemperature
 			// 
-			this.TbxMinimalCentralTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxMinimalCentralTemperature.Location = new System.Drawing.Point(244, 78);
-			this.TbxMinimalCentralTemperature.Name = "TbxMinimalCentralTemperature";
-			this.TbxMinimalCentralTemperature.Size = new System.Drawing.Size(192, 31);
-			this.TbxMinimalCentralTemperature.TabIndex = 12;
+			this.TbxBreakupTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxBreakupTemperature.Location = new System.Drawing.Point(244, 78);
+			this.TbxBreakupTemperature.Name = "TbxBreakupTemperature";
+			this.TbxBreakupTemperature.Size = new System.Drawing.Size(192, 31);
+			this.TbxBreakupTemperature.TabIndex = 12;
 			// 
 			// LblThermalTime
 			// 
@@ -1163,10 +1163,10 @@
 		private System.Windows.Forms.ComboBox CbxExpansionMode;
 		private System.Windows.Forms.Label LblTemperatureProfile;
 		private System.Windows.Forms.ComboBox CbxTemperatureProfile;
-		private System.Windows.Forms.Label LblInitialCentralTemperature;
-		private System.Windows.Forms.TextBox TbxInitialCentralTemperature;
-		private System.Windows.Forms.Label LblMinimalCentralTemperature;
-		private System.Windows.Forms.TextBox TbxMinimalCentralTemperature;
+		private System.Windows.Forms.Label LblInitialMaximumTemperature;
+		private System.Windows.Forms.TextBox TbxInitialMaximumTemperature;
+		private System.Windows.Forms.Label LblBreakupTemperature;
+		private System.Windows.Forms.TextBox TbxBreakupTemperature;
 		private System.Windows.Forms.Label LblThermalTime;
 		private System.Windows.Forms.TextBox TbxThermalTime;
 		private System.Windows.Forms.Label LblGridCellSize;

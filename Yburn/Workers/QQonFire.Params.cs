@@ -31,10 +31,10 @@ namespace Yburn.Workers
 			Extractor.Store(nameValuePairs, "GridRadius", GridRadius);
 			Extractor.Store(nameValuePairs, "ImpactParameter", ImpactParameter);
 			Extractor.Store(nameValuePairs, "ImpactParamsAtBinBoundaries", ImpactParamsAtBinBoundaries);
-			Extractor.Store(nameValuePairs, "InitialCentralTemperature", InitialCentralTemperature);
+			Extractor.Store(nameValuePairs, "InitialMaximumTemperature", InitialMaximumTemperature);
 			Extractor.Store(nameValuePairs, "LifeTime", LifeTime);
 			Extractor.Store(nameValuePairs, "MeanParticipantsInBin", MeanParticipantsInBin);
-			Extractor.Store(nameValuePairs, "MinimalCentralTemperature", MinimalCentralTemperature);
+			Extractor.Store(nameValuePairs, "BreakupTemperature", BreakupTemperature);
 			Extractor.Store(nameValuePairs, "NuclearRadiusA", NuclearRadiusA);
 			Extractor.Store(nameValuePairs, "NuclearRadiusB", NuclearRadiusB);
 			Extractor.Store(nameValuePairs, "NucleonNumberA", NucleonNumberA);
@@ -74,10 +74,10 @@ namespace Yburn.Workers
 			Extractor.TryExtract(nameValuePairs, "GridRadius", ref GridRadius);
 			Extractor.TryExtract(nameValuePairs, "ImpactParameter", ref ImpactParameter);
 			Extractor.TryExtract(nameValuePairs, "ImpactParamsAtBinBoundaries", ref ImpactParamsAtBinBoundaries);
-			Extractor.TryExtract(nameValuePairs, "InitialCentralTemperature", ref InitialCentralTemperature);
+			Extractor.TryExtract(nameValuePairs, "InitialMaximumTemperature", ref InitialMaximumTemperature);
 			Extractor.TryExtract(nameValuePairs, "LifeTime", ref LifeTime);
 			Extractor.TryExtract(nameValuePairs, "MeanParticipantsInBin", ref MeanParticipantsInBin);
-			Extractor.TryExtract(nameValuePairs, "MinimalCentralTemperature", ref MinimalCentralTemperature);
+			Extractor.TryExtract(nameValuePairs, "BreakupTemperature", ref BreakupTemperature);
 			Extractor.TryExtract(nameValuePairs, "NuclearRadiusA", ref NuclearRadiusA);
 			Extractor.TryExtract(nameValuePairs, "NuclearRadiusB", ref NuclearRadiusB);
 			Extractor.TryExtract(nameValuePairs, "NucleonNumberA", ref NucleonNumberA);
@@ -127,13 +127,13 @@ namespace Yburn.Workers
 
 		private double[][] ImpactParamsAtBinBoundaries = new double[0][];
 
-		private double InitialCentralTemperature;
+		private double InitialMaximumTemperature;
 
 		private double LifeTime;
 
 		private double[][] MeanParticipantsInBin = new double[0][];
 
-		private double MinimalCentralTemperature;
+		private double BreakupTemperature;
 
 		private double NuclearRadiusA;
 

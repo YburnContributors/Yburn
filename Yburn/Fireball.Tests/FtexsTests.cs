@@ -113,13 +113,10 @@ namespace Yburn.Fireball.Tests
 
 		private double[,] VelocityY;
 
-		private double ArtViscStrength = 0;
-
 		private void InitializeFtexsSolver()
 		{
-			FtexsSolver = new Ftexs(
-				GridCellSize, InitialTime, MaxCFL, Temperature,
-				VelocityX, VelocityY, ArtViscStrength);
+			FtexsSolver = new Ftexs(GridCellSize, InitialTime,
+				MaxCFL, Temperature, VelocityX, VelocityY);
 		}
 
 		private void SetBjorkenFlowProperties()

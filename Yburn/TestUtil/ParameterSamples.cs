@@ -125,8 +125,8 @@ namespace Yburn.TestUtil
 				nameValuePairs["ParticipantsAtBinBoundaries"] = "3,3,3";
 				nameValuePairs["MeanParticipantsInBin"] = "3,3,3";
 				nameValuePairs["BottomiumStates"] = "Y1S,x3P";
-				nameValuePairs["InitialCentralTemperature"] = "3333";
-				nameValuePairs["MinimalCentralTemperature"] = "3333";
+				nameValuePairs["InitialMaximumTemperature"] = "3333";
+				nameValuePairs["BreakupTemperature"] = "3333";
 				nameValuePairs["FormationTimes"] = "3,3,3,3,3,3";
 				nameValuePairs["ThermalTime"] = "3333";
 				nameValuePairs["GridCellSize"] = "3333";

@@ -60,7 +60,7 @@ namespace Yburn.Fireball.Tests
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static readonly double MinimalCentralTemperatureMeV = 160;
+		private static readonly double BreakupTemperature = 160;
 
 		private static readonly int NumberBottomiumStates
 			= Enum.GetValues(typeof(BottomiumState)).Length;
@@ -82,8 +82,8 @@ namespace Yburn.Fireball.Tests
 			param.NuclearRadiusAFm = 6.62;
 			param.NuclearRadiusBFm = 6.62;
 			param.DecayWidthEvaluationType = decayWidthEvaluationType;
-			param.InitialCentralTemperatureMeV = 550;
-			param.MinimalCentralTemperatureMeV = MinimalCentralTemperatureMeV;
+			param.InitialMaximumTemperatureMeV = 550;
+			param.BreakupTemperatureMeV = BreakupTemperature;
 			param.FormationTimesFm = new double[] { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
 			param.ThermalTimeFm = 0.1;
 			param.GridCellSizeFm = 0.4;
@@ -111,7 +111,7 @@ namespace Yburn.Fireball.Tests
 
 		private void CalculateFireballEvolution()
 		{
-			while(Fireball.CentralTemperature > MinimalCentralTemperatureMeV)
+			while(Fireball.MaximumTemperature > BreakupTemperature)
 			{
 				Fireball.Advance(5);
 			}

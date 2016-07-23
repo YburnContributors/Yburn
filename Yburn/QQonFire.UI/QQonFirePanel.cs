@@ -120,8 +120,8 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["ExpansionMode"] = CbxExpansionMode.Text;
 			nameValuePairs["TemperatureProfile"] = CbxTemperatureProfile.Text;
 			nameValuePairs["ProtonProtonBaseline"] = CbxProtonProtonBaseline.Text;
-			nameValuePairs["InitialCentralTemperature"] = TbxInitialCentralTemperature.Text;
-			nameValuePairs["MinimalCentralTemperature"] = TbxMinimalCentralTemperature.Text;
+			nameValuePairs["InitialMaximumTemperature"] = TbxInitialMaximumTemperature.Text;
+			nameValuePairs["BreakupTemperature"] = TbxBreakupTemperature.Text;
 			nameValuePairs["ThermalTime"] = TbxThermalTime.Text;
 			nameValuePairs["GridCellSize"] = TbxGridCellSize.Text;
 			nameValuePairs["GridRadius"] = TbxGridRadius.Text;
@@ -163,8 +163,8 @@ namespace Yburn.QQonFire.UI
 			CbxExpansionMode.Text = nameValuePairs["ExpansionMode"];
 			CbxTemperatureProfile.Text = nameValuePairs["TemperatureProfile"];
 			CbxProtonProtonBaseline.Text = nameValuePairs["ProtonProtonBaseline"];
-			TbxInitialCentralTemperature.Text = nameValuePairs["InitialCentralTemperature"];
-			TbxMinimalCentralTemperature.Text = nameValuePairs["MinimalCentralTemperature"];
+			TbxInitialMaximumTemperature.Text = nameValuePairs["InitialMaximumTemperature"];
+			TbxBreakupTemperature.Text = nameValuePairs["BreakupTemperature"];
 			TbxThermalTime.Text = nameValuePairs["ThermalTime"];
 			TbxGridCellSize.Text = nameValuePairs["GridCellSize"];
 			TbxGridRadius.Text = nameValuePairs["GridRadius"];

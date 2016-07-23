@@ -95,8 +95,8 @@ namespace Yburn.Fireball.Tests
 		private FireballParam CreateFireballParam()
 		{
 			FireballParam param = new FireballParam();
-			param.InitialCentralTemperatureMeV = 550;
-			param.MinimalCentralTemperatureMeV = 160;
+			param.InitialMaximumTemperatureMeV = 550;
+			param.BreakupTemperatureMeV = 160;
 			param.FormationTimesFm = new double[] { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
 
 			param.GridCellSizeFm = GridCellSize;

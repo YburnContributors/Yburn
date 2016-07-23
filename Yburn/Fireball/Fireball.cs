@@ -44,8 +44,8 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				return Param.ThermalTimeFm * Math.Pow(Param.InitialCentralTemperatureMeV
-					/ Param.MinimalCentralTemperatureMeV, 3);
+				return Param.ThermalTimeFm * Math.Pow(Param.InitialMaximumTemperatureMeV
+					/ Param.BreakupTemperatureMeV, 3);
 			}
 		}
 
@@ -64,7 +64,7 @@ namespace Yburn.Fireball
 			private set;
 		}
 
-		public double CentralTemperature
+		public double MaximumTemperature
 		{
 			get
 			{
@@ -92,7 +92,7 @@ namespace Yburn.Fireball
 
 				AdvanceFields();
 
-				if(CentralTemperature <= Param.MinimalCentralTemperatureMeV && LifeTime == -1)
+				if(MaximumTemperature <= Param.BreakupTemperatureMeV && LifeTime == -1)
 				{
 					LifeTime = CurrentTime - TimeStep;
 				}
@@ -356,14 +356,14 @@ namespace Yburn.Fireball
 				}
 			}
 
-			if(Param.InitialCentralTemperatureMeV <= 0)
+			if(Param.InitialMaximumTemperatureMeV <= 0)
 			{
-				throw new Exception("InitialCentralTemperature <= 0.");
+				throw new Exception("InitialMaximumTemperature <= 0.");
 			}
 
-			if(Param.MinimalCentralTemperatureMeV <= 0)
+			if(Param.BreakupTemperatureMeV <= 0)
 			{
-				throw new Exception("MinimalCentralTemperature <= 0.");
+				throw new Exception("BreakupTemperature <= 0.");
 			}
 
 			if(Param.BeamRapidity < 0)
@@ -443,23 +443,17 @@ namespace Yburn.Fireball
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
 				GlauberCalculation.TemperatureScalingField,
-				Param.InitialCentralTemperatureMeV,
+				Param.InitialMaximumTemperatureMeV,
 				Param.ThermalTimeFm,
 				CurrentTime);
 
 			if(Param.ExpansionMode == ExpansionMode.Transverse)
 			{
-				Solver = new Ftexs(
-					Param.GridCellSizeFm,
-					CurrentTime,
-					0.25,
-					Temperature.GetDiscreteValues(),
-					VX.GetDiscreteValues(),
-					VY.GetDiscreteValues(),
-					0);
+				Solver = new Ftexs(Param.GridCellSizeFm, CurrentTime, 0.25,
+					Temperature.GetDiscreteValues(), VX.GetDiscreteValues(), VY.GetDiscreteValues());
 			}
 
-			Param.InitialCentralTemperatureMeV = CentralTemperature;
+			Param.InitialMaximumTemperatureMeV = MaximumTemperature;
 		}
 
 		private void InitV()

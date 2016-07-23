@@ -183,7 +183,6 @@
 			// QQonFirePanel
 			// 
 			this.QQonFirePanel.BackColor = System.Drawing.SystemColors.Control;
-			this.QQonFirePanel.ControlsValues = ((System.Collections.Generic.Dictionary<string, string>)(resources.GetObject("QQonFirePanel.ControlsValues")));
 			this.QQonFirePanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.QQonFirePanel.Location = new System.Drawing.Point(3, 103);
 			this.QQonFirePanel.Name = "QQonFirePanel";

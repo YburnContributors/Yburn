@@ -185,11 +185,11 @@ namespace Yburn.Fireball
 				&& !CancellationToken.IsCancellationRequested)
 			{
 				Fireball fireball = CreateFireball();
-				double centralTemperature = fireball.CentralTemperature;
+				double maximumTemperature = fireball.MaximumTemperature;
 
 				CalculateFireballEvolution(fireball);
 				CollectResults(fireball);
-				UpdateStatus(centralTemperature, fireball.LifeTime);
+				UpdateStatus(maximumTemperature, fireball.LifeTime);
 
 				CurrentImpactParam += FireballParam.GridCellSizeFm;
 			}
@@ -223,7 +223,7 @@ namespace Yburn.Fireball
 			Fireball fireball
 			)
 		{
-			while(fireball.CentralTemperature > FireballParam.MinimalCentralTemperatureMeV
+			while(fireball.MaximumTemperature > FireballParam.BreakupTemperatureMeV
 				&& !CancellationToken.IsCancellationRequested)
 			{
 				// use small time steps so that an abort command by the user is registered faster
@@ -250,14 +250,14 @@ namespace Yburn.Fireball
 		}
 
 		private void UpdateStatus(
-			double centralTemperature,
+			double maximumTemperature,
 			double lifeTime
 			)
 		{
 			if(StatusValues != null)
 			{
 				StatusValues[0] = CurrentImpactParam.ToString("G5");
-				StatusValues[1] = centralTemperature.ToString("G5");
+				StatusValues[1] = maximumTemperature.ToString("G5");
 				StatusValues[2] = lifeTime.ToString("G5");
 			}
 		}

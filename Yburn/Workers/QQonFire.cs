@@ -51,7 +51,7 @@ namespace Yburn.Workers
 		{
 			get
 			{
-				return new string[] { "ImpactParameter (fm)", "InitialCentralTemperature (MeV)", "LifeTime (fm/c)" };
+				return new string[] { "ImpactParameter (fm)", "InitialMaximumTemperature (MeV)", "LifeTime (fm/c)" };
 			}
 		}
 
@@ -168,7 +168,7 @@ namespace Yburn.Workers
 				// calculate the areas
 				double nCollQGP;
 				double nCollPion;
-				fireball.CalculateNcolls(MinimalCentralTemperature, out nCollQGP, out nCollPion);
+				fireball.CalculateNcolls(BreakupTemperature, out nCollQGP, out nCollPion);
 				nCollQGPs.Add(nCollQGP);
 				nCollPions.Add(nCollPion);
 				nColls.Add(fireball.IntegrateFireballField("Ncoll"));
@@ -678,8 +678,8 @@ namespace Yburn.Workers
 			param.GridCellSizeFm = GridCellSize;
 			param.GridRadiusFm = GridRadius;
 			param.ImpactParameterFm = ImpactParameter;
-			param.InitialCentralTemperatureMeV = InitialCentralTemperature;
-			param.MinimalCentralTemperatureMeV = MinimalCentralTemperature;
+			param.InitialMaximumTemperatureMeV = InitialMaximumTemperature;
+			param.BreakupTemperatureMeV = BreakupTemperature;
 			param.NuclearRadiusAFm = NuclearRadiusA;
 			param.NuclearRadiusBFm = NuclearRadiusB;
 			param.NucleonNumberA = NucleonNumberA;
@@ -794,7 +794,7 @@ namespace Yburn.Workers
 			int index = 0;
 			double dt = 1.0 / SnapRate;
 			double currentTime;
-			while(fireball.CentralTemperature > MinimalCentralTemperature)
+			while(fireball.MaximumTemperature > BreakupTemperature)
 			{
 				// quit here if process has been aborted
 				if(JobCancelToken.IsCancellationRequested)
@@ -842,7 +842,7 @@ namespace Yburn.Workers
 		{
 			Fireball.Fireball fireball = CreateFireballToDetermineMaxLifeTime();
 			// Evolving the fireball to calculate the maximum QGP LifeTime
-			while(fireball.CentralTemperature > MinimalCentralTemperature)
+			while(fireball.MaximumTemperature > BreakupTemperature)
 			{
 				// quit here if process has been aborted
 				if(JobCancelToken.IsCancellationRequested)

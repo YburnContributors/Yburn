@@ -73,8 +73,8 @@ namespace Yburn.Workers.Tests
 			nameValuePairs.Add("NuclearRadiusB", "6.62");
 			nameValuePairs.Add("CentralityBinBoundaries", "0,5,10,20,30,40,50,60,100;0,100");
 			nameValuePairs.Add("ImpactParamsAtBinBoundaries", "0,3,4,6,8,9,10,11,21;0,21");
-			nameValuePairs.Add("InitialCentralTemperature", "550");
-			nameValuePairs.Add("MinimalCentralTemperature", "160");
+			nameValuePairs.Add("InitialMaximumTemperature", "550");
+			nameValuePairs.Add("BreakupTemperature", "160");
 			nameValuePairs.Add("FormationTimes", "0.3,0.3,0.3,0.3,0.3,0.3");
 			nameValuePairs.Add("ThermalTime", "0.1");
 			nameValuePairs.Add("GridCellSize", "1");

@@ -90,9 +90,9 @@ namespace Yburn.Fireball
 
 		public double[] FormationTimesFm;
 
-		public double InitialCentralTemperatureMeV;
+		public double InitialMaximumTemperatureMeV;
 
-		public double MinimalCentralTemperatureMeV;
+		public double BreakupTemperatureMeV;
 
 		public double BeamRapidity;
 
@@ -147,8 +147,8 @@ namespace Yburn.Fireball
 			param.GridCellSizeFm = GridCellSizeFm;
 			param.GridRadiusFm = GridRadiusFm;
 			param.ImpactParameterFm = ImpactParameterFm;
-			param.InitialCentralTemperatureMeV = InitialCentralTemperatureMeV;
-			param.MinimalCentralTemperatureMeV = MinimalCentralTemperatureMeV;
+			param.InitialMaximumTemperatureMeV = InitialMaximumTemperatureMeV;
+			param.BreakupTemperatureMeV = BreakupTemperatureMeV;
 			param.NuclearRadiusAFm = NuclearRadiusAFm;
 			param.NuclearRadiusBFm = NuclearRadiusBFm;
 			param.NucleonNumberA = NucleonNumberA;
