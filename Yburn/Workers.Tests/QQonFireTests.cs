@@ -95,7 +95,7 @@ namespace Yburn.Workers.Tests
 			AssertHelper.AssertRoundedEqual(0.15205702539109445, suppressionFactors[0][0][0][(int)BottomiumState.x1P]);
 			AssertHelper.AssertRoundedEqual(0.19254878741681819, suppressionFactors[0][0][0][(int)BottomiumState.Y2S]);
 			AssertHelper.AssertRoundedEqual(0.045685627208308516, suppressionFactors[0][0][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertRoundedEqual(0.058639432515947346, suppressionFactors[0][0][0][(int)BottomiumState.Y3S]);
+			AssertHelper.AssertRoundedEqual(0.0586394325159474, suppressionFactors[0][0][0][(int)BottomiumState.Y3S]);
 			AssertHelper.AssertRoundedEqual(0.024374912037664245, suppressionFactors[0][0][0][(int)BottomiumState.x3P]);
 
 			AssertHelper.AssertRoundedEqual(0.70684064602669794, suppressionFactors[0][1][0][(int)BottomiumState.Y1S]);

@@ -52,6 +52,8 @@ namespace Yburn.Fireball
 
 			AssertValidInput();
 			InitializeFields();
+
+			Stepper = new FtexsFirstOrderStepper(GridCellSize, NX, NY, S, VX, VY, MX, MY, DPX, DPY);
 		}
 
 		/********************************************************************************************
@@ -90,7 +92,8 @@ namespace Yburn.Fireball
 			{
 				double timeStep = CalculateNextTimeStep();
 				CurrentTime += timeStep;
-				Advance(timeStep);
+				Stepper.Advance(timeStep);
+				UpdateVariables();
 			}
 
 			InitialTime = CurrentTime;
@@ -125,35 +128,19 @@ namespace Yburn.Fireball
 		// Number of grid points in the spacial direction Y
 		private int NY;
 
+		private Stepper Stepper;
+
 		// Maximum allowed Courant-Friedrichs-Levy number
 		private double MaxCFL;
-
-		// x-component of the velocity evaluated at the cell-edges
-		private double[,] VXedge;
-
-		// y-component of the velocity evaluated at the cell-edges
-		private double[,] VYedge;
 
 		// entropy density and currents
 		private double[,] S;
 
-		private double[,] JSX;
-
-		private double[,] JSY;
-
 		// x-component of the momentum density and currents
 		private double[,] MX;
 
-		private double[,] JMXX;
-
-		private double[,] JMXY;
-
 		// y-component of the momentum density and currents
 		private double[,] MY;
-
-		private double[,] JMYX;
-
-		private double[,] JMYY;
 
 		// pressure gradients
 		private double[,] DPX;
@@ -224,72 +211,7 @@ namespace Yburn.Fireball
 		{
 			InitializeEntropyDensity();
 			InitializeMomentumDensity();
-
-			DPX = new double[NX, NY];
-			DPY = new double[NX, NY];
-
-			VXedge = new double[NX + 1, NY];
-
-			JSX = new double[NX + 1, NY];
-
-			JMXX = new double[NX + 1, NY];
-			JMYX = new double[NX + 1, NY];
-
-			VYedge = new double[NX, NY + 1];
-
-			JSY = new double[NX, NY + 1];
-
-			JMXY = new double[NX, NY + 1];
-			JMYY = new double[NX, NY + 1];
-			for(int k = 0; k < NY; k++)
-			{
-				VXedge[0, k] = VX[0, k];
-				for(int j = 1; j < NX; j++)
-				{
-					VXedge[j, k] = 0.5 * (VX[j, k] + VX[j - 1, k]);
-				}
-				VXedge[NX, k] = VX[NX - 1, k];
-			}
-
-			for(int j = 0; j < NX; j++)
-			{
-				VYedge[j, 0] = VY[j, 0];
-
-				for(int k = 1; k < NY; k++)
-				{
-					VYedge[j, k] = 0.5 * (VY[j, k] + VY[j, k - 1]);
-				}
-				VYedge[j, NY] = VY[j, NY - 1];
-			}
-
-			for(int k = 0; k < NY; k++)
-			{
-				if(NX == NY)
-				{
-					// pressure gradient is zero due to symmetry
-					DPX[0, k] = 0;
-				}
-				else
-				{
-					DPX[0, k] = (Math.Pow(T[1, k], 4) - Math.Pow(T[0, k], 4)) * CurrentTime / 4.0;
-				}
-				for(int j = 1; j < NX - 1; j++)
-				{
-					DPX[j, k] = 0.5 * (Math.Pow(T[j + 1, k], 4) - Math.Pow(T[j - 1, k], 4)) * CurrentTime / 4.0;
-				}
-				DPX[NX - 1, k] = (Math.Pow(T[NX - 1, k], 4) - Math.Pow(T[NX - 2, k], 4)) * CurrentTime / 4.0;
-			}
-
-			for(int j = 0; j < NX; j++)
-			{
-				// pressure gradient is zero due to symmetry
-				DPY[j, 0] = 0;
-				for(int k = 1; k < NY - 1; k++)
-				{
-					DPY[j, k] = 0.5 * (Math.Pow(T[j, k + 1], 4) - Math.Pow(T[j, k - 1], 4)) * CurrentTime / 4.0;
-				}
-				DPY[j, NY - 1] = (Math.Pow(T[j, NY - 1], 4) - Math.Pow(T[j, NY - 2], 4)) * CurrentTime / 4.0;
-			}
+			InitializePressureGradient();
 		}
 
 		private void InitializeEntropyDensity()
@@ -318,29 +240,16 @@ namespace Yburn.Fireball
 			}
 		}
 
+		private void InitializePressureGradient()
+		{
+			DPX = new double[NX, NY];
+			DPY = new double[NX, NY];
+			UpdatePressureGradient();
+		}
+
 		private void SetMaxCFL()
 		{
 			MaxCFL = FinalTime - InitialTime < 0 ? -Math.Abs(MaxCFL) : Math.Abs(MaxCFL);
-		}
-
-		private void Advance(double timeStep)
-		{
-			// First we set the currents JS = S * V and JMij = Mi * Vj,
-			// which are also used to implement the boundary conditions.
-			UpdateCurrents();
-
-			double temp = timeStep / GridCellSize;
-			for(int j = 0; j < NX; j++)
-			{
-				for(int k = 0; k < NY; k++)
-				{
-					S[j, k] += -temp * (JSX[j + 1, k] - JSX[j, k] + JSY[j, k + 1] - JSY[j, k]);
-					MX[j, k] += -temp * (JMXX[j + 1, k] - JMXX[j, k] + JMXY[j, k + 1] - JMXY[j, k] + DPX[j, k]);
-					MY[j, k] += -temp * (JMYX[j + 1, k] - JMYX[j, k] + JMYY[j, k + 1] - JMYY[j, k] + DPY[j, k]);
-				}
-			}
-
-			UpdateVariables();
 		}
 
 		private double CalculateNextTimeStep()
@@ -378,152 +287,47 @@ namespace Yburn.Fireball
 			return gradVmax;
 		}
 
-		private void UpdateCurrents()
-		{
-			// X-currents
-			for(int k = 0; k < NY; k++)
-			{
-				// boundary conditions at lower X-boundary
-				if(NX == NY)
-				{
-					JSX[0, k] = -JSX[1, k];
-					JMXX[0, k] = JMXX[1, k];
-					JMYX[0, k] = -JMYX[1, k];
-				}
-				else
-				{
-					if(VXedge[0, k] < 0)
-					{
-						JSX[0, k] = S[0, k] * VXedge[0, k];
-						JMXX[0, k] = MX[0, k] * VXedge[0, k];
-						JMYX[0, k] = MY[0, k] * VXedge[0, k];
-					}
-					else
-					{
-						JSX[0, k] = 0;
-						JMXX[0, k] = 0;
-						JMYX[0, k] = 0;
-					}
-				}
-
-				for(int j = 1; j < NX; j++)
-				{
-					if(VXedge[j, k] > 0)
-					{
-						JSX[j, k] = S[j - 1, k] * VXedge[j, k];
-						JMXX[j, k] = MX[j - 1, k] * VXedge[j, k];
-						JMYX[j, k] = MY[j - 1, k] * VXedge[j, k];
-					}
-					else
-					{
-						JSX[j, k] = S[j, k] * VXedge[j, k];
-						JMXX[j, k] = MX[j, k] * VXedge[j, k];
-						JMYX[j, k] = MY[j, k] * VXedge[j, k];
-					}
-				}
-
-				// boundary conditions at upper X-boundary
-				if(VXedge[NX, k] > 0)
-				{
-					JSX[NX, k] = S[NX - 1, k] * VXedge[NX, k];
-					JMXX[NX, k] = MX[NX - 1, k] * VXedge[NX, k];
-					JMYX[NX, k] = MY[NX - 1, k] * VXedge[NX, k];
-				}
-				else
-				{
-					JSX[NX, k] = 0;
-					JMXX[NX, k] = 0;
-					JMYX[NX, k] = 0;
-				}
-			}
-
-			// Y-currents
-			for(int j = 0; j < NX; j++)
-			{
-				// boundary conditions at lower Y-boundary
-				JSY[j, 0] = -JSY[j, 1];
-				JMXY[j, 0] = -JMXY[j, 1];
-				JMYY[j, 0] = JMYY[j, 1];
-
-				for(int k = 1; k < NY; k++)
-				{
-					if(VYedge[j, k] > 0)
-					{
-						JSY[j, k] = S[j, k - 1] * VYedge[j, k];
-						JMXY[j, k] = MX[j, k - 1] * VYedge[j, k];
-						JMYY[j, k] = MY[j, k - 1] * VYedge[j, k];
-					}
-					else
-					{
-						JSY[j, k] = S[j, k] * VYedge[j, k];
-						JMXY[j, k] = MX[j, k] * VYedge[j, k];
-						JMYY[j, k] = MY[j, k] * VYedge[j, k];
-					}
-				}
-
-				// boundary conditions at upper Y-boundary
-				if(VYedge[j, NY] > 0)
-				{
-					JSY[j, NY] = S[j, NY - 1] * VYedge[j, NY];
-					JMXY[j, NY] = MX[j, NY - 1] * VYedge[j, NY];
-					JMYY[j, NY] = MY[j, NY - 1] * VYedge[j, NY];
-				}
-				else
-				{
-					JSY[j, NY] = 0;
-					JMXY[j, NY] = 0;
-					JMYY[j, NY] = 0;
-				}
-			}
-		}
-
 		private void UpdateVariables()
 		{
-			double dGAMMA2, dAbsV, dMperp, dKK;
 			for(int j = 0; j < NX; j++)
 			{
 				for(int k = 0; k < NY; k++)
 				{
-					dMperp = Math.Sqrt(MX[j, k] * MX[j,
-						k] + MY[j, k] * MY[j, k]);
+					double mPerp = Math.Sqrt(MX[j, k] * MX[j, k] + MY[j, k] * MY[j, k]);
+					double gammaSquared = GetLorentzFactorSquared(j, k, mPerp);
+					double absV = Math.Sqrt(1.0 - 1.0 / gammaSquared);
 
-					// dKK = Tau * dMperp^3 / S^4 / sqrt(27/4)
-					dKK = dMperp / S[j, k];
-					dKK = CurrentTime * dKK * dKK * dKK / S[j, k] / Math.Sqrt(6.75);
-
-					dGAMMA2 = dKK == 0 ? 0 : (dKK < 1 ? 3 * dKK * Math.Cosh(Arcosh(1.0 / dKK) / 3.0)
-										: 3 * dKK * Math.Cos(Math.Acos(1.0 / dKK) / 3.0));
-					dGAMMA2 += 1;
-
-					dAbsV = Math.Sqrt(1.0 - 1.0 / dGAMMA2);
-
-					VX[j, k] = dMperp == 0 ? 0 : MX[j, k] / dMperp * dAbsV;
-					VY[j, k] = dMperp == 0 ? 0 : MY[j, k] / dMperp * dAbsV;
-
-					T[j, k] = Math.Pow(S[j, k] / CurrentTime / dGAMMA2, 1 / 3.0);
+					VX[j, k] = mPerp == 0 ? 0 : absV * MX[j, k] / mPerp;
+					VY[j, k] = mPerp == 0 ? 0 : absV * MY[j, k] / mPerp;
+					T[j, k] = Math.Pow(S[j, k] / CurrentTime / gammaSquared, 1 / 3.0);
 				}
 			}
 
-			for(int k = 0; k < NY; k++)
+			UpdatePressureGradient();
+		}
+
+		private double GetLorentzFactorSquared(int j, int k, double mPerp)
+		{
+			// temp = Tau * dMperp^3 / S^4 / sqrt(27/4),
+			// where Tau * dMperp^3 / S^4 = gamma^-1 - gamma^-3
+			// and hence 0 <= temp <= 1
+			double temp = CurrentTime * Math.Pow(mPerp, 3) / Math.Pow(S[j, k], 4) / Math.Sqrt(6.75);
+			if(temp == 0)
 			{
-				VXedge[0, k] = VX[0, k];
-				for(int j = 1; j < NX; j++)
-				{
-					VXedge[j, k] = 0.5 * (VX[j, k] + VX[j - 1, k]);
-				}
-				VXedge[NX, k] = VX[NX - 1, k];
+				return 1.0;
 			}
-
-			for(int j = 0; j < NX; j++)
+			else if(temp < 1)
 			{
-				VYedge[j, 0] = VY[j, 0];
-				for(int k = 1; k < NY; k++)
-				{
-					VYedge[j, k] = 0.5 * (VY[j, k] + VY[j, k - 1]);
-				}
-				VYedge[j, NY] = VY[j, NY - 1];
+				return 1.0 + 3 * temp * Math.Cosh(Arcosh(1.0 / temp) / 3.0);
 			}
+			else
+			{
+				return 1.0 + 3 * temp * Math.Cos(Math.Acos(1.0 / temp) / 3.0);
+			}
+		}
 
+		private void UpdatePressureGradient()
+		{
 			for(int k = 0; k < NY; k++)
 			{
 				if(NX == NY)
@@ -535,7 +339,6 @@ namespace Yburn.Fireball
 				{
 					DPX[0, k] = (Math.Pow(T[1, k], 4) - Math.Pow(T[0, k], 4)) * CurrentTime / 4.0;
 				}
-
 				for(int j = 1; j < NX - 1; j++)
 				{
 					DPX[j, k] = 0.5 * (Math.Pow(T[j + 1, k], 4) - Math.Pow(T[j - 1, k], 4)) * CurrentTime / 4.0;
@@ -554,5 +357,10 @@ namespace Yburn.Fireball
 				DPY[j, NY - 1] = (Math.Pow(T[j, NY - 1], 4) - Math.Pow(T[j, NY - 2], 4)) * CurrentTime / 4.0;
 			}
 		}
+	}
+
+	internal interface Stepper
+	{
+		void Advance(double timeStep);
 	}
 }
