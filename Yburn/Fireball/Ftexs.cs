@@ -26,567 +26,341 @@ using System;
 
 namespace Yburn.Fireball
 {
-    public class Ftexs
-    {
-        /********************************************************************************************
+	public class Ftexs
+	{
+		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-        public Ftexs(
-            double gridCellSize,
-            double initialTime,
-            double maxCFL, // Maximum allowed Courant-Friedrichs-Levy number
-            double[,] initialTemperature,
-            double[,] initialXvelocity,
-            double[,] initialYvelocity,
-            double artViscStrength = 0 // Coefficient of artificial viscosity
-            )
-        {
-            T = initialTemperature;
-            VX = initialXvelocity;
-            VY = initialYvelocity;
+		public Ftexs(
+			double gridCellSize,
+			double initialTime,
+			double maxCFL, // Maximum allowed Courant-Friedrichs-Levy number
+			double[,] initialTemperature,
+			double[,] initialXvelocity,
+			double[,] initialYvelocity
+			)
+		{
+			GridCellSize = gridCellSize;
+			T = initialTemperature;
+			NX = T.GetLength(0);
+			NY = T.GetLength(1);
+			VX = initialXvelocity;
+			VY = initialYvelocity;
+			CurrentTime = InitialTime = initialTime;
+			MaxCFL = maxCFL;
 
-            MaxCFL = maxCFL;
-            ArtViscStrength = artViscStrength;
+			AssertValidInput();
+			InitializeFields();
 
-            AssertValidMembers();
+			Stepper = new FtexsFirstOrderStepper(GridCellSize, NX, NY, S, VX, VY, MX, MY, DPX, DPY);
+		}
 
-            NX = T.GetLength(0);
-            NY = T.GetLength(1);
-            DXY = gridCellSize;
-
-            Tau = TauI = initialTime;
-            NTau = 0;
-
-            S = new double[NX, NY];
-            MX = new double[NX, NY];
-            MY = new double[NX, NY];
-            DPX = new double[NX, NY];
-            DPY = new double[NX, NY];
-            ArtViscX = new double[NX, NY];
-            ArtViscY = new double[NX, NY];
-
-            VXedge = new double[NX + 1, NY];
-            JSX = new double[NX + 1, NY];
-            JMXX = new double[NX + 1, NY];
-            JMYX = new double[NX + 1, NY];
-
-            VYedge = new double[NX, NY + 1];
-            JSY = new double[NX, NY + 1];
-            JMXY = new double[NX, NY + 1];
-            JMYY = new double[NX, NY + 1];
-
-            for(int j = 0; j < NX; j++)
-            {
-                for(int k = 0; k < NY; k++)
-                {
-                    // check if square of the velocity exceeds one
-                    double dV2 = VX[j, k] * VX[j, k] + VY[j, k] * VY[j, k];
-                    if(dV2 >= 1)
-                    {
-                        throw new Exception("|V| >= 1.");
-                    }
-
-                    if(T[j, k] <= 0)
-                    {
-                        throw new Exception("T should only take positive values.");
-                    }
-
-                    // calculate Lorentz factor
-                    double dGAMMA = 1.0 / Math.Sqrt(1.0 - dV2);
-                    S[j, k] = Tau * dGAMMA * T[j, k] * T[j, k] * T[j, k];
-
-                    // calculate absolute value and components of the momentum density
-                    double dMTMP = dGAMMA * T[j, k] * S[j, k];
-                    MX[j, k] = dMTMP * VX[j, k];
-                    MY[j, k] = dMTMP * VY[j, k];
-                }
-            }
-
-            for(int k = 0; k < NY; k++)
-            {
-                VXedge[0, k] = VX[0, k];
-                for(int j = 1; j < NX; j++)
-                {
-                    VXedge[j, k] = 0.5 * (VX[j, k] + VX[j - 1, k]);
-                }
-                VXedge[NX, k] = VX[NX - 1, k];
-            }
-
-            for(int j = 0; j < NX; j++)
-            {
-                VYedge[j, 0] = VY[j, 0];
-
-                for(int k = 1; k < NY; k++)
-                {
-                    VYedge[j, k] = 0.5 * (VY[j, k] + VY[j, k - 1]);
-                }
-                VYedge[j, NY] = VY[j, NY - 1];
-            }
-
-            for(int k = 0; k < NY; k++)
-            {
-                if(NX == NY)
-                {
-                    // pressure gradient is zero due to symmetry
-                    DPX[0, k] = 0;
-                }
-                else
-                {
-                    DPX[0, k] = (Math.Pow(T[1, k], 4) - Math.Pow(T[0, k], 4)) * Tau / 4.0;
-                }
-                for(int j = 1; j < NX - 1; j++)
-                {
-                    DPX[j, k] = 0.5 * (Math.Pow(T[j + 1, k], 4) - Math.Pow(T[j - 1, k], 4)) * Tau / 4.0;
-                }
-                DPX[NX - 1, k] = (Math.Pow(T[NX - 1, k], 4) - Math.Pow(T[NX - 2, k], 4)) * Tau / 4.0;
-            }
-
-            for(int j = 0; j < NX; j++)
-            {
-                // pressure gradient is zero due to symmetry
-                DPY[j, 0] = 0;
-                for(int k = 1; k < NY - 1; k++)
-                {
-                    DPY[j, k] = 0.5 * (Math.Pow(T[j, k + 1], 4) - Math.Pow(T[j, k - 1], 4)) * Tau / 4.0;
-                }
-                DPY[j, NY - 1] = (Math.Pow(T[j, NY - 1], 4) - Math.Pow(T[j, NY - 2], 4)) * Tau / 4.0;
-            }
-
-            if(ArtViscStrength == 0)
-            {
-                for(int j = 0; j < NX; j++)
-                {
-                    for(int k = 0; k < NY; k++)
-                    {
-                        ArtViscX[j, k] = ArtViscY[j, k] = 0;
-                    }
-                }
-            }
-        }
-
-        /********************************************************************************************
+		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-        // temperature
-        public double[,] T
-        {
-            get;
-            private set;
-        }
+		// temperature
+		public double[,] T
+		{
+			get;
+			private set;
+		}
 
-        // x-component of the velocity evaluated at the cell-centers
-        public double[,] VX
-        {
-            get;
-            private set;
-        }
+		// x-component of the velocity evaluated at the cell-centers
+		public double[,] VX
+		{
+			get;
+			private set;
+		}
 
-        // y-component of the velocity evaluated at the cell-centers
-        public double[,] VY
-        {
-            get;
-            private set;
-        }
+		// y-component of the velocity evaluated at the cell-centers
+		public double[,] VY
+		{
+			get;
+			private set;
+		}
 
-        public void SolveUntil(
-            double dTauF
-            )
-        {
-            TauF = dTauF;
-            MaxCFL = TauF - TauI < 0 ? -Math.Abs(MaxCFL) : Math.Abs(MaxCFL);
+		public void SolveUntil(
+			double finalTime
+			)
+		{
+			FinalTime = finalTime;
+			SetMaxCFL();
 
-            while(Tau < TauF)
-            {
-                DTau = CalcdTau();
+			while(CurrentTime < FinalTime)
+			{
+				double timeStep = CalculateNextTimeStep();
+				CurrentTime += timeStep;
+				Stepper.Advance(timeStep);
+				UpdateVariables();
+			}
 
-                if(Tau + DTau >= TauF)
-                {
-                    DTau = TauF - Tau;
-                    Tau = TauF;
-                }
-                else
-                {
-                    Tau += DTau;
-                }
+			InitialTime = CurrentTime;
+		}
 
-                C = DTau / DXY;
-                NTau++;
+		/********************************************************************************************
+ 		 * Private/protected static members, functions and properties
+		 ********************************************************************************************/
 
-                Advance();
-            }
+		private static double Arcosh(
+			double x
+			)
+		{
+			return Math.Log(x + Math.Sqrt(x * x - 1));
+		}
 
-            TauI = Tau;
-        }
-
-        /********************************************************************************************
-		* Private/protected static members, functions and properties
-		********************************************************************************************/
-
-        private static double Arcosh(
-            double x
-            )
-        {
-            return Math.Log(x + Math.Sqrt(x * x - 1));
-        }
-
-        /********************************************************************************************
+		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-        // initial temporal boundary of the domain of calculation
-        private double TauI;
+		private double InitialTime;
 
-        // final temporal boundary of the domain of calculation
-        private double TauF;
+		private double FinalTime;
 
-        // current time within the calculation
-        private double Tau;
+		private double CurrentTime;
 
-        // temporal grid spacing (not necessarily constant throughout the grid)
-        private double DTau;
+		private double GridCellSize;
 
-        // Spacial grid spacing (constant throughout the grid)
-        private double DXY;
+		// Number of grid points in the spacial direction X
+		private int NX;
 
-        // Number of grid points in the temporal direction
-        private int NTau;
+		// Number of grid points in the spacial direction Y
+		private int NY;
 
-        // Number of grid points in the spacial direction X
-        private int NX;
+		private Stepper Stepper;
 
-        // Number of grid points in the spacial direction Y
-        private int NY;
+		// Maximum allowed Courant-Friedrichs-Levy number
+		private double MaxCFL;
 
-        // Maximum allowed Courant-Friedrichs-Levy number
-        private double MaxCFL;
+		// entropy density and currents
+		private double[,] S;
 
-        // helper variable
-        private double C;
+		// x-component of the momentum density and currents
+		private double[,] MX;
 
-        // Coefficient of artificial viscosity
-        private double ArtViscStrength;
+		// y-component of the momentum density and currents
+		private double[,] MY;
 
-        // x-component of the velocity evaluated at the cell-edges
-        private double[,] VXedge;
+		// pressure gradients
+		private double[,] DPX;
 
-        // y-component of the velocity evaluated at the cell-edges
-        private double[,] VYedge;
+		private double[,] DPY;
 
-        // entropy density and currents
-        private double[,] S;
+		private void AssertValidInput()
+		{
+			if(VX.GetLength(0) != NX
+				|| VX.GetLength(1) != NY)
+			{
+				throw new Exception("Dimensions of VX are not compatible with T.");
+			}
 
-        private double[,] JSX;
+			if(VY.GetLength(0) != NX
+				|| VY.GetLength(1) != NY)
+			{
+				throw new Exception("Dimensions of VY are not compatible with T.");
+			}
 
-        private double[,] JSY;
+			AssertPositiveT();
+			AssertValidVelocity();
 
-        // x-component of the momentum density and currents
-        private double[,] MX;
+			if(MaxCFL <= 0)
+			{
+				throw new Exception("MaxCFL <= 0.");
+			}
+		}
 
-        private double[,] JMXX;
+		private void AssertPositiveT()
+		{
+			for(int j = 0; j < NX; j++)
+			{
+				for(int k = 0; k < NY; k++)
+				{
+					if(T[j, k] <= 0)
+					{
+						throw new Exception("T should only take positive values.");
+					}
+				}
+			}
+		}
 
-        private double[,] JMXY;
+		private void AssertValidVelocity()
+		{
+			for(int j = 0; j < NX; j++)
+			{
+				for(int k = 0; k < NY; k++)
+				{
+					double vSquared = VX[j, k] * VX[j, k] + VY[j, k] * VY[j, k];
+					if(vSquared >= 1)
+					{
+						throw new Exception("|V| >= 1.");
+					}
+				}
+			}
+		}
 
-        // y-component of the momentum density and currents
-        private double[,] MY;
+		private double Gamma(
+			int j,
+			int k
+			)
+		{
+			return 1.0 / Math.Sqrt(1.0 - VX[j, k] * VX[j, k] - VY[j, k] * VY[j, k]);
+		}
 
-        private double[,] JMYX;
+		private void InitializeFields()
+		{
+			InitializeEntropyDensity();
+			InitializeMomentumDensity();
+			InitializePressureGradient();
+		}
 
-        private double[,] JMYY;
+		private void InitializeEntropyDensity()
+		{
+			S = new double[NX, NY];
+			for(int j = 0; j < NX; j++)
+			{
+				for(int k = 0; k < NY; k++)
+				{
+					S[j, k] = CurrentTime * Gamma(j, k) * T[j, k] * T[j, k] * T[j, k];
+				}
+			}
+		}
 
-        // pressure gradients
-        private double[,] DPX;
+		private void InitializeMomentumDensity()
+		{
+			MX = new double[NX, NY];
+			MY = new double[NX, NY];
+			for(int j = 0; j < NX; j++)
+			{
+				for(int k = 0; k < NY; k++)
+				{
+					MX[j, k] = Gamma(j, k) * T[j, k] * S[j, k] * VX[j, k];
+					MY[j, k] = Gamma(j, k) * T[j, k] * S[j, k] * VY[j, k];
+				}
+			}
+		}
 
-        private double[,] DPY;
+		private void InitializePressureGradient()
+		{
+			DPX = new double[NX, NY];
+			DPY = new double[NX, NY];
+			UpdatePressureGradient();
+		}
 
-        // artificial visocity field
-        private double[,] ArtViscX;
+		private void SetMaxCFL()
+		{
+			MaxCFL = FinalTime - InitialTime < 0 ? -Math.Abs(MaxCFL) : Math.Abs(MaxCFL);
+		}
 
-        private double[,] ArtViscY;
+		private double CalculateNextTimeStep()
+		{
+			double gradVmax = GetMaxVelocityGradient();
+			if(gradVmax == 0)
+			{
+				// If dVdXmax == 0 we have purely longitudinal expansion and can jump to the final time.
+				return FinalTime - CurrentTime;
+			}
+			else
+			{
+				//adjust the time step so that CFLmax is not exceeded
+				return Math.Min(MaxCFL / gradVmax, FinalTime - CurrentTime);
+			}
+		}
 
-        private void AssertValidMembers()
-        {
-            if(T.Length != VX.Length)
-            {
-                throw new Exception("VX is not of the same size as T.");
-            }
+		private double GetMaxVelocityGradient()
+		{
+			// find out maximum transport velocity from v and dP
+			double gradVmax = 0;
+			for(int j = 0; j < NX; j++)
+			{
+				for(int k = 0; k < NY; k++)
+				{
+					gradVmax = Math.Max(gradVmax, Math.Abs(VX[j, k]) / GridCellSize);
+					gradVmax = Math.Max(gradVmax, Math.Abs(VY[j, k]) / GridCellSize);
+					gradVmax = Math.Max(gradVmax,
+						Math.Sqrt(Math.Abs(DPX[j, k] / Math.Pow(T[j, k], 4))) / GridCellSize);
+					gradVmax = Math.Max(gradVmax,
+						Math.Sqrt(Math.Abs(DPY[j, k] / Math.Pow(T[j, k], 4))) / GridCellSize);
+				}
+			}
 
-            if(T.Length != VY.Length)
-            {
-                throw new Exception("VY is not of the same size as T.");
-            }
+			return gradVmax;
+		}
 
-            if(MaxCFL <= 0)
-            {
-                throw new Exception("MaxCFL <= 0.");
-            }
+		private void UpdateVariables()
+		{
+			for(int j = 0; j < NX; j++)
+			{
+				for(int k = 0; k < NY; k++)
+				{
+					double mPerp = Math.Sqrt(MX[j, k] * MX[j, k] + MY[j, k] * MY[j, k]);
+					double gammaSquared = GetLorentzFactorSquared(j, k, mPerp);
+					double absV = Math.Sqrt(1.0 - 1.0 / gammaSquared);
 
-            if(ArtViscStrength < 0)
-            {
-                throw new Exception("ArtViscStrength < 0.");
-            }
-        }
+					VX[j, k] = mPerp == 0 ? 0 : absV * MX[j, k] / mPerp;
+					VY[j, k] = mPerp == 0 ? 0 : absV * MY[j, k] / mPerp;
+					T[j, k] = Math.Pow(S[j, k] / CurrentTime / gammaSquared, 1 / 3.0);
+				}
+			}
 
-        private void Advance()
-        {
-            // First we set the currents JS = S * V and JMij = Mi * Vj, which are also used to implement the boundary conditions.
-            // The large amount of hard-coding required for this procedure is outsourced into the function SetAllJ().
-            SetAllJ();
+			UpdatePressureGradient();
+		}
 
-            if(ArtViscStrength > 0)
-            {
-                SetArtVisc();
-            }
+		private double GetLorentzFactorSquared(int j, int k, double mPerp)
+		{
+			// temp = Tau * dMperp^3 / S^4 / sqrt(27/4),
+			// where Tau * dMperp^3 / S^4 = gamma^-1 - gamma^-3
+			// and hence 0 <= temp <= 1
+			double temp = CurrentTime * Math.Pow(mPerp, 3) / Math.Pow(S[j, k], 4) / Math.Sqrt(6.75);
+			if(temp == 0)
+			{
+				return 1.0;
+			}
+			else if(temp < 1)
+			{
+				return 1.0 + 3 * temp * Math.Cosh(Arcosh(1.0 / temp) / 3.0);
+			}
+			else
+			{
+				return 1.0 + 3 * temp * Math.Cos(Math.Acos(1.0 / temp) / 3.0);
+			}
+		}
 
-            for(int j = 0; j < NX; j++)
-            {
-                for(int k = 0; k < NY; k++)
-                {
-                    S[j, k] += -C * (JSX[j + 1, k] - JSX[j, k] + JSY[j, k + 1] - JSY[j, k]);
-                    MX[j, k] += -C * (JMXX[j + 1, k] - JMXX[j, k] + JMXY[j, k + 1] - JMXY[j, k] + DPX[j, k]) + ArtViscX[j, k];
-                    MY[j, k] += -C * (JMYX[j + 1, k] - JMYX[j, k] + JMYY[j, k + 1] - JMYY[j, k] + DPY[j, k]) + ArtViscY[j, k];
-                }
-            }
+		private void UpdatePressureGradient()
+		{
+			for(int k = 0; k < NY; k++)
+			{
+				if(NX == NY)
+				{
+					// pressure gradient is zero due to symmetry
+					DPX[0, k] = 0;
+				}
+				else
+				{
+					DPX[0, k] = (Math.Pow(T[1, k], 4) - Math.Pow(T[0, k], 4)) * CurrentTime / 4.0;
+				}
+				for(int j = 1; j < NX - 1; j++)
+				{
+					DPX[j, k] = 0.5 * (Math.Pow(T[j + 1, k], 4) - Math.Pow(T[j - 1, k], 4)) * CurrentTime / 4.0;
+				}
+				DPX[NX - 1, k] = (Math.Pow(T[NX - 1, k], 4) - Math.Pow(T[NX - 2, k], 4)) * CurrentTime / 4.0;
+			}
 
-            UpdateVars();
-        }
+			for(int j = 0; j < NX; j++)
+			{
+				// pressure gradient is zero due to symmetry
+				DPY[j, 0] = 0;
+				for(int k = 1; k < NY - 1; k++)
+				{
+					DPY[j, k] = 0.5 * (Math.Pow(T[j, k + 1], 4) - Math.Pow(T[j, k - 1], 4)) * CurrentTime / 4.0;
+				}
+				DPY[j, NY - 1] = (Math.Pow(T[j, NY - 1], 4) - Math.Pow(T[j, NY - 2], 4)) * CurrentTime / 4.0;
+			}
+		}
+	}
 
-        // find out maximum transport velocity from v and dP to adjust dT so that CFLmax is not exceeded
-        private double CalcdTau()
-        {
-            double dVdXmax = 0;
-            for(int j = 0; j < NX; j++)
-            {
-                for(int k = 0; k < NY; k++)
-                {
-                    dVdXmax = Math.Max(dVdXmax, Math.Abs(VX[j, k]) / DXY);
-                    dVdXmax = Math.Max(dVdXmax, Math.Sqrt(Math.Abs(DPX[j, k] / Math.Pow(T[j, k], 4))) / DXY);
-                    dVdXmax = Math.Max(dVdXmax, Math.Abs(VY[j, k]) / DXY);
-                    dVdXmax = Math.Max(dVdXmax, Math.Sqrt(Math.Abs(DPY[j, k] / Math.Pow(T[j, k], 4))) / DXY);
-                }
-            }
-
-            // If dVdXmax == 0 then V and dP both vanish identically, i.e. we have purely longitudinal.
-            // In this case the can jump to the final time TauF right away.
-            return dVdXmax == 0 ?
-                TauF - Tau :
-                MaxCFL / dVdXmax;
-        }
-
-        private void SetAllJ()
-        {
-            // X-currents
-            for(int k = 0; k < NY; k++)
-            {
-                // boundary conditions at lower X-boundary
-                if(NX == NY)
-                {
-                    JSX[0, k] = -JSX[1, k];
-                    JMXX[0, k] = JMXX[1, k];
-                    JMYX[0, k] = -JMYX[1, k];
-                }
-                else
-                {
-                    if(VXedge[0, k] < 0)
-                    {
-                        JSX[0, k] = S[0, k] * VXedge[0, k];
-                        JMXX[0, k] = MX[0, k] * VXedge[0, k];
-                        JMYX[0, k] = MY[0, k] * VXedge[0, k];
-                    }
-                    else
-                    {
-                        JSX[0, k] = 0;
-                        JMXX[0, k] = 0;
-                        JMYX[0, k] = 0;
-                    }
-                }
-
-                for(int j = 1; j < NX; j++)
-                {
-                    if(VXedge[j, k] > 0)
-                    {
-                        JSX[j, k] = S[j - 1, k] * VXedge[j, k];
-                        JMXX[j, k] = MX[j - 1, k] * VXedge[j, k];
-                        JMYX[j, k] = MY[j - 1, k] * VXedge[j, k];
-                    }
-                    else
-                    {
-                        JSX[j, k] = S[j, k] * VXedge[j, k];
-                        JMXX[j, k] = MX[j, k] * VXedge[j, k];
-                        JMYX[j, k] = MY[j, k] * VXedge[j, k];
-                    }
-                }
-
-                // boundary conditions at upper X-boundary
-                if(VXedge[NX, k] > 0)
-                {
-                    JSX[NX, k] = S[NX - 1, k] * VXedge[NX, k];
-                    JMXX[NX, k] = MX[NX - 1, k] * VXedge[NX, k];
-                    JMYX[NX, k] = MY[NX - 1, k] * VXedge[NX, k];
-                }
-                else
-                {
-                    JSX[NX, k] = 0;
-                    JMXX[NX, k] = 0;
-                    JMYX[NX, k] = 0;
-                }
-            }
-
-            // Y-currents
-            for(int j = 0; j < NX; j++)
-            {
-                // boundary conditions at lower Y-boundary
-                JSY[j, 0] = -JSY[j, 1];
-                JMXY[j, 0] = -JMXY[j, 1];
-                JMYY[j, 0] = JMYY[j, 1];
-
-                for(int k = 1; k < NY; k++)
-                {
-                    if(VYedge[j, k] > 0)
-                    {
-                        JSY[j, k] = S[j, k - 1] * VYedge[j, k];
-                        JMXY[j, k] = MX[j, k - 1] * VYedge[j, k];
-                        JMYY[j, k] = MY[j, k - 1] * VYedge[j, k];
-                    }
-                    else
-                    {
-                        JSY[j, k] = S[j, k] * VYedge[j, k];
-                        JMXY[j, k] = MX[j, k] * VYedge[j, k];
-                        JMYY[j, k] = MY[j, k] * VYedge[j, k];
-                    }
-                }
-
-                // boundary conditions at upper Y-boundary
-                if(VYedge[j, NY] > 0)
-                {
-                    JSY[j, NY] = S[j, NY - 1] * VYedge[j, NY];
-                    JMXY[j, NY] = MX[j, NY - 1] * VYedge[j, NY];
-                    JMYY[j, NY] = MY[j, NY - 1] * VYedge[j, NY];
-                }
-                else
-                {
-                    JSY[j, NY] = 0;
-                    JMXY[j, NY] = 0;
-                    JMYY[j, NY] = 0;
-                }
-            }
-        }
-
-        private void SetArtVisc()
-        {
-            for(int j = 1; j < NX - 1; j++)
-            {
-                for(int k = 1; k < NY - 1; k++)
-                {
-                    ArtViscX[j, k] = ArtViscStrength * (MX[j + 1, k] + MX[j - 1, k] + MX[j, k + 1] + MX[j, k - 1] - 4 * MX[j, k]);
-                    ArtViscY[j, k] = ArtViscStrength * (MY[j + 1, k] + MY[j - 1, k] + MY[j, k + 1] + MY[j, k - 1] - 4 * MY[j, k]);
-                }
-            }
-
-            for(int j = 1; j < NX - 1; j++)
-            {
-                ArtViscX[j, 0] = ArtViscStrength * (MX[j + 1, 0] + MX[j - 1, 0] + MX[j, 2] - MX[j, 0] - 2 * MX[j, 1]);
-                ArtViscY[j, 0] = ArtViscStrength * (MY[j + 1, 0] + MY[j - 1, 0] + MY[j, 2] - MY[j, 0] - 2 * MY[j, 1]);
-
-                ArtViscX[j, NY - 1] = ArtViscStrength * (MX[j + 1, NY - 1] + MX[j - 1, NY - 1] + MX[j, NY - 3] - MX[j, NY - 1] - 2 * MX[j, NY - 2]);
-                ArtViscY[j, NY - 1] = ArtViscStrength * (MY[j + 1, NY - 1] + MY[j - 1, NY - 1] + MY[j, NY - 3] - MY[j, NY - 1] - 2 * MY[j, NY - 2]);
-            }
-
-            for(int k = 1; k < NY - 1; k++)
-            {
-                ArtViscX[0, k] = ArtViscStrength * (MX[0, k + 1] + MX[0, k - 1] + MX[2, k] - MX[0, k] - 2 * MX[1, k]);
-                ArtViscY[0, k] = ArtViscStrength * (MY[0, k + 1] + MY[0, k - 1] + MY[2, k] - MY[0, k] - 2 * MY[1, k]);
-
-                ArtViscX[NX - 1, k] = ArtViscStrength * (MX[NX - 1, k + 1] + MX[NX - 1, k - 1] + MX[NX - 3, k] - MX[NX - 1, k] - 2 * MX[NX - 2, k]);
-                ArtViscY[NX - 1, k] = ArtViscStrength * (MY[NX - 1, k + 1] + MY[NX - 1, k - 1] + MY[NX - 3, k] - MY[NX - 1, k] - 2 * MY[NX - 2, k]);
-            }
-
-            ArtViscX[0, 0] = ArtViscStrength * (MX[0, 2] + MX[2, 0] + 2 * (MX[0, 0] - MX[0, 1] - MX[1, 0]));
-            ArtViscY[0, NY - 1] = ArtViscStrength * (MY[0, NY - 3] + MY[2, NY - 1] + 2 * (MY[0, NY - 1] - MY[0, NY - 2] - MY[1, NY - 1]));
-
-            ArtViscX[NX - 1, 0] = ArtViscStrength * (MX[NX - 1, 2] + MX[NX - 3, 0]
-                + 2 * (MX[NX - 1, 0] - MX[NX - 1, 1] - MX[NX - 2, 0]));
-            ArtViscY[NX - 1, NY - 1] = ArtViscStrength * (MY[NX - 1, NY - 3] + MY[NX - 3, NY - 1]
-                + 2 * (MY[NX - 1, NY - 1] - MY[NX - 1, NY - 2] - MY[NX - 2, NY - 1]));
-        }
-
-        private void UpdateVars()
-        {
-            double dGAMMA2, dAbsV, dMperp, dKK;
-            for(int j = 0; j < NX; j++)
-            {
-                for(int k = 0; k < NY; k++)
-                {
-                    dMperp = Math.Sqrt(MX[j, k] * MX[j,
-                        k] + MY[j, k] * MY[j, k]);
-
-                    // dKK = Tau * dMperp^3 / S^4 / sqrt(27/4)
-                    dKK = dMperp / S[j, k];
-                    dKK = Tau * dKK * dKK * dKK / S[j, k] / Math.Sqrt(6.75);
-
-                    dGAMMA2 = dKK == 0 ? 0 : (dKK < 1 ? 3 * dKK * Math.Cosh(Arcosh(1.0 / dKK) / 3.0)
-                                        : 3 * dKK * Math.Cos(Math.Acos(1.0 / dKK) / 3.0));
-                    dGAMMA2 += 1;
-
-                    dAbsV = Math.Sqrt(1.0 - 1.0 / dGAMMA2);
-
-                    VX[j, k] = dMperp == 0 ? 0 : MX[j, k] / dMperp * dAbsV;
-                    VY[j, k] = dMperp == 0 ? 0 : MY[j, k] / dMperp * dAbsV;
-
-                    T[j, k] = Math.Pow(S[j, k] / Tau / dGAMMA2, 1 / 3.0);
-                }
-            }
-
-            for(int k = 0; k < NY; k++)
-            {
-                VXedge[0, k] = VX[0, k];
-                for(int j = 1; j < NX; j++)
-                {
-                    VXedge[j, k] = 0.5 * (VX[j, k] + VX[j - 1, k]);
-                }
-                VXedge[NX, k] = VX[NX - 1, k];
-            }
-
-            for(int j = 0; j < NX; j++)
-            {
-                VYedge[j, 0] = VY[j, 0];
-                for(int k = 1; k < NY; k++)
-                {
-                    VYedge[j, k] = 0.5 * (VY[j, k] + VY[j, k - 1]);
-                }
-                VYedge[j, NY] = VY[j, NY - 1];
-            }
-
-            for(int k = 0; k < NY; k++)
-            {
-                if(NX == NY)
-                {
-                    // pressure gradient is zero due to symmetry
-                    DPX[0, k] = 0;
-                }
-                else
-                {
-                    DPX[0, k] = (Math.Pow(T[1, k], 4) - Math.Pow(T[0, k], 4)) * Tau / 4.0;
-                }
-
-                for(int j = 1; j < NX - 1; j++)
-                {
-                    DPX[j, k] = 0.5 * (Math.Pow(T[j + 1, k], 4) - Math.Pow(T[j - 1, k], 4)) * Tau / 4.0;
-                }
-                DPX[NX - 1, k] = (Math.Pow(T[NX - 1, k], 4) - Math.Pow(T[NX - 2, k], 4)) * Tau / 4.0;
-            }
-
-            for(int j = 0; j < NX; j++)
-            {
-                // pressure gradient is zero due to symmetry
-                DPY[j, 0] = 0;
-                for(int k = 1; k < NY - 1; k++)
-                {
-                    DPY[j, k] = 0.5 * (Math.Pow(T[j, k + 1], 4) - Math.Pow(T[j, k - 1], 4)) * Tau / 4.0;
-                }
-                DPY[j, NY - 1] = (Math.Pow(T[j, NY - 1], 4) - Math.Pow(T[j, NY - 2], 4)) * Tau / 4.0;
-            }
-        }
-    }
+	internal interface Stepper
+	{
+		void Advance(double timeStep);
+	}
 }
