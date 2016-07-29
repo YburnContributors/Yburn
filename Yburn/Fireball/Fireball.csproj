@@ -36,6 +36,7 @@
     <Compile Include="DecayWidthAverager.cs" />
     <Compile Include="FireballElectromagneticField.cs" />
     <Compile Include="MagneticFieldStrengthAverager.cs" />
+    <Compile Include="NucleusElectromagneticField.cs" />
     <Compile Include="PointChargeElectromagneticField.cs" />
     <Compile Include="Fireball.cs" />
     <Compile Include="FireballDecayWidthField.cs" />

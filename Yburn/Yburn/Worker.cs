@@ -6,220 +6,220 @@ using Yburn.Interfaces;
 
 namespace Yburn
 {
-	public abstract partial class Worker
-	{
-		/********************************************************************************************
+    public abstract partial class Worker
+    {
+        /********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-		public Worker()
-		{
-		}
+        public Worker()
+        {
+        }
 
-		/********************************************************************************************
+        /********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public string NameVersion
-		{
-			get;
-			set;
-		}
+        public string NameVersion
+        {
+            get;
+            set;
+        }
 
-		public StringBuilder LogMessages
-		{
-			get;
-			set;
-		}
+        public StringBuilder LogMessages
+        {
+            get;
+            set;
+        }
 
-		public void StartJob(
-			string jobId,
-			Dictionary<string, string> nameValuePairs
-			)
-		{
-			VariableNameValuePairs = nameValuePairs;
-			LogMessages.Clear();
+        public void StartJob(
+            string jobId,
+            Dictionary<string, string> nameValuePairs
+            )
+        {
+            VariableNameValuePairs = nameValuePairs;
+            LogMessages.Clear();
 
-			OnJobStart();
-			StartJob(jobId);
-			OnJobFinished();
-		}
+            OnJobStart();
+            StartJob(jobId);
+            OnJobFinished();
+        }
 
-		public string[] StatusTitles
-		{
-			get;
-			private set;
-		}
+        public string[] StatusTitles
+        {
+            get;
+            private set;
+        }
 
-		public string[] StatusValues
-		{
-			get;
-			protected set;
-		}
+        public string[] StatusValues
+        {
+            get;
+            protected set;
+        }
 
-		public event JobStartEventHandler JobStart;
+        public event JobStartEventHandler JobStart;
 
-		public event JobFinishedEventHandler JobFinished;
+        public event JobFinishedEventHandler JobFinished;
 
-		public string[] GetWorkerEnumEntries(
-			string enumName
-			)
-		{
-			return Enum.GetNames(GetEnumTypeByName(enumName));
-		}
+        public string[] GetWorkerEnumEntries(
+            string enumName
+            )
+        {
+            return Enum.GetNames(GetEnumTypeByName(enumName));
+        }
 
-		/********************************************************************************************
+        /********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		protected static string GetQQDataPathFile()
-		{
-			string pathFile = YburnConfigFile.QQDataPathFile;
-			if(string.IsNullOrEmpty(pathFile))
-			{
-				throw new Exception("Invalid QQ-data file.");
-			}
-			return pathFile;
-		}
+        protected static string GetQQDataPathFile()
+        {
+            string pathFile = YburnConfigFile.QQDataPathFile;
+            if(string.IsNullOrEmpty(pathFile))
+            {
+                throw new Exception("Invalid QQ-data file.");
+            }
+            return pathFile;
+        }
 
-		private static void AppendVariableNameValuePairs(
-			 StringBuilder stringBuilder,
-			 Dictionary<string, string> nameValuePairs
-			)
-		{
-			foreach(KeyValuePair<string, string> nameValuePair in nameValuePairs)
-			{
-				AppendLogHeaderLine(stringBuilder, nameValuePair.Key, nameValuePair.Value);
-			}
-		}
+        private static void AppendVariableNameValuePairs(
+             StringBuilder stringBuilder,
+             Dictionary<string, string> nameValuePairs
+            )
+        {
+            foreach(KeyValuePair<string, string> nameValuePair in nameValuePairs)
+            {
+                AppendLogHeaderLine(stringBuilder, nameValuePair.Key, nameValuePair.Value);
+            }
+        }
 
-		private static void AppendLogHeaderLine(
-		 StringBuilder stringBuilder,
-		 string name,
-		 string value
-		 )
-		{
-			stringBuilder.AppendLine(string.Format("#{0,35}    {1}", name, value));
-		}
+        private static void AppendLogHeaderLine(
+         StringBuilder stringBuilder,
+         string name,
+         string value
+         )
+        {
+            stringBuilder.AppendLine(string.Format("#{0,35}    {1}", name, value));
+        }
 
-		/********************************************************************************************
+        /********************************************************************************************
  		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		protected CancellationToken JobCancelToken;
+        protected CancellationToken JobCancelToken;
 
-		protected abstract void StartJob(
-		 string jobId
-		 );
+        protected abstract void StartJob(
+         string jobId
+         );
 
-		private void OnJobStart()
-		{
-			if(JobStart != null)
-			{
-				JobStart(this, new JobStartEventArgs());
-			}
-		}
+        private void OnJobStart()
+        {
+            if(JobStart != null)
+            {
+                JobStart(this, new JobStartEventArgs());
+            }
+        }
 
-		private void OnJobFinished()
-		{
-			if(JobFinished != null)
-			{
-				JobFinished(this, new JobFinishedEventArgs());
-			}
-		}
+        private void OnJobFinished()
+        {
+            if(JobFinished != null)
+            {
+                JobFinished(this, new JobFinishedEventArgs());
+            }
+        }
 
-		protected abstract Type GetEnumTypeByName(
-			string enumName
-			);
+        protected abstract Type GetEnumTypeByName(
+            string enumName
+            );
 
-		protected abstract Dictionary<string, string> GetVariableNameValuePairs();
+        protected abstract Dictionary<string, string> GetVariableNameValuePairs();
 
-		protected abstract void SetVariableNameValuePairs(
-			Dictionary<string, string> nameValuePairs
-			);
+        protected abstract void SetVariableNameValuePairs(
+            Dictionary<string, string> nameValuePairs
+            );
 
-		protected void PrepareJob(
-			string jobTitle
-			)
-		{
-			CurrentJobTitle = jobTitle;
+        protected void PrepareJob(
+            string jobTitle
+            )
+        {
+            CurrentJobTitle = jobTitle;
 
-			SetJobStartTimeStamp();
+            SetJobStartTimeStamp();
 
-			LogMessages.Clear();
-			LogMessages.Append(LogHeader);
-		}
+            LogMessages.Clear();
+            LogMessages.Append(LogHeader);
+        }
 
-		protected void PrepareJob(
-			string jobTitle,
-			string[] statusTitles
-			)
-		{
-			CurrentJobTitle = jobTitle;
+        protected void PrepareJob(
+            string jobTitle,
+            string[] statusTitles
+            )
+        {
+            CurrentJobTitle = jobTitle;
 
-			SetStatusVariables(statusTitles);
-			SetJobStartTimeStamp();
+            SetStatusVariables(statusTitles);
+            SetJobStartTimeStamp();
 
-			LogMessages.Clear();
-			LogMessages.Append(LogHeader);
-		}
+            LogMessages.Clear();
+            LogMessages.Append(LogHeader);
+        }
 
-		protected void SetStatusVariables(
-			 string[] statusTitles
-			 )
-		{
-			StatusTitles = statusTitles;
-			StatusValues = new string[StatusTitles.Length];
-		}
+        protected void SetStatusVariables(
+             string[] statusTitles
+             )
+        {
+            StatusTitles = statusTitles;
+            StatusValues = new string[StatusTitles.Length];
+        }
 
-		protected string CurrentJobTitle;
+        protected string CurrentJobTitle;
 
-		private void SetJobStartTimeStamp()
-		{
-			JobStartTimeStamp = DateTime.Now;
-			JobStartTimeStampString = JobStartTimeStamp.ToString("yyyy-MM-dd-HH-mm-ss");
-		}
+        private void SetJobStartTimeStamp()
+        {
+            JobStartTimeStamp = DateTime.Now;
+            JobStartTimeStampString = JobStartTimeStamp.ToString("yyyy-MM-dd-HH-mm-ss");
+        }
 
-		private DateTime JobStartTimeStamp;
+        private DateTime JobStartTimeStamp;
 
-		private string JobStartTimeStampString;
+        private string JobStartTimeStampString;
 
-		protected string LogHeader
-		{
-			get
-			{
-				StringBuilder stringBuilder = new StringBuilder();
-				AppendLogHeaderLine(stringBuilder, "Name and Version", NameVersion);
-				AppendLogHeaderLine(stringBuilder, "Job specifier", CurrentJobTitle);
-				AppendLogHeaderLine(stringBuilder, "Job started at", JobStartTimeStampString);
-				AppendVariableNameValuePairs(stringBuilder, VariableNameValuePairs);
+        protected string LogHeader
+        {
+            get
+            {
+                StringBuilder stringBuilder = new StringBuilder();
+                AppendLogHeaderLine(stringBuilder, "Name and Version", NameVersion);
+                AppendLogHeaderLine(stringBuilder, "Job specifier", CurrentJobTitle);
+                AppendLogHeaderLine(stringBuilder, "Job started at", JobStartTimeStampString);
+                AppendVariableNameValuePairs(stringBuilder, VariableNameValuePairs);
 
-				return stringBuilder.ToString();
-			}
-		}
+                return stringBuilder.ToString();
+            }
+        }
 
-		protected string LogFooter
-		{
-			get
-			{
-				string timePassed = DateTime.Now.Subtract(JobStartTimeStamp)
-					.TotalSeconds.ToString("F0");
+        protected string LogFooter
+        {
+            get
+            {
+                string timePassed = DateTime.Now.Subtract(JobStartTimeStamp)
+                    .TotalSeconds.ToString("F0");
 
-				return JobCancelToken.IsCancellationRequested ?
-					"#\r\n#\r\n#Job aborted after " + timePassed + " seconds.\r\n\r\n\r\n"
-					: "\r\n\r\n#Job completed after " + timePassed + " seconds.\r\n\r\n\r\n";
-			}
-		}
-	}
+                return JobCancelToken.IsCancellationRequested ?
+                    "#\r\n#\r\n#Job aborted after " + timePassed + " seconds.\r\n\r\n\r\n"
+                    : "\r\n\r\n#Job completed after " + timePassed + " seconds.\r\n\r\n\r\n";
+            }
+        }
+    }
 
-	[Serializable]
-	public class InvalidJobException : Exception
-	{
-		public InvalidJobException(
-			string jobId
-			)
-			: base("Invalid JobId:" + jobId + ".")
-		{
-		}
-	}
+    [Serializable]
+    public class InvalidJobException : Exception
+    {
+        public InvalidJobException(
+            string jobId
+            )
+            : base("Invalid JobId:" + jobId + ".")
+        {
+        }
+    }
 }

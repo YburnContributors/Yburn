@@ -30,21 +30,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MathNet.Numerics, Version=3.12.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.3.12.0\lib\net40\MathNet.Numerics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Meta.Numerics, Version=3.0.0.0, Culture=neutral, PublicKeyToken=67d25c65a6631347, processorArchitecture=MSIL">
+      <HintPath>..\packages\Meta.Numerics.3.0.0\lib\Meta.Numerics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PhysConst.cs" />
-    <Compile Include="EuclideanVector.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Functions.cs" />
     <Compile Include="LinearInterpolation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Quadrature.cs" />
+    <Compile Include="SpatialVector.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FileUtil\FileUtil.csproj">
       <Project>{59e7bc95-adee-49ac-a6c8-4df0f322209e}</Project>
       <Name>FileUtil</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

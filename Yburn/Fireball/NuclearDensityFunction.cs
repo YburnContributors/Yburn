@@ -3,260 +3,275 @@ using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
-	/********************************************************************************************
+    /********************************************************************************************
 	 * Enums
 	 ********************************************************************************************/
 
-	public enum ShapeFunctionType
-	{
-		WoodsSaxonPotential,
-		GaussianDistribution
-	};
+    public enum ShapeFunctionType
+    {
+        WoodsSaxonPotential,
+        GaussianDistribution
+    };
 
-	public abstract class NuclearDensityFunction
-	{
-		/********************************************************************************************
+    public abstract class NuclearDensityFunction
+    {
+        /********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-		protected NuclearDensityFunction(
-			double nuclearRadius
-			)
-		{
-			NormalizationConstant = 1;
+        protected NuclearDensityFunction(
+            double nuclearRadius
+            )
+        {
+            NormalizingFactor = 1;
 
-			NuclearRadius = nuclearRadius;
-			AssertValidNuclearRadius();
-		}
+            NuclearRadius = nuclearRadius;
+            AssertValidNuclearRadius();
+        }
 
-		/********************************************************************************************
+        /********************************************************************************************
 		 * Public static members, functions and properties
 		 ********************************************************************************************/
 
-		public static void CreateNucleonDensityFunctionPair(
-			FireballParam param,
-			out NuclearDensityFunction densityA,
-			out NuclearDensityFunction densityB
-			)
-		{
-			CreateDensityFunctionPair(param, out densityA, out densityB);
+        public static void CreateNucleonDensityFunctionPair(
+            FireballParam param,
+            out NuclearDensityFunction densityA,
+            out NuclearDensityFunction densityB
+            )
+        {
+            densityA = CreateDensityFunction(
+                param.ShapeFunctionTypeA,
+                param.NucleonNumberA,
+                param.NuclearRadiusAFm,
+                param.DiffusenessAFm);
 
-			densityA.NormalizeTo(param.NucleonNumberA);
-			densityB.NormalizeTo(param.NucleonNumberB);
-		}
+            densityB = CreateDensityFunction(
+                param.ShapeFunctionTypeB,
+                param.NucleonNumberB,
+                param.NuclearRadiusBFm,
+                param.DiffusenessBFm);
+        }
 
-		public static void CreateProtonDensityFunctionPair(
-			FireballParam param,
-			out NuclearDensityFunction densityA,
-			out NuclearDensityFunction densityB
-			)
-		{
-			CreateDensityFunctionPair(param, out densityA, out densityB);
+        public static void CreateProtonDensityFunctionPair(
+            FireballParam param,
+            out NuclearDensityFunction densityA,
+            out NuclearDensityFunction densityB
+            )
+        {
+            densityA = CreateDensityFunction(
+                param.ShapeFunctionTypeA,
+                param.ProtonNumberA,
+                param.NuclearRadiusAFm,
+                param.DiffusenessAFm);
 
-			densityA.NormalizeTo(param.ProtonNumberA);
-			densityB.NormalizeTo(param.ProtonNumberB);
-		}
+            densityB = CreateDensityFunction(
+                param.ShapeFunctionTypeB,
+                param.ProtonNumberB,
+                param.NuclearRadiusBFm,
+                param.DiffusenessBFm);
+        }
 
-		/********************************************************************************************
+        /********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static void CreateDensityFunctionPair(
-			FireballParam param,
-			out NuclearDensityFunction densityA,
-			out NuclearDensityFunction densityB
-			)
-		{
-			densityA = CreateDensityFunction(
-				param.ShapeFunctionTypeA,
-				param.NuclearRadiusAFm,
-				param.DiffusenessAFm);
+        private static NuclearDensityFunction CreateDensityFunction(
+            ShapeFunctionType shapeFunctionType,
+            double normalization,
+            double nuclearRadiusFm,
+            double diffusenessFm
+            )
+        {
+            NuclearDensityFunction density;
 
-			densityB = CreateDensityFunction(
-				param.ShapeFunctionTypeB,
-				param.NuclearRadiusBFm,
-				param.DiffusenessBFm);
-		}
+            switch(shapeFunctionType)
+            {
+                case ShapeFunctionType.WoodsSaxonPotential:
+                    density = new WoodsSaxonPotential(nuclearRadiusFm, diffusenessFm);
+                    break;
 
-		private static NuclearDensityFunction CreateDensityFunction(
-			ShapeFunctionType ShapeFunctionType,
-			double NuclearRadiusFm,
-			double DiffusenessFm
-			)
-		{
-			switch(ShapeFunctionType)
-			{
-				case ShapeFunctionType.WoodsSaxonPotential:
-					return new WoodsSaxonPotential(
-						NuclearRadiusFm, DiffusenessFm);
+                case ShapeFunctionType.GaussianDistribution:
+                    density = new GaussianDistribution(nuclearRadiusFm);
+                    break;
 
-				case ShapeFunctionType.GaussianDistribution:
-					return new GaussianDistribution(
-						NuclearRadiusFm);
+                default:
+                    throw new Exception("Invalid ShapeFunctionType.");
+            }
 
-				default:
-					throw new Exception("Invalid ShapeFunctionType.");
-			}
-		}
+            density.NormalizeTo(normalization);
 
-		/********************************************************************************************
+            return density;
+        }
+
+        /********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		// in fm
-		public double NuclearRadius
-		{
-			get; protected set;
-		}
+        public double Normalization
+        {
+            get; protected set;
+        }
 
-		public void NormalizeTo(
-			double normalizationValue
-			)
-		{
-			if(normalizationValue <= 0)
-			{
-				throw new Exception("Normalization <= 0.");
-			}
+        // in fm
+        public double NuclearRadius
+        {
+            get; protected set;
+        }
 
-			NormalizationConstant = normalizationValue / CalculateVolumeIntegral();
-		}
+        public void NormalizeTo(
+            double normalization
+            )
+        {
+            if(normalization <= 0)
+            {
+                throw new Exception("Normalization <= 0.");
+            }
 
-		// in fm^-3
-		public double Value(
-			double radius
-			)
-		{
-			return NormalizationConstant * UnnormalizedDensity(radius);
-		}
+            Normalization = normalization;
+            NormalizingFactor = normalization / CalculateVolumeIntegral();
+        }
 
-		public virtual double GetColumnDensity(
-			double x,
-			double y
-			)
-		{
-			IntegrandIn1D integrand = z => Value(Math.Sqrt(x * x + y * y + z * z));
-			double integral = Quadrature.UseGaussLegendre_PositiveAxis(integrand, NuclearRadius);
+        // in fm^-3
+        public double Value(
+            double radius
+            )
+        {
+            return NormalizingFactor * UnnormalizedDensity(radius);
+        }
 
-			// factor two because integral runs from minus to plus infinity
-			return 2 * integral;
-		}
+        public virtual double GetColumnDensity(
+            double x,
+            double y
+            )
+        {
+            Func<double, double> integrand = z => Value(Math.Sqrt(x * x + y * y + z * z));
+            double integral = Quadrature.IntegrateOverPositiveAxis(integrand, 2 * NuclearRadius, 64);
 
-		/********************************************************************************************
+            // factor two because integral runs from minus to plus infinity
+            return 2 * integral;
+        }
+
+        /********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		// in fm^-3
-		protected double NormalizationConstant;
+        // in fm^-3
+        protected double NormalizingFactor;
 
-		protected void AssertValidNuclearRadius()
-		{
-			if(NuclearRadius <= 0)
-			{
-				throw new Exception("NuclearRadius <= 0.");
-			}
-		}
+        protected void AssertValidNuclearRadius()
+        {
+            if(NuclearRadius <= 0)
+            {
+                throw new Exception("NuclearRadius <= 0.");
+            }
+        }
 
-		// in fm^3
-		protected virtual double CalculateVolumeIntegral()
-		{
-			IntegrandIn1D integrand = r => r * r * UnnormalizedDensity(r);
-			double integral = Quadrature.UseGaussLegendre_PositiveAxis(integrand, NuclearRadius);
+        // in fm^3
+        protected virtual double CalculateVolumeIntegral()
+        {
+            Func<double, double> integrand = r => r * r * UnnormalizedDensity(r);
+            double integral = Quadrature.IntegrateOverPositiveAxis(integrand, 2 * NuclearRadius, 64);
 
-			return 4 * Math.PI * integral;
-		}
+            return 4 * Math.PI * integral;
+        }
 
-		protected abstract double UnnormalizedDensity(
-			double radius
-			);
+        protected abstract double UnnormalizedDensity(
+            double radius
+            );
 
-		private class WoodsSaxonPotential : NuclearDensityFunction
-		{
-			/****************************************************************************************
+        private class GaussianDistribution : NuclearDensityFunction
+        {
+            /****************************************************************************************
 			 * Constructors
 			 ****************************************************************************************/
 
-			public WoodsSaxonPotential(
-				double nuclearRadius,
-				double diffuseness
-				) : base(nuclearRadius)
-			{
-				Diffuseness = diffuseness;
+            public GaussianDistribution(
+                double nuclearRadius
+                ) : base(nuclearRadius)
+            {
+            }
 
-				AssertValidDiffuseness();
-			}
-
-			/****************************************************************************************
+            /****************************************************************************************
 			 * Public members, functions and properties
 			 ****************************************************************************************/
 
-			// in fm
-			public double Diffuseness
-			{
-				get; protected set;
-			}
+            public override double GetColumnDensity(
+                double x,
+                double y
+                )
+            {
+                double r = Math.Sqrt(x * x + y * y);
+                return Math.Sqrt(2 * Math.PI * NuclearRadius * NuclearRadius) * Value(r);
+            }
 
-
-			/****************************************************************************************
+            /****************************************************************************************
 			 * Private/protected members, functions and properties
 			 ****************************************************************************************/
 
-			protected void AssertValidDiffuseness()
-			{
-				if(Diffuseness <= 0)
-				{
-					throw new Exception("Diffuseness <= 0.");
-				}
-			}
+            // in fm^3
+            protected override double CalculateVolumeIntegral()
+            {
+                return Functions.GaussianDistributionNormalizingConstant3D(NuclearRadius);
+            }
 
-			protected override double UnnormalizedDensity(
-				double radius
-				)
-			{
-				return 1.0 / (Math.Exp((radius - NuclearRadius) / Diffuseness) + 1.0);
-			}
-		}
+            protected override double UnnormalizedDensity(
+                double radius
+                )
+            {
+                return Functions.GaussianDistributionUnnormalized(radius, NuclearRadius);
+            }
+        }
 
-		private class GaussianDistribution : NuclearDensityFunction
-		{
-			/****************************************************************************************
+        private class WoodsSaxonPotential : NuclearDensityFunction
+        {
+            /****************************************************************************************
 			 * Constructors
 			 ****************************************************************************************/
 
-			public GaussianDistribution(
-				double nuclearRadius
-				) : base(nuclearRadius)
-			{
-			}
+            public WoodsSaxonPotential(
+                double nuclearRadius,
+                double diffuseness
+                ) : base(nuclearRadius)
+            {
+                Diffuseness = diffuseness;
 
-			/****************************************************************************************
+                AssertValidDiffuseness();
+            }
+
+            /****************************************************************************************
 			 * Public members, functions and properties
 			 ****************************************************************************************/
 
-			public override double GetColumnDensity(
-				double x,
-				double y
-				)
-			{
-				double r = Math.Sqrt(x * x + y * y);
-				return Math.Sqrt(2 * Math.PI * NuclearRadius * NuclearRadius) * Value(r);
-			}
+            // in fm
+            public double Diffuseness
+            {
+                get; protected set;
+            }
 
-			/****************************************************************************************
+            /****************************************************************************************
 			 * Private/protected members, functions and properties
 			 ****************************************************************************************/
 
-			// in fm^3
-			protected override double CalculateVolumeIntegral()
-			{
-				return Math.Pow(2 * Math.PI * NuclearRadius * NuclearRadius, 1.5);
-			}
+            protected void AssertValidDiffuseness()
+            {
+                if(Diffuseness <= 0)
+                {
+                    throw new Exception("Diffuseness <= 0.");
+                }
+            }
 
-			protected override double UnnormalizedDensity(
-				double radius
-				)
-			{
-				return Functions.UnnormalizedGaussianDistribution(radius, 0, NuclearRadius);
-			}
-		}
-	}
+            // in fm^3
+            protected override double CalculateVolumeIntegral()
+            {
+                return Functions.WoodsSaxonPotentialNormalizingConstant3D(NuclearRadius, Diffuseness);
+            }
+
+            protected override double UnnormalizedDensity(
+                double radius
+                )
+            {
+                return Functions.WoodsSaxonPotentialUnnormalized(radius, NuclearRadius, Diffuseness);
+            }
+        }
+    }
 }

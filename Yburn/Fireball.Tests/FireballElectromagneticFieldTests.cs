@@ -4,139 +4,144 @@ using Yburn.TestUtil;
 
 namespace Yburn.Fireball.Tests
 {
-	[TestClass]
-	public class FireballElectromagneticFieldTests
-	{
-		/********************************************************************************************
+    [TestClass]
+    public class FireballElectromagneticFieldTests
+    {
+        /********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		[TestMethod]
-		public void CalculateSingleNucleusMagneticField()
-		{
-			EuclideanVector3D[] fieldValues = CalculateSingleNucleusMagneticFieldValues();
-			AssertCorrectSingleNucleusMagneticFieldValues(fieldValues);
-		}
+        [TestMethod]
+        public void CalculateNucleusMagneticField()
+        {
+            SpatialVector[] fieldValues = CalculateNucleusMagneticFieldValues();
+            AssertCorrectNucleusMagneticFieldValues(fieldValues);
+        }
 
-		[TestMethod]
-		public void CalculateMagneticField()
-		{
-			EuclideanVector3D[] fieldValues = CalculateMagneticFieldValues();
-			AssertCorrectMagneticFieldValues(fieldValues);
-		}
+        [TestMethod]
+        public void CalculateMagneticField()
+        {
+            SpatialVector[] fieldValues = CalculateMagneticFieldValues();
+            AssertCorrectMagneticFieldValues(fieldValues);
+        }
 
-		/********************************************************************************************
+        /********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static readonly double Time = 0.4;
+        private static readonly double Time = 0.4;
 
-		private static readonly EuclideanVector3D[] Positions =
-			new EuclideanVector3D[] {
-				new EuclideanVector3D(0.0, 0.0, 0.0),
-				new EuclideanVector3D(1.0, 0.0, 0.0),
-				new EuclideanVector3D(1.0, 2.0, 0.0),
-				new EuclideanVector3D(1.0, 2.0, 3.0) };
+        private static readonly SpatialVector[] Positions =
+            new SpatialVector[] {
+                new SpatialVector(0.0, 0.0, 0.0),
+                new SpatialVector(1.0, 0.0, 0.0),
+                new SpatialVector(1.0, 2.0, 0.0),
+                new SpatialVector(1.0, 2.0, 3.0) };
 
-		private static FireballParam CreateFireballParam()
-		{
-			FireballParam param = new FireballParam();
+        private static FireballParam CreateFireballParam()
+        {
+            FireballParam param = new FireballParam();
 
-			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
-			param.QGPConductivityMeV = 5.8;
+            param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
+            param.QGPConductivityMeV = 5.8;
 
-			param.BeamRapidity = 7.99;
-			param.DiffusenessAFm = 0.546;
-			param.DiffusenessBFm = 0.546;
-			param.NucleonNumberA = 208;
-			param.NucleonNumberB = 208;
-			param.NuclearRadiusAFm = 6.62;
-			param.NuclearRadiusBFm = 6.62;
-			param.ProtonNumberA = 82;
-			param.ProtonNumberB = 82;
-			param.ImpactParameterFm = 7.0;
+            param.BeamRapidity = 7.99;
+            param.DiffusenessAFm = 0.546;
+            param.DiffusenessBFm = 0.546;
+            param.NucleonNumberA = 208;
+            param.NucleonNumberB = 208;
+            param.NuclearRadiusAFm = 6.62;
+            param.NuclearRadiusBFm = 6.62;
+            param.ProtonNumberA = 82;
+            param.ProtonNumberB = 82;
+            param.ImpactParameterFm = 7.0;
 
-			return param;
-		}
+            return param;
+        }
 
-		/********************************************************************************************
+        /********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private EuclideanVector3D[] CalculateSingleNucleusMagneticFieldValues()
-		{
-			FireballParam param = CreateFireballParam();
-			FireballElectromagneticField emf = new FireballElectromagneticField(param);
-			PrivateObject privateEMF = new PrivateObject(emf);
-			NuclearDensityFunction density = (NuclearDensityFunction)privateEMF.GetField("ProtonDensityFunctionA");
+        private SpatialVector[] CalculateNucleusMagneticFieldValues()
+        {
+            FireballParam param = CreateFireballParam();
 
-			EuclideanVector3D[] fieldValues = new EuclideanVector3D[Positions.Length];
-			for(int i = 0; i < Positions.Length; i++)
-			{
-				fieldValues[i] = emf.CalculateSingleNucleusMagneticFieldInCMS(
-						Time,
-						Positions[i],
-						param.ParticleVelocity,
-						density);
-			}
+            NuclearDensityFunction densityA;
+            NuclearDensityFunction densityB;
+            NuclearDensityFunction.CreateProtonDensityFunctionPair(param, out densityA, out densityB);
 
-			return fieldValues;
-		}
+            NucleusElectromagneticField emf = new NucleusElectromagneticField(
+                param.EMFCalculationMethod,
+                param.QGPConductivityMeV,
+                param.BeamRapidity,
+                densityA);
 
-		private EuclideanVector3D[] CalculateMagneticFieldValues()
-		{
-			FireballElectromagneticField emf =
-				new FireballElectromagneticField(CreateFireballParam());
+            SpatialVector[] fieldValues = new SpatialVector[Positions.Length];
+            for(int i = 0; i < Positions.Length; i++)
+            {
+                fieldValues[i] = emf.CalculateMagneticField(
+                        Time, Positions[i].X, Positions[i].Y, Positions[i].Z, 64);
+            }
 
-			EuclideanVector3D[] fieldValues = new EuclideanVector3D[Positions.Length];
-			for(int i = 0; i < Positions.Length; i++)
-			{
-				fieldValues[i] = emf.CalculateMagneticFieldInCMS(Time, Positions[i]);
-			}
+            return fieldValues;
+        }
 
-			return fieldValues;
-		}
+        private SpatialVector[] CalculateMagneticFieldValues()
+        {
+            FireballElectromagneticField emf =
+                new FireballElectromagneticField(CreateFireballParam());
 
-		private void AssertCorrectSingleNucleusMagneticFieldValues(EuclideanVector3D[] fieldValues)
-		{
-			uint roundedDigits = 14;
+            SpatialVector[] fieldValues = new SpatialVector[Positions.Length];
+            for(int i = 0; i < Positions.Length; i++)
+            {
+                fieldValues[i] = emf.CalculateMagneticField(
+                    Time, Positions[i].X, Positions[i].Y, Positions[i].Z, 64);
+            }
 
-			AssertHelper.AssertRoundedEqual(0, fieldValues[0].X, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0, fieldValues[0].Y, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0, fieldValues[0].Z, roundedDigits);
+            return fieldValues;
+        }
 
-			AssertHelper.AssertRoundedEqual(0, fieldValues[1].X, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0.088835376061350557, fieldValues[1].Y, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0, fieldValues[1].Z, roundedDigits);
+        private void AssertCorrectNucleusMagneticFieldValues(SpatialVector[] fieldValues)
+        {
+            int roundedDigits = 14;
 
-			AssertHelper.AssertRoundedEqual(-0.16913152546087232, fieldValues[2].X, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0.084565866489620917, fieldValues[2].Y, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0, fieldValues[2].Z, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0, fieldValues[0].X, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0, fieldValues[0].Y, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0, fieldValues[0].Z, roundedDigits);
 
-			AssertHelper.AssertRoundedEqual(-0.0097934633586487085, fieldValues[3].X, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0.00489673165924602, fieldValues[3].Y, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0, fieldValues[3].Z, roundedDigits);
-		}
+            AssertHelper.AssertRoundedEqual(0, fieldValues[1].X, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0.088800919210167348, fieldValues[1].Y, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0, fieldValues[1].Z, roundedDigits);
 
-		private void AssertCorrectMagneticFieldValues(EuclideanVector3D[] fieldValues)
-		{
-			uint roundedDigits = 15;
+            AssertHelper.AssertRoundedEqual(-0.16906670099454876, fieldValues[2].X, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0.084533350497274382, fieldValues[2].Y, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0, fieldValues[2].Z, roundedDigits);
 
-			AssertHelper.AssertRoundedEqual(0, fieldValues[0].X, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0.54123199912271935, fieldValues[0].Y, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0, fieldValues[0].Z, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0, fieldValues[3].X, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0, fieldValues[3].Y, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0, fieldValues[3].Z, roundedDigits);
+        }
 
-			AssertHelper.AssertRoundedEqual(0, fieldValues[1].X, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0.52321932562404094, fieldValues[1].Y, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0, fieldValues[1].Z, roundedDigits);
+        private void AssertCorrectMagneticFieldValues(SpatialVector[] fieldValues)
+        {
+            int roundedDigits = 15;
 
-			AssertHelper.AssertRoundedEqual(0.025301883103653389, fieldValues[2].X, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0.49786733766273539, fieldValues[2].Y, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0, fieldValues[2].Z, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0, fieldValues[0].X, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0.541029435898956, fieldValues[0].Y, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0, fieldValues[0].Z, roundedDigits);
 
-			AssertHelper.AssertRoundedEqual(-0.0058636488341155353, fieldValues[3].X, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0.028979123920509407, fieldValues[3].Y, roundedDigits);
-			AssertHelper.AssertRoundedEqual(0, fieldValues[3].Z, roundedDigits);
-		}
-	}
+            AssertHelper.AssertRoundedEqual(0, fieldValues[1].X, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0.52302485253884012, fieldValues[1].Y, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0, fieldValues[1].Z, roundedDigits);
+
+            AssertHelper.AssertRoundedEqual(0.025290862764515948, fieldValues[2].X, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0.49768392755697766, fieldValues[2].Y, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0, fieldValues[2].Z, roundedDigits);
+
+            AssertHelper.AssertRoundedEqual(0.0045089336487558534, fieldValues[3].X, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0.005636167060944817, fieldValues[3].Y, roundedDigits);
+            AssertHelper.AssertRoundedEqual(0, fieldValues[3].Z, roundedDigits);
+        }
+    }
 }
