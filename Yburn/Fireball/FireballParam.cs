@@ -4,201 +4,201 @@ using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
-    public class FireballParam
-    {
-        /********************************************************************************************
+	public class FireballParam
+	{
+		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-        public FireballParam()
-        {
-        }
+		public FireballParam()
+		{
+		}
 
-        /********************************************************************************************
+		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-        public bool AreParticlesABIdentical
-        {
-            get
-            {
-                return ShapeFunctionTypeA == ShapeFunctionTypeB
-                    & NucleonNumberA == NucleonNumberB
-                    & NuclearRadiusAFm == NuclearRadiusBFm
-                    & DiffusenessAFm == DiffusenessBFm;
-            }
-        }
+		public bool AreParticlesABIdentical
+		{
+			get
+			{
+				return ShapeFunctionTypeA == ShapeFunctionTypeB
+					& NucleonNumberA == NucleonNumberB
+					& NuclearRadiusAFm == NuclearRadiusBFm
+					& DiffusenessAFm == DiffusenessBFm;
+			}
+		}
 
-        public int NucleonNumberA;
+		public int NucleonNumberA;
 
-        public int ProtonNumberA;
+		public int ProtonNumberA;
 
-        public double DiffusenessAFm;
+		public double DiffusenessAFm;
 
-        public double NuclearRadiusAFm;
+		public double NuclearRadiusAFm;
 
-        public int NucleonNumberB;
+		public int NucleonNumberB;
 
-        public int ProtonNumberB;
+		public int ProtonNumberB;
 
-        public double DiffusenessBFm;
+		public double DiffusenessBFm;
 
-        public double NuclearRadiusBFm;
+		public double NuclearRadiusBFm;
 
-        public double GridCellSizeFm;
+		public double GridCellSizeFm;
 
-        public double GridRadiusFm;
+		public double GridRadiusFm;
 
-        public int NumberGridPoints
-        {
-            get
-            {
-                return Convert.ToInt32(Math.Round(GridRadiusFm / GridCellSizeFm)) + 1;
-            }
-            set
-            {
-                GridRadiusFm = (value - 1) * GridCellSizeFm;
-            }
-        }
+		public int NumberGridPoints
+		{
+			get
+			{
+				return Convert.ToInt32(Math.Round(GridRadiusFm / GridCellSizeFm)) + 1;
+			}
+			set
+			{
+				GridRadiusFm = (value - 1) * GridCellSizeFm;
+			}
+		}
 
-        public int NumberGridPointsInX
-        {
-            get
-            {
-                if(AreParticlesABIdentical)
-                {
-                    return NumberGridPoints;
-                }
-                else
-                {
-                    return 2 * NumberGridPoints - 1;
-                }
-            }
-        }
+		public int NumberGridPointsInX
+		{
+			get
+			{
+				if(AreParticlesABIdentical)
+				{
+					return NumberGridPoints;
+				}
+				else
+				{
+					return 2 * NumberGridPoints - 1;
+				}
+			}
+		}
 
-        public int NumberGridPointsInY
-        {
-            get
-            {
-                return NumberGridPoints;
-            }
-        }
+		public int NumberGridPointsInY
+		{
+			get
+			{
+				return NumberGridPoints;
+			}
+		}
 
-        public double ImpactParameterFm;
+		public double ImpactParameterFm;
 
-        public double ThermalTimeFm;
+		public double ThermalTimeFm;
 
-        public double[] FormationTimesFm;
+		public double[] FormationTimesFm;
 
-        public double InitialMaximumTemperatureMeV;
+		public double InitialMaximumTemperatureMeV;
 
-        public double BreakupTemperatureMeV;
+		public double BreakupTemperatureMeV;
 
-        public double BeamRapidity;
+		public double BeamRapidity;
 
-        public double ParticleVelocity
-        {
-            get
-            {
-                return Math.Tanh(BeamRapidity);
-            }
-            set
-            {
-                BeamRapidity = Functions.Artanh(value);
-            }
-        }
+		public double ParticleVelocity
+		{
+			get
+			{
+				return Math.Tanh(BeamRapidity);
+			}
+			set
+			{
+				BeamRapidity = Functions.Artanh(value);
+			}
+		}
 
-        public double[] TransverseMomentaGeV;
+		public double[] TransverseMomentaGeV;
 
-        public DecayWidthEvaluationType DecayWidthEvaluationType;
+		public DecayWidthEvaluationType DecayWidthEvaluationType;
 
-        public ExpansionMode ExpansionMode;
+		public ExpansionMode ExpansionMode;
 
-        // initial transverse distribution of temperature
-        public TemperatureProfile TemperatureProfile;
+		// initial transverse distribution of temperature
+		public TemperatureProfile TemperatureProfile;
 
-        // both in MeV
-        public List<KeyValuePair<double, double>>[] TemperatureDecayWidthList;
+		// both in MeV
+		public List<KeyValuePair<double, double>>[] TemperatureDecayWidthList;
 
-        public double[] DecayWidthAveragingAngles;
+		public double[] DecayWidthAveragingAngles;
 
-        public double QGPConductivityMeV;
+		public double QGPConductivityMeV;
 
-        public EMFCalculationMethod EMFCalculationMethod;
+		public EMFCalculationMethod EMFCalculationMethod;
 
-        public ShapeFunctionType ShapeFunctionTypeA;
+		public ShapeFunctionType ShapeFunctionTypeA;
 
-        public ShapeFunctionType ShapeFunctionTypeB;
+		public ShapeFunctionType ShapeFunctionTypeB;
 
-        public ProtonProtonBaseline ProtonProtonBaseline;
+		public ProtonProtonBaseline ProtonProtonBaseline;
 
-        public FireballParam Clone()
-        {
-            FireballParam param = new FireballParam();
+		public FireballParam Clone()
+		{
+			FireballParam param = new FireballParam();
 
-            param.BeamRapidity = BeamRapidity;
-            param.DecayWidthAveragingAngles = DecayWidthAveragingAngles;
-            param.DecayWidthEvaluationType = DecayWidthEvaluationType;
-            param.DiffusenessAFm = DiffusenessAFm;
-            param.DiffusenessBFm = DiffusenessBFm;
-            param.EMFCalculationMethod = EMFCalculationMethod;
-            param.ExpansionMode = ExpansionMode;
-            param.FormationTimesFm = FormationTimesFm;
-            param.GridCellSizeFm = GridCellSizeFm;
-            param.GridRadiusFm = GridRadiusFm;
-            param.ImpactParameterFm = ImpactParameterFm;
-            param.InitialMaximumTemperatureMeV = InitialMaximumTemperatureMeV;
-            param.BreakupTemperatureMeV = BreakupTemperatureMeV;
-            param.NuclearRadiusAFm = NuclearRadiusAFm;
-            param.NuclearRadiusBFm = NuclearRadiusBFm;
-            param.NucleonNumberA = NucleonNumberA;
-            param.NucleonNumberB = NucleonNumberB;
-            param.ProtonNumberA = ProtonNumberA;
-            param.ProtonNumberB = ProtonNumberB;
-            param.ProtonProtonBaseline = ProtonProtonBaseline;
-            param.QGPConductivityMeV = QGPConductivityMeV;
-            param.ShapeFunctionTypeA = ShapeFunctionTypeA;
-            param.ShapeFunctionTypeB = ShapeFunctionTypeB;
-            param.TemperatureDecayWidthList = TemperatureDecayWidthList;
-            param.TemperatureProfile = TemperatureProfile;
-            param.ThermalTimeFm = ThermalTimeFm;
-            param.TransverseMomentaGeV = TransverseMomentaGeV;
+			param.BeamRapidity = BeamRapidity;
+			param.DecayWidthAveragingAngles = DecayWidthAveragingAngles;
+			param.DecayWidthEvaluationType = DecayWidthEvaluationType;
+			param.DiffusenessAFm = DiffusenessAFm;
+			param.DiffusenessBFm = DiffusenessBFm;
+			param.EMFCalculationMethod = EMFCalculationMethod;
+			param.ExpansionMode = ExpansionMode;
+			param.FormationTimesFm = FormationTimesFm;
+			param.GridCellSizeFm = GridCellSizeFm;
+			param.GridRadiusFm = GridRadiusFm;
+			param.ImpactParameterFm = ImpactParameterFm;
+			param.InitialMaximumTemperatureMeV = InitialMaximumTemperatureMeV;
+			param.BreakupTemperatureMeV = BreakupTemperatureMeV;
+			param.NuclearRadiusAFm = NuclearRadiusAFm;
+			param.NuclearRadiusBFm = NuclearRadiusBFm;
+			param.NucleonNumberA = NucleonNumberA;
+			param.NucleonNumberB = NucleonNumberB;
+			param.ProtonNumberA = ProtonNumberA;
+			param.ProtonNumberB = ProtonNumberB;
+			param.ProtonProtonBaseline = ProtonProtonBaseline;
+			param.QGPConductivityMeV = QGPConductivityMeV;
+			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
+			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
+			param.TemperatureDecayWidthList = TemperatureDecayWidthList;
+			param.TemperatureProfile = TemperatureProfile;
+			param.ThermalTimeFm = ThermalTimeFm;
+			param.TransverseMomentaGeV = TransverseMomentaGeV;
 
-            return param;
-        }
+			return param;
+		}
 
-        public double[] GenerateDiscreteXAxis()
-        {
-            double[] x = new double[NumberGridPointsInX];
+		public double[] GenerateDiscreteXAxis()
+		{
+			double[] x = new double[NumberGridPointsInX];
 
-            if(AreParticlesABIdentical)
-            {
-                for(int i = 0; i < x.Length; i++)
-                {
-                    x[i] = GridCellSizeFm * i;
-                }
-            }
-            else
-            {
-                for(int i = 0; i < x.Length; i++)
-                {
-                    x[i] = GridCellSizeFm * (i + 1 - NumberGridPoints);
-                }
-            }
+			if(AreParticlesABIdentical)
+			{
+				for(int i = 0; i < x.Length; i++)
+				{
+					x[i] = GridCellSizeFm * i;
+				}
+			}
+			else
+			{
+				for(int i = 0; i < x.Length; i++)
+				{
+					x[i] = GridCellSizeFm * (i + 1 - NumberGridPoints);
+				}
+			}
 
-            return x;
-        }
+			return x;
+		}
 
-        public double[] GenerateDiscreteYAxis()
-        {
-            double[] y = new double[NumberGridPointsInY];
+		public double[] GenerateDiscreteYAxis()
+		{
+			double[] y = new double[NumberGridPointsInY];
 
-            for(int i = 0; i < y.Length; i++)
-            {
-                y[i] = GridCellSizeFm * i;
-            }
+			for(int i = 0; i < y.Length; i++)
+			{
+				y[i] = GridCellSizeFm * i;
+			}
 
-            return y;
-        }
-    }
+			return y;
+		}
+	}
 }

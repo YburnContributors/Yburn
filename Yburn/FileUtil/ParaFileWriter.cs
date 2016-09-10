@@ -11,87 +11,87 @@ using System.Threading;
 
 namespace Yburn.FileUtil
 {
-    public class ParaFileWriter
-    {
-        /********************************************************************************************
+	public class ParaFileWriter
+	{
+		/********************************************************************************************
          * Public static members, functions and properties
          ********************************************************************************************/
 
-        public static void Write(
-            string pathFile,
-            Dictionary<string, string> nameValuePairs
-            )
-        {
-            File.WriteAllText(pathFile, GetParaFileText(nameValuePairs));
-        }
+		public static void Write(
+			string pathFile,
+			Dictionary<string, string> nameValuePairs
+			)
+		{
+			File.WriteAllText(pathFile, GetParaFileText(nameValuePairs));
+		}
 
-        public static string GetParaFileText(
-            Dictionary<string, string> nameValuePairs
-            )
-        {
-            return IsNullOrEmpty(nameValuePairs) ?
-                string.Empty : GetNonEmptyParaFileText(nameValuePairs);
-        }
+		public static string GetParaFileText(
+			Dictionary<string, string> nameValuePairs
+			)
+		{
+			return IsNullOrEmpty(nameValuePairs) ?
+				string.Empty : GetNonEmptyParaFileText(nameValuePairs);
+		}
 
-        /********************************************************************************************
+		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-        protected ParaFileWriter()
-        {
-            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-        }
+		protected ParaFileWriter()
+		{
+			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+		}
 
-        /********************************************************************************************
+		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-        private static bool IsNullOrEmpty(
-            Dictionary<string, string> nameValuePairs
-            )
-        {
-            return nameValuePairs == null || nameValuePairs.Count == 0;
-        }
+		private static bool IsNullOrEmpty(
+			Dictionary<string, string> nameValuePairs
+			)
+		{
+			return nameValuePairs == null || nameValuePairs.Count == 0;
+		}
 
-        private static string GetNonEmptyParaFileText(
-            Dictionary<string, string> nameValuePairs
-            )
-        {
-            StringBuilder paraFileText = new StringBuilder();
-            int length = GetLongestNameLength(nameValuePairs);
-            foreach(KeyValuePair<string, string> nameValuePair in nameValuePairs)
-            {
-                AppendParaFileLine(paraFileText, length, nameValuePair);
-            }
+		private static string GetNonEmptyParaFileText(
+			Dictionary<string, string> nameValuePairs
+			)
+		{
+			StringBuilder paraFileText = new StringBuilder();
+			int length = GetLongestNameLength(nameValuePairs);
+			foreach(KeyValuePair<string, string> nameValuePair in nameValuePairs)
+			{
+				AppendParaFileLine(paraFileText, length, nameValuePair);
+			}
 
-            return paraFileText.ToString();
-        }
+			return paraFileText.ToString();
+		}
 
-        private static int GetLongestNameLength(
-            Dictionary<string, string> nameValuePairs
-            )
-        {
-            int length = 0;
-            foreach(string name in nameValuePairs.Keys)
-            {
-                length = Math.Max(length, name.Length);
-            }
+		private static int GetLongestNameLength(
+			Dictionary<string, string> nameValuePairs
+			)
+		{
+			int length = 0;
+			foreach(string name in nameValuePairs.Keys)
+			{
+				length = Math.Max(length, name.Length);
+			}
 
-            return length;
-        }
+			return length;
+		}
 
-        private static void AppendParaFileLine(
-            StringBuilder paraFileText,
-            int length,
-            KeyValuePair<string, string> nameValuePair
-            )
-        {
-            if(!string.IsNullOrEmpty(nameValuePair.Key)
-                && !string.IsNullOrEmpty(nameValuePair.Value))
-            {
-                paraFileText.AppendFormat("{0,-" + length + "} = {1}\r\n",
-                    nameValuePair.Key, nameValuePair.Value);
-            }
-        }
-    }
+		private static void AppendParaFileLine(
+			StringBuilder paraFileText,
+			int length,
+			KeyValuePair<string, string> nameValuePair
+			)
+		{
+			if(!string.IsNullOrEmpty(nameValuePair.Key)
+				&& !string.IsNullOrEmpty(nameValuePair.Value))
+			{
+				paraFileText.AppendFormat("{0,-" + length + "} = {1}\r\n",
+					nameValuePair.Key, nameValuePair.Value);
+			}
+		}
+	}
 }

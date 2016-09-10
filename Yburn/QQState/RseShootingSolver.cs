@@ -21,293 +21,293 @@ using System.Threading;
 
 namespace Yburn.QQState
 {
-    public delegate double SolutionAccuracyMeasure();
+	public delegate double SolutionAccuracyMeasure();
 
-    public delegate bool SolutionConstraint();
+	public delegate bool SolutionConstraint();
 
-    public delegate void ActionAfterIteration();
+	public delegate void ActionAfterIteration();
 
-    public class RseShootingSolver
-    {
-        /********************************************************************************************
+	public class RseShootingSolver
+	{
+		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-        public RseShootingSolver()
-        {
-        }
+		public RseShootingSolver()
+		{
+		}
 
-        /********************************************************************************************
+		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-        public void Solve()
-        {
-            Initialize();
+		public void Solve()
+		{
+			Initialize();
 
-            CalculateSolution();
-            LastAccuracy = CurrentAccuracy;
-            LastEigenvalue = CurrentEigenvalue;
+			CalculateSolution();
+			LastAccuracy = CurrentAccuracy;
+			LastEigenvalue = CurrentEigenvalue;
 
-            while(!IsAccuracySufficient
-                && !CancellationToken.IsCancellationRequested)
-            {
-                ThrowIfTooManyAttempts();
-                ThrowIfSolutionConstraintViolated();
+			while(!IsAccuracySufficient
+				&& !CancellationToken.IsCancellationRequested)
+			{
+				ThrowIfTooManyAttempts();
+				ThrowIfSolutionConstraintViolated();
 
-                ImproveSolution();
-            }
-        }
+				ImproveSolution();
+			}
+		}
 
-        public SolutionAccuracyMeasure SolutionAccuracyMeasure;
+		public SolutionAccuracyMeasure SolutionAccuracyMeasure;
 
-        public SolutionConstraint SolutionConstraint;
+		public SolutionConstraint SolutionConstraint;
 
-        public ActionAfterIteration ActionAfterIteration;
+		public ActionAfterIteration ActionAfterIteration;
 
-        public RseSolver Solver;
+		public RseSolver Solver;
 
-        public double DesiredAccuracy;
+		public double DesiredAccuracy;
 
-        public double Aggressiveness;
+		public double Aggressiveness;
 
-        public int MaxTrials;
+		public int MaxTrials;
 
-        public Complex Eigenvalue
-        {
-            get
-            {
-                return CurrentEigenvalue;
-            }
-            set
-            {
-                CurrentEigenvalue = value;
-            }
-        }
+		public Complex Eigenvalue
+		{
+			get
+			{
+				return CurrentEigenvalue;
+			}
+			set
+			{
+				CurrentEigenvalue = value;
+			}
+		}
 
-        public int Trials
-        {
-            get;
-            private set;
-        }
+		public int Trials
+		{
+			get;
+			private set;
+		}
 
-        public CancellationToken CancellationToken;
+		public CancellationToken CancellationToken;
 
-        /********************************************************************************************
+		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-        private static Complex TurnBackwards(
-            Complex currentDirection
-            )
-        {
-            return -currentDirection;
-        }
+		private static Complex TurnBackwards(
+			Complex currentDirection
+			)
+		{
+			return -currentDirection;
+		}
 
-        private static Complex TurnLeft(
-            Complex currentDirection
-            )
-        {
-            return Complex.I * currentDirection;
-        }
+		private static Complex TurnLeft(
+			Complex currentDirection
+			)
+		{
+			return Complex.I * currentDirection;
+		}
 
-        /********************************************************************************************
+		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-        private void Initialize()
-        {
-            AssertValidInput();
+		private void Initialize()
+		{
+			AssertValidInput();
 
-            Trials = 0;
+			Trials = 0;
 
-            DirectionOfNextStep = new Complex(1, 0);
-            SolverEffectivePotential = Solver.RightHandSide;
-            Solver.RightHandSide = ModifiedPotential;
-        }
+			DirectionOfNextStep = new Complex(1, 0);
+			SolverEffectivePotential = Solver.RightHandSide;
+			Solver.RightHandSide = ModifiedPotential;
+		}
 
-        private void AssertValidInput()
-        {
-            if(DesiredAccuracy <= 0)
-            {
-                throw new NonPositiveAccuracyException();
-            }
+		private void AssertValidInput()
+		{
+			if(DesiredAccuracy <= 0)
+			{
+				throw new NonPositiveAccuracyException();
+			}
 
-            if(Aggressiveness == 0)
-            {
-                throw new ZeroAggressivenessException();
-            }
+			if(Aggressiveness == 0)
+			{
+				throw new ZeroAggressivenessException();
+			}
 
-            if(SolutionAccuracyMeasure == null)
-            {
-                throw new MissingAccuracyMeasureException();
-            }
+			if(SolutionAccuracyMeasure == null)
+			{
+				throw new MissingAccuracyMeasureException();
+			}
 
-            if(Solver == null)
-            {
-                throw new MissingRseSolverException();
-            }
-        }
+			if(Solver == null)
+			{
+				throw new MissingRseSolverException();
+			}
+		}
 
-        private Complex DirectionOfNextStep;
+		private Complex DirectionOfNextStep;
 
-        private ComplexFunction SolverEffectivePotential;
+		private ComplexFunction SolverEffectivePotential;
 
-        private Complex ModifiedPotential(
-            double x
-            )
-        {
-            return SolverEffectivePotential(x) - CurrentEigenvalue;
-        }
+		private Complex ModifiedPotential(
+			double x
+			)
+		{
+			return SolverEffectivePotential(x) - CurrentEigenvalue;
+		}
 
-        private Complex CurrentEigenvalue;
+		private Complex CurrentEigenvalue;
 
-        private Complex LastEigenvalue;
+		private Complex LastEigenvalue;
 
-        private double LastAccuracy;
+		private double LastAccuracy;
 
-        private double CurrentAccuracy;
+		private double CurrentAccuracy;
 
-        private bool IsAccuracySufficient
-        {
-            get
-            {
-                return CurrentAccuracy <= DesiredAccuracy;
-            }
-        }
+		private bool IsAccuracySufficient
+		{
+			get
+			{
+				return CurrentAccuracy <= DesiredAccuracy;
+			}
+		}
 
-        private void CalculateSolution()
-        {
-            Solver.Solve();
-            Trials++;
+		private void CalculateSolution()
+		{
+			Solver.Solve();
+			Trials++;
 
-            PerformActionAfterIteration();
+			PerformActionAfterIteration();
 
-            CurrentAccuracy = SolutionAccuracyMeasure();
-        }
+			CurrentAccuracy = SolutionAccuracyMeasure();
+		}
 
-        private void ImproveSolution()
-        {
-            LastAccuracy = CurrentAccuracy;
-            LastEigenvalue = CurrentEigenvalue;
-            Complex stepSize = Aggressiveness * LastAccuracy;
+		private void ImproveSolution()
+		{
+			LastAccuracy = CurrentAccuracy;
+			LastEigenvalue = CurrentEigenvalue;
+			Complex stepSize = Aggressiveness * LastAccuracy;
 
-            CurrentEigenvalue = LastEigenvalue + stepSize * DirectionOfNextStep;
-            CalculateSolution();
+			CurrentEigenvalue = LastEigenvalue + stepSize * DirectionOfNextStep;
+			CalculateSolution();
 
-            if(IsNewSolutionLessAccurate)
-            {
-                DirectionOfNextStep = TurnBackwards(DirectionOfNextStep);
-                CurrentEigenvalue = LastEigenvalue + stepSize * DirectionOfNextStep;
-                CalculateSolution();
+			if(IsNewSolutionLessAccurate)
+			{
+				DirectionOfNextStep = TurnBackwards(DirectionOfNextStep);
+				CurrentEigenvalue = LastEigenvalue + stepSize * DirectionOfNextStep;
+				CalculateSolution();
 
-                if(IsNewSolutionLessAccurate)
-                {
-                    DirectionOfNextStep = TurnLeft(DirectionOfNextStep);
-                    CurrentEigenvalue = LastEigenvalue + stepSize * DirectionOfNextStep;
-                    CalculateSolution();
+				if(IsNewSolutionLessAccurate)
+				{
+					DirectionOfNextStep = TurnLeft(DirectionOfNextStep);
+					CurrentEigenvalue = LastEigenvalue + stepSize * DirectionOfNextStep;
+					CalculateSolution();
 
-                    if(IsNewSolutionLessAccurate)
-                    {
-                        DirectionOfNextStep = TurnBackwards(DirectionOfNextStep);
-                        CurrentEigenvalue = LastEigenvalue + stepSize * DirectionOfNextStep;
-                        CalculateSolution();
+					if(IsNewSolutionLessAccurate)
+					{
+						DirectionOfNextStep = TurnBackwards(DirectionOfNextStep);
+						CurrentEigenvalue = LastEigenvalue + stepSize * DirectionOfNextStep;
+						CalculateSolution();
 
-                        if(IsNewSolutionLessAccurate)
-                        {
-                            throw new NoSolutionFoundException("Trapped in a local minimum.");
-                        }
-                    }
-                }
-            }
-        }
+						if(IsNewSolutionLessAccurate)
+						{
+							throw new NoSolutionFoundException("Trapped in a local minimum.");
+						}
+					}
+				}
+			}
+		}
 
-        private bool IsNewSolutionLessAccurate
-        {
-            get
-            {
-                return CurrentAccuracy > LastAccuracy;
-            }
-        }
+		private bool IsNewSolutionLessAccurate
+		{
+			get
+			{
+				return CurrentAccuracy > LastAccuracy;
+			}
+		}
 
-        private void ThrowIfTooManyAttempts()
-        {
-            if(Trials > MaxTrials)
-            {
-                throw new NoSolutionFoundException("Maximum number of trials exceeded.");
-            }
-        }
+		private void ThrowIfTooManyAttempts()
+		{
+			if(Trials > MaxTrials)
+			{
+				throw new NoSolutionFoundException("Maximum number of trials exceeded.");
+			}
+		}
 
-        private void ThrowIfSolutionConstraintViolated()
-        {
-            if(IsSolutionConstraintViolated)
-            {
-                throw new NoSolutionFoundException("No solution could be found.");
-            }
-        }
+		private void ThrowIfSolutionConstraintViolated()
+		{
+			if(IsSolutionConstraintViolated)
+			{
+				throw new NoSolutionFoundException("No solution could be found.");
+			}
+		}
 
-        private bool IsSolutionConstraintViolated
-        {
-            get
-            {
-                return SolutionConstraint == null ?
-                    false : !SolutionConstraint();
-            }
-        }
+		private bool IsSolutionConstraintViolated
+		{
+			get
+			{
+				return SolutionConstraint == null ?
+					false : !SolutionConstraint();
+			}
+		}
 
-        private void PerformActionAfterIteration()
-        {
-            if(ActionAfterIteration != null)
-            {
-                ActionAfterIteration();
-            }
-        }
-    }
+		private void PerformActionAfterIteration()
+		{
+			if(ActionAfterIteration != null)
+			{
+				ActionAfterIteration();
+			}
+		}
+	}
 
-    [Serializable]
-    public class NonPositiveAccuracyException : Exception
-    {
-        public NonPositiveAccuracyException()
-            : base("Accuracy must be positive.")
-        {
-        }
-    }
+	[Serializable]
+	public class NonPositiveAccuracyException : Exception
+	{
+		public NonPositiveAccuracyException()
+			: base("Accuracy must be positive.")
+		{
+		}
+	}
 
-    [Serializable]
-    public class NoSolutionFoundException : Exception
-    {
-        public NoSolutionFoundException(
-            string message
-            )
-            : base(message)
-        {
-        }
-    }
+	[Serializable]
+	public class NoSolutionFoundException : Exception
+	{
+		public NoSolutionFoundException(
+			string message
+			)
+			: base(message)
+		{
+		}
+	}
 
-    [Serializable]
-    public class MissingRseSolverException : Exception
-    {
-        public MissingRseSolverException()
-            : base("Solver is not set.")
-        {
-        }
-    }
+	[Serializable]
+	public class MissingRseSolverException : Exception
+	{
+		public MissingRseSolverException()
+			: base("Solver is not set.")
+		{
+		}
+	}
 
-    [Serializable]
-    public class MissingAccuracyMeasureException : Exception
-    {
-        public MissingAccuracyMeasureException()
-            : base("SolutionAccuracyMeasure is null.")
-        {
-        }
-    }
+	[Serializable]
+	public class MissingAccuracyMeasureException : Exception
+	{
+		public MissingAccuracyMeasureException()
+			: base("SolutionAccuracyMeasure is null.")
+		{
+		}
+	}
 
-    [Serializable]
-    public class ZeroAggressivenessException : Exception
-    {
-        public ZeroAggressivenessException()
-            : base("Aggressiveness must not be zero.")
-        {
-        }
-    }
+	[Serializable]
+	public class ZeroAggressivenessException : Exception
+	{
+		public ZeroAggressivenessException()
+			: base("Aggressiveness must not be zero.")
+		{
+		}
+	}
 }

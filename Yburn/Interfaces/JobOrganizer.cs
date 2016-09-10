@@ -2,61 +2,61 @@
 
 namespace Yburn.Interfaces
 {
-    public interface JobOrganizer
-    {
-        event JobStartEventHandler JobStart;
+	public interface JobOrganizer
+	{
+		event JobStartEventHandler JobStart;
 
-        event JobFinishedEventHandler JobFinished;
+		event JobFinishedEventHandler JobFinished;
 
-        event JobFailureEventHandler JobFailure;
+		event JobFailureEventHandler JobFailure;
 
-        string[] StatusValues
-        {
-            get;
-        }
+		string[] StatusValues
+		{
+			get;
+		}
 
-        string[] StatusTitles
-        {
-            get;
-        }
+		string[] StatusTitles
+		{
+			get;
+		}
 
-        string LogMessage
-        {
-            get;
-        }
+		string LogMessage
+		{
+			get;
+		}
 
-        bool IsJobRunning
-        {
-            get;
-        }
+		bool IsJobRunning
+		{
+			get;
+		}
 
-        void OpenReadMe();
+		void OpenReadMe();
 
-        void ProcessParameterFile(
-            string pathFile
-            );
+		void ProcessParameterFile(
+			string pathFile
+			);
 
-        void SaveAsParameterFile(
-            string pathFile,
-            Dictionary<string, string> nameValuePairs
-            );
+		void SaveAsParameterFile(
+			string pathFile,
+			Dictionary<string, string> nameValuePairs
+			);
 
-        void ProcessBatchFile(
-            string pathFile,
-            Dictionary<string, string> nameValuePairs
-            );
+		void ProcessBatchFile(
+			string pathFile,
+			Dictionary<string, string> nameValuePairs
+			);
 
-        void RequestNewJob(
-            string jobId,
-            Dictionary<string, string> nameValuePairs
-            );
+		void RequestNewJob(
+			string jobId,
+			Dictionary<string, string> nameValuePairs
+			);
 
-        void AbortRunningJob();
+		void AbortRunningJob();
 
-        Dictionary<string, string> GetDataFromWorker();
+		Dictionary<string, string> GetDataFromWorker();
 
-        string[] GetWorkerEnumEntries(
-            string enumName
-            );
-    }
+		string[] GetWorkerEnumEntries(
+			string enumName
+			);
+	}
 }
