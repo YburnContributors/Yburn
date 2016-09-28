@@ -30,9 +30,9 @@ namespace Yburn.Workers
 			{
 				return typeof(EMFCalculationMethod);
 			}
-			if(enumName == "ShapeFunction")
+			if(enumName == "NucleusShape")
 			{
-				return typeof(ShapeFunctionType);
+				return typeof(NucleusShape);
 			}
 			else
 			{
@@ -104,8 +104,8 @@ namespace Yburn.Workers
 			param.ProtonNumberA = ProtonNumberA;
 			param.ProtonNumberB = ProtonNumberB;
 			param.QGPConductivityMeV = QGPConductivityMeV;
-			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
-			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
+			param.NucleusShapeA = NucleusShapeA;
+			param.NucleusShapeB = NucleusShapeB;
 
 			return param;
 		}

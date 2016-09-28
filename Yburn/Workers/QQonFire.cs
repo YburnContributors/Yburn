@@ -600,9 +600,9 @@ namespace Yburn.Workers
 			{
 				return typeof(BottomiumState);
 			}
-			else if(enumName == "ShapeFunction")
+			else if(enumName == "NucleusShape")
 			{
-				return typeof(ShapeFunctionType);
+				return typeof(NucleusShape);
 			}
 			else if(enumName == "DecayWidthType")
 			{
@@ -669,7 +669,7 @@ namespace Yburn.Workers
 			FireballParam param = new FireballParam();
 
 			param.BeamRapidity = BeamRapidity;
-			param.NumberAveragingAngles = NumberAveragingAngles;
+			param.BreakupTemperatureMeV = BreakupTemperature;
 			param.DecayWidthEvaluationType = DecayWidthEvaluationType;
 			param.DiffusenessAFm = DiffusenessA;
 			param.DiffusenessBFm = DiffusenessB;
@@ -679,15 +679,17 @@ namespace Yburn.Workers
 			param.GridRadiusFm = GridRadius;
 			param.ImpactParameterFm = ImpactParameter;
 			param.InitialMaximumTemperatureMeV = InitialMaximumTemperature;
-			param.BreakupTemperatureMeV = BreakupTemperature;
 			param.NuclearRadiusAFm = NuclearRadiusA;
 			param.NuclearRadiusBFm = NuclearRadiusB;
 			param.NucleonNumberA = NucleonNumberA;
 			param.NucleonNumberB = NucleonNumberB;
+			param.NucleusShapeA = NucleusShapeA;
+			param.NucleusShapeB = NucleusShapeB;
+			param.NumberAveragingAngles = NumberAveragingAngles;
+			param.ProtonNumberA = ProtonNumberA;
+			param.ProtonNumberB = ProtonNumberB;
 			param.ProtonProtonBaseline = ProtonProtonBaseline;
 			param.QGPFormationTemperatureMeV = QGPFormationTemperature;
-			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
-			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthListHelper.GetList(
 				GetQQDataPathFile(), DecayWidthType, PotentialTypes);
 			param.TemperatureProfile = TemperatureProfile;

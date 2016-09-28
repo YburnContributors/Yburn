@@ -32,8 +32,8 @@ namespace Yburn.Workers
 			Extractor.Store(nameValuePairs, "QuadratureOrder", QuadratureOrder);
 			Extractor.Store(nameValuePairs, "QGPConductivityMeV", QGPConductivityMeV);
 			Extractor.Store(nameValuePairs, "RadialDistance", RadialDistance);
-			Extractor.Store(nameValuePairs, "ShapeFunctionTypeA", ShapeFunctionTypeA);
-			Extractor.Store(nameValuePairs, "ShapeFunctionTypeB", ShapeFunctionTypeB);
+			Extractor.Store(nameValuePairs, "NucleusShapeA", NucleusShapeA);
+			Extractor.Store(nameValuePairs, "NucleusShapeB", NucleusShapeB);
 			Extractor.Store(nameValuePairs, "StartEffectiveTime", StartEffectiveTime);
 			Extractor.Store(nameValuePairs, "StopEffectiveTime", StopEffectiveTime);
 
@@ -63,8 +63,8 @@ namespace Yburn.Workers
 			Extractor.TryExtract(nameValuePairs, "QuadratureOrder", ref QuadratureOrder);
 			Extractor.TryExtract(nameValuePairs, "QGPConductivityMeV", ref QGPConductivityMeV);
 			Extractor.TryExtract(nameValuePairs, "RadialDistance", ref RadialDistance);
-			Extractor.TryExtract(nameValuePairs, "ShapeFunctionTypeA", ref ShapeFunctionTypeA);
-			Extractor.TryExtract(nameValuePairs, "ShapeFunctionTypeB", ref ShapeFunctionTypeB);
+			Extractor.TryExtract(nameValuePairs, "NucleusShapeA", ref NucleusShapeA);
+			Extractor.TryExtract(nameValuePairs, "NucleusShapeB", ref NucleusShapeB);
 			Extractor.TryExtract(nameValuePairs, "StartEffectiveTime", ref StartEffectiveTime);
 			Extractor.TryExtract(nameValuePairs, "StopEffectiveTime", ref StopEffectiveTime);
 		}
@@ -105,9 +105,9 @@ namespace Yburn.Workers
 
 		private double RadialDistance;
 
-		private ShapeFunctionType ShapeFunctionTypeA;
+		private NucleusShape NucleusShapeA;
 
-		private ShapeFunctionType ShapeFunctionTypeB;
+		private NucleusShape NucleusShapeB;
 
 		private double StartEffectiveTime;
 

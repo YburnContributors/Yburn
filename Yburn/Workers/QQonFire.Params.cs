@@ -41,10 +41,12 @@ namespace Yburn.Workers
 			Extractor.Store(nameValuePairs, "NumberAveragingAngles", NumberAveragingAngles);
 			Extractor.Store(nameValuePairs, "ParticipantsAtBinBoundaries", ParticipantsAtBinBoundaries);
 			Extractor.Store(nameValuePairs, "PotentialTypes", PotentialTypes);
+			Extractor.Store(nameValuePairs, "ProtonNumberA", ProtonNumberA);
+			Extractor.Store(nameValuePairs, "ProtonNumberB", ProtonNumberB);
 			Extractor.Store(nameValuePairs, "ProtonProtonBaseline", ProtonProtonBaseline);
 			Extractor.Store(nameValuePairs, "QGPFormationTemperature", QGPFormationTemperature);
-			Extractor.Store(nameValuePairs, "ShapeFunctionTypeA", ShapeFunctionTypeA);
-			Extractor.Store(nameValuePairs, "ShapeFunctionTypeB", ShapeFunctionTypeB);
+			Extractor.Store(nameValuePairs, "NucleusShapeA", NucleusShapeA);
+			Extractor.Store(nameValuePairs, "NucleusShapeB", NucleusShapeB);
 			Extractor.Store(nameValuePairs, "SnapRate", SnapRate);
 			Extractor.Store(nameValuePairs, "TemperatureProfile", TemperatureProfile);
 			Extractor.Store(nameValuePairs, "ThermalTime", ThermalTime);
@@ -85,10 +87,12 @@ namespace Yburn.Workers
 			Extractor.TryExtract(nameValuePairs, "NumberAveragingAngles", ref NumberAveragingAngles);
 			Extractor.TryExtract(nameValuePairs, "ParticipantsAtBinBoundaries", ref ParticipantsAtBinBoundaries);
 			Extractor.TryExtract(nameValuePairs, "PotentialTypes", ref PotentialTypes);
+			Extractor.TryExtract(nameValuePairs, "ProtonNumberA", ref ProtonNumberA);
+			Extractor.TryExtract(nameValuePairs, "ProtonNumberB", ref ProtonNumberB);
 			Extractor.TryExtract(nameValuePairs, "ProtonProtonBaseline", ref ProtonProtonBaseline);
 			Extractor.TryExtract(nameValuePairs, "QGPFormationTemperature", ref QGPFormationTemperature);
-			Extractor.TryExtract(nameValuePairs, "ShapeFunctionTypeA", ref ShapeFunctionTypeA);
-			Extractor.TryExtract(nameValuePairs, "ShapeFunctionTypeB", ref ShapeFunctionTypeB);
+			Extractor.TryExtract(nameValuePairs, "NucleusShapeA", ref NucleusShapeA);
+			Extractor.TryExtract(nameValuePairs, "NucleusShapeB", ref NucleusShapeB);
 			Extractor.TryExtract(nameValuePairs, "SnapRate", ref SnapRate);
 			Extractor.TryExtract(nameValuePairs, "TemperatureProfile", ref TemperatureProfile);
 			Extractor.TryExtract(nameValuePairs, "ThermalTime", ref ThermalTime);
@@ -151,11 +155,15 @@ namespace Yburn.Workers
 
 		private ProtonProtonBaseline ProtonProtonBaseline;
 
+		private int ProtonNumberA;
+
+		private int ProtonNumberB;
+
 		private double QGPFormationTemperature;
 
-		private ShapeFunctionType ShapeFunctionTypeA;
+		private NucleusShape NucleusShapeA;
 
-		private ShapeFunctionType ShapeFunctionTypeB;
+		private NucleusShape NucleusShapeB;
 
 		private double SnapRate;
 

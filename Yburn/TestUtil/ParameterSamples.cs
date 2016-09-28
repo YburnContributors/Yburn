@@ -28,8 +28,8 @@ namespace Yburn.TestUtil
 				nameValuePairs["QGPConductivityMeV"] = "3333";
 				nameValuePairs["QuadratureOrder"] = "3333";
 				nameValuePairs["RadialDistance"] = "3333";
-				nameValuePairs["ShapeFunctionTypeA"] = "GaussianDistribution";
-				nameValuePairs["ShapeFunctionTypeB"] = "WoodsSaxonPotential";
+				nameValuePairs["NucleusShapeA"] = "GaussianDistribution";
+				nameValuePairs["NucleusShapeB"] = "WoodsSaxonPotential";
 				nameValuePairs["StartEffectiveTime"] = "3333";
 				nameValuePairs["StopEffectiveTime"] = "3333";
 
@@ -131,10 +131,12 @@ namespace Yburn.TestUtil
 				nameValuePairs["NumberAveragingAngles"] = "5";
 				nameValuePairs["ParticipantsAtBinBoundaries"] = "3,3,3";
 				nameValuePairs["PotentialTypes"] = "Tzero";
+				nameValuePairs["ProtonNumberA"] = "3333";
+				nameValuePairs["ProtonNumberB"] = "3333";
 				nameValuePairs["ProtonProtonBaseline"] = "CMS2012";
 				nameValuePairs["QGPFormationTemperature"] = "3333";
-				nameValuePairs["ShapeFunctionTypeA"] = "GaussianDistribution";
-				nameValuePairs["ShapeFunctionTypeB"] = "WoodsSaxonPotential";
+				nameValuePairs["NucleusShapeA"] = "GaussianDistribution";
+				nameValuePairs["NucleusShapeB"] = "WoodsSaxonPotential";
 				nameValuePairs["SnapRate"] = "3333";
 				nameValuePairs["TemperatureProfile"] = "Ncoll13";
 				nameValuePairs["ThermalTime"] = "3333";

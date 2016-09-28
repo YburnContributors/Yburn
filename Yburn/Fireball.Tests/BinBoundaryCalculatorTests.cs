@@ -103,16 +103,18 @@ namespace Yburn.Fireball.Tests
 			param.GridRadiusFm = GridRadiusFm;
 
 			param.NucleonNumberA = 208;
+			param.ProtonNumberA = 82;
 			param.NuclearRadiusAFm = 6.62;
 			param.DiffusenessAFm = 0.546;
 
 			param.NucleonNumberB = 208;
+			param.ProtonNumberB = 82;
 			param.NuclearRadiusBFm = 6.62;
 			param.DiffusenessBFm = 0.546;
 
 			param.TemperatureDecayWidthList = GetTemperatureDecayWidthList();
-			param.ShapeFunctionTypeA = ShapeFunctionType.WoodsSaxonPotential;
-			param.ShapeFunctionTypeB = ShapeFunctionType.WoodsSaxonPotential;
+			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
+			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
 
 			return param;
 		}

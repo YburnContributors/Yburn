@@ -13,13 +13,13 @@ namespace Yburn.Fireball
 			EMFCalculationMethod emfCalculationMethod,
 			double qgpConductivityMeV,
 			double nucleusRapidity,
-			NuclearDensityFunction protonDensityFunction
+			Nucleus nucleus
 			)
 		{
 			PointChargeEMF = PointChargeElectromagneticField.Create(
 				emfCalculationMethod, qgpConductivityMeV, nucleusRapidity);
 
-			ProtonDensityFunction = protonDensityFunction;
+			Nucleus = nucleus;
 
 			NucleusVelocity = Math.Tanh(nucleusRapidity);
 		}
@@ -38,7 +38,7 @@ namespace Yburn.Fireball
 			{
 				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
 
-				return ProtonDensityFunction.GetColumnDensity(x, y)
+				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
 					* PointChargeEMF.CalculateAzimutalMagneticField(
 						effectiveTime,
 						pointChargePosition.Norm)
@@ -47,7 +47,7 @@ namespace Yburn.Fireball
 
 			double integral = Quadrature.IntegrateOverRealPlane(
 				integrand,
-				2 * ProtonDensityFunction.NuclearRadius,
+				2 * Nucleus.NuclearRadiusFm,
 				quadratureOrder);
 
 			return integral;
@@ -63,7 +63,7 @@ namespace Yburn.Fireball
 			{
 				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
 
-				return ProtonDensityFunction.GetColumnDensity(x, y)
+				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
 					* PointChargeEMF.CalculateLongitudinalElectricField(
 						effectiveTime,
 						pointChargePosition.Norm)
@@ -72,7 +72,7 @@ namespace Yburn.Fireball
 
 			double integral = Quadrature.IntegrateOverRealPlane(
 				integrand,
-				2 * ProtonDensityFunction.NuclearRadius,
+				2 * Nucleus.NuclearRadiusFm,
 				quadratureOrder);
 
 			return integral;
@@ -88,7 +88,7 @@ namespace Yburn.Fireball
 			{
 				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
 
-				return ProtonDensityFunction.GetColumnDensity(x, y)
+				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
 					* PointChargeEMF.CalculateRadialElectricField(
 						effectiveTime,
 						pointChargePosition.Norm)
@@ -97,7 +97,7 @@ namespace Yburn.Fireball
 
 			double integral = Quadrature.IntegrateOverRealPlane(
 				integrand,
-				2 * ProtonDensityFunction.NuclearRadius,
+				2 * Nucleus.NuclearRadiusFm,
 				quadratureOrder);
 
 			return integral;
@@ -114,7 +114,7 @@ namespace Yburn.Fireball
 			{
 				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
 
-				return ProtonDensityFunction.GetColumnDensity(x, y)
+				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
 					* PointChargeEMF.CalculateAzimutalMagneticField_LCF(
 						effectiveTime,
 						pointChargePosition.Norm,
@@ -124,7 +124,7 @@ namespace Yburn.Fireball
 
 			double integral = Quadrature.IntegrateOverRealPlane(
 				integrand,
-				2 * ProtonDensityFunction.NuclearRadius,
+				2 * Nucleus.NuclearRadiusFm,
 				quadratureOrder);
 
 			return integral;
@@ -172,7 +172,7 @@ namespace Yburn.Fireball
 
 		private PointChargeElectromagneticField PointChargeEMF;
 
-		private NuclearDensityFunction ProtonDensityFunction;
+		private Nucleus Nucleus;
 
 		private double NucleusVelocity;
 

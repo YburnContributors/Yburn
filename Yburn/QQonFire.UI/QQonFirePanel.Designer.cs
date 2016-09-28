@@ -50,10 +50,10 @@
 			this.TbxFormationTimes = new System.Windows.Forms.TextBox();
 			this.GbxGlauber = new System.Windows.Forms.GroupBox();
 			this.LayoutGlauber = new System.Windows.Forms.TableLayoutPanel();
-			this.LblShapeFunctionTypeA = new System.Windows.Forms.Label();
-			this.CbxShapeFunctionTypeA = new System.Windows.Forms.ComboBox();
-			this.LblShapeFunctionTypeB = new System.Windows.Forms.Label();
-			this.CbxShapeFunctionTypeB = new System.Windows.Forms.ComboBox();
+			this.LblNucleusShapeA = new System.Windows.Forms.Label();
+			this.CbxNucleusShapeA = new System.Windows.Forms.ComboBox();
+			this.LblNucleusShapeB = new System.Windows.Forms.Label();
+			this.CbxNucleusShapeB = new System.Windows.Forms.ComboBox();
 			this.LblDiffusenessA = new System.Windows.Forms.Label();
 			this.TbxDiffusenessA = new System.Windows.Forms.TextBox();
 			this.LblDiffusenessB = new System.Windows.Forms.Label();
@@ -70,6 +70,8 @@
 			this.TbxImpactParameter = new System.Windows.Forms.TextBox();
 			this.GbxHydro = new System.Windows.Forms.GroupBox();
 			this.LayoutHydro = new System.Windows.Forms.TableLayoutPanel();
+			this.LblQGPFormationTemperature = new System.Windows.Forms.Label();
+			this.TbxQGPFormationTemperature = new System.Windows.Forms.TextBox();
 			this.TbxBeamRapidity = new System.Windows.Forms.TextBox();
 			this.LblBeamRapidity = new System.Windows.Forms.Label();
 			this.LblExpansionMode = new System.Windows.Forms.Label();
@@ -112,8 +114,10 @@
 			this.CtrlTextBoxLog = new System.Windows.Forms.RichTextBox();
 			this.CtrlStatusTrackingCtrl = new Yburn.UI.StatusTrackingCtrl();
 			this.TbxtF3S2 = new System.Windows.Forms.TextBox();
-			this.TbxQGPFormationTemperature = new System.Windows.Forms.TextBox();
-			this.LblQGPFormationTemperature = new System.Windows.Forms.Label();
+			this.LblProtonNumberA = new System.Windows.Forms.Label();
+			this.TbxProtonNumberA = new System.Windows.Forms.TextBox();
+			this.LblProtonNumberB = new System.Windows.Forms.Label();
+			this.TbxProtonNumberB = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.VSplit)).BeginInit();
 			this.VSplit.Panel1.SuspendLayout();
 			this.VSplit.Panel2.SuspendLayout();
@@ -177,12 +181,12 @@
 			// 
 			this.GbxQQStates.Controls.Add(this.LayoutQQStates);
 			this.GbxQQStates.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxQQStates.Location = new System.Drawing.Point(10, 570);
+			this.GbxQQStates.Location = new System.Drawing.Point(10, 620);
 			this.GbxQQStates.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxQQStates.Name = "GbxQQStates";
 			this.GbxQQStates.Padding = new System.Windows.Forms.Padding(10);
 			this.GbxQQStates.Size = new System.Drawing.Size(459, 289);
-			this.GbxQQStates.TabIndex = 17;
+			this.GbxQQStates.TabIndex = 0;
 			this.GbxQQStates.TabStop = false;
 			this.GbxQQStates.Text = "QQStates";
 			// 
@@ -229,7 +233,7 @@
 			this.CbxProtonProtonBaseline.Location = new System.Drawing.Point(244, 232);
 			this.CbxProtonProtonBaseline.Name = "CbxProtonProtonBaseline";
 			this.CbxProtonProtonBaseline.Size = new System.Drawing.Size(192, 33);
-			this.CbxProtonProtonBaseline.TabIndex = 25;
+			this.CbxProtonProtonBaseline.TabIndex = 0;
 			// 
 			// LblProtonProtonBaseline
 			// 
@@ -248,7 +252,7 @@
 			this.TbxNumberAveragingAngles.Location = new System.Drawing.Point(244, 28);
 			this.TbxNumberAveragingAngles.Name = "TbxNumberAveragingAngles";
 			this.TbxNumberAveragingAngles.Size = new System.Drawing.Size(192, 31);
-			this.TbxNumberAveragingAngles.TabIndex = 19;
+			this.TbxNumberAveragingAngles.TabIndex = 0;
 			// 
 			// LblNumberAveragingAngles
 			// 
@@ -257,7 +261,7 @@
 			this.LblNumberAveragingAngles.Location = new System.Drawing.Point(3, 25);
 			this.LblNumberAveragingAngles.Name = "LblNumberAveragingAngles";
 			this.LblNumberAveragingAngles.Size = new System.Drawing.Size(235, 25);
-			this.LblNumberAveragingAngles.TabIndex = 29;
+			this.LblNumberAveragingAngles.TabIndex = 0;
 			this.LblNumberAveragingAngles.Text = "NumberAveragingAngles";
 			this.LblNumberAveragingAngles.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -267,7 +271,7 @@
 			this.TbxTransverseMomenta.Location = new System.Drawing.Point(244, 207);
 			this.TbxTransverseMomenta.Name = "TbxTransverseMomenta";
 			this.TbxTransverseMomenta.Size = new System.Drawing.Size(192, 31);
-			this.TbxTransverseMomenta.TabIndex = 24;
+			this.TbxTransverseMomenta.TabIndex = 0;
 			// 
 			// LblTransverseMomenta
 			// 
@@ -297,7 +301,7 @@
 			this.TbxFeedDown3P.Location = new System.Drawing.Point(244, 157);
 			this.TbxFeedDown3P.Name = "TbxFeedDown3P";
 			this.TbxFeedDown3P.Size = new System.Drawing.Size(192, 31);
-			this.TbxFeedDown3P.TabIndex = 22;
+			this.TbxFeedDown3P.TabIndex = 0;
 			// 
 			// LblPotentialTypes
 			// 
@@ -318,7 +322,7 @@
 			this.MsxPotentialTypes.Name = "MsxPotentialTypes";
 			this.MsxPotentialTypes.SelectionString = "";
 			this.MsxPotentialTypes.Size = new System.Drawing.Size(192, 72);
-			this.MsxPotentialTypes.TabIndex = 21;
+			this.MsxPotentialTypes.TabIndex = 0;
 			// 
 			// LblDecayWidthType
 			// 
@@ -338,7 +342,7 @@
 			this.CbxDecayWidthType.Location = new System.Drawing.Point(244, 53);
 			this.CbxDecayWidthType.Name = "CbxDecayWidthType";
 			this.CbxDecayWidthType.Size = new System.Drawing.Size(192, 33);
-			this.CbxDecayWidthType.TabIndex = 20;
+			this.CbxDecayWidthType.TabIndex = 0;
 			// 
 			// CbxDecayWidthEvaluationType
 			// 
@@ -347,7 +351,7 @@
 			this.CbxDecayWidthEvaluationType.Location = new System.Drawing.Point(244, 3);
 			this.CbxDecayWidthEvaluationType.Name = "CbxDecayWidthEvaluationType";
 			this.CbxDecayWidthEvaluationType.Size = new System.Drawing.Size(192, 33);
-			this.CbxDecayWidthEvaluationType.TabIndex = 18;
+			this.CbxDecayWidthEvaluationType.TabIndex = 0;
 			// 
 			// LblDecayWidthEvaluationType
 			// 
@@ -377,7 +381,7 @@
 			this.TbxFormationTimes.Location = new System.Drawing.Point(244, 182);
 			this.TbxFormationTimes.Name = "TbxFormationTimes";
 			this.TbxFormationTimes.Size = new System.Drawing.Size(192, 31);
-			this.TbxFormationTimes.TabIndex = 23;
+			this.TbxFormationTimes.TabIndex = 0;
 			// 
 			// GbxGlauber
 			// 
@@ -387,7 +391,7 @@
 			this.GbxGlauber.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxGlauber.Name = "GbxGlauber";
 			this.GbxGlauber.Padding = new System.Windows.Forms.Padding(10);
-			this.GbxGlauber.Size = new System.Drawing.Size(459, 260);
+			this.GbxGlauber.Size = new System.Drawing.Size(459, 310);
 			this.GbxGlauber.TabIndex = 0;
 			this.GbxGlauber.TabStop = false;
 			this.GbxGlauber.Text = "Glauber";
@@ -397,28 +401,32 @@
 			this.LayoutGlauber.ColumnCount = 2;
 			this.LayoutGlauber.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
 			this.LayoutGlauber.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
-			this.LayoutGlauber.Controls.Add(this.LblShapeFunctionTypeA, 0, 0);
-			this.LayoutGlauber.Controls.Add(this.CbxShapeFunctionTypeA, 1, 0);
-			this.LayoutGlauber.Controls.Add(this.LblShapeFunctionTypeB, 0, 4);
-			this.LayoutGlauber.Controls.Add(this.CbxShapeFunctionTypeB, 1, 4);
-			this.LayoutGlauber.Controls.Add(this.LblDiffusenessA, 0, 3);
-			this.LayoutGlauber.Controls.Add(this.TbxDiffusenessA, 1, 3);
-			this.LayoutGlauber.Controls.Add(this.LblDiffusenessB, 0, 7);
-			this.LayoutGlauber.Controls.Add(this.TbxDiffusenessB, 1, 7);
+			this.LayoutGlauber.Controls.Add(this.TbxProtonNumberB, 1, 7);
+			this.LayoutGlauber.Controls.Add(this.LblProtonNumberB, 0, 7);
+			this.LayoutGlauber.Controls.Add(this.TbxProtonNumberA, 1, 2);
+			this.LayoutGlauber.Controls.Add(this.LblProtonNumberA, 0, 2);
+			this.LayoutGlauber.Controls.Add(this.LblNucleusShapeA, 0, 0);
+			this.LayoutGlauber.Controls.Add(this.CbxNucleusShapeA, 1, 0);
+			this.LayoutGlauber.Controls.Add(this.LblNucleusShapeB, 0, 5);
+			this.LayoutGlauber.Controls.Add(this.CbxNucleusShapeB, 1, 5);
+			this.LayoutGlauber.Controls.Add(this.LblDiffusenessA, 0, 4);
+			this.LayoutGlauber.Controls.Add(this.TbxDiffusenessA, 1, 4);
+			this.LayoutGlauber.Controls.Add(this.LblDiffusenessB, 0, 9);
+			this.LayoutGlauber.Controls.Add(this.TbxDiffusenessB, 1, 9);
 			this.LayoutGlauber.Controls.Add(this.LblNucleonNumberA, 0, 1);
 			this.LayoutGlauber.Controls.Add(this.TbxNucleonNumberA, 1, 1);
-			this.LayoutGlauber.Controls.Add(this.LblNucleonNumberB, 0, 5);
-			this.LayoutGlauber.Controls.Add(this.TbxNucleonNumberB, 1, 5);
-			this.LayoutGlauber.Controls.Add(this.LblNuclearRadiusA, 0, 2);
-			this.LayoutGlauber.Controls.Add(this.TbxNuclearRadiusA, 1, 2);
-			this.LayoutGlauber.Controls.Add(this.LblNuclearRadiusB, 0, 6);
-			this.LayoutGlauber.Controls.Add(this.TbxNuclearRadiusB, 1, 6);
-			this.LayoutGlauber.Controls.Add(this.LblImpactParameter, 0, 8);
-			this.LayoutGlauber.Controls.Add(this.TbxImpactParameter, 1, 8);
+			this.LayoutGlauber.Controls.Add(this.LblNucleonNumberB, 0, 6);
+			this.LayoutGlauber.Controls.Add(this.TbxNucleonNumberB, 1, 6);
+			this.LayoutGlauber.Controls.Add(this.LblNuclearRadiusA, 0, 3);
+			this.LayoutGlauber.Controls.Add(this.TbxNuclearRadiusA, 1, 3);
+			this.LayoutGlauber.Controls.Add(this.LblNuclearRadiusB, 0, 8);
+			this.LayoutGlauber.Controls.Add(this.TbxNuclearRadiusB, 1, 8);
+			this.LayoutGlauber.Controls.Add(this.LblImpactParameter, 0, 10);
+			this.LayoutGlauber.Controls.Add(this.TbxImpactParameter, 1, 10);
 			this.LayoutGlauber.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LayoutGlauber.Location = new System.Drawing.Point(10, 34);
 			this.LayoutGlauber.Name = "LayoutGlauber";
-			this.LayoutGlauber.RowCount = 9;
+			this.LayoutGlauber.RowCount = 11;
 			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -428,54 +436,57 @@
 			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutGlauber.Size = new System.Drawing.Size(439, 216);
+			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.LayoutGlauber.Size = new System.Drawing.Size(439, 266);
 			this.LayoutGlauber.TabIndex = 0;
 			// 
-			// LblShapeFunctionTypeA
+			// LblNucleusShapeA
 			// 
-			this.LblShapeFunctionTypeA.AutoSize = true;
-			this.LblShapeFunctionTypeA.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblShapeFunctionTypeA.Location = new System.Drawing.Point(3, 0);
-			this.LblShapeFunctionTypeA.Name = "LblShapeFunctionTypeA";
-			this.LblShapeFunctionTypeA.Size = new System.Drawing.Size(235, 25);
-			this.LblShapeFunctionTypeA.TabIndex = 10;
-			this.LblShapeFunctionTypeA.Text = "ShapeFunctionTypeA";
-			this.LblShapeFunctionTypeA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblNucleusShapeA.AutoSize = true;
+			this.LblNucleusShapeA.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblNucleusShapeA.Location = new System.Drawing.Point(3, 0);
+			this.LblNucleusShapeA.Name = "LblNucleusShapeA";
+			this.LblNucleusShapeA.Size = new System.Drawing.Size(235, 25);
+			this.LblNucleusShapeA.TabIndex = 0;
+			this.LblNucleusShapeA.Text = "NucleusShapeA";
+			this.LblNucleusShapeA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// CbxShapeFunctionTypeA
+			// CbxNucleusShapeA
 			// 
-			this.CbxShapeFunctionTypeA.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CbxShapeFunctionTypeA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.CbxShapeFunctionTypeA.Location = new System.Drawing.Point(244, 3);
-			this.CbxShapeFunctionTypeA.Name = "CbxShapeFunctionTypeA";
-			this.CbxShapeFunctionTypeA.Size = new System.Drawing.Size(192, 33);
-			this.CbxShapeFunctionTypeA.TabIndex = 0;
+			this.CbxNucleusShapeA.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.CbxNucleusShapeA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.CbxNucleusShapeA.Location = new System.Drawing.Point(244, 3);
+			this.CbxNucleusShapeA.Name = "CbxNucleusShapeA";
+			this.CbxNucleusShapeA.Size = new System.Drawing.Size(192, 33);
+			this.CbxNucleusShapeA.TabIndex = 0;
 			// 
-			// LblShapeFunctionTypeB
+			// LblNucleusShapeB
 			// 
-			this.LblShapeFunctionTypeB.AutoSize = true;
-			this.LblShapeFunctionTypeB.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblShapeFunctionTypeB.Location = new System.Drawing.Point(3, 100);
-			this.LblShapeFunctionTypeB.Name = "LblShapeFunctionTypeB";
-			this.LblShapeFunctionTypeB.Size = new System.Drawing.Size(235, 25);
-			this.LblShapeFunctionTypeB.TabIndex = 0;
-			this.LblShapeFunctionTypeB.Text = "ShapeFunctionTypeB";
-			this.LblShapeFunctionTypeB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblNucleusShapeB.AutoSize = true;
+			this.LblNucleusShapeB.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblNucleusShapeB.Location = new System.Drawing.Point(3, 125);
+			this.LblNucleusShapeB.Name = "LblNucleusShapeB";
+			this.LblNucleusShapeB.Size = new System.Drawing.Size(235, 25);
+			this.LblNucleusShapeB.TabIndex = 0;
+			this.LblNucleusShapeB.Text = "NucleusShapeB";
+			this.LblNucleusShapeB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// CbxShapeFunctionTypeB
+			// CbxNucleusShapeB
 			// 
-			this.CbxShapeFunctionTypeB.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CbxShapeFunctionTypeB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.CbxShapeFunctionTypeB.Location = new System.Drawing.Point(244, 103);
-			this.CbxShapeFunctionTypeB.Name = "CbxShapeFunctionTypeB";
-			this.CbxShapeFunctionTypeB.Size = new System.Drawing.Size(192, 33);
-			this.CbxShapeFunctionTypeB.TabIndex = 0;
+			this.CbxNucleusShapeB.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.CbxNucleusShapeB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.CbxNucleusShapeB.Location = new System.Drawing.Point(244, 128);
+			this.CbxNucleusShapeB.Name = "CbxNucleusShapeB";
+			this.CbxNucleusShapeB.Size = new System.Drawing.Size(192, 33);
+			this.CbxNucleusShapeB.TabIndex = 0;
 			// 
 			// LblDiffusenessA
 			// 
 			this.LblDiffusenessA.AutoSize = true;
 			this.LblDiffusenessA.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDiffusenessA.Location = new System.Drawing.Point(3, 75);
+			this.LblDiffusenessA.Location = new System.Drawing.Point(3, 100);
 			this.LblDiffusenessA.Name = "LblDiffusenessA";
 			this.LblDiffusenessA.Size = new System.Drawing.Size(235, 25);
 			this.LblDiffusenessA.TabIndex = 0;
@@ -485,7 +496,7 @@
 			// TbxDiffusenessA
 			// 
 			this.TbxDiffusenessA.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxDiffusenessA.Location = new System.Drawing.Point(244, 78);
+			this.TbxDiffusenessA.Location = new System.Drawing.Point(244, 103);
 			this.TbxDiffusenessA.Name = "TbxDiffusenessA";
 			this.TbxDiffusenessA.Size = new System.Drawing.Size(192, 31);
 			this.TbxDiffusenessA.TabIndex = 0;
@@ -494,7 +505,7 @@
 			// 
 			this.LblDiffusenessB.AutoSize = true;
 			this.LblDiffusenessB.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDiffusenessB.Location = new System.Drawing.Point(3, 175);
+			this.LblDiffusenessB.Location = new System.Drawing.Point(3, 225);
 			this.LblDiffusenessB.Name = "LblDiffusenessB";
 			this.LblDiffusenessB.Size = new System.Drawing.Size(235, 25);
 			this.LblDiffusenessB.TabIndex = 0;
@@ -504,7 +515,7 @@
 			// TbxDiffusenessB
 			// 
 			this.TbxDiffusenessB.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxDiffusenessB.Location = new System.Drawing.Point(244, 178);
+			this.TbxDiffusenessB.Location = new System.Drawing.Point(244, 228);
 			this.TbxDiffusenessB.Name = "TbxDiffusenessB";
 			this.TbxDiffusenessB.Size = new System.Drawing.Size(192, 31);
 			this.TbxDiffusenessB.TabIndex = 0;
@@ -532,7 +543,7 @@
 			// 
 			this.LblNucleonNumberB.AutoSize = true;
 			this.LblNucleonNumberB.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblNucleonNumberB.Location = new System.Drawing.Point(3, 125);
+			this.LblNucleonNumberB.Location = new System.Drawing.Point(3, 150);
 			this.LblNucleonNumberB.Name = "LblNucleonNumberB";
 			this.LblNucleonNumberB.Size = new System.Drawing.Size(235, 25);
 			this.LblNucleonNumberB.TabIndex = 0;
@@ -542,7 +553,7 @@
 			// TbxNucleonNumberB
 			// 
 			this.TbxNucleonNumberB.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxNucleonNumberB.Location = new System.Drawing.Point(244, 128);
+			this.TbxNucleonNumberB.Location = new System.Drawing.Point(244, 153);
 			this.TbxNucleonNumberB.Name = "TbxNucleonNumberB";
 			this.TbxNucleonNumberB.Size = new System.Drawing.Size(192, 31);
 			this.TbxNucleonNumberB.TabIndex = 0;
@@ -551,7 +562,7 @@
 			// 
 			this.LblNuclearRadiusA.AutoSize = true;
 			this.LblNuclearRadiusA.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblNuclearRadiusA.Location = new System.Drawing.Point(3, 50);
+			this.LblNuclearRadiusA.Location = new System.Drawing.Point(3, 75);
 			this.LblNuclearRadiusA.Name = "LblNuclearRadiusA";
 			this.LblNuclearRadiusA.Size = new System.Drawing.Size(235, 25);
 			this.LblNuclearRadiusA.TabIndex = 0;
@@ -561,7 +572,7 @@
 			// TbxNuclearRadiusA
 			// 
 			this.TbxNuclearRadiusA.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxNuclearRadiusA.Location = new System.Drawing.Point(244, 53);
+			this.TbxNuclearRadiusA.Location = new System.Drawing.Point(244, 78);
 			this.TbxNuclearRadiusA.Name = "TbxNuclearRadiusA";
 			this.TbxNuclearRadiusA.Size = new System.Drawing.Size(192, 31);
 			this.TbxNuclearRadiusA.TabIndex = 0;
@@ -570,7 +581,7 @@
 			// 
 			this.LblNuclearRadiusB.AutoSize = true;
 			this.LblNuclearRadiusB.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblNuclearRadiusB.Location = new System.Drawing.Point(3, 150);
+			this.LblNuclearRadiusB.Location = new System.Drawing.Point(3, 200);
 			this.LblNuclearRadiusB.Name = "LblNuclearRadiusB";
 			this.LblNuclearRadiusB.Size = new System.Drawing.Size(235, 25);
 			this.LblNuclearRadiusB.TabIndex = 0;
@@ -580,7 +591,7 @@
 			// TbxNuclearRadiusB
 			// 
 			this.TbxNuclearRadiusB.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxNuclearRadiusB.Location = new System.Drawing.Point(244, 153);
+			this.TbxNuclearRadiusB.Location = new System.Drawing.Point(244, 203);
 			this.TbxNuclearRadiusB.Name = "TbxNuclearRadiusB";
 			this.TbxNuclearRadiusB.Size = new System.Drawing.Size(192, 31);
 			this.TbxNuclearRadiusB.TabIndex = 0;
@@ -589,7 +600,7 @@
 			// 
 			this.LblImpactParameter.AutoSize = true;
 			this.LblImpactParameter.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblImpactParameter.Location = new System.Drawing.Point(3, 200);
+			this.LblImpactParameter.Location = new System.Drawing.Point(3, 250);
 			this.LblImpactParameter.Name = "LblImpactParameter";
 			this.LblImpactParameter.Size = new System.Drawing.Size(235, 25);
 			this.LblImpactParameter.TabIndex = 0;
@@ -599,7 +610,7 @@
 			// TbxImpactParameter
 			// 
 			this.TbxImpactParameter.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxImpactParameter.Location = new System.Drawing.Point(244, 203);
+			this.TbxImpactParameter.Location = new System.Drawing.Point(244, 253);
 			this.TbxImpactParameter.Name = "TbxImpactParameter";
 			this.TbxImpactParameter.Size = new System.Drawing.Size(192, 31);
 			this.TbxImpactParameter.TabIndex = 0;
@@ -608,7 +619,7 @@
 			// 
 			this.GbxHydro.Controls.Add(this.LayoutHydro);
 			this.GbxHydro.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxHydro.Location = new System.Drawing.Point(10, 290);
+			this.GbxHydro.Location = new System.Drawing.Point(10, 340);
 			this.GbxHydro.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxHydro.Name = "GbxHydro";
 			this.GbxHydro.Padding = new System.Windows.Forms.Padding(10);
@@ -656,13 +667,32 @@
 			this.LayoutHydro.Size = new System.Drawing.Size(439, 216);
 			this.LayoutHydro.TabIndex = 0;
 			// 
+			// LblQGPFormationTemperature
+			// 
+			this.LblQGPFormationTemperature.AutoSize = true;
+			this.LblQGPFormationTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblQGPFormationTemperature.Location = new System.Drawing.Point(3, 200);
+			this.LblQGPFormationTemperature.Name = "LblQGPFormationTemperature";
+			this.LblQGPFormationTemperature.Size = new System.Drawing.Size(235, 25);
+			this.LblQGPFormationTemperature.TabIndex = 0;
+			this.LblQGPFormationTemperature.Text = "QGPFormationTemperature (MeV)";
+			this.LblQGPFormationTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// TbxQGPFormationTemperature
+			// 
+			this.TbxQGPFormationTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxQGPFormationTemperature.Location = new System.Drawing.Point(244, 203);
+			this.TbxQGPFormationTemperature.Name = "TbxQGPFormationTemperature";
+			this.TbxQGPFormationTemperature.Size = new System.Drawing.Size(192, 31);
+			this.TbxQGPFormationTemperature.TabIndex = 0;
+			// 
 			// TbxBeamRapidity
 			// 
 			this.TbxBeamRapidity.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxBeamRapidity.Location = new System.Drawing.Point(244, 178);
 			this.TbxBeamRapidity.Name = "TbxBeamRapidity";
 			this.TbxBeamRapidity.Size = new System.Drawing.Size(192, 31);
-			this.TbxBeamRapidity.TabIndex = 16;
+			this.TbxBeamRapidity.TabIndex = 0;
 			// 
 			// LblBeamRapidity
 			// 
@@ -713,7 +743,7 @@
 			this.CbxTemperatureProfile.Location = new System.Drawing.Point(244, 28);
 			this.CbxTemperatureProfile.Name = "CbxTemperatureProfile";
 			this.CbxTemperatureProfile.Size = new System.Drawing.Size(192, 33);
-			this.CbxTemperatureProfile.TabIndex = 10;
+			this.CbxTemperatureProfile.TabIndex = 0;
 			// 
 			// LblInitialMaximumTemperature
 			// 
@@ -732,7 +762,7 @@
 			this.TbxInitialMaximumTemperature.Location = new System.Drawing.Point(244, 53);
 			this.TbxInitialMaximumTemperature.Name = "TbxInitialMaximumTemperature";
 			this.TbxInitialMaximumTemperature.Size = new System.Drawing.Size(192, 31);
-			this.TbxInitialMaximumTemperature.TabIndex = 11;
+			this.TbxInitialMaximumTemperature.TabIndex = 0;
 			// 
 			// LblBreakupTemperature
 			// 
@@ -751,7 +781,7 @@
 			this.TbxBreakupTemperature.Location = new System.Drawing.Point(244, 78);
 			this.TbxBreakupTemperature.Name = "TbxBreakupTemperature";
 			this.TbxBreakupTemperature.Size = new System.Drawing.Size(192, 31);
-			this.TbxBreakupTemperature.TabIndex = 12;
+			this.TbxBreakupTemperature.TabIndex = 0;
 			// 
 			// LblThermalTime
 			// 
@@ -770,7 +800,7 @@
 			this.TbxThermalTime.Location = new System.Drawing.Point(244, 103);
 			this.TbxThermalTime.Name = "TbxThermalTime";
 			this.TbxThermalTime.Size = new System.Drawing.Size(192, 31);
-			this.TbxThermalTime.TabIndex = 13;
+			this.TbxThermalTime.TabIndex = 0;
 			// 
 			// LblGridCellSize
 			// 
@@ -789,7 +819,7 @@
 			this.TbxGridCellSize.Location = new System.Drawing.Point(244, 128);
 			this.TbxGridCellSize.Name = "TbxGridCellSize";
 			this.TbxGridCellSize.Size = new System.Drawing.Size(192, 31);
-			this.TbxGridCellSize.TabIndex = 14;
+			this.TbxGridCellSize.TabIndex = 0;
 			// 
 			// LblGridRadius
 			// 
@@ -808,18 +838,18 @@
 			this.TbxGridRadius.Location = new System.Drawing.Point(244, 153);
 			this.TbxGridRadius.Name = "TbxGridRadius";
 			this.TbxGridRadius.Size = new System.Drawing.Size(192, 31);
-			this.TbxGridRadius.TabIndex = 15;
+			this.TbxGridRadius.TabIndex = 0;
 			// 
 			// GbxOutput
 			// 
 			this.GbxOutput.Controls.Add(this.LayoutOutput);
 			this.GbxOutput.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxOutput.Location = new System.Drawing.Point(10, 879);
+			this.GbxOutput.Location = new System.Drawing.Point(10, 929);
 			this.GbxOutput.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxOutput.Name = "GbxOutput";
 			this.GbxOutput.Padding = new System.Windows.Forms.Padding(10);
 			this.GbxOutput.Size = new System.Drawing.Size(459, 393);
-			this.GbxOutput.TabIndex = 26;
+			this.GbxOutput.TabIndex = 0;
 			this.GbxOutput.TabStop = false;
 			this.GbxOutput.Text = "Output";
 			// 
@@ -884,7 +914,7 @@
 			this.MsxBottomiumStates.Name = "MsxBottomiumStates";
 			this.MsxBottomiumStates.SelectionString = "";
 			this.MsxBottomiumStates.Size = new System.Drawing.Size(190, 69);
-			this.MsxBottomiumStates.TabIndex = 27;
+			this.MsxBottomiumStates.TabIndex = 0;
 			// 
 			// LblFireballFieldTypes
 			// 
@@ -905,7 +935,7 @@
 			this.MsxFireballFieldTypes.Name = "MsxFireballFieldTypes";
 			this.MsxFireballFieldTypes.SelectionString = "";
 			this.MsxFireballFieldTypes.Size = new System.Drawing.Size(190, 69);
-			this.MsxFireballFieldTypes.TabIndex = 28;
+			this.MsxFireballFieldTypes.TabIndex = 0;
 			// 
 			// LblSnapRate
 			// 
@@ -924,7 +954,7 @@
 			this.TbxSnapRate.Location = new System.Drawing.Point(244, 161);
 			this.TbxSnapRate.Name = "TbxSnapRate";
 			this.TbxSnapRate.Size = new System.Drawing.Size(192, 31);
-			this.TbxSnapRate.TabIndex = 29;
+			this.TbxSnapRate.TabIndex = 0;
 			// 
 			// LblDataFileName
 			// 
@@ -943,7 +973,7 @@
 			this.TbxDataFileName.Location = new System.Drawing.Point(244, 186);
 			this.TbxDataFileName.Name = "TbxDataFileName";
 			this.TbxDataFileName.Size = new System.Drawing.Size(192, 31);
-			this.TbxDataFileName.TabIndex = 30;
+			this.TbxDataFileName.TabIndex = 0;
 			// 
 			// LblBjorkenLifeTime
 			// 
@@ -963,7 +993,7 @@
 			this.TbxBjorkenLifeTime.Name = "TbxBjorkenLifeTime";
 			this.TbxBjorkenLifeTime.ReadOnly = true;
 			this.TbxBjorkenLifeTime.Size = new System.Drawing.Size(192, 31);
-			this.TbxBjorkenLifeTime.TabIndex = 31;
+			this.TbxBjorkenLifeTime.TabIndex = 0;
 			// 
 			// LblLifeTime
 			// 
@@ -983,7 +1013,7 @@
 			this.TbxLifeTime.Name = "TbxLifeTime";
 			this.TbxLifeTime.ReadOnly = true;
 			this.TbxLifeTime.Size = new System.Drawing.Size(192, 31);
-			this.TbxLifeTime.TabIndex = 32;
+			this.TbxLifeTime.TabIndex = 0;
 			// 
 			// LblCentralityBinBoundaries
 			// 
@@ -1002,7 +1032,7 @@
 			this.TbxCentralityBinBoundaries.Location = new System.Drawing.Point(244, 261);
 			this.TbxCentralityBinBoundaries.Name = "TbxCentralityBinBoundaries";
 			this.TbxCentralityBinBoundaries.Size = new System.Drawing.Size(192, 31);
-			this.TbxCentralityBinBoundaries.TabIndex = 33;
+			this.TbxCentralityBinBoundaries.TabIndex = 0;
 			// 
 			// LblImpactParamsAtBinBoundaries
 			// 
@@ -1022,7 +1052,7 @@
 			this.TbxImpactParamsAtBinBoundaries.Name = "TbxImpactParamsAtBinBoundaries";
 			this.TbxImpactParamsAtBinBoundaries.ReadOnly = true;
 			this.TbxImpactParamsAtBinBoundaries.Size = new System.Drawing.Size(192, 31);
-			this.TbxImpactParamsAtBinBoundaries.TabIndex = 34;
+			this.TbxImpactParamsAtBinBoundaries.TabIndex = 0;
 			// 
 			// LblParticipantsAtBinBoundaries
 			// 
@@ -1042,7 +1072,7 @@
 			this.TbxParticipantsAtBinBoundaries.Name = "TbxParticipantsAtBinBoundaries";
 			this.TbxParticipantsAtBinBoundaries.ReadOnly = true;
 			this.TbxParticipantsAtBinBoundaries.Size = new System.Drawing.Size(192, 31);
-			this.TbxParticipantsAtBinBoundaries.TabIndex = 35;
+			this.TbxParticipantsAtBinBoundaries.TabIndex = 0;
 			// 
 			// LblMeanParticipantsInBin
 			// 
@@ -1062,7 +1092,7 @@
 			this.TbxMeanParticipantsInBin.Name = "TbxMeanParticipantsInBin";
 			this.TbxMeanParticipantsInBin.ReadOnly = true;
 			this.TbxMeanParticipantsInBin.Size = new System.Drawing.Size(192, 31);
-			this.TbxMeanParticipantsInBin.TabIndex = 36;
+			this.TbxMeanParticipantsInBin.TabIndex = 0;
 			// 
 			// HSplit
 			// 
@@ -1107,26 +1137,45 @@
 			this.TbxtF3S2.Location = new System.Drawing.Point(3, 263);
 			this.TbxtF3S2.Name = "TbxtF3S2";
 			this.TbxtF3S2.Size = new System.Drawing.Size(158, 31);
-			this.TbxtF3S2.TabIndex = 10;
+			this.TbxtF3S2.TabIndex = 0;
 			// 
-			// TbxQGPFormationTemperature
+			// LblProtonNumberA
 			// 
-			this.TbxQGPFormationTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxQGPFormationTemperature.Location = new System.Drawing.Point(244, 203);
-			this.TbxQGPFormationTemperature.Name = "TbxQGPFormationTemperature";
-			this.TbxQGPFormationTemperature.Size = new System.Drawing.Size(192, 31);
-			this.TbxQGPFormationTemperature.TabIndex = 17;
+			this.LblProtonNumberA.AutoSize = true;
+			this.LblProtonNumberA.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblProtonNumberA.Location = new System.Drawing.Point(3, 50);
+			this.LblProtonNumberA.Name = "LblProtonNumberA";
+			this.LblProtonNumberA.Size = new System.Drawing.Size(235, 25);
+			this.LblProtonNumberA.TabIndex = 0;
+			this.LblProtonNumberA.Text = "ProtonNumberA";
+			this.LblProtonNumberA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// LblQGPFormationTemperature
+			// TbxProtonNumberA
 			// 
-			this.LblQGPFormationTemperature.AutoSize = true;
-			this.LblQGPFormationTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblQGPFormationTemperature.Location = new System.Drawing.Point(3, 200);
-			this.LblQGPFormationTemperature.Name = "LblQGPFormationTemperature";
-			this.LblQGPFormationTemperature.Size = new System.Drawing.Size(235, 25);
-			this.LblQGPFormationTemperature.TabIndex = 0;
-			this.LblQGPFormationTemperature.Text = "QGPFormationTemperature (MeV)";
-			this.LblQGPFormationTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.TbxProtonNumberA.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxProtonNumberA.Location = new System.Drawing.Point(244, 53);
+			this.TbxProtonNumberA.Name = "TbxProtonNumberA";
+			this.TbxProtonNumberA.Size = new System.Drawing.Size(192, 31);
+			this.TbxProtonNumberA.TabIndex = 0;
+			// 
+			// LblProtonNumberB
+			// 
+			this.LblProtonNumberB.AutoSize = true;
+			this.LblProtonNumberB.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblProtonNumberB.Location = new System.Drawing.Point(3, 175);
+			this.LblProtonNumberB.Name = "LblProtonNumberB";
+			this.LblProtonNumberB.Size = new System.Drawing.Size(235, 25);
+			this.LblProtonNumberB.TabIndex = 0;
+			this.LblProtonNumberB.Text = "ProtonNumberB";
+			this.LblProtonNumberB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// TbxProtonNumberB
+			// 
+			this.TbxProtonNumberB.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxProtonNumberB.Location = new System.Drawing.Point(244, 178);
+			this.TbxProtonNumberB.Name = "TbxProtonNumberB";
+			this.TbxProtonNumberB.Size = new System.Drawing.Size(192, 31);
+			this.TbxProtonNumberB.TabIndex = 0;
 			// 
 			// QQonFirePanel
 			// 
@@ -1240,11 +1289,15 @@
 		private System.Windows.Forms.TextBox TbxMeanParticipantsInBin;
 		private System.Windows.Forms.Label LblProtonProtonBaseline;
 		private System.Windows.Forms.ComboBox CbxProtonProtonBaseline;
-		private System.Windows.Forms.Label LblShapeFunctionTypeB;
-		private System.Windows.Forms.ComboBox CbxShapeFunctionTypeB;
-		private System.Windows.Forms.Label LblShapeFunctionTypeA;
-		private System.Windows.Forms.ComboBox CbxShapeFunctionTypeA;
+		private System.Windows.Forms.Label LblNucleusShapeB;
+		private System.Windows.Forms.ComboBox CbxNucleusShapeB;
+		private System.Windows.Forms.Label LblNucleusShapeA;
+		private System.Windows.Forms.ComboBox CbxNucleusShapeA;
 		private System.Windows.Forms.Label LblQGPFormationTemperature;
 		private System.Windows.Forms.TextBox TbxQGPFormationTemperature;
+		private System.Windows.Forms.TextBox TbxProtonNumberB;
+		private System.Windows.Forms.Label LblProtonNumberB;
+		private System.Windows.Forms.TextBox TbxProtonNumberA;
+		private System.Windows.Forms.Label LblProtonNumberA;
 	}
 }

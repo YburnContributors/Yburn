@@ -51,8 +51,8 @@ namespace Yburn.Fireball.Tests
 			param.ProtonNumberA = 82;
 			param.ProtonNumberB = 82;
 			param.QGPConductivityMeV = 5.8;
-			param.ShapeFunctionTypeA = ShapeFunctionType.WoodsSaxonPotential;
-			param.ShapeFunctionTypeB = ShapeFunctionType.WoodsSaxonPotential;
+			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
+			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
 
 			return param;
 		}

@@ -101,10 +101,12 @@ namespace Yburn.Fireball.Tests
 			param.NuclearRadiusBFm = 6.62;
 			param.NucleonNumberA = 208;
 			param.NucleonNumberB = 208;
+			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
+			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
 			param.NumberAveragingAngles = 20;
+			param.ProtonNumberA = 82;
+			param.ProtonNumberB = 82;
 			param.QGPFormationTemperatureMeV = 160;
-			param.ShapeFunctionTypeA = ShapeFunctionType.WoodsSaxonPotential;
-			param.ShapeFunctionTypeB = ShapeFunctionType.WoodsSaxonPotential;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthListHelper.GetList(
 				"..\\..\\bbdata-Pert1LoopCut3.txt", DecayWidthType.GammaTot, new string[] { "Complex" });
 			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;

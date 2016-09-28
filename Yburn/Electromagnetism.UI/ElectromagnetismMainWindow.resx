@@ -151,10 +151,9 @@
         CAAAAAHT////+v///wYuAAAADERhdGFGaWxlTmFtZQkIAAAAAdD////6////BjEAAAANUHJvdG9uTnVt
         YmVyQQkIAAAAAc3////6////BjQAAAANUHJvdG9uTnVtYmVyQgkIAAAAAcr////6////BjcAAAAPUXVh
         ZHJhdHVyZU9yZGVyCQgAAAABx/////r///8GOgAAABJRR1BDb25kdWN0aXZpdHlNZVYJCAAAAAHE////
-        +v///wY9AAAADlJhZGlhbERpc3RhbmNlCQgAAAABwf////r///8GQAAAABJTaGFwZUZ1bmN0aW9uVHlw
-        ZUEJCAAAAAG+////+v///wZDAAAAElNoYXBlRnVuY3Rpb25UeXBlQgkIAAAAAbv////6////BkYAAAAS
-        U3RhcnRFZmZlY3RpdmVUaW1lCQgAAAABuP////r///8GSQAAABFTdG9wRWZmZWN0aXZlVGltZQkIAAAA
-        Cw==
+        +v///wY9AAAADlJhZGlhbERpc3RhbmNlCQgAAAABwf////r///8GQAAAAA1OdWNsZXVzU2hhcGVBCQgA
+        AAABvv////r///8GQwAAAA1OdWNsZXVzU2hhcGVCCQgAAAABu/////r///8GRgAAABJTdGFydEVmZmVj
+        dGl2ZVRpbWUJCAAAAAG4////+v///wZJAAAAEVN0b3BFZmZlY3RpdmVUaW1lCQgAAAAL
 </value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />

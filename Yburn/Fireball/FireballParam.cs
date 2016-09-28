@@ -18,12 +18,13 @@ namespace Yburn.Fireball
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public bool AreParticlesABIdentical
+		public bool AreNucleusABIdentical
 		{
 			get
 			{
-				return ShapeFunctionTypeA == ShapeFunctionTypeB
+				return NucleusShapeA == NucleusShapeB
 					& NucleonNumberA == NucleonNumberB
+					& ProtonNumberA == ProtonNumberB
 					& NuclearRadiusAFm == NuclearRadiusBFm
 					& DiffusenessAFm == DiffusenessBFm;
 			}
@@ -65,7 +66,7 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				if(AreParticlesABIdentical)
+				if(AreNucleusABIdentical)
 				{
 					return NumberGridPoints;
 				}
@@ -128,9 +129,9 @@ namespace Yburn.Fireball
 
 		public EMFCalculationMethod EMFCalculationMethod;
 
-		public ShapeFunctionType ShapeFunctionTypeA;
+		public NucleusShape NucleusShapeA;
 
-		public ShapeFunctionType ShapeFunctionTypeB;
+		public NucleusShape NucleusShapeB;
 
 		public ProtonProtonBaseline ProtonProtonBaseline;
 
@@ -160,8 +161,8 @@ namespace Yburn.Fireball
 			param.ProtonProtonBaseline = ProtonProtonBaseline;
 			param.QGPConductivityMeV = QGPConductivityMeV;
 			param.QGPFormationTemperatureMeV = QGPFormationTemperatureMeV;
-			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
-			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
+			param.NucleusShapeA = NucleusShapeA;
+			param.NucleusShapeB = NucleusShapeB;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthList;
 			param.TemperatureProfile = TemperatureProfile;
 			param.ThermalTimeFm = ThermalTimeFm;
@@ -174,7 +175,7 @@ namespace Yburn.Fireball
 		{
 			double[] x = new double[NumberGridPointsInX];
 
-			if(AreParticlesABIdentical)
+			if(AreNucleusABIdentical)
 			{
 				for(int i = 0; i < x.Length; i++)
 				{

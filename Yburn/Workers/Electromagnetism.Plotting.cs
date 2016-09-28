@@ -313,15 +313,15 @@ namespace Yburn.Workers
 			effectiveTimeValues.Remove(0);
 			dataList.Add(effectiveTimeValues);
 
-			NuclearDensityFunction densityA;
-			NuclearDensityFunction densityB;
-			NuclearDensityFunction.CreateProtonDensityFunctionPair(
-				CreateFireballParam(EMFCalculationMethod), out densityA, out densityB);
+			Nucleus nucleusA;
+			Nucleus nucleusB;
+			Nucleus.CreateNucleusPair(
+				CreateFireballParam(EMFCalculationMethod), out nucleusA, out nucleusB);
 
 			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
 				EMFCalculationMethod, QGPConductivityMeV, PointChargeRapidity);
 			NucleusElectromagneticField nucEMF = new NucleusElectromagneticField(
-				EMFCalculationMethod, QGPConductivityMeV, PointChargeRapidity, densityA);
+				EMFCalculationMethod, QGPConductivityMeV, PointChargeRapidity, nucleusA);
 
 			PlotFunction[] plotFunctions = {
 				t => pcEMF.CalculateRadialElectricField(t, RadialDistance),
@@ -350,15 +350,15 @@ namespace Yburn.Workers
 			radialDistanceValues.Remove(0);
 			dataList.Add(radialDistanceValues);
 
-			NuclearDensityFunction densityA;
-			NuclearDensityFunction densityB;
-			NuclearDensityFunction.CreateProtonDensityFunctionPair(
-				CreateFireballParam(EMFCalculationMethod), out densityA, out densityB);
+			Nucleus nucleusA;
+			Nucleus nucleusB;
+			Nucleus.CreateNucleusPair(
+				CreateFireballParam(EMFCalculationMethod), out nucleusA, out nucleusB);
 
 			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
 				EMFCalculationMethod, QGPConductivityMeV, PointChargeRapidity);
 			NucleusElectromagneticField nucEMF = new NucleusElectromagneticField(
-				EMFCalculationMethod, QGPConductivityMeV, PointChargeRapidity, densityA);
+				EMFCalculationMethod, QGPConductivityMeV, PointChargeRapidity, nucleusA);
 
 			double effectiveTime = 0.4;
 
@@ -420,16 +420,16 @@ namespace Yburn.Workers
 
 				PlotFunction fieldValue = radialDistance =>
 				{
-					NuclearDensityFunction densityA;
-					NuclearDensityFunction densityB;
-					NuclearDensityFunction.CreateProtonDensityFunctionPair(
-						param, out densityA, out densityB);
+					Nucleus nucleusA;
+					Nucleus nucleusB;
+					Nucleus.CreateNucleusPair(
+						param, out nucleusA, out nucleusB);
 
 					NucleusElectromagneticField emf = new NucleusElectromagneticField(
 						param.EMFCalculationMethod,
 						param.QGPConductivityMeV,
 						param.BeamRapidity,
-						densityA);
+						nucleusA);
 
 					return emf.CalculateMagneticField_LCF(
 						param.FormationTimesFm[0],

@@ -68,7 +68,7 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				if(Param.AreParticlesABIdentical)
+				if(Param.AreNucleusABIdentical)
 				{
 					return Temperature[0, 0];
 				}
@@ -168,7 +168,7 @@ namespace Yburn.Fireball
 		{
 			SimpleFireballField field = GetFireballField(fieldName, state, pTindex);
 
-			if(Param.AreParticlesABIdentical)
+			if(Param.AreNucleusABIdentical)
 			{
 				// include a factor of 4 because only a quarter has been integrated
 				return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm
@@ -248,7 +248,7 @@ namespace Yburn.Fireball
 				}
 			}
 
-			if(Param.AreParticlesABIdentical)
+			if(Param.AreNucleusABIdentical)
 			{
 				// include a factor of 4 because only a quarter has been integrated
 				CollisionInQGP *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
@@ -486,10 +486,10 @@ namespace Yburn.Fireball
 			switch(fieldName)
 			{
 				case "ColumnDensityA":
-					return GlauberCalculation.ColumnDensityFieldA;
+					return GlauberCalculation.NucleonNumberColumnDensityFieldA;
 
 				case "ColumnDensityB":
-					return GlauberCalculation.ColumnDensityFieldB;
+					return GlauberCalculation.NucleonNumberColumnDensityFieldB;
 
 				case "DampingFactor":
 					return DampingFactor.GetSimpleFireballField(pTindex, state);
@@ -498,10 +498,10 @@ namespace Yburn.Fireball
 					return DecayWidth.GetSimpleFireballField(pTindex, state);
 
 				case "NucleonDensityA":
-					return GlauberCalculation.NucleonDensityFieldA;
+					return GlauberCalculation.NucleonNumberDensityFieldA;
 
 				case "NucleonDensityB":
-					return GlauberCalculation.NucleonDensityFieldB;
+					return GlauberCalculation.NucleonNumberDensityFieldB;
 
 				case "Ncoll":
 					return GlauberCalculation.NcollField;

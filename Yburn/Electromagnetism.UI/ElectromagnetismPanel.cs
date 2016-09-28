@@ -94,8 +94,8 @@ namespace Yburn.Electromagnetism.UI
 		private void InitializeComboBoxes()
 		{
 			CbxEMFCalculationMethod.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFCalculationMethod"));
-			CbxShapeFunctionTypeA.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ShapeFunction"));
-			CbxShapeFunctionTypeB.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ShapeFunction"));
+			CbxNucleusShapeA.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("NucleusShape"));
+			CbxNucleusShapeB.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("NucleusShape"));
 			MsxEMFCalculationMethodSelection.AddItems(JobOrganizer.GetWorkerEnumEntries("EMFCalculationMethod"));
 		}
 
@@ -121,8 +121,8 @@ namespace Yburn.Electromagnetism.UI
 			nameValuePairs["QuadratureOrder"] = TbxQuadratureOrder.Text;
 			nameValuePairs["QGPConductivityMeV"] = TbxQGPConductivityMeV.Text;
 			nameValuePairs["RadialDistance"] = TbxRadialDistance.Text;
-			nameValuePairs["ShapeFunctionTypeA"] = CbxShapeFunctionTypeA.Text;
-			nameValuePairs["ShapeFunctionTypeB"] = CbxShapeFunctionTypeB.Text;
+			nameValuePairs["NucleusShapeA"] = CbxNucleusShapeA.Text;
+			nameValuePairs["NucleusShapeB"] = CbxNucleusShapeB.Text;
 			nameValuePairs["StartEffectiveTime"] = TbxStartEffectiveTime.Text;
 			nameValuePairs["StopEffectiveTime"] = TbxStopEffectiveTime.Text;
 
@@ -134,8 +134,8 @@ namespace Yburn.Electromagnetism.UI
 			)
 		{
 			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"];
-			CbxShapeFunctionTypeA.Text = nameValuePairs["ShapeFunctionTypeA"];
-			CbxShapeFunctionTypeB.Text = nameValuePairs["ShapeFunctionTypeB"];
+			CbxNucleusShapeA.Text = nameValuePairs["NucleusShapeA"];
+			CbxNucleusShapeB.Text = nameValuePairs["NucleusShapeB"];
 			MsxEMFCalculationMethodSelection.SelectionString = nameValuePairs["EMFCalculationMethodSelection"];
 			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA"];
 			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB"];

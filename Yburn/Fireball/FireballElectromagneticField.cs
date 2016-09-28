@@ -14,22 +14,22 @@ namespace Yburn.Fireball
 		{
 			ImpactParameterFm = param.ImpactParameterFm;
 
-			NuclearDensityFunction densityA;
-			NuclearDensityFunction densityB;
-			NuclearDensityFunction.CreateProtonDensityFunctionPair(
-				param, out densityA, out densityB);
+			Nucleus nucleusA;
+			Nucleus nucleusB;
+			Nucleus.CreateNucleusPair(
+				param, out nucleusA, out nucleusB);
 
 			NucleusEMFA = new NucleusElectromagneticField(
 				param.EMFCalculationMethod,
 				param.QGPConductivityMeV,
 				param.BeamRapidity,
-				densityA);
+				nucleusA);
 
 			NucleusEMFB = new NucleusElectromagneticField(
 				param.EMFCalculationMethod,
 				param.QGPConductivityMeV,
 				-param.BeamRapidity,
-				densityB);
+				nucleusB);
 		}
 
 		/********************************************************************************************

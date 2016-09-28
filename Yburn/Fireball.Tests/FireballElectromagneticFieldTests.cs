@@ -67,15 +67,15 @@ namespace Yburn.Fireball.Tests
 		{
 			FireballParam param = CreateFireballParam();
 
-			NuclearDensityFunction densityA;
-			NuclearDensityFunction densityB;
-			NuclearDensityFunction.CreateProtonDensityFunctionPair(param, out densityA, out densityB);
+			Nucleus nucleusA;
+			Nucleus nucleusB;
+			Nucleus.CreateNucleusPair(param, out nucleusA, out nucleusB);
 
 			NucleusElectromagneticField emf = new NucleusElectromagneticField(
 				param.EMFCalculationMethod,
 				param.QGPConductivityMeV,
 				param.BeamRapidity,
-				densityA);
+				nucleusA);
 
 			SpatialVector[] fieldValues = new SpatialVector[Positions.Length];
 			for(int i = 0; i < Positions.Length; i++)
