@@ -32,6 +32,9 @@
 			this.LayoutBottom = new System.Windows.Forms.TableLayoutPanel();
 			this.GbxAverageParams = new System.Windows.Forms.GroupBox();
 			this.LayoutAverageParams = new System.Windows.Forms.TableLayoutPanel();
+			this.TbxQGPFormationTemperature = new System.Windows.Forms.TextBox();
+			this.LblQGPFormationTemperature = new System.Windows.Forms.Label();
+			this.MsxDecayWidthEvaluationTypes = new Yburn.UI.MultiSelectBox();
 			this.LblMinTemperature = new System.Windows.Forms.Label();
 			this.TbxMinTemperature = new System.Windows.Forms.TextBox();
 			this.LblMaxTemperature = new System.Windows.Forms.Label();
@@ -40,10 +43,9 @@
 			this.TbxTemperatureStepSize = new System.Windows.Forms.TextBox();
 			this.LblMediumVelocity = new System.Windows.Forms.Label();
 			this.TbxMediumVelocity = new System.Windows.Forms.TextBox();
-			this.LblDecayWidthAveragingAngles = new System.Windows.Forms.Label();
-			this.TbxDecayWidthAveragingAngles = new System.Windows.Forms.TextBox();
-			this.LblUseAveragedTemperature = new System.Windows.Forms.Label();
-			this.ChkUseAveragedTemperature = new System.Windows.Forms.CheckBox();
+			this.LblNumberAveragingAngles = new System.Windows.Forms.Label();
+			this.TbxNumberAveragingAngles = new System.Windows.Forms.TextBox();
+			this.LblDecayWidthEvaluationTypes = new System.Windows.Forms.Label();
 			this.LblDecayWidthType = new System.Windows.Forms.Label();
 			this.CbxDecayWidthType = new System.Windows.Forms.ComboBox();
 			this.LblPotentialTypes = new System.Windows.Forms.Label();
@@ -116,7 +118,7 @@
 			this.GbxAverageParams.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxAverageParams.Name = "GbxAverageParams";
 			this.GbxAverageParams.Padding = new System.Windows.Forms.Padding(10);
-			this.GbxAverageParams.Size = new System.Drawing.Size(459, 368);
+			this.GbxAverageParams.Size = new System.Drawing.Size(459, 452);
 			this.GbxAverageParams.TabIndex = 0;
 			this.GbxAverageParams.TabStop = false;
 			this.GbxAverageParams.Text = "Averaging Parameters";
@@ -126,6 +128,9 @@
 			this.LayoutAverageParams.ColumnCount = 2;
 			this.LayoutAverageParams.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
 			this.LayoutAverageParams.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
+			this.LayoutAverageParams.Controls.Add(this.TbxQGPFormationTemperature, 1, 9);
+			this.LayoutAverageParams.Controls.Add(this.LblQGPFormationTemperature, 0, 9);
+			this.LayoutAverageParams.Controls.Add(this.MsxDecayWidthEvaluationTypes, 1, 5);
 			this.LayoutAverageParams.Controls.Add(this.LblMinTemperature, 0, 0);
 			this.LayoutAverageParams.Controls.Add(this.TbxMinTemperature, 1, 0);
 			this.LayoutAverageParams.Controls.Add(this.LblMaxTemperature, 0, 1);
@@ -134,10 +139,9 @@
 			this.LayoutAverageParams.Controls.Add(this.TbxTemperatureStepSize, 1, 2);
 			this.LayoutAverageParams.Controls.Add(this.LblMediumVelocity, 0, 3);
 			this.LayoutAverageParams.Controls.Add(this.TbxMediumVelocity, 1, 3);
-			this.LayoutAverageParams.Controls.Add(this.LblDecayWidthAveragingAngles, 0, 4);
-			this.LayoutAverageParams.Controls.Add(this.TbxDecayWidthAveragingAngles, 1, 4);
-			this.LayoutAverageParams.Controls.Add(this.LblUseAveragedTemperature, 0, 5);
-			this.LayoutAverageParams.Controls.Add(this.ChkUseAveragedTemperature, 1, 5);
+			this.LayoutAverageParams.Controls.Add(this.LblNumberAveragingAngles, 0, 4);
+			this.LayoutAverageParams.Controls.Add(this.TbxNumberAveragingAngles, 1, 4);
+			this.LayoutAverageParams.Controls.Add(this.LblDecayWidthEvaluationTypes, 0, 5);
 			this.LayoutAverageParams.Controls.Add(this.LblDecayWidthType, 0, 6);
 			this.LayoutAverageParams.Controls.Add(this.CbxDecayWidthType, 1, 6);
 			this.LayoutAverageParams.Controls.Add(this.LblPotentialTypes, 0, 7);
@@ -145,7 +149,7 @@
 			this.LayoutAverageParams.Controls.Add(this.LblBottomiumStates, 0, 8);
 			this.LayoutAverageParams.Controls.Add(this.MsxBottomiumStates, 1, 8);
 			this.LayoutAverageParams.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LayoutAverageParams.Location = new System.Drawing.Point(10, 25);
+			this.LayoutAverageParams.Location = new System.Drawing.Point(10, 34);
 			this.LayoutAverageParams.Name = "LayoutAverageParams";
 			this.LayoutAverageParams.Padding = new System.Windows.Forms.Padding(5);
 			this.LayoutAverageParams.RowCount = 10;
@@ -154,13 +158,42 @@
 			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 79F));
 			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 79F));
 			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 79F));
-			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.LayoutAverageParams.Size = new System.Drawing.Size(439, 333);
+			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutAverageParams.Size = new System.Drawing.Size(439, 408);
 			this.LayoutAverageParams.TabIndex = 0;
+			// 
+			// TbxQGPFormationTemperature
+			// 
+			this.TbxQGPFormationTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxQGPFormationTemperature.Location = new System.Drawing.Point(243, 395);
+			this.TbxQGPFormationTemperature.Name = "TbxQGPFormationTemperature";
+			this.TbxQGPFormationTemperature.Size = new System.Drawing.Size(188, 31);
+			this.TbxQGPFormationTemperature.TabIndex = 9;
+			// 
+			// LblQGPFormationTemperature
+			// 
+			this.LblQGPFormationTemperature.AutoSize = true;
+			this.LblQGPFormationTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblQGPFormationTemperature.Location = new System.Drawing.Point(8, 392);
+			this.LblQGPFormationTemperature.Name = "LblQGPFormationTemperature";
+			this.LblQGPFormationTemperature.Size = new System.Drawing.Size(229, 25);
+			this.LblQGPFormationTemperature.TabIndex = 0;
+			this.LblQGPFormationTemperature.Text = "QGPFormationTemperature (MeV)";
+			this.LblQGPFormationTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// MsxDecayWidthEvaluationTypes
+			// 
+			this.MsxDecayWidthEvaluationTypes.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.MsxDecayWidthEvaluationTypes.Location = new System.Drawing.Point(243, 134);
+			this.MsxDecayWidthEvaluationTypes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
+			this.MsxDecayWidthEvaluationTypes.Name = "MsxDecayWidthEvaluationTypes";
+			this.MsxDecayWidthEvaluationTypes.SelectionString = "";
+			this.MsxDecayWidthEvaluationTypes.Size = new System.Drawing.Size(188, 72);
+			this.MsxDecayWidthEvaluationTypes.TabIndex = 5;
 			// 
 			// LblMinTemperature
 			// 
@@ -178,7 +211,7 @@
 			this.TbxMinTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxMinTemperature.Location = new System.Drawing.Point(243, 8);
 			this.TbxMinTemperature.Name = "TbxMinTemperature";
-			this.TbxMinTemperature.Size = new System.Drawing.Size(188, 22);
+			this.TbxMinTemperature.Size = new System.Drawing.Size(188, 31);
 			this.TbxMinTemperature.TabIndex = 0;
 			// 
 			// LblMaxTemperature
@@ -197,7 +230,7 @@
 			this.TbxMaxTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxMaxTemperature.Location = new System.Drawing.Point(243, 33);
 			this.TbxMaxTemperature.Name = "TbxMaxTemperature";
-			this.TbxMaxTemperature.Size = new System.Drawing.Size(188, 22);
+			this.TbxMaxTemperature.Size = new System.Drawing.Size(188, 31);
 			this.TbxMaxTemperature.TabIndex = 1;
 			// 
 			// LblTemperatureStepSize
@@ -216,7 +249,7 @@
 			this.TbxTemperatureStepSize.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxTemperatureStepSize.Location = new System.Drawing.Point(243, 58);
 			this.TbxTemperatureStepSize.Name = "TbxTemperatureStepSize";
-			this.TbxTemperatureStepSize.Size = new System.Drawing.Size(188, 22);
+			this.TbxTemperatureStepSize.Size = new System.Drawing.Size(188, 31);
 			this.TbxTemperatureStepSize.TabIndex = 2;
 			// 
 			// LblMediumVelocity
@@ -235,53 +268,44 @@
 			this.TbxMediumVelocity.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxMediumVelocity.Location = new System.Drawing.Point(243, 83);
 			this.TbxMediumVelocity.Name = "TbxMediumVelocity";
-			this.TbxMediumVelocity.Size = new System.Drawing.Size(188, 22);
+			this.TbxMediumVelocity.Size = new System.Drawing.Size(188, 31);
 			this.TbxMediumVelocity.TabIndex = 3;
 			// 
-			// LblDecayWidthAveragingAngles
+			// LblNumberAveragingAngles
 			// 
-			this.LblDecayWidthAveragingAngles.AutoSize = true;
-			this.LblDecayWidthAveragingAngles.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDecayWidthAveragingAngles.Location = new System.Drawing.Point(8, 105);
-			this.LblDecayWidthAveragingAngles.Name = "LblDecayWidthAveragingAngles";
-			this.LblDecayWidthAveragingAngles.Size = new System.Drawing.Size(229, 25);
-			this.LblDecayWidthAveragingAngles.TabIndex = 0;
-			this.LblDecayWidthAveragingAngles.Text = "DecayWidthAveragingAngles (deg)";
-			this.LblDecayWidthAveragingAngles.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblNumberAveragingAngles.AutoSize = true;
+			this.LblNumberAveragingAngles.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblNumberAveragingAngles.Location = new System.Drawing.Point(8, 105);
+			this.LblNumberAveragingAngles.Name = "LblNumberAveragingAngles";
+			this.LblNumberAveragingAngles.Size = new System.Drawing.Size(229, 25);
+			this.LblNumberAveragingAngles.TabIndex = 0;
+			this.LblNumberAveragingAngles.Text = "NumberAveragingAngles";
+			this.LblNumberAveragingAngles.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxDecayWidthAveragingAngles
+			// TbxNumberAveragingAngles
 			// 
-			this.TbxDecayWidthAveragingAngles.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxDecayWidthAveragingAngles.Location = new System.Drawing.Point(243, 108);
-			this.TbxDecayWidthAveragingAngles.Name = "TbxDecayWidthAveragingAngles";
-			this.TbxDecayWidthAveragingAngles.Size = new System.Drawing.Size(188, 22);
-			this.TbxDecayWidthAveragingAngles.TabIndex = 4;
+			this.TbxNumberAveragingAngles.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxNumberAveragingAngles.Location = new System.Drawing.Point(243, 108);
+			this.TbxNumberAveragingAngles.Name = "TbxNumberAveragingAngles";
+			this.TbxNumberAveragingAngles.Size = new System.Drawing.Size(188, 31);
+			this.TbxNumberAveragingAngles.TabIndex = 4;
 			// 
-			// LblUseAveragedTemperature
+			// LblDecayWidthEvaluationTypes
 			// 
-			this.LblUseAveragedTemperature.AutoSize = true;
-			this.LblUseAveragedTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblUseAveragedTemperature.Location = new System.Drawing.Point(8, 130);
-			this.LblUseAveragedTemperature.Name = "LblUseAveragedTemperature";
-			this.LblUseAveragedTemperature.Size = new System.Drawing.Size(229, 25);
-			this.LblUseAveragedTemperature.TabIndex = 9;
-			this.LblUseAveragedTemperature.Text = "UseAveragedTemperature";
-			this.LblUseAveragedTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// ChkUseAveragedTemperature
-			// 
-			this.ChkUseAveragedTemperature.AutoSize = true;
-			this.ChkUseAveragedTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ChkUseAveragedTemperature.Location = new System.Drawing.Point(243, 133);
-			this.ChkUseAveragedTemperature.Name = "ChkUseAveragedTemperature";
-			this.ChkUseAveragedTemperature.Size = new System.Drawing.Size(188, 19);
-			this.ChkUseAveragedTemperature.TabIndex = 5;
+			this.LblDecayWidthEvaluationTypes.AutoSize = true;
+			this.LblDecayWidthEvaluationTypes.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblDecayWidthEvaluationTypes.Location = new System.Drawing.Point(8, 130);
+			this.LblDecayWidthEvaluationTypes.Name = "LblDecayWidthEvaluationTypes";
+			this.LblDecayWidthEvaluationTypes.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+			this.LblDecayWidthEvaluationTypes.Size = new System.Drawing.Size(229, 79);
+			this.LblDecayWidthEvaluationTypes.TabIndex = 0;
+			this.LblDecayWidthEvaluationTypes.Text = "DecayWidthEvaluationTypes";
 			// 
 			// LblDecayWidthType
 			// 
 			this.LblDecayWidthType.AutoSize = true;
 			this.LblDecayWidthType.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDecayWidthType.Location = new System.Drawing.Point(8, 155);
+			this.LblDecayWidthType.Location = new System.Drawing.Point(8, 209);
 			this.LblDecayWidthType.Name = "LblDecayWidthType";
 			this.LblDecayWidthType.Size = new System.Drawing.Size(229, 25);
 			this.LblDecayWidthType.TabIndex = 0;
@@ -292,16 +316,16 @@
 			// 
 			this.CbxDecayWidthType.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.CbxDecayWidthType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.CbxDecayWidthType.Location = new System.Drawing.Point(243, 158);
+			this.CbxDecayWidthType.Location = new System.Drawing.Point(243, 212);
 			this.CbxDecayWidthType.Name = "CbxDecayWidthType";
-			this.CbxDecayWidthType.Size = new System.Drawing.Size(188, 24);
+			this.CbxDecayWidthType.Size = new System.Drawing.Size(188, 33);
 			this.CbxDecayWidthType.TabIndex = 6;
 			// 
 			// LblPotentialTypes
 			// 
 			this.LblPotentialTypes.AutoSize = true;
 			this.LblPotentialTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblPotentialTypes.Location = new System.Drawing.Point(8, 180);
+			this.LblPotentialTypes.Location = new System.Drawing.Point(8, 234);
 			this.LblPotentialTypes.Name = "LblPotentialTypes";
 			this.LblPotentialTypes.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
 			this.LblPotentialTypes.Size = new System.Drawing.Size(229, 79);
@@ -311,7 +335,7 @@
 			// MsxPotentialTypes
 			// 
 			this.MsxPotentialTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MsxPotentialTypes.Location = new System.Drawing.Point(243, 184);
+			this.MsxPotentialTypes.Location = new System.Drawing.Point(243, 238);
 			this.MsxPotentialTypes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
 			this.MsxPotentialTypes.Name = "MsxPotentialTypes";
 			this.MsxPotentialTypes.SelectionString = "";
@@ -321,7 +345,7 @@
 			// LblBottomiumStates
 			// 
 			this.LblBottomiumStates.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblBottomiumStates.Location = new System.Drawing.Point(8, 259);
+			this.LblBottomiumStates.Location = new System.Drawing.Point(8, 313);
 			this.LblBottomiumStates.Name = "LblBottomiumStates";
 			this.LblBottomiumStates.Size = new System.Drawing.Size(229, 79);
 			this.LblBottomiumStates.TabIndex = 0;
@@ -330,18 +354,18 @@
 			// MsxBottomiumStates
 			// 
 			this.MsxBottomiumStates.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MsxBottomiumStates.Location = new System.Drawing.Point(244, 264);
-			this.MsxBottomiumStates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+			this.MsxBottomiumStates.Location = new System.Drawing.Point(243, 317);
+			this.MsxBottomiumStates.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
 			this.MsxBottomiumStates.Name = "MsxBottomiumStates";
 			this.MsxBottomiumStates.SelectionString = "";
-			this.MsxBottomiumStates.Size = new System.Drawing.Size(186, 69);
+			this.MsxBottomiumStates.Size = new System.Drawing.Size(188, 72);
 			this.MsxBottomiumStates.TabIndex = 8;
 			// 
 			// GbxOutput
 			// 
 			this.GbxOutput.Controls.Add(this.tableLayoutPanel1);
 			this.GbxOutput.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxOutput.Location = new System.Drawing.Point(10, 398);
+			this.GbxOutput.Location = new System.Drawing.Point(10, 482);
 			this.GbxOutput.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxOutput.Name = "GbxOutput";
 			this.GbxOutput.Padding = new System.Windows.Forms.Padding(10);
@@ -358,12 +382,12 @@
 			this.tableLayoutPanel1.Controls.Add(this.LblDataFileName, 0, 0);
 			this.tableLayoutPanel1.Controls.Add(this.TbxDataFileName, 1, 0);
 			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 25);
+			this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 34);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 			this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(5);
 			this.tableLayoutPanel1.RowCount = 1;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 30);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 21);
 			this.tableLayoutPanel1.TabIndex = 0;
 			// 
 			// LblDataFileName
@@ -382,7 +406,7 @@
 			this.TbxDataFileName.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxDataFileName.Location = new System.Drawing.Point(243, 8);
 			this.TbxDataFileName.Name = "TbxDataFileName";
-			this.TbxDataFileName.Size = new System.Drawing.Size(188, 22);
+			this.TbxDataFileName.Size = new System.Drawing.Size(188, 31);
 			this.TbxDataFileName.TabIndex = 0;
 			// 
 			// HSplit
@@ -459,8 +483,8 @@
 		private System.Windows.Forms.TextBox TbxMediumVelocity;
 		private System.Windows.Forms.Label LblBottomiumStates;
 		private Yburn.UI.MultiSelectBox MsxBottomiumStates;
-		private System.Windows.Forms.TextBox TbxDecayWidthAveragingAngles;
-		private System.Windows.Forms.Label LblDecayWidthAveragingAngles;
+		private System.Windows.Forms.TextBox TbxNumberAveragingAngles;
+		private System.Windows.Forms.Label LblNumberAveragingAngles;
 		private System.Windows.Forms.Label LblPotentialTypes;
 		private Yburn.UI.MultiSelectBox MsxPotentialTypes;
 		private System.Windows.Forms.Label LblDecayWidthType;
@@ -471,11 +495,13 @@
 		private System.Windows.Forms.TextBox TbxMinTemperature;
 		private System.Windows.Forms.TextBox TbxTemperatureStepSize;
 		private System.Windows.Forms.Label LblTemperatureStepSize;
-		private System.Windows.Forms.Label LblUseAveragedTemperature;
-		private System.Windows.Forms.CheckBox ChkUseAveragedTemperature;
+		private System.Windows.Forms.Label LblDecayWidthEvaluationTypes;
 		private System.Windows.Forms.GroupBox GbxOutput;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.Label LblDataFileName;
 		private System.Windows.Forms.TextBox TbxDataFileName;
+		private Yburn.UI.MultiSelectBox MsxDecayWidthEvaluationTypes;
+		private System.Windows.Forms.TextBox TbxQGPFormationTemperature;
+		private System.Windows.Forms.Label LblQGPFormationTemperature;
 	}
 }

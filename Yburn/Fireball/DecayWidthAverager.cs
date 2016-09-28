@@ -11,13 +11,19 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public static double GetAveragedTemperature(
-			double temperature,
+			double qgpTemperature,
 			double velocity
 			)
 		{
-			return velocity > 0 ?
-				GetAveragedTemperature_NonZeroVelocity(temperature, velocity)
-				: temperature;
+			if(velocity > 0)
+			{
+				return qgpTemperature
+					* Math.Sqrt(1.0 - velocity * velocity) * Functions.Artanh(velocity) / velocity;
+			}
+			else
+			{
+				return qgpTemperature;
+			}
 		}
 
 		/********************************************************************************************
@@ -25,19 +31,15 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public DecayWidthAverager(
-			List<KeyValuePair<double, double>> temperatureDecayWidthList
-			)
-			: this(temperatureDecayWidthList, null)
-		{
-		}
-
-		public DecayWidthAverager(
 			List<KeyValuePair<double, double>> temperatureDecayWidthList,
-			double[] averagingAngles
+			int numberAveragingAngles,
+			double qgpFormationTemperature
 			)
 		{
 			SetDecayWidthInterpolation(temperatureDecayWidthList);
-			SetAveragingAngleCosines(averagingAngles);
+			NumberAveragingAngles = numberAveragingAngles;
+			QGPFormationTemperature = qgpFormationTemperature;
+			AssertValidMembers();
 		}
 
 		/********************************************************************************************
@@ -45,92 +47,73 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public double GetDecayWidth(
-			double temperature,
-			double velocity
+			double qgpTemperature,
+			double velocity,
+			DecayWidthEvaluationType evaluationType
 			)
 		{
-			if(AreAveragingAnglesSet && velocity > 0)
+			if(qgpTemperature < QGPFormationTemperature)
 			{
-				return GetAveragedDecayWidth(temperature, velocity);
+				return 0;
 			}
 			else
 			{
-				return GetDecayWidth(temperature);
+				switch(evaluationType)
+				{
+					case DecayWidthEvaluationType.UnshiftedTemperature:
+						return GetDecayWidth(qgpTemperature);
+
+					case DecayWidthEvaluationType.MaximallyBlueshifted:
+						return GetDecayWidth(
+							GetDopplerShiftedTemperature(qgpTemperature, velocity, 1));
+
+					case DecayWidthEvaluationType.AveragedTemperature:
+						return GetDecayWidthUsingAveragedTemperature(qgpTemperature, velocity);
+
+					case DecayWidthEvaluationType.AveragedDecayWidth:
+						return GetAveragedDecayWidth(qgpTemperature, velocity);
+
+					default:
+						throw new Exception("Invalid DecayWidthEvaluationType.");
+				}
 			}
 		}
 
-		public double GetDecayWidthUsingAveragedTemperature(
-			double temperature,
-			double velocity
-			)
-		{
-			return GetDecayWidth(GetAveragedTemperature(temperature, velocity));
-		}
+		public readonly double QGPFormationTemperature;
 
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private void AssertAnglesOrdered(
-			double[] averagingAngles
-			)
-		{
-			for(int i = 1; i < averagingAngles.Length; i++)
-			{
-				if(averagingAngles[i - 1] >= averagingAngles[i])
-				{
-					throw new AveragingAnglesDisorderedException();
-				}
-			}
-		}
-
-		private static double GetAveragedTemperature(
-			double temperature,
+		private static double GetDopplerShiftedTemperature(
+			double qgpTemperature,
 			double velocity,
 			double cosine
 			)
 		{
-			return temperature * Math.Sqrt(1.0 - velocity * velocity) / (1.0 - velocity * cosine);
-		}
-
-		private static double GetAveragedTemperature_NonZeroVelocity(
-			double temperature,
-			double velocity
-			)
-		{
-			return temperature * Math.Sqrt(1.0 - velocity * velocity) * Functions.Artanh(velocity) / velocity;
+			return qgpTemperature
+				* Math.Sqrt(1.0 - velocity * velocity) / (1.0 - velocity * cosine);
 		}
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
+		private int NumberAveragingAngles;
+
 		private LinearInterpolation1D InterpolatedDecayWidths;
 
-		private double[] Cosines;
-
-		private void SetAveragingAngleCosines(
-			double[] averagingAngles
-			)
+		private void AssertValidMembers()
 		{
-			AreAveragingAnglesSet = false;
-
-			if(averagingAngles != null
-				&& averagingAngles.Length > 0)
+			if(NumberAveragingAngles <= 0)
 			{
-				AssertAnglesOrdered(averagingAngles);
-
-				Cosines = new double[averagingAngles.Length];
-				for(int i = 0; i < Cosines.Length; i++)
-				{
-					Cosines[i] = Math.Cos(averagingAngles[Cosines.Length - 1 - i] * Math.PI / 180);
-				}
-
-				AreAveragingAnglesSet = true;
+				throw new Exception("NumberAveragingAngles <= 0");
+			}
+			if(QGPFormationTemperature <= 0)
+			{
+				throw new Exception("QGPFormationTemperature <= 0");
 			}
 		}
-
-		private bool AreAveragingAnglesSet;
 
 		private void SetDecayWidthInterpolation(
 			List<KeyValuePair<double, double>> temperatureDecayWidthList
@@ -148,65 +131,40 @@ namespace Yburn.Fireball
 			InterpolatedDecayWidths = new LinearInterpolation1D(temperatureList, gammaList);
 		}
 
-		private double GetAveragedDecayWidth(
-			double temperature,
+		private double GetDecayWidthUsingAveragedTemperature(
+			double qgpTemperature,
 			double velocity
 			)
 		{
-			if(Cosines.Length == 1)
-			{
-				return GetDecayWidth(GetAveragedTemperature(temperature, velocity, Cosines[0]));
-			}
-			else
-			{
-				double averagedDecayWidth = 0;
-				double averagedTemperature;
-				for(int i = 1; i < Cosines.Length - 1; i++)
-				{
-					averagedTemperature = GetAveragedTemperature(
-						temperature, velocity, Cosines[i]);
-					averagedDecayWidth += GetDecayWidth(
-						averagedTemperature) * (Cosines[i + 1] - Cosines[i - 1]);
-				}
+			return GetDecayWidth(GetAveragedTemperature(qgpTemperature, velocity));
+		}
 
-				averagedTemperature = GetAveragedTemperature(
-					temperature, velocity, Cosines[0]);
-				averagedDecayWidth += GetDecayWidth(
-					averagedTemperature) * (Cosines[1] - Cosines[0]);
+		private double GetAveragedDecayWidth(
+			double qgpTemperature,
+			double velocity
+			)
+		{
+			Func<double, double> integrand = cosine => GetDecayWidth(GetDopplerShiftedTemperature(
+				qgpTemperature, velocity, cosine));
 
-				averagedTemperature = GetAveragedTemperature(
-					temperature, velocity, Cosines[Cosines.Length - 1]);
-				averagedDecayWidth += GetDecayWidth(averagedTemperature)
-					* (Cosines[Cosines.Length - 1] - Cosines[Cosines.Length - 2]);
-
-				return averagedDecayWidth * 0.25;
-			}
+			return 0.5 * Quadrature.IntegrateOverInterval(integrand, -1, 1, NumberAveragingAngles);
 		}
 
 		private double GetDecayWidth(
-			double averagedTemperature
+			double effectiveTemperature
 			)
 		{
-			if(averagedTemperature < InterpolatedDecayWidths.Xmin)
+			if(effectiveTemperature < InterpolatedDecayWidths.Xmin)
 			{
 				return 0;
 			}
 
-			if(averagedTemperature > InterpolatedDecayWidths.Xmax)
+			if(effectiveTemperature > InterpolatedDecayWidths.Xmax)
 			{
 				return double.PositiveInfinity;
 			}
 
-			return InterpolatedDecayWidths.GetValue(averagedTemperature);
-		}
-	}
-
-	[Serializable]
-	public class AveragingAnglesDisorderedException : Exception
-	{
-		public AveragingAnglesDisorderedException()
-			: base("AveragingAngles are disordered.")
-		{
+			return InterpolatedDecayWidths.GetValue(effectiveTemperature);
 		}
 	}
 }

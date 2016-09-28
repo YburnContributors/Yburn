@@ -398,7 +398,8 @@ namespace Yburn.Fireball
 				Param.FormationTimesFm,
 				CurrentTime,
 				Param.DecayWidthEvaluationType,
-				Param.DecayWidthAveragingAngles,
+				Param.NumberAveragingAngles,
+				Param.QGPFormationTemperatureMeV,
 				Param.TemperatureDecayWidthList);
 		}
 

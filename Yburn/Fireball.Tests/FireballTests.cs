@@ -12,18 +12,33 @@ namespace Yburn.Fireball.Tests
 		 ********************************************************************************************/
 
 		[TestMethod]
+		public void FireballEvolution_AveragedDecayWidth()
+		{
+			SetFireball(DecayWidthEvaluationType.AveragedDecayWidth);
+			CalculateFireballEvolution();
+
+			double[] qgpSuppressionFactors = GetSuppressionFactors();
+			AssertHelper.AssertApproximatelyEqual(0.64017034045961385, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
+			AssertHelper.AssertApproximatelyEqual(0.025271952777538038, qgpSuppressionFactors[(int)BottomiumState.x1P]);
+			AssertHelper.AssertApproximatelyEqual(0.040457173167155434, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
+			AssertHelper.AssertApproximatelyEqual(0.016922276995776139, qgpSuppressionFactors[(int)BottomiumState.x2P]);
+			AssertHelper.AssertApproximatelyEqual(0.016374854512085597, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
+			AssertHelper.AssertApproximatelyEqual(0.016374854512085597, qgpSuppressionFactors[(int)BottomiumState.x3P]);
+		}
+
+		[TestMethod]
 		public void FireballEvolution_AveragedTemperature()
 		{
 			SetFireball(DecayWidthEvaluationType.AveragedTemperature);
 			CalculateFireballEvolution();
 
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
-			AssertHelper.AssertRoundedEqual(0.6873566243717929, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
-			AssertHelper.AssertRoundedEqual(0.14694835740182993, qgpSuppressionFactors[(int)BottomiumState.x1P]);
-			AssertHelper.AssertRoundedEqual(0.18302631965025354, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
-			AssertHelper.AssertRoundedEqual(0.043377555418237478, qgpSuppressionFactors[(int)BottomiumState.x2P]);
-			AssertHelper.AssertRoundedEqual(0.055872842998990216, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
-			AssertHelper.AssertRoundedEqual(0.022662140834400723, qgpSuppressionFactors[(int)BottomiumState.x3P]);
+			AssertHelper.AssertApproximatelyEqual(0.68252447820678641, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
+			AssertHelper.AssertApproximatelyEqual(0.14523997466000008, qgpSuppressionFactors[(int)BottomiumState.x1P]);
+			AssertHelper.AssertApproximatelyEqual(0.18004535030644905, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
+			AssertHelper.AssertApproximatelyEqual(0.04249598145607774, qgpSuppressionFactors[(int)BottomiumState.x2P]);
+			AssertHelper.AssertApproximatelyEqual(0.054605639154239473, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
+			AssertHelper.AssertApproximatelyEqual(0.02236133123563689, qgpSuppressionFactors[(int)BottomiumState.x3P]);
 		}
 
 		[TestMethod]
@@ -33,27 +48,27 @@ namespace Yburn.Fireball.Tests
 			CalculateFireballEvolution();
 
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
-			AssertHelper.AssertRoundedEqual(0.27229850657015087, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
-			AssertHelper.AssertRoundedEqual(0.021115017237346503, qgpSuppressionFactors[(int)BottomiumState.x1P]);
-			AssertHelper.AssertRoundedEqual(0.029253999794419144, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
-			AssertHelper.AssertRoundedEqual(0.0085912564231609, qgpSuppressionFactors[(int)BottomiumState.x2P]);
-			AssertHelper.AssertRoundedEqual(0.010894507768343522, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
-			AssertHelper.AssertRoundedEqual(0.0049171614281281863, qgpSuppressionFactors[(int)BottomiumState.x3P]);
+			AssertHelper.AssertApproximatelyEqual(0.29322392236161327, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
+			AssertHelper.AssertApproximatelyEqual(0.024133455852001055, qgpSuppressionFactors[(int)BottomiumState.x1P]);
+			AssertHelper.AssertApproximatelyEqual(0.035597085276149021, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
+			AssertHelper.AssertApproximatelyEqual(0.016922276995776139, qgpSuppressionFactors[(int)BottomiumState.x2P]);
+			AssertHelper.AssertApproximatelyEqual(0.016374854512085597, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
+			AssertHelper.AssertApproximatelyEqual(0.016374854512085597, qgpSuppressionFactors[(int)BottomiumState.x3P]);
 		}
 
 		[TestMethod]
-		public void FireballEvolution_SameAsTemperature()
+		public void FireballEvolution_UnshiftedTemperature()
 		{
 			SetFireball(DecayWidthEvaluationType.UnshiftedTemperature);
 			CalculateFireballEvolution();
 
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
-			AssertHelper.AssertRoundedEqual(0.65398639771001144, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
-			AssertHelper.AssertRoundedEqual(0.12166054711174285, qgpSuppressionFactors[(int)BottomiumState.x1P]);
-			AssertHelper.AssertRoundedEqual(0.15830120446803775, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
-			AssertHelper.AssertRoundedEqual(0.037575441315428913, qgpSuppressionFactors[(int)BottomiumState.x2P]);
-			AssertHelper.AssertRoundedEqual(0.047287591230632427, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
-			AssertHelper.AssertRoundedEqual(0.020521127911339032, qgpSuppressionFactors[(int)BottomiumState.x3P]);
+			AssertHelper.AssertApproximatelyEqual(0.65398456350529932, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
+			AssertHelper.AssertApproximatelyEqual(0.1216628615554517, qgpSuppressionFactors[(int)BottomiumState.x1P]);
+			AssertHelper.AssertApproximatelyEqual(0.15831465807174472, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
+			AssertHelper.AssertApproximatelyEqual(0.037575775582552727, qgpSuppressionFactors[(int)BottomiumState.x2P]);
+			AssertHelper.AssertApproximatelyEqual(0.047288313626309621, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
+			AssertHelper.AssertApproximatelyEqual(0.020521140343921745, qgpSuppressionFactors[(int)BottomiumState.x3P]);
 		}
 
 		/********************************************************************************************
@@ -70,29 +85,31 @@ namespace Yburn.Fireball.Tests
 			)
 		{
 			FireballParam param = new FireballParam();
+			param.BeamRapidity = 7.99;
+			param.BreakupTemperatureMeV = BreakupTemperature;
+			param.DecayWidthEvaluationType = DecayWidthEvaluationType.AveragedTemperature;
+			param.DecayWidthEvaluationType = decayWidthEvaluationType;
 			param.DiffusenessAFm = 0.546;
 			param.DiffusenessBFm = 0.546;
-			param.DecayWidthEvaluationType = DecayWidthEvaluationType.AveragedTemperature;
 			param.ExpansionMode = ExpansionMode.Transverse;
-			param.ImpactParameterFm = 1.5;
-			param.NucleonNumberA = 208;
-			param.NucleonNumberB = 208;
-			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
-			param.TransverseMomentaGeV = new double[] { 6 };
-			param.NuclearRadiusAFm = 6.62;
-			param.NuclearRadiusBFm = 6.62;
-			param.DecayWidthEvaluationType = decayWidthEvaluationType;
-			param.InitialMaximumTemperatureMeV = 550;
-			param.BreakupTemperatureMeV = BreakupTemperature;
 			param.FormationTimesFm = new double[] { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
-			param.ThermalTimeFm = 0.1;
 			param.GridCellSizeFm = 0.4;
 			param.GridRadiusFm = 10;
-			param.BeamRapidity = 7.99;
-			param.TemperatureDecayWidthList = TemperatureDecayWidthListHelper.GetList(
-					"..\\..\\bbdata-Pert1LoopCut3.txt", DecayWidthType.GammaTot, new string[] { "Complex" });
+			param.ImpactParameterFm = 1.5;
+			param.InitialMaximumTemperatureMeV = 550;
+			param.NuclearRadiusAFm = 6.62;
+			param.NuclearRadiusBFm = 6.62;
+			param.NucleonNumberA = 208;
+			param.NucleonNumberB = 208;
+			param.NumberAveragingAngles = 20;
+			param.QGPFormationTemperatureMeV = 160;
 			param.ShapeFunctionTypeA = ShapeFunctionType.WoodsSaxonPotential;
 			param.ShapeFunctionTypeB = ShapeFunctionType.WoodsSaxonPotential;
+			param.TemperatureDecayWidthList = TemperatureDecayWidthListHelper.GetList(
+				"..\\..\\bbdata-Pert1LoopCut3.txt", DecayWidthType.GammaTot, new string[] { "Complex" });
+			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
+			param.ThermalTimeFm = 0.1;
+			param.TransverseMomentaGeV = new double[] { 6 };
 
 			return param;
 		}

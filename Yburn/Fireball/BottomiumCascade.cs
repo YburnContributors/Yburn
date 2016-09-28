@@ -119,30 +119,74 @@ namespace Yburn.Fireball
 			return initialQQPopulations;
 		}
 
+		public static double[] GetInitialQQPopulationsWithBranchingRatiosIncluded(
+			ProtonProtonBaseline ProtonProtonBaseline,
+			double FeedDown3P
+			)
+		{
+			double[] initialQQPopulations = GetInitialQQPopulations(ProtonProtonBaseline, FeedDown3P);
+
+			initialQQPopulations[(int)BottomiumState.Y1S] *= B1Smu;
+			initialQQPopulations[(int)BottomiumState.x1P] *= B1Smu;
+			initialQQPopulations[(int)BottomiumState.Y2S] *= B2Smu;
+			initialQQPopulations[(int)BottomiumState.x2P] *= B2Smu;
+			initialQQPopulations[(int)BottomiumState.Y3S] *= B3Smu;
+			initialQQPopulations[(int)BottomiumState.x3P] *= B3Smu;
+
+			return initialQQPopulations;
+		}
+
 		public static string GetInitialQQPopulationsString(
 			ProtonProtonBaseline ProtonProtonBaseline,
 			double FeedDown3P
 			)
 		{
-			StringBuilder popsString = new StringBuilder();
+			StringBuilder populationsString = new StringBuilder();
+
+			populationsString.AppendFormat("{0,-20}", "State");
 			foreach(string sStateName in Enum.GetNames(typeof(BottomiumState)))
 			{
-				popsString.AppendFormat("{0,10}", sStateName);
+				populationsString.AppendFormat("{0,-10}", sStateName);
 			}
 
-			popsString.AppendLine();
-			popsString.AppendLine();
+			populationsString.AppendLine();
+			populationsString.AppendLine();
 
-			double[] pops = GetInitialQQPopulations(ProtonProtonBaseline, FeedDown3P);
+			populationsString.AppendFormat("{0,-20}", "N^i/N^f_pp/B(nS→µ±)");
+			double[] populations = GetInitialQQPopulations(ProtonProtonBaseline, FeedDown3P);
 			foreach(BottomiumState eState in Enum.GetValues(typeof(BottomiumState)))
 			{
-				popsString.AppendFormat("{0,10}",
-					pops[(int)eState].ToString("G4"));
+				if(eState == BottomiumState.x3P)
+				{
+					string x3PPopulationString =
+						(populations[(int)BottomiumState.x3P] / GammaTot3P).ToString("G4") + " * GammaTot3P";
+					populationsString.AppendFormat("{0,-10}", x3PPopulationString);
+				}
+				else
+				{
+					populationsString.AppendFormat("{0,-10}", populations[(int)eState].ToString("G4"));
+				}
 			}
+			populationsString.AppendLine();
 
-			popsString.AppendLine();
+			populationsString.AppendFormat("{0,-20}", "N^i/N^f_pp");
+			double[] popsBRIncluded = GetInitialQQPopulationsWithBranchingRatiosIncluded(ProtonProtonBaseline, FeedDown3P);
+			foreach(BottomiumState eState in Enum.GetValues(typeof(BottomiumState)))
+			{
+				if(eState == BottomiumState.x3P)
+				{
+					string x3PPopString = (popsBRIncluded[(int)BottomiumState.x3P] / GammaTot3P).ToString("G4")
+						+ " * GammaTot3P";
+					populationsString.AppendFormat("{0,-10}", x3PPopString);
+				}
+				else
+				{
+					populationsString.AppendFormat("{0,-10}", popsBRIncluded[(int)eState].ToString("G4"));
+				}
+			}
+			populationsString.AppendLine();
 
-			return popsString.ToString();
+			return populationsString.ToString();
 		}
 
 		public static string GetProtonProtonDimuonDecaysString(
@@ -151,6 +195,8 @@ namespace Yburn.Fireball
 			)
 		{
 			StringBuilder ppDimuonDecaysString = new StringBuilder();
+
+			ppDimuonDecaysString.AppendFormat("{0,-18}", "State");
 			foreach(string sStateName in Enum.GetNames(typeof(BottomiumState)))
 			{
 				ppDimuonDecaysString.AppendFormat("{0,10}", sStateName);
@@ -159,6 +205,7 @@ namespace Yburn.Fireball
 			ppDimuonDecaysString.AppendLine();
 			ppDimuonDecaysString.AppendLine();
 
+			ppDimuonDecaysString.AppendFormat("{0,-18}", "N^f_pp/N^f_pp(Y1S)");
 			double[] ppDimuonDecays = GetProtonProtonDimuonDecays(ProtonProtonBaseline, FeedDown3P);
 			foreach(BottomiumState eState in Enum.GetValues(typeof(BottomiumState)))
 			{
@@ -339,7 +386,7 @@ namespace Yburn.Fireball
 
 		//   static double B3P1S = (0.29 + 3*3.1 + 5*8.7)/9.0;
 
-		// Partial widths for GammaAFrel
+		// Partial widths for GammaAFrel (PDG 2015)
 		private const double B3P3S = (7.8 + 3 * 9.4 + 5 * 11.4) / 9.0;
 
 		private const double B3P2P = 1e-7;
@@ -366,7 +413,7 @@ namespace Yburn.Fireball
 
 		private const double B2S1P = (0.069 + 0.0715 + 0.038);
 
-		private const double B2S1S = (0.1792 + 0.086);
+		private const double B2S1S = (0.1785 + 0.086); //(0.1792 + 0.086);
 
 		private const double B1P1S = (0.0176 + 3 * 0.339 + 5 * 0.191) / 9.0;
 

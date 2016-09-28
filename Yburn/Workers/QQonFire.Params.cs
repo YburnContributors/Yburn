@@ -18,7 +18,6 @@ namespace Yburn.Workers
 			Extractor.Store(nameValuePairs, "BottomiumStates", BottomiumStates);
 			Extractor.Store(nameValuePairs, "CentralityBinBoundaries", CentralityBinBoundaries);
 			Extractor.Store(nameValuePairs, "DataFileName", DataFileName);
-			Extractor.Store(nameValuePairs, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
 			Extractor.Store(nameValuePairs, "DecayWidthEvaluationType", DecayWidthEvaluationType);
 			Extractor.Store(nameValuePairs, "DecayWidthType", DecayWidthType);
 			Extractor.Store(nameValuePairs, "DiffusenessA", DiffusenessA);
@@ -39,9 +38,11 @@ namespace Yburn.Workers
 			Extractor.Store(nameValuePairs, "NuclearRadiusB", NuclearRadiusB);
 			Extractor.Store(nameValuePairs, "NucleonNumberA", NucleonNumberA);
 			Extractor.Store(nameValuePairs, "NucleonNumberB", NucleonNumberB);
+			Extractor.Store(nameValuePairs, "NumberAveragingAngles", NumberAveragingAngles);
 			Extractor.Store(nameValuePairs, "ParticipantsAtBinBoundaries", ParticipantsAtBinBoundaries);
 			Extractor.Store(nameValuePairs, "PotentialTypes", PotentialTypes);
 			Extractor.Store(nameValuePairs, "ProtonProtonBaseline", ProtonProtonBaseline);
+			Extractor.Store(nameValuePairs, "QGPFormationTemperature", QGPFormationTemperature);
 			Extractor.Store(nameValuePairs, "ShapeFunctionTypeA", ShapeFunctionTypeA);
 			Extractor.Store(nameValuePairs, "ShapeFunctionTypeB", ShapeFunctionTypeB);
 			Extractor.Store(nameValuePairs, "SnapRate", SnapRate);
@@ -61,7 +62,6 @@ namespace Yburn.Workers
 			Extractor.TryExtract(nameValuePairs, "BottomiumStates", ref BottomiumStates);
 			Extractor.TryExtract(nameValuePairs, "CentralityBinBoundaries", ref CentralityBinBoundaries);
 			Extractor.TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
-			Extractor.TryExtract(nameValuePairs, "DecayWidthAveragingAngles", ref DecayWidthAveragingAngles);
 			Extractor.TryExtract(nameValuePairs, "DecayWidthEvaluationType", ref DecayWidthEvaluationType);
 			Extractor.TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
 			Extractor.TryExtract(nameValuePairs, "DiffusenessA", ref DiffusenessA);
@@ -82,9 +82,11 @@ namespace Yburn.Workers
 			Extractor.TryExtract(nameValuePairs, "NuclearRadiusB", ref NuclearRadiusB);
 			Extractor.TryExtract(nameValuePairs, "NucleonNumberA", ref NucleonNumberA);
 			Extractor.TryExtract(nameValuePairs, "NucleonNumberB", ref NucleonNumberB);
+			Extractor.TryExtract(nameValuePairs, "NumberAveragingAngles", ref NumberAveragingAngles);
 			Extractor.TryExtract(nameValuePairs, "ParticipantsAtBinBoundaries", ref ParticipantsAtBinBoundaries);
 			Extractor.TryExtract(nameValuePairs, "PotentialTypes", ref PotentialTypes);
 			Extractor.TryExtract(nameValuePairs, "ProtonProtonBaseline", ref ProtonProtonBaseline);
+			Extractor.TryExtract(nameValuePairs, "QGPFormationTemperature", ref QGPFormationTemperature);
 			Extractor.TryExtract(nameValuePairs, "ShapeFunctionTypeA", ref ShapeFunctionTypeA);
 			Extractor.TryExtract(nameValuePairs, "ShapeFunctionTypeB", ref ShapeFunctionTypeB);
 			Extractor.TryExtract(nameValuePairs, "SnapRate", ref SnapRate);
@@ -101,8 +103,6 @@ namespace Yburn.Workers
 
 		private int[][] CentralityBinBoundaries = new int[0][];
 
-		private double[] DecayWidthAveragingAngles = new double[0];
-
 		private DecayWidthEvaluationType DecayWidthEvaluationType;
 
 		private DecayWidthType DecayWidthType;
@@ -113,7 +113,7 @@ namespace Yburn.Workers
 
 		private ExpansionMode ExpansionMode;
 
-		protected double FeedDown3P;
+		private double FeedDown3P;
 
 		private string[] FireballFieldTypes = new string[0];
 
@@ -133,6 +133,8 @@ namespace Yburn.Workers
 
 		private double[][] MeanParticipantsInBin = new double[0][];
 
+		private int NumberAveragingAngles;
+
 		private double BreakupTemperature;
 
 		private double NuclearRadiusA;
@@ -147,7 +149,9 @@ namespace Yburn.Workers
 
 		private string[] PotentialTypes = new string[0];
 
-		protected ProtonProtonBaseline ProtonProtonBaseline;
+		private ProtonProtonBaseline ProtonProtonBaseline;
+
+		private double QGPFormationTemperature;
 
 		private ShapeFunctionType ShapeFunctionTypeA;
 

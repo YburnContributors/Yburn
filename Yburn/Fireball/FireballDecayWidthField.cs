@@ -21,7 +21,8 @@ namespace Yburn.Fireball
 			double[] formationTimes,
 			double initialTime,
 			DecayWidthEvaluationType decayWidthEvaluationType,
-			double[] decayWidthAveragingAngles,
+			int numberAveragingAngles,
+			double qgpFormationTemperature,
 			List<KeyValuePair<double, double>>[] temperatureDecayWidthList
 			)
 			: base(FireballFieldType.DecayWidth, xDimension, yDimension,
@@ -36,7 +37,8 @@ namespace Yburn.Fireball
 			InitialTime = initialTime;
 			TransverseMomenta = transverseMomenta;
 			DecayWidthEvaluationType = decayWidthEvaluationType;
-			DecayWidthAveragingAngles = decayWidthAveragingAngles;
+			NumberAveragingAngles = numberAveragingAngles;
+			QGPFormationTemperature = qgpFormationTemperature;
 			TemperatureDecayWidthList = temperatureDecayWidthList;
 
 			Initialize();
@@ -53,7 +55,8 @@ namespace Yburn.Fireball
 			double[] formationTimes,
 			double initialTime,
 			DecayWidthEvaluationType decayWidthEvaluationType,
-			double[] decayWidthAveragingAngles,
+			int numberAveragingAngles,
+			double qgpFormationTemperature,
 			List<KeyValuePair<double, double>>[] temperatureDecayWidthList
 			)
 			: base(FireballFieldType.DecayWidth, xPosition.Length, yPosition.Length,
@@ -71,7 +74,8 @@ namespace Yburn.Fireball
 			InitialTime = initialTime;
 			TransverseMomenta = transverseMomenta;
 			DecayWidthEvaluationType = decayWidthEvaluationType;
-			DecayWidthAveragingAngles = decayWidthAveragingAngles;
+			NumberAveragingAngles = numberAveragingAngles;
+			QGPFormationTemperature = qgpFormationTemperature;
 			TemperatureDecayWidthList = temperatureDecayWidthList;
 
 			Initialize();
@@ -183,24 +187,23 @@ namespace Yburn.Fireball
 
 		private DecayWidthEvaluationType DecayWidthEvaluationType;
 
-		private double[] DecayWidthAveragingAngles;
+		private int NumberAveragingAngles;
+
+		double QGPFormationTemperature;
 
 		private List<KeyValuePair<double, double>>[] TemperatureDecayWidthList;
 
 		private void SetDecayWidthAveragers()
 		{
-			if(DecayWidthEvaluationType == DecayWidthEvaluationType.MaximallyBlueshifted)
-			{
-				DecayWidthAveragingAngles = new double[] { 0 };
-			}
-
 			DecayWidthAveragers = new List<DecayWidthAverager>();
 			foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 			{
 				if(TemperatureDecayWidthList[(int)state].Count > 0)
 				{
 					DecayWidthAveragers.Add(new DecayWidthAverager(
-						TemperatureDecayWidthList[(int)state], DecayWidthAveragingAngles));
+						TemperatureDecayWidthList[(int)state],
+						NumberAveragingAngles,
+						QGPFormationTemperature));
 				}
 				else
 				{
@@ -282,22 +285,9 @@ namespace Yburn.Fireball
 			{
 				return double.PositiveInfinity;
 			}
-
-			switch(DecayWidthEvaluationType)
+			else
 			{
-				case DecayWidthEvaluationType.UnshiftedTemperature:
-					return DecayWidthAveragers[(int)state].GetDecayWidth(temperature, 0);
-
-				case DecayWidthEvaluationType.AveragedTemperature:
-					return DecayWidthAveragers[(int)state]
-						.GetDecayWidthUsingAveragedTemperature(temperature, velocity);
-
-				case DecayWidthEvaluationType.MaximallyBlueshifted:
-				case DecayWidthEvaluationType.AveragedDecayWidth:
-					return DecayWidthAveragers[(int)state].GetDecayWidth(temperature, velocity);
-
-				default:
-					throw new Exception("Invalid DecayWidthEvaluationType.");
+				return DecayWidthAveragers[(int)state].GetDecayWidth(temperature, velocity, DecayWidthEvaluationType);
 			}
 		}
 

@@ -77,7 +77,7 @@ namespace Yburn.Fireball.Tests
 			{
 				for(int j = 0; j < multipliedMatrix.GetLength(1); j++)
 				{
-					AssertHelper.AssertRoundedEqual(UnitMatrix(i, j), multipliedMatrix[i, j]);
+					AssertHelper.AssertApproximatelyEqual(UnitMatrix(i, j), multipliedMatrix[i, j]);
 				}
 			}
 		}

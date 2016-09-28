@@ -43,15 +43,15 @@ namespace Yburn.Fireball.Tests
 			double[] flatImpactParams
 			)
 		{
-			AssertHelper.AssertRoundedEqual(0, flatImpactParams[0]);
-			AssertHelper.AssertRoundedEqual(3.2, flatImpactParams[1]);
-			AssertHelper.AssertRoundedEqual(4.4, flatImpactParams[2]);
-			AssertHelper.AssertRoundedEqual(6.8, flatImpactParams[3]);
-			AssertHelper.AssertRoundedEqual(8.4, flatImpactParams[4]);
-			AssertHelper.AssertRoundedEqual(9.6, flatImpactParams[5]);
-			AssertHelper.AssertRoundedEqual(10.8, flatImpactParams[6]);
-			AssertHelper.AssertRoundedEqual(12, flatImpactParams[7]);
-			AssertHelper.AssertRoundedEqual(21.2, flatImpactParams[8]);
+			AssertHelper.AssertApproximatelyEqual(0, flatImpactParams[0]);
+			AssertHelper.AssertApproximatelyEqual(3.2, flatImpactParams[1]);
+			AssertHelper.AssertApproximatelyEqual(4.4, flatImpactParams[2]);
+			AssertHelper.AssertApproximatelyEqual(6.8, flatImpactParams[3]);
+			AssertHelper.AssertApproximatelyEqual(8.4, flatImpactParams[4]);
+			AssertHelper.AssertApproximatelyEqual(9.6, flatImpactParams[5]);
+			AssertHelper.AssertApproximatelyEqual(10.8, flatImpactParams[6]);
+			AssertHelper.AssertApproximatelyEqual(12, flatImpactParams[7]);
+			AssertHelper.AssertApproximatelyEqual(21.2, flatImpactParams[8]);
 		}
 
 		/********************************************************************************************

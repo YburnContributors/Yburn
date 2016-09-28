@@ -103,41 +103,42 @@ namespace Yburn.TestUtil
 			{
 				Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-				nameValuePairs["ExpansionMode"] = "Transverse";
-				nameValuePairs["DecayWidthType"] = "GammaTot";
-				nameValuePairs["DecayWidthAveragingAngles"] = "10,20,30";
-				nameValuePairs["TemperatureProfile"] = "Ncoll13";
-				nameValuePairs["ProtonProtonBaseline"] = "CMS2012";
-				nameValuePairs["DiffusenessA"] = "3333";
-				nameValuePairs["DiffusenessB"] = "3333";
-				nameValuePairs["FireballFieldTypes"] = "Temperature";
-				nameValuePairs["ImpactParameter"] = "3333";
-				nameValuePairs["FeedDown3P"] = "3333";
-				nameValuePairs["NucleonNumberA"] = "3333";
-				nameValuePairs["NucleonNumberB"] = "3333";
-				nameValuePairs["DataFileName"] = "stdout.txt";
-				nameValuePairs["PotentialTypes"] = "Tzero";
-				nameValuePairs["TransverseMomenta"] = "3,3,3,3";
-				nameValuePairs["NuclearRadiusA"] = "3333";
-				nameValuePairs["NuclearRadiusB"] = "3333";
-				nameValuePairs["SnapRate"] = "3333";
-				nameValuePairs["CentralityBinBoundaries"] = "3,3,3";
-				nameValuePairs["ImpactParamsAtBinBoundaries"] = "3,3,3";
-				nameValuePairs["ParticipantsAtBinBoundaries"] = "3,3,3";
-				nameValuePairs["MeanParticipantsInBin"] = "3,3,3";
-				nameValuePairs["BottomiumStates"] = "Y1S,x3P";
-				nameValuePairs["InitialMaximumTemperature"] = "3333";
-				nameValuePairs["BreakupTemperature"] = "3333";
-				nameValuePairs["FormationTimes"] = "3,3,3,3,3,3";
-				nameValuePairs["ThermalTime"] = "3333";
-				nameValuePairs["GridCellSize"] = "3333";
-				nameValuePairs["GridRadius"] = "3333";
 				nameValuePairs["BeamRapidity"] = "3333";
 				nameValuePairs["BjorkenLifeTime"] = "3333";
-				nameValuePairs["LifeTime"] = "3333";
+				nameValuePairs["BottomiumStates"] = "Y1S,x3P";
+				nameValuePairs["BreakupTemperature"] = "3333";
+				nameValuePairs["CentralityBinBoundaries"] = "3,3,3";
+				nameValuePairs["DataFileName"] = "stdout.txt";
 				nameValuePairs["DecayWidthEvaluationType"] = "AveragedTemperature";
+				nameValuePairs["DecayWidthType"] = "GammaTot";
+				nameValuePairs["DiffusenessA"] = "3333";
+				nameValuePairs["DiffusenessB"] = "3333";
+				nameValuePairs["ExpansionMode"] = "Transverse";
+				nameValuePairs["FeedDown3P"] = "3333";
+				nameValuePairs["FireballFieldTypes"] = "Temperature";
+				nameValuePairs["FormationTimes"] = "3,3,3,3,3,3";
+				nameValuePairs["GridCellSize"] = "3333";
+				nameValuePairs["GridRadius"] = "3333";
+				nameValuePairs["ImpactParameter"] = "3333";
+				nameValuePairs["ImpactParamsAtBinBoundaries"] = "3,3,3";
+				nameValuePairs["InitialMaximumTemperature"] = "3333";
+				nameValuePairs["LifeTime"] = "3333";
+				nameValuePairs["MeanParticipantsInBin"] = "3,3,3";
+				nameValuePairs["NuclearRadiusA"] = "3333";
+				nameValuePairs["NuclearRadiusB"] = "3333";
+				nameValuePairs["NucleonNumberA"] = "3333";
+				nameValuePairs["NucleonNumberB"] = "3333";
+				nameValuePairs["NumberAveragingAngles"] = "5";
+				nameValuePairs["ParticipantsAtBinBoundaries"] = "3,3,3";
+				nameValuePairs["PotentialTypes"] = "Tzero";
+				nameValuePairs["ProtonProtonBaseline"] = "CMS2012";
+				nameValuePairs["QGPFormationTemperature"] = "3333";
 				nameValuePairs["ShapeFunctionTypeA"] = "GaussianDistribution";
 				nameValuePairs["ShapeFunctionTypeB"] = "WoodsSaxonPotential";
+				nameValuePairs["SnapRate"] = "3333";
+				nameValuePairs["TemperatureProfile"] = "Ncoll13";
+				nameValuePairs["ThermalTime"] = "3333";
+				nameValuePairs["TransverseMomenta"] = "3,3,3,3";
 
 				return nameValuePairs;
 			}
@@ -149,16 +150,17 @@ namespace Yburn.TestUtil
 			{
 				Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-				nameValuePairs["MinTemperature"] = "100.5";
-				nameValuePairs["MaxTemperature"] = "310";
 				nameValuePairs["BottomiumStates"] = "Y1S,x3P";
-				nameValuePairs["TemperatureStepSize"] = "6.5";
-				nameValuePairs["DecayWidthType"] = "GammaTot";
-				nameValuePairs["DecayWidthAveragingAngles"] = "10,20,30";
-				nameValuePairs["MediumVelocity"] = "0.2";
-				nameValuePairs["PotentialTypes"] = "Tzero";
-				nameValuePairs["UseAveragedTemperature"] = "True";
 				nameValuePairs["DataFileName"] = "stdout.txt";
+				nameValuePairs["DecayWidthEvaluationTypes"] = "AveragedDecayWidth";
+				nameValuePairs["DecayWidthType"] = "GammaTot";
+				nameValuePairs["MaxTemperature"] = "310";
+				nameValuePairs["MediumVelocity"] = "0.2";
+				nameValuePairs["MinTemperature"] = "100.5";
+				nameValuePairs["NumberAveragingAngles"] = "5";
+				nameValuePairs["PotentialTypes"] = "Tzero";
+				nameValuePairs["QGPFormationTemperature"] = "160";
+				nameValuePairs["TemperatureStepSize"] = "6.5";
 
 				return nameValuePairs;
 			}

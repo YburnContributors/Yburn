@@ -15,14 +15,15 @@ namespace Yburn.Workers
 
 			Extractor.Store(nameValuePairs, "BottomiumStates", BottomiumStates);
 			Extractor.Store(nameValuePairs, "DataFileName", DataFileName);
-			Extractor.Store(nameValuePairs, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
+			Extractor.Store(nameValuePairs, "DecayWidthEvaluationTypes", DecayWidthEvaluationTypes);
 			Extractor.Store(nameValuePairs, "DecayWidthType", DecayWidthType);
 			Extractor.Store(nameValuePairs, "MaxTemperature", MaxTemperature);
 			Extractor.Store(nameValuePairs, "MediumVelocity", MediumVelocity);
 			Extractor.Store(nameValuePairs, "MinTemperature", MinTemperature);
+			Extractor.Store(nameValuePairs, "NumberAveragingAngles", NumberAveragingAngles);
 			Extractor.Store(nameValuePairs, "PotentialTypes", PotentialTypes);
+			Extractor.Store(nameValuePairs, "QGPFormationTemperature", QGPFormationTemperature);
 			Extractor.Store(nameValuePairs, "TemperatureStepSize", TemperatureStepSize);
-			Extractor.Store(nameValuePairs, "UseAveragedTemperature", UseAveragedTemperature);
 
 			return nameValuePairs;
 		}
@@ -33,19 +34,20 @@ namespace Yburn.Workers
 		{
 			Extractor.TryExtract(nameValuePairs, "BottomiumStates", ref BottomiumStates);
 			Extractor.TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
-			Extractor.TryExtract(nameValuePairs, "DecayWidthAveragingAngles", ref DecayWidthAveragingAngles);
+			Extractor.TryExtract(nameValuePairs, "DecayWidthEvaluationTypes", ref DecayWidthEvaluationTypes);
 			Extractor.TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
 			Extractor.TryExtract(nameValuePairs, "MaxTemperature", ref MaxTemperature);
 			Extractor.TryExtract(nameValuePairs, "MediumVelocity", ref MediumVelocity);
 			Extractor.TryExtract(nameValuePairs, "MinTemperature", ref MinTemperature);
+			Extractor.TryExtract(nameValuePairs, "NumberAveragingAngles", ref NumberAveragingAngles);
 			Extractor.TryExtract(nameValuePairs, "PotentialTypes", ref PotentialTypes);
+			Extractor.TryExtract(nameValuePairs, "QGPFormationTemperature", ref QGPFormationTemperature);
 			Extractor.TryExtract(nameValuePairs, "TemperatureStepSize", ref TemperatureStepSize);
-			Extractor.TryExtract(nameValuePairs, "UseAveragedTemperature", ref UseAveragedTemperature);
 		}
 
 		private BottomiumState[] BottomiumStates = new BottomiumState[0];
 
-		private double[] DecayWidthAveragingAngles = new double[0];
+		private DecayWidthEvaluationType[] DecayWidthEvaluationTypes;
 
 		private DecayWidthType DecayWidthType;
 
@@ -55,10 +57,12 @@ namespace Yburn.Workers
 
 		private double MinTemperature;
 
+		private int NumberAveragingAngles;
+
 		private string[] PotentialTypes = new string[0];
 
-		private double TemperatureStepSize;
+		private double QGPFormationTemperature;
 
-		private bool UseAveragedTemperature;
+		private double TemperatureStepSize;
 	}
 }

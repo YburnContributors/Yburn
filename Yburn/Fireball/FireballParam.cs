@@ -120,7 +120,9 @@ namespace Yburn.Fireball
 		// both in MeV
 		public List<KeyValuePair<double, double>>[] TemperatureDecayWidthList;
 
-		public double[] DecayWidthAveragingAngles;
+		public int NumberAveragingAngles;
+
+		public double QGPFormationTemperatureMeV;
 
 		public double QGPConductivityMeV;
 
@@ -137,7 +139,7 @@ namespace Yburn.Fireball
 			FireballParam param = new FireballParam();
 
 			param.BeamRapidity = BeamRapidity;
-			param.DecayWidthAveragingAngles = DecayWidthAveragingAngles;
+			param.NumberAveragingAngles = NumberAveragingAngles;
 			param.DecayWidthEvaluationType = DecayWidthEvaluationType;
 			param.DiffusenessAFm = DiffusenessAFm;
 			param.DiffusenessBFm = DiffusenessBFm;
@@ -157,6 +159,7 @@ namespace Yburn.Fireball
 			param.ProtonNumberB = ProtonNumberB;
 			param.ProtonProtonBaseline = ProtonProtonBaseline;
 			param.QGPConductivityMeV = QGPConductivityMeV;
+			param.QGPFormationTemperatureMeV = QGPFormationTemperatureMeV;
 			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
 			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthList;

@@ -95,23 +95,25 @@ namespace Yburn.InMediumDecayWidth.UI
 		{
 			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
 			CbxDecayWidthType.Items.Remove("None");
-			MsxPotentialTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("PotentialType"));
 			MsxBottomiumStates.AddItems(JobOrganizer.GetWorkerEnumEntries("BottomiumState"));
+			MsxDecayWidthEvaluationTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("DecayWidthEvaluationType"));
+			MsxPotentialTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("PotentialType"));
 		}
 
 		private Dictionary<string, string> GetControlsValues()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs["MinTemperature"] = TbxMinTemperature.Text;
-			nameValuePairs["MaxTemperature"] = TbxMaxTemperature.Text;
-			nameValuePairs["DecayWidthAveragingAngles"] = TbxDecayWidthAveragingAngles.Text;
-			nameValuePairs["MediumVelocity"] = TbxMediumVelocity.Text;
-			nameValuePairs["TemperatureStepSize"] = TbxTemperatureStepSize.Text;
-			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
-			nameValuePairs["PotentialTypes"] = MsxPotentialTypes.SelectionString;
 			nameValuePairs["BottomiumStates"] = MsxBottomiumStates.SelectionString;
-			nameValuePairs["UseAveragedTemperature"] = ChkUseAveragedTemperature.Checked.ToString();
 			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
+			nameValuePairs["NumberAveragingAngles"] = TbxNumberAveragingAngles.Text;
+			nameValuePairs["DecayWidthEvaluationTypes"] = MsxDecayWidthEvaluationTypes.SelectionString;
+			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
+			nameValuePairs["MaxTemperature"] = TbxMaxTemperature.Text;
+			nameValuePairs["MediumVelocity"] = TbxMediumVelocity.Text;
+			nameValuePairs["MinTemperature"] = TbxMinTemperature.Text;
+			nameValuePairs["PotentialTypes"] = MsxPotentialTypes.SelectionString;
+			nameValuePairs["QGPFormationTemperature"] = TbxQGPFormationTemperature.Text;
+			nameValuePairs["TemperatureStepSize"] = TbxTemperatureStepSize.Text;
 
 			return nameValuePairs;
 		}
@@ -120,16 +122,17 @@ namespace Yburn.InMediumDecayWidth.UI
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			TbxMinTemperature.Text = nameValuePairs["MinTemperature"];
+			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"];
+			MsxBottomiumStates.SelectionString = nameValuePairs["BottomiumStates"];
+			MsxDecayWidthEvaluationTypes.SelectionString = nameValuePairs["DecayWidthEvaluationTypes"];
+			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];
+			TbxDataFileName.Text = nameValuePairs["DataFileName"];
+			TbxNumberAveragingAngles.Text = nameValuePairs["NumberAveragingAngles"];
 			TbxMaxTemperature.Text = nameValuePairs["MaxTemperature"];
 			TbxMediumVelocity.Text = nameValuePairs["MediumVelocity"];
-			TbxDecayWidthAveragingAngles.Text = nameValuePairs["DecayWidthAveragingAngles"];
+			TbxMinTemperature.Text = nameValuePairs["MinTemperature"];
+			TbxQGPFormationTemperature.Text = nameValuePairs["QGPFormationTemperature"];
 			TbxTemperatureStepSize.Text = nameValuePairs["TemperatureStepSize"];
-			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"];
-			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];
-			MsxBottomiumStates.SelectionString = nameValuePairs["BottomiumStates"];
-			ChkUseAveragedTemperature.Checked = bool.Parse(nameValuePairs["UseAveragedTemperature"]);
-			TbxDataFileName.Text = nameValuePairs["DataFileName"];
 		}
 
 		private void InitializeMenuEntry()
@@ -159,16 +162,14 @@ namespace Yburn.InMediumDecayWidth.UI
 				"Size of temperature steps between samples in MeV to be considered in the calculation.",
 				LblTemperatureStepSize, TbxTemperatureStepSize);
 			toolTipMaker.Add(
-				"Relative velocity between the bottomium state and the QGP medium in units of c.",
+				"Velocity of the QGP medium in the bottomium rest frame in units of c.",
 				LblMediumVelocity, TbxMediumVelocity);
 			toolTipMaker.Add(
-				"Angles relative to the velocity vector from which the angular average is calculated.\r\n"
-				+ "The angles are given by a comma separated list with values in degree.",
-				LblDecayWidthAveragingAngles, TbxDecayWidthAveragingAngles);
+				"Number of angles relative to the velocity vector from which the angular average is calculated.",
+				LblNumberAveragingAngles, TbxNumberAveragingAngles);
 			toolTipMaker.Add(
-				"Instead of averaging the decay width, calculate the (exact) angular average of\r\n"
-				+ "temperature and evaluate the decay width at that effective temperature.",
-				LblUseAveragedTemperature, ChkUseAveragedTemperature);
+				"DecayWidthEvaluationTypes to be considered in the calculation.",
+				LblDecayWidthEvaluationTypes, MsxDecayWidthEvaluationTypes);
 			toolTipMaker.Add(
 				"DecayWidthType to be considered in the calculation.",
 				LblDecayWidthType, CbxDecayWidthType);
@@ -182,6 +183,9 @@ namespace Yburn.InMediumDecayWidth.UI
 				"Name of the output file. The standard output path can be set\r\n"
 				+ "in the menu \"File\" using \"Set output path\".",
 				LblDataFileName, TbxDataFileName);
+			toolTipMaker.Add(
+				"Critical temperature for the formation of the quark-gluon medium.",
+				LblQGPFormationTemperature);
 		}
 
 		private void MenuItemCalculateInMediumDecayWidths_Click(object sender, EventArgs e)

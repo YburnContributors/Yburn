@@ -13,7 +13,7 @@ namespace Yburn.TestUtil
 		   * Public static members, functions and properties
 		   ********************************************************************************************/
 
-		public static void AssertRoundedEqual(
+		public static void AssertApproximatelyEqual(
 			double expected,
 			double actual,
 			int digits = 15

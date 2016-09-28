@@ -137,7 +137,7 @@ namespace Yburn.Fireball
 		)
 		{
 			return string.Format(
-				" {0,-8}{1,-8}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}{10,-12}{11,-12}{12,-12}{13,-12}",
+				" {0,-8}{1,-8}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}{10,-12}{11,-14}{12,-14}{13,-14}",
 				n.ToString(),
 				l.ToString(),
 				colorState,
@@ -387,17 +387,6 @@ namespace Yburn.Fireball
 					return lineIndex;
 				}
 
-				int iTemperatureComparison = string.Compare(values[(int)QQDataColumns.Temperature], sTemperature);
-				if(iTemperatureComparison < 0)
-				{
-					continue;
-				}
-				if(iTemperatureComparison > 0)
-				{
-					// new temperature value - insert new line here...
-					return lineIndex;
-				}
-
 				int iColorStateComparison = string.Compare(values[(int)QQDataColumns.ColorState], colorState);
 				if(iColorStateComparison < 0)
 				{
@@ -417,6 +406,17 @@ namespace Yburn.Fireball
 				else if(iPotentialTypeComparison > 0)
 				{
 					// new PotentialType value - insert new line here...
+					return lineIndex;
+				}
+
+				double dTemperatureComparison = double.Parse(values[(int)QQDataColumns.Temperature]) - temperature;
+				if(dTemperatureComparison < 0)
+				{
+					continue;
+				}
+				if(dTemperatureComparison > 0)
+				{
+					// new temperature value - insert new line here...
 					return lineIndex;
 				}
 

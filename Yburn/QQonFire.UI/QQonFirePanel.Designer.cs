@@ -34,8 +34,8 @@
 			this.LayoutQQStates = new System.Windows.Forms.TableLayoutPanel();
 			this.CbxProtonProtonBaseline = new System.Windows.Forms.ComboBox();
 			this.LblProtonProtonBaseline = new System.Windows.Forms.Label();
-			this.TbxDecayWidthAveragingAngles = new System.Windows.Forms.TextBox();
-			this.LblDecayWidthAveragingAngles = new System.Windows.Forms.Label();
+			this.TbxNumberAveragingAngles = new System.Windows.Forms.TextBox();
+			this.LblNumberAveragingAngles = new System.Windows.Forms.Label();
 			this.TbxTransverseMomenta = new System.Windows.Forms.TextBox();
 			this.LblTransverseMomenta = new System.Windows.Forms.Label();
 			this.LblFeedDown3P = new System.Windows.Forms.Label();
@@ -112,6 +112,8 @@
 			this.CtrlTextBoxLog = new System.Windows.Forms.RichTextBox();
 			this.CtrlStatusTrackingCtrl = new Yburn.UI.StatusTrackingCtrl();
 			this.TbxtF3S2 = new System.Windows.Forms.TextBox();
+			this.TbxQGPFormationTemperature = new System.Windows.Forms.TextBox();
+			this.LblQGPFormationTemperature = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.VSplit)).BeginInit();
 			this.VSplit.Panel1.SuspendLayout();
 			this.VSplit.Panel2.SuspendLayout();
@@ -175,7 +177,7 @@
 			// 
 			this.GbxQQStates.Controls.Add(this.LayoutQQStates);
 			this.GbxQQStates.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxQQStates.Location = new System.Drawing.Point(10, 545);
+			this.GbxQQStates.Location = new System.Drawing.Point(10, 570);
 			this.GbxQQStates.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxQQStates.Name = "GbxQQStates";
 			this.GbxQQStates.Padding = new System.Windows.Forms.Padding(10);
@@ -191,8 +193,8 @@
 			this.LayoutQQStates.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
 			this.LayoutQQStates.Controls.Add(this.CbxProtonProtonBaseline, 1, 7);
 			this.LayoutQQStates.Controls.Add(this.LblProtonProtonBaseline, 0, 7);
-			this.LayoutQQStates.Controls.Add(this.TbxDecayWidthAveragingAngles, 1, 1);
-			this.LayoutQQStates.Controls.Add(this.LblDecayWidthAveragingAngles, 0, 1);
+			this.LayoutQQStates.Controls.Add(this.TbxNumberAveragingAngles, 1, 1);
+			this.LayoutQQStates.Controls.Add(this.LblNumberAveragingAngles, 0, 1);
 			this.LayoutQQStates.Controls.Add(this.TbxTransverseMomenta, 1, 6);
 			this.LayoutQQStates.Controls.Add(this.LblTransverseMomenta, 0, 6);
 			this.LayoutQQStates.Controls.Add(this.LblFeedDown3P, 0, 4);
@@ -240,24 +242,24 @@
 			this.LblProtonProtonBaseline.Text = "ProtonProtonBaseline";
 			this.LblProtonProtonBaseline.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxDecayWidthAveragingAngles
+			// TbxNumberAveragingAngles
 			// 
-			this.TbxDecayWidthAveragingAngles.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxDecayWidthAveragingAngles.Location = new System.Drawing.Point(244, 28);
-			this.TbxDecayWidthAveragingAngles.Name = "TbxDecayWidthAveragingAngles";
-			this.TbxDecayWidthAveragingAngles.Size = new System.Drawing.Size(192, 31);
-			this.TbxDecayWidthAveragingAngles.TabIndex = 19;
+			this.TbxNumberAveragingAngles.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxNumberAveragingAngles.Location = new System.Drawing.Point(244, 28);
+			this.TbxNumberAveragingAngles.Name = "TbxNumberAveragingAngles";
+			this.TbxNumberAveragingAngles.Size = new System.Drawing.Size(192, 31);
+			this.TbxNumberAveragingAngles.TabIndex = 19;
 			// 
-			// LblDecayWidthAveragingAngles
+			// LblNumberAveragingAngles
 			// 
-			this.LblDecayWidthAveragingAngles.AutoSize = true;
-			this.LblDecayWidthAveragingAngles.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDecayWidthAveragingAngles.Location = new System.Drawing.Point(3, 25);
-			this.LblDecayWidthAveragingAngles.Name = "LblDecayWidthAveragingAngles";
-			this.LblDecayWidthAveragingAngles.Size = new System.Drawing.Size(235, 25);
-			this.LblDecayWidthAveragingAngles.TabIndex = 29;
-			this.LblDecayWidthAveragingAngles.Text = "DecayWidthAveragingAngles (deg)";
-			this.LblDecayWidthAveragingAngles.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblNumberAveragingAngles.AutoSize = true;
+			this.LblNumberAveragingAngles.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblNumberAveragingAngles.Location = new System.Drawing.Point(3, 25);
+			this.LblNumberAveragingAngles.Name = "LblNumberAveragingAngles";
+			this.LblNumberAveragingAngles.Size = new System.Drawing.Size(235, 25);
+			this.LblNumberAveragingAngles.TabIndex = 29;
+			this.LblNumberAveragingAngles.Text = "NumberAveragingAngles";
+			this.LblNumberAveragingAngles.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// TbxTransverseMomenta
 			// 
@@ -583,22 +585,22 @@
 			this.TbxNuclearRadiusB.Size = new System.Drawing.Size(192, 31);
 			this.TbxNuclearRadiusB.TabIndex = 0;
 			// 
-			// LblImpactParam
+			// LblImpactParameter
 			// 
 			this.LblImpactParameter.AutoSize = true;
 			this.LblImpactParameter.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LblImpactParameter.Location = new System.Drawing.Point(3, 200);
-			this.LblImpactParameter.Name = "LblImpactParam";
+			this.LblImpactParameter.Name = "LblImpactParameter";
 			this.LblImpactParameter.Size = new System.Drawing.Size(235, 25);
 			this.LblImpactParameter.TabIndex = 0;
 			this.LblImpactParameter.Text = "ImpactParameter (fm)";
 			this.LblImpactParameter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxImpactParam
+			// TbxImpactParameter
 			// 
 			this.TbxImpactParameter.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxImpactParameter.Location = new System.Drawing.Point(244, 203);
-			this.TbxImpactParameter.Name = "TbxImpactParam";
+			this.TbxImpactParameter.Name = "TbxImpactParameter";
 			this.TbxImpactParameter.Size = new System.Drawing.Size(192, 31);
 			this.TbxImpactParameter.TabIndex = 0;
 			// 
@@ -610,7 +612,7 @@
 			this.GbxHydro.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxHydro.Name = "GbxHydro";
 			this.GbxHydro.Padding = new System.Windows.Forms.Padding(10);
-			this.GbxHydro.Size = new System.Drawing.Size(459, 235);
+			this.GbxHydro.Size = new System.Drawing.Size(459, 260);
 			this.GbxHydro.TabIndex = 0;
 			this.GbxHydro.TabStop = false;
 			this.GbxHydro.Text = "Hydrodynamics";
@@ -620,6 +622,8 @@
 			this.LayoutHydro.ColumnCount = 2;
 			this.LayoutHydro.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
 			this.LayoutHydro.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
+			this.LayoutHydro.Controls.Add(this.LblQGPFormationTemperature, 0, 8);
+			this.LayoutHydro.Controls.Add(this.TbxQGPFormationTemperature, 0, 8);
 			this.LayoutHydro.Controls.Add(this.TbxBeamRapidity, 1, 7);
 			this.LayoutHydro.Controls.Add(this.LblBeamRapidity, 0, 7);
 			this.LayoutHydro.Controls.Add(this.LblExpansionMode, 0, 0);
@@ -639,7 +643,7 @@
 			this.LayoutHydro.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LayoutHydro.Location = new System.Drawing.Point(10, 34);
 			this.LayoutHydro.Name = "LayoutHydro";
-			this.LayoutHydro.RowCount = 8;
+			this.LayoutHydro.RowCount = 9;
 			this.LayoutHydro.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutHydro.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutHydro.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -648,7 +652,8 @@
 			this.LayoutHydro.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutHydro.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutHydro.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutHydro.Size = new System.Drawing.Size(439, 191);
+			this.LayoutHydro.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutHydro.Size = new System.Drawing.Size(439, 216);
 			this.LayoutHydro.TabIndex = 0;
 			// 
 			// TbxBeamRapidity
@@ -809,7 +814,7 @@
 			// 
 			this.GbxOutput.Controls.Add(this.LayoutOutput);
 			this.GbxOutput.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxOutput.Location = new System.Drawing.Point(10, 854);
+			this.GbxOutput.Location = new System.Drawing.Point(10, 879);
 			this.GbxOutput.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxOutput.Name = "GbxOutput";
 			this.GbxOutput.Padding = new System.Windows.Forms.Padding(10);
@@ -1104,6 +1109,25 @@
 			this.TbxtF3S2.Size = new System.Drawing.Size(158, 31);
 			this.TbxtF3S2.TabIndex = 10;
 			// 
+			// TbxQGPFormationTemperature
+			// 
+			this.TbxQGPFormationTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxQGPFormationTemperature.Location = new System.Drawing.Point(244, 203);
+			this.TbxQGPFormationTemperature.Name = "TbxQGPFormationTemperature";
+			this.TbxQGPFormationTemperature.Size = new System.Drawing.Size(192, 31);
+			this.TbxQGPFormationTemperature.TabIndex = 17;
+			// 
+			// LblQGPFormationTemperature
+			// 
+			this.LblQGPFormationTemperature.AutoSize = true;
+			this.LblQGPFormationTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblQGPFormationTemperature.Location = new System.Drawing.Point(3, 200);
+			this.LblQGPFormationTemperature.Name = "LblQGPFormationTemperature";
+			this.LblQGPFormationTemperature.Size = new System.Drawing.Size(235, 25);
+			this.LblQGPFormationTemperature.TabIndex = 0;
+			this.LblQGPFormationTemperature.Text = "QGPFormationTemperature (MeV)";
+			this.LblQGPFormationTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
 			// QQonFirePanel
 			// 
 			this.Controls.Add(this.VSplit);
@@ -1204,8 +1228,8 @@
 		private System.Windows.Forms.TextBox TbxBjorkenLifeTime;
 		private System.Windows.Forms.Label LblLifeTime;
 		private System.Windows.Forms.TextBox TbxLifeTime;
-		private System.Windows.Forms.TextBox TbxDecayWidthAveragingAngles;
-		private System.Windows.Forms.Label LblDecayWidthAveragingAngles;
+		private System.Windows.Forms.TextBox TbxNumberAveragingAngles;
+		private System.Windows.Forms.Label LblNumberAveragingAngles;
 		private System.Windows.Forms.Label LblCentralityBinBoundaries;
 		private System.Windows.Forms.TextBox TbxCentralityBinBoundaries;
 		private System.Windows.Forms.Label LblImpactParamsAtBinBoundaries;
@@ -1220,5 +1244,7 @@
 		private System.Windows.Forms.ComboBox CbxShapeFunctionTypeB;
 		private System.Windows.Forms.Label LblShapeFunctionTypeA;
 		private System.Windows.Forms.ComboBox CbxShapeFunctionTypeA;
+		private System.Windows.Forms.Label LblQGPFormationTemperature;
+		private System.Windows.Forms.TextBox TbxQGPFormationTemperature;
 	}
 }

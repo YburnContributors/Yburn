@@ -47,7 +47,7 @@ namespace Yburn.Fireball.Tests
 		{
 			AssertEquallySizedFields(analyticalSolution, numericalSolution);
 
-			AssertHelper.AssertRoundedEqual(0, GetMaxDeviation(analyticalSolution, numericalSolution));
+			AssertHelper.AssertApproximatelyEqual(0, GetMaxDeviation(analyticalSolution, numericalSolution));
 		}
 
 		private static void AssertMaxDeviationBelow(

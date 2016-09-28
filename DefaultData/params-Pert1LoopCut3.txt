@@ -4,12 +4,12 @@
 
 # Context
 ColorState            = Singlet
-SpinState             = Singlet
-PotentialType         = Tzero
+SpinState             = Triplet
+PotentialType         = Complex
 RunningCouplingType   = LOperturbative_Cutoff3
 QuantumNumberL        = 0
 QuantumNumberN        = 1
-#DataFileName               = stdout.txt		# The output file is relevant for both SingleQQ and QQonFire
+#DataFileName          = stdout.txt
 Sigma                 = 192000
 Temperature           = 160
 Tchem                 = 100
@@ -39,12 +39,13 @@ EnergySteps = 1000
 # Parameters for InMediumDecayWidth #
 #####################################
 
-MinTemperature         = 100
-MaxTemperature         = 650
-TemperatureStepSize    = 50
-AveragingAngles        = 0,30,60,90,120,150,180
-MediumVelocity         = 0.2
-UseAveragedTemperature = True
+MinTemperature            = 100
+MaxTemperature            = 650
+TemperatureStepSize       = 50
+#NumberAveragingAngles     = 20
+DecayWidthEvaluationTypes = UnshiftedTemperature,AveragedDecayWidth
+MediumVelocity            = 0.2
+#QGPFormationTemperature   = 160
 
 
 ###################################
@@ -71,10 +72,10 @@ EMFCalculationMethodSelection = URLimitFourierSynthesis,DiffusionApproximation,F
 
 # Glauber
 ShapeFunctionA = WoodsSaxonPotential
-NucleonNumberA = 208		# nucleon number
-ProtonNumberA  = 82			# proton number
-NuclearRadiusA = 6.62		# radius of Woods-Saxon potential
-DiffusenessA   = 0.546		# diffuseness of Woods-Saxon potential
+NucleonNumberA = 208
+ProtonNumberA  = 82
+NuclearRadiusA = 6.62
+DiffusenessA   = 0.546
 ShapeFunctionB = WoodsSaxonPotential
 NucleonNumberB = 208
 ProtonNumberB  = 82
@@ -86,24 +87,25 @@ ImpactParam    = 7
 ExpansionMode             = Transverse
 TemperatureProfile        = NmixPHOBOS13
 InitialMaximumTemperature = 480
-BreakupTemperature = 160
+BreakupTemperature        = 160
 ThermalTime               = 0.1
 GridCellSize              = 0.4
 GridRadius                = 10
 BeamRapidity              = 7.987
+QGPFormationTemperature   = 160
 
 # QQStates
-DecayWidthEvaluationType  = AveragedDecayWidth
-DecayWidthAveragingAngles = 0,30,60,90,120,150,180
-DecayWidthType            = GammaTot
-PotentialTypes            = Complex
-FeedDown3P                = 0.03
-FormationTimes            = 0.4,0.4,0.4,0.4,0.4,0.4
-TransverseMomenta         = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
-ProtonProtonBaseline      = CMS2012
+DecayWidthEvaluationType = AveragedDecayWidth
+NumberAveragingAngles    = 20
+DecayWidthType           = GammaTot
+PotentialTypes           = Complex
+FeedDown3P               = 0.03
+FormationTimes           = 0.4,0.4,0.4,0.4,0.4,0.4
+TransverseMomenta        = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+ProtonProtonBaseline     = CMS2012
 
 # Output
-BottomiumStates         = Y1S
+BottomiumStates         = Y1S,x1P,Y2S,x2P,Y3S,x3P
 FireballFields          =
 SnapRate                = 0
 CentralityBinBoundaries = 0,5,10,20,30,40,50,60,100;0,10,30,50,100;0,100

@@ -541,7 +541,7 @@ namespace Yburn.Workers
 			CurrentJobTitle = "ShowInitialQQPopulations";
 
 			LogMessages.Clear();
-			LogMessages.AppendFormat("Initial populations:\r\n\r\n{0}\r\n\r\n",
+			LogMessages.AppendFormat("Initial QQ populations:\r\n\r\n{0}\r\n\r\n",
 				BottomiumCascade.GetInitialQQPopulationsString(ProtonProtonBaseline, FeedDown3P));
 		}
 
@@ -669,7 +669,7 @@ namespace Yburn.Workers
 			FireballParam param = new FireballParam();
 
 			param.BeamRapidity = BeamRapidity;
-			param.DecayWidthAveragingAngles = DecayWidthAveragingAngles;
+			param.NumberAveragingAngles = NumberAveragingAngles;
 			param.DecayWidthEvaluationType = DecayWidthEvaluationType;
 			param.DiffusenessAFm = DiffusenessA;
 			param.DiffusenessBFm = DiffusenessB;
@@ -685,6 +685,7 @@ namespace Yburn.Workers
 			param.NucleonNumberA = NucleonNumberA;
 			param.NucleonNumberB = NucleonNumberB;
 			param.ProtonProtonBaseline = ProtonProtonBaseline;
+			param.QGPFormationTemperatureMeV = QGPFormationTemperature;
 			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
 			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
 			param.TemperatureDecayWidthList = TemperatureDecayWidthListHelper.GetList(
@@ -710,8 +711,6 @@ namespace Yburn.Workers
 			double[] qgpSuppressionFactors
 			)
 		{
-			double[] ppDimuonDecays = BottomiumCascade.GetProtonProtonDimuonDecays(
-				ProtonProtonBaseline, FeedDown3P);
 			//double[] ppQGPSuppressionFactors = { 1, 1, 1, 1, 1, 1 };
 
 			//double ppResult1S = BottomiumCascade.GetDimuonDecays(
@@ -720,6 +719,9 @@ namespace Yburn.Workers
 			//	ppYields, ppQGPSuppressionFactors, BottomiumState.Y2S);
 			//double ppResult3S = BottomiumCascade.GetDimuonDecays(
 			//	ppYields, ppQGPSuppressionFactors, BottomiumState.Y3S);
+
+			double[] ppDimuonDecays = BottomiumCascade.GetProtonProtonDimuonDecays(
+				ProtonProtonBaseline, FeedDown3P);
 			double ppResult1S = ppDimuonDecays[(int)BottomiumState.Y1S];
 			double ppResult2S = ppDimuonDecays[(int)BottomiumState.Y2S];
 			double ppResult3S = ppDimuonDecays[(int)BottomiumState.Y3S];

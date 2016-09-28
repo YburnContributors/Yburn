@@ -13,7 +13,7 @@ namespace Yburn.Workers.Tests
 		 ********************************************************************************************/
 
 		public TemperatureDecayWidthPrinterTests()
-			: base("", GetArray(), 0, null, 0, 0, 1, 0, EmptyAngleArray)
+			: base("", GetArray(), 0, null, 0, 0, 1, 0, 1, 160)
 		{
 		}
 
@@ -26,10 +26,12 @@ namespace Yburn.Workers.Tests
 			double maxTemperature,
 			double stepSize,
 			double mediumVelocity,
-			double[] averagingAngles
+			int numberAveragingAngles,
+			double qgpFormationTemperature
 			)
 			: base(dataPathFile, bottomiumStates, decayWidthType, potentialTypes,
-				minTemperature, maxTemperature, stepSize, mediumVelocity, averagingAngles)
+				  minTemperature, maxTemperature, stepSize,
+				  mediumVelocity, numberAveragingAngles, qgpFormationTemperature)
 		{
 		}
 
@@ -45,7 +47,8 @@ namespace Yburn.Workers.Tests
 				DecayWidthType.None, potentialTypes: null,
 				minTemperature: 0, maxTemperature: 10, stepSize: 0,
 				mediumVelocity: 0,
-				averagingAngles: EmptyAngleArray);
+				numberAveragingAngles: 1,
+				qgpFormationTemperature: 160);
 		}
 
 		[TestMethod]
@@ -58,14 +61,16 @@ namespace Yburn.Workers.Tests
 				maxTemperature: 240,
 				stepSize: 40,
 				mediumVelocity: 0,
-				averagingAngles: EmptyAngleArray);
+				numberAveragingAngles: 1,
+				qgpFormationTemperature: 160);
 
 			AssertReturnsList(
-				  "#Temperature        DecayWidth(Y1S)     \r\n"
+				  "#UnshiftedTemperature\r\n"
+				+ "#Temperature        DecayWidth(Y1S)     \r\n"
 				+ "#(MeV)              (MeV)               \r\n"
 				+ "#\r\n"
 				+ "80                  0                   \r\n"
-				+ "120                 240                 \r\n"
+				+ "120                 0                   \r\n"
 				+ "160                 350                 \r\n"
 				+ "200                 550                 \r\n"
 				+ "240                 Infinity            \r\n\r\n");
@@ -81,45 +86,16 @@ namespace Yburn.Workers.Tests
 				maxTemperature: 240,
 				stepSize: 40,
 				mediumVelocity: 0,
-				averagingAngles: EmptyAngleArray);
+				numberAveragingAngles: 1,
+				qgpFormationTemperature: 160);
 
 			AssertReturnsList(
-				  "#Temperature        DecayWidth(Y1S)     DecayWidth(x2P)     DecayWidth(Y3S)     \r\n"
+				  "#UnshiftedTemperature\r\n"
+				+ "#Temperature        DecayWidth(Y1S)     DecayWidth(x2P)     DecayWidth(Y3S)     \r\n"
 				+ "#(MeV)              (MeV)               (MeV)               (MeV)               \r\n"
 				+ "#\r\n"
 				+ "80                  0                   0                   0                   \r\n"
-				+ "120                 240                 480                 720                 \r\n"
-				+ "160                 350                 700                 1050                \r\n"
-				+ "200                 550                 1100                1650                \r\n"
-				+ "240                 Infinity            Infinity            Infinity            \r\n\r\n");
-		}
-
-		[TestMethod]
-		public void GivenManyStates_UsingAveragedTemperature_PrintList()
-		{
-			Printer = new TemperatureDecayWidthPrinterTests("",
-				GetArray(BottomiumState.Y1S, BottomiumState.x2P, BottomiumState.Y3S),
-				DecayWidthType.None, potentialTypes: null,
-				minTemperature: 80,
-				maxTemperature: 240,
-				stepSize: 40,
-				mediumVelocity: 0,
-				averagingAngles: EmptyAngleArray);
-
-			AssertReturnsListUsingAveragedTemperature(
-				  "#Temperature        DecayWidth(Y1S)     DecayWidth(x2P)     DecayWidth(Y3S)     \r\n"
-				+ "#(MeV)              (MeV)               (MeV)               (MeV)               \r\n"
-				+ "#\r\n"
-				+ "80                  0                   0                   0                   \r\n"
-				+ "120                 240                 480                 720                 \r\n"
-				+ "160                 350                 700                 1050                \r\n"
-				+ "200                 550                 1100                1650                \r\n"
-				+ "240                 Infinity            Infinity            Infinity            \r\n\r\n\r\n"
-				+ "#Eff. Temperature   DecayWidth(Y1S)     DecayWidth(x2P)     DecayWidth(Y3S)     \r\n"
-				+ "#(MeV)              (MeV)               (MeV)               (MeV)               \r\n"
-				+ "#\r\n"
-				+ "80                  0                   0                   0                   \r\n"
-				+ "120                 240                 480                 720                 \r\n"
+				+ "120                 0                   0                   0                   \r\n"
 				+ "160                 350                 700                 1050                \r\n"
 				+ "200                 550                 1100                1650                \r\n"
 				+ "240                 Infinity            Infinity            Infinity            \r\n\r\n");
@@ -166,8 +142,6 @@ namespace Yburn.Workers.Tests
 			return list;
 		}
 
-		private static readonly double[] EmptyAngleArray = new double[] { };
-
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
@@ -178,21 +152,15 @@ namespace Yburn.Workers.Tests
 			string expectedList
 			)
 		{
-			Assert.AreEqual(expectedList, Printer.GetList());
-		}
-
-		private void AssertReturnsListUsingAveragedTemperature(
-			string expectedList
-			)
-		{
-			Assert.AreEqual(expectedList, Printer.GetListUsingAveragedTemperature());
+			Assert.AreEqual(expectedList, Printer.GetList(
+				new DecayWidthEvaluationType[] { DecayWidthEvaluationType.UnshiftedTemperature }));
 		}
 
 		protected override DecayWidthAverager CreateDecayWidthAverager(
 			BottomiumState state
 			)
 		{
-			return new DecayWidthAverager(GetTemperatureDecayWidthValues(state));
+			return new DecayWidthAverager(GetTemperatureDecayWidthValues(state), 1, 160);
 		}
 	}
 }
