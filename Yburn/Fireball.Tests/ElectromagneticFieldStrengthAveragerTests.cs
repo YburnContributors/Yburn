@@ -4,19 +4,41 @@ using Yburn.TestUtil;
 namespace Yburn.Fireball.Tests
 {
 	[TestClass]
-	public class MagneticFieldStrengthAveragerTests
+	public class ElectromagneticFieldStrengthAveragerTests
 	{
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
 		[TestMethod]
+		public void CalculateAverageElectricFieldStrength()
+		{
+			ElectromagneticFieldStrengthAverager averager =
+				new ElectromagneticFieldStrengthAverager(CreateFireballParam());
+
+			double result = averager.CalculateAverageElectricFieldStrengthPerFm2(8);
+
+			AssertHelper.AssertApproximatelyEqual(0.64257321196335648, result);
+		}
+
+		[TestMethod]
+		public void CalculateAverageElectricFieldStrength_LCF()
+		{
+			ElectromagneticFieldStrengthAverager averager =
+				new ElectromagneticFieldStrengthAverager(CreateFireballParam());
+
+			double result = averager.CalculateAverageElectricFieldStrengthPerFm2_LCF(8);
+
+			AssertHelper.AssertApproximatelyEqual(8.68669889202293, result);
+		}
+
+		[TestMethod]
 		public void CalculateAverageMagneticFieldStrength()
 		{
-			MagneticFieldStrengthAverager averager =
-				new MagneticFieldStrengthAverager(CreateFireballParam());
+			ElectromagneticFieldStrengthAverager averager =
+				new ElectromagneticFieldStrengthAverager(CreateFireballParam());
 
-			double result = averager.CalculateAverageMagneticFieldStrength(8);
+			double result = averager.CalculateAverageMagneticFieldStrengthPerFm2(8);
 
 			AssertHelper.AssertApproximatelyEqual(0.74916774299354139, result, 14);
 		}
@@ -24,10 +46,10 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void CalculateAverageMagneticFieldStrength_LCF()
 		{
-			MagneticFieldStrengthAverager averager =
-				new MagneticFieldStrengthAverager(CreateFireballParam());
+			ElectromagneticFieldStrengthAverager averager =
+				new ElectromagneticFieldStrengthAverager(CreateFireballParam());
 
-			double result = averager.CalculateAverageMagneticFieldStrength_LCF(8);
+			double result = averager.CalculateAverageMagneticFieldStrengthPerFm2_LCF(8);
 
 			AssertHelper.AssertApproximatelyEqual(0.23624004632176207, result);
 		}

@@ -27,11 +27,51 @@ namespace Yburn.Fireball.Tests
 		public void CalculateCorrectInverseCumulativeMatrix()
 		{
 			AssertIsUnitMatrix(
-				Multiply(BottomiumCascade.CalculateCumulativeMatrix(),
-				BottomiumCascade.CalculateInverseCumulativeMatrix()));
+				BottomiumCascade.CalculateCumulativeMatrix()
+				* BottomiumCascade.CalculateInverseCumulativeMatrix());
 			AssertIsUnitMatrix(
-				Multiply(BottomiumCascade.CalculateInverseCumulativeMatrix(),
-				BottomiumCascade.CalculateCumulativeMatrix()));
+				BottomiumCascade.CalculateInverseCumulativeMatrix()
+				* BottomiumCascade.CalculateCumulativeMatrix());
+		}
+
+		[TestMethod]
+		public void CalculateInitialQQPopulations()
+		{
+			ProtonProtonBaseline ppBaseline = ProtonProtonBaseline.CMS2012;
+			double feedDown3P = 0.06;
+
+			BottomiumVector initialQQPopulations = BottomiumCascade.CalculateInitialQQPopulations(
+				ppBaseline, feedDown3P);
+			AssertCorrectInitialQQPopulations(initialQQPopulations);
+		}
+
+		[TestMethod]
+		public void CalculateY1SFeedDownFractions()
+		{
+			ProtonProtonBaseline ppBaseline = ProtonProtonBaseline.CMS2012;
+			double feedDown3P = 0.06;
+
+			BottomiumVector feedDownFractions = BottomiumCascade.CalculateY1SFeedDownFractions(
+				ppBaseline, feedDown3P);
+			AssertCorrectY1SFeedDownFractions(feedDownFractions, feedDown3P);
+		}
+
+		[TestMethod]
+		public void FeedDownCascadeReproducesProtonProtonDimuonDecays()
+		{
+			ProtonProtonBaseline ppBaseline = ProtonProtonBaseline.CMS2012;
+			double feedDown3P = 0.06;
+
+			BottomiumVector qgpSuppressionFactors = BottomiumVector.CreateEmptyVector();
+			foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
+			{
+				qgpSuppressionFactors[state] = 1;
+			}
+
+			BottomiumVector ppDimuonDecays =
+				BottomiumCascade.CalculateDimuonDecays(ppBaseline, feedDown3P, qgpSuppressionFactors);
+
+			AssertCorrectProtonProtonDimuonDecays(ppDimuonDecays, ppBaseline, feedDown3P);
 		}
 
 		/********************************************************************************************
@@ -40,11 +80,11 @@ namespace Yburn.Fireball.Tests
 
 		private static void AssertIsSquareOfDimenions(
 			int dimension,
-			double[,] matrix
+			BottomiumCascadeMatrix matrix
 			)
 		{
-			Assert.AreEqual(dimension, matrix.GetLength(0));
-			Assert.AreEqual(dimension, matrix.GetLength(1));
+			Assert.AreEqual(dimension, matrix.Dimensions[0]);
+			Assert.AreEqual(dimension, matrix.Dimensions[1]);
 		}
 
 		private static double[,] Multiply(
@@ -70,24 +110,72 @@ namespace Yburn.Fireball.Tests
 		}
 
 		private static void AssertIsUnitMatrix(
-			double[,] multipliedMatrix
+			BottomiumCascadeMatrix multipliedMatrix
 			)
 		{
-			for(int i = 0; i < multipliedMatrix.GetLength(0); i++)
+			foreach(BottomiumState i in Enum.GetValues(typeof(BottomiumState)))
 			{
-				for(int j = 0; j < multipliedMatrix.GetLength(1); j++)
+				foreach(BottomiumState j in Enum.GetValues(typeof(BottomiumState)))
 				{
-					AssertHelper.AssertApproximatelyEqual(UnitMatrix(i, j), multipliedMatrix[i, j]);
+					AssertHelper.AssertApproximatelyEqual(
+						UnitMatrixEntries(i, j), multipliedMatrix[i, j]);
 				}
 			}
 		}
 
-		private static int UnitMatrix(
-			int i,
-			int j
+		private static int UnitMatrixEntries(
+			BottomiumState i,
+			BottomiumState j
 			)
 		{
-			return i == j ? 1 : 0;
+			if(i == j)
+			{
+				return 1;
+			}
+			else
+			{
+				return 0;
+			}
+		}
+
+		private static void AssertCorrectInitialQQPopulations(
+			BottomiumVector initialQQPopulations
+			)
+		{
+			AssertHelper.AssertApproximatelyEqual(13.831681883072372, initialQQPopulations[BottomiumState.Y1S]);
+			AssertHelper.AssertApproximatelyEqual(43.694709398023143, initialQQPopulations[BottomiumState.x1P]);
+			AssertHelper.AssertApproximatelyEqual(17.730737923019692, initialQQPopulations[BottomiumState.Y2S]);
+			AssertHelper.AssertApproximatelyEqual(45.626563577477185, initialQQPopulations[BottomiumState.x2P]);
+			AssertHelper.AssertApproximatelyEqual(10.893164282464252, initialQQPopulations[BottomiumState.Y3S]);
+			AssertHelper.AssertApproximatelyEqual(7.6588791939455159E+99, initialQQPopulations[BottomiumState.x3P]);
+		}
+
+		private static void AssertCorrectY1SFeedDownFractions(
+			BottomiumVector feedDownFractions,
+			double feedDown3P
+			)
+		{
+			AssertHelper.AssertApproximatelyEqual(0.34302571070019483, feedDownFractions[BottomiumState.Y1S]);
+			AssertHelper.AssertApproximatelyEqual(0.271, feedDownFractions[BottomiumState.x1P]);
+			AssertHelper.AssertApproximatelyEqual(0.19033036269430051, feedDownFractions[BottomiumState.Y2S]);
+			AssertHelper.AssertApproximatelyEqual(0.105, feedDownFractions[BottomiumState.x2P]);
+			AssertHelper.AssertApproximatelyEqual(0.030643926605504589, feedDownFractions[BottomiumState.Y3S]);
+			AssertHelper.AssertApproximatelyEqual(feedDown3P, feedDownFractions[BottomiumState.x3P]);
+		}
+
+		private static void AssertCorrectProtonProtonDimuonDecays(
+			BottomiumVector ppDimuonDecays,
+			ProtonProtonBaseline ppBaseline,
+			double feedDown3P
+			)
+		{
+			BottomiumVector expected =
+				BottomiumCascade.GetProtonProtonDimuonDecays(ppBaseline, feedDown3P);
+
+			foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
+			{
+				AssertHelper.AssertApproximatelyEqual(expected[state], ppDimuonDecays[state]);
+			}
 		}
 	}
 }

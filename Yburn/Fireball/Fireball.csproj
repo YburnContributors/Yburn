@@ -32,12 +32,14 @@
   <ItemGroup>
     <Compile Include="BinBoundaryCalculator.cs" />
     <Compile Include="BottomiumCascade.cs" />
+    <Compile Include="BottomiumCascadeMatrix.cs" />
+    <Compile Include="BottomiumVector.cs" />
     <Compile Include="FtexsLaxWendroffStepper.cs" />
     <Compile Include="FtexsFirstOrderStepper.cs" />
     <Compile Include="Nucleus.cs" />
     <Compile Include="DecayWidthAverager.cs" />
     <Compile Include="FireballElectromagneticField.cs" />
-    <Compile Include="MagneticFieldStrengthAverager.cs" />
+    <Compile Include="ElectromagneticFieldStrengthAverager.cs" />
     <Compile Include="NucleusElectromagneticField.cs" />
     <Compile Include="PointChargeElectromagneticField.cs" />
     <Compile Include="Fireball.cs" />
@@ -71,6 +73,10 @@
     <ProjectReference Include="..\PhysUtil\PhysUtil.csproj">
       <Project>{96E5E846-3417-4A44-A4F1-7ED8DCA43F43}</Project>
       <Name>PhysUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Yburn\Yburn.csproj">
+      <Project>{EB474E7F-D6F1-408D-A30B-CF662B311C93}</Project>
+      <Name>Yburn</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -6,4 +6,4 @@
 ###################################################################################
 OutputPath .\
 QQDataPathFile ..\..\bbdata-Pert1LoopCut3.txt
-LastParaFile YburnTestParameterFile.txt
+LastParaFile EmptyParameterFile.txt

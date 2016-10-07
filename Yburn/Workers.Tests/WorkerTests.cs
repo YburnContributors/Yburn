@@ -7,7 +7,7 @@ using Yburn.QQState;
 namespace Yburn.Workers.Tests
 {
 	[TestClass]
-	public class WorkerTests : Yburn.Worker
+	public class WorkerTests : Worker
 	{
 		/********************************************************************************************
 		 * Public members, functions and properties

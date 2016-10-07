@@ -98,8 +98,8 @@ namespace Yburn.Workers
 					ShowInverseCumulativeMatrix();
 					break;
 
-				case "ShowY1SFeedDown":
-					ShowY1SFeedDown();
+				case "ShowY1SFeedDownFractions":
+					ShowY1SFeedDownFractions();
 					break;
 
 				case "ShowDecayWidthInput":
@@ -173,10 +173,10 @@ namespace Yburn.Workers
 				nCollPions.Add(nCollPion);
 				nColls.Add(fireball.IntegrateFireballField("Ncoll"));
 
-				StatusValues[0] = impactParams[step].ToString("G3");
-				StatusValues[1] = nColls[step].ToString("G4");
-				StatusValues[2] = nCollQGPs[step].ToString("G4");
-				StatusValues[3] = nCollPions[step].ToString("G4");
+				StatusValues[0] = impactParams[step].ToUIString();
+				StatusValues[1] = nColls[step].ToUIString();
+				StatusValues[2] = nCollQGPs[step].ToUIString();
+				StatusValues[3] = nCollPions[step].ToUIString();
 
 				step++;
 			}
@@ -200,10 +200,10 @@ namespace Yburn.Workers
 			for(int i = 0; i < impactParams.Count; i++)
 			{
 				LogMessages.AppendLine(string.Format("{0,6}{1,12}{2,12}{3,12}",
-					impactParams[i].ToString("G3"),
-					nColls[i].ToString("G4"),
-					nCollQGPs[i].ToString("G4"),
-					nCollPions[i].ToString("G4")));
+					impactParams[i].ToUIString(),
+					nColls[i].ToUIString(),
+					nCollQGPs[i].ToUIString(),
+					nCollPions[i].ToUIString()));
 			}
 
 			LogMessages.Append(LogFooter);
@@ -242,11 +242,11 @@ namespace Yburn.Workers
 			for(int i = 0; i < impactParams.Count; i++)
 			{
 				LogMessages.AppendLine(string.Format("{0,6}{1,12}{2,12}{3,12}{4,12}",
-					impactParams[i].ToString("G3"),
-					nColls[i].ToString("G4"),
-					nParts[i].ToString("G4"),
-					dSigmadbs[i].ToString("G4"),
-					sigmas[i].ToString("G4")));
+					impactParams[i].ToUIString(),
+					nColls[i].ToUIString(),
+					nParts[i].ToUIString(),
+					dSigmadbs[i].ToUIString(),
+					sigmas[i].ToUIString()));
 			}
 
 			LogMessages.AppendLine(string.Format("\r\n\r\n#{0,11}{1,19}{2,12}",
@@ -260,9 +260,9 @@ namespace Yburn.Workers
 				{
 					LogMessages.AppendLine(string.Format("#{0,11}{1,8} < b < {2,4}{3,12}",
 						centralityBinStrings[binGroupIndex][binIndex],
-						ImpactParamsAtBinBoundaries[binGroupIndex][binIndex].ToString("G4"),
-						ImpactParamsAtBinBoundaries[binGroupIndex][binIndex + 1].ToString("G4"),
-						MeanParticipantsInBin[binGroupIndex][binIndex].ToString("G4")));
+						ImpactParamsAtBinBoundaries[binGroupIndex][binIndex].ToUIString(),
+						ImpactParamsAtBinBoundaries[binGroupIndex][binIndex + 1].ToUIString(),
+						MeanParticipantsInBin[binGroupIndex][binIndex].ToUIString()));
 				}
 			}
 
@@ -316,7 +316,7 @@ namespace Yburn.Workers
 			SetStatusVariables(SuppressionStatusTitles);
 			DetermineMaxLifeTime();
 
-			double[][][][] qgpSuppressionFactors = CalculateQGPSuppressionFactors(numberCentralityBins);
+			BottomiumVector[][][] qgpSuppressionFactors = CalculateQGPSuppressionFactors(numberCentralityBins);
 
 			// quit here if process has been aborted
 			if(JobCancelToken.IsCancellationRequested)
@@ -349,13 +349,13 @@ namespace Yburn.Workers
 					{
 						results.AppendFormat("{0,12}{1,12}{2,12}",
 							centralityBinStrings[binGroupIndex][binIndex],
-							MeanParticipantsInBin[binGroupIndex][binIndex].ToString("G4"),
-							TransverseMomenta[pTIndex].ToString("G4"));
+							MeanParticipantsInBin[binGroupIndex][binIndex].ToUIString(),
+							TransverseMomenta[pTIndex].ToUIString());
 
-						for(int stateIndex = 0; stateIndex < NumberBottomiumStates; stateIndex++)
+						foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 						{
 							results.AppendFormat("{0,12}",
-								qgpSuppressionFactors[binGroupIndex][binIndex][pTIndex][stateIndex].ToString("G3"));
+								qgpSuppressionFactors[binGroupIndex][binIndex][pTIndex][state].ToUIString());
 						}
 
 						results.AppendLine();
@@ -363,7 +363,7 @@ namespace Yburn.Workers
 
 					results.AppendFormat("{0,12}{1,12}{2,12}",
 						centralityBinStrings[binGroupIndex][binIndex],
-						MeanParticipantsInBin[binGroupIndex][binIndex].ToString("G4"),
+						MeanParticipantsInBin[binGroupIndex][binIndex].ToUIString(),
 						"<pT>");
 
 					foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
@@ -371,12 +371,12 @@ namespace Yburn.Workers
 						double[] rAAQGPsBinValues = new double[TransverseMomenta.Length];
 						for(int pTIndex = 0; pTIndex < TransverseMomenta.Length; pTIndex++)
 						{
-							rAAQGPsBinValues[pTIndex] = qgpSuppressionFactors[binGroupIndex][binIndex][pTIndex][(int)state];
+							rAAQGPsBinValues[pTIndex] = qgpSuppressionFactors[binGroupIndex][binIndex][pTIndex][state];
 						}
 
 						results.AppendFormat("{0,12}",
 							TransverseMomentumAverager.Calculate(state, TransverseMomenta, rAAQGPsBinValues)
-							.ToString("G3"));
+							.ToUIString());
 					}
 
 					results.AppendLine();
@@ -414,13 +414,13 @@ namespace Yburn.Workers
 
 						results.AppendFormat("{0,12}{1,12}{2,12}",
 							centralityBinStrings[binGroupIndex][binIndex],
-							MeanParticipantsInBin[binGroupIndex][binIndex].ToString("G4"),
-							TransverseMomenta[pTIndex].ToString("G4"));
+							MeanParticipantsInBin[binGroupIndex][binIndex].ToUIString(),
+							TransverseMomenta[pTIndex].ToUIString());
 
-						for(int l = 0; l < 5; l++)
+						for(int stateIndex = 0; stateIndex < 5; stateIndex++)
 						{
 							results.AppendFormat("{0,15}",
-								rAAs[pTIndex][l].ToString("G3"));
+								rAAs[pTIndex][stateIndex].ToUIString());
 						}
 
 						results.AppendLine();
@@ -428,7 +428,7 @@ namespace Yburn.Workers
 
 					results.AppendFormat("{0,12}{1,12}{2,12}",
 						centralityBinStrings[binGroupIndex][binIndex],
-						MeanParticipantsInBin[binGroupIndex][binIndex].ToString("G4"),
+						MeanParticipantsInBin[binGroupIndex][binIndex].ToUIString(),
 						"<pT>");
 
 					// average of all pT values
@@ -440,8 +440,10 @@ namespace Yburn.Workers
 							rAABinValues[pTIndex] = rAAs[pTIndex][l];
 						}
 
-						results.AppendFormat("{0,15}", TransverseMomentumAverager.Calculate((BottomiumState)l, TransverseMomenta, rAABinValues)
-							.ToString("G3"));
+						results.AppendFormat("{0,15}",
+							TransverseMomentumAverager.Calculate((BottomiumState)l,
+							TransverseMomenta,
+							rAABinValues).ToUIString());
 					}
 
 					results.AppendLine();
@@ -499,7 +501,7 @@ namespace Yburn.Workers
 			LogMessages.Clear();
 			foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 			{
-				LogMessages.AppendFormat("{0,16}", state.ToString());
+				LogMessages.AppendFormat("{0,16}", state.ToUIString());
 			}
 
 			LogMessages.AppendLine();
@@ -520,8 +522,8 @@ namespace Yburn.Workers
 					if(i < tGammaList[(int)state].Count)
 					{
 						LogMessages.AppendFormat("{0,6}{1,10}",
-							tGammaList[(int)state][i].Key.ToString("G4"),
-							tGammaList[(int)state][i].Value.ToString("G4"));
+							tGammaList[(int)state][i].Key.ToUIString(),
+							tGammaList[(int)state][i].Value.ToUIString());
 					}
 					else
 					{
@@ -572,21 +574,14 @@ namespace Yburn.Workers
 				+ BuildPlotPathFile(YburnConfigFile.OutputPath + DataFileName) + "-plotXY.plt\"");
 		}
 
-		public void ShowY1SFeedDown()
+		public void ShowY1SFeedDownFractions()
 		{
-			CurrentJobTitle = "ShowY1SFeedDown";
+			CurrentJobTitle = "ShowY1SFeedDownFractions";
 
 			LogMessages.Clear();
-			LogMessages.AppendFormat("Y1S feed down:\r\n\r\n{0}\r\n\r\n",
-				BottomiumCascade.GetY1SFeedDownString(ProtonProtonBaseline, FeedDown3P));
+			LogMessages.AppendFormat("Y1S feed down fractions:\r\n\r\n{0}\r\n\r\n",
+				BottomiumCascade.GetY1SFeedDownFractionsString(ProtonProtonBaseline, FeedDown3P));
 		}
-
-		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-
-		private static readonly int NumberBottomiumStates
-			= Enum.GetValues(typeof(BottomiumState)).Length;
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
@@ -710,30 +705,20 @@ namespace Yburn.Workers
 		}
 
 		private double[] CalculateFullSuppressionFactors(
-			double[] qgpSuppressionFactors
+			BottomiumVector qgpSuppressionFactors
 			)
 		{
-			//double[] ppQGPSuppressionFactors = { 1, 1, 1, 1, 1, 1 };
-
-			//double ppResult1S = BottomiumCascade.GetDimuonDecays(
-			//	ppYields, ppQGPSuppressionFactors, BottomiumState.Y1S);
-			//double ppResult2S = BottomiumCascade.GetDimuonDecays(
-			//	ppYields, ppQGPSuppressionFactors, BottomiumState.Y2S);
-			//double ppResult3S = BottomiumCascade.GetDimuonDecays(
-			//	ppYields, ppQGPSuppressionFactors, BottomiumState.Y3S);
-
-			double[] ppDimuonDecays = BottomiumCascade.GetProtonProtonDimuonDecays(
+			BottomiumVector ppDimuonDecays = BottomiumCascade.GetProtonProtonDimuonDecays(
 				ProtonProtonBaseline, FeedDown3P);
-			double ppResult1S = ppDimuonDecays[(int)BottomiumState.Y1S];
-			double ppResult2S = ppDimuonDecays[(int)BottomiumState.Y2S];
-			double ppResult3S = ppDimuonDecays[(int)BottomiumState.Y3S];
+			double ppResult1S = ppDimuonDecays[BottomiumState.Y1S];
+			double ppResult2S = ppDimuonDecays[BottomiumState.Y2S];
+			double ppResult3S = ppDimuonDecays[BottomiumState.Y3S];
 
-			double heavyIonResult1S = BottomiumCascade.GetDimuonDecays(
-				ProtonProtonBaseline, FeedDown3P, qgpSuppressionFactors, BottomiumState.Y1S);
-			double heavyIonResult2S = BottomiumCascade.GetDimuonDecays(
-				ProtonProtonBaseline, FeedDown3P, qgpSuppressionFactors, BottomiumState.Y2S);
-			double heavyIonResult3S = BottomiumCascade.GetDimuonDecays(
-				ProtonProtonBaseline, FeedDown3P, qgpSuppressionFactors, BottomiumState.Y3S);
+			BottomiumVector heavyIonDimuonDecays = BottomiumCascade.CalculateDimuonDecays(
+				ProtonProtonBaseline, FeedDown3P, qgpSuppressionFactors);
+			double heavyIonResult1S = heavyIonDimuonDecays[BottomiumState.Y1S];
+			double heavyIonResult2S = heavyIonDimuonDecays[BottomiumState.Y2S];
+			double heavyIonResult3S = heavyIonDimuonDecays[BottomiumState.Y3S];
 
 			return new double[] {
 				heavyIonResult1S / ppResult1S,
@@ -744,7 +729,7 @@ namespace Yburn.Workers
 			};
 		}
 
-		protected double[][][][] CalculateQGPSuppressionFactors(
+		protected BottomiumVector[][][] CalculateQGPSuppressionFactors(
 			int[] numberCentralityBins
 			)
 		{
@@ -780,11 +765,11 @@ namespace Yburn.Workers
 			int numberGridPoints = Convert.ToInt32(Math.Round(GridRadius / GridCellSize)) + 1;
 
 			gnuFileStringX.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
-				GridRadius.ToString("G3")));
+				GridRadius.ToString()));
 			gnuFileStringY.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
-				GridRadius.ToString("G3")));
+				GridRadius.ToString()));
 			gnuFileStringXY.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\nset yr[0:{1,3}]\r\n\r\n",
-				GridRadius.ToString("G3"), GridRadius.ToString("G3")));
+				GridRadius.ToString(), GridRadius.ToString()));
 
 			string xPlotStringBegin = "p \"" + pathFile
 				+ "\" every " + numberGridPoints.ToString() + " index ";
@@ -814,7 +799,7 @@ namespace Yburn.Workers
 
 				// get status of calculation
 				currentTime = fireball.CurrentTime;
-				StatusValues[0] = currentTime.ToString("G3");
+				StatusValues[0] = currentTime.ToString();
 
 				dataFileString.AppendLine("\r\n\r\n#Time = "
 					+ currentTime.ToString() + ", Index " + index);
@@ -871,8 +856,8 @@ namespace Yburn.Workers
 				for(int j = 0; j < centralityBinGroup.Length; j++)
 				{
 					centralityBinGroup[j] = string.Format("{0}-{1}%",
-						 CentralityBinBoundaries[i][j].ToString(),
-						 CentralityBinBoundaries[i][j + 1].ToString());
+						 CentralityBinBoundaries[i][j].ToUIString(),
+						 CentralityBinBoundaries[i][j + 1].ToUIString());
 				}
 				centralityBinStrings[i] = centralityBinGroup;
 			}

@@ -55,7 +55,7 @@
     <Compile Include="BinBoundaryCalculatorTests.cs" />
     <Compile Include="BottomiumCascadeTests.cs" />
     <Compile Include="FireballElectromagneticFieldTests.cs" />
-    <Compile Include="MagneticFieldStrengthAveragerTests.cs" />
+    <Compile Include="ElectromagneticFieldStrengthAveragerTests.cs" />
     <Compile Include="PointChargeElectromagneticFieldTests.cs" />
     <Compile Include="DecayWidthAveragerTests.cs" />
     <Compile Include="FireballFieldTests.cs" />

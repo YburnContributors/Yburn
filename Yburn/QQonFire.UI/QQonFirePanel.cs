@@ -210,7 +210,7 @@ namespace Yburn.QQonFire.UI
 			MenuEntry.MenuItemShowInverseCumulativeMatrix.Click += new EventHandler(MenuItemShowInverseCumulativeMatrix_Click);
 			MenuEntry.MenuItemShowInitialQQPopulations.Click += new EventHandler(MenuItemShowInitialQQPopulations_Click);
 			MenuEntry.MenuItemShowProtonProtonDimuonDecays.Click += new EventHandler(MenuItemShowProtonProtonDimuonDecays_Click);
-			MenuEntry.MenuItemShowFeedDown.Click += new EventHandler(MenuItemShowFeedDown_Click);
+			MenuEntry.MenuItemShowFeedDown.Click += new EventHandler(MenuItemShowY1SFeedDownFractions_Click);
 		}
 
 		private void MakeToolTips(
@@ -268,9 +268,9 @@ namespace Yburn.QQonFire.UI
 			JobOrganizer.RequestNewJob("ShowProtonProtonDimuonDecays", ControlsValues);
 		}
 
-		private void MenuItemShowFeedDown_Click(object sender, EventArgs e)
+		private void MenuItemShowY1SFeedDownFractions_Click(object sender, EventArgs e)
 		{
-			JobOrganizer.RequestNewJob("ShowY1SFeedDown", ControlsValues);
+			JobOrganizer.RequestNewJob("ShowY1SFeedDownFractions", ControlsValues);
 		}
 
 		private void MenuItemMakeSnapshots_Click(object sender, EventArgs e)

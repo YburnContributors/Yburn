@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using Yburn.Fireball;
-using Yburn.TestUtil;
 
 namespace Yburn.Workers.Tests
 {
@@ -13,20 +12,9 @@ namespace Yburn.Workers.Tests
 		 ********************************************************************************************/
 
 		[TestMethod]
-		public void CalculateInitialQQPopulations_CMS2012()
-		{
-			ProtonProtonBaseline ppBaseline = ProtonProtonBaseline.CMS2012;
-			double feedDown3P = 0.06;
-
-			double[] initialQQPopulations = BottomiumCascade.GetInitialQQPopulations(
-				ppBaseline, feedDown3P);
-			AssertCorrectInitialQQPopulations_CMS2012(initialQQPopulations);
-		}
-
-		[TestMethod]
 		public void CalculateQGPSuppressionFactorsBinWise_AveragedTemperature()
 		{
-			double[][][][] suppressionFactors = CalculateQGPSuppressionFactorsInQQonFire(
+			BottomiumVector[][][] suppressionFactors = CalculateQGPSuppressionFactorsInQQonFire(
 				DecayWidthEvaluationType.AveragedTemperature);
 			AssertCorrectQGPSuppression_AveragedTemperature(suppressionFactors);
 		}
@@ -34,7 +22,7 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void CalculateQGPSuppressionFactorsBinWise_UnshiftedTemperature()
 		{
-			double[][][][] suppressionFactors = CalculateQGPSuppressionFactorsInQQonFire(
+			BottomiumVector[][][] suppressionFactors = CalculateQGPSuppressionFactorsInQQonFire(
 				DecayWidthEvaluationType.UnshiftedTemperature);
 			AssertCorrectQGPSuppression_UnshiftedTemperature(suppressionFactors);
 		}
@@ -42,18 +30,6 @@ namespace Yburn.Workers.Tests
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
-
-		private static void AssertCorrectInitialQQPopulations_CMS2012(
-			double[] initialQQPopulations
-			)
-		{
-			AssertHelper.AssertApproximatelyEqual(13.831681883072369, initialQQPopulations[0]);
-			AssertHelper.AssertApproximatelyEqual(43.69470939802315, initialQQPopulations[1]);
-			AssertHelper.AssertApproximatelyEqual(17.730737923019689, initialQQPopulations[2]);
-			AssertHelper.AssertApproximatelyEqual(45.626563577477171, initialQQPopulations[3]);
-			AssertHelper.AssertApproximatelyEqual(10.893164282464253, initialQQPopulations[4]);
-			AssertHelper.AssertApproximatelyEqual(7.6588791939455149E+99, initialQQPopulations[5]);
-		}
 
 		private static Dictionary<string, string> GetQQonFireVariables(
 			DecayWidthEvaluationType type
@@ -92,132 +68,136 @@ namespace Yburn.Workers.Tests
 		}
 
 		private static void AssertCorrectQGPSuppression_AveragedTemperature(
-			double[][][][] suppressionFactors
+			BottomiumVector[][][] suppressionFactors
 			)
 		{
-			AssertHelper.AssertApproximatelyEqual(0.689141742678362, suppressionFactors[0][0][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.15022619455483202, suppressionFactors[0][0][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.18908649759186147, suppressionFactors[0][0][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.044797104196318209, suppressionFactors[0][0][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.057319524225271583, suppressionFactors[0][0][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.024002685130619993, suppressionFactors[0][0][0][(int)BottomiumState.x3P]);
+			double delta = 1e-15;
 
-			AssertHelper.AssertApproximatelyEqual(0.70189559673253143, suppressionFactors[0][1][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.16376956569956505, suppressionFactors[0][1][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.20319687029597477, suppressionFactors[0][1][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.048718342266889016, suppressionFactors[0][1][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.05915258985658526, suppressionFactors[0][1][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.023661856996550878, suppressionFactors[0][1][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.689141742678362, suppressionFactors[0][0][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.150226194554832, suppressionFactors[0][0][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.189086497591861, suppressionFactors[0][0][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.044797104196318, suppressionFactors[0][0][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.057319524225271, suppressionFactors[0][0][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.024002685130619, suppressionFactors[0][0][0][BottomiumState.x3P], delta);
 
-			AssertHelper.AssertApproximatelyEqual(0.72735455240534552, suppressionFactors[0][2][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.18292919891040607, suppressionFactors[0][2][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.23366016770795348, suppressionFactors[0][2][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.055190174027759061, suppressionFactors[0][2][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.0729178336874576, suppressionFactors[0][2][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.032094201581999604, suppressionFactors[0][2][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.701895596732531, suppressionFactors[0][1][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.163769565699565, suppressionFactors[0][1][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.203196870295974, suppressionFactors[0][1][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.048718342266889, suppressionFactors[0][1][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.059152589856585, suppressionFactors[0][1][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.023661856996550, suppressionFactors[0][1][0][BottomiumState.x3P], delta);
 
-			AssertHelper.AssertApproximatelyEqual(0.776146632955757, suppressionFactors[0][3][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.25780648577415727, suppressionFactors[0][3][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.30873786418944649, suppressionFactors[0][3][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.071733607360939172, suppressionFactors[0][3][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.10205425201513091, suppressionFactors[0][3][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.042135611710393685, suppressionFactors[0][3][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.727354552405345, suppressionFactors[0][2][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.182929198910406, suppressionFactors[0][2][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.233660167707953, suppressionFactors[0][2][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.055190174027759, suppressionFactors[0][2][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.072917833687457, suppressionFactors[0][2][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.032094201581999, suppressionFactors[0][2][0][BottomiumState.x3P], delta);
 
-			AssertHelper.AssertApproximatelyEqual(0.82599378266778112, suppressionFactors[0][4][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.34918832687240736, suppressionFactors[0][4][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.40099861857289371, suppressionFactors[0][4][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.0975539896546211, suppressionFactors[0][4][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.15367516443465792, suppressionFactors[0][4][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.067804408958810666, suppressionFactors[0][4][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.776146632955757, suppressionFactors[0][3][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.257806485774157, suppressionFactors[0][3][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.308737864189446, suppressionFactors[0][3][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.071733607360939, suppressionFactors[0][3][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.102054252015130, suppressionFactors[0][3][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.042135611710393, suppressionFactors[0][3][0][BottomiumState.x3P], delta);
 
-			AssertHelper.AssertApproximatelyEqual(0.86402294642800825, suppressionFactors[0][5][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.50673812294735943, suppressionFactors[0][5][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.48345153172440841, suppressionFactors[0][5][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.14831794698136355, suppressionFactors[0][5][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.18439888916805033, suppressionFactors[0][5][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.091168263928724361, suppressionFactors[0][5][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.825993782667781, suppressionFactors[0][4][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.349188326872407, suppressionFactors[0][4][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.400998618572893, suppressionFactors[0][4][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.097553989654621, suppressionFactors[0][4][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.153675164434657, suppressionFactors[0][4][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.067804408958810, suppressionFactors[0][4][0][BottomiumState.x3P], delta);
 
-			AssertHelper.AssertApproximatelyEqual(0.90400326178075741, suppressionFactors[0][6][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.64051602376465633, suppressionFactors[0][6][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.59195185730217992, suppressionFactors[0][6][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.2550878749631848, suppressionFactors[0][6][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.29065903446397745, suppressionFactors[0][6][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.12582091497583, suppressionFactors[0][6][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.864022946428008, suppressionFactors[0][5][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.506738122947359, suppressionFactors[0][5][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.483451531724408, suppressionFactors[0][5][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.148317946981363, suppressionFactors[0][5][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.184398889168050, suppressionFactors[0][5][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.091168263928724, suppressionFactors[0][5][0][BottomiumState.x3P], delta);
 
-			AssertHelper.AssertApproximatelyEqual(0.77151680528588007, suppressionFactors[1][0][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.29050947155242735, suppressionFactors[1][0][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.32434683175766843, suppressionFactors[1][0][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.10453076821667949, suppressionFactors[1][0][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.13392874993211715, suppressionFactors[1][0][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.0650478684508108, suppressionFactors[1][0][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.904003261780757, suppressionFactors[0][6][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.640516023764656, suppressionFactors[0][6][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.591951857302179, suppressionFactors[0][6][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.255087874963184, suppressionFactors[0][6][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.290659034463977, suppressionFactors[0][6][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.125820914975830, suppressionFactors[0][6][0][BottomiumState.x3P], delta);
+
+			Assert.AreEqual(0.771516805285880, suppressionFactors[1][0][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.290509471552427, suppressionFactors[1][0][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.324346831757668, suppressionFactors[1][0][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.104530768216679, suppressionFactors[1][0][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.133928749932117, suppressionFactors[1][0][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.065047868450810, suppressionFactors[1][0][0][BottomiumState.x3P], delta);
 		}
 
 		private static void AssertCorrectQGPSuppression_UnshiftedTemperature(
-			double[][][][] suppressionFactors
+			BottomiumVector[][][] suppressionFactors
 			)
 		{
-			AssertHelper.AssertApproximatelyEqual(0.66092400851206878, suppressionFactors[0][0][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.13913757251810191, suppressionFactors[0][0][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.16803778763258181, suppressionFactors[0][0][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.040154956103386957, suppressionFactors[0][0][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.054877415833177789, suppressionFactors[0][0][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.022614516663553193, suppressionFactors[0][0][0][(int)BottomiumState.x3P]);
+			double delta = 1e-15;
 
-			AssertHelper.AssertApproximatelyEqual(0.67454370076164738, suppressionFactors[0][1][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.13745219574215814, suppressionFactors[0][1][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.1810328796530819, suppressionFactors[0][1][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.042776814375612732, suppressionFactors[0][1][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.0532677396722611, suppressionFactors[0][1][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.023659543787278369, suppressionFactors[0][1][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.660924008512068, suppressionFactors[0][0][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.139137572518101, suppressionFactors[0][0][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.168037787632581, suppressionFactors[0][0][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.040154956103386, suppressionFactors[0][0][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.054877415833177, suppressionFactors[0][0][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.022614516663553, suppressionFactors[0][0][0][BottomiumState.x3P], delta);
 
-			AssertHelper.AssertApproximatelyEqual(0.70179711960021229, suppressionFactors[0][2][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.16205988073379843, suppressionFactors[0][2][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.20679104226621864, suppressionFactors[0][2][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.05058394251074036, suppressionFactors[0][2][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.064373291513014033, suppressionFactors[0][2][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.029472506645586403, suppressionFactors[0][2][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.674543700761647, suppressionFactors[0][1][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.137452195742158, suppressionFactors[0][1][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.181032879653081, suppressionFactors[0][1][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.042776814375612, suppressionFactors[0][1][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.053267739672261, suppressionFactors[0][1][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.023659543787278, suppressionFactors[0][1][0][BottomiumState.x3P], delta);
 
-			AssertHelper.AssertApproximatelyEqual(0.75415071875618289, suppressionFactors[0][3][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.21763963519097856, suppressionFactors[0][3][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.27243498235234209, suppressionFactors[0][3][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.071224588255232771, suppressionFactors[0][3][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.090956270159929423, suppressionFactors[0][3][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.038403138907567566, suppressionFactors[0][3][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.701797119600212, suppressionFactors[0][2][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.162059880733798, suppressionFactors[0][2][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.206791042266218, suppressionFactors[0][2][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.050583942510740, suppressionFactors[0][2][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.064373291513014, suppressionFactors[0][2][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.029472506645586, suppressionFactors[0][2][0][BottomiumState.x3P], delta);
 
-			AssertHelper.AssertApproximatelyEqual(0.80785939677724883, suppressionFactors[0][4][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.32142478964268428, suppressionFactors[0][4][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.37187210567606832, suppressionFactors[0][4][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.097026718871488407, suppressionFactors[0][4][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.13553230925680262, suppressionFactors[0][4][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.060772036786548092, suppressionFactors[0][4][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.754150718756182, suppressionFactors[0][3][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.217639635190978, suppressionFactors[0][3][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.272434982352342, suppressionFactors[0][3][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.071224588255232, suppressionFactors[0][3][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.090956270159929, suppressionFactors[0][3][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.038403138907567, suppressionFactors[0][3][0][BottomiumState.x3P], delta);
 
-			AssertHelper.AssertApproximatelyEqual(0.84906137900736711, suppressionFactors[0][5][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.40083451298058942, suppressionFactors[0][5][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.46138839218005423, suppressionFactors[0][5][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.14715396457800234, suppressionFactors[0][5][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.18193516535905444, suppressionFactors[0][5][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.075128622481612575, suppressionFactors[0][5][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.807859396777248, suppressionFactors[0][4][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.321424789642684, suppressionFactors[0][4][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.371872105676068, suppressionFactors[0][4][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.097026718871488, suppressionFactors[0][4][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.135532309256802, suppressionFactors[0][4][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.060772036786548, suppressionFactors[0][4][0][BottomiumState.x3P], delta);
 
-			AssertHelper.AssertApproximatelyEqual(0.89269027614220164, suppressionFactors[0][6][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.57236164791487176, suppressionFactors[0][6][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.57012946866639813, suppressionFactors[0][6][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.1770138353596965, suppressionFactors[0][6][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.26786764742667807, suppressionFactors[0][6][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.12580578021560518, suppressionFactors[0][6][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.849061379007367, suppressionFactors[0][5][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.400834512980589, suppressionFactors[0][5][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.461388392180054, suppressionFactors[0][5][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.147153964578002, suppressionFactors[0][5][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.181935165359054, suppressionFactors[0][5][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.075128622481612, suppressionFactors[0][5][0][BottomiumState.x3P], delta);
 
-			AssertHelper.AssertApproximatelyEqual(0.74952101784256642, suppressionFactors[1][0][0][(int)BottomiumState.Y1S]);
-			AssertHelper.AssertApproximatelyEqual(0.25694061080828384, suppressionFactors[1][0][0][(int)BottomiumState.x1P]);
-			AssertHelper.AssertApproximatelyEqual(0.29752677816089318, suppressionFactors[1][0][0][(int)BottomiumState.Y2S]);
-			AssertHelper.AssertApproximatelyEqual(0.095823060614334918, suppressionFactors[1][0][0][(int)BottomiumState.x2P]);
-			AssertHelper.AssertApproximatelyEqual(0.12240536967319705, suppressionFactors[1][0][0][(int)BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(0.059246710043294681, suppressionFactors[1][0][0][(int)BottomiumState.x3P]);
+			Assert.AreEqual(0.892690276142201, suppressionFactors[0][6][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.572361647914871, suppressionFactors[0][6][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.570129468666398, suppressionFactors[0][6][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.177013835359696, suppressionFactors[0][6][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.267867647426678, suppressionFactors[0][6][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.125805780215605, suppressionFactors[0][6][0][BottomiumState.x3P], delta);
+
+			Assert.AreEqual(0.749521017842566, suppressionFactors[1][0][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.256940610808283, suppressionFactors[1][0][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.297526778160893, suppressionFactors[1][0][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.095823060614334, suppressionFactors[1][0][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.122405369673197, suppressionFactors[1][0][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.059246710043294, suppressionFactors[1][0][0][BottomiumState.x3P], delta);
 		}
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private double[][][][] CalculateQGPSuppressionFactorsInQQonFire(
+		private BottomiumVector[][][] CalculateQGPSuppressionFactorsInQQonFire(
 			DecayWidthEvaluationType type
 			)
 		{

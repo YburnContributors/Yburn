@@ -30,7 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Converter.cs" />
     <Compile Include="Electromagnetism.cs" />
     <Compile Include="Electromagnetism.Params.cs" />
     <Compile Include="GlobalSuppressions.cs" />
@@ -44,7 +43,6 @@
     <Compile Include="QQonFire.cs" />
     <Compile Include="SingleQQ.cs" />
     <Compile Include="TemperatureDecayWidthPrinter.cs" />
-    <Compile Include="Extractor.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fireball\Fireball.csproj">

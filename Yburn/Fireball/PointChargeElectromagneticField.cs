@@ -98,6 +98,27 @@ namespace Yburn.Fireball
 					effectiveTime, radialDistance);
 		}
 
+		public virtual double CalculateLongitudinalElectricField_LCF(
+			double effectiveTime,
+			double radialDistance,
+			double observerRapidity
+			)
+		{
+			return CalculateLongitudinalElectricField(effectiveTime, radialDistance);
+		}
+
+		public virtual double CalculateRadialElectricField_LCF(
+			double effectiveTime,
+			double radialDistance,
+			double observerRapidity
+			)
+		{
+			return Math.Cosh(observerRapidity) * CalculateRadialElectricField(
+					effectiveTime, radialDistance)
+				+ Math.Sinh(observerRapidity) * CalculateAzimutalMagneticField(
+					effectiveTime, radialDistance);
+		}
+
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/

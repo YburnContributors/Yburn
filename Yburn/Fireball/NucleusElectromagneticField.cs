@@ -130,7 +130,103 @@ namespace Yburn.Fireball
 			return integral;
 		}
 
-		public SpatialVector CalculateMagneticField(
+		public double CalculateLongitudinalElectricField_LCF(
+			double effectiveTime,
+			double radialDistance,
+			double observerRapidity,
+			int quadratureOrder
+			)
+		{
+			Func<double, double, double> integrand = (x, y) =>
+			{
+				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
+
+				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
+					* PointChargeEMF.CalculateLongitudinalElectricField_LCF(
+						effectiveTime,
+						pointChargePosition.Norm,
+						observerRapidity)
+					* pointChargePosition.Direction.X;
+			};
+
+			double integral = Quadrature.IntegrateOverRealPlane(
+				integrand,
+				2 * Nucleus.NuclearRadiusFm,
+				quadratureOrder);
+
+			return integral;
+		}
+
+		public double CalculateRadialElectricField_LCF(
+			double effectiveTime,
+			double radialDistance,
+			double observerRapidity,
+			int quadratureOrder
+			)
+		{
+			Func<double, double, double> integrand = (x, y) =>
+			{
+				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
+
+				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
+					* PointChargeEMF.CalculateRadialElectricField_LCF(
+						effectiveTime,
+						pointChargePosition.Norm,
+						observerRapidity)
+					* pointChargePosition.Direction.X;
+			};
+
+			double integral = Quadrature.IntegrateOverRealPlane(
+				integrand,
+				2 * Nucleus.NuclearRadiusFm,
+				quadratureOrder);
+
+			return integral;
+		}
+
+		public SpatialVector CalculateElectricFieldPerFm2(
+			double t,
+			double x,
+			double y,
+			double z,
+			int quadratureOrder
+			)
+		{
+			double effectiveTime = CalculateEffectiveTime(t, z);
+			double radialDistance = CalculateRadialDistance(x, y);
+
+			double longitudinalField = CalculateLongitudinalElectricField(
+				effectiveTime, radialDistance, quadratureOrder);
+
+			double radialField = CalculateRadialElectricField(
+				effectiveTime, radialDistance, quadratureOrder);
+
+			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
+				x, y, radialField, 0, longitudinalField);
+		}
+
+		public SpatialVector CalculateElectricFieldPerFm2_LCF(
+			double properTime,
+			double x,
+			double y,
+			double rapidity,
+			int quadratureOrder
+			)
+		{
+			double effectiveTime = CalculateEffectiveTime_LCF(properTime, rapidity);
+			double radialDistance = CalculateRadialDistance(x, y);
+
+			double longitudinalField = CalculateLongitudinalElectricField_LCF(
+				effectiveTime, radialDistance, rapidity, quadratureOrder);
+
+			double radialField = CalculateRadialElectricField_LCF(
+				effectiveTime, radialDistance, rapidity, quadratureOrder);
+
+			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
+				x, y, radialField, 0, longitudinalField);
+		}
+
+		public SpatialVector CalculateMagneticFieldPerFm2(
 			double t,
 			double x,
 			double y,
@@ -148,7 +244,7 @@ namespace Yburn.Fireball
 				x, y, 0, azimutalField, 0);
 		}
 
-		public SpatialVector CalculateMagneticField_LCF(
+		public SpatialVector CalculateMagneticFieldPerFm2_LCF(
 			double properTime,
 			double x,
 			double y,

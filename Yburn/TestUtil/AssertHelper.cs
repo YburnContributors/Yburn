@@ -16,7 +16,7 @@ namespace Yburn.TestUtil
 		public static void AssertApproximatelyEqual(
 			double expected,
 			double actual,
-			int digits = 15
+			int digits = 14
 			)
 		{
 			if(expected == 0)

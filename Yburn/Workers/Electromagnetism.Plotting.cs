@@ -431,7 +431,7 @@ namespace Yburn.Workers
 						param.BeamRapidity,
 						nucleusA);
 
-					return emf.CalculateMagneticField_LCF(
+					return emf.CalculateMagneticFieldPerFm2_LCF(
 						param.FormationTimesFm[0],
 						radialDistance,
 						0,
@@ -482,7 +482,7 @@ namespace Yburn.Workers
 					param.ImpactParameterFm = impactParam;
 					FireballElectromagneticField emf = new FireballElectromagneticField(param);
 
-					return emf.CalculateMagneticField(
+					return emf.CalculateMagneticFieldPerFm2(
 						param.FormationTimesFm[0], 0, 0, 0, QuadratureOrder).Norm;
 				};
 
@@ -533,9 +533,9 @@ namespace Yburn.Workers
 				{
 					param.ImpactParameterFm = impactParam;
 					param.FormationTimesFm = new double[] { properTime };
-					MagneticFieldStrengthAverager avg = new MagneticFieldStrengthAverager(param);
+					ElectromagneticFieldStrengthAverager avg = new ElectromagneticFieldStrengthAverager(param);
 
-					return avg.CalculateAverageMagneticFieldStrength_LCF(QuadratureOrder);
+					return avg.CalculateAverageMagneticFieldStrengthPerFm2_LCF(QuadratureOrder);
 				};
 
 				AddPlotFunctionLists(dataList, impactParamValues, fieldValue);
@@ -583,7 +583,7 @@ namespace Yburn.Workers
 				{
 					param.ImpactParameterFm = impactParam;
 					param.FormationTimesFm = new double[] { properTime };
-					MagneticFieldStrengthAverager avg = new MagneticFieldStrengthAverager(param);
+					ElectromagneticFieldStrengthAverager avg = new ElectromagneticFieldStrengthAverager(param);
 
 					return avg.CalculateSpinStateOverlap(QuadratureOrder);
 				};

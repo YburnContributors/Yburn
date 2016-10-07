@@ -80,7 +80,7 @@ namespace Yburn.Fireball.Tests
 			SpatialVector[] fieldValues = new SpatialVector[Positions.Length];
 			for(int i = 0; i < Positions.Length; i++)
 			{
-				fieldValues[i] = emf.CalculateMagneticField(
+				fieldValues[i] = emf.CalculateMagneticFieldPerFm2(
 						Time, Positions[i].X, Positions[i].Y, Positions[i].Z, 64);
 			}
 
@@ -95,7 +95,7 @@ namespace Yburn.Fireball.Tests
 			SpatialVector[] fieldValues = new SpatialVector[Positions.Length];
 			for(int i = 0; i < Positions.Length; i++)
 			{
-				fieldValues[i] = emf.CalculateMagneticField(
+				fieldValues[i] = emf.CalculateMagneticFieldPerFm2(
 					Time, Positions[i].X, Positions[i].Y, Positions[i].Z, 64);
 			}
 
