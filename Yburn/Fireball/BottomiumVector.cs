@@ -126,41 +126,18 @@ namespace Yburn.Fireball
 			bool transposeVector = true
 			)
 		{
-			return GetStringifiedRepresentation(
-				description: description,
-				extractGammaTot3P: extractGammaTot3P,
-				transposeVector: transposeVector).ConcatenateStringTable(true, true);
-		}
-
-		public string[,] GetStringifiedRepresentation(
-			string description = "Population",
-			bool extractGammaTot3P = false,
-			bool transposeVector = true
-			)
-		{
-			string[,] stringifiedVector = new string[BottomiumStatesCount + 1, 2];
-
-			stringifiedVector[0, 0] = "State";
-			stringifiedVector[0, 1] = description;
-			for(int i = 0; i < BottomiumStatesCount; i++)
-			{
-				stringifiedVector[i + 1, 0] = Enum.GetNames(typeof(BottomiumState))[i];
-				stringifiedVector[i + 1, 1] = Entries[i].ToUIString();
-			}
-
-			if(extractGammaTot3P)
-			{
-				stringifiedVector[(int)BottomiumState.x3P + 1, 1] =
-					(Entries[(int)BottomiumState.x3P] / Constants.GammaTot3P).ToUIString()
-					+ "*GammaTot3P/eV";
-			}
+			string[] labels = Enum.GetNames(typeof(BottomiumState));
+			Table<string> table = new Table<string>(GetStringifiedRepresentation(extractGammaTot3P));
 
 			if(transposeVector)
 			{
-				stringifiedVector = stringifiedVector.GetTransposedArray();
+				table.Transpose();
+				return table.ToFormattedTableString(labels, new string[] { description });
 			}
-
-			return stringifiedVector;
+			else
+			{
+				return table.ToFormattedTableString(new string[] { description }, labels);
+			}
 		}
 
 		/********************************************************************************************
@@ -168,5 +145,27 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		private readonly double[] Entries;
+
+		private string[] GetStringifiedRepresentation(
+			bool extractGammaTot3P
+			)
+		{
+			string[] stringifiedEntries = Array.ConvertAll(Entries, x => x.ToUIString());
+
+			if(extractGammaTot3P)
+			{
+				ExtractGammaTot3PFromStringifiedRepresentation(stringifiedEntries);
+			}
+
+			return stringifiedEntries;
+		}
+
+		private void ExtractGammaTot3PFromStringifiedRepresentation(
+			string[] stringifiedEntries
+			)
+		{
+			stringifiedEntries[(int)BottomiumState.x3P] =
+				(this[BottomiumState.x3P] / Constants.GammaTot3P).ToUIString() + "*GammaTot3P/eV";
+		}
 	}
 }

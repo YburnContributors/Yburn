@@ -1,8 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq;
-using System.Text;
 
 namespace Yburn
 {
@@ -91,7 +89,7 @@ namespace Yburn
 			return array;
 		}
 
-		public static T[][] ToValueJaggedArray<T>(
+		public static T[][] ToJaggedValueArray<T>(
 			this string stringifiedList
 			) where T : IConvertible
 		{
@@ -104,49 +102,6 @@ namespace Yburn
 			}
 
 			return jaggedArray;
-		}
-
-		public static string ConcatenateStringTable(
-			this string[,] table,
-			bool isFirstRowLabel,
-			bool isFirstColumnLabel
-			)
-		{
-			StringBuilder stringBuilder = new StringBuilder();
-			string[] columnFormatStrings = GetColumnFormatStrings(table, isFirstColumnLabel);
-
-			for(int row = 0; row < table.GetLength(0); row++)
-			{
-				for(int col = 0; col < table.GetLength(1); col++)
-				{
-					stringBuilder.AppendFormat(columnFormatStrings[col], table[row, col]);
-				}
-				stringBuilder.AppendLine();
-
-				if(row == 0 && isFirstRowLabel)
-				{
-					stringBuilder.AppendLine();
-				}
-			}
-
-			return stringBuilder.ToString();
-		}
-
-		public static T[,] GetTransposedArray<T>(
-			this T[,] array
-			)
-		{
-			T[,] transpose = new T[array.GetLength(1), array.GetLength(0)];
-
-			for(int i = 0; i < transpose.GetLength(0); i++)
-			{
-				for(int j = 0; j < transpose.GetLength(1); j++)
-				{
-					transpose[i, j] = array[j, i];
-				}
-			}
-
-			return transpose;
 		}
 
 		/********************************************************************************************
@@ -170,46 +125,6 @@ namespace Yburn
 			{
 				return stringifiedList.Split(separator, StringSplitOptions.RemoveEmptyEntries);
 			}
-		}
-
-		private static string[] GetColumnFormatStrings(
-			string[,] table,
-			bool isFirstColumnLabel
-			)
-		{
-			int[] columnWidths = GetStringTableColumnWidths(table);
-			string[] formatStrings = new string[columnWidths.Length];
-
-			for(int i = 0; i < formatStrings.Length; i++)
-			{
-				formatStrings[i] = string.Format("{{0,{0}}}", columnWidths[i] + 2);
-			}
-
-			if(isFirstColumnLabel)
-			{
-				formatStrings[0] = string.Format("{{0,-{0}}}", columnWidths[0]);
-			}
-
-			return formatStrings;
-		}
-
-		private static int[] GetStringTableColumnWidths(
-			string[,] table
-			)
-		{
-			int[] columnWidths = new int[table.GetLength(1)];
-
-			for(int col = 0; col < table.GetLength(1); col++)
-			{
-				string[] column = new string[table.GetLength(0)];
-				for(int row = 0; row < table.GetLength(0); row++)
-				{
-					column[row] = table[row, col];
-				}
-				columnWidths[col] = column.Max(element => element.Length);
-			}
-
-			return columnWidths;
 		}
 	}
 }

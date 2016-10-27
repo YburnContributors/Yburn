@@ -40,7 +40,7 @@ namespace Yburn.Fireball
 			matrixString.AppendLine(CalculateBranchingRatioMatrix()
 				.GetMatrixString(extractGammaTot3P: true));
 
-			string[,] muTable = new string[2, 4];
+			Table<string> muTable = new Table<string>(string.Empty, 2, 4);
 			muTable[0, 0] = "State";
 			muTable[0, 1] = BottomiumState.Y1S.ToUIString();
 			muTable[0, 2] = BottomiumState.Y2S.ToUIString();
@@ -49,7 +49,7 @@ namespace Yburn.Fireball
 			muTable[1, 1] = Constants.B1Smu.ToUIString();
 			muTable[1, 2] = Constants.B2Smu.ToUIString();
 			muTable[1, 3] = Constants.B3Smu.ToUIString();
-			matrixString.Append(muTable.ConcatenateStringTable(true, true));
+			matrixString.Append(muTable.ToFormattedTableString(firstColumnContainsLabels: true));
 
 			return matrixString.ToString();
 		}
@@ -202,26 +202,31 @@ namespace Yburn.Fireball
 			)
 		{
 			BottomiumVector initialPops = CalculateInitialQQPopulations(ppBaseline, feedDown3P);
-			BottomiumVector initialPopsWithBR =
+			BottomiumVector initialPopsBR =
 				CalculateInitialQQPopulationsWithDimuonBranchingRatiosIncluded(
 					ppBaseline, feedDown3P);
 
-			string[,] initialPopsStrings = initialPops.GetStringifiedRepresentation(
-				description: "N^i_nl/N^f_pp,1S/B(nS→µ±)", extractGammaTot3P: true);
-			string[,] initialPopsWithBRStrings =
-				initialPopsWithBR.GetStringifiedRepresentation(
-					description: "N^i_nl/N^f_pp,1S", extractGammaTot3P: true);
+			string[] initialPopsRows = initialPops
+				.GetVectorString(description: "", extractGammaTot3P: true)
+				.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+			string[] stateNames = initialPopsRows[0]
+				.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+			string[] initialPopsFormattedValues = initialPopsRows[1]
+				.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-			string[,] table = new string[3, initialPopsStrings.GetLength(1)];
+			string[] initialPopsBRRows = initialPopsBR
+				.GetVectorString(description: "", extractGammaTot3P: true)
+				.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+			string[] initialPopsBRFormattedValues = initialPopsBRRows[1]
+				.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-			for(int i = 0; i < table.GetLength(1); i++)
-			{
-				table[0, i] = initialPopsStrings[0, i];
-				table[1, i] = initialPopsStrings[1, i];
-				table[2, i] = initialPopsWithBRStrings[1, i];
-			}
+			Table<string> combinedEntries = new Table<string>();
+			combinedEntries.AddRow(initialPopsFormattedValues, string.Empty);
+			combinedEntries.AddRow(initialPopsBRFormattedValues, string.Empty);
 
-			return table.ConcatenateStringTable(true, true);
+			return combinedEntries.ToFormattedTableString(
+				stateNames,
+				new string[] { "N^i_AA,nl/N^f_pp,1S/B(nS→µ±)", "N^i_AA,nl/N^f_pp,1S" });
 		}
 
 		public static BottomiumVector GetProtonProtonDimuonDecays(
@@ -255,7 +260,7 @@ namespace Yburn.Fireball
 			)
 		{
 			return GetProtonProtonDimuonDecays(ppBaseline, feedDown3P)
-				.GetVectorString("N^f_pp,nl/N^f_pp,1S");
+				.GetVectorString(description: "N^f_pp,nl/N^f_pp,1S");
 		}
 
 		public static BottomiumVector CalculateY1SFeedDownFractions(
@@ -282,7 +287,8 @@ namespace Yburn.Fireball
 			double feedDown3P
 			)
 		{
-			return CalculateY1SFeedDownFractions(ppBaseline, feedDown3P).GetVectorString("Fraction");
+			return CalculateY1SFeedDownFractions(ppBaseline, feedDown3P)
+				.GetVectorString(description: "Fraction");
 		}
 
 		/********************************************************************************************

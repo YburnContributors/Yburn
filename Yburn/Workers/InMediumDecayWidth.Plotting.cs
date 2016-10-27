@@ -11,12 +11,13 @@ namespace Yburn.Workers
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public Process PlotInMediumDecayWidth()
+		public Process PlotInMediumDecayWidthsVersusMediumTemperature()
 		{
+			MediumVelocities = new double[] { MediumVelocities[0] };
 			CalculateInMediumDecayWidth();
 
 			StringBuilder plotFile = new StringBuilder();
-			AppendHeader_InMediumDecayWidth(plotFile);
+			AppendHeader_InMediumDecayWidthsVersusMediumTemperature(plotFile);
 			plotFile.AppendLine();
 
 			string[][] titleList = new string[DecayWidthEvaluationTypes.Length][];
@@ -26,7 +27,38 @@ namespace Yburn.Workers
 					state => GetBottomiumStateGnuplotCode(state) + ", "
 					+ DecayWidthEvaluationTypes[i].ToUIString());
 			}
-			AppendPlotCommands(plotFile, "linespoints", titleList);
+			AppendPlotCommands(
+				plotFile,
+				abscissaColumn: 1,
+				firstOrdinateColumn: 3,
+				titles: titleList);
+
+			WritePlotFile(plotFile);
+
+			return StartGnuplot();
+		}
+
+		public Process PlotInMediumDecayWidthsVersusMediumVelocity()
+		{
+			MediumTemperatures = new double[] { MediumTemperatures[0] };
+			CalculateInMediumDecayWidth();
+
+			StringBuilder plotFile = new StringBuilder();
+			AppendHeader_InMediumDecayWidthsVersusMediumVelocity(plotFile);
+			plotFile.AppendLine();
+
+			string[][] titleList = new string[DecayWidthEvaluationTypes.Length][];
+			for(int i = 0; i < DecayWidthEvaluationTypes.Length; i++)
+			{
+				titleList[i] = Array.ConvertAll(BottomiumStates,
+					state => GetBottomiumStateGnuplotCode(state) + ", "
+					+ DecayWidthEvaluationTypes[i].ToUIString());
+			}
+			AppendPlotCommands(
+				plotFile,
+				abscissaColumn: 2,
+				firstOrdinateColumn: 3,
+				titles: titleList);
 
 			WritePlotFile(plotFile);
 
@@ -90,18 +122,40 @@ namespace Yburn.Workers
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private void AppendHeader_InMediumDecayWidth(
+		private void AppendHeader_InMediumDecayWidthsVersusMediumTemperature(
 			StringBuilder plotFile
-	)
+			)
 		{
 			plotFile.AppendLine("reset");
 			plotFile.AppendLine("set terminal windows enhanced size 1000,800");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set key spacing 1.1");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set title \"" + InMediumDecayWidthPlottingTitle + "\"");
-			plotFile.AppendLine("set xlabel \"T (MeV)\"");
-			plotFile.AppendLine("set ylabel \"" + GetDecayWidthTypeGnuplotCode(DecayWidthType) + " (MeV)\"");
+			plotFile.AppendLine("set title '" + InMediumDecayWidthPlottingTitle
+					+ " for medium velocity |u| = " + MediumVelocities[0].ToUIString() + " c" + "'");
+			plotFile.AppendLine("set xlabel 'T (MeV)'");
+			plotFile.AppendLine("set ylabel '" + GetDecayWidthTypeGnuplotCode(DecayWidthType) + " (MeV)'");
+			plotFile.AppendLine();
+			for(int i = 8; i > BottomiumStates.Length; i--)
+			{
+				plotFile.AppendLine(string.Format("unset linetype {0}", i));
+			}
+			plotFile.AppendLine("set linetype cycle " + BottomiumStates.Length);
+		}
+
+		private void AppendHeader_InMediumDecayWidthsVersusMediumVelocity(
+			StringBuilder plotFile
+			)
+		{
+			plotFile.AppendLine("reset");
+			plotFile.AppendLine("set terminal windows enhanced size 1000,800");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set key spacing 1.1");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title '" + InMediumDecayWidthPlottingTitle
+					+ " for medium temperature T = " + MediumTemperatures[0].ToUIString() + " MeV" + "'");
+			plotFile.AppendLine("set xlabel 'u (c)'");
+			plotFile.AppendLine("set ylabel '" + GetDecayWidthTypeGnuplotCode(DecayWidthType) + " (MeV)'");
 			plotFile.AppendLine();
 			for(int i = 8; i > BottomiumStates.Length; i--)
 			{
@@ -114,8 +168,7 @@ namespace Yburn.Workers
 		{
 			get
 			{
-				return "In-medium decay widths " + GetDecayWidthTypeGnuplotCode(DecayWidthType)
-					+ " for medium velocity |u| = " + MediumVelocity.ToUIString() + "c";
+				return "In-medium decay widths " + GetDecayWidthTypeGnuplotCode(DecayWidthType);
 			}
 		}
 	}

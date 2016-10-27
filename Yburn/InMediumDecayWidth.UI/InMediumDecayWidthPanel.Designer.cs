@@ -35,14 +35,10 @@
 			this.TbxQGPFormationTemperature = new System.Windows.Forms.TextBox();
 			this.LblQGPFormationTemperature = new System.Windows.Forms.Label();
 			this.MsxDecayWidthEvaluationTypes = new Yburn.UI.MultiSelectBox();
-			this.LblMinTemperature = new System.Windows.Forms.Label();
-			this.TbxMinTemperature = new System.Windows.Forms.TextBox();
-			this.LblMaxTemperature = new System.Windows.Forms.Label();
-			this.TbxMaxTemperature = new System.Windows.Forms.TextBox();
-			this.LblTemperatureStepSize = new System.Windows.Forms.Label();
-			this.TbxTemperatureStepSize = new System.Windows.Forms.TextBox();
-			this.LblMediumVelocity = new System.Windows.Forms.Label();
-			this.TbxMediumVelocity = new System.Windows.Forms.TextBox();
+			this.LblMediumTemperatures = new System.Windows.Forms.Label();
+			this.TbxMediumTemperatures = new System.Windows.Forms.TextBox();
+			this.LblMediumVelocities = new System.Windows.Forms.Label();
+			this.TbxMediumVelocities = new System.Windows.Forms.TextBox();
 			this.LblNumberAveragingAngles = new System.Windows.Forms.Label();
 			this.TbxNumberAveragingAngles = new System.Windows.Forms.TextBox();
 			this.LblDecayWidthEvaluationTypes = new System.Windows.Forms.Label();
@@ -118,7 +114,7 @@
 			this.GbxAverageParams.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxAverageParams.Name = "GbxAverageParams";
 			this.GbxAverageParams.Padding = new System.Windows.Forms.Padding(10);
-			this.GbxAverageParams.Size = new System.Drawing.Size(459, 452);
+			this.GbxAverageParams.Size = new System.Drawing.Size(459, 385);
 			this.GbxAverageParams.TabIndex = 0;
 			this.GbxAverageParams.TabStop = false;
 			this.GbxAverageParams.Text = "Averaging Parameters";
@@ -128,59 +124,52 @@
 			this.LayoutAverageParams.ColumnCount = 2;
 			this.LayoutAverageParams.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
 			this.LayoutAverageParams.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
-			this.LayoutAverageParams.Controls.Add(this.TbxQGPFormationTemperature, 1, 9);
-			this.LayoutAverageParams.Controls.Add(this.LblQGPFormationTemperature, 0, 9);
-			this.LayoutAverageParams.Controls.Add(this.MsxDecayWidthEvaluationTypes, 1, 5);
-			this.LayoutAverageParams.Controls.Add(this.LblMinTemperature, 0, 0);
-			this.LayoutAverageParams.Controls.Add(this.TbxMinTemperature, 1, 0);
-			this.LayoutAverageParams.Controls.Add(this.LblMaxTemperature, 0, 1);
-			this.LayoutAverageParams.Controls.Add(this.TbxMaxTemperature, 1, 1);
-			this.LayoutAverageParams.Controls.Add(this.LblTemperatureStepSize, 0, 2);
-			this.LayoutAverageParams.Controls.Add(this.TbxTemperatureStepSize, 1, 2);
-			this.LayoutAverageParams.Controls.Add(this.LblMediumVelocity, 0, 3);
-			this.LayoutAverageParams.Controls.Add(this.TbxMediumVelocity, 1, 3);
-			this.LayoutAverageParams.Controls.Add(this.LblNumberAveragingAngles, 0, 4);
-			this.LayoutAverageParams.Controls.Add(this.TbxNumberAveragingAngles, 1, 4);
-			this.LayoutAverageParams.Controls.Add(this.LblDecayWidthEvaluationTypes, 0, 5);
-			this.LayoutAverageParams.Controls.Add(this.LblDecayWidthType, 0, 6);
-			this.LayoutAverageParams.Controls.Add(this.CbxDecayWidthType, 1, 6);
-			this.LayoutAverageParams.Controls.Add(this.LblPotentialTypes, 0, 7);
-			this.LayoutAverageParams.Controls.Add(this.MsxPotentialTypes, 1, 7);
-			this.LayoutAverageParams.Controls.Add(this.LblBottomiumStates, 0, 8);
-			this.LayoutAverageParams.Controls.Add(this.MsxBottomiumStates, 1, 8);
+			this.LayoutAverageParams.Controls.Add(this.TbxQGPFormationTemperature, 1, 7);
+			this.LayoutAverageParams.Controls.Add(this.LblQGPFormationTemperature, 0, 7);
+			this.LayoutAverageParams.Controls.Add(this.MsxDecayWidthEvaluationTypes, 1, 3);
+			this.LayoutAverageParams.Controls.Add(this.LblMediumTemperatures, 0, 0);
+			this.LayoutAverageParams.Controls.Add(this.TbxMediumTemperatures, 1, 0);
+			this.LayoutAverageParams.Controls.Add(this.LblMediumVelocities, 0, 1);
+			this.LayoutAverageParams.Controls.Add(this.TbxMediumVelocities, 1, 1);
+			this.LayoutAverageParams.Controls.Add(this.LblNumberAveragingAngles, 0, 2);
+			this.LayoutAverageParams.Controls.Add(this.TbxNumberAveragingAngles, 1, 2);
+			this.LayoutAverageParams.Controls.Add(this.LblDecayWidthEvaluationTypes, 0, 3);
+			this.LayoutAverageParams.Controls.Add(this.LblDecayWidthType, 0, 4);
+			this.LayoutAverageParams.Controls.Add(this.CbxDecayWidthType, 1, 4);
+			this.LayoutAverageParams.Controls.Add(this.LblPotentialTypes, 0, 5);
+			this.LayoutAverageParams.Controls.Add(this.MsxPotentialTypes, 1, 5);
+			this.LayoutAverageParams.Controls.Add(this.LblBottomiumStates, 0, 6);
+			this.LayoutAverageParams.Controls.Add(this.MsxBottomiumStates, 1, 6);
 			this.LayoutAverageParams.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LayoutAverageParams.Location = new System.Drawing.Point(10, 34);
 			this.LayoutAverageParams.Name = "LayoutAverageParams";
-			this.LayoutAverageParams.Padding = new System.Windows.Forms.Padding(5);
-			this.LayoutAverageParams.RowCount = 10;
+			this.LayoutAverageParams.RowCount = 8;
 			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
 			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
 			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 79F));
-			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 79F));
-			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 79F));
-			this.LayoutAverageParams.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutAverageParams.Size = new System.Drawing.Size(439, 408);
+			this.LayoutAverageParams.Size = new System.Drawing.Size(439, 341);
 			this.LayoutAverageParams.TabIndex = 0;
 			// 
 			// TbxQGPFormationTemperature
 			// 
 			this.TbxQGPFormationTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxQGPFormationTemperature.Location = new System.Drawing.Point(243, 395);
+			this.TbxQGPFormationTemperature.Location = new System.Drawing.Point(244, 328);
 			this.TbxQGPFormationTemperature.Name = "TbxQGPFormationTemperature";
-			this.TbxQGPFormationTemperature.Size = new System.Drawing.Size(188, 31);
+			this.TbxQGPFormationTemperature.Size = new System.Drawing.Size(192, 31);
 			this.TbxQGPFormationTemperature.TabIndex = 9;
 			// 
 			// LblQGPFormationTemperature
 			// 
 			this.LblQGPFormationTemperature.AutoSize = true;
 			this.LblQGPFormationTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblQGPFormationTemperature.Location = new System.Drawing.Point(8, 392);
+			this.LblQGPFormationTemperature.Location = new System.Drawing.Point(3, 325);
 			this.LblQGPFormationTemperature.Name = "LblQGPFormationTemperature";
-			this.LblQGPFormationTemperature.Size = new System.Drawing.Size(229, 25);
+			this.LblQGPFormationTemperature.Size = new System.Drawing.Size(235, 25);
 			this.LblQGPFormationTemperature.TabIndex = 0;
 			this.LblQGPFormationTemperature.Text = "QGPFormationTemperature (MeV)";
 			this.LblQGPFormationTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -188,96 +177,58 @@
 			// MsxDecayWidthEvaluationTypes
 			// 
 			this.MsxDecayWidthEvaluationTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MsxDecayWidthEvaluationTypes.Location = new System.Drawing.Point(243, 134);
+			this.MsxDecayWidthEvaluationTypes.Location = new System.Drawing.Point(244, 79);
 			this.MsxDecayWidthEvaluationTypes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
 			this.MsxDecayWidthEvaluationTypes.Name = "MsxDecayWidthEvaluationTypes";
 			this.MsxDecayWidthEvaluationTypes.SelectionString = "";
-			this.MsxDecayWidthEvaluationTypes.Size = new System.Drawing.Size(188, 72);
+			this.MsxDecayWidthEvaluationTypes.Size = new System.Drawing.Size(192, 68);
 			this.MsxDecayWidthEvaluationTypes.TabIndex = 5;
 			// 
-			// LblMinTemperature
+			// LblMediumTemperatures
 			// 
-			this.LblMinTemperature.AutoSize = true;
-			this.LblMinTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblMinTemperature.Location = new System.Drawing.Point(8, 5);
-			this.LblMinTemperature.Name = "LblMinTemperature";
-			this.LblMinTemperature.Size = new System.Drawing.Size(229, 25);
-			this.LblMinTemperature.TabIndex = 0;
-			this.LblMinTemperature.Text = "MinTemperature (MeV)";
-			this.LblMinTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblMediumTemperatures.AutoSize = true;
+			this.LblMediumTemperatures.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblMediumTemperatures.Location = new System.Drawing.Point(3, 0);
+			this.LblMediumTemperatures.Name = "LblMediumTemperatures";
+			this.LblMediumTemperatures.Size = new System.Drawing.Size(235, 25);
+			this.LblMediumTemperatures.TabIndex = 0;
+			this.LblMediumTemperatures.Text = "MediumTemperatures (MeV)";
+			this.LblMediumTemperatures.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxMinTemperature
+			// TbxMediumTemperatures
 			// 
-			this.TbxMinTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxMinTemperature.Location = new System.Drawing.Point(243, 8);
-			this.TbxMinTemperature.Name = "TbxMinTemperature";
-			this.TbxMinTemperature.Size = new System.Drawing.Size(188, 31);
-			this.TbxMinTemperature.TabIndex = 0;
+			this.TbxMediumTemperatures.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxMediumTemperatures.Location = new System.Drawing.Point(244, 3);
+			this.TbxMediumTemperatures.Name = "TbxMediumTemperatures";
+			this.TbxMediumTemperatures.Size = new System.Drawing.Size(192, 31);
+			this.TbxMediumTemperatures.TabIndex = 0;
 			// 
-			// LblMaxTemperature
+			// LblMediumVelocities
 			// 
-			this.LblMaxTemperature.AutoSize = true;
-			this.LblMaxTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblMaxTemperature.Location = new System.Drawing.Point(8, 30);
-			this.LblMaxTemperature.Name = "LblMaxTemperature";
-			this.LblMaxTemperature.Size = new System.Drawing.Size(229, 25);
-			this.LblMaxTemperature.TabIndex = 0;
-			this.LblMaxTemperature.Text = "MaxTemperature (MeV)";
-			this.LblMaxTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblMediumVelocities.AutoSize = true;
+			this.LblMediumVelocities.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblMediumVelocities.Location = new System.Drawing.Point(3, 25);
+			this.LblMediumVelocities.Name = "LblMediumVelocities";
+			this.LblMediumVelocities.Size = new System.Drawing.Size(235, 25);
+			this.LblMediumVelocities.TabIndex = 0;
+			this.LblMediumVelocities.Text = "MediumVelocities";
+			this.LblMediumVelocities.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxMaxTemperature
+			// TbxMediumVelocities
 			// 
-			this.TbxMaxTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxMaxTemperature.Location = new System.Drawing.Point(243, 33);
-			this.TbxMaxTemperature.Name = "TbxMaxTemperature";
-			this.TbxMaxTemperature.Size = new System.Drawing.Size(188, 31);
-			this.TbxMaxTemperature.TabIndex = 1;
-			// 
-			// LblTemperatureStepSize
-			// 
-			this.LblTemperatureStepSize.AutoSize = true;
-			this.LblTemperatureStepSize.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblTemperatureStepSize.Location = new System.Drawing.Point(8, 55);
-			this.LblTemperatureStepSize.Name = "LblTemperatureStepSize";
-			this.LblTemperatureStepSize.Size = new System.Drawing.Size(229, 25);
-			this.LblTemperatureStepSize.TabIndex = 7;
-			this.LblTemperatureStepSize.Text = "TemperatureStepSize (MeV)";
-			this.LblTemperatureStepSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// TbxTemperatureStepSize
-			// 
-			this.TbxTemperatureStepSize.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxTemperatureStepSize.Location = new System.Drawing.Point(243, 58);
-			this.TbxTemperatureStepSize.Name = "TbxTemperatureStepSize";
-			this.TbxTemperatureStepSize.Size = new System.Drawing.Size(188, 31);
-			this.TbxTemperatureStepSize.TabIndex = 2;
-			// 
-			// LblMediumVelocity
-			// 
-			this.LblMediumVelocity.AutoSize = true;
-			this.LblMediumVelocity.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblMediumVelocity.Location = new System.Drawing.Point(8, 80);
-			this.LblMediumVelocity.Name = "LblMediumVelocity";
-			this.LblMediumVelocity.Size = new System.Drawing.Size(229, 25);
-			this.LblMediumVelocity.TabIndex = 0;
-			this.LblMediumVelocity.Text = "MediumVelocity";
-			this.LblMediumVelocity.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// TbxMediumVelocity
-			// 
-			this.TbxMediumVelocity.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxMediumVelocity.Location = new System.Drawing.Point(243, 83);
-			this.TbxMediumVelocity.Name = "TbxMediumVelocity";
-			this.TbxMediumVelocity.Size = new System.Drawing.Size(188, 31);
-			this.TbxMediumVelocity.TabIndex = 3;
+			this.TbxMediumVelocities.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxMediumVelocities.Location = new System.Drawing.Point(244, 28);
+			this.TbxMediumVelocities.Name = "TbxMediumVelocities";
+			this.TbxMediumVelocities.Size = new System.Drawing.Size(192, 31);
+			this.TbxMediumVelocities.TabIndex = 3;
 			// 
 			// LblNumberAveragingAngles
 			// 
 			this.LblNumberAveragingAngles.AutoSize = true;
 			this.LblNumberAveragingAngles.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblNumberAveragingAngles.Location = new System.Drawing.Point(8, 105);
+			this.LblNumberAveragingAngles.Location = new System.Drawing.Point(3, 50);
 			this.LblNumberAveragingAngles.Name = "LblNumberAveragingAngles";
-			this.LblNumberAveragingAngles.Size = new System.Drawing.Size(229, 25);
+			this.LblNumberAveragingAngles.Size = new System.Drawing.Size(235, 25);
 			this.LblNumberAveragingAngles.TabIndex = 0;
 			this.LblNumberAveragingAngles.Text = "NumberAveragingAngles";
 			this.LblNumberAveragingAngles.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -285,19 +236,19 @@
 			// TbxNumberAveragingAngles
 			// 
 			this.TbxNumberAveragingAngles.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxNumberAveragingAngles.Location = new System.Drawing.Point(243, 108);
+			this.TbxNumberAveragingAngles.Location = new System.Drawing.Point(244, 53);
 			this.TbxNumberAveragingAngles.Name = "TbxNumberAveragingAngles";
-			this.TbxNumberAveragingAngles.Size = new System.Drawing.Size(188, 31);
+			this.TbxNumberAveragingAngles.Size = new System.Drawing.Size(192, 31);
 			this.TbxNumberAveragingAngles.TabIndex = 4;
 			// 
 			// LblDecayWidthEvaluationTypes
 			// 
 			this.LblDecayWidthEvaluationTypes.AutoSize = true;
 			this.LblDecayWidthEvaluationTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDecayWidthEvaluationTypes.Location = new System.Drawing.Point(8, 130);
+			this.LblDecayWidthEvaluationTypes.Location = new System.Drawing.Point(3, 75);
 			this.LblDecayWidthEvaluationTypes.Name = "LblDecayWidthEvaluationTypes";
 			this.LblDecayWidthEvaluationTypes.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-			this.LblDecayWidthEvaluationTypes.Size = new System.Drawing.Size(229, 79);
+			this.LblDecayWidthEvaluationTypes.Size = new System.Drawing.Size(235, 75);
 			this.LblDecayWidthEvaluationTypes.TabIndex = 0;
 			this.LblDecayWidthEvaluationTypes.Text = "DecayWidthEvaluationTypes";
 			// 
@@ -305,9 +256,9 @@
 			// 
 			this.LblDecayWidthType.AutoSize = true;
 			this.LblDecayWidthType.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDecayWidthType.Location = new System.Drawing.Point(8, 209);
+			this.LblDecayWidthType.Location = new System.Drawing.Point(3, 150);
 			this.LblDecayWidthType.Name = "LblDecayWidthType";
-			this.LblDecayWidthType.Size = new System.Drawing.Size(229, 25);
+			this.LblDecayWidthType.Size = new System.Drawing.Size(235, 25);
 			this.LblDecayWidthType.TabIndex = 0;
 			this.LblDecayWidthType.Text = "DecayWidthType";
 			this.LblDecayWidthType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -316,60 +267,60 @@
 			// 
 			this.CbxDecayWidthType.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.CbxDecayWidthType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.CbxDecayWidthType.Location = new System.Drawing.Point(243, 212);
+			this.CbxDecayWidthType.Location = new System.Drawing.Point(244, 153);
 			this.CbxDecayWidthType.Name = "CbxDecayWidthType";
-			this.CbxDecayWidthType.Size = new System.Drawing.Size(188, 33);
+			this.CbxDecayWidthType.Size = new System.Drawing.Size(192, 33);
 			this.CbxDecayWidthType.TabIndex = 6;
 			// 
 			// LblPotentialTypes
 			// 
 			this.LblPotentialTypes.AutoSize = true;
 			this.LblPotentialTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblPotentialTypes.Location = new System.Drawing.Point(8, 234);
+			this.LblPotentialTypes.Location = new System.Drawing.Point(3, 175);
 			this.LblPotentialTypes.Name = "LblPotentialTypes";
 			this.LblPotentialTypes.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-			this.LblPotentialTypes.Size = new System.Drawing.Size(229, 79);
+			this.LblPotentialTypes.Size = new System.Drawing.Size(235, 75);
 			this.LblPotentialTypes.TabIndex = 0;
 			this.LblPotentialTypes.Text = "PotentialTypes";
 			// 
 			// MsxPotentialTypes
 			// 
 			this.MsxPotentialTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MsxPotentialTypes.Location = new System.Drawing.Point(243, 238);
+			this.MsxPotentialTypes.Location = new System.Drawing.Point(244, 179);
 			this.MsxPotentialTypes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
 			this.MsxPotentialTypes.Name = "MsxPotentialTypes";
 			this.MsxPotentialTypes.SelectionString = "";
-			this.MsxPotentialTypes.Size = new System.Drawing.Size(188, 72);
+			this.MsxPotentialTypes.Size = new System.Drawing.Size(192, 68);
 			this.MsxPotentialTypes.TabIndex = 7;
 			// 
 			// LblBottomiumStates
 			// 
 			this.LblBottomiumStates.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblBottomiumStates.Location = new System.Drawing.Point(8, 313);
+			this.LblBottomiumStates.Location = new System.Drawing.Point(3, 250);
 			this.LblBottomiumStates.Name = "LblBottomiumStates";
-			this.LblBottomiumStates.Size = new System.Drawing.Size(229, 79);
+			this.LblBottomiumStates.Size = new System.Drawing.Size(235, 75);
 			this.LblBottomiumStates.TabIndex = 0;
 			this.LblBottomiumStates.Text = "BottomiumStates";
 			// 
 			// MsxBottomiumStates
 			// 
 			this.MsxBottomiumStates.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MsxBottomiumStates.Location = new System.Drawing.Point(243, 317);
+			this.MsxBottomiumStates.Location = new System.Drawing.Point(244, 254);
 			this.MsxBottomiumStates.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
 			this.MsxBottomiumStates.Name = "MsxBottomiumStates";
 			this.MsxBottomiumStates.SelectionString = "";
-			this.MsxBottomiumStates.Size = new System.Drawing.Size(188, 72);
+			this.MsxBottomiumStates.Size = new System.Drawing.Size(192, 68);
 			this.MsxBottomiumStates.TabIndex = 8;
 			// 
 			// GbxOutput
 			// 
 			this.GbxOutput.Controls.Add(this.tableLayoutPanel1);
 			this.GbxOutput.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxOutput.Location = new System.Drawing.Point(10, 482);
+			this.GbxOutput.Location = new System.Drawing.Point(10, 415);
 			this.GbxOutput.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxOutput.Name = "GbxOutput";
 			this.GbxOutput.Padding = new System.Windows.Forms.Padding(10);
-			this.GbxOutput.Size = new System.Drawing.Size(459, 65);
+			this.GbxOutput.Size = new System.Drawing.Size(459, 60);
 			this.GbxOutput.TabIndex = 1;
 			this.GbxOutput.TabStop = false;
 			this.GbxOutput.Text = "Output";
@@ -384,19 +335,18 @@
 			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 34);
 			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.Padding = new System.Windows.Forms.Padding(5);
 			this.tableLayoutPanel1.RowCount = 1;
 			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 21);
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 16);
 			this.tableLayoutPanel1.TabIndex = 0;
 			// 
 			// LblDataFileName
 			// 
 			this.LblDataFileName.AutoSize = true;
 			this.LblDataFileName.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDataFileName.Location = new System.Drawing.Point(8, 5);
+			this.LblDataFileName.Location = new System.Drawing.Point(3, 0);
 			this.LblDataFileName.Name = "LblDataFileName";
-			this.LblDataFileName.Size = new System.Drawing.Size(229, 25);
+			this.LblDataFileName.Size = new System.Drawing.Size(235, 25);
 			this.LblDataFileName.TabIndex = 0;
 			this.LblDataFileName.Text = "DataFileName";
 			this.LblDataFileName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -404,9 +354,9 @@
 			// TbxDataFileName
 			// 
 			this.TbxDataFileName.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxDataFileName.Location = new System.Drawing.Point(243, 8);
+			this.TbxDataFileName.Location = new System.Drawing.Point(244, 3);
 			this.TbxDataFileName.Name = "TbxDataFileName";
-			this.TbxDataFileName.Size = new System.Drawing.Size(188, 31);
+			this.TbxDataFileName.Size = new System.Drawing.Size(192, 31);
 			this.TbxDataFileName.TabIndex = 0;
 			// 
 			// HSplit
@@ -479,8 +429,8 @@
 		private Yburn.UI.StatusTrackingCtrl CtrlStatusTrackingCtrl;
 		private System.Windows.Forms.GroupBox GbxAverageParams;
 		private System.Windows.Forms.TableLayoutPanel LayoutAverageParams;
-		private System.Windows.Forms.Label LblMediumVelocity;
-		private System.Windows.Forms.TextBox TbxMediumVelocity;
+		private System.Windows.Forms.Label LblMediumVelocities;
+		private System.Windows.Forms.TextBox TbxMediumVelocities;
 		private System.Windows.Forms.Label LblBottomiumStates;
 		private Yburn.UI.MultiSelectBox MsxBottomiumStates;
 		private System.Windows.Forms.TextBox TbxNumberAveragingAngles;
@@ -489,12 +439,8 @@
 		private Yburn.UI.MultiSelectBox MsxPotentialTypes;
 		private System.Windows.Forms.Label LblDecayWidthType;
 		private System.Windows.Forms.ComboBox CbxDecayWidthType;
-		private System.Windows.Forms.Label LblMaxTemperature;
-		private System.Windows.Forms.Label LblMinTemperature;
-		private System.Windows.Forms.TextBox TbxMaxTemperature;
-		private System.Windows.Forms.TextBox TbxMinTemperature;
-		private System.Windows.Forms.TextBox TbxTemperatureStepSize;
-		private System.Windows.Forms.Label LblTemperatureStepSize;
+		private System.Windows.Forms.Label LblMediumTemperatures;
+		private System.Windows.Forms.TextBox TbxMediumTemperatures;
 		private System.Windows.Forms.Label LblDecayWidthEvaluationTypes;
 		private System.Windows.Forms.GroupBox GbxOutput;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;

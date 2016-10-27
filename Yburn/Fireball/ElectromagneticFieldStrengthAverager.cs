@@ -21,6 +21,7 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public double CalculateAverageElectricFieldStrengthPerFm2(
+			double timeFm,
 			int quadratureOrder
 			)
 		{
@@ -29,8 +30,7 @@ namespace Yburn.Fireball
 
 			double[] x = Param.GenerateDiscreteXAxis();
 			double[] y = Param.GenerateDiscreteYAxis();
-			double formationTimeFm = Param.FormationTimesFm[0];
-			double mediumExpanseFm = Math.Tanh(Param.BeamRapidity) * formationTimeFm;
+			double mediumExpanseFm = Math.Tanh(Param.BeamRapidity) * timeFm;
 
 			double[,] fieldStrengthColumnDensityValuesPerFm2 = new double[x.Length, y.Length];
 			for(int i = 0; i < x.Length; i++)
@@ -38,7 +38,7 @@ namespace Yburn.Fireball
 				for(int j = 0; j < y.Length; j++)
 				{
 					Func<double, double> integrand = z => emf.CalculateElectricFieldPerFm2(
-						formationTimeFm, x[i], y[j], z, quadratureOrder).Norm;
+						timeFm, x[i], y[j], z, quadratureOrder).Norm;
 
 					fieldStrengthColumnDensityValuesPerFm2[i, j] =
 						Quadrature.IntegrateOverInterval(
@@ -57,6 +57,7 @@ namespace Yburn.Fireball
 		}
 
 		public double CalculateAverageElectricFieldStrengthPerFm2_LCF(
+			double properTimeFm,
 			int quadratureOrder
 			)
 		{
@@ -65,7 +66,6 @@ namespace Yburn.Fireball
 
 			double[] x = Param.GenerateDiscreteXAxis();
 			double[] y = Param.GenerateDiscreteYAxis();
-			double formationTimeFm = Param.FormationTimesFm[0];
 
 			double[,] fieldStrengthColumnDensityValuesPerFm2 = new double[x.Length, y.Length];
 			for(int i = 0; i < x.Length; i++)
@@ -73,7 +73,7 @@ namespace Yburn.Fireball
 				for(int j = 0; j < y.Length; j++)
 				{
 					Func<double, double> integrand = rapidity => emf.CalculateElectricFieldPerFm2_LCF(
-							formationTimeFm, x[i], y[j], rapidity, quadratureOrder).Norm
+							properTimeFm, x[i], y[j], rapidity, quadratureOrder).Norm
 						* Functions.GaussianDistributionNormalized1D(
 							rapidity, RapidityDistributionWidth);
 
@@ -92,6 +92,7 @@ namespace Yburn.Fireball
 		}
 
 		public double CalculateAverageMagneticFieldStrengthPerFm2(
+			double timeFm,
 			int quadratureOrder
 			)
 		{
@@ -100,8 +101,7 @@ namespace Yburn.Fireball
 
 			double[] x = Param.GenerateDiscreteXAxis();
 			double[] y = Param.GenerateDiscreteYAxis();
-			double formationTimeFm = Param.FormationTimesFm[0];
-			double mediumExpanseFm = Math.Tanh(Param.BeamRapidity) * formationTimeFm;
+			double mediumExpanseFm = Math.Tanh(Param.BeamRapidity) * timeFm;
 
 			double[,] fieldStrengthColumnDensityValuesPerFm2 = new double[x.Length, y.Length];
 			for(int i = 0; i < x.Length; i++)
@@ -109,7 +109,7 @@ namespace Yburn.Fireball
 				for(int j = 0; j < y.Length; j++)
 				{
 					Func<double, double> integrand = z => emf.CalculateMagneticFieldPerFm2(
-						formationTimeFm, x[i], y[j], z, quadratureOrder).Norm;
+						timeFm, x[i], y[j], z, quadratureOrder).Norm;
 
 					fieldStrengthColumnDensityValuesPerFm2[i, j] =
 						Quadrature.IntegrateOverInterval(
@@ -128,6 +128,7 @@ namespace Yburn.Fireball
 		}
 
 		public double CalculateAverageMagneticFieldStrengthPerFm2_LCF(
+			double properTimeFm,
 			int quadratureOrder
 			)
 		{
@@ -136,7 +137,6 @@ namespace Yburn.Fireball
 
 			double[] x = Param.GenerateDiscreteXAxis();
 			double[] y = Param.GenerateDiscreteYAxis();
-			double formationTimeFm = Param.FormationTimesFm[0];
 
 			double[,] fieldStrengthColumnDensityValuesPerFm2 = new double[x.Length, y.Length];
 			for(int i = 0; i < x.Length; i++)
@@ -144,7 +144,7 @@ namespace Yburn.Fireball
 				for(int j = 0; j < y.Length; j++)
 				{
 					Func<double, double> integrand = rapidity => emf.CalculateMagneticFieldPerFm2_LCF(
-							formationTimeFm, x[i], y[j], rapidity, quadratureOrder).Norm
+							properTimeFm, x[i], y[j], rapidity, quadratureOrder).Norm
 						* Functions.GaussianDistributionNormalized1D(
 							rapidity, RapidityDistributionWidth);
 
@@ -163,10 +163,12 @@ namespace Yburn.Fireball
 		}
 
 		public double CalculateSpinStateOverlap(
+			double properTimeFm,
 			int quadratureOrder
 			)
 		{
-			double B_PerFmSquared = CalculateAverageMagneticFieldStrengthPerFm2_LCF(quadratureOrder);
+			double B_PerFmSquared =
+				CalculateAverageMagneticFieldStrengthPerFm2_LCF(properTimeFm, quadratureOrder);
 
 			double HyperfineEnergySplitting_MeV = Constants.Y2SMassMeV - Constants.Etab2SMassMeV;
 

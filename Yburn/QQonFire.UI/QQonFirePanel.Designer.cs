@@ -50,6 +50,10 @@
 			this.TbxFormationTimes = new System.Windows.Forms.TextBox();
 			this.GbxGlauber = new System.Windows.Forms.GroupBox();
 			this.LayoutGlauber = new System.Windows.Forms.TableLayoutPanel();
+			this.TbxProtonNumberB = new System.Windows.Forms.TextBox();
+			this.LblProtonNumberB = new System.Windows.Forms.Label();
+			this.TbxProtonNumberA = new System.Windows.Forms.TextBox();
+			this.LblProtonNumberA = new System.Windows.Forms.Label();
 			this.LblNucleusShapeA = new System.Windows.Forms.Label();
 			this.CbxNucleusShapeA = new System.Windows.Forms.ComboBox();
 			this.LblNucleusShapeB = new System.Windows.Forms.Label();
@@ -114,10 +118,6 @@
 			this.CtrlTextBoxLog = new System.Windows.Forms.RichTextBox();
 			this.CtrlStatusTrackingCtrl = new Yburn.UI.StatusTrackingCtrl();
 			this.TbxtF3S2 = new System.Windows.Forms.TextBox();
-			this.LblProtonNumberA = new System.Windows.Forms.Label();
-			this.TbxProtonNumberA = new System.Windows.Forms.TextBox();
-			this.LblProtonNumberB = new System.Windows.Forms.Label();
-			this.TbxProtonNumberB = new System.Windows.Forms.TextBox();
 			((System.ComponentModel.ISupportInitialize)(this.VSplit)).BeginInit();
 			this.VSplit.Panel1.SuspendLayout();
 			this.VSplit.Panel2.SuspendLayout();
@@ -185,7 +185,7 @@
 			this.GbxQQStates.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxQQStates.Name = "GbxQQStates";
 			this.GbxQQStates.Padding = new System.Windows.Forms.Padding(10);
-			this.GbxQQStates.Size = new System.Drawing.Size(459, 289);
+			this.GbxQQStates.Size = new System.Drawing.Size(459, 285);
 			this.GbxQQStates.TabIndex = 0;
 			this.GbxQQStates.TabStop = false;
 			this.GbxQQStates.Text = "QQStates";
@@ -218,19 +218,19 @@
 			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 79F));
+			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
 			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutQQStates.Size = new System.Drawing.Size(439, 245);
+			this.LayoutQQStates.Size = new System.Drawing.Size(439, 241);
 			this.LayoutQQStates.TabIndex = 0;
 			// 
 			// CbxProtonProtonBaseline
 			// 
 			this.CbxProtonProtonBaseline.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.CbxProtonProtonBaseline.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.CbxProtonProtonBaseline.Location = new System.Drawing.Point(244, 232);
+			this.CbxProtonProtonBaseline.Location = new System.Drawing.Point(244, 228);
 			this.CbxProtonProtonBaseline.Name = "CbxProtonProtonBaseline";
 			this.CbxProtonProtonBaseline.Size = new System.Drawing.Size(192, 33);
 			this.CbxProtonProtonBaseline.TabIndex = 0;
@@ -239,7 +239,7 @@
 			// 
 			this.LblProtonProtonBaseline.AutoSize = true;
 			this.LblProtonProtonBaseline.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblProtonProtonBaseline.Location = new System.Drawing.Point(3, 229);
+			this.LblProtonProtonBaseline.Location = new System.Drawing.Point(3, 225);
 			this.LblProtonProtonBaseline.Name = "LblProtonProtonBaseline";
 			this.LblProtonProtonBaseline.Size = new System.Drawing.Size(235, 25);
 			this.LblProtonProtonBaseline.TabIndex = 0;
@@ -268,7 +268,7 @@
 			// TbxTransverseMomenta
 			// 
 			this.TbxTransverseMomenta.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxTransverseMomenta.Location = new System.Drawing.Point(244, 207);
+			this.TbxTransverseMomenta.Location = new System.Drawing.Point(244, 203);
 			this.TbxTransverseMomenta.Name = "TbxTransverseMomenta";
 			this.TbxTransverseMomenta.Size = new System.Drawing.Size(192, 31);
 			this.TbxTransverseMomenta.TabIndex = 0;
@@ -277,7 +277,7 @@
 			// 
 			this.LblTransverseMomenta.AutoSize = true;
 			this.LblTransverseMomenta.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblTransverseMomenta.Location = new System.Drawing.Point(3, 204);
+			this.LblTransverseMomenta.Location = new System.Drawing.Point(3, 200);
 			this.LblTransverseMomenta.Name = "LblTransverseMomenta";
 			this.LblTransverseMomenta.Size = new System.Drawing.Size(235, 25);
 			this.LblTransverseMomenta.TabIndex = 0;
@@ -288,7 +288,7 @@
 			// 
 			this.LblFeedDown3P.AutoSize = true;
 			this.LblFeedDown3P.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblFeedDown3P.Location = new System.Drawing.Point(3, 154);
+			this.LblFeedDown3P.Location = new System.Drawing.Point(3, 150);
 			this.LblFeedDown3P.Name = "LblFeedDown3P";
 			this.LblFeedDown3P.Size = new System.Drawing.Size(235, 25);
 			this.LblFeedDown3P.TabIndex = 0;
@@ -298,7 +298,7 @@
 			// TbxFeedDown3P
 			// 
 			this.TbxFeedDown3P.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxFeedDown3P.Location = new System.Drawing.Point(244, 157);
+			this.TbxFeedDown3P.Location = new System.Drawing.Point(244, 153);
 			this.TbxFeedDown3P.Name = "TbxFeedDown3P";
 			this.TbxFeedDown3P.Size = new System.Drawing.Size(192, 31);
 			this.TbxFeedDown3P.TabIndex = 0;
@@ -310,7 +310,7 @@
 			this.LblPotentialTypes.Location = new System.Drawing.Point(3, 75);
 			this.LblPotentialTypes.Name = "LblPotentialTypes";
 			this.LblPotentialTypes.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-			this.LblPotentialTypes.Size = new System.Drawing.Size(235, 79);
+			this.LblPotentialTypes.Size = new System.Drawing.Size(235, 75);
 			this.LblPotentialTypes.TabIndex = 0;
 			this.LblPotentialTypes.Text = "PotentialTypes";
 			// 
@@ -321,7 +321,7 @@
 			this.MsxPotentialTypes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
 			this.MsxPotentialTypes.Name = "MsxPotentialTypes";
 			this.MsxPotentialTypes.SelectionString = "";
-			this.MsxPotentialTypes.Size = new System.Drawing.Size(192, 72);
+			this.MsxPotentialTypes.Size = new System.Drawing.Size(192, 68);
 			this.MsxPotentialTypes.TabIndex = 0;
 			// 
 			// LblDecayWidthType
@@ -368,7 +368,7 @@
 			// 
 			this.LblFormationTimes.AutoSize = true;
 			this.LblFormationTimes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblFormationTimes.Location = new System.Drawing.Point(3, 179);
+			this.LblFormationTimes.Location = new System.Drawing.Point(3, 175);
 			this.LblFormationTimes.Name = "LblFormationTimes";
 			this.LblFormationTimes.Size = new System.Drawing.Size(235, 25);
 			this.LblFormationTimes.TabIndex = 0;
@@ -378,7 +378,7 @@
 			// TbxFormationTimes
 			// 
 			this.TbxFormationTimes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxFormationTimes.Location = new System.Drawing.Point(244, 182);
+			this.TbxFormationTimes.Location = new System.Drawing.Point(244, 178);
 			this.TbxFormationTimes.Name = "TbxFormationTimes";
 			this.TbxFormationTimes.Size = new System.Drawing.Size(192, 31);
 			this.TbxFormationTimes.TabIndex = 0;
@@ -441,6 +441,44 @@
 			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.LayoutGlauber.Size = new System.Drawing.Size(439, 266);
 			this.LayoutGlauber.TabIndex = 0;
+			// 
+			// TbxProtonNumberB
+			// 
+			this.TbxProtonNumberB.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxProtonNumberB.Location = new System.Drawing.Point(244, 178);
+			this.TbxProtonNumberB.Name = "TbxProtonNumberB";
+			this.TbxProtonNumberB.Size = new System.Drawing.Size(192, 31);
+			this.TbxProtonNumberB.TabIndex = 0;
+			// 
+			// LblProtonNumberB
+			// 
+			this.LblProtonNumberB.AutoSize = true;
+			this.LblProtonNumberB.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblProtonNumberB.Location = new System.Drawing.Point(3, 175);
+			this.LblProtonNumberB.Name = "LblProtonNumberB";
+			this.LblProtonNumberB.Size = new System.Drawing.Size(235, 25);
+			this.LblProtonNumberB.TabIndex = 0;
+			this.LblProtonNumberB.Text = "ProtonNumberB";
+			this.LblProtonNumberB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// TbxProtonNumberA
+			// 
+			this.TbxProtonNumberA.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxProtonNumberA.Location = new System.Drawing.Point(244, 53);
+			this.TbxProtonNumberA.Name = "TbxProtonNumberA";
+			this.TbxProtonNumberA.Size = new System.Drawing.Size(192, 31);
+			this.TbxProtonNumberA.TabIndex = 0;
+			// 
+			// LblProtonNumberA
+			// 
+			this.LblProtonNumberA.AutoSize = true;
+			this.LblProtonNumberA.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblProtonNumberA.Location = new System.Drawing.Point(3, 50);
+			this.LblProtonNumberA.Name = "LblProtonNumberA";
+			this.LblProtonNumberA.Size = new System.Drawing.Size(235, 25);
+			this.LblProtonNumberA.TabIndex = 0;
+			this.LblProtonNumberA.Text = "ProtonNumberA";
+			this.LblProtonNumberA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LblNucleusShapeA
 			// 
@@ -844,11 +882,11 @@
 			// 
 			this.GbxOutput.Controls.Add(this.LayoutOutput);
 			this.GbxOutput.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxOutput.Location = new System.Drawing.Point(10, 929);
+			this.GbxOutput.Location = new System.Drawing.Point(10, 925);
 			this.GbxOutput.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxOutput.Name = "GbxOutput";
 			this.GbxOutput.Padding = new System.Windows.Forms.Padding(10);
-			this.GbxOutput.Size = new System.Drawing.Size(459, 393);
+			this.GbxOutput.Size = new System.Drawing.Size(459, 385);
 			this.GbxOutput.TabIndex = 0;
 			this.GbxOutput.TabStop = false;
 			this.GbxOutput.Text = "Output";
@@ -882,8 +920,8 @@
 			this.LayoutOutput.Location = new System.Drawing.Point(10, 34);
 			this.LayoutOutput.Name = "LayoutOutput";
 			this.LayoutOutput.RowCount = 10;
-			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 79F));
-			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 79F));
+			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -892,7 +930,7 @@
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutOutput.Size = new System.Drawing.Size(439, 349);
+			this.LayoutOutput.Size = new System.Drawing.Size(439, 341);
 			this.LayoutOutput.TabIndex = 0;
 			// 
 			// LblBottomiumStates
@@ -902,7 +940,7 @@
 			this.LblBottomiumStates.Location = new System.Drawing.Point(3, 0);
 			this.LblBottomiumStates.Name = "LblBottomiumStates";
 			this.LblBottomiumStates.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-			this.LblBottomiumStates.Size = new System.Drawing.Size(235, 79);
+			this.LblBottomiumStates.Size = new System.Drawing.Size(235, 75);
 			this.LblBottomiumStates.TabIndex = 0;
 			this.LblBottomiumStates.Text = "BottomiumStates";
 			// 
@@ -913,35 +951,35 @@
 			this.MsxBottomiumStates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.MsxBottomiumStates.Name = "MsxBottomiumStates";
 			this.MsxBottomiumStates.SelectionString = "";
-			this.MsxBottomiumStates.Size = new System.Drawing.Size(190, 69);
+			this.MsxBottomiumStates.Size = new System.Drawing.Size(190, 65);
 			this.MsxBottomiumStates.TabIndex = 0;
 			// 
 			// LblFireballFieldTypes
 			// 
 			this.LblFireballFieldTypes.AutoSize = true;
 			this.LblFireballFieldTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblFireballFieldTypes.Location = new System.Drawing.Point(3, 79);
+			this.LblFireballFieldTypes.Location = new System.Drawing.Point(3, 75);
 			this.LblFireballFieldTypes.Name = "LblFireballFieldTypes";
 			this.LblFireballFieldTypes.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-			this.LblFireballFieldTypes.Size = new System.Drawing.Size(235, 79);
+			this.LblFireballFieldTypes.Size = new System.Drawing.Size(235, 75);
 			this.LblFireballFieldTypes.TabIndex = 0;
 			this.LblFireballFieldTypes.Text = "FireballFieldTypes";
 			// 
 			// MsxFireballFieldTypes
 			// 
 			this.MsxFireballFieldTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MsxFireballFieldTypes.Location = new System.Drawing.Point(245, 84);
+			this.MsxFireballFieldTypes.Location = new System.Drawing.Point(245, 80);
 			this.MsxFireballFieldTypes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.MsxFireballFieldTypes.Name = "MsxFireballFieldTypes";
 			this.MsxFireballFieldTypes.SelectionString = "";
-			this.MsxFireballFieldTypes.Size = new System.Drawing.Size(190, 69);
+			this.MsxFireballFieldTypes.Size = new System.Drawing.Size(190, 65);
 			this.MsxFireballFieldTypes.TabIndex = 0;
 			// 
 			// LblSnapRate
 			// 
 			this.LblSnapRate.AutoSize = true;
 			this.LblSnapRate.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblSnapRate.Location = new System.Drawing.Point(3, 158);
+			this.LblSnapRate.Location = new System.Drawing.Point(3, 150);
 			this.LblSnapRate.Name = "LblSnapRate";
 			this.LblSnapRate.Size = new System.Drawing.Size(235, 25);
 			this.LblSnapRate.TabIndex = 0;
@@ -951,7 +989,7 @@
 			// TbxSnapRate
 			// 
 			this.TbxSnapRate.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxSnapRate.Location = new System.Drawing.Point(244, 161);
+			this.TbxSnapRate.Location = new System.Drawing.Point(244, 153);
 			this.TbxSnapRate.Name = "TbxSnapRate";
 			this.TbxSnapRate.Size = new System.Drawing.Size(192, 31);
 			this.TbxSnapRate.TabIndex = 0;
@@ -960,7 +998,7 @@
 			// 
 			this.LblDataFileName.AutoSize = true;
 			this.LblDataFileName.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDataFileName.Location = new System.Drawing.Point(3, 183);
+			this.LblDataFileName.Location = new System.Drawing.Point(3, 175);
 			this.LblDataFileName.Name = "LblDataFileName";
 			this.LblDataFileName.Size = new System.Drawing.Size(235, 25);
 			this.LblDataFileName.TabIndex = 0;
@@ -970,7 +1008,7 @@
 			// TbxDataFileName
 			// 
 			this.TbxDataFileName.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxDataFileName.Location = new System.Drawing.Point(244, 186);
+			this.TbxDataFileName.Location = new System.Drawing.Point(244, 178);
 			this.TbxDataFileName.Name = "TbxDataFileName";
 			this.TbxDataFileName.Size = new System.Drawing.Size(192, 31);
 			this.TbxDataFileName.TabIndex = 0;
@@ -979,7 +1017,7 @@
 			// 
 			this.LblBjorkenLifeTime.AutoSize = true;
 			this.LblBjorkenLifeTime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblBjorkenLifeTime.Location = new System.Drawing.Point(3, 208);
+			this.LblBjorkenLifeTime.Location = new System.Drawing.Point(3, 200);
 			this.LblBjorkenLifeTime.Name = "LblBjorkenLifeTime";
 			this.LblBjorkenLifeTime.Size = new System.Drawing.Size(235, 25);
 			this.LblBjorkenLifeTime.TabIndex = 0;
@@ -989,7 +1027,7 @@
 			// TbxBjorkenLifeTime
 			// 
 			this.TbxBjorkenLifeTime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxBjorkenLifeTime.Location = new System.Drawing.Point(244, 211);
+			this.TbxBjorkenLifeTime.Location = new System.Drawing.Point(244, 203);
 			this.TbxBjorkenLifeTime.Name = "TbxBjorkenLifeTime";
 			this.TbxBjorkenLifeTime.ReadOnly = true;
 			this.TbxBjorkenLifeTime.Size = new System.Drawing.Size(192, 31);
@@ -999,7 +1037,7 @@
 			// 
 			this.LblLifeTime.AutoSize = true;
 			this.LblLifeTime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblLifeTime.Location = new System.Drawing.Point(3, 233);
+			this.LblLifeTime.Location = new System.Drawing.Point(3, 225);
 			this.LblLifeTime.Name = "LblLifeTime";
 			this.LblLifeTime.Size = new System.Drawing.Size(235, 25);
 			this.LblLifeTime.TabIndex = 0;
@@ -1009,7 +1047,7 @@
 			// TbxLifeTime
 			// 
 			this.TbxLifeTime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxLifeTime.Location = new System.Drawing.Point(244, 236);
+			this.TbxLifeTime.Location = new System.Drawing.Point(244, 228);
 			this.TbxLifeTime.Name = "TbxLifeTime";
 			this.TbxLifeTime.ReadOnly = true;
 			this.TbxLifeTime.Size = new System.Drawing.Size(192, 31);
@@ -1019,7 +1057,7 @@
 			// 
 			this.LblCentralityBinBoundaries.AutoSize = true;
 			this.LblCentralityBinBoundaries.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblCentralityBinBoundaries.Location = new System.Drawing.Point(3, 258);
+			this.LblCentralityBinBoundaries.Location = new System.Drawing.Point(3, 250);
 			this.LblCentralityBinBoundaries.Name = "LblCentralityBinBoundaries";
 			this.LblCentralityBinBoundaries.Size = new System.Drawing.Size(235, 25);
 			this.LblCentralityBinBoundaries.TabIndex = 0;
@@ -1029,7 +1067,7 @@
 			// TbxCentralityBinBoundaries
 			// 
 			this.TbxCentralityBinBoundaries.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxCentralityBinBoundaries.Location = new System.Drawing.Point(244, 261);
+			this.TbxCentralityBinBoundaries.Location = new System.Drawing.Point(244, 253);
 			this.TbxCentralityBinBoundaries.Name = "TbxCentralityBinBoundaries";
 			this.TbxCentralityBinBoundaries.Size = new System.Drawing.Size(192, 31);
 			this.TbxCentralityBinBoundaries.TabIndex = 0;
@@ -1038,7 +1076,7 @@
 			// 
 			this.LblImpactParamsAtBinBoundaries.AutoSize = true;
 			this.LblImpactParamsAtBinBoundaries.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblImpactParamsAtBinBoundaries.Location = new System.Drawing.Point(3, 283);
+			this.LblImpactParamsAtBinBoundaries.Location = new System.Drawing.Point(3, 275);
 			this.LblImpactParamsAtBinBoundaries.Name = "LblImpactParamsAtBinBoundaries";
 			this.LblImpactParamsAtBinBoundaries.Size = new System.Drawing.Size(235, 25);
 			this.LblImpactParamsAtBinBoundaries.TabIndex = 0;
@@ -1048,7 +1086,7 @@
 			// TbxImpactParamsAtBinBoundaries
 			// 
 			this.TbxImpactParamsAtBinBoundaries.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxImpactParamsAtBinBoundaries.Location = new System.Drawing.Point(244, 286);
+			this.TbxImpactParamsAtBinBoundaries.Location = new System.Drawing.Point(244, 278);
 			this.TbxImpactParamsAtBinBoundaries.Name = "TbxImpactParamsAtBinBoundaries";
 			this.TbxImpactParamsAtBinBoundaries.ReadOnly = true;
 			this.TbxImpactParamsAtBinBoundaries.Size = new System.Drawing.Size(192, 31);
@@ -1058,7 +1096,7 @@
 			// 
 			this.LblParticipantsAtBinBoundaries.AutoSize = true;
 			this.LblParticipantsAtBinBoundaries.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblParticipantsAtBinBoundaries.Location = new System.Drawing.Point(3, 308);
+			this.LblParticipantsAtBinBoundaries.Location = new System.Drawing.Point(3, 300);
 			this.LblParticipantsAtBinBoundaries.Name = "LblParticipantsAtBinBoundaries";
 			this.LblParticipantsAtBinBoundaries.Size = new System.Drawing.Size(235, 25);
 			this.LblParticipantsAtBinBoundaries.TabIndex = 0;
@@ -1068,7 +1106,7 @@
 			// TbxParticipantsAtBinBoundaries
 			// 
 			this.TbxParticipantsAtBinBoundaries.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxParticipantsAtBinBoundaries.Location = new System.Drawing.Point(244, 311);
+			this.TbxParticipantsAtBinBoundaries.Location = new System.Drawing.Point(244, 303);
 			this.TbxParticipantsAtBinBoundaries.Name = "TbxParticipantsAtBinBoundaries";
 			this.TbxParticipantsAtBinBoundaries.ReadOnly = true;
 			this.TbxParticipantsAtBinBoundaries.Size = new System.Drawing.Size(192, 31);
@@ -1078,7 +1116,7 @@
 			// 
 			this.LblMeanParticipantsInBin.AutoSize = true;
 			this.LblMeanParticipantsInBin.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblMeanParticipantsInBin.Location = new System.Drawing.Point(3, 333);
+			this.LblMeanParticipantsInBin.Location = new System.Drawing.Point(3, 325);
 			this.LblMeanParticipantsInBin.Name = "LblMeanParticipantsInBin";
 			this.LblMeanParticipantsInBin.Size = new System.Drawing.Size(235, 25);
 			this.LblMeanParticipantsInBin.TabIndex = 0;
@@ -1088,7 +1126,7 @@
 			// TbxMeanParticipantsInBin
 			// 
 			this.TbxMeanParticipantsInBin.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxMeanParticipantsInBin.Location = new System.Drawing.Point(244, 336);
+			this.TbxMeanParticipantsInBin.Location = new System.Drawing.Point(244, 328);
 			this.TbxMeanParticipantsInBin.Name = "TbxMeanParticipantsInBin";
 			this.TbxMeanParticipantsInBin.ReadOnly = true;
 			this.TbxMeanParticipantsInBin.Size = new System.Drawing.Size(192, 31);
@@ -1138,44 +1176,6 @@
 			this.TbxtF3S2.Name = "TbxtF3S2";
 			this.TbxtF3S2.Size = new System.Drawing.Size(158, 31);
 			this.TbxtF3S2.TabIndex = 0;
-			// 
-			// LblProtonNumberA
-			// 
-			this.LblProtonNumberA.AutoSize = true;
-			this.LblProtonNumberA.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblProtonNumberA.Location = new System.Drawing.Point(3, 50);
-			this.LblProtonNumberA.Name = "LblProtonNumberA";
-			this.LblProtonNumberA.Size = new System.Drawing.Size(235, 25);
-			this.LblProtonNumberA.TabIndex = 0;
-			this.LblProtonNumberA.Text = "ProtonNumberA";
-			this.LblProtonNumberA.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// TbxProtonNumberA
-			// 
-			this.TbxProtonNumberA.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxProtonNumberA.Location = new System.Drawing.Point(244, 53);
-			this.TbxProtonNumberA.Name = "TbxProtonNumberA";
-			this.TbxProtonNumberA.Size = new System.Drawing.Size(192, 31);
-			this.TbxProtonNumberA.TabIndex = 0;
-			// 
-			// LblProtonNumberB
-			// 
-			this.LblProtonNumberB.AutoSize = true;
-			this.LblProtonNumberB.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblProtonNumberB.Location = new System.Drawing.Point(3, 175);
-			this.LblProtonNumberB.Name = "LblProtonNumberB";
-			this.LblProtonNumberB.Size = new System.Drawing.Size(235, 25);
-			this.LblProtonNumberB.TabIndex = 0;
-			this.LblProtonNumberB.Text = "ProtonNumberB";
-			this.LblProtonNumberB.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// TbxProtonNumberB
-			// 
-			this.TbxProtonNumberB.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxProtonNumberB.Location = new System.Drawing.Point(244, 178);
-			this.TbxProtonNumberB.Name = "TbxProtonNumberB";
-			this.TbxProtonNumberB.Size = new System.Drawing.Size(192, 31);
-			this.TbxProtonNumberB.TabIndex = 0;
 			// 
 			// QQonFirePanel
 			// 

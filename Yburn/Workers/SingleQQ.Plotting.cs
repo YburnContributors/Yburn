@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 using System.Text;
 using Yburn.QQState;
 
@@ -31,14 +30,15 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine("set encoding utf8");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set title \"Numerical solution for the cross section\"");
-			plotFile.AppendLine("set xlabel \"E (MeV)\"");
-			plotFile.AppendLine("set ylabel \"{/Symbol s} (mb)\"");
+			plotFile.AppendLine("set title 'Numerical solution for the cross section'");
+			plotFile.AppendLine("set xlabel 'E (MeV)'");
+			plotFile.AppendLine("set ylabel '{/Symbol s} (mb)'");
 			plotFile.AppendLine();
-			plotFile.AppendLine("plot \"" + FormattedDataPathFile
-				+ "\" index 1 using 1:2 with lines title \"{/Symbol s}_g\", \\");
-			plotFile.AppendLine("     \"" + FormattedDataPathFile
-				+ "\" index 1 using 1:3 with lines title \"{/Symbol s}_{/Symbol p}\"");
+
+			AppendPlotCommands(
+				plotFile,
+				style: "lines",
+				titles: new string[] { "{/Symbol s}_g", "{/Symbol s}_{/Symbol p}" });
 
 			WritePlotFile(plotFile);
 
@@ -48,31 +48,31 @@ namespace Yburn.Workers
 		public Process PlotPionGDF()
 		{
 			double energy = Math.Max(Math.Abs(EnergyScale), PionGDF.MinEnergy);
-			StringBuilder plotFile = new StringBuilder();
+			StringBuilder dataFile = new StringBuilder();
 
 			double xStep = 1.0 / Samples;
 			double xValue;
 			for(int j = 1; j <= Samples; j++)
 			{
 				xValue = j * xStep;
-				plotFile.AppendLine(string.Format("{0,-10}{1,-10}",
+				dataFile.AppendLine(string.Format("{0,-10}{1,-10}",
 					 xValue.ToString("G6"),
 					 PionGDF.GetValue(xValue, energy).ToString("G6")));
 			}
 
-			File.WriteAllText(FormattedDataPathFile, plotFile.ToString());
+			WriteDataFile(dataFile);
 
-			plotFile.Clear();
+			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set title \"Pion gluon distribution function, Q = "
-				+ energy.ToString("G6") + " MeV\"");
-			plotFile.AppendLine("set xlabel \"x\"");
-			plotFile.AppendLine("set ylabel \"g_{/Symbol p}\"");
+			plotFile.AppendLine("set title 'Pion gluon distribution function, Q = "
+				+ energy.ToString("G6") + " MeV'");
+			plotFile.AppendLine("set xlabel 'x'");
+			plotFile.AppendLine("set ylabel 'g_{/Symbol p}'");
 			plotFile.AppendLine();
-			plotFile.AppendLine("plot \"" + FormattedDataPathFile
-				+ "\" index 0 using 1:2 with lines notitle");
+
+			AppendPlotCommands(plotFile, style: "lines", titles: "");
 
 			WritePlotFile(plotFile);
 
@@ -94,17 +94,17 @@ namespace Yburn.Workers
 			plotFile.AppendLine("reset");
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set title \"Numerical solution for the wave function\"");
-			plotFile.AppendLine("set xlabel \"r (fm)\"");
+			plotFile.AppendLine("set title 'Numerical solution for the wave function'");
+			plotFile.AppendLine("set xlabel 'r (fm)'");
 			plotFile.AppendLine(
-				"set ylabel \"Re{/Symbol Y}, Im{/Symbol Y}, |{/Symbol Y}| (fm^{-1/2})\"");
+				"set ylabel 'Re{/Symbol Y}, Im{/Symbol Y}, |{/Symbol Y}| (fm^{-1/2})'");
 			plotFile.AppendLine();
-			plotFile.AppendLine("plot \"" + FormattedDataPathFile
-				+ "\" index 0 using 1:2 with lines title \"Re{/Symbol Y}\", \\");
-			plotFile.AppendLine("     \"" + FormattedDataPathFile
-				+ "\" index 0 using 1:3 with lines title \"Im{/Symbol Y}\", \\");
-			plotFile.AppendLine("     \"" + FormattedDataPathFile
-				+ "\" index 0 using 1:(sqrt($2**2+$3**2)) with lines title \"|{/Symbol Y}|\"");
+			plotFile.AppendLine("plot '" + DataFileName
+				+ "' index 0 using 1:2 with lines title 'Re{/Symbol Y}', \\");
+			plotFile.AppendLine("     '" + DataFileName
+				+ "' index 0 using 1:3 with lines title 'Im{/Symbol Y}', \\");
+			plotFile.AppendLine("     '" + DataFileName
+				+ "' index 0 using 1:(sqrt($2**2+$3**2)) with lines title '|{/Symbol Y}|'");
 
 			WritePlotFile(plotFile);
 
@@ -223,14 +223,12 @@ namespace Yburn.Workers
 			plotFile.AppendLine("reset");
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set title \"Potential (V): " + PotentialType.ToString() + "\"");
-			plotFile.AppendLine("set xlabel \"Radius (fm)\"");
-			plotFile.AppendLine("set ylabel \"Re V, Im V (MeV)\"");
+			plotFile.AppendLine("set title 'Potential (V): " + PotentialType.ToString() + "'");
+			plotFile.AppendLine("set xlabel 'Radius (fm)'");
+			plotFile.AppendLine("set ylabel 'Re V, Im V (MeV)'");
 			plotFile.AppendLine();
-			plotFile.AppendLine("plot \"" + FormattedDataPathFile
-				+ "\" index 0 using 1:2 with lines title \"Re V\", \\");
-			plotFile.AppendLine("     \"" + FormattedDataPathFile
-				+ "\" index 0 using 1:3 with lines title \"Im V\"");
+
+			AppendPlotCommands(plotFile, style: "lines", titles: new string[] { "Re V", "Im V" });
 
 			WritePlotFile(plotFile);
 		}
@@ -261,9 +259,9 @@ namespace Yburn.Workers
 			plotFile.AppendLine("reset");
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set title \"Running coupling {/Symbol a}_s\"");
-			plotFile.AppendLine("set xlabel \"Energy (MeV)\"");
-			plotFile.AppendLine("set ylabel \"{/Symbol a}_s\"");
+			plotFile.AppendLine("set title 'Running coupling {/Symbol a}_s'");
+			plotFile.AppendLine("set xlabel 'Energy (MeV)'");
+			plotFile.AppendLine("set ylabel '{/Symbol a}_s'");
 			plotFile.AppendLine();
 
 			AppendAlphaPlotCommands(plotFile);
@@ -280,18 +278,18 @@ namespace Yburn.Workers
 
 			foreach(RunningCouplingType type in RunningCouplingTypeSelection)
 			{
-				string title = type.ToString().Replace("_", "\\\\_");
+				string title = type.ToString().Replace("_", "\\_");
 				if(isFirstCommand)
 				{
-					plotFile.AppendFormat("plot \"{0}\" using 1:{1} with lines title \"{2}\"",
-						FormattedDataPathFile, plotColumn, title);
+					plotFile.AppendFormat("plot '{0}' using 1:{1} with lines title '{2}'",
+						DataFileName, plotColumn, title);
 					isFirstCommand = false;
 				}
 				else
 				{
 					plotFile.AppendLine(", \\");
-					plotFile.AppendFormat("\"{0}\" using 1:{1} with lines title \"{2}\"",
-						FormattedDataPathFile, plotColumn, title);
+					plotFile.AppendFormat("'{0}' using 1:{1} with lines title '{2}'",
+						DataFileName, plotColumn, title);
 				}
 				plotColumn++;
 			}

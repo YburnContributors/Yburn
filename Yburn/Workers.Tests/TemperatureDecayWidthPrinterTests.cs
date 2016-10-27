@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using Yburn.Fireball;
 
@@ -13,7 +12,7 @@ namespace Yburn.Workers.Tests
 		 ********************************************************************************************/
 
 		public TemperatureDecayWidthPrinterTests()
-			: base("", GetArray(), 0, null, 0, 0, 1, 0, 1, 160)
+			: base("", GetBottomiumStateArray(), 0, null, 1, 160)
 		{
 		}
 
@@ -22,16 +21,11 @@ namespace Yburn.Workers.Tests
 			BottomiumState[] bottomiumStates,
 			DecayWidthType decayWidthType,
 			string[] potentialTypes,
-			double minTemperature,
-			double maxTemperature,
-			double stepSize,
-			double mediumVelocity,
 			int numberAveragingAngles,
 			double qgpFormationTemperature
 			)
 			: base(dataPathFile, bottomiumStates, decayWidthType, potentialTypes,
-				  minTemperature, maxTemperature, stepSize,
-				  mediumVelocity, numberAveragingAngles, qgpFormationTemperature)
+				  numberAveragingAngles, qgpFormationTemperature)
 		{
 		}
 
@@ -40,72 +34,52 @@ namespace Yburn.Workers.Tests
 		 ********************************************************************************************/
 
 		[TestMethod]
-		[ExpectedException(typeof(ArgumentException))]
-		public void ThrowIf_ZeroOrNegativeStepSize()
-		{
-			Printer = new TemperatureDecayWidthPrinter("", GetArray(BottomiumState.Y1S),
-				DecayWidthType.None, potentialTypes: null,
-				minTemperature: 0, maxTemperature: 10, stepSize: 0,
-				mediumVelocity: 0,
-				numberAveragingAngles: 1,
-				qgpFormationTemperature: 160);
-		}
-
-		[TestMethod]
 		public void GivenOneState_PrintList()
 		{
 			Printer = new TemperatureDecayWidthPrinterTests("",
-				GetArray(BottomiumState.Y1S),
+				GetBottomiumStateArray(BottomiumState.Y1S),
 				DecayWidthType.None, potentialTypes: null,
-				minTemperature: 80,
-				maxTemperature: 240,
-				stepSize: 40,
-				mediumVelocity: 0,
 				numberAveragingAngles: 1,
 				qgpFormationTemperature: 160);
 
 			AssertReturnsList(
 				  "#UnshiftedTemperature\r\n"
-				+ "#Temperature        DecayWidth(Y1S)     \r\n"
-				+ "#(MeV)              (MeV)               \r\n"
+				+ "#MediumTemperature  MediumVelocity      DecayWidth(Y1S)     \r\n"
+				+ "#(MeV)              (c)                 (MeV)               \r\n"
 				+ "#\r\n"
-				+ "80                  0                   \r\n"
-				+ "120                 0                   \r\n"
-				+ "160                 350                 \r\n"
-				+ "200                 550                 \r\n"
-				+ "240                 Infinity            \r\n\r\n");
+				+ "80                  0                   0                   \r\n"
+				+ "120                 0                   0                   \r\n"
+				+ "160                 0                   350                 \r\n"
+				+ "200                 0                   550                 \r\n"
+				+ "240                 0                   Infinity            \r\n\r\n");
 		}
 
 		[TestMethod]
 		public void GivenManyStates_PrintList()
 		{
 			Printer = new TemperatureDecayWidthPrinterTests("",
-				GetArray(BottomiumState.Y1S, BottomiumState.x2P, BottomiumState.Y3S),
+				GetBottomiumStateArray(BottomiumState.Y1S, BottomiumState.x2P, BottomiumState.Y3S),
 				DecayWidthType.None, potentialTypes: null,
-				minTemperature: 80,
-				maxTemperature: 240,
-				stepSize: 40,
-				mediumVelocity: 0,
 				numberAveragingAngles: 1,
 				qgpFormationTemperature: 160);
 
 			AssertReturnsList(
 				  "#UnshiftedTemperature\r\n"
-				+ "#Temperature        DecayWidth(Y1S)     DecayWidth(x2P)     DecayWidth(Y3S)     \r\n"
-				+ "#(MeV)              (MeV)               (MeV)               (MeV)               \r\n"
+				+ "#MediumTemperature  MediumVelocity      DecayWidth(Y1S)     DecayWidth(x2P)     DecayWidth(Y3S)     \r\n"
+				+ "#(MeV)              (c)                 (MeV)               (MeV)               (MeV)               \r\n"
 				+ "#\r\n"
-				+ "80                  0                   0                   0                   \r\n"
-				+ "120                 0                   0                   0                   \r\n"
-				+ "160                 350                 700                 1050                \r\n"
-				+ "200                 550                 1100                1650                \r\n"
-				+ "240                 Infinity            Infinity            Infinity            \r\n\r\n");
+				+ "80                  0                   0                   0                   0                   \r\n"
+				+ "120                 0                   0                   0                   0                   \r\n"
+				+ "160                 0                   350                 700                 1050                \r\n"
+				+ "200                 0                   550                 1100                1650                \r\n"
+				+ "240                 0                   Infinity            Infinity            Infinity            \r\n\r\n");
 		}
 
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static BottomiumState[] GetArray(params BottomiumState[] states)
+		private static BottomiumState[] GetBottomiumStateArray(params BottomiumState[] states)
 		{
 			return states;
 		}
@@ -153,6 +127,8 @@ namespace Yburn.Workers.Tests
 			)
 		{
 			Assert.AreEqual(expectedList, Printer.GetList(
+				new double[] { 80, 120, 160, 200, 240 },
+				new double[] { 0 },
 				new DecayWidthEvaluationType[] { DecayWidthEvaluationType.UnshiftedTemperature }));
 		}
 

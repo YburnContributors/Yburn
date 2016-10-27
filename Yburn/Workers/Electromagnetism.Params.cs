@@ -18,7 +18,6 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "DiffusenessB", DiffusenessBFm);
 			Store(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
 			Store(nameValuePairs, "EMFCalculationMethodSelection", EMFCalculationMethodSelection);
-			Store(nameValuePairs, "EffectiveTimeSamples", EffectiveTimeSamples);
 			Store(nameValuePairs, "GridCellSize", GridCellSizeFm);
 			Store(nameValuePairs, "GridRadius", GridRadiusFm);
 			Store(nameValuePairs, "ImpactParameter", ImpactParameterFm);
@@ -34,6 +33,7 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "RadialDistance", RadialDistance);
 			Store(nameValuePairs, "NucleusShapeA", NucleusShapeA);
 			Store(nameValuePairs, "NucleusShapeB", NucleusShapeB);
+			Store(nameValuePairs, "Samples", Samples);
 			Store(nameValuePairs, "StartEffectiveTime", StartEffectiveTime);
 			Store(nameValuePairs, "StopEffectiveTime", StopEffectiveTime);
 
@@ -49,7 +49,6 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "DiffusenessB", ref DiffusenessBFm);
 			TryExtract(nameValuePairs, "EMFCalculationMethod", ref EMFCalculationMethod);
 			TryExtract(nameValuePairs, "EMFCalculationMethodSelection", ref EMFCalculationMethodSelection);
-			TryExtract(nameValuePairs, "EffectiveTimeSamples", ref EffectiveTimeSamples);
 			TryExtract(nameValuePairs, "GridCellSize", ref GridCellSizeFm);
 			TryExtract(nameValuePairs, "GridRadius", ref GridRadiusFm);
 			TryExtract(nameValuePairs, "ImpactParameter", ref ImpactParameterFm);
@@ -65,6 +64,7 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "RadialDistance", ref RadialDistance);
 			TryExtract(nameValuePairs, "NucleusShapeA", ref NucleusShapeA);
 			TryExtract(nameValuePairs, "NucleusShapeB", ref NucleusShapeB);
+			TryExtract(nameValuePairs, "Samples", ref Samples);
 			TryExtract(nameValuePairs, "StartEffectiveTime", ref StartEffectiveTime);
 			TryExtract(nameValuePairs, "StopEffectiveTime", ref StopEffectiveTime);
 		}
@@ -72,8 +72,6 @@ namespace Yburn.Workers
 		private double DiffusenessAFm;
 
 		private double DiffusenessBFm;
-
-		private int EffectiveTimeSamples;
 
 		private EMFCalculationMethod EMFCalculationMethod;
 
@@ -108,6 +106,8 @@ namespace Yburn.Workers
 		private NucleusShape NucleusShapeA;
 
 		private NucleusShape NucleusShapeB;
+
+		private int Samples;
 
 		private double StartEffectiveTime;
 

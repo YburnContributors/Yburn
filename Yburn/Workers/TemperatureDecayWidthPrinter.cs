@@ -16,10 +16,6 @@ namespace Yburn.Workers
 			BottomiumState[] bottomiumStates,
 			DecayWidthType decayWidthType,
 			string[] potentialTypes,
-			double minTemperature,
-			double maxTemperature,
-			double stepSize,
-			double mediumVelocity,
 			int numberAveragingAngles,
 			double qgpFormationTemperature
 			)
@@ -28,14 +24,8 @@ namespace Yburn.Workers
 			BottomiumStates = bottomiumStates;
 			DecayWidthType = decayWidthType;
 			PotentialTypes = potentialTypes;
-			MinTemperature = minTemperature;
-			MaxTemperature = maxTemperature;
-			StepSize = stepSize;
-			MediumVelocity = mediumVelocity;
 			NumberAveragingAngles = numberAveragingAngles;
 			QGPFormationTemperature = qgpFormationTemperature;
-
-			AssertValidInput();
 		}
 
 		/********************************************************************************************
@@ -43,36 +33,28 @@ namespace Yburn.Workers
 		 ********************************************************************************************/
 
 		public string GetList(
+			double[] mediumTemperatures,
+			double[] mediumVelocities,
 			DecayWidthEvaluationType[] evaluationTypes
 			)
 		{
+			DecayWidthAverager[] averagers = CreateDecayWidthAveragers();
+
 			if(evaluationTypes == null || evaluationTypes.Length < 1)
 			{
 				throw new Exception("No DecayWidthEvaluationTypes specified.");
 			}
 
-			DecayWidthAverager[] averagers = CreateDecayWidthAveragers();
-
-			string list = GetList(evaluationTypes[0], averagers);
+			string list =
+				GetList(mediumTemperatures, mediumVelocities, evaluationTypes[0], averagers);
 
 			for(int i = 1; i < evaluationTypes.Length; i++)
 			{
 				list += "\r\n";
-				list += GetList(evaluationTypes[i], averagers);
+				list += GetList(mediumTemperatures, mediumVelocities, evaluationTypes[i], averagers);
 			}
 
 			return list;
-		}
-
-		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-
-		private static string DoubleToString(
-			double aDouble
-			)
-		{
-			return aDouble.ToString("G4");
 		}
 
 		/********************************************************************************************
@@ -87,25 +69,9 @@ namespace Yburn.Workers
 
 		private string[] PotentialTypes;
 
-		private double StepSize;
-
-		private double MaxTemperature;
-
-		private double MinTemperature;
-
-		private double MediumVelocity;
-
 		private int NumberAveragingAngles;
 
 		private double QGPFormationTemperature;
-
-		private void AssertValidInput()
-		{
-			if(StepSize <= 0)
-			{
-				throw new ArgumentException("StepSize <= 0.");
-			}
-		}
 
 		private DecayWidthAverager[] CreateDecayWidthAveragers()
 		{
@@ -129,13 +95,15 @@ namespace Yburn.Workers
 		}
 
 		private string GetList(
+			double[] mediumTemperatures,
+			double[] mediumVelocities,
 			DecayWidthEvaluationType evaluationType,
 			DecayWidthAverager[] averagers
 			)
 		{
 			StringBuilder list = new StringBuilder();
 			AppendHeader(list, evaluationType);
-			AppendDataLines(list, evaluationType, averagers);
+			AppendDataLines(list, mediumTemperatures, mediumVelocities, evaluationType, averagers);
 			list.AppendFormat("\r\n");
 
 			return list.ToString();
@@ -147,7 +115,8 @@ namespace Yburn.Workers
 			)
 		{
 			list.AppendLine("#" + evaluationType.ToUIString());
-			list.AppendFormat("{0,-20}", "#Temperature");
+			list.AppendFormat("{0,-20}", "#MediumTemperature");
+			list.AppendFormat("{0,-20}", "MediumVelocity");
 			foreach(BottomiumState state in BottomiumStates)
 			{
 				list.AppendFormat("{0,-20}", "DecayWidth(" + state + ")");
@@ -156,6 +125,7 @@ namespace Yburn.Workers
 			list.AppendLine();
 
 			list.AppendFormat("{0,-20}", "#(MeV)");
+			list.AppendFormat("{0,-20}", "(c)");
 			foreach(BottomiumState state in BottomiumStates)
 			{
 				list.AppendFormat("{0,-20}", "(MeV)");
@@ -167,29 +137,34 @@ namespace Yburn.Workers
 
 		private void AppendDataLines(
 			StringBuilder list,
+			double[] mediumTemperatures,
+			double[] mediumVelocities,
 			DecayWidthEvaluationType evaluationType,
 			DecayWidthAverager[] averagers
 			)
 		{
-			double temperature = MinTemperature;
-			while(temperature <= MaxTemperature)
+			foreach(double temperature in mediumTemperatures)
 			{
-				AppendDataLine(list, temperature, evaluationType, averagers);
-				temperature += StepSize;
+				foreach(double velocity in mediumVelocities)
+				{
+					AppendDataLine(list, temperature, velocity, evaluationType, averagers);
+				}
 			}
 		}
 
 		private void AppendDataLine(
 			StringBuilder list,
 			double temperature,
+			double velocity,
 			DecayWidthEvaluationType evaluationType,
 			DecayWidthAverager[] averagers
 			)
 		{
-			list.AppendFormat("{0,-20}", DoubleToString(temperature));
+			list.AppendFormat("{0,-20}", temperature.ToUIString());
+			list.AppendFormat("{0,-20}", velocity.ToUIString());
 			foreach(DecayWidthAverager averager in averagers)
 			{
-				AppendDecayWidthValue(list, temperature, evaluationType, averager);
+				AppendDecayWidthValue(list, temperature, velocity, evaluationType, averager);
 			}
 			list.AppendFormat("\r\n");
 		}
@@ -197,12 +172,13 @@ namespace Yburn.Workers
 		private void AppendDecayWidthValue(
 			StringBuilder list,
 			double temperature,
+			double velocity,
 			DecayWidthEvaluationType evaluationType,
 			DecayWidthAverager averager
 			)
 		{
-			list.AppendFormat("{0,-20}", DoubleToString(
-				averager.GetDecayWidth(temperature, MediumVelocity, evaluationType)));
+			list.AppendFormat("{0,-20}",
+				averager.GetDecayWidth(temperature, velocity, evaluationType).ToUIString());
 		}
 	}
 }

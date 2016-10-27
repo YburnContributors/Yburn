@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
@@ -18,9 +19,9 @@ namespace Yburn.Fireball
 		{
 			BottomiumCascadeMatrix matrix = CreateEmptyMatrix();
 
-			foreach(BottomiumState i in Enum.GetValues(typeof(BottomiumState)))
+			foreach(BottomiumState s in Enum.GetValues(typeof(BottomiumState)))
 			{
-				matrix[i, i] = 1;
+				matrix[s, s] = 1;
 			}
 
 			return matrix;
@@ -32,9 +33,9 @@ namespace Yburn.Fireball
 		{
 			BottomiumCascadeMatrix matrix = CreateEmptyMatrix();
 
-			foreach(BottomiumState i in Enum.GetValues(typeof(BottomiumState)))
+			foreach(BottomiumState s in Enum.GetValues(typeof(BottomiumState)))
 			{
-				matrix[i, i] = diagonalElements[i];
+				matrix[s, s] = diagonalElements[s];
 			}
 
 			return matrix;
@@ -47,13 +48,13 @@ namespace Yburn.Fireball
 		{
 			BottomiumCascadeMatrix result = CreateEmptyMatrix();
 
-			foreach(BottomiumState i in Enum.GetValues(typeof(BottomiumState)))
+			foreach(BottomiumState s in Enum.GetValues(typeof(BottomiumState)))
 			{
-				foreach(BottomiumState j in Enum.GetValues(typeof(BottomiumState)))
+				foreach(BottomiumState t in Enum.GetValues(typeof(BottomiumState)))
 				{
-					foreach(BottomiumState k in Enum.GetValues(typeof(BottomiumState)))
+					foreach(BottomiumState u in Enum.GetValues(typeof(BottomiumState)))
 					{
-						result[i, j] += left[i, k] * right[k, j];
+						result[s, t] += left[s, u] * right[u, t];
 					}
 				}
 			}
@@ -104,55 +105,14 @@ namespace Yburn.Fireball
 		}
 
 		public string GetMatrixString(
+			string description = "State",
 			bool extractGammaTot3P = false
 			)
 		{
-			return GetStringifiedRepresentation(extractGammaTot3P).ConcatenateStringTable(true, true);
-		}
+			List<string> labels = new List<string>(Enum.GetNames(typeof(BottomiumState)));
 
-		public string[,] GetStringifiedRepresentation(
-			bool extractGammaTot3P = false
-			)
-		{
-			string[,] stringifiedMatrix =
-				new string[BottomiumStatesCount + 1, BottomiumStatesCount + 1];
-
-			stringifiedMatrix[0, 0] = "State";
-			for(int i = 0; i < BottomiumStatesCount; i++)
-			{
-				stringifiedMatrix[i + 1, 0] = Enum.GetNames(typeof(BottomiumState))[i];
-				stringifiedMatrix[0, i + 1] = Enum.GetNames(typeof(BottomiumState))[i];
-
-				for(int j = 0; j < BottomiumStatesCount; j++)
-				{
-					stringifiedMatrix[i + 1, j + 1] = Entries[i, j].ToUIString();
-				}
-			}
-
-			if(extractGammaTot3P)
-			{
-				foreach(BottomiumState i in Enum.GetValues(typeof(BottomiumState)))
-				{
-					if(i != BottomiumState.x3P)
-					{
-						if(stringifiedMatrix[(int)BottomiumState.x3P + 1, (int)i + 1] != "0")
-						{
-							stringifiedMatrix[(int)BottomiumState.x3P + 1, (int)i + 1] =
-								(Entries[(int)BottomiumState.x3P, (int)i] / Constants.GammaTot3P)
-								.ToUIString() + "*GammaTot3P/eV";
-						}
-
-						if(stringifiedMatrix[(int)i + 1, (int)BottomiumState.x3P + 1] != "0")
-						{
-							stringifiedMatrix[(int)i + 1, (int)BottomiumState.x3P + 1] =
-								(Entries[(int)i, (int)BottomiumState.x3P] * Constants.GammaTot3P)
-								.ToUIString() + "/GammaTot3P*eV";
-						}
-					}
-				}
-			}
-
-			return stringifiedMatrix;
+			return new Table<string>(GetStringifiedRepresentation(extractGammaTot3P))
+				.ToFormattedTableString(labels, labels, description);
 		}
 
 		/********************************************************************************************
@@ -160,5 +120,51 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		private readonly double[,] Entries;
+
+		private string[,] GetStringifiedRepresentation(
+			bool extractGammaTot3P
+			)
+		{
+			string[,] stringifiedEntries = new string[BottomiumStatesCount, BottomiumStatesCount];
+			for(int i = 0; i < BottomiumStatesCount; i++)
+			{
+				for(int j = 0; j < BottomiumStatesCount; j++)
+				{
+					stringifiedEntries[i, j] = Entries[i, j].ToUIString();
+				}
+			}
+
+			if(extractGammaTot3P)
+			{
+				ExtractGammaTot3PFromStringifiedRepresentation(stringifiedEntries);
+			}
+
+			return stringifiedEntries;
+		}
+
+		private void ExtractGammaTot3PFromStringifiedRepresentation(
+			string[,] stringifiedEntries
+			)
+		{
+			foreach(BottomiumState s in Enum.GetValues(typeof(BottomiumState)))
+			{
+				if(s != BottomiumState.x3P)
+				{
+					if(stringifiedEntries[(int)BottomiumState.x3P, (int)s] != "0")
+					{
+						stringifiedEntries[(int)BottomiumState.x3P, (int)s] =
+							(this[BottomiumState.x3P, s] / Constants.GammaTot3P).ToUIString()
+							+ "*GammaTot3P/eV";
+					}
+
+					if(stringifiedEntries[(int)s, (int)BottomiumState.x3P] != "0")
+					{
+						stringifiedEntries[(int)s, (int)BottomiumState.x3P] =
+							(this[s, BottomiumState.x3P] * Constants.GammaTot3P).ToUIString()
+							+ "/GammaTot3P*eV";
+					}
+				}
+			}
+		}
 	}
 }

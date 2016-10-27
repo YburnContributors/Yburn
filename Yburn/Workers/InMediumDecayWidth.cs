@@ -72,10 +72,9 @@ namespace Yburn.Workers
 
 			TemperatureDecayWidthPrinter printer = new TemperatureDecayWidthPrinter(
 				YburnConfigFile.QQDataPathFile, bottomiumStates, DecayWidthType, PotentialTypes,
-				MinTemperature, MaxTemperature, TemperatureStepSize, MediumVelocity,
 				NumberAveragingAngles, QGPFormationTemperature);
 
-			return printer.GetList(DecayWidthEvaluationTypes);
+			return printer.GetList(MediumTemperatures, MediumVelocities, DecayWidthEvaluationTypes);
 		}
 
 		protected override void StartJob(
@@ -88,8 +87,12 @@ namespace Yburn.Workers
 					CalculateInMediumDecayWidth();
 					break;
 
-				case "PlotInMediumDecayWidth":
-					PlotInMediumDecayWidth();
+				case "PlotInMediumDecayWidthsVersusMediumTemperature":
+					PlotInMediumDecayWidthsVersusMediumTemperature();
+					break;
+
+				case "PlotInMediumDecayWidthsVersusMediumVelocity":
+					PlotInMediumDecayWidthsVersusMediumVelocity();
 					break;
 
 				default:

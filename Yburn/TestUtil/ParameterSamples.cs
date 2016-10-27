@@ -13,7 +13,6 @@ namespace Yburn.TestUtil
 				nameValuePairs["DiffusenessB"] = "3333";
 				nameValuePairs["EMFCalculationMethod"] = "URLimitFourierSynthesis";
 				nameValuePairs["EMFCalculationMethodSelection"] = "URLimitFourierSynthesis";
-				nameValuePairs["EffectiveTimeSamples"] = "3333";
 				nameValuePairs["GridCellSize"] = "3333";
 				nameValuePairs["GridRadius"] = "3333";
 				nameValuePairs["ImpactParameter"] = "3333";
@@ -30,6 +29,7 @@ namespace Yburn.TestUtil
 				nameValuePairs["RadialDistance"] = "3333";
 				nameValuePairs["NucleusShapeA"] = "GaussianDistribution";
 				nameValuePairs["NucleusShapeB"] = "WoodsSaxonPotential";
+				nameValuePairs["Samples"] = "3333";
 				nameValuePairs["StartEffectiveTime"] = "3333";
 				nameValuePairs["StopEffectiveTime"] = "3333";
 
@@ -156,13 +156,11 @@ namespace Yburn.TestUtil
 				nameValuePairs["DataFileName"] = "stdout.txt";
 				nameValuePairs["DecayWidthEvaluationTypes"] = "AveragedDecayWidth";
 				nameValuePairs["DecayWidthType"] = "GammaTot";
-				nameValuePairs["MaxTemperature"] = "310";
-				nameValuePairs["MediumVelocity"] = "0.2";
-				nameValuePairs["MinTemperature"] = "100.5";
+				nameValuePairs["MediumTemperatures"] = "100,200,300";
+				nameValuePairs["MediumVelocities"] = "0.2";
 				nameValuePairs["NumberAveragingAngles"] = "5";
 				nameValuePairs["PotentialTypes"] = "Tzero";
 				nameValuePairs["QGPFormationTemperature"] = "160";
-				nameValuePairs["TemperatureStepSize"] = "6.5";
 
 				return nameValuePairs;
 			}

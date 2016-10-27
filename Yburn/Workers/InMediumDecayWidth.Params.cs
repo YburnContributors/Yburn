@@ -17,13 +17,11 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "DataFileName", DataFileName);
 			Store(nameValuePairs, "DecayWidthEvaluationTypes", DecayWidthEvaluationTypes);
 			Store(nameValuePairs, "DecayWidthType", DecayWidthType);
-			Store(nameValuePairs, "MaxTemperature", MaxTemperature);
-			Store(nameValuePairs, "MediumVelocity", MediumVelocity);
-			Store(nameValuePairs, "MinTemperature", MinTemperature);
+			Store(nameValuePairs, "MediumTemperatures", MediumTemperatures);
+			Store(nameValuePairs, "MediumVelocities", MediumVelocities);
 			Store(nameValuePairs, "NumberAveragingAngles", NumberAveragingAngles);
 			Store(nameValuePairs, "PotentialTypes", PotentialTypes);
 			Store(nameValuePairs, "QGPFormationTemperature", QGPFormationTemperature);
-			Store(nameValuePairs, "TemperatureStepSize", TemperatureStepSize);
 
 			return nameValuePairs;
 		}
@@ -36,13 +34,11 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
 			TryExtract(nameValuePairs, "DecayWidthEvaluationTypes", ref DecayWidthEvaluationTypes);
 			TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
-			TryExtract(nameValuePairs, "MaxTemperature", ref MaxTemperature);
-			TryExtract(nameValuePairs, "MediumVelocity", ref MediumVelocity);
-			TryExtract(nameValuePairs, "MinTemperature", ref MinTemperature);
+			TryExtract(nameValuePairs, "MediumTemperatures", ref MediumTemperatures);
+			TryExtract(nameValuePairs, "MediumVelocities", ref MediumVelocities);
 			TryExtract(nameValuePairs, "NumberAveragingAngles", ref NumberAveragingAngles);
 			TryExtract(nameValuePairs, "PotentialTypes", ref PotentialTypes);
 			TryExtract(nameValuePairs, "QGPFormationTemperature", ref QGPFormationTemperature);
-			TryExtract(nameValuePairs, "TemperatureStepSize", ref TemperatureStepSize);
 		}
 
 		private BottomiumState[] BottomiumStates = new BottomiumState[0];
@@ -51,18 +47,14 @@ namespace Yburn.Workers
 
 		private DecayWidthType DecayWidthType;
 
-		private double MaxTemperature;
+		private double[] MediumTemperatures;
 
-		private double MediumVelocity;
-
-		private double MinTemperature;
+		private double[] MediumVelocities;
 
 		private int NumberAveragingAngles;
 
 		private string[] PotentialTypes = new string[0];
 
 		private double QGPFormationTemperature;
-
-		private double TemperatureStepSize;
 	}
 }

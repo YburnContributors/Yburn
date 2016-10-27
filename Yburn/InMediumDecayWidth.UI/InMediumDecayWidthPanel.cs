@@ -108,12 +108,10 @@ namespace Yburn.InMediumDecayWidth.UI
 			nameValuePairs["NumberAveragingAngles"] = TbxNumberAveragingAngles.Text;
 			nameValuePairs["DecayWidthEvaluationTypes"] = MsxDecayWidthEvaluationTypes.SelectionString;
 			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
-			nameValuePairs["MaxTemperature"] = TbxMaxTemperature.Text;
-			nameValuePairs["MediumVelocity"] = TbxMediumVelocity.Text;
-			nameValuePairs["MinTemperature"] = TbxMinTemperature.Text;
+			nameValuePairs["MediumTemperatures"] = TbxMediumTemperatures.Text;
+			nameValuePairs["MediumVelocities"] = TbxMediumVelocities.Text;
 			nameValuePairs["PotentialTypes"] = MsxPotentialTypes.SelectionString;
 			nameValuePairs["QGPFormationTemperature"] = TbxQGPFormationTemperature.Text;
-			nameValuePairs["TemperatureStepSize"] = TbxTemperatureStepSize.Text;
 
 			return nameValuePairs;
 		}
@@ -128,18 +126,17 @@ namespace Yburn.InMediumDecayWidth.UI
 			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];
 			TbxDataFileName.Text = nameValuePairs["DataFileName"];
 			TbxNumberAveragingAngles.Text = nameValuePairs["NumberAveragingAngles"];
-			TbxMaxTemperature.Text = nameValuePairs["MaxTemperature"];
-			TbxMediumVelocity.Text = nameValuePairs["MediumVelocity"];
-			TbxMinTemperature.Text = nameValuePairs["MinTemperature"];
+			TbxMediumTemperatures.Text = nameValuePairs["MediumTemperatures"];
+			TbxMediumVelocities.Text = nameValuePairs["MediumVelocities"];
 			TbxQGPFormationTemperature.Text = nameValuePairs["QGPFormationTemperature"];
-			TbxTemperatureStepSize.Text = nameValuePairs["TemperatureStepSize"];
 		}
 
 		private void InitializeMenuEntry()
 		{
 			MenuEntry = new MenuItemInMediumDecayWidth();
 			MenuEntry.MenuItemCalculateInMediumDecayWidths.Click += new EventHandler(MenuItemCalculateInMediumDecayWidths_Click);
-			MenuEntry.MenuItemPlotInMediumDecayWidths.Click += new EventHandler(MenuItemPlotInMediumDecayWidths_Click);
+			MenuEntry.MenuItemPlotInMediumDecayWidthsVersusMediumTemperature.Click += new EventHandler(MenuItemPlotInMediumDecayWidthsVersusMediumTemperature_Click);
+			MenuEntry.MenuItemPlotInMediumDecayWidthsVersusMediumVelocity.Click += new EventHandler(MenuItemPlotInMediumDecayWidthsVersusMediumVelocity_Click);
 		}
 
 		private void MakeToolTips(
@@ -153,17 +150,11 @@ namespace Yburn.InMediumDecayWidth.UI
 				+ "from samples of dedicated azimuthal angles given by the user.",
 				GbxAverageParams);
 			toolTipMaker.Add(
-				"Minimum temperature in MeV to be considered in the calculation.",
-				LblMinTemperature, TbxMinTemperature);
+				"Temperatures in MeV to be considered in the calculation.",
+				LblMediumTemperatures, TbxMediumTemperatures);
 			toolTipMaker.Add(
-				"Maximum temperature in MeV to be considered in the calculation.",
-				LblMaxTemperature, TbxMaxTemperature);
-			toolTipMaker.Add(
-				"Size of temperature steps between samples in MeV to be considered in the calculation.",
-				LblTemperatureStepSize, TbxTemperatureStepSize);
-			toolTipMaker.Add(
-				"Velocity of the QGP medium in the bottomium rest frame in units of c.",
-				LblMediumVelocity, TbxMediumVelocity);
+				"Velocities of the QGP medium in the bottomium rest frame in units of c.",
+				LblMediumVelocities, TbxMediumVelocities);
 			toolTipMaker.Add(
 				"Number of angles relative to the velocity vector from which the angular average is calculated.",
 				LblNumberAveragingAngles, TbxNumberAveragingAngles);
@@ -193,9 +184,14 @@ namespace Yburn.InMediumDecayWidth.UI
 			JobOrganizer.RequestNewJob("CalculateInMediumDecayWidth", ControlsValues);
 		}
 
-		private void MenuItemPlotInMediumDecayWidths_Click(object sender, EventArgs e)
+		private void MenuItemPlotInMediumDecayWidthsVersusMediumTemperature_Click(object sender, EventArgs e)
 		{
-			JobOrganizer.RequestNewJob("PlotInMediumDecayWidth", ControlsValues);
+			JobOrganizer.RequestNewJob("PlotInMediumDecayWidthsVersusMediumTemperature", ControlsValues);
+		}
+
+		private void MenuItemPlotInMediumDecayWidthsVersusMediumVelocity_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotInMediumDecayWidthsVersusMediumVelocity", ControlsValues);
 		}
 	}
 }

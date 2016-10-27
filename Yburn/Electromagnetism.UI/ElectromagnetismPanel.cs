@@ -106,7 +106,6 @@ namespace Yburn.Electromagnetism.UI
 			nameValuePairs["DiffusenessB"] = TbxDiffusenessB.Text;
 			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
 			nameValuePairs["EMFCalculationMethodSelection"] = MsxEMFCalculationMethodSelection.SelectionString;
-			nameValuePairs["EffectiveTimeSamples"] = TbxEffectiveTimeSamples.Text;
 			nameValuePairs["GridCellSize"] = TbxGridCellSize.Text;
 			nameValuePairs["GridRadius"] = TbxGridRadius.Text;
 			nameValuePairs["ImpactParameter"] = TbxImpactParameter.Text;
@@ -123,6 +122,7 @@ namespace Yburn.Electromagnetism.UI
 			nameValuePairs["RadialDistance"] = TbxRadialDistance.Text;
 			nameValuePairs["NucleusShapeA"] = CbxNucleusShapeA.Text;
 			nameValuePairs["NucleusShapeB"] = CbxNucleusShapeB.Text;
+			nameValuePairs["Samples"] = TbxSamples.Text;
 			nameValuePairs["StartEffectiveTime"] = TbxStartEffectiveTime.Text;
 			nameValuePairs["StopEffectiveTime"] = TbxStopEffectiveTime.Text;
 
@@ -139,7 +139,6 @@ namespace Yburn.Electromagnetism.UI
 			MsxEMFCalculationMethodSelection.SelectionString = nameValuePairs["EMFCalculationMethodSelection"];
 			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA"];
 			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB"];
-			TbxEffectiveTimeSamples.Text = nameValuePairs["EffectiveTimeSamples"];
 			TbxGridCellSize.Text = nameValuePairs["GridCellSize"];
 			TbxGridRadius.Text = nameValuePairs["GridRadius"];
 			TbxImpactParameter.Text = nameValuePairs["ImpactParameter"];
@@ -154,6 +153,7 @@ namespace Yburn.Electromagnetism.UI
 			TbxQGPConductivityMeV.Text = nameValuePairs["QGPConductivityMeV"];
 			TbxQuadratureOrder.Text = nameValuePairs["QuadratureOrder"];
 			TbxRadialDistance.Text = nameValuePairs["RadialDistance"];
+			TbxSamples.Text = nameValuePairs["Samples"];
 			TbxStartEffectiveTime.Text = nameValuePairs["StartEffectiveTime"];
 			TbxStopEffectiveTime.Text = nameValuePairs["StopEffectiveTime"];
 		}

@@ -65,7 +65,7 @@ namespace Yburn
 
 			if(!string.IsNullOrEmpty(stringifiedValue))
 			{
-				value = stringifiedValue.ToValueJaggedArray<T>();
+				value = stringifiedValue.ToJaggedValueArray<T>();
 			}
 		}
 

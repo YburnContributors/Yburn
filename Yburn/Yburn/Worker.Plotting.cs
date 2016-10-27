@@ -11,6 +11,23 @@ namespace Yburn
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
+		protected static List<double> GetLinearAbscissaList(
+			double startValue,
+			double stopValue,
+			int samples
+			)
+		{
+			List<double> abscissaList = new List<double>();
+
+			double step = (stopValue - startValue) / samples;
+			for(int i = 0; i <= samples; i++)
+			{
+				abscissaList.Add(startValue + step * i);
+			}
+
+			return abscissaList;
+		}
+
 		protected static void WriteLine(
 			List<List<double>> dataList,
 			StringBuilder plotFile,
@@ -31,9 +48,28 @@ namespace Yburn
 			PlotFunction function
 			)
 		{
-			List<double> fieldValues =
-				GetPlotFunctionValueList(abscissae, function);
+			List<double> fieldValues = GetPlotFunctionValueList(abscissae, function);
 			dataList.Add(fieldValues);
+		}
+
+		protected static void AddSurfacePlotFunctionLists(
+			List<List<double>> dataList,
+			List<double> abscissaeX,
+			List<double> abscissaeY,
+			SurfacePlotFunction function
+			)
+		{
+			foreach(double valueX in abscissaeX)
+			{
+				PlotFunction functionY = valueY => function(valueX, valueY);
+
+				List<double> fieldValues = GetPlotFunctionValueList(abscissaeY, functionY);
+				fieldValues.Insert(0, valueX);
+				dataList.Add(fieldValues);
+			}
+
+			dataList.Insert(0, abscissaeY);
+			dataList[0].Insert(0, double.NaN);
 		}
 
 		protected static List<double> GetPlotFunctionValueList(
@@ -51,23 +87,6 @@ namespace Yburn
 			return functionValues;
 		}
 
-		protected static List<double> GetLinearAbscissaList(
-			double startValue,
-			double stopValue,
-			int samples
-			)
-		{
-			List<double> abscissaList = new List<double>();
-
-			double step = (stopValue - startValue) / samples;
-			for(int i = 0; i <= samples; i++)
-			{
-				abscissaList.Add(startValue + step * i);
-			}
-
-			return abscissaList;
-		}
-
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
@@ -76,35 +95,36 @@ namespace Yburn
 
 		protected delegate double PlotFunction(double x);
 
-		protected string DataPathFile
+		protected delegate double SurfacePlotFunction(double x, double y);
+
+		protected string OutputPath
 		{
 			get
 			{
-				return YburnConfigFile.OutputPath + DataFileName;
+				return YburnConfigFile.OutputPath;
 			}
 		}
 
-		protected string FormattedDataPathFile
+		protected string PlotFileName
 		{
 			get
 			{
-				return DataPathFile.Replace("\\", "/");
+				return DataFileName + ".plt";
 			}
 		}
 
-		protected string FormattedPlotPathFile
+		protected void WriteDataFile(
+			StringBuilder dataFileContent
+			)
 		{
-			get
-			{
-				return FormattedDataPathFile + ".plt";
-			}
+			File.WriteAllText(OutputPath + DataFileName, dataFileContent.ToString());
 		}
 
 		protected void WritePlotFile(
-			StringBuilder plotFile
+			StringBuilder plotFileContent
 			)
 		{
-			File.WriteAllText(FormattedPlotPathFile, plotFile.ToString());
+			File.WriteAllText(OutputPath + PlotFileName, plotFileContent.ToString());
 		}
 
 		protected void CreateDataFile(
@@ -119,7 +139,7 @@ namespace Yburn
 				dataFileContent.Append(GetDataFileContent(dataListCreators[i]));
 			}
 
-			File.WriteAllText(DataPathFile, dataFileContent.ToString());
+			WriteDataFile(dataFileContent);
 		}
 
 		private StringBuilder GetDataFileContent(
@@ -139,60 +159,68 @@ namespace Yburn
 
 		protected void AppendPlotCommands(
 			StringBuilder plotFile,
-			string plotStyle,
-			params string[] titleList
+			int index = 0,
+			int abscissaColumn = 1,
+			int firstOrdinateColumn = 2,
+			string style = "linespoints",
+			params string[] titles
 			)
 		{
 			plotFile.AppendLine("plot\\");
 
-			int plotColumn = 2;
-			foreach(string title in titleList)
+			int ordinateColumn = firstOrdinateColumn;
+			foreach(string title in titles)
 			{
-				plotFile.AppendFormat("\"{0}\" using 1:{1} with {2} title \"{3}\",\\",
-					FormattedDataPathFile, plotColumn, plotStyle, title);
+				plotFile.AppendFormat("'{0}' index {1} using {2}:{3} with {4} title '{5}',\\",
+					DataFileName, index, abscissaColumn, ordinateColumn, style, title);
 				plotFile.AppendLine();
-				plotColumn++;
+				ordinateColumn++;
 			}
 		}
 
 		protected void AppendPlotCommands(
 			StringBuilder plotFile,
-			int index,
-			string plotStyle,
-			params string[] titleList
+			int abscissaColumn = 1,
+			int firstOrdinateColumn = 2,
+			string style = "linespoints",
+			params string[][] titles
 			)
 		{
 			plotFile.AppendLine("plot\\");
 
-			int plotColumn = 2;
-			foreach(string title in titleList)
+			for(int index = 0; index < titles.Length; index++)
 			{
-				plotFile.AppendFormat("\"{0}\" index {1} using 1:{2} with {3} title \"{4}\",\\",
-					FormattedDataPathFile, index, plotColumn, plotStyle, title);
-				plotFile.AppendLine();
-				plotColumn++;
-			}
-		}
-
-		protected void AppendPlotCommands(
-			StringBuilder plotFile,
-			string plotStyle,
-			params string[][] titleList
-			)
-		{
-			plotFile.AppendLine("plot\\");
-
-			for(int index = 0; index < titleList.Length; index++)
-			{
-				int plotColumn = 2;
-				foreach(string title in titleList[index])
+				int ordinateColumn = firstOrdinateColumn;
+				foreach(string title in titles[index])
 				{
-					plotFile.AppendFormat("\"{0}\" index {1} using 1:{2} with {3} title \"{4}\",\\",
-						FormattedDataPathFile, index, plotColumn, plotStyle, title);
+					plotFile.AppendFormat("'{0}' index {1} using {2}:{3} with {4} title '{5}',\\",
+						DataFileName, index, abscissaColumn, ordinateColumn, style, title);
 					plotFile.AppendLine();
-					plotColumn++;
+					ordinateColumn++;
 				}
 			}
+		}
+
+		protected void AppendSurfacePlotCommands(
+			StringBuilder plotFile
+			)
+		{
+			plotFile.AppendLine("set size 0.9,1");
+			plotFile.AppendLine("set cblabel offset 2");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set pm3d map");
+			plotFile.AppendLine("set pm3d interpolate 0,0");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set contour");
+			plotFile.AppendLine("set cntrparam bspline");
+			plotFile.AppendLine("set cntrlabel interval -1 font ',7'");
+			plotFile.AppendLine("do for [i=1:8] { set linetype i linecolor rgb 'black' }");
+			plotFile.AppendLine();
+
+			plotFile.AppendFormat("splot '{0}' nonuniform matrix using 1:2:3 notitle dashtype '-'"
+				+ ", '' nonuniform matrix using 1:2:3 notitle with labels nosurface",
+				DataFileName);
+			plotFile.AppendLine();
 		}
 
 		protected void AppendSavePlotAsPNG(
@@ -201,14 +229,19 @@ namespace Yburn
 		{
 			plotFile.AppendLine();
 			plotFile.AppendLine("set terminal pngcairo enhanced");
-			plotFile.AppendLine("set output \"" + FormattedDataPathFile + ".png\"");
+			plotFile.AppendLine("set output '" + DataFileName + ".png'");
 			plotFile.AppendLine("replot");
 			plotFile.AppendLine("set output");
 		}
 
 		protected Process StartGnuplot()
 		{
-			return Process.Start("wgnuplot", "\"" + FormattedPlotPathFile + "\" --persist");
+			ProcessStartInfo gnuplot = new ProcessStartInfo();
+			gnuplot.FileName = "wgnuplot";
+			gnuplot.Arguments = "\"" + DataFileName + ".plt" + "\" --persist";
+			gnuplot.WorkingDirectory = OutputPath;
+
+			return Process.Start(gnuplot);
 		}
 	}
 }

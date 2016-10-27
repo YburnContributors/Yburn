@@ -7,7 +7,7 @@
     <ProjectGuid>{EB474E7F-D6F1-408D-A30B-CF662B311C93}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Yburn.App</RootNamespace>
+    <RootNamespace>Yburn</RootNamespace>
     <AssemblyName>Yburn</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="BackgroundService.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="Table.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Worker.cs" />

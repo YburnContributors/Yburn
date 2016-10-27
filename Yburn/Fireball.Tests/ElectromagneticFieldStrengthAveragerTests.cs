@@ -16,7 +16,7 @@ namespace Yburn.Fireball.Tests
 			ElectromagneticFieldStrengthAverager averager =
 				new ElectromagneticFieldStrengthAverager(CreateFireballParam());
 
-			double result = averager.CalculateAverageElectricFieldStrengthPerFm2(8);
+			double result = averager.CalculateAverageElectricFieldStrengthPerFm2(0.4, 8);
 
 			AssertHelper.AssertApproximatelyEqual(0.64257321196335648, result);
 		}
@@ -27,7 +27,7 @@ namespace Yburn.Fireball.Tests
 			ElectromagneticFieldStrengthAverager averager =
 				new ElectromagneticFieldStrengthAverager(CreateFireballParam());
 
-			double result = averager.CalculateAverageElectricFieldStrengthPerFm2_LCF(8);
+			double result = averager.CalculateAverageElectricFieldStrengthPerFm2_LCF(0.4, 8);
 
 			AssertHelper.AssertApproximatelyEqual(8.68669889202293, result);
 		}
@@ -38,7 +38,7 @@ namespace Yburn.Fireball.Tests
 			ElectromagneticFieldStrengthAverager averager =
 				new ElectromagneticFieldStrengthAverager(CreateFireballParam());
 
-			double result = averager.CalculateAverageMagneticFieldStrengthPerFm2(8);
+			double result = averager.CalculateAverageMagneticFieldStrengthPerFm2(0.4, 8);
 
 			AssertHelper.AssertApproximatelyEqual(0.74916774299354139, result, 14);
 		}
@@ -49,7 +49,7 @@ namespace Yburn.Fireball.Tests
 			ElectromagneticFieldStrengthAverager averager =
 				new ElectromagneticFieldStrengthAverager(CreateFireballParam());
 
-			double result = averager.CalculateAverageMagneticFieldStrengthPerFm2_LCF(8);
+			double result = averager.CalculateAverageMagneticFieldStrengthPerFm2_LCF(0.4, 8);
 
 			AssertHelper.AssertApproximatelyEqual(0.23624004632176207, result);
 		}

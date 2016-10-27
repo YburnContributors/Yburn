@@ -39,12 +39,10 @@ EnergySteps = 1000
 # Parameters for InMediumDecayWidth #
 #####################################
 
-MinTemperature            = 100
-MaxTemperature            = 650
-TemperatureStepSize       = 50
+MediumTemperatures        = 100,200,300,400,500,600
+MediumVelocities          = 0,0.2,0.4,0.6,0.8
 #NumberAveragingAngles     = 20
 DecayWidthEvaluationTypes = UnshiftedTemperature,AveragedDecayWidth
-MediumVelocity            = 0.2
 #QGPFormationTemperature   = 160
 
 
@@ -56,13 +54,13 @@ MediumVelocity            = 0.2
 QGPConductivityMeV   = 5.8
 EMFCalculationMethod = DiffusionApproximation
 QuadratureOrder      = 8
+Samples              = 10
 
 # Single Point Charge
 PointChargeRapidity           = 7.987
 RadialDistance                = 6.62
 StartEffectiveTime            = 0.0
 StopEffectiveTime             = 3.0
-EffectiveTimeSamples          = 300
 EMFCalculationMethodSelection = URLimitFourierSynthesis,DiffusionApproximation,FreeSpace
 
 

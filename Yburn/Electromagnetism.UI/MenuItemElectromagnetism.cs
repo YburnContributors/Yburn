@@ -76,7 +76,7 @@ namespace Yburn.Electromagnetism.UI
 			//
 			this.MenuItemPlotSpinStateOverlap.Name = "MenuItemPlotSpinStateOverlap";
 			this.MenuItemPlotSpinStateOverlap.Size = new System.Drawing.Size(361, 24);
-			this.MenuItemPlotSpinStateOverlap.Text = "Plot &overlap between shifted \u03A5 and unshifted \u03B7b spin states";
+			this.MenuItemPlotSpinStateOverlap.Text = "Plot &overlap between magnetically shifted triplet and unshifted singlet spin state";
 			//
 			// MenuItemElectromagnetism
 			//
