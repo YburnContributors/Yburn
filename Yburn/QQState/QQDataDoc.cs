@@ -11,7 +11,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 
-namespace Yburn.Fireball
+namespace Yburn.QQState
 {
 	/********************************************************************************************
 	 * Enums
@@ -34,6 +34,101 @@ namespace Yburn.Fireball
 		GammaDiss,
 		GammaTot,
 		None
+	}
+
+	public struct QQDataSet
+	{
+		/********************************************************************************************
+		 * Constructors
+		 ********************************************************************************************/
+
+		public QQDataSet(
+			int n,
+			int l,
+			ColorState colorState,
+			PotentialType potentialType,
+			double temperature,
+			double debyeMass,
+			double rms,
+			double softScale,
+			double ultraSoftScale,
+			double boundMass,
+			double energy,
+			double gammaDamp,
+			double gammaDiss,
+			double gammaTot
+			)
+		{
+			N = n;
+			L = l;
+			ColorState = colorState;
+			PotentialType = potentialType;
+			Temperature = temperature;
+			DebyeMass = debyeMass;
+			RMS = rms;
+			SoftScale = softScale;
+			UltraSoftScale = ultraSoftScale;
+			BoundMass = boundMass;
+			Energy = energy;
+			GammaDamp = gammaDamp;
+			GammaDiss = gammaDiss;
+			GammaTot = gammaTot;
+		}
+
+		/********************************************************************************************
+		 * Public members, functions and properties
+		 ********************************************************************************************/
+
+		public readonly int N;
+
+		public readonly int L;
+
+		public readonly ColorState ColorState;
+
+		public readonly PotentialType PotentialType;
+
+		public readonly double Temperature;
+
+		public readonly double DebyeMass;
+
+		public readonly double RMS;
+
+		public readonly double SoftScale;
+
+		public readonly double UltraSoftScale;
+
+		public readonly double BoundMass;
+
+		public readonly double Energy;
+
+		public readonly double GammaDamp;
+
+		public readonly double GammaDiss;
+
+		public readonly double GammaTot;
+
+		public double GetGamma(
+			DecayWidthType type
+			)
+		{
+			switch(type)
+			{
+				case DecayWidthType.None:
+					return 0;
+
+				case DecayWidthType.GammaDamp:
+					return GammaDamp;
+
+				case DecayWidthType.GammaDiss:
+					return GammaDiss;
+
+				case DecayWidthType.GammaTot:
+					return GammaTot;
+
+				default:
+					throw new Exception("Invalid DecayWidthType.");
+			}
+		}
 	}
 
 	public static class QQDataDoc
@@ -154,76 +249,47 @@ namespace Yburn.Fireball
 				gammaTot.ToString("G6"));
 		}
 
-		public static double GetValue(
+		public static List<QQDataSet> GetDataSets(
 			string pathFile,
-			QQDataColumns dataColumn,
 			int n,
 			int l,
-			string colorState,
-			string potentialType,
-			double? temperature
+			ColorState colorState,
+			List<PotentialType> potentialTypes
 			)
 		{
-			List<KeyValuePair<double, double>> valueList = GetValueList(pathFile, dataColumn, n,
-				l, colorState, new string[] { potentialType }, temperature, temperature);
-			if(valueList.Count == 0)
+			return GetDataSets(
+				pathFile,
+				n,
+				l,
+				colorState,
+				potentialTypes,
+				0,
+				double.PositiveInfinity);
+		}
+
+		public static QQDataSet GetDataSet(
+			string pathFile,
+			int n,
+			int l,
+			ColorState colorState,
+			List<PotentialType> potentialTypes,
+			double temperature
+			)
+		{
+			List<QQDataSet> dataSetList = GetDataSets(
+				pathFile,
+				n,
+				l,
+				colorState,
+				potentialTypes,
+				temperature,
+				temperature);
+
+			if(dataSetList.Count == 0)
 			{
 				throw new Exception("No archived data could be found.");
 			}
-			return valueList[0].Value;
-		}
-
-		// Extract a list of values from the QQ-data file with specified N, L, color state and
-		// potential type within a given temperature region. The potential types are flaggable.
-		// If no values are found an empty list is returned.
-		public static List<KeyValuePair<double, double>> GetValueList(
-			string pathFile,
-			QQDataColumns dataColumn,
-			int? n,
-			int? l,
-			string colorState,
-			string[] potentialTypes,
-			double? minTemperature,
-			double? maxTemperature
-			)
-		{
-			CheckDataColumnValid(dataColumn);
-
-			List<KeyValuePair<double, double>> temperatureValueList = new List<KeyValuePair<double, double>>();
-
-			// read whole data file
-			List<string> allLines = new List<string>(File.ReadAllLines(pathFile));
-
-			string sN = n.HasValue ? n.ToString() : null;
-			string sL = l.HasValue ? l.ToString() : null;
-			string sMinTemperature = minTemperature.HasValue ?
-				minTemperature.Value.ToString("G6") : null;
-			string sMaxTemperature = maxTemperature.HasValue ?
-				maxTemperature.Value.ToString("G6") : null;
-
-			// go through the data file backwards and find the wanted data
-			foreach(string currentLine in allLines)
-			{
-				// skip commentary
-				if(IsCommentaryLine(currentLine))
-				{
-					continue;
-				}
-
-				string[] values = SplitLineIntoValues(currentLine);
-				if(!LineValuesValid(values, sN, sL, colorState, sMinTemperature,
-					sMaxTemperature, potentialTypes))
-				{
-					continue;
-				}
-
-				// add the content to the list and check the next line
-				temperatureValueList.Add(new KeyValuePair<double, double>(
-					double.Parse(values[(int)QQDataColumns.Temperature]),
-					double.Parse(values[(int)dataColumn])));
-			}
-
-			return temperatureValueList;
+			return dataSetList[0];
 		}
 
 		/********************************************************************************************
@@ -235,65 +301,90 @@ namespace Yburn.Fireball
 
 		private const string CommentarySign = "#";
 
-		private static void CheckDataColumnValid(
-			QQDataColumns dataColumn
+		// Extract a list of values from the QQ-data file with specified N, L, color state and
+		// potential type within a given temperature region.
+		// If no values are found an empty list is returned.
+		private static List<QQDataSet> GetDataSets(
+			string pathFile,
+			int n,
+			int l,
+			ColorState colorState,
+			List<PotentialType> potentialTypes,
+			double minTemperature,
+			double maxTemperature
 			)
 		{
-			if(dataColumn == QQDataColumns.None ||
-				dataColumn == QQDataColumns.N ||
-				dataColumn == QQDataColumns.L ||
-				dataColumn == QQDataColumns.ColorState ||
-				dataColumn == QQDataColumns.PotentialType ||
-				dataColumn == QQDataColumns.Temperature)
+			List<QQDataSet> dataSetList = new List<QQDataSet>();
+
+			// read whole data file
+			List<string> allLines = new List<string>(File.ReadAllLines(pathFile));
+
+			// go through the data file and find the wanted data
+			foreach(string currentLine in allLines)
 			{
-				throw new Exception("Invalid QQDataColumn.");
+				// skip commentary
+				if(IsCommentaryLine(currentLine))
+				{
+					continue;
+				}
+
+				QQDataSet dataSet = ExtractDataSet(currentLine);
+
+				if(!IsDataSetValid(dataSet, n, l, colorState, potentialTypes, minTemperature, maxTemperature))
+				{
+					continue;
+				}
+
+				// add the data to the list and check the next line
+				dataSetList.Add(dataSet);
 			}
+
+			return dataSetList;
 		}
 
-		private static bool LineValuesValid(
-			string[] lineValues,
-			string n,
-			string l,
-			string colorState,
-			string minTemperature,
-			string maxTemperature,
-			string[] potentialTypes
+		private static QQDataSet ExtractDataSet(
+			string line
+			)
+		{
+			string[] values = SplitLineIntoValues(line);
+
+			return new QQDataSet(
+				n: int.Parse(values[(int)QQDataColumns.N]),
+				l: int.Parse(values[(int)QQDataColumns.L]),
+				colorState: (ColorState)Enum.Parse(
+					typeof(ColorState), values[(int)QQDataColumns.ColorState]),
+				potentialType: (PotentialType)Enum.Parse(
+					typeof(PotentialType), values[(int)QQDataColumns.PotentialType]),
+				temperature: double.Parse(values[(int)QQDataColumns.Temperature]),
+				debyeMass: double.Parse(values[(int)QQDataColumns.DebyeMass]),
+				rms: double.Parse(values[(int)QQDataColumns.RMS]),
+				softScale: double.Parse(values[(int)QQDataColumns.SoftScale]),
+				ultraSoftScale: double.Parse(values[(int)QQDataColumns.UltraSoftScale]),
+				boundMass: double.Parse(values[(int)QQDataColumns.BoundMass]),
+				energy: double.Parse(values[(int)QQDataColumns.Energy]),
+				gammaDamp: double.Parse(values[(int)QQDataColumns.GammaDamp]),
+				gammaDiss: double.Parse(values[(int)QQDataColumns.GammaDiss]),
+				gammaTot: double.Parse(values[(int)QQDataColumns.GammaTot]));
+		}
+
+		private static bool IsDataSetValid(
+			QQDataSet dataSet,
+			int n,
+			int l,
+			ColorState colorState,
+			List<PotentialType> potentialTypes,
+			double minTemperature,
+			double maxTemperature
 		)
 		{
-			bool isValid = string.Compare(lineValues[(int)QQDataColumns.N], n) == 0
-				&& string.Compare(lineValues[(int)QQDataColumns.L], l) == 0
-				&& string.Compare(lineValues[(int)QQDataColumns.ColorState], colorState) == 0;
+			bool isValid = (dataSet.N == n)
+				&& (dataSet.L == l)
+				&& (dataSet.ColorState == colorState)
+				&& potentialTypes.Contains(dataSet.PotentialType)
+				&& (dataSet.Temperature >= minTemperature)
+				&& (dataSet.Temperature <= maxTemperature);
 
-			isValid &= LineContainsPotentialType(
-				lineValues[(int)QQDataColumns.PotentialType], potentialTypes);
-
-			if(!string.IsNullOrEmpty(minTemperature))
-			{
-				isValid &= string.Compare(
-					lineValues[(int)QQDataColumns.Temperature], minTemperature) >= 0;
-			}
-			if(!string.IsNullOrEmpty(maxTemperature))
-			{
-				isValid &= string.Compare(
-					lineValues[(int)QQDataColumns.Temperature], maxTemperature) <= 0;
-			}
 			return isValid;
-		}
-
-		private static bool LineContainsPotentialType(
-			string linePotentialType,
-			string[] potentialTypes
-			)
-		{
-			foreach(string type in potentialTypes)
-			{
-				if(linePotentialType == type)
-				{
-					return true;
-				}
-			}
-
-			return false;
 		}
 
 		private static string DataHeader(
@@ -441,9 +532,5 @@ namespace Yburn.Fireball
 		{
 			return line.StartsWith(CommentarySign);
 		}
-
-		/********************************************************************************************
-		 * Private/protected members, functions and properties
-		 ********************************************************************************************/
 	}
 }

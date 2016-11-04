@@ -137,6 +137,7 @@ namespace Yburn.InMediumDecayWidth.UI
 			MenuEntry.MenuItemCalculateInMediumDecayWidths.Click += new EventHandler(MenuItemCalculateInMediumDecayWidths_Click);
 			MenuEntry.MenuItemPlotInMediumDecayWidthsVersusMediumTemperature.Click += new EventHandler(MenuItemPlotInMediumDecayWidthsVersusMediumTemperature_Click);
 			MenuEntry.MenuItemPlotInMediumDecayWidthsVersusMediumVelocity.Click += new EventHandler(MenuItemPlotInMediumDecayWidthsVersusMediumVelocity_Click);
+			MenuEntry.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature.Click += new EventHandler(MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature_Click);
 		}
 
 		private void MakeToolTips(
@@ -144,7 +145,7 @@ namespace Yburn.InMediumDecayWidth.UI
 			)
 		{
 			toolTipMaker.Add(
-				"In medium bottomium decay widths depend on temperature, velocity and angle\r\n"
+				"In-medium bottomium decay widths depend on temperature, velocity and angle\r\n"
 				+ "relative to the velocity vector. The decay width as a function of temperature and\r\n"
 				+ "velocity is calculated as an average over the solid angle. The average is calculated\r\n"
 				+ "from samples of dedicated azimuthal angles given by the user.",
@@ -192,6 +193,11 @@ namespace Yburn.InMediumDecayWidth.UI
 		private void MenuItemPlotInMediumDecayWidthsVersusMediumVelocity_Click(object sender, EventArgs e)
 		{
 			JobOrganizer.RequestNewJob("PlotInMediumDecayWidthsVersusMediumVelocity", ControlsValues);
+		}
+
+		private void MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotDecayWidthEvaluatedAtDopplerShiftedTemperature", ControlsValues);
 		}
 	}
 }

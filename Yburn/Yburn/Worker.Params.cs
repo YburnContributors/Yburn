@@ -42,7 +42,7 @@ namespace Yburn
 		protected static void TryExtract<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			ref T[] value
+			ref List<T> list
 			) where T : IConvertible
 		{
 			string stringifiedValue;
@@ -50,14 +50,14 @@ namespace Yburn
 
 			if(!string.IsNullOrEmpty(stringifiedValue))
 			{
-				value = stringifiedValue.ToValueArray<T>();
+				list = stringifiedValue.ToValueList<T>();
 			}
 		}
 
 		protected static void TryExtract<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			ref T[][] value
+			ref List<List<T>> nestedList
 			) where T : IConvertible
 		{
 			string stringifiedValue;
@@ -65,7 +65,7 @@ namespace Yburn
 
 			if(!string.IsNullOrEmpty(stringifiedValue))
 			{
-				value = stringifiedValue.ToJaggedValueArray<T>();
+				nestedList = stringifiedValue.ToNestedValueList<T>();
 			}
 		}
 
@@ -81,19 +81,27 @@ namespace Yburn
 		protected static void Store<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			T[] value
+			List<T> list
 			) where T : IConvertible
 		{
-			nameValuePairs[key] = value.ToUIString();
+			if(list == null)
+			{
+				nameValuePairs[key] = string.Empty;
+			}
+			nameValuePairs[key] = list.ToUIString();
 		}
 
 		protected static void Store<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
-			T[][] value
+			List<List<T>> nestedList
 			) where T : IConvertible
 		{
-			nameValuePairs[key] = value.ToUIString();
+			if(nestedList == null)
+			{
+				nameValuePairs[key] = string.Empty;
+			}
+			nameValuePairs[key] = nestedList.ToUIString();
 		}
 
 		/********************************************************************************************

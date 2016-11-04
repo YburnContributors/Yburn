@@ -4,6 +4,11 @@ using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
+	public delegate double DecayWidthRetrievalFunction(
+		BottomiumState state,
+		double temperature,
+		double velocity);
+
 	public class FireballDecayWidthField : StateSpecificFireballField
 	{
 		/********************************************************************************************
@@ -11,72 +16,28 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public FireballDecayWidthField(
-			int xDimension,
-			int yDimension,
-			double gridCellSize,
-			double[] transverseMomenta,
-			FireballTemperatureField temperature,
-			SimpleFireballField vx,
-			SimpleFireballField vy,
-			double[] formationTimes,
-			double initialTime,
-			DecayWidthEvaluationType decayWidthEvaluationType,
-			int numberAveragingAngles,
-			double qgpFormationTemperature,
-			List<KeyValuePair<double, double>>[] temperatureDecayWidthList
-			)
-			: base(FireballFieldType.DecayWidth, xDimension, yDimension,
-				  transverseMomenta.Length)
-		{
-			InitXY();
-			GridCellSize = gridCellSize;
-			Temperature = temperature;
-			VX = vx;
-			VY = vy;
-			FormationTimes = formationTimes;
-			InitialTime = initialTime;
-			TransverseMomenta = transverseMomenta;
-			DecayWidthEvaluationType = decayWidthEvaluationType;
-			NumberAveragingAngles = numberAveragingAngles;
-			QGPFormationTemperature = qgpFormationTemperature;
-			TemperatureDecayWidthList = temperatureDecayWidthList;
-
-			Initialize();
-		}
-
-		public FireballDecayWidthField(
 			double[] xPosition,
 			double[] yPosition,
-			double gridCellSize,
-			double[] transverseMomenta,
+			List<double> transverseMomenta,
 			FireballTemperatureField temperature,
 			SimpleFireballField vx,
 			SimpleFireballField vy,
-			double[] formationTimes,
+			List<double> formationTimes,
 			double initialTime,
-			DecayWidthEvaluationType decayWidthEvaluationType,
-			int numberAveragingAngles,
-			double qgpFormationTemperature,
-			List<KeyValuePair<double, double>>[] temperatureDecayWidthList
+			DecayWidthRetrievalFunction decayWidthFunction
 			)
 			: base(FireballFieldType.DecayWidth, xPosition.Length, yPosition.Length,
-				  transverseMomenta.Length)
+				  transverseMomenta.Count)
 		{
-			X = new double[XDimension];
-			Y = new double[YDimension];
 			X = xPosition;
 			Y = yPosition;
-			GridCellSize = gridCellSize;
+			TransverseMomenta = transverseMomenta;
 			Temperature = temperature;
 			VX = vx;
 			VY = vy;
 			FormationTimes = formationTimes;
 			InitialTime = initialTime;
-			TransverseMomenta = transverseMomenta;
-			DecayWidthEvaluationType = decayWidthEvaluationType;
-			NumberAveragingAngles = numberAveragingAngles;
-			QGPFormationTemperature = qgpFormationTemperature;
-			TemperatureDecayWidthList = temperatureDecayWidthList;
+			GetDecayWidth = decayWidthFunction;
 
 			Initialize();
 		}
@@ -136,80 +97,37 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private FireballTemperatureField Temperature;
+		// x, y are in the plane perpendicular to the symmetry axis. The origin is in the middle
+		// between the two center of the nuclei. The x-axis is in the plane that the beam axis spans
+		// with the line connecting the two centers.
+		private readonly double[] X;
+
+		private readonly double[] Y;
+
+		private readonly List<double> TransverseMomenta;
+
+		private readonly FireballTemperatureField Temperature;
 
 		// tranverse expansion velocity of the fireball as measured in the lab frame
-		private SimpleFireballField VX;
+		private readonly SimpleFireballField VX;
 
-		private SimpleFireballField VY;
+		private readonly SimpleFireballField VY;
 
-		private double[] FormationTimes;
+		private readonly List<double> FormationTimes;
 
-		private double InitialTime;
+		private readonly double InitialTime;
+
+		private readonly DecayWidthRetrievalFunction GetDecayWidth;
 
 		private void Initialize()
 		{
 			SetTransverseBottomiumVelocityAndLorentzFactor();
-			SetDecayWidthAveragers();
 			SetValues((i, j, k, l) =>
 			{
 				return IsStateAlreadyFormed(k, l, InitialTime) ?
 					 GetDecayWidth((BottomiumState)l, Temperature[i, j], 0) / GammaT[k, l]
 					: double.PositiveInfinity;
 			});
-		}
-
-		// x, y are in the plane perpendicular to the symmetry axis. The origin is in the middle
-		// between the two center of the nuclei. The x-axis is in the plane that the beam axis spans
-		// with the line connecting the two centers.
-		private double[] X;
-
-		private double[] Y;
-
-		private double GridCellSize;
-
-		private void InitXY()
-		{
-			X = new double[XDimension];
-			for(int i = 0; i < XDimension; i++)
-			{
-				X[i] = GridCellSize * i;
-			}
-
-			Y = new double[YDimension];
-			for(int j = 0; j < YDimension; j++)
-			{
-				Y[j] = GridCellSize * j;
-			}
-		}
-
-		private List<DecayWidthAverager> DecayWidthAveragers;
-
-		private DecayWidthEvaluationType DecayWidthEvaluationType;
-
-		private int NumberAveragingAngles;
-
-		double QGPFormationTemperature;
-
-		private List<KeyValuePair<double, double>>[] TemperatureDecayWidthList;
-
-		private void SetDecayWidthAveragers()
-		{
-			DecayWidthAveragers = new List<DecayWidthAverager>();
-			foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
-			{
-				if(TemperatureDecayWidthList[(int)state].Count > 0)
-				{
-					DecayWidthAveragers.Add(new DecayWidthAverager(
-						TemperatureDecayWidthList[(int)state],
-						NumberAveragingAngles,
-						QGPFormationTemperature));
-				}
-				else
-				{
-					DecayWidthAveragers.Add(null);
-				}
-			}
 		}
 
 		private bool IsStateAlreadyFormed(
@@ -227,8 +145,6 @@ namespace Yburn.Fireball
 		// Lorentz factor due to transverse velocity of the bottomia
 		private double[,] GammaT;
 
-		private double[] TransverseMomenta;
-
 		private void SetTransverseBottomiumVelocityAndLorentzFactor()
 		{
 			GammaT = new double[PtDimension, NumberBottomiumStates];
@@ -238,14 +154,13 @@ namespace Yburn.Fireball
 			{
 				for(int l = 0; l < NumberBottomiumStates; l++)
 				{
-					GammaT[k, l] = Math.Sqrt(1.0 + Math.Pow(TransverseMomenta[k] / bbMass(l), 2));
+					GammaT[k, l] = Math.Sqrt(1.0 + Math.Pow(TransverseMomenta[k] / bbRestMassInGeV(l), 2));
 					BetaT[k, l] = Math.Sqrt(1.0 - Math.Pow(GammaT[k, l], -2));
 				}
 			}
 		}
 
-		// rest masses of the BottomiumState from pdg 2013 in GeV
-		private static double bbMass(
+		private static double bbRestMassInGeV(
 			int stateIndex
 			)
 		{
@@ -253,41 +168,25 @@ namespace Yburn.Fireball
 			switch(state)
 			{
 				case BottomiumState.Y1S:
-					return 9.46030;
+					return Constants.RestMassY1SMeV * 1E-3;
 
 				case BottomiumState.x1P:
-					return (9.85944 + 3 * 9.89278 + 5 * 9.91221) / 9.0;
+					return Constants.RestMassX1PMeV * 1E-3;
 
 				case BottomiumState.Y2S:
-					return 10.02326;
+					return Constants.RestMassY2SMeV * 1E-3;
 
 				case BottomiumState.x2P:
-					return (10.2325 + 3 * 10.25546 + 5 * 10.26865) / 9.0;
+					return Constants.RestMassX2PMeV * 1E-3;
 
 				case BottomiumState.Y3S:
-					return 10.3552;
+					return Constants.RestMassY3SMeV * 1E-3;
 
 				case BottomiumState.x3P:
-					return 10.534;
+					return Constants.RestMassX3PMeV * 1E-3;
 
 				default:
 					throw new Exception("Unknown bbState");
-			}
-		}
-
-		private double GetDecayWidth(
-			BottomiumState state,
-			double temperature,
-			double velocity
-			)
-		{
-			if(DecayWidthAveragers[(int)state] == null)
-			{
-				return double.PositiveInfinity;
-			}
-			else
-			{
-				return DecayWidthAveragers[(int)state].GetDecayWidth(temperature, velocity, DecayWidthEvaluationType);
 			}
 		}
 

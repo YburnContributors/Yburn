@@ -100,8 +100,8 @@ namespace Yburn.Fireball
 		}
 
 		public string FieldsToString(
-			string[] fieldNames,
-			string states
+			List<string> fieldNames,
+			List<BottomiumState> states
 			)
 		{
 			StringBuilder stringBuilder = new StringBuilder();
@@ -112,11 +112,11 @@ namespace Yburn.Fireball
 			{
 				if(IsPtDependent(fieldName))
 				{
-					for(int k = 0; k < Param.TransverseMomentaGeV.Length; k++)
+					for(int k = 0; k < Param.TransverseMomentaGeV.Count; k++)
 					{
 						foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 						{
-							if(states.Contains(state.ToString()))
+							if(states.Contains(state))
 							{
 								fields.Add(GetFireballField(fieldName, state, k));
 								stringBuilder.AppendFormat("{0,20}",
@@ -343,7 +343,7 @@ namespace Yburn.Fireball
 				throw new Exception("ImpactParameter < 0.");
 			}
 
-			if(Param.FormationTimesFm.Length != NumberBottomiumStates)
+			if(Param.FormationTimesFm.Count != NumberBottomiumStates)
 			{
 				throw new Exception("FormationTime-array has invalid size.");
 			}
@@ -366,12 +366,7 @@ namespace Yburn.Fireball
 				throw new Exception("BreakupTemperature <= 0.");
 			}
 
-			if(Param.BeamRapidity < 0)
-			{
-				throw new Exception("BeamRapidity < 0.");
-			}
-
-			if(Param.TransverseMomentaGeV.Length == 0)
+			if(Param.TransverseMomentaGeV.Count == 0)
 			{
 				throw new Exception("TransverseMomenta-array is empty.");
 			}
@@ -390,17 +385,13 @@ namespace Yburn.Fireball
 			DecayWidth = new FireballDecayWidthField(
 				X,
 				Y,
-				Param.GridCellSizeFm,
 				Param.TransverseMomentaGeV,
 				Temperature,
 				VX,
 				VY,
 				Param.FormationTimesFm,
 				CurrentTime,
-				Param.DecayWidthEvaluationType,
-				Param.NumberAveragingAngles,
-				Param.QGPFormationTemperatureMeV,
-				Param.TemperatureDecayWidthList);
+				Param.DecayWidthRetrievalFunction);
 		}
 
 		private void AdvanceFields()
@@ -428,7 +419,7 @@ namespace Yburn.Fireball
 				FireballFieldType.DampingFactor,
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
-				Param.TransverseMomentaGeV.Length,
+				Param.TransverseMomentaGeV.Count,
 				(i, j, k, l) => 1);
 		}
 
@@ -478,7 +469,7 @@ namespace Yburn.Fireball
 			int pTindex = 0
 			)
 		{
-			if(pTindex >= Param.TransverseMomentaGeV.Length || pTindex < 0)
+			if(pTindex >= Param.TransverseMomentaGeV.Count || pTindex < 0)
 			{
 				throw new Exception("pTindex is invalid.");
 			}

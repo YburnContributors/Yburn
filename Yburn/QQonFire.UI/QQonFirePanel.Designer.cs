@@ -896,30 +896,31 @@
 			this.LayoutOutput.ColumnCount = 2;
 			this.LayoutOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
 			this.LayoutOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
-			this.LayoutOutput.Controls.Add(this.LblBottomiumStates, 0, 0);
-			this.LayoutOutput.Controls.Add(this.MsxBottomiumStates, 1, 0);
-			this.LayoutOutput.Controls.Add(this.LblFireballFieldTypes, 0, 1);
-			this.LayoutOutput.Controls.Add(this.MsxFireballFieldTypes, 1, 1);
-			this.LayoutOutput.Controls.Add(this.LblSnapRate, 0, 2);
-			this.LayoutOutput.Controls.Add(this.TbxSnapRate, 1, 2);
-			this.LayoutOutput.Controls.Add(this.LblDataFileName, 0, 3);
-			this.LayoutOutput.Controls.Add(this.TbxDataFileName, 1, 3);
-			this.LayoutOutput.Controls.Add(this.LblBjorkenLifeTime, 0, 4);
-			this.LayoutOutput.Controls.Add(this.TbxBjorkenLifeTime, 1, 4);
-			this.LayoutOutput.Controls.Add(this.LblLifeTime, 0, 5);
-			this.LayoutOutput.Controls.Add(this.TbxLifeTime, 1, 5);
-			this.LayoutOutput.Controls.Add(this.LblCentralityBinBoundaries, 0, 6);
-			this.LayoutOutput.Controls.Add(this.TbxCentralityBinBoundaries, 1, 6);
-			this.LayoutOutput.Controls.Add(this.LblImpactParamsAtBinBoundaries, 0, 7);
-			this.LayoutOutput.Controls.Add(this.TbxImpactParamsAtBinBoundaries, 1, 7);
-			this.LayoutOutput.Controls.Add(this.LblParticipantsAtBinBoundaries, 0, 8);
-			this.LayoutOutput.Controls.Add(this.TbxParticipantsAtBinBoundaries, 1, 8);
-			this.LayoutOutput.Controls.Add(this.LblMeanParticipantsInBin, 0, 9);
-			this.LayoutOutput.Controls.Add(this.TbxMeanParticipantsInBin, 1, 9);
+			this.LayoutOutput.Controls.Add(this.LblBottomiumStates, 0, 1);
+			this.LayoutOutput.Controls.Add(this.MsxBottomiumStates, 1, 1);
+			this.LayoutOutput.Controls.Add(this.LblFireballFieldTypes, 0, 2);
+			this.LayoutOutput.Controls.Add(this.MsxFireballFieldTypes, 1, 2);
+			this.LayoutOutput.Controls.Add(this.LblSnapRate, 0, 3);
+			this.LayoutOutput.Controls.Add(this.TbxSnapRate, 1, 3);
+			this.LayoutOutput.Controls.Add(this.LblDataFileName, 0, 0);
+			this.LayoutOutput.Controls.Add(this.TbxDataFileName, 1, 0);
+			this.LayoutOutput.Controls.Add(this.LblBjorkenLifeTime, 0, 8);
+			this.LayoutOutput.Controls.Add(this.TbxBjorkenLifeTime, 1, 8);
+			this.LayoutOutput.Controls.Add(this.LblLifeTime, 0, 9);
+			this.LayoutOutput.Controls.Add(this.TbxLifeTime, 1, 9);
+			this.LayoutOutput.Controls.Add(this.LblCentralityBinBoundaries, 0, 4);
+			this.LayoutOutput.Controls.Add(this.TbxCentralityBinBoundaries, 1, 4);
+			this.LayoutOutput.Controls.Add(this.LblImpactParamsAtBinBoundaries, 0, 5);
+			this.LayoutOutput.Controls.Add(this.TbxImpactParamsAtBinBoundaries, 1, 5);
+			this.LayoutOutput.Controls.Add(this.LblParticipantsAtBinBoundaries, 0, 6);
+			this.LayoutOutput.Controls.Add(this.TbxParticipantsAtBinBoundaries, 1, 6);
+			this.LayoutOutput.Controls.Add(this.LblMeanParticipantsInBin, 0, 7);
+			this.LayoutOutput.Controls.Add(this.TbxMeanParticipantsInBin, 1, 7);
 			this.LayoutOutput.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LayoutOutput.Location = new System.Drawing.Point(10, 34);
 			this.LayoutOutput.Name = "LayoutOutput";
 			this.LayoutOutput.RowCount = 10;
+			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -929,7 +930,7 @@
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.LayoutOutput.Size = new System.Drawing.Size(439, 341);
 			this.LayoutOutput.TabIndex = 0;
 			// 
@@ -937,7 +938,7 @@
 			// 
 			this.LblBottomiumStates.AutoSize = true;
 			this.LblBottomiumStates.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblBottomiumStates.Location = new System.Drawing.Point(3, 0);
+			this.LblBottomiumStates.Location = new System.Drawing.Point(3, 25);
 			this.LblBottomiumStates.Name = "LblBottomiumStates";
 			this.LblBottomiumStates.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
 			this.LblBottomiumStates.Size = new System.Drawing.Size(235, 75);
@@ -947,7 +948,7 @@
 			// MsxBottomiumStates
 			// 
 			this.MsxBottomiumStates.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MsxBottomiumStates.Location = new System.Drawing.Point(245, 5);
+			this.MsxBottomiumStates.Location = new System.Drawing.Point(245, 30);
 			this.MsxBottomiumStates.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.MsxBottomiumStates.Name = "MsxBottomiumStates";
 			this.MsxBottomiumStates.SelectionString = "";
@@ -958,7 +959,7 @@
 			// 
 			this.LblFireballFieldTypes.AutoSize = true;
 			this.LblFireballFieldTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblFireballFieldTypes.Location = new System.Drawing.Point(3, 75);
+			this.LblFireballFieldTypes.Location = new System.Drawing.Point(3, 100);
 			this.LblFireballFieldTypes.Name = "LblFireballFieldTypes";
 			this.LblFireballFieldTypes.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
 			this.LblFireballFieldTypes.Size = new System.Drawing.Size(235, 75);
@@ -968,7 +969,7 @@
 			// MsxFireballFieldTypes
 			// 
 			this.MsxFireballFieldTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MsxFireballFieldTypes.Location = new System.Drawing.Point(245, 80);
+			this.MsxFireballFieldTypes.Location = new System.Drawing.Point(245, 105);
 			this.MsxFireballFieldTypes.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.MsxFireballFieldTypes.Name = "MsxFireballFieldTypes";
 			this.MsxFireballFieldTypes.SelectionString = "";
@@ -979,7 +980,7 @@
 			// 
 			this.LblSnapRate.AutoSize = true;
 			this.LblSnapRate.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblSnapRate.Location = new System.Drawing.Point(3, 150);
+			this.LblSnapRate.Location = new System.Drawing.Point(3, 175);
 			this.LblSnapRate.Name = "LblSnapRate";
 			this.LblSnapRate.Size = new System.Drawing.Size(235, 25);
 			this.LblSnapRate.TabIndex = 0;
@@ -989,7 +990,7 @@
 			// TbxSnapRate
 			// 
 			this.TbxSnapRate.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxSnapRate.Location = new System.Drawing.Point(244, 153);
+			this.TbxSnapRate.Location = new System.Drawing.Point(244, 178);
 			this.TbxSnapRate.Name = "TbxSnapRate";
 			this.TbxSnapRate.Size = new System.Drawing.Size(192, 31);
 			this.TbxSnapRate.TabIndex = 0;
@@ -998,7 +999,7 @@
 			// 
 			this.LblDataFileName.AutoSize = true;
 			this.LblDataFileName.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDataFileName.Location = new System.Drawing.Point(3, 175);
+			this.LblDataFileName.Location = new System.Drawing.Point(3, 0);
 			this.LblDataFileName.Name = "LblDataFileName";
 			this.LblDataFileName.Size = new System.Drawing.Size(235, 25);
 			this.LblDataFileName.TabIndex = 0;
@@ -1008,7 +1009,7 @@
 			// TbxDataFileName
 			// 
 			this.TbxDataFileName.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxDataFileName.Location = new System.Drawing.Point(244, 178);
+			this.TbxDataFileName.Location = new System.Drawing.Point(244, 3);
 			this.TbxDataFileName.Name = "TbxDataFileName";
 			this.TbxDataFileName.Size = new System.Drawing.Size(192, 31);
 			this.TbxDataFileName.TabIndex = 0;
@@ -1017,7 +1018,7 @@
 			// 
 			this.LblBjorkenLifeTime.AutoSize = true;
 			this.LblBjorkenLifeTime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblBjorkenLifeTime.Location = new System.Drawing.Point(3, 200);
+			this.LblBjorkenLifeTime.Location = new System.Drawing.Point(3, 300);
 			this.LblBjorkenLifeTime.Name = "LblBjorkenLifeTime";
 			this.LblBjorkenLifeTime.Size = new System.Drawing.Size(235, 25);
 			this.LblBjorkenLifeTime.TabIndex = 0;
@@ -1027,7 +1028,7 @@
 			// TbxBjorkenLifeTime
 			// 
 			this.TbxBjorkenLifeTime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxBjorkenLifeTime.Location = new System.Drawing.Point(244, 203);
+			this.TbxBjorkenLifeTime.Location = new System.Drawing.Point(244, 303);
 			this.TbxBjorkenLifeTime.Name = "TbxBjorkenLifeTime";
 			this.TbxBjorkenLifeTime.ReadOnly = true;
 			this.TbxBjorkenLifeTime.Size = new System.Drawing.Size(192, 31);
@@ -1037,7 +1038,7 @@
 			// 
 			this.LblLifeTime.AutoSize = true;
 			this.LblLifeTime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblLifeTime.Location = new System.Drawing.Point(3, 225);
+			this.LblLifeTime.Location = new System.Drawing.Point(3, 325);
 			this.LblLifeTime.Name = "LblLifeTime";
 			this.LblLifeTime.Size = new System.Drawing.Size(235, 25);
 			this.LblLifeTime.TabIndex = 0;
@@ -1047,7 +1048,7 @@
 			// TbxLifeTime
 			// 
 			this.TbxLifeTime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxLifeTime.Location = new System.Drawing.Point(244, 228);
+			this.TbxLifeTime.Location = new System.Drawing.Point(244, 328);
 			this.TbxLifeTime.Name = "TbxLifeTime";
 			this.TbxLifeTime.ReadOnly = true;
 			this.TbxLifeTime.Size = new System.Drawing.Size(192, 31);
@@ -1057,7 +1058,7 @@
 			// 
 			this.LblCentralityBinBoundaries.AutoSize = true;
 			this.LblCentralityBinBoundaries.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblCentralityBinBoundaries.Location = new System.Drawing.Point(3, 250);
+			this.LblCentralityBinBoundaries.Location = new System.Drawing.Point(3, 200);
 			this.LblCentralityBinBoundaries.Name = "LblCentralityBinBoundaries";
 			this.LblCentralityBinBoundaries.Size = new System.Drawing.Size(235, 25);
 			this.LblCentralityBinBoundaries.TabIndex = 0;
@@ -1067,7 +1068,7 @@
 			// TbxCentralityBinBoundaries
 			// 
 			this.TbxCentralityBinBoundaries.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxCentralityBinBoundaries.Location = new System.Drawing.Point(244, 253);
+			this.TbxCentralityBinBoundaries.Location = new System.Drawing.Point(244, 203);
 			this.TbxCentralityBinBoundaries.Name = "TbxCentralityBinBoundaries";
 			this.TbxCentralityBinBoundaries.Size = new System.Drawing.Size(192, 31);
 			this.TbxCentralityBinBoundaries.TabIndex = 0;
@@ -1076,7 +1077,7 @@
 			// 
 			this.LblImpactParamsAtBinBoundaries.AutoSize = true;
 			this.LblImpactParamsAtBinBoundaries.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblImpactParamsAtBinBoundaries.Location = new System.Drawing.Point(3, 275);
+			this.LblImpactParamsAtBinBoundaries.Location = new System.Drawing.Point(3, 225);
 			this.LblImpactParamsAtBinBoundaries.Name = "LblImpactParamsAtBinBoundaries";
 			this.LblImpactParamsAtBinBoundaries.Size = new System.Drawing.Size(235, 25);
 			this.LblImpactParamsAtBinBoundaries.TabIndex = 0;
@@ -1086,7 +1087,7 @@
 			// TbxImpactParamsAtBinBoundaries
 			// 
 			this.TbxImpactParamsAtBinBoundaries.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxImpactParamsAtBinBoundaries.Location = new System.Drawing.Point(244, 278);
+			this.TbxImpactParamsAtBinBoundaries.Location = new System.Drawing.Point(244, 228);
 			this.TbxImpactParamsAtBinBoundaries.Name = "TbxImpactParamsAtBinBoundaries";
 			this.TbxImpactParamsAtBinBoundaries.ReadOnly = true;
 			this.TbxImpactParamsAtBinBoundaries.Size = new System.Drawing.Size(192, 31);
@@ -1096,7 +1097,7 @@
 			// 
 			this.LblParticipantsAtBinBoundaries.AutoSize = true;
 			this.LblParticipantsAtBinBoundaries.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblParticipantsAtBinBoundaries.Location = new System.Drawing.Point(3, 300);
+			this.LblParticipantsAtBinBoundaries.Location = new System.Drawing.Point(3, 250);
 			this.LblParticipantsAtBinBoundaries.Name = "LblParticipantsAtBinBoundaries";
 			this.LblParticipantsAtBinBoundaries.Size = new System.Drawing.Size(235, 25);
 			this.LblParticipantsAtBinBoundaries.TabIndex = 0;
@@ -1106,7 +1107,7 @@
 			// TbxParticipantsAtBinBoundaries
 			// 
 			this.TbxParticipantsAtBinBoundaries.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxParticipantsAtBinBoundaries.Location = new System.Drawing.Point(244, 303);
+			this.TbxParticipantsAtBinBoundaries.Location = new System.Drawing.Point(244, 253);
 			this.TbxParticipantsAtBinBoundaries.Name = "TbxParticipantsAtBinBoundaries";
 			this.TbxParticipantsAtBinBoundaries.ReadOnly = true;
 			this.TbxParticipantsAtBinBoundaries.Size = new System.Drawing.Size(192, 31);
@@ -1116,7 +1117,7 @@
 			// 
 			this.LblMeanParticipantsInBin.AutoSize = true;
 			this.LblMeanParticipantsInBin.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblMeanParticipantsInBin.Location = new System.Drawing.Point(3, 325);
+			this.LblMeanParticipantsInBin.Location = new System.Drawing.Point(3, 275);
 			this.LblMeanParticipantsInBin.Name = "LblMeanParticipantsInBin";
 			this.LblMeanParticipantsInBin.Size = new System.Drawing.Size(235, 25);
 			this.LblMeanParticipantsInBin.TabIndex = 0;
@@ -1126,7 +1127,7 @@
 			// TbxMeanParticipantsInBin
 			// 
 			this.TbxMeanParticipantsInBin.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxMeanParticipantsInBin.Location = new System.Drawing.Point(244, 328);
+			this.TbxMeanParticipantsInBin.Location = new System.Drawing.Point(244, 278);
 			this.TbxMeanParticipantsInBin.Name = "TbxMeanParticipantsInBin";
 			this.TbxMeanParticipantsInBin.ReadOnly = true;
 			this.TbxMeanParticipantsInBin.Size = new System.Drawing.Size(192, 31);

@@ -14,15 +14,21 @@ namespace Yburn
 		protected static List<double> GetLinearAbscissaList(
 			double startValue,
 			double stopValue,
-			int samples
+			int samples,
+			bool includeStopValue = true
 			)
 		{
 			List<double> abscissaList = new List<double>();
 
 			double step = (stopValue - startValue) / samples;
-			for(int i = 0; i <= samples; i++)
+			for(int i = 0; i < samples; i++)
 			{
 				abscissaList.Add(startValue + step * i);
+			}
+
+			if(includeStopValue)
+			{
+				abscissaList.Add(stopValue);
 			}
 
 			return abscissaList;
@@ -97,7 +103,7 @@ namespace Yburn
 
 		protected delegate double SurfacePlotFunction(double x, double y);
 
-		protected string OutputPath
+		private string OutputPath
 		{
 			get
 			{
@@ -105,7 +111,7 @@ namespace Yburn
 			}
 		}
 
-		protected string PlotFileName
+		private string PlotFileName
 		{
 			get
 			{
@@ -117,14 +123,22 @@ namespace Yburn
 			StringBuilder dataFileContent
 			)
 		{
-			File.WriteAllText(OutputPath + DataFileName, dataFileContent.ToString());
+			WriteFile(dataFileContent, DataFileName);
 		}
 
 		protected void WritePlotFile(
 			StringBuilder plotFileContent
 			)
 		{
-			File.WriteAllText(OutputPath + PlotFileName, plotFileContent.ToString());
+			WriteFile(plotFileContent, PlotFileName);
+		}
+
+		protected void WriteFile(
+			StringBuilder fileContent,
+			string fileName
+			)
+		{
+			File.WriteAllText(OutputPath + fileName, fileContent.ToString());
 		}
 
 		protected void CreateDataFile(
@@ -171,9 +185,7 @@ namespace Yburn
 			int ordinateColumn = firstOrdinateColumn;
 			foreach(string title in titles)
 			{
-				plotFile.AppendFormat("'{0}' index {1} using {2}:{3} with {4} title '{5}',\\",
-					DataFileName, index, abscissaColumn, ordinateColumn, style, title);
-				plotFile.AppendLine();
+				AppendPlotDataCommand(plotFile, index, abscissaColumn, ordinateColumn, style, title);
 				ordinateColumn++;
 			}
 		}
@@ -193,12 +205,25 @@ namespace Yburn
 				int ordinateColumn = firstOrdinateColumn;
 				foreach(string title in titles[index])
 				{
-					plotFile.AppendFormat("'{0}' index {1} using {2}:{3} with {4} title '{5}',\\",
-						DataFileName, index, abscissaColumn, ordinateColumn, style, title);
-					plotFile.AppendLine();
+					AppendPlotDataCommand(
+						plotFile, index, abscissaColumn, ordinateColumn, style, title);
 					ordinateColumn++;
 				}
 			}
+		}
+
+		private void AppendPlotDataCommand(
+			StringBuilder plotFile,
+			int index,
+			int abscissaColumn,
+			int ordinateColumn,
+			string style,
+			string title
+			)
+		{
+			plotFile.AppendFormat("'{0}' index {1} using {2}:{3} with {4} title '{5}',\\",
+				DataFileName, index, abscissaColumn, ordinateColumn, style, title);
+			plotFile.AppendLine();
 		}
 
 		protected void AppendSurfacePlotCommands(
@@ -228,7 +253,7 @@ namespace Yburn
 			)
 		{
 			plotFile.AppendLine();
-			plotFile.AppendLine("set terminal pngcairo enhanced");
+			plotFile.AppendLine("set terminal pngcairo enhanced size 1000,500");
 			plotFile.AppendLine("set output '" + DataFileName + ".png'");
 			plotFile.AppendLine("replot");
 			plotFile.AppendLine("set output");
@@ -236,9 +261,16 @@ namespace Yburn
 
 		protected Process StartGnuplot()
 		{
+			return StartGnuplot(PlotFileName);
+		}
+
+		protected Process StartGnuplot(
+			string plotFileName
+			)
+		{
 			ProcessStartInfo gnuplot = new ProcessStartInfo();
 			gnuplot.FileName = "wgnuplot";
-			gnuplot.Arguments = "\"" + DataFileName + ".plt" + "\" --persist";
+			gnuplot.Arguments = "\"" + plotFileName + "\" --persist";
 			gnuplot.WorkingDirectory = OutputPath;
 
 			return Process.Start(gnuplot);

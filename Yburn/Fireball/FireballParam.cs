@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
@@ -89,7 +88,7 @@ namespace Yburn.Fireball
 
 		public double ThermalTimeFm;
 
-		public double[] FormationTimesFm;
+		public List<double> FormationTimesFm;
 
 		public double InitialMaximumTemperatureMeV;
 
@@ -97,33 +96,12 @@ namespace Yburn.Fireball
 
 		public double BeamRapidity;
 
-		public double ParticleVelocity
-		{
-			get
-			{
-				return Math.Tanh(BeamRapidity);
-			}
-			set
-			{
-				BeamRapidity = Functions.Artanh(value);
-			}
-		}
-
-		public double[] TransverseMomentaGeV;
-
-		public DecayWidthEvaluationType DecayWidthEvaluationType;
+		public List<double> TransverseMomentaGeV;
 
 		public ExpansionMode ExpansionMode;
 
 		// initial transverse distribution of temperature
 		public TemperatureProfile TemperatureProfile;
-
-		// both in MeV
-		public List<KeyValuePair<double, double>>[] TemperatureDecayWidthList;
-
-		public int NumberAveragingAngles;
-
-		public double QGPFormationTemperatureMeV;
 
 		public double QGPConductivityMeV;
 
@@ -135,13 +113,14 @@ namespace Yburn.Fireball
 
 		public ProtonProtonBaseline ProtonProtonBaseline;
 
+		public DecayWidthRetrievalFunction DecayWidthRetrievalFunction;
+
 		public FireballParam Clone()
 		{
 			FireballParam param = new FireballParam();
 
 			param.BeamRapidity = BeamRapidity;
-			param.NumberAveragingAngles = NumberAveragingAngles;
-			param.DecayWidthEvaluationType = DecayWidthEvaluationType;
+			param.DecayWidthRetrievalFunction = DecayWidthRetrievalFunction;
 			param.DiffusenessAFm = DiffusenessAFm;
 			param.DiffusenessBFm = DiffusenessBFm;
 			param.EMFCalculationMethod = EMFCalculationMethod;
@@ -160,10 +139,8 @@ namespace Yburn.Fireball
 			param.ProtonNumberB = ProtonNumberB;
 			param.ProtonProtonBaseline = ProtonProtonBaseline;
 			param.QGPConductivityMeV = QGPConductivityMeV;
-			param.QGPFormationTemperatureMeV = QGPFormationTemperatureMeV;
 			param.NucleusShapeA = NucleusShapeA;
 			param.NucleusShapeB = NucleusShapeB;
-			param.TemperatureDecayWidthList = TemperatureDecayWidthList;
 			param.TemperatureProfile = TemperatureProfile;
 			param.ThermalTimeFm = ThermalTimeFm;
 			param.TransverseMomentaGeV = TransverseMomentaGeV;

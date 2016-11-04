@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
 
@@ -25,90 +26,70 @@ namespace Yburn
 		}
 
 		public static string ToUIString<T>(
-			this T[] array
+			this List<T> list
 			) where T : IConvertible
 		{
-			if(array == null || array.Length == 0)
-			{
-				return string.Empty;
-			}
-			else
-			{
-				string stringifiedList = array[0].ToUIString();
-				for(int i = 1; i < array.Length; i++)
-				{
-					stringifiedList += "," + array[i].ToUIString();
-				}
+			List<string> stringList = list.ConvertAll(element => element.ToUIString());
 
-				return stringifiedList;
-			}
+			return string.Join(",", stringList);
 		}
 
 		public static string ToUIString<T>(
-			this T[][] array
+			this List<List<T>> nestedList
 			) where T : IConvertible
 		{
-			if(array == null || array.Length == 0)
-			{
-				return string.Empty;
-			}
-			else
-			{
-				string stringifiedList = array[0].ToUIString<T>();
-				for(int i = 1; i < array.Length; i++)
-				{
-					stringifiedList += ";" + array[i].ToUIString<T>();
-				}
+			List<string> stringList = nestedList.ConvertAll(element => element.ToUIString());
 
-				return stringifiedList;
-			}
+			return string.Join(";", stringList);
 		}
 
 		public static T ToValue<T>(
-			this string uiString
+			this string stringifiedValue
 			) where T : IConvertible
 		{
 			TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
 
-			return (T)converter.ConvertFromString(null, CultureInfo.InvariantCulture, uiString);
+			return (T)converter.ConvertFromString(
+				null, CultureInfo.InvariantCulture, stringifiedValue);
 		}
 
-		public static T[] ToValueArray<T>(
+		public static List<T> ToValueList<T>(
 			this string stringifiedList,
 			char[] separator = null
 			) where T : IConvertible
 		{
-			string[] splittedList = SplitUIString(stringifiedList, separator);
+			List<string> splittedList = SplitUIString(stringifiedList, separator);
 
-			T[] array = new T[splittedList.Length];
-			for(int i = 0; i < array.Length; i++)
+			List<T> list = new List<T>();
+			foreach(string stringifiedValue in splittedList)
 			{
-				array[i] = splittedList[i].ToValue<T>();
+				list.Add(stringifiedValue.ToValue<T>());
 			}
 
-			return array;
+			return list;
 		}
 
-		public static T[][] ToJaggedValueArray<T>(
-			this string stringifiedList
+		public static List<List<T>> ToNestedValueList<T>(
+			this string stringifiedNestedList,
+			char[] separator = null
 			) where T : IConvertible
 		{
-			string[] splittedList = SplitUIString(stringifiedList, new char[] { '\t', ';' });
+			List<string> splittedList = SplitUIString(stringifiedNestedList, new char[] { '\t', ';' });
 
-			T[][] jaggedArray = new T[splittedList.Length][];
-			for(int i = 0; i < jaggedArray.Length; i++)
+			List<List<T>> nestedList = new List<List<T>>();
+			foreach(string stringifiedList in splittedList)
 			{
-				jaggedArray[i] = splittedList[i].ToValueArray<T>(new char[] { ' ', ',' });
+				nestedList.Add(stringifiedList.ToValueList<T>(new char[] { ' ', ',' }));
 			}
 
-			return jaggedArray;
+			return nestedList;
 		}
 
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static string[] SplitUIString(
+		private static List<string> SplitUIString(
 			string stringifiedList,
 			char[] separator = null
 			)
@@ -119,11 +100,12 @@ namespace Yburn
 			}
 			if(string.IsNullOrEmpty(stringifiedList))
 			{
-				return new string[0];
+				return new List<string>();
 			}
 			else
 			{
-				return stringifiedList.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+				return new List<string>(stringifiedList.Split(
+					separator, StringSplitOptions.RemoveEmptyEntries));
 			}
 		}
 	}

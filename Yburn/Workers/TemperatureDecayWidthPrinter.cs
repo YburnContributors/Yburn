@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using Yburn.Fireball;
+using Yburn.QQState;
 
 namespace Yburn.Workers
 {
@@ -13,19 +14,19 @@ namespace Yburn.Workers
 
 		public TemperatureDecayWidthPrinter(
 			string dataPathFile,
-			BottomiumState[] bottomiumStates,
+			List<BottomiumState> bottomiumStates,
+			List<PotentialType> potentialTypes,
 			DecayWidthType decayWidthType,
-			string[] potentialTypes,
-			int numberAveragingAngles,
-			double qgpFormationTemperature
+			double qgpFormationTemperature,
+			int numberAveragingAngles
 			)
 		{
 			DataPathFile = dataPathFile;
 			BottomiumStates = bottomiumStates;
-			DecayWidthType = decayWidthType;
 			PotentialTypes = potentialTypes;
-			NumberAveragingAngles = numberAveragingAngles;
+			DecayWidthType = decayWidthType;
 			QGPFormationTemperature = qgpFormationTemperature;
+			NumberAveragingAngles = numberAveragingAngles;
 		}
 
 		/********************************************************************************************
@@ -33,78 +34,68 @@ namespace Yburn.Workers
 		 ********************************************************************************************/
 
 		public string GetList(
-			double[] mediumTemperatures,
-			double[] mediumVelocities,
-			DecayWidthEvaluationType[] evaluationTypes
+			List<double> mediumTemperatures,
+			List<double> mediumVelocities,
+			List<DecayWidthEvaluationType> evaluationTypes
 			)
 		{
-			DecayWidthAverager[] averagers = CreateDecayWidthAveragers();
-
-			if(evaluationTypes == null || evaluationTypes.Length < 1)
+			if(evaluationTypes == null || evaluationTypes.Count < 1)
 			{
 				throw new Exception("No DecayWidthEvaluationTypes specified.");
 			}
 
-			string list =
-				GetList(mediumTemperatures, mediumVelocities, evaluationTypes[0], averagers);
+			StringBuilder builder = new StringBuilder();
 
-			for(int i = 1; i < evaluationTypes.Length; i++)
+			foreach(DecayWidthEvaluationType evaluationType in evaluationTypes)
 			{
-				list += "\r\n";
-				list += GetList(mediumTemperatures, mediumVelocities, evaluationTypes[i], averagers);
+				builder.Append(GetList(mediumTemperatures, mediumVelocities, evaluationType));
+				builder.AppendLine();
+				builder.AppendLine();
 			}
 
-			return list;
+			return builder.ToString();
 		}
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private string DataPathFile;
+		private readonly string DataPathFile;
 
-		private BottomiumState[] BottomiumStates;
+		private readonly List<BottomiumState> BottomiumStates;
 
-		private DecayWidthType DecayWidthType;
+		private readonly List<PotentialType> PotentialTypes;
 
-		private string[] PotentialTypes;
+		private readonly DecayWidthType DecayWidthType;
 
-		private int NumberAveragingAngles;
+		private readonly double QGPFormationTemperature;
 
-		private double QGPFormationTemperature;
+		private readonly int NumberAveragingAngles;
 
-		private DecayWidthAverager[] CreateDecayWidthAveragers()
-		{
-			DecayWidthAverager[] averagers = new DecayWidthAverager[BottomiumStates.Length];
-			for(int i = 0; i < averagers.Length; i++)
-			{
-				averagers[i] = CreateDecayWidthAverager(BottomiumStates[i]);
-			}
-
-			return averagers;
-		}
-
-		protected virtual DecayWidthAverager CreateDecayWidthAverager(
-			BottomiumState state
+		private DecayWidthProvider CreateDecayWidthCalculator(
+			DecayWidthEvaluationType evaluationType
 			)
 		{
-			List<KeyValuePair<double, double>> list = TemperatureDecayWidthListHelper.GetList(
-				DataPathFile, state, DecayWidthType, PotentialTypes);
-
-			return new DecayWidthAverager(list, NumberAveragingAngles, QGPFormationTemperature);
+			return new DecayWidthProvider(
+				DataPathFile,
+				PotentialTypes,
+				evaluationType,
+				DecayWidthType,
+				QGPFormationTemperature,
+				NumberAveragingAngles);
 		}
 
 		private string GetList(
-			double[] mediumTemperatures,
-			double[] mediumVelocities,
-			DecayWidthEvaluationType evaluationType,
-			DecayWidthAverager[] averagers
+			List<double> mediumTemperatures,
+			List<double> mediumVelocities,
+			DecayWidthEvaluationType evaluationType
 			)
 		{
+			DecayWidthProvider calculator = CreateDecayWidthCalculator(evaluationType);
+
 			StringBuilder list = new StringBuilder();
 			AppendHeader(list, evaluationType);
-			AppendDataLines(list, mediumTemperatures, mediumVelocities, evaluationType, averagers);
-			list.AppendFormat("\r\n");
+			AppendDataLines(list, mediumTemperatures, mediumVelocities, calculator);
 
 			return list.ToString();
 		}
@@ -137,17 +128,20 @@ namespace Yburn.Workers
 
 		private void AppendDataLines(
 			StringBuilder list,
-			double[] mediumTemperatures,
-			double[] mediumVelocities,
-			DecayWidthEvaluationType evaluationType,
-			DecayWidthAverager[] averagers
+			List<double> mediumTemperatures,
+			List<double> mediumVelocities,
+			DecayWidthProvider calculator
 			)
 		{
 			foreach(double temperature in mediumTemperatures)
 			{
 				foreach(double velocity in mediumVelocities)
 				{
-					AppendDataLine(list, temperature, velocity, evaluationType, averagers);
+					AppendDataLine(list, temperature, velocity, calculator);
+				}
+				if((mediumTemperatures.Count > 1) && (mediumVelocities.Count > 1))
+				{
+					list.AppendLine();
 				}
 			}
 		}
@@ -156,29 +150,28 @@ namespace Yburn.Workers
 			StringBuilder list,
 			double temperature,
 			double velocity,
-			DecayWidthEvaluationType evaluationType,
-			DecayWidthAverager[] averagers
+			DecayWidthProvider calculator
 			)
 		{
 			list.AppendFormat("{0,-20}", temperature.ToUIString());
 			list.AppendFormat("{0,-20}", velocity.ToUIString());
-			foreach(DecayWidthAverager averager in averagers)
+			foreach(BottomiumState state in BottomiumStates)
 			{
-				AppendDecayWidthValue(list, temperature, velocity, evaluationType, averager);
+				AppendDecayWidthValue(list, state, temperature, velocity, calculator);
 			}
-			list.AppendFormat("\r\n");
+			list.AppendLine();
 		}
 
 		private void AppendDecayWidthValue(
 			StringBuilder list,
+			BottomiumState state,
 			double temperature,
 			double velocity,
-			DecayWidthEvaluationType evaluationType,
-			DecayWidthAverager averager
+			DecayWidthProvider calculator
 			)
 		{
 			list.AppendFormat("{0,-20}",
-				averager.GetDecayWidth(temperature, velocity, evaluationType).ToUIString());
+				calculator.GetDecayWidth(state, temperature, velocity).ToUIString());
 		}
 	}
 }

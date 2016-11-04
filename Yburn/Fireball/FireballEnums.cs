@@ -4,21 +4,13 @@ namespace Yburn.Fireball
 {
 	public enum BottomiumState
 	{
-		//Sorted by mass from light to heavy.
+		//Sorted by rest mass from light to heavy.
 		Y1S = 0,
 		x1P = 1,
 		Y2S = 2,
 		x2P = 3,
 		Y3S = 4,
 		x3P = 5
-	};
-
-	public enum DecayWidthType
-	{
-		None,
-		GammaDamp,
-		GammaDiss,
-		GammaTot
 	};
 
 	public enum DecayWidthEvaluationType

@@ -51,10 +51,10 @@ namespace Yburn.Workers
 			return StartGnuplot();
 		}
 
-		public Process PlotNucleusMagneticFieldStrength()
+		public Process PlotNucleusMagneticFieldStrengthInLCF()
 		{
-			CreateDataFile(CreateNucleusMagneticFieldStrengthDataList);
-			CreateNucleusMagneticFieldStrengthPlotFile();
+			CreateDataFile(CreateNucleusMagneticFieldStrengthInLCFDataList);
+			CreateNucleusMagneticFieldStrengthInLCFPlotFile();
 
 			return StartGnuplot();
 		}
@@ -88,8 +88,8 @@ namespace Yburn.Workers
 		 ********************************************************************************************/
 
 		private static readonly double EMFieldNormalization = Constants.ElementaryCharge
-			* (Constants.HbarCMeVFm / Constants.PionAverageMassMeV)
-			* (Constants.HbarCMeVFm / Constants.PionAverageMassMeV);
+			* (Constants.HbarCMeVFm / Constants.RestMassPionMeV)
+			* (Constants.HbarCMeVFm / Constants.RestMassPionMeV);
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
@@ -123,7 +123,8 @@ namespace Yburn.Workers
 		{
 			get
 			{
-				return Array.ConvertAll(EMFCalculationMethodSelection, method => method.ToString());
+				return EMFCalculationMethodSelection.ConvertAll(
+					method => method.ToUIString()).ToArray();
 			}
 		}
 
@@ -394,69 +395,56 @@ namespace Yburn.Workers
 			return dataList;
 		}
 
-		private double[] ParticleRapidityValues = new double[] { -3, -2, -1, 0, 1, 2, 3 };
-
-		private void CreateNucleusMagneticFieldStrengthPlotFile()
+		private void CreateNucleusMagneticFieldStrengthInLCFPlotFile()
 		{
 			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set title 'Single nucleus magnetic field strength'");
-			plotFile.AppendLine("set xlabel '{/Symbol r} (fm)'");
-			plotFile.AppendLine("set ylabel '|B| (1/fm^2)'");
-			plotFile.AppendLine();
-			plotFile.AppendLine("set logscale y 10");
-			plotFile.AppendLine("set format y '%g'");
+			plotFile.AppendLine("set title 'Single nucleus magnetic field strength in LCF'");
+			plotFile.AppendLine("set xlabel '{/Symbol q}'");
+			plotFile.AppendLine("set ylabel '{/Symbol r} (fm)'");
+			plotFile.AppendLine("set cblabel '|B| (1/fm^2)'");
 			plotFile.AppendLine();
 
-			string[] titleList = Array.ConvertAll(
-				ParticleRapidityValues, value => "y = " + value.ToString());
-			AppendPlotCommands(plotFile, titles: titleList);
+			AppendSurfacePlotCommands(plotFile);
 
 			AppendSavePlotAsPNG(plotFile);
 
 			WritePlotFile(plotFile);
 		}
 
-		private List<List<double>> CreateNucleusMagneticFieldStrengthDataList()
+		private List<List<double>> CreateNucleusMagneticFieldStrengthInLCFDataList()
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> radialDistanceValues = GetLinearAbscissaList(0, 20, Samples);
+			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
 
-			// avoid possible logplot divergences at EffectiveTime = 0
-			radialDistanceValues.Remove(0);
-			dataList.Add(radialDistanceValues);
+			List<double> rapidityValues = GetLinearAbscissaList(-8, 8, Samples);
+			List<double> radialDistanceValues = GetLinearAbscissaList(0, 25, Samples);
 
-			foreach(double rapidityValue in ParticleRapidityValues)
+			SurfacePlotFunction function = (rapidity, radialDistance) =>
 			{
-				FireballParam param = CreateFireballParam(
-					EMFCalculationMethod.DiffusionApproximation);
+				Nucleus nucleusA;
+				Nucleus nucleusB;
+				Nucleus.CreateNucleusPair(
+					param, out nucleusA, out nucleusB);
 
-				PlotFunction fieldValue = radialDistance =>
-				{
-					Nucleus nucleusA;
-					Nucleus nucleusB;
-					Nucleus.CreateNucleusPair(
-						param, out nucleusA, out nucleusB);
+				NucleusElectromagneticField emf = new NucleusElectromagneticField(
+					param.EMFCalculationMethod,
+					param.QGPConductivityMeV,
+					param.BeamRapidity,
+					nucleusA);
 
-					NucleusElectromagneticField emf = new NucleusElectromagneticField(
-						param.EMFCalculationMethod,
-						param.QGPConductivityMeV,
-						param.BeamRapidity,
-						nucleusA);
+				return emf.CalculateMagneticFieldPerFm2_LCF(
+					param.FormationTimesFm[0],
+					radialDistance,
+					0,
+					rapidity,
+					QuadratureOrder).Norm;
+			};
 
-					return emf.CalculateMagneticFieldPerFm2_LCF(
-						param.FormationTimesFm[0],
-						radialDistance,
-						0,
-						rapidityValue,
-						QuadratureOrder).Norm;
-				};
-
-				AddPlotFunctionLists(dataList, radialDistanceValues, fieldValue);
-			}
+			AddSurfacePlotFunctionLists(dataList, rapidityValues, radialDistanceValues, function);
 
 			return dataList;
 		}
@@ -468,14 +456,12 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'Central magnetic field strength'");
-			plotFile.AppendLine("set xlabel 'b (fm)'");
-			plotFile.AppendLine("set ylabel '|B(0,0,0)| (1/fm^2)'");
-			plotFile.AppendLine();
-			plotFile.AppendLine("set logscale y 10");
-			plotFile.AppendLine("set format y '%g'");
+			plotFile.AppendLine("set xlabel 't (fm/c)'");
+			plotFile.AppendLine("set ylabel 'b (fm)'");
+			plotFile.AppendLine("set cblabel '|B(0,0,0)| (1/fm^2)'");
 			plotFile.AppendLine();
 
-			AppendPlotCommands(plotFile, titles: EMFCalculationMethodSelectionTitleList);
+			AppendSurfacePlotCommands(plotFile);
 
 			AppendSavePlotAsPNG(plotFile);
 
@@ -486,29 +472,24 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> impactParamValues = GetLinearAbscissaList(0, 30, Samples);
-			dataList.Add(impactParamValues);
+			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
+			List<double> timeValues = GetLinearAbscissaList(0, 1, Samples);
 
-			foreach(EMFCalculationMethod method in EMFCalculationMethodSelection)
+			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
+
+			SurfacePlotFunction function = (time, impactParam) =>
 			{
-				FireballParam param = CreateFireballParam(method);
+				param.ImpactParameterFm = impactParam;
+				FireballElectromagneticField emf =
+					new FireballElectromagneticField(param);
 
-				PlotFunction fieldValue = impactParam =>
-				{
-					param.ImpactParameterFm = impactParam;
-					FireballElectromagneticField emf = new FireballElectromagneticField(param);
+				return emf.CalculateMagneticFieldPerFm2(time, 0, 0, 0, QuadratureOrder).Norm;
+			};
 
-					return emf.CalculateMagneticFieldPerFm2(
-						param.FormationTimesFm[0], 0, 0, 0, QuadratureOrder).Norm;
-				};
-
-				AddPlotFunctionLists(dataList, impactParamValues, fieldValue);
-			}
+			AddSurfacePlotFunctionLists(dataList, timeValues, impactParamValues, function);
 
 			return dataList;
 		}
-
-		double[] ProperTimeValues = { 0.5, 1.0, 1.5, 2.0, 2.5, 3.0 };
 
 		private void CreateAverageMagneticFieldStrengthPlotFile()
 		{
@@ -534,7 +515,7 @@ namespace Yburn.Workers
 			List<List<double>> dataList = new List<List<double>>();
 
 			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
-			List<double> properTimeValues = GetLinearAbscissaList(0, 3, Samples);
+			List<double> properTimeValues = GetLinearAbscissaList(0, 1, Samples);
 
 			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
 
@@ -577,7 +558,7 @@ namespace Yburn.Workers
 			List<List<double>> dataList = new List<List<double>>();
 
 			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
-			List<double> properTimeValues = GetLinearAbscissaList(0, 3, Samples);
+			List<double> properTimeValues = GetLinearAbscissaList(0, 1, Samples);
 
 			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
 

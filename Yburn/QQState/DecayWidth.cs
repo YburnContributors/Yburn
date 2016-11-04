@@ -18,10 +18,6 @@ namespace Yburn.QQState
 	public class DecayWidth
 	{
 		/********************************************************************************************
-		 * Public static members, functions and properties
-		 ********************************************************************************************/
-
-		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
@@ -141,10 +137,6 @@ namespace Yburn.QQState
 		}
 
 		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-
-		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
@@ -187,7 +179,7 @@ namespace Yburn.QQState
 				case PotentialType.Tzero:
 				case PotentialType.Tzero_NoString:
 					// hadronic medium - dissociation into b-meson pair
-					return 2 * Constants.BMesonMassMeV - BoundState.BoundMassMeV;
+					return 2 * Constants.RestMassBMesonMeV - BoundState.BoundMassMeV;
 
 				default:
 					// we have a QGP
@@ -220,16 +212,16 @@ namespace Yburn.QQState
 			for(int j = 1; j < EnergySteps; j++)
 			{
 				integral += HadronicCrossSectionMb[j]
-					* (2.0 * BEdist(EnergyMeV[j], Constants.PionPlusMassMeV)
-						+ BEdist(EnergyMeV[j], Constants.PionZeroMassMeV))
+					* (2.0 * BEdist(EnergyMeV[j], Constants.RestMassPionPlusMeV)
+						+ BEdist(EnergyMeV[j], Constants.RestMassPionZeroMeV))
 					* EnergyMeV[j] * EnergyMeV[j]
 					* (EnergyMeV[j + 1] - EnergyMeV[j - 1]);
 			}
 
 			// first step vanishes because CrossSection[0] = 0
 			integral += HadronicCrossSectionMb[EnergySteps]
-				* (2.0 * BEdist(EnergyMeV[EnergySteps], Constants.PionPlusMassMeV)
-					+ BEdist(EnergyMeV[EnergySteps], Constants.PionZeroMassMeV))
+				* (2.0 * BEdist(EnergyMeV[EnergySteps], Constants.RestMassPionPlusMeV)
+					+ BEdist(EnergyMeV[EnergySteps], Constants.RestMassPionZeroMeV))
 				* EnergyMeV[EnergySteps] * EnergyMeV[EnergySteps]
 				* (EnergyMeV[EnergySteps] - EnergyMeV[EnergySteps - 1]);
 			integral *= 0.5;

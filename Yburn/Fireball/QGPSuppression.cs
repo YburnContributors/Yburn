@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace Yburn.Fireball
@@ -12,8 +13,8 @@ namespace Yburn.Fireball
 
 		public QGPSuppression(
 			FireballParam fireballParam,
-				int[] numberCentralityBins,
-			double[][] impactParamsAtBinBoundaries,
+			List<int> numberCentralityBins,
+			List<List<double>> impactParamsAtBinBoundaries,
 			CancellationToken cancellationToken
 			)
 		{
@@ -23,27 +24,21 @@ namespace Yburn.Fireball
 			CancellationToken = cancellationToken;
 
 			FlatImpactParamsAtBinBoundaries = GetFlatImpactParams();
-			NumberFlatBins = FlatImpactParamsAtBinBoundaries.Length - 1;
+			NumberFlatBins = FlatImpactParamsAtBinBoundaries.Count - 1;
 			ArrayReshapingMask = GetArrayReshapingMask();
 		}
 
 		/********************************************************************************************
-	  * Public members, functions and properties
-	  ********************************************************************************************/
+	     * Public members, functions and properties
+	     ********************************************************************************************/
 
-		public double[] FlatImpactParamsAtBinBoundaries
+		public List<double> FlatImpactParamsAtBinBoundaries
 		{
 			get;
 			private set;
 		}
 
-		public int[][] ArrayReshapingMask
-		{
-			get;
-			private set;
-		}
-
-		public int[][][] BinsReshapingMask
+		public List<List<int>> ArrayReshapingMask
 		{
 			get;
 			private set;
@@ -79,9 +74,9 @@ namespace Yburn.Fireball
 
 		private FireballParam FireballParam;
 
-		private double[][] ImpactParamsAtBinBoundaries;
+		private List<List<double>> ImpactParamsAtBinBoundaries;
 
-		private int[] NumberCentralityBins;
+		private List<int> NumberCentralityBins;
 
 		private int NumberFlatBins;
 
@@ -107,30 +102,29 @@ namespace Yburn.Fireball
 			CurrentImpactParam = FireballParam.GridCellSizeFm;
 		}
 
-		private double[] GetFlatImpactParams()
+		private List<double> GetFlatImpactParams()
 		{
 			SortedSet<double> impactParamsSet = new SortedSet<double>();
-			for(int i = 0; i < ImpactParamsAtBinBoundaries.Length; i++)
+			for(int i = 0; i < ImpactParamsAtBinBoundaries.Count; i++)
 			{
 				impactParamsSet.UnionWith(ImpactParamsAtBinBoundaries[i]);
 			}
 
-			double[] flatImpactParams = new double[impactParamsSet.Count];
-			impactParamsSet.CopyTo(flatImpactParams);
-
-			return flatImpactParams;
+			return new List<double>(impactParamsSet);
 		}
 
-		private int[][] GetArrayReshapingMask()
+		private List<List<int>> GetArrayReshapingMask()
 		{
-			int[][] boundariesMask = new int[NumberCentralityBins.Length][];
-			for(int i = 0; i < boundariesMask.Length; i++)
+			List<List<int>> boundariesMask = new List<List<int>>();
+
+			for(int i = 0; i < NumberCentralityBins.Count; i++)
 			{
-				boundariesMask[i] = new int[NumberCentralityBins[i] + 1];
-				for(int j = 0; j < boundariesMask[i].Length; j++)
+				boundariesMask.Add(new List<int>());
+
+				for(int j = 0; j < NumberCentralityBins[i] + 1; j++)
 				{
-					boundariesMask[i][j] = Array.IndexOf(
-						 FlatImpactParamsAtBinBoundaries, ImpactParamsAtBinBoundaries[i][j]);
+					boundariesMask.Last().Add(
+						FlatImpactParamsAtBinBoundaries.IndexOf(ImpactParamsAtBinBoundaries[i][j]));
 				}
 			}
 
@@ -143,8 +137,8 @@ namespace Yburn.Fireball
 			for(int binIndex = 0; binIndex < NumberFlatBins; binIndex++)
 			{
 				FlatQGPSuppressionFactors[binIndex]
-						  = new BottomiumVector[FireballParam.TransverseMomentaGeV.Length];
-				for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Length; pTIndex++)
+						  = new BottomiumVector[FireballParam.TransverseMomentaGeV.Count];
+				for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Count; pTIndex++)
 				{
 					FlatQGPSuppressionFactors[binIndex][pTIndex] =
 						BottomiumVector.CreateEmptyVector();
@@ -232,7 +226,7 @@ namespace Yburn.Fireball
 			FlatNormalizationFactors[CurrentBinIndex]
 				+= CurrentImpactParam * fireball.IntegrateFireballField("Overlap");
 
-			for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Length; pTIndex++)
+			for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Count; pTIndex++)
 			{
 				foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 				{
@@ -258,9 +252,9 @@ namespace Yburn.Fireball
 
 		private void ReshapeFlatArrays()
 		{
-			NormalizationFactors = new double[NumberCentralityBins.Length][];
-			QGPSuppressionFactors = new BottomiumVector[NumberCentralityBins.Length][][];
-			for(int binGroupIndex = 0; binGroupIndex < NumberCentralityBins.Length; binGroupIndex++)
+			NormalizationFactors = new double[NumberCentralityBins.Count][];
+			QGPSuppressionFactors = new BottomiumVector[NumberCentralityBins.Count][][];
+			for(int binGroupIndex = 0; binGroupIndex < NumberCentralityBins.Count; binGroupIndex++)
 			{
 				NormalizationFactors[binGroupIndex] = new double[NumberCentralityBins[binGroupIndex]];
 				QGPSuppressionFactors[binGroupIndex]
@@ -293,8 +287,8 @@ namespace Yburn.Fireball
 			 )
 		{
 			QGPSuppressionFactors[binGroupIndex][binIndex]
-				 = new BottomiumVector[FireballParam.TransverseMomentaGeV.Length];
-			for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Length; pTIndex++)
+				 = new BottomiumVector[FireballParam.TransverseMomentaGeV.Count];
+			for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Count; pTIndex++)
 			{
 				QGPSuppressionFactors[binGroupIndex][binIndex][pTIndex] =
 					BottomiumVector.CreateEmptyVector();
@@ -310,11 +304,11 @@ namespace Yburn.Fireball
 
 		private void NormalizeQGPSuppressionFactors()
 		{
-			for(int binGroupIndex = 0; binGroupIndex < NumberCentralityBins.Length; binGroupIndex++)
+			for(int binGroupIndex = 0; binGroupIndex < NumberCentralityBins.Count; binGroupIndex++)
 			{
 				for(int binIndex = 0; binIndex < NumberCentralityBins[binGroupIndex]; binIndex++)
 				{
-					for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Length; pTIndex++)
+					for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Count; pTIndex++)
 					{
 						QGPSuppressionFactors[binGroupIndex][binIndex][pTIndex]
 							 /= NormalizationFactors[binGroupIndex][binIndex];

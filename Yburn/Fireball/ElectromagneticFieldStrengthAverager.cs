@@ -170,7 +170,7 @@ namespace Yburn.Fireball
 			double B_PerFmSquared =
 				CalculateAverageMagneticFieldStrengthPerFm2_LCF(properTimeFm, quadratureOrder);
 
-			double HyperfineEnergySplitting_MeV = Constants.Y2SMassMeV - Constants.Etab2SMassMeV;
+			double HyperfineEnergySplitting_MeV = Constants.RestMassY2SMeV - Constants.RestMassEtab2SMeV;
 
 			double x = 4 * BottomQuarkMagneton_Fm * B_PerFmSquared * Constants.HbarCMeVFm / HyperfineEnergySplitting_MeV;
 			double y = x / (1 + Math.Sqrt(1 + x * x));
@@ -185,8 +185,8 @@ namespace Yburn.Fireball
 
 		private static readonly double RapidityDistributionWidth = 2.7;
 
-		private static readonly double BottomQuarkMagneton_Fm = 0.5 * Constants.BottomQuarkCharge
-			* Constants.HbarCMeVFm / Constants.BottomQuarkMassMeV;
+		private static readonly double BottomQuarkMagneton_Fm = 0.5 * Constants.ChargeBottomQuark
+			* Constants.HbarCMeVFm / Constants.RestMassBottomQuarkMeV;
 
 		//private static readonly double TeslaFmFm = 5.017029326E-15;
 

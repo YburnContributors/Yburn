@@ -5,6 +5,31 @@ namespace Yburn.Fireball
 	public class GlauberCalculation
 	{
 		/********************************************************************************************
+		 * Private/protected static members, functions and properties
+		 ********************************************************************************************/
+
+		private static double GetNmixPHOBOS(
+			double ncoll,
+			double npart
+			)
+		{
+			return 0.5 * (1.0 - NmixPHOBOSFittingConstant) * npart
+				+ NmixPHOBOSFittingConstant * ncoll;
+		}
+
+		private static readonly double NmixPHOBOSFittingConstant = 0.145;
+
+		private static double GetNmixALICE(
+			 double ncoll,
+			 double npart
+			 )
+		{
+			return NmixALICEFittingConstant * npart + (1 - NmixALICEFittingConstant) * ncoll;
+		}
+
+		private static readonly double NmixALICEFittingConstant = 0.8;
+
+		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
@@ -113,27 +138,6 @@ namespace Yburn.Fireball
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
-
-		private static double GetNmixPHOBOS(
-			double ncoll,
-			double npart
-			)
-		{
-			return 0.5 * (1.0 - NmixPHOBOSFittingConstant) * npart
-				+ NmixPHOBOSFittingConstant * ncoll;
-		}
-
-		private static readonly double NmixPHOBOSFittingConstant = 0.145;
-
-		private static double GetNmixALICE(
-			 double ncoll,
-			 double npart
-			 )
-		{
-			return NmixALICEFittingConstant * npart + (1 - NmixALICEFittingConstant) * ncoll;
-		}
-
-		private static readonly double NmixALICEFittingConstant = 0.8;
 
 		private double InelasticppCrossSectionFm
 		{

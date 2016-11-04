@@ -35,8 +35,8 @@ namespace Yburn.Fireball.Tests
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static readonly int[][] CentralityBinsInPercent = new int[][] {
-			new int[] { 0, 5, 10, 20, 30, 40, 50, 100 } };
+		private static readonly List<List<int>> CentralityBinsInPercent
+			= new List<List<int>> { new List<int> { 0, 5, 10, 20, 30, 40, 50, 100 } };
 
 		private static readonly int NumberBottomiumStates
 			= Enum.GetValues(typeof(BottomiumState)).Length;
@@ -45,22 +45,10 @@ namespace Yburn.Fireball.Tests
 
 		private static int GridRadiusFm = 10;
 
-		private List<KeyValuePair<double, double>>[] GetTemperatureDecayWidthList()
-		{
-			List<KeyValuePair<double, double>>[] list
-				= new List<KeyValuePair<double, double>>[NumberBottomiumStates];
-			for(int i = 0; i < list.Length; i++)
-			{
-				list[i] = new List<KeyValuePair<double, double>>();
-			}
-
-			return list;
-		}
-
 		private static void AssertCorrectImpactParamsAtBinBoundaries(BinBoundaryCalculator calculator)
 		{
-			double[] impactParams = calculator.ImpactParamsAtBinBoundaries[0];
-			Assert.AreEqual(8, impactParams.Length);
+			List<double> impactParams = calculator.ImpactParamsAtBinBoundaries[0];
+			Assert.AreEqual(8, impactParams.Count);
 			AssertHelper.AssertApproximatelyEqual(0, impactParams[0]);
 			AssertHelper.AssertApproximatelyEqual(3.2, impactParams[1]);
 			AssertHelper.AssertApproximatelyEqual(4.4, impactParams[2]);
@@ -73,8 +61,8 @@ namespace Yburn.Fireball.Tests
 
 		private static void AssertCorrectMeanParticipantsInBin(BinBoundaryCalculator calculator)
 		{
-			double[] nparts = calculator.MeanParticipantsInBin[0];
-			Assert.AreEqual(7, nparts.Length);
+			List<double> nparts = calculator.MeanParticipantsInBin[0];
+			Assert.AreEqual(7, nparts.Count);
 			AssertHelper.AssertApproximatelyEqual(383.63733145261438, nparts[0]);
 			AssertHelper.AssertApproximatelyEqual(340.22338305849638, nparts[1]);
 			AssertHelper.AssertApproximatelyEqual(268.43057326077735, nparts[2]);
@@ -97,7 +85,7 @@ namespace Yburn.Fireball.Tests
 			FireballParam param = new FireballParam();
 			param.InitialMaximumTemperatureMeV = 550;
 			param.BreakupTemperatureMeV = 160;
-			param.FormationTimesFm = new double[] { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
+			param.FormationTimesFm = new List<double> { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
 
 			param.GridCellSizeFm = GridCellSize;
 			param.GridRadiusFm = GridRadiusFm;
@@ -112,7 +100,6 @@ namespace Yburn.Fireball.Tests
 			param.NuclearRadiusBFm = 6.62;
 			param.DiffusenessBFm = 0.546;
 
-			param.TemperatureDecayWidthList = GetTemperatureDecayWidthList();
 			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
 			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
 

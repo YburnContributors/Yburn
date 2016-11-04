@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Yburn.Fireball;
+using Yburn.QQState;
 
 namespace Yburn.Workers
 {
@@ -41,19 +42,19 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "QGPFormationTemperature", ref QGPFormationTemperature);
 		}
 
-		private BottomiumState[] BottomiumStates = new BottomiumState[0];
+		private List<BottomiumState> BottomiumStates = new List<BottomiumState>();
 
-		private DecayWidthEvaluationType[] DecayWidthEvaluationTypes;
+		private List<DecayWidthEvaluationType> DecayWidthEvaluationTypes = new List<DecayWidthEvaluationType>();
 
 		private DecayWidthType DecayWidthType;
 
-		private double[] MediumTemperatures;
+		private List<double> MediumTemperatures = new List<double>();
 
-		private double[] MediumVelocities;
+		private List<double> MediumVelocities = new List<double>();
 
 		private int NumberAveragingAngles;
 
-		private string[] PotentialTypes = new string[0];
+		private List<PotentialType> PotentialTypes = new List<PotentialType>();
 
 		private double QGPFormationTemperature;
 	}

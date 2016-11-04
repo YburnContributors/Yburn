@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Yburn.Fireball;
+using Yburn.QQState;
 
 namespace Yburn.Workers
 {
@@ -103,9 +104,9 @@ namespace Yburn.Workers
 
 		private double BjorkenLifeTime;
 
-		private string BottomiumStates = string.Empty;
+		private List<BottomiumState> BottomiumStates = new List<BottomiumState>();
 
-		private int[][] CentralityBinBoundaries = new int[0][];
+		private List<List<int>> CentralityBinBoundaries = new List<List<int>>();
 
 		private DecayWidthEvaluationType DecayWidthEvaluationType;
 
@@ -119,9 +120,9 @@ namespace Yburn.Workers
 
 		private double FeedDown3P;
 
-		private string[] FireballFieldTypes = new string[0];
+		private List<string> FireballFieldTypes = new List<string>();
 
-		private double[] FormationTimes = new double[0];
+		private List<double> FormationTimes = new List<double>();
 
 		private double GridCellSize;
 
@@ -129,13 +130,13 @@ namespace Yburn.Workers
 
 		private double ImpactParameter;
 
-		private double[][] ImpactParamsAtBinBoundaries = new double[0][];
+		private List<List<double>> ImpactParamsAtBinBoundaries = new List<List<double>>();
 
 		private double InitialMaximumTemperature;
 
 		private double LifeTime;
 
-		private double[][] MeanParticipantsInBin = new double[0][];
+		private List<List<double>> MeanParticipantsInBin = new List<List<double>>();
 
 		private int NumberAveragingAngles;
 
@@ -149,9 +150,9 @@ namespace Yburn.Workers
 
 		private int NucleonNumberB;
 
-		private double[][] ParticipantsAtBinBoundaries = new double[0][];
+		private List<List<double>> ParticipantsAtBinBoundaries = new List<List<double>>();
 
-		private string[] PotentialTypes = new string[0];
+		private List<PotentialType> PotentialTypes = new List<PotentialType>();
 
 		private ProtonProtonBaseline ProtonProtonBaseline;
 
@@ -171,6 +172,6 @@ namespace Yburn.Workers
 
 		private double ThermalTime;
 
-		private double[] TransverseMomenta = new double[0];
+		private List<double> TransverseMomenta = new List<double>();
 	}
 }

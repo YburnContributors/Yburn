@@ -24,9 +24,6 @@ namespace Yburn.PhysUtil
 		// derivative of the Riemann zeta function zeta'(2)
 		public static readonly double RiemannZetaFunctionDerivativeAt2 = -0.93754825431584;
 
-		// in MeV
-		public static readonly double BMesonMassMeV = 5279.26;
-
 		/********************************************************************************************
 		 * CODATA 2014
 		 ********************************************************************************************/
@@ -38,33 +35,37 @@ namespace Yburn.PhysUtil
 
 		public static readonly double ElementaryCharge = Math.Sqrt(4 * Math.PI * FineStructureConstant);
 
+		public static readonly double ChargeBottomQuark = -ElementaryCharge / 3.0;
+
 		/********************************************************************************************
-		 * PDG 2015
+		 * Rest masses (PDG 2015)
 		 ********************************************************************************************/
 
-		public static readonly double BottomQuarkCharge = -ElementaryCharge / 3.0;
+		public static readonly double RestMassBottomQuarkMeV = 4660;
 
-		public static readonly double BottomQuarkMassMeV = 4660;
+		public static readonly double RestMassEtab1SMeV = 9398.0;
 
-		public static readonly double Etab1SMassMeV = 9398.0;
+		public static readonly double RestMassEtab2SMeV = 9999;
 
-		public static readonly double Y1SMassMeV = 9460.30;
+		public static readonly double RestMassY1SMeV = 9460.30;
 
-		public static readonly double Etab2SMassMeV = 9999;
+		public static readonly double RestMassY2SMeV = 10023.26;
 
-		public static readonly double Y2SMassMeV = 10023.26;
+		public static readonly double RestMassY3SMeV = 10355.2;
 
-		public static readonly double BPlusMesonMassMeV = 5279.29;
+		public static readonly double RestMassX1PMeV = (9859.44 + 3 * 9892.78 + 5 * 9912.21) / 9.0;
 
-		public static readonly double BZeroMesonMassMeV = 5279.61;
+		public static readonly double RestMassX2PMeV = (10232.5 + 3 * 10255.46 + 5 * 10268.65) / 9.0;
 
-		public static readonly double BMesonAverageMassMeV = (2.0 * BPlusMesonMassMeV + BZeroMesonMassMeV) / 3.0;
+		public static readonly double RestMassX3PMeV = 10512.1;
 
-		public static readonly double PionPlusMassMeV = 139.57018;
+		public static readonly double RestMassBMesonMeV = (2 * 5279.29 + 5279.61) / 3.0;
 
-		public static readonly double PionZeroMassMeV = 134.9766;
+		public static readonly double RestMassPionPlusMeV = 139.57018;
 
-		public static readonly double PionAverageMassMeV = (2.0 * PionPlusMassMeV + PionZeroMassMeV) / 3.0;
+		public static readonly double RestMassPionZeroMeV = 134.9766;
+
+		public static readonly double RestMassPionMeV = (2 * RestMassPionPlusMeV + RestMassPionZeroMeV) / 3.0;
 
 		/********************************************************************************************
 		 * pp Dimuon Decays (CMS2012 & ?)

@@ -38,7 +38,7 @@ namespace Yburn
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static readonly string NameVersion = "Yburn 6.1";
+		private static readonly string NameVersion = "Yburn 6.2";
 
 		private static string FullNameVersion;
 

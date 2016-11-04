@@ -37,7 +37,6 @@
     <Compile Include="FtexsLaxWendroffStepper.cs" />
     <Compile Include="FtexsFirstOrderStepper.cs" />
     <Compile Include="Nucleus.cs" />
-    <Compile Include="DecayWidthAverager.cs" />
     <Compile Include="FireballElectromagneticField.cs" />
     <Compile Include="ElectromagneticFieldStrengthAverager.cs" />
     <Compile Include="NucleusElectromagneticField.cs" />
@@ -52,11 +51,9 @@
     <Compile Include="GlauberCalculation.cs" />
     <Compile Include="FireballExceptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QQDataDoc.cs" />
     <Compile Include="StateSpecificFireballField.cs" />
     <Compile Include="SimpleFireballField.cs" />
     <Compile Include="QGPSuppression.cs" />
-    <Compile Include="TemperatureDecayWidthListHelper.cs" />
     <Compile Include="TransverseMomentumAverager.cs" />
   </ItemGroup>
   <ItemGroup>

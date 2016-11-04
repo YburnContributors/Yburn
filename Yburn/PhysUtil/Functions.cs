@@ -16,6 +16,13 @@ namespace Yburn.PhysUtil
 			return 0.5 * Math.Log((1.0 + x) / (1.0 - x));
 		}
 
+		public static double HeavisideStepFunction(
+			double x
+			)
+		{
+			return 0.5 * (1 + Math.Sign(x));
+		}
+
 		public static double GaussianDistributionUnnormalized(
 			double x,
 			double standardDeviation

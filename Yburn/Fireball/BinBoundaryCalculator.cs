@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 
 namespace Yburn.Fireball
@@ -24,7 +25,7 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public void Calculate(
-			int[][] binBoundariesInPercent
+			List<List<int>> binBoundariesInPercent
 			)
 		{
 			PrepareCalculation(binBoundariesInPercent);
@@ -36,7 +37,7 @@ namespace Yburn.Fireball
 			CalculateMeanParticipants();
 		}
 
-		public int[] NumberCentralityBins
+		public List<int> NumberCentralityBins
 		{
 			get;
 			private set;
@@ -72,19 +73,19 @@ namespace Yburn.Fireball
 			private set;
 		}
 
-		public double[][] ImpactParamsAtBinBoundaries
+		public List<List<double>> ImpactParamsAtBinBoundaries
 		{
 			get;
 			private set;
 		}
 
-		public double[][] ParticipantsAtBinBoundaries
+		public List<List<double>> ParticipantsAtBinBoundaries
 		{
 			get;
 			private set;
 		}
 
-		public double[][] MeanParticipantsInBin
+		public List<List<double>> MeanParticipantsInBin
 		{
 			get;
 			private set;
@@ -93,51 +94,17 @@ namespace Yburn.Fireball
 		public string[] StatusValues;
 
 		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-
-		private static bool IsOrderedArray(
-			int[] boundaries
-			)
-		{
-			for(int i = 1; i < boundaries.Length; i++)
-			{
-				if(boundaries[i - 1] >= boundaries[i])
-				{
-					return false;
-				}
-			}
-
-			return true;
-		}
-
-		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
 		private CancellationToken CancellationToken;
 
 		private void PrepareCalculation(
-			int[][] binBoundariesInPercent
+			List<List<int>> binBoundariesInPercent
 			)
 		{
 			BinBoundariesInPercent = binBoundariesInPercent;
 			NumberCentralityBins = GetNumberCentralityBins();
-			ImpactParamsAtBinBoundaries = new double[NumberCentralityBins.Length][];
-			ParticipantsAtBinBoundaries = new double[NumberCentralityBins.Length][];
-			MeanParticipantsInBin = new double[NumberCentralityBins.Length][];
-			for(int i = 0; i < NumberCentralityBins.Length; i++)
-			{
-				ImpactParamsAtBinBoundaries[i] = new double[NumberCentralityBins[i] + 1];
-				ParticipantsAtBinBoundaries[i] = new double[NumberCentralityBins[i] + 1];
-				MeanParticipantsInBin[i] = new double[NumberCentralityBins[i]];
-			}
-
-			ImpactParams = new List<double>();
-			Ncolls = new List<double>();
-			Nparts = new List<double>();
-			DSigmaDbs = new List<double>();
-			Sigmas = new List<double>();
 		}
 
 		private void AssertInputValid()
@@ -147,20 +114,16 @@ namespace Yburn.Fireball
 				throw new Exception("Length of StatusValues must be five.");
 			}
 
-			for(int i = 0; i < BinBoundariesInPercent.Length; i++)
+			foreach(List<int> binBoundaries in BinBoundariesInPercent)
 			{
-				if(BinBoundariesInPercent[i].Length < 2)
+				if(binBoundaries.Count < 2)
 				{
 					throw new NotEnoughCentralityBinBoundariesSpecifiedException();
 				}
 
-				if(!IsOrderedArray(BinBoundariesInPercent[i]))
-				{
-					throw new CentralityBinBoundariesDisorderedException();
-				}
+				binBoundaries.Sort();
 
-				if(BinBoundariesInPercent[i][0] < 0
-					|| BinBoundariesInPercent[i][BinBoundariesInPercent[i].Length - 1] > 100)
+				if(binBoundaries.First() < 0 || binBoundaries.Last() > 100)
 				{
 					throw new CentralityBinBoundariesOutOfRangeException();
 				}
@@ -169,6 +132,12 @@ namespace Yburn.Fireball
 
 		private void GetValuesFromFireball()
 		{
+			ImpactParams = new List<double>();
+			Ncolls = new List<double>();
+			Nparts = new List<double>();
+			DSigmaDbs = new List<double>();
+			Sigmas = new List<double>();
+
 			int step = 0;
 			while(!BreakUpCalculation(step))
 			{
@@ -251,31 +220,25 @@ namespace Yburn.Fireball
 			}
 		}
 
-		private Fireball CreateFireball(
-			double impactParam
-			)
-		{
-			FireballParam param = FireballParam.Clone();
-			param.ImpactParameterFm = impactParam;
-			param.TransverseMomentaGeV = new double[] { 0 };
-			param.ExpansionMode = ExpansionMode.Longitudinal;
-
-			return new Fireball(param);
-		}
-
 		private FireballParam FireballParam;
 
-		private int[][] BinBoundariesInPercent;
+		private List<List<int>> BinBoundariesInPercent;
 
 		private void CalculateBinBoundaries()
 		{
-			for(int binGroupIndex = 0; binGroupIndex < NumberCentralityBins.Length; binGroupIndex++)
+			ImpactParamsAtBinBoundaries = new List<List<double>>();
+			ParticipantsAtBinBoundaries = new List<List<double>>();
+
+			for(int binGroupIndex = 0; binGroupIndex < NumberCentralityBins.Count; binGroupIndex++)
 			{
+				ImpactParamsAtBinBoundaries.Add(new List<double>());
+				ParticipantsAtBinBoundaries.Add(new List<double>());
+
 				for(int binIndex = 0; binIndex < NumberCentralityBins[binGroupIndex] + 1; binIndex++)
 				{
 					int i = GetLastIndexBeforeBin(binGroupIndex, binIndex);
-					ImpactParamsAtBinBoundaries[binGroupIndex][binIndex] = i * FireballParam.GridCellSizeFm;
-					ParticipantsAtBinBoundaries[binGroupIndex][binIndex] = Nparts[i];
+					ImpactParamsAtBinBoundaries.Last().Add(i * FireballParam.GridCellSizeFm);
+					ParticipantsAtBinBoundaries.Last().Add(Nparts[i]);
 				}
 			}
 		}
@@ -308,39 +271,46 @@ namespace Yburn.Fireball
 
 		private void CalculateMeanParticipants()
 		{
-			for(int binGroupIndex = 0; binGroupIndex < NumberCentralityBins.Length; binGroupIndex++)
+			MeanParticipantsInBin = new List<List<double>>();
+
+			for(int binGroupIndex = 0; binGroupIndex < NumberCentralityBins.Count; binGroupIndex++)
 			{
+				MeanParticipantsInBin.Add(new List<double>());
+
 				for(int binIndex = 0; binIndex < NumberCentralityBins[binGroupIndex]; binIndex++)
 				{
-					CalculateMeanParticipantsInBin(binGroupIndex, binIndex);
+					MeanParticipantsInBin.Last()
+						.Add(CalculateMeanParticipantsInBin(binGroupIndex, binIndex));
 				}
 			}
 		}
 
-		private void CalculateMeanParticipantsInBin(
+		private double CalculateMeanParticipantsInBin(
 			int binGroupIndex,
 			int binIndex
 			)
 		{
+			double meanParticipants = 0;
 			double norm = 0;
+
 			for(int i = 0; i < Sigmas.Count; i++)
 			{
 				if(LiesInBin(ImpactParams[i], binGroupIndex, binIndex))
 				{
-					MeanParticipantsInBin[binGroupIndex][binIndex] += Nparts[i] * DSigmaDbs[i];
+					meanParticipants += Nparts[i] * DSigmaDbs[i];
 					norm += DSigmaDbs[i];
 				}
 			}
 
-			MeanParticipantsInBin[binGroupIndex][binIndex] /= norm;
+			return meanParticipants / norm;
 		}
 
-		private int[] GetNumberCentralityBins()
+		private List<int> GetNumberCentralityBins()
 		{
-			int[] numberCentralityBins = new int[BinBoundariesInPercent.Length];
-			for(int i = 0; i < numberCentralityBins.Length; i++)
+			List<int> numberCentralityBins = new List<int>();
+			foreach(List<int> binBoundaries in BinBoundariesInPercent)
 			{
-				numberCentralityBins[i] = BinBoundariesInPercent[i].Length - 1;
+				numberCentralityBins.Add(binBoundaries.Count - 1);
 			}
 			return numberCentralityBins;
 		}
@@ -370,15 +340,6 @@ namespace Yburn.Fireball
 	{
 		public CentralityBinBoundariesOutOfRangeException()
 			: base("CentralityBinBoundaries are out of range. Must be between 0 and 100.")
-		{
-		}
-	}
-
-	[Serializable]
-	public class CentralityBinBoundariesDisorderedException : Exception
-	{
-		public CentralityBinBoundariesDisorderedException()
-			: base("CentralityBinBoundaries are disordered.")
 		{
 		}
 	}

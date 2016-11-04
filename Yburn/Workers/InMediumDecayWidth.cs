@@ -68,11 +68,9 @@ namespace Yburn.Workers
 
 		private string GetTemperatureDecayWidthList()
 		{
-			BottomiumState[] bottomiumStates = BottomiumStates;
-
 			TemperatureDecayWidthPrinter printer = new TemperatureDecayWidthPrinter(
-				YburnConfigFile.QQDataPathFile, bottomiumStates, DecayWidthType, PotentialTypes,
-				NumberAveragingAngles, QGPFormationTemperature);
+				YburnConfigFile.QQDataPathFile, BottomiumStates, PotentialTypes, DecayWidthType,
+				QGPFormationTemperature, NumberAveragingAngles);
 
 			return printer.GetList(MediumTemperatures, MediumVelocities, DecayWidthEvaluationTypes);
 		}
@@ -95,6 +93,10 @@ namespace Yburn.Workers
 					PlotInMediumDecayWidthsVersusMediumVelocity();
 					break;
 
+				case "PlotDecayWidthEvaluatedAtDopplerShiftedTemperature":
+					PlotDecayWidthEvaluatedAtDopplerShiftedTemperature();
+					break;
+
 				default:
 					throw new InvalidJobException(jobId);
 			}
@@ -102,7 +104,7 @@ namespace Yburn.Workers
 
 		private void AssertInputValid_CalculateInMediumDecayWidth()
 		{
-			if(BottomiumStates.Length == 0)
+			if(BottomiumStates.Count == 0)
 			{
 				throw new Exception("No bottomium states given.");
 			}

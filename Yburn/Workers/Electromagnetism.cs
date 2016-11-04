@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Yburn.Fireball;
 
 namespace Yburn.Workers
@@ -62,8 +63,8 @@ namespace Yburn.Workers
 					PlotPointChargeAndNucleusFieldComponents();
 					break;
 
-				case "PlotNucleusMagneticFieldStrength":
-					PlotNucleusMagneticFieldStrength();
+				case "PlotNucleusMagneticFieldStrengthInLCF":
+					PlotNucleusMagneticFieldStrengthInLCF();
 					break;
 
 				case "PlotCentralMagneticFieldStrength":
@@ -93,7 +94,7 @@ namespace Yburn.Workers
 			param.DiffusenessAFm = DiffusenessAFm;
 			param.DiffusenessBFm = DiffusenessBFm;
 			param.EMFCalculationMethod = emfCalculationMethod;
-			param.FormationTimesFm = new double[] { 0.4, 0.4, 0.4, 0.4, 0.4, 0.4 };
+			param.FormationTimesFm = new List<double> { 0.4, 0.4, 0.4, 0.4, 0.4, 0.4 };
 			param.GridCellSizeFm = 0.4;
 			param.GridRadiusFm = 10;
 			param.ImpactParameterFm = ImpactParameterFm;

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using Yburn.TestUtil;
 
 namespace Yburn.Fireball.Tests
@@ -62,7 +63,7 @@ namespace Yburn.Fireball.Tests
 			param.DiffusenessAFm = 0.546;
 			param.DiffusenessBFm = 0.546;
 			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
-			param.FormationTimesFm = new double[] { 0.4, 0.4, 0.4, 0.4, 0.4, 0.4 };
+			param.FormationTimesFm = new List<double> { 0.4, 0.4, 0.4, 0.4, 0.4, 0.4 };
 			param.GridCellSizeFm = 1;
 			param.GridRadiusFm = 10;
 			param.ImpactParameterFm = 7;

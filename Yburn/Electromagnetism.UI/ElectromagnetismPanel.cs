@@ -165,7 +165,7 @@ namespace Yburn.Electromagnetism.UI
 			MenuEntry.MenuItemPlotPointChargeLongitudinalElectricField.Click += new EventHandler(MenuItemPlotPointChargeLongitudinalElectricField_Click);
 			MenuEntry.MenuItemPlotPointChargeRadialElectricField.Click += new EventHandler(MenuItemPlotPointChargeRadialElectricField_Click);
 			MenuEntry.MenuItemPlotPointChargeAndNucleusFieldComponents.Click += new EventHandler(MenuItemPlotPointChargeAndNucleusFieldComponents_Click);
-			MenuEntry.MenuItemPlotNucleusMagneticFieldStrength.Click += new EventHandler(MenuItemPlotNucleusMagneticFieldStrength_Click);
+			MenuEntry.MenuItemPlotNucleusMagneticFieldStrengthInLCF.Click += new EventHandler(MenuItemPlotNucleusMagneticFieldStrengthInLCF_Click);
 			MenuEntry.MenuItemPlotCentralMagneticFieldStrength.Click += new EventHandler(MenuItemPlotCentralMagneticFieldStrength_Click);
 			MenuEntry.MenuItemPlotAverageMagneticFieldStrength.Click += new EventHandler(MenuItemPlotAverageMagneticFieldStrength_Click);
 			MenuEntry.MenuItemPlotSpinStateOverlap.Click += new EventHandler(MenuItemPlotSpinStateOverlap_Click);
@@ -204,9 +204,9 @@ namespace Yburn.Electromagnetism.UI
 			JobOrganizer.RequestNewJob("PlotPointChargeAndNucleusFieldComponents", ControlsValues);
 		}
 
-		private void MenuItemPlotNucleusMagneticFieldStrength_Click(object sender, EventArgs e)
+		private void MenuItemPlotNucleusMagneticFieldStrengthInLCF_Click(object sender, EventArgs e)
 		{
-			JobOrganizer.RequestNewJob("PlotNucleusMagneticFieldStrength", ControlsValues);
+			JobOrganizer.RequestNewJob("PlotNucleusMagneticFieldStrengthInLCF", ControlsValues);
 		}
 
 		private void MenuItemPlotCentralMagneticFieldStrength_Click(object sender, EventArgs e)
