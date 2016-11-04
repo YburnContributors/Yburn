@@ -56,6 +56,7 @@
   <ItemGroup>
     <Compile Include="BackgroundService.cs" />
     <Compile Include="Converter.cs" />
+    <Compile Include="PowerManagement.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

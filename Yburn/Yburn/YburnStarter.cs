@@ -9,7 +9,7 @@ namespace Yburn
 	public static class YburnStarter
 	{
 		/********************************************************************************************
-		 * Public members, functions and properties
+		 * Public static members, functions and properties
 		 ********************************************************************************************/
 
 		public static void Execute(
