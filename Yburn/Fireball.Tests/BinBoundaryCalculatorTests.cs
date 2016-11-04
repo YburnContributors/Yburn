@@ -83,25 +83,24 @@ namespace Yburn.Fireball.Tests
 		private FireballParam CreateFireballParam()
 		{
 			FireballParam param = new FireballParam();
-			param.InitialMaximumTemperatureMeV = 550;
-			param.BreakupTemperatureMeV = 160;
-			param.FormationTimesFm = new List<double> { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
 
+			param.BreakupTemperatureMeV = 160;
+			param.DiffusenessAFm = 0.546;
+			param.DiffusenessBFm = 0.546;
+			param.FormationTimesFm = new List<double> { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
 			param.GridCellSizeFm = GridCellSize;
 			param.GridRadiusFm = GridRadiusFm;
-
-			param.NucleonNumberA = 208;
-			param.ProtonNumberA = 82;
+			param.InitialMaximumTemperatureMeV = 550;
 			param.NuclearRadiusAFm = 6.62;
-			param.DiffusenessAFm = 0.546;
-
-			param.NucleonNumberB = 208;
-			param.ProtonNumberB = 82;
 			param.NuclearRadiusBFm = 6.62;
-			param.DiffusenessBFm = 0.546;
-
+			param.NucleonNumberA = 208;
+			param.NucleonNumberB = 208;
 			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
 			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
+			param.ProtonNumberA = 82;
+			param.ProtonNumberB = 82;
+			param.ProtonProtonBaseline = ProtonProtonBaseline.CMS2012;
+			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 
 			return param;
 		}

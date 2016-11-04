@@ -26,18 +26,18 @@ namespace Yburn.Fireball
 			)
 		{
 			nucleusA = CreateNucleus(
-				shape: param.NucleusShapeA,
-				nucleonNumber: param.NucleonNumberA,
-				protonNumber: param.ProtonNumberA,
-				nuclearRadiusFm: param.NuclearRadiusAFm,
-				diffusenessFm: param.DiffusenessAFm);
+				shape: param.NucleusShapeA.Value,
+				nucleonNumber: param.NucleonNumberA.Value,
+				protonNumber: param.ProtonNumberA.Value,
+				nuclearRadiusFm: param.NuclearRadiusAFm.Value,
+				diffusenessFm: param.DiffusenessAFm.Value);
 
 			nucleusB = CreateNucleus(
-				shape: param.NucleusShapeB,
-				nucleonNumber: param.NucleonNumberB,
-				protonNumber: param.ProtonNumberB,
-				nuclearRadiusFm: param.NuclearRadiusBFm,
-				diffusenessFm: param.DiffusenessBFm);
+				shape: param.NucleusShapeB.Value,
+				nucleonNumber: param.NucleonNumberB.Value,
+				protonNumber: param.ProtonNumberB.Value,
+				nuclearRadiusFm: param.NuclearRadiusBFm.Value,
+				diffusenessFm: param.DiffusenessBFm.Value);
 		}
 
 		/********************************************************************************************
@@ -46,8 +46,8 @@ namespace Yburn.Fireball
 
 		private static Nucleus CreateNucleus(
 			NucleusShape shape,
-			int nucleonNumber,
-			int protonNumber,
+			uint nucleonNumber,
+			uint protonNumber,
 			double nuclearRadiusFm,
 			double diffusenessFm
 			)
@@ -83,8 +83,8 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		protected Nucleus(
-			int nucleonNumber,
-			int protonNumber,
+			uint nucleonNumber,
+			uint protonNumber,
 			double nuclearRadiusFm,
 			double normalizingConstantFm3
 			)
@@ -101,9 +101,9 @@ namespace Yburn.Fireball
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public readonly int NucleonNumber;
+		public readonly uint NucleonNumber;
 
-		public readonly int ProtonNumber;
+		public readonly uint ProtonNumber;
 
 		public readonly double NuclearRadiusFm;
 
@@ -145,14 +145,6 @@ namespace Yburn.Fireball
 
 		private void AssertValidMembers()
 		{
-			if(NucleonNumber <= 0)
-			{
-				throw new Exception("NucleonNumber <= 0.");
-			}
-			if(ProtonNumber <= 0)
-			{
-				throw new Exception("ProtonNumber <= 0.");
-			}
 			if(NuclearRadiusFm <= 0)
 			{
 				throw new Exception("NuclearRadius <= 0.");
@@ -189,8 +181,8 @@ namespace Yburn.Fireball
 			 ****************************************************************************************/
 
 			public GaussianNucleus(
-				int nucleonNumber,
-				int protonNumber,
+				uint nucleonNumber,
+				uint protonNumber,
 				double nuclearRadiusFm
 				) : base(
 					nucleonNumber: nucleonNumber,
@@ -229,8 +221,8 @@ namespace Yburn.Fireball
 			 ****************************************************************************************/
 
 			public WoodsSaxonNucleus(
-				int nucleonNumber,
-				int protonNumber,
+				uint nucleonNumber,
+				uint protonNumber,
 				double nuclearRadiusFm,
 				double diffusenessFm
 				) : base(

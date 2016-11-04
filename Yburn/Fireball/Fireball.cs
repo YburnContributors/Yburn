@@ -21,7 +21,7 @@ namespace Yburn.Fireball
 			// The initial step should change the temperature by 1/3 percent for pure Bjorken flow
 			// (which is the case in the initial stages)
 			TimeFactor = 1e-2;
-			CurrentTime = Param.ThermalTimeFm;
+			CurrentTime = Param.ThermalTimeFm.Value;
 			TimeStep = CurrentTime * TimeFactor; //  = 3 * DeltaT(tF)/T(tF) * tF
 
 			AssertValidMembers();
@@ -44,8 +44,8 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				return Param.ThermalTimeFm * Math.Pow(Param.InitialMaximumTemperatureMeV
-					/ Param.BreakupTemperatureMeV, 3);
+				return Param.ThermalTimeFm.Value * Math.Pow(Param.InitialMaximumTemperatureMeV.Value
+					/ Param.BreakupTemperatureMeV.Value, 3);
 			}
 		}
 
@@ -171,13 +171,13 @@ namespace Yburn.Fireball
 			if(Param.AreNucleusABIdentical)
 			{
 				// include a factor of 4 because only a quarter has been integrated
-				return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm
+				return 4 * Param.GridCellSizeFm.Value * Param.GridCellSizeFm.Value
 					* field.TrapezoidalRuleSummedValues();
 			}
 			else
 			{
 				// include a factor of 2 because only a half has been integrated
-				return 2 * Param.GridCellSizeFm * Param.GridCellSizeFm
+				return 2 * Param.GridCellSizeFm.Value * Param.GridCellSizeFm.Value
 					* field.TrapezoidalRuleSummedValues();
 			}
 		}
@@ -251,14 +251,14 @@ namespace Yburn.Fireball
 			if(Param.AreNucleusABIdentical)
 			{
 				// include a factor of 4 because only a quarter has been integrated
-				CollisionInQGP *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
-				CollisionsInHadronicRegion *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
+				CollisionInQGP *= 4 * Param.GridCellSizeFm.Value * Param.GridCellSizeFm.Value;
+				CollisionsInHadronicRegion *= 4 * Param.GridCellSizeFm.Value * Param.GridCellSizeFm.Value;
 			}
 			else
 			{
 				// include a factor of 2 because only a half has been integrated
-				CollisionInQGP *= 2 * Param.GridCellSizeFm * Param.GridCellSizeFm;
-				CollisionsInHadronicRegion *= 2 * Param.GridCellSizeFm * Param.GridCellSizeFm;
+				CollisionInQGP *= 2 * Param.GridCellSizeFm.Value * Param.GridCellSizeFm.Value;
+				CollisionsInHadronicRegion *= 2 * Param.GridCellSizeFm.Value * Param.GridCellSizeFm.Value;
 			}
 		}
 
@@ -425,8 +425,8 @@ namespace Yburn.Fireball
 
 		private void InitXY()
 		{
-			X = Param.GenerateDiscreteXAxis();
-			Y = Param.GenerateDiscreteYAxis();
+			X = Param.GenerateDiscreteXAxis().ToArray();
+			Y = Param.GenerateDiscreteYAxis().ToArray();
 		}
 
 		private void InitTemperature()
@@ -435,13 +435,13 @@ namespace Yburn.Fireball
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
 				GlauberCalculation.TemperatureScalingField,
-				Param.InitialMaximumTemperatureMeV,
-				Param.ThermalTimeFm,
+				Param.InitialMaximumTemperatureMeV.Value,
+				Param.ThermalTimeFm.Value,
 				CurrentTime);
 
 			if(Param.ExpansionMode == ExpansionMode.Transverse)
 			{
-				Solver = new Ftexs(Param.GridCellSizeFm, CurrentTime, 0.25,
+				Solver = new Ftexs(Param.GridCellSizeFm.Value, CurrentTime, 0.25,
 					Temperature.GetDiscreteValues(), VX.GetDiscreteValues(), VY.GetDiscreteValues());
 			}
 

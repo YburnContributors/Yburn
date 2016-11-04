@@ -17,47 +17,195 @@ namespace Yburn.Fireball
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
+		public uint? NucleonNumberA
+		{
+			get; set;
+		}
+
+		public uint? ProtonNumberA
+		{
+			get; set;
+		}
+
+		public double? DiffusenessAFm
+		{
+			get; set;
+		}
+
+		public double? NuclearRadiusAFm
+		{
+			get; set;
+		}
+
+		public uint? NucleonNumberB
+		{
+			get; set;
+		}
+
+		public uint? ProtonNumberB
+		{
+			get; set;
+		}
+
+		public double? DiffusenessBFm
+		{
+			get; set;
+		}
+
+		public double? NuclearRadiusBFm
+		{
+			get; set;
+		}
+
+		public double? GridCellSizeFm
+		{
+			get; set;
+		}
+
+		public double? GridRadiusFm
+		{
+			get; set;
+		}
+
+		public double? ImpactParameterFm
+		{
+			get; set;
+		}
+
+		public double? ThermalTimeFm
+		{
+			get; set;
+		}
+
+		public List<double> FormationTimesFm
+		{
+			get
+			{
+				if(FormationTimesFm_Internal == null)
+				{
+					return null;
+				}
+				else
+				{
+					return new List<double>(FormationTimesFm_Internal);
+				}
+			}
+			set
+			{
+				if(value == null)
+				{
+					FormationTimesFm_Internal = null;
+				}
+				else
+				{
+					FormationTimesFm_Internal = new List<double>(value);
+				}
+			}
+		}
+
+		public double? InitialMaximumTemperatureMeV
+		{
+			get; set;
+		}
+
+		public double? BreakupTemperatureMeV
+		{
+			get; set;
+		}
+
+		public double? BeamRapidity
+		{
+			get; set;
+		}
+
+		public List<double> TransverseMomentaGeV
+		{
+			get
+			{
+				if(TransverseMomentaGeV_Internal == null)
+				{
+					return null;
+				}
+				else
+				{
+					return new List<double>(TransverseMomentaGeV_Internal);
+				}
+			}
+			set
+			{
+				if(value == null)
+				{
+					TransverseMomentaGeV_Internal = null;
+				}
+				else
+				{
+					TransverseMomentaGeV_Internal = new List<double>(value);
+				}
+			}
+		}
+
+		public ExpansionMode? ExpansionMode
+		{
+			get; set;
+		}
+
+		// initial transverse distribution of temperature
+		public TemperatureProfile? TemperatureProfile
+		{
+			get; set;
+		}
+
+		public double? QGPConductivityMeV
+		{
+			get; set;
+		}
+
+		public EMFCalculationMethod? EMFCalculationMethod
+		{
+			get; set;
+		}
+
+		public NucleusShape? NucleusShapeA
+		{
+			get; set;
+		}
+
+		public NucleusShape? NucleusShapeB
+		{
+			get; set;
+		}
+
+		public ProtonProtonBaseline? ProtonProtonBaseline
+		{
+			get; set;
+		}
+
+		public DecayWidthRetrievalFunction DecayWidthRetrievalFunction
+		{
+			get; set;
+		}
+
 		public bool AreNucleusABIdentical
 		{
 			get
 			{
-				return NucleusShapeA == NucleusShapeB
-					& NucleonNumberA == NucleonNumberB
-					& ProtonNumberA == ProtonNumberB
-					& NuclearRadiusAFm == NuclearRadiusBFm
-					& DiffusenessAFm == DiffusenessBFm;
+				return NucleusShapeA.Value == NucleusShapeB.Value
+					& NucleonNumberA.Value == NucleonNumberB.Value
+					& ProtonNumberA.Value == ProtonNumberB.Value
+					& NuclearRadiusAFm.Value == NuclearRadiusBFm.Value
+					& DiffusenessAFm.Value == DiffusenessBFm.Value;
 			}
 		}
-
-		public int NucleonNumberA;
-
-		public int ProtonNumberA;
-
-		public double DiffusenessAFm;
-
-		public double NuclearRadiusAFm;
-
-		public int NucleonNumberB;
-
-		public int ProtonNumberB;
-
-		public double DiffusenessBFm;
-
-		public double NuclearRadiusBFm;
-
-		public double GridCellSizeFm;
-
-		public double GridRadiusFm;
 
 		public int NumberGridPoints
 		{
 			get
 			{
-				return Convert.ToInt32(Math.Round(GridRadiusFm / GridCellSizeFm)) + 1;
+				return Convert.ToInt32(Math.Round(GridRadiusFm.Value / GridCellSizeFm.Value)) + 1;
 			}
 			set
 			{
-				GridRadiusFm = (value - 1) * GridCellSizeFm;
+				GridRadiusFm = (value - 1) * GridCellSizeFm.Value;
 			}
 		}
 
@@ -83,37 +231,6 @@ namespace Yburn.Fireball
 				return NumberGridPoints;
 			}
 		}
-
-		public double ImpactParameterFm;
-
-		public double ThermalTimeFm;
-
-		public List<double> FormationTimesFm;
-
-		public double InitialMaximumTemperatureMeV;
-
-		public double BreakupTemperatureMeV;
-
-		public double BeamRapidity;
-
-		public List<double> TransverseMomentaGeV;
-
-		public ExpansionMode ExpansionMode;
-
-		// initial transverse distribution of temperature
-		public TemperatureProfile TemperatureProfile;
-
-		public double QGPConductivityMeV;
-
-		public EMFCalculationMethod EMFCalculationMethod;
-
-		public NucleusShape NucleusShapeA;
-
-		public NucleusShape NucleusShapeB;
-
-		public ProtonProtonBaseline ProtonProtonBaseline;
-
-		public DecayWidthRetrievalFunction DecayWidthRetrievalFunction;
 
 		public FireballParam Clone()
 		{
@@ -148,38 +265,46 @@ namespace Yburn.Fireball
 			return param;
 		}
 
-		public double[] GenerateDiscreteXAxis()
+		public List<double> GenerateDiscreteXAxis()
 		{
-			double[] x = new double[NumberGridPointsInX];
+			List<double> x = new List<double>();
 
 			if(AreNucleusABIdentical)
 			{
-				for(int i = 0; i < x.Length; i++)
+				for(int i = 0; i < NumberGridPointsInX; i++)
 				{
-					x[i] = GridCellSizeFm * i;
+					x.Add(GridCellSizeFm.Value * i);
 				}
 			}
 			else
 			{
-				for(int i = 0; i < x.Length; i++)
+				for(int i = 0; i < NumberGridPointsInX; i++)
 				{
-					x[i] = GridCellSizeFm * (i + 1 - NumberGridPoints);
+					x.Add(GridCellSizeFm.Value * (i + 1 - NumberGridPoints));
 				}
 			}
 
 			return x;
 		}
 
-		public double[] GenerateDiscreteYAxis()
+		public List<double> GenerateDiscreteYAxis()
 		{
-			double[] y = new double[NumberGridPointsInY];
+			List<double> y = new List<double>();
 
-			for(int i = 0; i < y.Length; i++)
+			for(int i = 0; i < NumberGridPointsInY; i++)
 			{
-				y[i] = GridCellSizeFm * i;
+				y.Add(GridCellSizeFm.Value * i);
 			}
 
 			return y;
 		}
+
+		/********************************************************************************************
+		 * Private/protected members, functions and properties
+		 ********************************************************************************************/
+
+		private List<double> FormationTimesFm_Internal;
+
+		private List<double> TransverseMomentaGeV_Internal;
 	}
 }

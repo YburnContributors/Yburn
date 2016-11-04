@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
@@ -28,14 +29,14 @@ namespace Yburn.Fireball
 			GlauberCalculation glauber = new GlauberCalculation(Param);
 			FireballElectromagneticField emf = new FireballElectromagneticField(Param);
 
-			double[] x = Param.GenerateDiscreteXAxis();
-			double[] y = Param.GenerateDiscreteYAxis();
-			double mediumExpanseFm = Math.Tanh(Param.BeamRapidity) * timeFm;
+			List<double> x = Param.GenerateDiscreteXAxis();
+			List<double> y = Param.GenerateDiscreteYAxis();
+			double mediumExpanseFm = Math.Tanh(Param.BeamRapidity.Value) * timeFm;
 
-			double[,] fieldStrengthColumnDensityValuesPerFm2 = new double[x.Length, y.Length];
-			for(int i = 0; i < x.Length; i++)
+			double[,] fieldStrengthColumnDensityValuesPerFm2 = new double[x.Count, y.Count];
+			for(int i = 0; i < x.Count; i++)
 			{
-				for(int j = 0; j < y.Length; j++)
+				for(int j = 0; j < y.Count; j++)
 				{
 					Func<double, double> integrand = z => emf.CalculateElectricFieldPerFm2(
 						timeFm, x[i], y[j], z, quadratureOrder).Norm;
@@ -64,13 +65,13 @@ namespace Yburn.Fireball
 			GlauberCalculation glauber = new GlauberCalculation(Param);
 			FireballElectromagneticField emf = new FireballElectromagneticField(Param);
 
-			double[] x = Param.GenerateDiscreteXAxis();
-			double[] y = Param.GenerateDiscreteYAxis();
+			List<double> x = Param.GenerateDiscreteXAxis();
+			List<double> y = Param.GenerateDiscreteYAxis();
 
-			double[,] fieldStrengthColumnDensityValuesPerFm2 = new double[x.Length, y.Length];
-			for(int i = 0; i < x.Length; i++)
+			double[,] fieldStrengthColumnDensityValuesPerFm2 = new double[x.Count, y.Count];
+			for(int i = 0; i < x.Count; i++)
 			{
-				for(int j = 0; j < y.Length; j++)
+				for(int j = 0; j < y.Count; j++)
 				{
 					Func<double, double> integrand = rapidity => emf.CalculateElectricFieldPerFm2_LCF(
 							properTimeFm, x[i], y[j], rapidity, quadratureOrder).Norm
@@ -99,14 +100,14 @@ namespace Yburn.Fireball
 			GlauberCalculation glauber = new GlauberCalculation(Param);
 			FireballElectromagneticField emf = new FireballElectromagneticField(Param);
 
-			double[] x = Param.GenerateDiscreteXAxis();
-			double[] y = Param.GenerateDiscreteYAxis();
-			double mediumExpanseFm = Math.Tanh(Param.BeamRapidity) * timeFm;
+			List<double> x = Param.GenerateDiscreteXAxis();
+			List<double> y = Param.GenerateDiscreteYAxis();
+			double mediumExpanseFm = Math.Tanh(Param.BeamRapidity.Value) * timeFm;
 
-			double[,] fieldStrengthColumnDensityValuesPerFm2 = new double[x.Length, y.Length];
-			for(int i = 0; i < x.Length; i++)
+			double[,] fieldStrengthColumnDensityValuesPerFm2 = new double[x.Count, y.Count];
+			for(int i = 0; i < x.Count; i++)
 			{
-				for(int j = 0; j < y.Length; j++)
+				for(int j = 0; j < y.Count; j++)
 				{
 					Func<double, double> integrand = z => emf.CalculateMagneticFieldPerFm2(
 						timeFm, x[i], y[j], z, quadratureOrder).Norm;
@@ -135,13 +136,13 @@ namespace Yburn.Fireball
 			GlauberCalculation glauber = new GlauberCalculation(Param);
 			FireballElectromagneticField emf = new FireballElectromagneticField(Param);
 
-			double[] x = Param.GenerateDiscreteXAxis();
-			double[] y = Param.GenerateDiscreteYAxis();
+			List<double> x = Param.GenerateDiscreteXAxis();
+			List<double> y = Param.GenerateDiscreteYAxis();
 
-			double[,] fieldStrengthColumnDensityValuesPerFm2 = new double[x.Length, y.Length];
-			for(int i = 0; i < x.Length; i++)
+			double[,] fieldStrengthColumnDensityValuesPerFm2 = new double[x.Count, y.Count];
+			for(int i = 0; i < x.Count; i++)
 			{
-				for(int j = 0; j < y.Length; j++)
+				for(int j = 0; j < y.Count; j++)
 				{
 					Func<double, double> integrand = rapidity => emf.CalculateMagneticFieldPerFm2_LCF(
 							properTimeFm, x[i], y[j], rapidity, quadratureOrder).Norm

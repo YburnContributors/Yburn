@@ -52,6 +52,8 @@ namespace Yburn.Fireball.Tests
 			param.NucleonNumberB = 208;
 			param.NuclearRadiusAFm = 6.62;
 			param.NuclearRadiusBFm = 6.62;
+			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
+			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
 			param.ProtonNumberA = 82;
 			param.ProtonNumberB = 82;
 			param.ImpactParameterFm = 7.0;
@@ -72,9 +74,9 @@ namespace Yburn.Fireball.Tests
 			Nucleus.CreateNucleusPair(param, out nucleusA, out nucleusB);
 
 			NucleusElectromagneticField emf = new NucleusElectromagneticField(
-				param.EMFCalculationMethod,
-				param.QGPConductivityMeV,
-				param.BeamRapidity,
+				param.EMFCalculationMethod.Value,
+				param.QGPConductivityMeV.Value,
+				param.BeamRapidity.Value,
 				nucleusA);
 
 			SpatialVector[] fieldValues = new SpatialVector[Positions.Length];

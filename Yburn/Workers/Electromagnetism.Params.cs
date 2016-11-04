@@ -87,15 +87,15 @@ namespace Yburn.Workers
 
 		private double NuclearRadiusBFm;
 
-		private int NucleonNumberA;
+		private uint NucleonNumberA;
 
-		private int NucleonNumberB;
+		private uint NucleonNumberB;
 
 		private double PointChargeRapidity;
 
-		private int ProtonNumberA;
+		private uint ProtonNumberA;
 
-		private int ProtonNumberB;
+		private uint ProtonNumberB;
 
 		private int QuadratureOrder;
 

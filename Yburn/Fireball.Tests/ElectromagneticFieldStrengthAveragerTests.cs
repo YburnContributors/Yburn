@@ -71,11 +71,13 @@ namespace Yburn.Fireball.Tests
 			param.NuclearRadiusBFm = 6.62;
 			param.NucleonNumberA = 208;
 			param.NucleonNumberB = 208;
-			param.ProtonNumberA = 82;
-			param.ProtonNumberB = 82;
-			param.QGPConductivityMeV = 5.8;
 			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
 			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
+			param.ProtonNumberA = 82;
+			param.ProtonNumberB = 82;
+			param.ProtonProtonBaseline = ProtonProtonBaseline.CMS2012;
+			param.QGPConductivityMeV = 5.8;
+			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 
 			return param;
 		}

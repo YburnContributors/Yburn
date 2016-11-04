@@ -58,6 +58,7 @@ namespace Yburn.Fireball.Tests
 			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
 			param.ProtonNumberA = 82;
 			param.ProtonNumberB = 82;
+			param.ProtonProtonBaseline = ProtonProtonBaseline.CMS2012;
 			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 			param.ThermalTimeFm = 0.1;
 			param.TransverseMomentaGeV = new List<double> { 6 };

@@ -16,8 +16,8 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public FireballDecayWidthField(
-			double[] xPosition,
-			double[] yPosition,
+			double[] xPositions,
+			double[] yPositions,
 			List<double> transverseMomenta,
 			FireballTemperatureField temperature,
 			SimpleFireballField vx,
@@ -26,11 +26,11 @@ namespace Yburn.Fireball
 			double initialTime,
 			DecayWidthRetrievalFunction decayWidthFunction
 			)
-			: base(FireballFieldType.DecayWidth, xPosition.Length, yPosition.Length,
+			: base(FireballFieldType.DecayWidth, xPositions.Length, yPositions.Length,
 				  transverseMomenta.Count)
 		{
-			X = xPosition;
-			Y = yPosition;
+			X = xPositions;
+			Y = yPositions;
 			TransverseMomenta = transverseMomenta;
 			Temperature = temperature;
 			VX = vx;

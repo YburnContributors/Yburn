@@ -146,9 +146,9 @@ namespace Yburn.Workers
 
 		private double NuclearRadiusB;
 
-		private int NucleonNumberA;
+		private uint NucleonNumberA;
 
-		private int NucleonNumberB;
+		private uint NucleonNumberB;
 
 		private List<List<double>> ParticipantsAtBinBoundaries = new List<List<double>>();
 
@@ -156,9 +156,9 @@ namespace Yburn.Workers
 
 		private ProtonProtonBaseline ProtonProtonBaseline;
 
-		private int ProtonNumberA;
+		private uint ProtonNumberA;
 
-		private int ProtonNumberB;
+		private uint ProtonNumberB;
 
 		private double QGPFormationTemperature;
 

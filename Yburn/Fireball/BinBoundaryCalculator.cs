@@ -146,7 +146,7 @@ namespace Yburn.Fireball
 					break;
 				}
 
-				ImpactParams.Add(step * FireballParam.GridCellSizeFm);
+				ImpactParams.Add(step * FireballParam.GridCellSizeFm.Value);
 				GetValuesFromFireball(ImpactParams[step]);
 
 				step++;
@@ -195,7 +195,7 @@ namespace Yburn.Fireball
 			npart = calc.GetTotalNumberParticipants();
 
 			dsigmadb = 2 * Math.PI * impactParam * (1.0 - Math.Exp(-ncoll));
-			sigma = param.GridCellSizeFm * dsigmadb;
+			sigma = param.GridCellSizeFm.Value * dsigmadb;
 			if(Sigmas.Count > 0)
 			{
 				sigma += Sigmas[Sigmas.Count - 1];
@@ -237,7 +237,7 @@ namespace Yburn.Fireball
 				for(int binIndex = 0; binIndex < NumberCentralityBins[binGroupIndex] + 1; binIndex++)
 				{
 					int i = GetLastIndexBeforeBin(binGroupIndex, binIndex);
-					ImpactParamsAtBinBoundaries.Last().Add(i * FireballParam.GridCellSizeFm);
+					ImpactParamsAtBinBoundaries.Last().Add(i * FireballParam.GridCellSizeFm.Value);
 					ParticipantsAtBinBoundaries.Last().Add(Nparts[i]);
 				}
 			}
