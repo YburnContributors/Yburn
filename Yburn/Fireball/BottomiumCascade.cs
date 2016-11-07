@@ -1,10 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
-	public static class BottomiumCascade
+	public class BottomiumCascade
 	{
 		/********************************************************************************************
 		 * Public static members, functions and properties
@@ -13,7 +14,7 @@ namespace Yburn.Fireball
 		public static BottomiumCascadeMatrix CalculateBranchingRatioMatrix()
 		{
 			// Branching ratio B(X->Y) have non-zero values if the masses X,Y satisfy X > Y.
-			BottomiumCascadeMatrix bMatrix = BottomiumCascadeMatrix.CreateEmptyMatrix();
+			BottomiumCascadeMatrix bMatrix = new BottomiumCascadeMatrix();
 
 			bMatrix[BottomiumState.Y1S, BottomiumState.x1P] = Constants.B1P1S;
 			bMatrix[BottomiumState.Y1S, BottomiumState.Y2S] = Constants.B2S1S;
@@ -83,7 +84,7 @@ namespace Yburn.Fireball
 
 		public static BottomiumCascadeMatrix CalculateInverseCumulativeMatrix()
 		{
-			BottomiumCascadeMatrix inverseCMatrix = BottomiumCascadeMatrix.CreateEmptyMatrix();
+			BottomiumCascadeMatrix inverseCMatrix = new BottomiumCascadeMatrix();
 			BottomiumCascadeMatrix bMatrix = CalculateBranchingRatioMatrix();
 
 			foreach(BottomiumState i in Enum.GetValues(typeof(BottomiumState)))
@@ -111,7 +112,7 @@ namespace Yburn.Fireball
 
 		public static BottomiumCascadeMatrix CalculateDimuonDecayMatrix()
 		{
-			BottomiumCascadeMatrix dMatrix = BottomiumCascadeMatrix.CreateEmptyMatrix();
+			BottomiumCascadeMatrix dMatrix = new BottomiumCascadeMatrix();
 
 			dMatrix[BottomiumState.Y1S, BottomiumState.Y1S] = Constants.B1Smu;
 			dMatrix[BottomiumState.x1P, BottomiumState.x1P] = Constants.B1Smu * Constants.B1P1S;
@@ -125,86 +126,89 @@ namespace Yburn.Fireball
 
 		public static BottomiumCascadeMatrix CalculateInverseDimuonDecayMatrix()
 		{
-			BottomiumCascadeMatrix inverseDMatrix = BottomiumCascadeMatrix.CreateEmptyMatrix();
+			BottomiumCascadeMatrix inverseDMatrix = new BottomiumCascadeMatrix();
 
-			inverseDMatrix[BottomiumState.Y1S, BottomiumState.Y1S] = 1.0 / Constants.B1Smu;
-			inverseDMatrix[BottomiumState.x1P, BottomiumState.x1P] = 1.0 / (Constants.B1Smu * Constants.B1P1S);
-			inverseDMatrix[BottomiumState.Y2S, BottomiumState.Y2S] = 1.0 / Constants.B2Smu;
-			inverseDMatrix[BottomiumState.x2P, BottomiumState.x2P] = 1.0 / (Constants.B1Smu * Constants.B2P1S);
-			inverseDMatrix[BottomiumState.Y3S, BottomiumState.Y3S] = 1.0 / Constants.B3Smu;
-			inverseDMatrix[BottomiumState.x3P, BottomiumState.x3P] = 1.0 / (Constants.B1Smu * Constants.B3P1S);
+			inverseDMatrix[BottomiumState.Y1S, BottomiumState.Y1S]
+				= 1.0 / Constants.B1Smu;
+			inverseDMatrix[BottomiumState.x1P, BottomiumState.x1P]
+				= 1.0 / (Constants.B1Smu * Constants.B1P1S);
+			inverseDMatrix[BottomiumState.Y2S, BottomiumState.Y2S]
+				= 1.0 / Constants.B2Smu;
+			inverseDMatrix[BottomiumState.x2P, BottomiumState.x2P]
+				= 1.0 / (Constants.B1Smu * Constants.B2P1S);
+			inverseDMatrix[BottomiumState.Y3S, BottomiumState.Y3S]
+				= 1.0 / Constants.B3Smu;
+			inverseDMatrix[BottomiumState.x3P, BottomiumState.x3P]
+				= 1.0 / (Constants.B1Smu * Constants.B3P1S);
 
 			return inverseDMatrix;
 		}
 
-		public static BottomiumVector CalculateDimuonDecays(
-			ProtonProtonBaseline ppBaseline,
-			double feedDown3P,
+		/********************************************************************************************
+		 * Private/protected static members, functions and properties
+		 ********************************************************************************************/
+
+		private static int BottomiumStatesCount
+		{
+			get
+			{
+				return Enum.GetValues(typeof(BottomiumState)).Length;
+			}
+		}
+
+		/********************************************************************************************
+		 * Constructors
+		 ********************************************************************************************/
+
+		public BottomiumCascade(
+			Dictionary<BottomiumState, double> dimuonDecaysFromPP
+			)
+		{
+			DimuonDecaysFromPP = new BottomiumVector(dimuonDecaysFromPP);
+		}
+
+		/********************************************************************************************
+		 * Public members, functions and properties
+		 ********************************************************************************************/
+
+		public BottomiumVector GetNormalizedProtonProtonDimuonDecays()
+		{
+			return DimuonDecaysFromPP / DimuonDecaysFromPP[BottomiumState.Y1S];
+		}
+
+		public string GetNormalizedProtonProtonDimuonDecaysString()
+		{
+			return GetNormalizedProtonProtonDimuonDecays()
+				.GetVectorString(description: "N^f_pp,nl/N^f_pp,1S");
+		}
+
+		public BottomiumVector CalculateDimuonDecays(
 			BottomiumVector qgpSuppressionFactors
 			)
 		{
 			BottomiumCascadeMatrix cMatrix = CalculateCumulativeMatrix();
-			BottomiumCascadeMatrix dMatrix = CalculateDimuonDecayMatrix();
-			BottomiumVector reducedPops = CalculateReducedInitialQQPopulations(
-				ppBaseline, feedDown3P, qgpSuppressionFactors);
+			BottomiumVector reducedPops = CalculateReducedInitialQQPopulations(qgpSuppressionFactors);
 
 			BottomiumVector tmpPop = cMatrix * reducedPops;
+
+			BottomiumCascadeMatrix dMatrix = CalculateDimuonDecayMatrix();
 
 			return dMatrix * tmpPop;
 		}
 
-		private static BottomiumVector CalculateReducedInitialQQPopulations(
-			ProtonProtonBaseline ppBaseline,
-			double feedDown3P,
-			BottomiumVector qgpSuppressionFactors
-			)
-		{
-			BottomiumVector initialPops = CalculateInitialQQPopulations(ppBaseline, feedDown3P);
-
-			BottomiumCascadeMatrix qgpSuppressionMatrix =
-				BottomiumCascadeMatrix.CreateDiagonalMatrix(qgpSuppressionFactors);
-
-			return qgpSuppressionMatrix * initialPops;
-		}
-
-		public static BottomiumVector CalculateInitialQQPopulations(
-			ProtonProtonBaseline ppBaseline,
-			double feedDown3P
-			)
+		public BottomiumVector CalculateInitialQQPopulations()
 		{
 			BottomiumCascadeMatrix inverseCMatrix = CalculateInverseCumulativeMatrix();
-			BottomiumVector popsBeforeMuonDecay =
-				CalculateppPopulationsBeforeMuonDecay(ppBaseline, feedDown3P);
+			BottomiumVector popsBeforeMuonDecay = CalculateppPopulationsBeforeMuonDecay();
 
 			return inverseCMatrix * popsBeforeMuonDecay;
 		}
 
-		public static BottomiumVector CalculateInitialQQPopulationsWithDimuonBranchingRatiosIncluded(
-			ProtonProtonBaseline ppBaseline,
-			double feedDown3P
-			)
+		public string GetInitialQQPopulationsString()
 		{
-			BottomiumVector initialPops = CalculateInitialQQPopulations(ppBaseline, feedDown3P);
-
-			initialPops[BottomiumState.Y1S] *= Constants.B1Smu;
-			initialPops[BottomiumState.x1P] *= Constants.B1Smu;
-			initialPops[BottomiumState.Y2S] *= Constants.B2Smu;
-			initialPops[BottomiumState.x2P] *= Constants.B2Smu;
-			initialPops[BottomiumState.Y3S] *= Constants.B3Smu;
-			initialPops[BottomiumState.x3P] *= Constants.B3Smu;
-
-			return initialPops;
-		}
-
-		public static string GetInitialQQPopulationsString(
-			ProtonProtonBaseline ppBaseline,
-			double feedDown3P
-			)
-		{
-			BottomiumVector initialPops = CalculateInitialQQPopulations(ppBaseline, feedDown3P);
-			BottomiumVector initialPopsBR =
-				CalculateInitialQQPopulationsWithDimuonBranchingRatiosIncluded(
-					ppBaseline, feedDown3P);
+			BottomiumVector initialPops = CalculateInitialQQPopulations();
+			BottomiumVector initialPopsBR
+				= CalculateInitialQQPopulationsWithDimuonBranchingRatiosIncluded();
 
 			string[] initialPopsRows = initialPops
 				.GetVectorString(description: "", extractGammaTot3P: true)
@@ -229,50 +233,28 @@ namespace Yburn.Fireball
 				new string[] { "N^i_AA,nl/N^f_pp,1S/B(nS→µ±)", "N^i_AA,nl/N^f_pp,1S" });
 		}
 
-		public static BottomiumVector GetProtonProtonDimuonDecays(
-			ProtonProtonBaseline ppBaseline,
-			double feedDown3P
-			)
+		public BottomiumVector CalculateInitialQQPopulationsWithDimuonBranchingRatiosIncluded()
 		{
-			BottomiumVector decays = BottomiumVector.CreateEmptyVector();
-			switch(ppBaseline)
-			{
-				case ProtonProtonBaseline.CMS2012:
-				case ProtonProtonBaseline.Estimate502TeV:
-					decays[BottomiumState.Y1S] = Constants.ProtonProtonDimuonDecaysY1S;
-					decays[BottomiumState.x1P] = Constants.ProtonProtonDimuonDecaysx1P;
-					decays[BottomiumState.Y2S] = Constants.ProtonProtonDimuonDecaysY2S;
-					decays[BottomiumState.x2P] = Constants.ProtonProtonDimuonDecaysx2P;
-					decays[BottomiumState.Y3S] = Constants.ProtonProtonDimuonDecaysY3S;
-					decays[BottomiumState.x3P] = feedDown3P;
-					break;
+			BottomiumVector initialPops = CalculateInitialQQPopulations();
 
-				default:
-					throw new Exception("Invalid Baseline.");
-			}
+			initialPops[BottomiumState.Y1S] *= Constants.B1Smu;
+			initialPops[BottomiumState.x1P] *= Constants.B1Smu;
+			initialPops[BottomiumState.Y2S] *= Constants.B2Smu;
+			initialPops[BottomiumState.x2P] *= Constants.B2Smu;
+			initialPops[BottomiumState.Y3S] *= Constants.B3Smu;
+			initialPops[BottomiumState.x3P] *= Constants.B3Smu;
 
-			return decays;
+			return initialPops;
 		}
 
-		public static string GetProtonProtonDimuonDecaysString(
-			ProtonProtonBaseline ppBaseline,
-			double feedDown3P
-			)
+		public BottomiumVector CalculateY1SFeedDownFractions()
 		{
-			return GetProtonProtonDimuonDecays(ppBaseline, feedDown3P)
-				.GetVectorString(description: "N^f_pp,nl/N^f_pp,1S");
-		}
-
-		public static BottomiumVector CalculateY1SFeedDownFractions(
-			ProtonProtonBaseline ppBaseline,
-			double feedDown3P
-			)
-		{
-			BottomiumVector initialPops = CalculateInitialQQPopulations(ppBaseline, feedDown3P);
-			BottomiumCascadeMatrix bMatrix = CalculateBranchingRatioMatrix();
+			BottomiumVector initialPops = CalculateInitialQQPopulations();
 			BottomiumCascadeMatrix cMatrix = CalculateCumulativeMatrix();
 
 			BottomiumVector tmpPops = cMatrix * initialPops;
+
+			BottomiumCascadeMatrix bMatrix = CalculateBranchingRatioMatrix();
 			foreach(BottomiumState i in Enum.GetValues(typeof(BottomiumState)))
 			{
 				tmpPops[i] *= Constants.B1Smu * bMatrix[BottomiumState.Y1S, i];
@@ -282,36 +264,34 @@ namespace Yburn.Fireball
 			return tmpPops;
 		}
 
-		public static string GetY1SFeedDownFractionsString(
-			ProtonProtonBaseline ppBaseline,
-			double feedDown3P
-			)
+		public string GetY1SFeedDownFractionsString()
 		{
-			return CalculateY1SFeedDownFractions(ppBaseline, feedDown3P)
+			return CalculateY1SFeedDownFractions()
 				.GetVectorString(description: "Fraction");
 		}
 
 		/********************************************************************************************
-		 * Private/protected static members, functions and properties
+		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private static int BottomiumStatesCount
-		{
-			get
-			{
-				return Enum.GetValues(typeof(BottomiumState)).Length;
-			}
-		}
+		private readonly BottomiumVector DimuonDecaysFromPP;
 
-		private static BottomiumVector CalculateppPopulationsBeforeMuonDecay(
-			ProtonProtonBaseline ppBaseline,
-			double feedDown3P
+		private BottomiumVector CalculateReducedInitialQQPopulations(
+			BottomiumVector qgpSuppressionFactors
 			)
 		{
-			BottomiumVector ppDimuonDecays =
-				GetProtonProtonDimuonDecays(ppBaseline, feedDown3P);
-			BottomiumCascadeMatrix inverseDMatrix =
-				CalculateInverseDimuonDecayMatrix();
+			BottomiumVector initialPops = CalculateInitialQQPopulations();
+
+			BottomiumCascadeMatrix qgpSuppressionMatrix
+				= BottomiumCascadeMatrix.CreateDiagonalMatrix(qgpSuppressionFactors);
+
+			return qgpSuppressionMatrix * initialPops;
+		}
+
+		private BottomiumVector CalculateppPopulationsBeforeMuonDecay()
+		{
+			BottomiumVector ppDimuonDecays = GetNormalizedProtonProtonDimuonDecays();
+			BottomiumCascadeMatrix inverseDMatrix = CalculateInverseDimuonDecayMatrix();
 
 			return inverseDMatrix * ppDimuonDecays;
 		}

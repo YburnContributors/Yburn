@@ -87,9 +87,9 @@ namespace Yburn.Fireball.Tests
 			param.BreakupTemperatureMeV = 160;
 			param.DiffusenessAFm = 0.546;
 			param.DiffusenessBFm = 0.546;
-			param.FormationTimesFm = new List<double> { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
 			param.GridCellSizeFm = GridCellSize;
 			param.GridRadiusFm = GridRadiusFm;
+			param.InelasticppCrossSectionFm = 6.4;
 			param.InitialMaximumTemperatureMeV = 550;
 			param.NuclearRadiusAFm = 6.62;
 			param.NuclearRadiusBFm = 6.62;
@@ -99,7 +99,6 @@ namespace Yburn.Fireball.Tests
 			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
 			param.ProtonNumberA = 82;
 			param.ProtonNumberB = 82;
-			param.ProtonProtonBaseline = ProtonProtonBaseline.CMS2012;
 			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 
 			return param;

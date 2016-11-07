@@ -113,14 +113,15 @@ namespace Yburn.TestUtil
 				nameValuePairs["DecayWidthType"] = "GammaTot";
 				nameValuePairs["DiffusenessA"] = "3333";
 				nameValuePairs["DiffusenessB"] = "3333";
+				nameValuePairs["DimuonDecaysFromPP"] = "Y1S:3,x1P:3,Y2S:3,x2P:3,Y3S:3,x3P:3";
 				nameValuePairs["ExpansionMode"] = "Transverse";
-				nameValuePairs["FeedDown3P"] = "3333";
 				nameValuePairs["FireballFieldTypes"] = "Temperature";
-				nameValuePairs["FormationTimes"] = "3,3,3,3,3,3";
+				nameValuePairs["FormationTimes"] = "Y1S:3,x1P:3,Y2S:3,x2P:3,Y3S:3,x3P:3";
 				nameValuePairs["GridCellSize"] = "3333";
 				nameValuePairs["GridRadius"] = "3333";
 				nameValuePairs["ImpactParameter"] = "3333";
 				nameValuePairs["ImpactParamsAtBinBoundaries"] = "3,3,3";
+				nameValuePairs["InelasticppCrossSection"] = "3333";
 				nameValuePairs["InitialMaximumTemperature"] = "3333";
 				nameValuePairs["LifeTime"] = "3333";
 				nameValuePairs["MeanParticipantsInBin"] = "3,3,3";
@@ -133,7 +134,6 @@ namespace Yburn.TestUtil
 				nameValuePairs["PotentialTypes"] = "Tzero";
 				nameValuePairs["ProtonNumberA"] = "3333";
 				nameValuePairs["ProtonNumberB"] = "3333";
-				nameValuePairs["ProtonProtonBaseline"] = "CMS2012";
 				nameValuePairs["QGPFormationTemperature"] = "3333";
 				nameValuePairs["NucleusShapeA"] = "GaussianDistribution";
 				nameValuePairs["NucleusShapeB"] = "WoodsSaxonPotential";

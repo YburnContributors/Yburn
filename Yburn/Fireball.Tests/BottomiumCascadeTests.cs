@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using Yburn.TestUtil;
 
 namespace Yburn.Fireball.Tests
@@ -37,46 +38,56 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void CalculateInitialQQPopulations()
 		{
-			ProtonProtonBaseline ppBaseline = ProtonProtonBaseline.CMS2012;
-			double feedDown3P = 0.06;
-
-			BottomiumVector initialQQPopulations = BottomiumCascade.CalculateInitialQQPopulations(
-				ppBaseline, feedDown3P);
+			BottomiumVector initialQQPopulations = BottomiumCascade.CalculateInitialQQPopulations();
 			AssertCorrectInitialQQPopulations(initialQQPopulations);
 		}
 
 		[TestMethod]
 		public void CalculateY1SFeedDownFractions()
 		{
-			ProtonProtonBaseline ppBaseline = ProtonProtonBaseline.CMS2012;
-			double feedDown3P = 0.06;
-
-			BottomiumVector feedDownFractions = BottomiumCascade.CalculateY1SFeedDownFractions(
-				ppBaseline, feedDown3P);
-			AssertCorrectY1SFeedDownFractions(feedDownFractions, feedDown3P);
+			BottomiumVector feedDownFractions = BottomiumCascade.CalculateY1SFeedDownFractions();
+			AssertCorrectY1SFeedDownFractions(feedDownFractions);
 		}
 
 		[TestMethod]
 		public void FeedDownCascadeReproducesProtonProtonDimuonDecays()
 		{
-			ProtonProtonBaseline ppBaseline = ProtonProtonBaseline.CMS2012;
-			double feedDown3P = 0.06;
-
-			BottomiumVector qgpSuppressionFactors = BottomiumVector.CreateEmptyVector();
+			BottomiumVector qgpSuppressionFactors = new BottomiumVector();
 			foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 			{
 				qgpSuppressionFactors[state] = 1;
 			}
 
-			BottomiumVector ppDimuonDecays =
-				BottomiumCascade.CalculateDimuonDecays(ppBaseline, feedDown3P, qgpSuppressionFactors);
+			BottomiumVector ppDimuonDecays
+				= BottomiumCascade.CalculateDimuonDecays(qgpSuppressionFactors);
 
-			AssertCorrectProtonProtonDimuonDecays(ppDimuonDecays, ppBaseline, feedDown3P);
+			AssertCorrectProtonProtonDimuonDecays(ppDimuonDecays);
 		}
 
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
+
+		private static Dictionary<BottomiumState, double> DimuonDecaysFromPP
+		{
+			get
+			{
+				Dictionary<BottomiumState, double> dimuonDecays
+					= new Dictionary<BottomiumState, double>();
+
+				dimuonDecays[BottomiumState.Y1S] = 1.0;
+				dimuonDecays[BottomiumState.x1P] = 0.271;
+				dimuonDecays[BottomiumState.Y2S] = 0.56;
+				dimuonDecays[BottomiumState.x2P] = 0.105;
+				dimuonDecays[BottomiumState.Y3S] = 0.41;
+				dimuonDecays[BottomiumState.x3P] = 0.06;
+
+				return dimuonDecays;
+			}
+		}
+
+		private static readonly BottomiumCascade BottomiumCascade
+			= new BottomiumCascade(DimuonDecaysFromPP);
 
 		private static void AssertIsSquareOfDimenions(
 			int dimension,
@@ -151,8 +162,7 @@ namespace Yburn.Fireball.Tests
 		}
 
 		private static void AssertCorrectY1SFeedDownFractions(
-			BottomiumVector feedDownFractions,
-			double feedDown3P
+			BottomiumVector feedDownFractions
 			)
 		{
 			AssertHelper.AssertApproximatelyEqual(0.34302571070019483, feedDownFractions[BottomiumState.Y1S]);
@@ -160,17 +170,14 @@ namespace Yburn.Fireball.Tests
 			AssertHelper.AssertApproximatelyEqual(0.19033036269430051, feedDownFractions[BottomiumState.Y2S]);
 			AssertHelper.AssertApproximatelyEqual(0.105, feedDownFractions[BottomiumState.x2P]);
 			AssertHelper.AssertApproximatelyEqual(0.030643926605504589, feedDownFractions[BottomiumState.Y3S]);
-			AssertHelper.AssertApproximatelyEqual(feedDown3P, feedDownFractions[BottomiumState.x3P]);
+			AssertHelper.AssertApproximatelyEqual(0.06, feedDownFractions[BottomiumState.x3P]);
 		}
 
 		private static void AssertCorrectProtonProtonDimuonDecays(
-			BottomiumVector ppDimuonDecays,
-			ProtonProtonBaseline ppBaseline,
-			double feedDown3P
+			BottomiumVector ppDimuonDecays
 			)
 		{
-			BottomiumVector expected =
-				BottomiumCascade.GetProtonProtonDimuonDecays(ppBaseline, feedDown3P);
+			BottomiumVector expected = BottomiumCascade.GetNormalizedProtonProtonDimuonDecays();
 
 			foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 			{

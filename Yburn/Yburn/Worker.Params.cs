@@ -69,6 +69,21 @@ namespace Yburn
 			}
 		}
 
+		protected static void TryExtract<TKey, TValue>(
+			Dictionary<string, string> nameValuePairs,
+			string key,
+			ref Dictionary<TKey, TValue> dictionary
+			) where TKey : IConvertible where TValue : IConvertible
+		{
+			string stringifiedValue;
+			nameValuePairs.TryGetValue(key, out stringifiedValue);
+
+			if(!string.IsNullOrEmpty(stringifiedValue))
+			{
+				dictionary = stringifiedValue.ToKeyValueDictionary<TKey, TValue>();
+			}
+		}
+
 		protected static void Store<T>(
 			Dictionary<string, string> nameValuePairs,
 			string key,
@@ -86,7 +101,7 @@ namespace Yburn
 		{
 			if(list == null)
 			{
-				nameValuePairs[key] = string.Empty;
+				list = new List<T>();
 			}
 			nameValuePairs[key] = list.ToUIString();
 		}
@@ -99,9 +114,22 @@ namespace Yburn
 		{
 			if(nestedList == null)
 			{
-				nameValuePairs[key] = string.Empty;
+				nestedList = new List<List<T>>();
 			}
 			nameValuePairs[key] = nestedList.ToUIString();
+		}
+
+		protected static void Store<TKey, TValue>(
+			Dictionary<string, string> nameValuePairs,
+			string key,
+			Dictionary<TKey, TValue> dictionary
+			) where TKey : IConvertible where TValue : IConvertible
+		{
+			if(dictionary == null)
+			{
+				dictionary = new Dictionary<TKey, TValue>();
+			}
+			nameValuePairs[key] = dictionary.ToUIString();
 		}
 
 		/********************************************************************************************

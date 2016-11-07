@@ -4,20 +4,15 @@ using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
-	public struct BottomiumCascadeMatrix
+	public class BottomiumCascadeMatrix
 	{
 		/********************************************************************************************
 		 * Public static members, functions and properties
 		 ********************************************************************************************/
 
-		public static BottomiumCascadeMatrix CreateEmptyMatrix()
-		{
-			return new BottomiumCascadeMatrix(new double[BottomiumStatesCount, BottomiumStatesCount]);
-		}
-
 		public static BottomiumCascadeMatrix CreateUnitMatrix()
 		{
-			BottomiumCascadeMatrix matrix = CreateEmptyMatrix();
+			BottomiumCascadeMatrix matrix = new BottomiumCascadeMatrix();
 
 			foreach(BottomiumState s in Enum.GetValues(typeof(BottomiumState)))
 			{
@@ -31,7 +26,7 @@ namespace Yburn.Fireball
 			BottomiumVector diagonalElements
 			)
 		{
-			BottomiumCascadeMatrix matrix = CreateEmptyMatrix();
+			BottomiumCascadeMatrix matrix = new BottomiumCascadeMatrix();
 
 			foreach(BottomiumState s in Enum.GetValues(typeof(BottomiumState)))
 			{
@@ -46,7 +41,7 @@ namespace Yburn.Fireball
 			BottomiumCascadeMatrix right
 			)
 		{
-			BottomiumCascadeMatrix result = CreateEmptyMatrix();
+			BottomiumCascadeMatrix result = new BottomiumCascadeMatrix();
 
 			foreach(BottomiumState s in Enum.GetValues(typeof(BottomiumState)))
 			{
@@ -62,22 +57,37 @@ namespace Yburn.Fireball
 			return result;
 		}
 
+		public static BottomiumVector operator *(
+			BottomiumCascadeMatrix matrix,
+			BottomiumVector vector
+			)
+		{
+			BottomiumVector result = new BottomiumVector();
+
+			foreach(BottomiumState i in Enum.GetValues(typeof(BottomiumState)))
+			{
+				foreach(BottomiumState j in Enum.GetValues(typeof(BottomiumState)))
+				{
+					result[i] += matrix[i, j] * vector[j];
+				}
+			}
+
+			return result;
+		}
+
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static readonly int BottomiumStatesCount =
-			Enum.GetValues(typeof(BottomiumState)).Length;
+		private static readonly int BottomiumStatesCount
+			= Enum.GetValues(typeof(BottomiumState)).Length;
 
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-		private BottomiumCascadeMatrix(
-			double[,] entries
-			)
+		public BottomiumCascadeMatrix()
 		{
-			Entries = entries;
 		}
 
 		/********************************************************************************************
@@ -119,7 +129,7 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private readonly double[,] Entries;
+		private readonly double[,] Entries = new double[BottomiumStatesCount, BottomiumStatesCount];
 
 		private string[,] GetStringifiedRepresentation(
 			bool extractGammaTot3P

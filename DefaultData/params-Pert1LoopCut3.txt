@@ -69,17 +69,18 @@ EMFCalculationMethodSelection = URLimitFourierSynthesis,DiffusionApproximation,F
 ###########################
 
 # Glauber
-NucleusShapeA   = WoodsSaxonPotential
-NucleonNumberA  = 208
-ProtonNumberA   = 82
-NuclearRadiusA  = 6.62
-DiffusenessA    = 0.546
-NucleusShapeB   = WoodsSaxonPotential
-NucleonNumberB  = 208
-ProtonNumberB   = 82
-NuclearRadiusB  = 6.62
-DiffusenessB    = 0.546
-ImpactParameter = 7
+NucleusShapeA           = WoodsSaxonPotential
+NucleonNumberA          = 208
+ProtonNumberA           = 82
+NuclearRadiusA          = 6.62
+DiffusenessA            = 0.546
+NucleusShapeB           = WoodsSaxonPotential
+NucleonNumberB          = 208
+ProtonNumberB           = 82
+NuclearRadiusB          = 6.62
+DiffusenessB            = 0.546
+ImpactParameter         = 7
+InelasticppCrossSection = 6.4 # 6.8
 
 # Hydrodynamics
 ExpansionMode             = Transverse
@@ -93,14 +94,13 @@ BeamRapidity              = 7.987
 QGPFormationTemperature   = 160
 
 # QQStates
-DecayWidthEvaluationType = AveragedDecayWidth
-NumberAveragingAngles    = 20
-DecayWidthType           = GammaTot
-PotentialTypes           = Complex
-FeedDown3P               = 0.03
+DimuonDecaysFromPP       = Y1S:1.0,x1P:0.271,Y2S:0.56,x2P:0.105,Y3S:0.41,x3P:0.03
 FormationTimes           = 0.4,0.4,0.4,0.4,0.4,0.4
 TransverseMomenta        = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
-ProtonProtonBaseline     = CMS2012
+PotentialTypes           = Complex
+DecayWidthType           = GammaTot
+DecayWidthEvaluationType = AveragedDecayWidth
+NumberAveragingAngles    = 20
 
 # Output
 BottomiumStates         = Y1S,x1P,Y2S,x2P,Y3S,x3P

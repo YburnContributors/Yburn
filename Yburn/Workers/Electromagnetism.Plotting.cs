@@ -437,7 +437,7 @@ namespace Yburn.Workers
 					nucleusA);
 
 				return emf.CalculateMagneticFieldPerFm2_LCF(
-					param.FormationTimesFm[0],
+					0.4,
 					radialDistance,
 					0,
 					rapidity,

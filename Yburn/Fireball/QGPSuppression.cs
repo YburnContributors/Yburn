@@ -140,8 +140,7 @@ namespace Yburn.Fireball
 						  = new BottomiumVector[FireballParam.TransverseMomentaGeV.Count];
 				for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Count; pTIndex++)
 				{
-					FlatQGPSuppressionFactors[binIndex][pTIndex] =
-						BottomiumVector.CreateEmptyVector();
+					FlatQGPSuppressionFactors[binIndex][pTIndex] = new BottomiumVector();
 				}
 			}
 		}
@@ -290,8 +289,7 @@ namespace Yburn.Fireball
 				 = new BottomiumVector[FireballParam.TransverseMomentaGeV.Count];
 			for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Count; pTIndex++)
 			{
-				QGPSuppressionFactors[binGroupIndex][binIndex][pTIndex] =
-					BottomiumVector.CreateEmptyVector();
+				QGPSuppressionFactors[binGroupIndex][binIndex][pTIndex] = new BottomiumVector();
 				for(int flatBinIndex = ArrayReshapingMask[binGroupIndex][binIndex];
 					 flatBinIndex < ArrayReshapingMask[binGroupIndex][binIndex + 1];
 					 flatBinIndex++)

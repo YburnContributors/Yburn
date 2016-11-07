@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections.Generic;
 using Yburn.TestUtil;
 
 namespace Yburn.Fireball.Tests
@@ -55,7 +54,11 @@ namespace Yburn.Fireball.Tests
 			AssertHelper.AssertApproximatelyEqual(0.23624004632176207, result);
 		}
 
-		private FireballParam CreateFireballParam()
+		/********************************************************************************************
+		 * Private/protected static members, functions and properties
+		 ********************************************************************************************/
+
+		private static FireballParam CreateFireballParam()
 		{
 			FireballParam param = new FireballParam();
 
@@ -63,10 +66,10 @@ namespace Yburn.Fireball.Tests
 			param.DiffusenessAFm = 0.546;
 			param.DiffusenessBFm = 0.546;
 			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
-			param.FormationTimesFm = new List<double> { 0.4, 0.4, 0.4, 0.4, 0.4, 0.4 };
 			param.GridCellSizeFm = 1;
 			param.GridRadiusFm = 10;
 			param.ImpactParameterFm = 7;
+			param.InelasticppCrossSectionFm = 6.4;
 			param.NuclearRadiusAFm = 6.62;
 			param.NuclearRadiusBFm = 6.62;
 			param.NucleonNumberA = 208;
@@ -75,7 +78,6 @@ namespace Yburn.Fireball.Tests
 			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
 			param.ProtonNumberA = 82;
 			param.ProtonNumberB = 82;
-			param.ProtonProtonBaseline = ProtonProtonBaseline.CMS2012;
 			param.QGPConductivityMeV = 5.8;
 			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 

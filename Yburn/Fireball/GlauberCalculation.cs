@@ -139,26 +139,6 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private double InelasticppCrossSectionFm
-		{
-			get
-			{
-				switch(Param.ProtonProtonBaseline)
-				{
-					// inelastic cross section for pp collisions is 64 mb = 6.4 fm^2 at 2.76 TeV
-					case ProtonProtonBaseline.CMS2012:
-						return 6.4;
-
-					// inelastic cross section for pp collisions is 68 mb = 6.8 fm^2 at 5.02 TeV
-					case ProtonProtonBaseline.Estimate502TeV:
-						return 6.8;
-
-					default:
-						throw new Exception("Invalid Baseline.");
-				}
-			}
-		}
-
 		private FireballParam Param;
 
 		private Nucleus NucleusA;
@@ -170,6 +150,11 @@ namespace Yburn.Fireball
 			if(Param.GridCellSizeFm <= 0)
 			{
 				throw new Exception("GridCellSize <= 0.");
+			}
+
+			if(Param.InelasticppCrossSectionFm <= 0)
+			{
+				throw new Exception("InelasticppCrossSection <= 0.");
 			}
 
 			if(Param.NumberGridPoints <= 0)
@@ -238,7 +223,7 @@ namespace Yburn.Fireball
 				FireballFieldType.Ncoll,
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
-				(i, j) => InelasticppCrossSectionFm * OverlapField[i, j]);
+				(i, j) => Param.InelasticppCrossSectionFm.Value * OverlapField[i, j]);
 		}
 
 		private void InitNpartField()
@@ -249,10 +234,10 @@ namespace Yburn.Fireball
 				Param.NumberGridPointsInY,
 				(i, j) =>
 					NucleonNumberColumnDensityFieldA[i, j] * (1.0 - Math.Pow(
-						1.0 - InelasticppCrossSectionFm * NucleonNumberColumnDensityFieldB[i, j]
+						1.0 - Param.InelasticppCrossSectionFm.Value * NucleonNumberColumnDensityFieldB[i, j]
 						/ Param.NucleonNumberB.Value, Param.NucleonNumberB.Value))
 					+ NucleonNumberColumnDensityFieldB[i, j] * (1.0 - Math.Pow(
-						1.0 - InelasticppCrossSectionFm * NucleonNumberColumnDensityFieldA[i, j]
+						1.0 - Param.InelasticppCrossSectionFm.Value * NucleonNumberColumnDensityFieldA[i, j]
 						/ Param.NucleonNumberA.Value, Param.NucleonNumberA.Value)));
 		}
 
@@ -350,13 +335,13 @@ namespace Yburn.Fireball
 			double columnA = NucleusA.GetNucleonNumberColumnDensityPerFm3(0, 0);
 			double columnB = NucleusB.GetNucleonNumberColumnDensityPerFm3(0, 0);
 
-			double ncoll = InelasticppCrossSectionFm * columnA * columnB;
-			double npart =
-				columnA * (1.0 - Math.Pow(
-					1.0 - InelasticppCrossSectionFm * columnB / Param.NucleonNumberB.Value,
+			double ncoll = Param.InelasticppCrossSectionFm.Value * columnA * columnB;
+			double npart
+				= columnA * (1.0 - Math.Pow(
+					1.0 - Param.InelasticppCrossSectionFm.Value * columnB / Param.NucleonNumberB.Value,
 					Param.NucleonNumberB.Value))
 				+ columnB * (1.0 - Math.Pow(
-					1.0 - InelasticppCrossSectionFm * columnA / Param.NucleonNumberA.Value,
+					1.0 - Param.InelasticppCrossSectionFm.Value * columnA / Param.NucleonNumberA.Value,
 					Param.NucleonNumberA.Value));
 
 			switch(Param.TemperatureProfile)

@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using Yburn.TestUtil;
@@ -55,6 +56,22 @@ namespace Yburn.Fireball.Tests
 				new List<double> { 3.2, 4.4, 8.4, 9.6, 10.8, 21.2 },
 				new List<double> { 0, 4.4, 6.8, 8.4, 9.6, 10.8, 12 }};
 
+		private static Dictionary<BottomiumState, double> FormationTimes
+		{
+			get
+			{
+				Dictionary<BottomiumState, double> formationTimes
+					= new Dictionary<BottomiumState, double>();
+
+				foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
+				{
+					formationTimes.Add(state, 0.4);
+				}
+
+				return formationTimes;
+			}
+		}
+
 		private static FireballParam CreateFireballParam()
 		{
 			FireballParam param = new FireballParam();
@@ -64,9 +81,10 @@ namespace Yburn.Fireball.Tests
 			param.DiffusenessAFm = 0.546;
 			param.DiffusenessBFm = 0.546;
 			param.ExpansionMode = ExpansionMode.Transverse;
-			param.FormationTimesFm = new List<double> { 0.4, 0.4, 0.4, 0.4, 0.4, 0.4 };
+			param.FormationTimesFm = FormationTimes;
 			param.GridCellSizeFm = 1;
 			param.GridRadiusFm = 10;
+			param.InelasticppCrossSectionFm = 6.4;
 			param.InitialMaximumTemperatureMeV = 550;
 			param.NuclearRadiusAFm = 6.62;
 			param.NuclearRadiusBFm = 6.62;
@@ -76,7 +94,6 @@ namespace Yburn.Fireball.Tests
 			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
 			param.ProtonNumberA = 82;
 			param.ProtonNumberB = 82;
-			param.ProtonProtonBaseline = ProtonProtonBaseline.CMS2012;
 			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 			param.ThermalTimeFm = 0.1;
 			param.TransverseMomentaGeV = new List<double> { 6 };

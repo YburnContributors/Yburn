@@ -343,12 +343,7 @@ namespace Yburn.Fireball
 				throw new Exception("ImpactParameter < 0.");
 			}
 
-			if(Param.FormationTimesFm.Count != NumberBottomiumStates)
-			{
-				throw new Exception("FormationTime-array has invalid size.");
-			}
-
-			foreach(double time in Param.FormationTimesFm)
+			foreach(double time in Param.FormationTimesFm.Values)
 			{
 				if(time <= 0)
 				{

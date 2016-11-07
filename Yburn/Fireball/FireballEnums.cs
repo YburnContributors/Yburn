@@ -1,6 +1,4 @@
-﻿using System.ComponentModel;
-
-namespace Yburn.Fireball
+﻿namespace Yburn.Fireball
 {
 	public enum BottomiumState
 	{
@@ -44,14 +42,6 @@ namespace Yburn.Fireball
 		VX,
 		VY,
 		UnscaledSuppression,
-	};
-
-	public enum ProtonProtonBaseline
-	{
-		[Description("pp@2.76TeV (CMS2012)")]
-		CMS2012,
-		[Description("pp@5.02TeV (Not yet available!)")]
-		Estimate502TeV
 	};
 
 	public enum TemperatureProfile

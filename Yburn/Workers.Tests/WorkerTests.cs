@@ -59,10 +59,10 @@ namespace Yburn.Workers.Tests
 
 		private static void AssertIsConvertedTo<TEnum>(
 			string stringifiedList,
-			List<TEnum> expectedArray
+			List<TEnum> expectedList
 			) where TEnum : struct, IConvertible
 		{
-			AssertSameEntries(expectedArray, stringifiedList.ToValueList<TEnum>());
+			AssertSameEntries(expectedList, stringifiedList.ToValueList<TEnum>());
 		}
 
 		private static void AssertSameEntries<T>(

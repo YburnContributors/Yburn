@@ -72,12 +72,17 @@ namespace Yburn.Fireball
 			get; set;
 		}
 
+		public double? InelasticppCrossSectionFm
+		{
+			get; set;
+		}
+
 		public double? ThermalTimeFm
 		{
 			get; set;
 		}
 
-		public List<double> FormationTimesFm
+		public Dictionary<BottomiumState, double> FormationTimesFm
 		{
 			get
 			{
@@ -87,7 +92,7 @@ namespace Yburn.Fireball
 				}
 				else
 				{
-					return new List<double>(FormationTimesFm_Internal);
+					return new Dictionary<BottomiumState, double>(FormationTimesFm_Internal);
 				}
 			}
 			set
@@ -98,7 +103,7 @@ namespace Yburn.Fireball
 				}
 				else
 				{
-					FormationTimesFm_Internal = new List<double>(value);
+					FormationTimesFm_Internal = new Dictionary<BottomiumState, double>(value);
 				}
 			}
 		}
@@ -175,11 +180,6 @@ namespace Yburn.Fireball
 			get; set;
 		}
 
-		public ProtonProtonBaseline? ProtonProtonBaseline
-		{
-			get; set;
-		}
-
 		public DecayWidthRetrievalFunction DecayWidthRetrievalFunction
 		{
 			get; set;
@@ -246,6 +246,7 @@ namespace Yburn.Fireball
 			param.GridCellSizeFm = GridCellSizeFm;
 			param.GridRadiusFm = GridRadiusFm;
 			param.ImpactParameterFm = ImpactParameterFm;
+			param.InelasticppCrossSectionFm = InelasticppCrossSectionFm;
 			param.InitialMaximumTemperatureMeV = InitialMaximumTemperatureMeV;
 			param.BreakupTemperatureMeV = BreakupTemperatureMeV;
 			param.NuclearRadiusAFm = NuclearRadiusAFm;
@@ -254,7 +255,6 @@ namespace Yburn.Fireball
 			param.NucleonNumberB = NucleonNumberB;
 			param.ProtonNumberA = ProtonNumberA;
 			param.ProtonNumberB = ProtonNumberB;
-			param.ProtonProtonBaseline = ProtonProtonBaseline;
 			param.QGPConductivityMeV = QGPConductivityMeV;
 			param.NucleusShapeA = NucleusShapeA;
 			param.NucleusShapeB = NucleusShapeB;
@@ -303,7 +303,7 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private List<double> FormationTimesFm_Internal;
+		private Dictionary<BottomiumState, double> FormationTimesFm_Internal;
 
 		private List<double> TransverseMomentaGeV_Internal;
 	}

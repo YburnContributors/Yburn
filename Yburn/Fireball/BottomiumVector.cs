@@ -1,43 +1,21 @@
 ﻿using System;
+using System.Collections.Generic;
 using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
-	public struct BottomiumVector
+	public class BottomiumVector
 	{
 		/********************************************************************************************
 		 * Public static members, functions and properties
 		 ********************************************************************************************/
-
-		public static BottomiumVector CreateEmptyVector()
-		{
-			return new BottomiumVector(new double[BottomiumStatesCount]);
-		}
-
-		public static BottomiumVector operator *(
-			BottomiumCascadeMatrix matrix,
-			BottomiumVector vector
-			)
-		{
-			BottomiumVector result = CreateEmptyVector();
-
-			foreach(BottomiumState i in Enum.GetValues(typeof(BottomiumState)))
-			{
-				foreach(BottomiumState j in Enum.GetValues(typeof(BottomiumState)))
-				{
-					result[i] += matrix[i, j] * vector[j];
-				}
-			}
-
-			return result;
-		}
 
 		public static BottomiumVector operator +(
 			BottomiumVector left,
 			BottomiumVector right
 			)
 		{
-			BottomiumVector result = CreateEmptyVector();
+			BottomiumVector result = new BottomiumVector();
 
 			foreach(BottomiumState i in Enum.GetValues(typeof(BottomiumState)))
 			{
@@ -52,7 +30,7 @@ namespace Yburn.Fireball
 			BottomiumVector vector
 			)
 		{
-			BottomiumVector result = CreateEmptyVector();
+			BottomiumVector result = new BottomiumVector();
 
 			foreach(BottomiumState i in Enum.GetValues(typeof(BottomiumState)))
 			{
@@ -82,18 +60,25 @@ namespace Yburn.Fireball
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static readonly int BottomiumStatesCount =
-			Enum.GetValues(typeof(BottomiumState)).Length;
+		private static readonly int BottomiumStatesCount
+			= Enum.GetValues(typeof(BottomiumState)).Length;
 
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-		private BottomiumVector(
-			double[] entries
-			)
+		public BottomiumVector()
 		{
-			Entries = entries;
+		}
+
+		public BottomiumVector(
+			Dictionary<BottomiumState, double> entries
+			) : this()
+		{
+			foreach(BottomiumState state in entries.Keys)
+			{
+				this[state] = entries[state];
+			}
 		}
 
 		/********************************************************************************************
@@ -144,7 +129,7 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private readonly double[] Entries;
+		private readonly double[] Entries = new double[BottomiumStatesCount];
 
 		private string[] GetStringifiedRepresentation(
 			bool extractGammaTot3P
@@ -164,8 +149,11 @@ namespace Yburn.Fireball
 			string[] stringifiedEntries
 			)
 		{
-			stringifiedEntries[(int)BottomiumState.x3P] =
-				(this[BottomiumState.x3P] / Constants.GammaTot3P).ToUIString() + "*GammaTot3P/eV";
+			if(stringifiedEntries[(int)BottomiumState.x3P] != "0")
+			{
+				stringifiedEntries[(int)BottomiumState.x3P]
+					= (this[BottomiumState.x3P] / Constants.GammaTot3P).ToUIString() + "*GammaTot3P/eV";
+			}
 		}
 	}
 }

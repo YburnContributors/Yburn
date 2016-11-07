@@ -42,19 +42,19 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "QGPFormationTemperature", ref QGPFormationTemperature);
 		}
 
-		private List<BottomiumState> BottomiumStates = new List<BottomiumState>();
+		private List<BottomiumState> BottomiumStates;
 
-		private List<DecayWidthEvaluationType> DecayWidthEvaluationTypes = new List<DecayWidthEvaluationType>();
+		private List<DecayWidthEvaluationType> DecayWidthEvaluationTypes;
 
 		private DecayWidthType DecayWidthType;
 
-		private List<double> MediumTemperatures = new List<double>();
+		private List<double> MediumTemperatures;
 
-		private List<double> MediumVelocities = new List<double>();
+		private List<double> MediumVelocities;
 
 		private int NumberAveragingAngles;
 
-		private List<PotentialType> PotentialTypes = new List<PotentialType>();
+		private List<PotentialType> PotentialTypes;
 
 		private double QGPFormationTemperature;
 	}

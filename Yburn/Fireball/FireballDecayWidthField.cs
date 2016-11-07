@@ -12,6 +12,24 @@ namespace Yburn.Fireball
 	public class FireballDecayWidthField : StateSpecificFireballField
 	{
 		/********************************************************************************************
+		 * Private/protected static members, functions and properties
+		 ********************************************************************************************/
+
+		private double[] SetFormationTimes(
+			Dictionary<BottomiumState, double> dictionary
+			)
+		{
+			double[] formationTimes = new double[NumberBottomiumStates];
+
+			foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
+			{
+				formationTimes[(int)state] = dictionary[state];
+			}
+
+			return formationTimes;
+		}
+
+		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
@@ -22,7 +40,7 @@ namespace Yburn.Fireball
 			FireballTemperatureField temperature,
 			SimpleFireballField vx,
 			SimpleFireballField vy,
-			List<double> formationTimes,
+			Dictionary<BottomiumState, double> formationTimes,
 			double initialTime,
 			DecayWidthRetrievalFunction decayWidthFunction
 			)
@@ -35,7 +53,7 @@ namespace Yburn.Fireball
 			Temperature = temperature;
 			VX = vx;
 			VY = vy;
-			FormationTimes = formationTimes;
+			FormationTimes = SetFormationTimes(formationTimes);
 			InitialTime = initialTime;
 			GetDecayWidth = decayWidthFunction;
 
@@ -113,7 +131,7 @@ namespace Yburn.Fireball
 
 		private readonly SimpleFireballField VY;
 
-		private readonly List<double> FormationTimes;
+		private readonly double[] FormationTimes;
 
 		private readonly double InitialTime;
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 
 namespace Yburn
 {
@@ -43,6 +44,16 @@ namespace Yburn
 			return string.Join(";", stringList);
 		}
 
+		public static string ToUIString<TKey, TValue>(
+			this Dictionary<TKey, TValue> dictionary
+			) where TKey : IConvertible where TValue : IConvertible
+		{
+			IEnumerable<string> stringifiedKeyValuePairs = dictionary.Select(
+				element => element.Key.ToUIString() + ':' + element.Value.ToUIString());
+
+			return string.Join(",", stringifiedKeyValuePairs);
+		}
+
 		public static T ToValue<T>(
 			this string stringifiedValue
 			) where T : IConvertible
@@ -58,10 +69,10 @@ namespace Yburn
 			char[] separator = null
 			) where T : IConvertible
 		{
-			List<string> splittedList = SplitUIString(stringifiedList, separator);
+			List<string> stringifiedValues = SplitUIString(stringifiedList, separator);
 
 			List<T> list = new List<T>();
-			foreach(string stringifiedValue in splittedList)
+			foreach(string stringifiedValue in stringifiedValues)
 			{
 				list.Add(stringifiedValue.ToValue<T>());
 			}
@@ -74,15 +85,44 @@ namespace Yburn
 			char[] separator = null
 			) where T : IConvertible
 		{
-			List<string> splittedList = SplitUIString(stringifiedNestedList, new char[] { '\t', ';' });
+			List<string> stringifiedLists
+				= SplitUIString(stringifiedNestedList, new char[] { '\t', ';' });
 
 			List<List<T>> nestedList = new List<List<T>>();
-			foreach(string stringifiedList in splittedList)
+			foreach(string stringifiedList in stringifiedLists)
 			{
 				nestedList.Add(stringifiedList.ToValueList<T>(new char[] { ' ', ',' }));
 			}
 
 			return nestedList;
+		}
+
+		public static Dictionary<TKey, TValue> ToKeyValueDictionary<TKey, TValue>(
+			this string stringifiedDictionary
+			) where TKey : IConvertible where TValue : IConvertible
+		{
+			List<string> stringifiedKeyValuePairs = SplitUIString(stringifiedDictionary);
+
+			Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();
+			if(typeof(TKey).IsEnum)
+			{
+				dictionary = CreateEnumDictionary<TKey, TValue>();
+			}
+
+			foreach(string stringifiedKeyValuePair in stringifiedKeyValuePairs)
+			{
+				List<string> list = SplitUIString(stringifiedKeyValuePair, new char[] { ':' });
+				if(list.Count != 2)
+				{
+					continue;
+				}
+				else
+				{
+					dictionary[list[0].ToValue<TKey>()] = list[1].ToValue<TValue>();
+				}
+			}
+
+			return dictionary;
 		}
 
 		/********************************************************************************************
@@ -107,6 +147,19 @@ namespace Yburn
 				return new List<string>(stringifiedList.Split(
 					separator, StringSplitOptions.RemoveEmptyEntries));
 			}
+		}
+
+		private static Dictionary<TKey, TValue> CreateEnumDictionary<TKey, TValue>()
+			where TKey : IConvertible where TValue : IConvertible
+		{
+			Dictionary<TKey, TValue> dictionary = new Dictionary<TKey, TValue>();
+
+			foreach(TKey key in Enum.GetValues(typeof(TKey)))
+			{
+				dictionary.Add(key, default(TValue));
+			}
+
+			return dictionary;
 		}
 	}
 }

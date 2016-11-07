@@ -97,7 +97,6 @@ namespace Yburn.QQonFire.UI
 			CbxExpansionMode.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ExpansionMode"));
 			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
 			CbxTemperatureProfile.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("TemperatureProfile"));
-			CbxProtonProtonBaseline.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ProtonProtonBaseline"));
 			CbxNucleusShapeA.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("NucleusShape"));
 			CbxNucleusShapeB.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("NucleusShape"));
 			MsxFireballFieldTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("FireballFieldType"));
@@ -118,14 +117,15 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
 			nameValuePairs["DiffusenessA"] = TbxDiffusenessA.Text;
 			nameValuePairs["DiffusenessB"] = TbxDiffusenessB.Text;
+			nameValuePairs["DimuonDecaysFromPP"] = TbxDimuonDecaysFromPP.Text;
 			nameValuePairs["ExpansionMode"] = CbxExpansionMode.Text;
-			nameValuePairs["FeedDown3P"] = TbxFeedDown3P.Text;
 			nameValuePairs["FireballFieldTypes"] = MsxFireballFieldTypes.SelectionString;
 			nameValuePairs["FormationTimes"] = TbxFormationTimes.Text;
 			nameValuePairs["GridCellSize"] = TbxGridCellSize.Text;
 			nameValuePairs["GridRadius"] = TbxGridRadius.Text;
 			nameValuePairs["ImpactParameter"] = TbxImpactParameter.Text;
 			nameValuePairs["ImpactParamsAtBinBoundaries"] = TbxImpactParamsAtBinBoundaries.Text;
+			nameValuePairs["InelasticppCrossSection"] = TbxInelasticppCrossSection.Text;
 			nameValuePairs["InitialMaximumTemperature"] = TbxInitialMaximumTemperature.Text;
 			nameValuePairs["LifeTime"] = TbxLifeTime.Text;
 			nameValuePairs["MeanParticipantsInBin"] = TbxMeanParticipantsInBin.Text;
@@ -140,7 +140,6 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["PotentialTypes"] = MsxPotentialTypes.SelectionString;
 			nameValuePairs["ProtonNumberA"] = TbxProtonNumberA.Text;
 			nameValuePairs["ProtonNumberB"] = TbxProtonNumberB.Text;
-			nameValuePairs["ProtonProtonBaseline"] = CbxProtonProtonBaseline.Text;
 			nameValuePairs["QGPFormationTemperature"] = TbxQGPFormationTemperature.Text;
 			nameValuePairs["SnapRate"] = TbxSnapRate.Text;
 			nameValuePairs["TemperatureProfile"] = CbxTemperatureProfile.Text;
@@ -159,7 +158,6 @@ namespace Yburn.QQonFire.UI
 			CbxExpansionMode.Text = nameValuePairs["ExpansionMode"];
 			CbxNucleusShapeA.Text = nameValuePairs["NucleusShapeA"];
 			CbxNucleusShapeB.Text = nameValuePairs["NucleusShapeB"];
-			CbxProtonProtonBaseline.Text = nameValuePairs["ProtonProtonBaseline"];
 			CbxTemperatureProfile.Text = nameValuePairs["TemperatureProfile"];
 			MsxBottomiumStates.SelectionString = nameValuePairs["BottomiumStates"];
 			MsxFireballFieldTypes.SelectionString = nameValuePairs["FireballFieldTypes"];
@@ -171,12 +169,13 @@ namespace Yburn.QQonFire.UI
 			TbxDataFileName.Text = nameValuePairs["DataFileName"];
 			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA"];
 			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB"];
-			TbxFeedDown3P.Text = nameValuePairs["FeedDown3P"];
+			TbxDimuonDecaysFromPP.Text = nameValuePairs["DimuonDecaysFromPP"];
 			TbxFormationTimes.Text = nameValuePairs["FormationTimes"];
 			TbxGridCellSize.Text = nameValuePairs["GridCellSize"];
 			TbxGridRadius.Text = nameValuePairs["GridRadius"];
 			TbxImpactParameter.Text = nameValuePairs["ImpactParameter"];
 			TbxImpactParamsAtBinBoundaries.Text = nameValuePairs["ImpactParamsAtBinBoundaries"];
+			TbxInelasticppCrossSection.Text = nameValuePairs["InelasticppCrossSection"];
 			TbxInitialMaximumTemperature.Text = nameValuePairs["InitialMaximumTemperature"];
 			TbxLifeTime.Text = nameValuePairs["LifeTime"];
 			TbxMeanParticipantsInBin.Text = nameValuePairs["MeanParticipantsInBin"];

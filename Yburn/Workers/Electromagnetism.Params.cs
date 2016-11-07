@@ -75,7 +75,7 @@ namespace Yburn.Workers
 
 		private EMFCalculationMethod EMFCalculationMethod;
 
-		private List<EMFCalculationMethod> EMFCalculationMethodSelection = new List<EMFCalculationMethod>();
+		private List<EMFCalculationMethod> EMFCalculationMethodSelection;
 
 		private double GridCellSizeFm;
 
