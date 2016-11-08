@@ -98,14 +98,14 @@ namespace Yburn.Workers
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public double GetDecayWidth(
+		public double GetInMediumDecayWidth(
 			BottomiumState state,
 			double qgpTemperature,
 			double velocity
 			)
 		{
 			return DecayWidthAveragers[(int)state]
-				.GetEffectiveDecayWidth(qgpTemperature, velocity, DecayWidthEvaluationType);
+				.GetInMediumDecayWidth(qgpTemperature, velocity, DecayWidthEvaluationType);
 		}
 
 		/********************************************************************************************

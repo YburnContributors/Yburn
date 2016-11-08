@@ -612,8 +612,6 @@ namespace Yburn.Workers
 			}
 		}
 
-		private DecayWidthProvider DecayWidthCalculator;
-
 		private Fireball.Fireball CreateFireball()
 		{
 			return new Fireball.Fireball(CreateFireballParam());
@@ -667,13 +665,13 @@ namespace Yburn.Workers
 			param.ThermalTimeFm = ThermalTime;
 			param.TransverseMomentaGeV = TransverseMomenta;
 
-			DecayWidthCalculator = CreateDecayWidthCalculator();
-			param.DecayWidthRetrievalFunction = DecayWidthCalculator.GetDecayWidth;
+			DecayWidthProvider provider = CreateDecayWidthProvider();
+			param.DecayWidthRetrievalFunction = provider.GetInMediumDecayWidth;
 
 			return param;
 		}
 
-		private DecayWidthProvider CreateDecayWidthCalculator()
+		private DecayWidthProvider CreateDecayWidthProvider()
 		{
 			return new DecayWidthProvider(
 				GetQQDataPathFile(),

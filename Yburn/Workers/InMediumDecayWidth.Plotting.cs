@@ -259,17 +259,16 @@ namespace Yburn.Workers
 
 			foreach(DecayWidthAverager averager in averagers)
 			{
-				PlotFunction function = cosine =>
-					averager.GetDecayWidthEvaluatedAtDopplerShiftedTemperature(
-						MediumTemperatures[0], MediumVelocities[0], cosine);
+				PlotFunction function = cosine => averager.GetDecayWidth(
+					DecayWidthAverager.GetDopplerShiftedTemperature(
+						MediumTemperatures[0], MediumVelocities[0], cosine));
 
 				AddPlotFunctionLists(dataList, cosineValues, function);
 			}
 
 			foreach(DecayWidthAverager averager in averagers)
 			{
-				PlotFunction function = cosine => averager.GetEffectiveDecayWidth(
-					MediumTemperatures[0], 0, DecayWidthEvaluationType.UnshiftedTemperature);
+				PlotFunction function = cosine => averager.GetDecayWidth(MediumTemperatures[0]);
 
 				AddPlotFunctionLists(dataList, cosineValues, function);
 			}

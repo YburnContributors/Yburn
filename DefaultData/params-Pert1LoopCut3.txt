@@ -95,7 +95,7 @@ QGPFormationTemperature   = 160
 
 # QQStates
 DimuonDecaysFromPP       = Y1S:1.0,x1P:0.271,Y2S:0.56,x2P:0.105,Y3S:0.41,x3P:0.03
-FormationTimes           = 0.4,0.4,0.4,0.4,0.4,0.4
+FormationTimes           = Y1S:0.4,x1P:0.4,Y2S:0.4,x2P:0.4,Y3S:0.4,x3P:0.4
 TransverseMomenta        = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
 PotentialTypes           = Complex
 DecayWidthType           = GammaTot

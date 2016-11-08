@@ -14,13 +14,13 @@ namespace Yburn.Workers
 
 		public static double GetAveragedTemperature(
 			double qgpTemperature,
-			double velocity
+			double qgpVelocity
 			)
 		{
-			if(velocity > 0)
+			if(qgpVelocity > 0)
 			{
 				return qgpTemperature
-					* Math.Sqrt(1.0 - velocity * velocity) * Functions.Artanh(velocity) / velocity;
+					* Math.Sqrt(1.0 - qgpVelocity * qgpVelocity) * Functions.Artanh(qgpVelocity) / qgpVelocity;
 			}
 			else
 			{
@@ -28,19 +28,19 @@ namespace Yburn.Workers
 			}
 		}
 
-		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-
-		private static double GetDopplerShiftedTemperature(
+		public static double GetDopplerShiftedTemperature(
 			double qgpTemperature,
-			double velocity,
+			double qgpVelocity,
 			double cosine
 			)
 		{
 			return qgpTemperature
-				* Math.Sqrt(1.0 - velocity * velocity) / (1.0 - velocity * cosine);
+				* Math.Sqrt(1.0 - qgpVelocity * qgpVelocity) / (1.0 - qgpVelocity * cosine);
 		}
+
+		/********************************************************************************************
+		 * Private/protected static members, functions and properties
+		 ********************************************************************************************/
 
 		private static void SetInterpolation(
 			List<QQDataSet> dataSetList,
@@ -97,13 +97,15 @@ namespace Yburn.Workers
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public double GetEffectiveDecayWidth(
+		public readonly double QGPFormationTemperature;
+
+		public double GetInMediumDecayWidth(
 			double qgpTemperature,
-			double velocity,
+			double qgpVelocity,
 			DecayWidthEvaluationType evaluationType
 			)
 		{
-			if(qgpTemperature < QGPFormationTemperature)
+			if(!ExistsMedium(qgpTemperature))
 			{
 				return 0;
 			}
@@ -112,18 +114,18 @@ namespace Yburn.Workers
 				switch(evaluationType)
 				{
 					case DecayWidthEvaluationType.UnshiftedTemperature:
-						return GetDecayWidthEvaluatedAtEffectiveTemperature(qgpTemperature);
+						return GetScaledDecayWidth(qgpTemperature);
 
 					case DecayWidthEvaluationType.MaximallyBlueshifted:
-						return GetDecayWidthEvaluatedAtEffectiveTemperature(
-							GetDopplerShiftedTemperature(qgpTemperature, velocity, 1));
+						return GetScaledDecayWidth(
+							GetDopplerShiftedTemperature(qgpTemperature, qgpVelocity, 1));
 
 					case DecayWidthEvaluationType.AveragedTemperature:
-						return GetDecayWidthEvaluatedAtEffectiveTemperature(
-							GetAveragedTemperature(qgpTemperature, velocity));
+						return GetScaledDecayWidth(
+							GetAveragedTemperature(qgpTemperature, qgpVelocity));
 
 					case DecayWidthEvaluationType.AveragedDecayWidth:
-						return GetAveragedDecayWidth(qgpTemperature, velocity);
+						return GetScaledAveragedDecayWidth(qgpTemperature, qgpVelocity);
 
 					default:
 						throw new Exception("Invalid DecayWidthEvaluationType.");
@@ -131,16 +133,35 @@ namespace Yburn.Workers
 			}
 		}
 
-		public double GetDecayWidthEvaluatedAtDopplerShiftedTemperature(
-			double qgpTemperature,
-			double velocity,
-			double cosine
+		public double GetDecayWidth(
+			double effectiveTemperature
 			)
 		{
-			return GetInterpolatedDecayWidth(GetDopplerShiftedTemperature(qgpTemperature, velocity, cosine));
+			return InterpolateDecayWidth(effectiveTemperature);
 		}
 
-		public readonly double QGPFormationTemperature;
+		public double GetExistenceProbability(
+			double effectiveTemperature
+			)
+		{
+			return Functions.HeavisideStepFunction(-InterpolateBindingEnergy(effectiveTemperature));
+		}
+
+		public double GetAveragedDecayWidth(
+		double qgpTemperature,
+		double qgpVelocity
+		)
+		{
+			return CalculateAverageDopplerShift(GetDecayWidth, qgpTemperature, qgpVelocity);
+		}
+
+		public double GetAveragedExistenceProbability(
+			double qgpTemperature,
+			double qgpVelocity
+			)
+		{
+			return CalculateAverageDopplerShift(GetExistenceProbability, qgpTemperature, qgpVelocity);
+		}
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
@@ -164,39 +185,43 @@ namespace Yburn.Workers
 			}
 		}
 
-		private double GetDecayWidthEvaluatedAtEffectiveTemperature(
+		private bool ExistsMedium(
+			double qgpTemperature
+			)
+		{
+			return qgpTemperature >= QGPFormationTemperature;
+		}
+
+		private double GetScaledDecayWidth(
 			double effectiveTemperature
 			)
 		{
-			if(GetInterpolatedBindingEnergy(effectiveTemperature) < 0)
-			{
-				return GetInterpolatedDecayWidth(effectiveTemperature);
-			}
-			else
-			{
-				return double.PositiveInfinity;
-			}
+			return GetDecayWidth(effectiveTemperature)
+				/ GetExistenceProbability(effectiveTemperature);
 		}
 
-		private double GetAveragedDecayWidth(
+		private double GetScaledAveragedDecayWidth(
 			double qgpTemperature,
-			double velocity
+			double qgpVelocity
 			)
 		{
-			if(GetInterpolatedBindingEnergy(GetDopplerShiftedTemperature(qgpTemperature, velocity, 1)) > 0)
-			{
-				return double.PositiveInfinity;
-			}
-			else
-			{
-				Func<double, double> integrand = cosine =>
-					GetDecayWidthEvaluatedAtDopplerShiftedTemperature(qgpTemperature, velocity, cosine);
-
-				return 0.5 * Quadrature.IntegrateOverInterval(integrand, -1, 1, NumberAveragingAngles);
-			}
+			return GetAveragedDecayWidth(qgpTemperature, qgpVelocity)
+				/ GetAveragedExistenceProbability(qgpTemperature, qgpVelocity);
 		}
 
-		private double GetInterpolatedBindingEnergy(
+		private double CalculateAverageDopplerShift(
+			Func<double, double> temperatureDependentObservable,
+			double qgpTemperature,
+			double qgpVelocity
+			)
+		{
+			Func<double, double> integrand = cosine => temperatureDependentObservable(
+				GetDopplerShiftedTemperature(qgpTemperature, qgpVelocity, cosine));
+
+			return 0.5 * Quadrature.IntegrateOverInterval(integrand, -1, 1, NumberAveragingAngles);
+		}
+
+		private double InterpolateBindingEnergy(
 			double temperature
 			)
 		{
@@ -213,7 +238,7 @@ namespace Yburn.Workers
 			return InterpolatedBindingEnergies.GetValue(temperature);
 		}
 
-		private double GetInterpolatedDecayWidth(
+		private double InterpolateDecayWidth(
 			double temperature
 			)
 		{

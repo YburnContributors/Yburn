@@ -72,7 +72,7 @@ namespace Yburn.Workers
 
 		private readonly int NumberAveragingAngles;
 
-		private DecayWidthProvider CreateDecayWidthCalculator(
+		private DecayWidthProvider CreateDecayWidthProvider(
 			DecayWidthEvaluationType evaluationType
 			)
 		{
@@ -91,11 +91,11 @@ namespace Yburn.Workers
 			DecayWidthEvaluationType evaluationType
 			)
 		{
-			DecayWidthProvider calculator = CreateDecayWidthCalculator(evaluationType);
+			DecayWidthProvider provider = CreateDecayWidthProvider(evaluationType);
 
 			StringBuilder list = new StringBuilder();
 			AppendHeader(list, evaluationType);
-			AppendDataLines(list, mediumTemperatures, mediumVelocities, calculator);
+			AppendDataLines(list, mediumTemperatures, mediumVelocities, provider);
 
 			return list.ToString();
 		}
@@ -130,14 +130,14 @@ namespace Yburn.Workers
 			StringBuilder list,
 			List<double> mediumTemperatures,
 			List<double> mediumVelocities,
-			DecayWidthProvider calculator
+			DecayWidthProvider provider
 			)
 		{
 			foreach(double temperature in mediumTemperatures)
 			{
 				foreach(double velocity in mediumVelocities)
 				{
-					AppendDataLine(list, temperature, velocity, calculator);
+					AppendDataLine(list, temperature, velocity, provider);
 				}
 				if((mediumTemperatures.Count > 1) && (mediumVelocities.Count > 1))
 				{
@@ -150,14 +150,14 @@ namespace Yburn.Workers
 			StringBuilder list,
 			double temperature,
 			double velocity,
-			DecayWidthProvider calculator
+			DecayWidthProvider provider
 			)
 		{
 			list.AppendFormat("{0,-20}", temperature.ToUIString());
 			list.AppendFormat("{0,-20}", velocity.ToUIString());
 			foreach(BottomiumState state in BottomiumStates)
 			{
-				AppendDecayWidthValue(list, state, temperature, velocity, calculator);
+				AppendDecayWidthValue(list, state, temperature, velocity, provider);
 			}
 			list.AppendLine();
 		}
@@ -167,11 +167,11 @@ namespace Yburn.Workers
 			BottomiumState state,
 			double temperature,
 			double velocity,
-			DecayWidthProvider calculator
+			DecayWidthProvider provider
 			)
 		{
 			list.AppendFormat("{0,-20}",
-				calculator.GetDecayWidth(state, temperature, velocity).ToUIString());
+				provider.GetInMediumDecayWidth(state, temperature, velocity).ToUIString());
 		}
 	}
 }

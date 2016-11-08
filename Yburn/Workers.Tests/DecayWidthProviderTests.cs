@@ -7,7 +7,7 @@ using Yburn.TestUtil;
 namespace Yburn.Workers.Tests
 {
 	[TestClass]
-	public class DecayWidthCalculatorTests
+	public class DecayWidthProviderTests
 	{
 		/********************************************************************************************
 		 * Public members, functions and properties
@@ -39,71 +39,71 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void GivenTemperatureBelowQGPFormationTemperature_ReturnZero()
 		{
-			CreateDecayWidthCalculator(DecayWidthEvaluationType.UnshiftedTemperature);
+			CreateDecayWidthProvider(DecayWidthEvaluationType.UnshiftedTemperature);
 
-			Assert.AreEqual(0, Calculator.GetDecayWidth(BottomiumState.Y1S, 150, 0));
+			Assert.AreEqual(0, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 150, 0));
 		}
 
 		[TestMethod]
 		public void GivenTemperatureBelowBoundary_ReturnZero()
 		{
-			CreateDecayWidthCalculator(DecayWidthEvaluationType.UnshiftedTemperature);
+			CreateDecayWidthProvider(DecayWidthEvaluationType.UnshiftedTemperature);
 
-			Assert.AreEqual(0, Calculator.GetDecayWidth(BottomiumState.x1P, 180, 0));
+			Assert.AreEqual(0, Provider.GetInMediumDecayWidth(BottomiumState.x1P, 180, 0));
 		}
 
 		[TestMethod]
 		public void GivenTemperatureAboveBoundary_ReturnInfinity()
 		{
-			CreateDecayWidthCalculator(DecayWidthEvaluationType.UnshiftedTemperature);
+			CreateDecayWidthProvider(DecayWidthEvaluationType.UnshiftedTemperature);
 
-			Assert.AreEqual(double.PositiveInfinity, Calculator.GetDecayWidth(BottomiumState.Y1S, 800, 0));
+			Assert.AreEqual(double.PositiveInfinity, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 800, 0));
 		}
 
 		[TestMethod]
 		public void NoEntriesInDataFile_ReturnZeroOrInfinity()
 		{
-			CreateDecayWidthCalculator(DecayWidthEvaluationType.UnshiftedTemperature);
+			CreateDecayWidthProvider(DecayWidthEvaluationType.UnshiftedTemperature);
 
-			Assert.AreEqual(0, Calculator.GetDecayWidth(BottomiumState.x3P, 150, 0));
-			Assert.AreEqual(double.PositiveInfinity, Calculator.GetDecayWidth(BottomiumState.x3P, 180, 0));
+			Assert.AreEqual(0, Provider.GetInMediumDecayWidth(BottomiumState.x3P, 150, 0));
+			Assert.AreEqual(double.PositiveInfinity, Provider.GetInMediumDecayWidth(BottomiumState.x3P, 180, 0));
 		}
 
 		[TestMethod]
 		public void UsingUnshiftedTemperature_SimpleInterpolation()
 		{
-			CreateDecayWidthCalculator(DecayWidthEvaluationType.UnshiftedTemperature);
+			CreateDecayWidthProvider(DecayWidthEvaluationType.UnshiftedTemperature);
 
-			Assert.AreEqual(450, Calculator.GetDecayWidth(BottomiumState.Y1S, 300, 0));
+			Assert.AreEqual(450, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 300, 0));
 		}
 
 		[TestMethod]
 		public void UsingMaximallyBlueshifted_SimpleInterpolationWithMaximallyDopplerShiftedTemperature()
 		{
-			CreateDecayWidthCalculator(DecayWidthEvaluationType.MaximallyBlueshifted);
+			CreateDecayWidthProvider(DecayWidthEvaluationType.MaximallyBlueshifted);
 
 			// maximally blueshifted temperature: T * sqrt(1-v*v)/(1-v)
 			// v = 0.6  =>  sqrt(1-v*v)/(1-v) = 2
-			Assert.AreEqual(600, Calculator.GetDecayWidth(BottomiumState.Y1S, 200, 0.6));
+			Assert.AreEqual(600, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 200, 0.6));
 
 		}
 
 		[TestMethod]
 		public void UsingAveragedTemperature_SimpleInterpolationWithAverageDopplerShiftedTemperature()
 		{
-			CreateDecayWidthCalculator(DecayWidthEvaluationType.AveragedTemperature);
+			CreateDecayWidthProvider(DecayWidthEvaluationType.AveragedTemperature);
 
 			// averaged temperature: T * sqrt(1-v*v) * artanh(v)/v
 			// v = 0.874348...  =>  sqrt(1-v*v) * artanh(v)/v = 0.75
-			AssertHelper.AssertApproximatelyEqual(450, Calculator.GetDecayWidth(BottomiumState.Y1S, 400, 0.874348), 6);
+			AssertHelper.AssertApproximatelyEqual(450, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 400, 0.874348), 6);
 		}
 
 		[TestMethod]
 		public void UsingAveragedTemperature_AverageDecayWidthsEvaluatedAtDopplerShiftedTemperatures()
 		{
-			CreateDecayWidthCalculator(DecayWidthEvaluationType.AveragedDecayWidth);
+			CreateDecayWidthProvider(DecayWidthEvaluationType.AveragedDecayWidth);
 
-			AssertHelper.AssertApproximatelyEqual(303.343, Calculator.GetDecayWidth(BottomiumState.Y1S, 200, 0.2), 6);
+			AssertHelper.AssertApproximatelyEqual(303.343, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 200, 0.2), 6);
 		}
 
 		/********************************************************************************************
@@ -120,13 +120,13 @@ namespace Yburn.Workers.Tests
 
 		private static int NumberAveragingAngles = 20;
 
-		private static DecayWidthProvider Calculator;
+		private static DecayWidthProvider Provider;
 
-		private static void CreateDecayWidthCalculator(
+		private static void CreateDecayWidthProvider(
 			DecayWidthEvaluationType evaluationType
 			)
 		{
-			Calculator = new DecayWidthProvider(
+			Provider = new DecayWidthProvider(
 				DataPathFile,
 				PotentialTypes,
 				evaluationType,
