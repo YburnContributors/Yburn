@@ -260,7 +260,7 @@ namespace Yburn
 			JobStartEventArgs args
 			)
 		{
-			PowerManagement.KeepSystemAwake();
+			NativeMethods.KeepSystemAwake();
 
 			if(JobStart != null)
 			{
@@ -273,7 +273,7 @@ namespace Yburn
 			JobFinishedEventArgs args
 			)
 		{
-			PowerManagement.Reset();
+			NativeMethods.AllowSleepMode();
 
 			WriteToLogFile();
 
@@ -298,7 +298,7 @@ namespace Yburn
 			Task task
 			)
 		{
-			PowerManagement.Reset();
+			NativeMethods.AllowSleepMode();
 
 			if(task.Exception != null)
 			{

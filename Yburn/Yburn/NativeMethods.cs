@@ -18,21 +18,21 @@ namespace Yburn
 		// ES_USER_PRESENT = 0x00000004
 	}
 
-	internal static class PowerManagement
+	internal static class NativeMethods
 	{
 		/********************************************************************************************
 		 * Internal static members, functions and properties
 		 ********************************************************************************************/
 
+		internal static void AllowSleepMode()
+		{
+			SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS);
+		}
+
 		internal static void KeepSystemAwake()
 		{
 			SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS
 				| EXECUTION_STATE.ES_SYSTEM_REQUIRED);
-		}
-
-		internal static void Reset()
-		{
-			SetThreadExecutionState(EXECUTION_STATE.ES_CONTINUOUS);
 		}
 
 		/********************************************************************************************

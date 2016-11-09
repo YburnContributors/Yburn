@@ -55,7 +55,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="BackgroundService.cs" />
-    <Compile Include="PowerManagement.cs" />
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="Table.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
