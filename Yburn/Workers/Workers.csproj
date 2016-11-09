@@ -34,7 +34,6 @@
     <Compile Include="DecayWidthProvider.cs" />
     <Compile Include="Electromagnetism.cs" />
     <Compile Include="Electromagnetism.Params.cs" />
-    <Compile Include="GlobalSuppressions.cs" />
     <Compile Include="InMediumDecayWidth.cs" />
     <Compile Include="InMediumDecayWidth.Plotting.cs" />
     <Compile Include="InMediumDecayWidth.Params.cs" />
