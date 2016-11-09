@@ -6,10 +6,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Threading;
+using Yburn.FormatUtil;
 
 namespace Yburn.QQState
 {
@@ -143,7 +142,7 @@ namespace Yburn.QQState
 
 		static QQDataDoc()
 		{
-			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+			YburnFormat.UseYburnFormat();
 		}
 
 		/********************************************************************************************

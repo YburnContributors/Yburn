@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Yburn.Fireball;
+using Yburn.FormatUtil;
 using Yburn.QQState;
 
 namespace Yburn.Workers.Tests

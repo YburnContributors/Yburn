@@ -64,6 +64,10 @@
       <Project>{38653203-8c76-4f0c-9d56-171d1d1cf775}</Project>
       <Name>Fireball</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FormatUtil\FormatUtil.csproj">
+      <Project>{2CACC9EA-FB3B-4A90-BD50-66903953079E}</Project>
+      <Name>FormatUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces\Interfaces.csproj">
       <Project>{742600e8-00ef-4a05-bb96-31449ae45336}</Project>
       <Name>Interfaces</Name>

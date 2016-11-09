@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Yburn.FormatUtil;
 using Yburn.PhysUtil;
 
 namespace Yburn.Fireball

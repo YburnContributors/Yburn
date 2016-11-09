@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 
-namespace Yburn
+namespace Yburn.FormatUtil
 {
 	public static class Converter
 	{
@@ -18,11 +17,11 @@ namespace Yburn
 		{
 			if(value is double)
 			{
-				return string.Format(CultureInfo.InvariantCulture, "{0:G4}", value);
+				return string.Format(YburnFormat.YburnCulture, "{0:G4}", value);
 			}
 			else
 			{
-				return string.Format(CultureInfo.InvariantCulture, "{0:G}", value);
+				return string.Format(YburnFormat.YburnCulture, "{0:G}", value);
 			}
 		}
 
@@ -61,7 +60,7 @@ namespace Yburn
 			TypeConverter converter = TypeDescriptor.GetConverter(typeof(T));
 
 			return (T)converter.ConvertFromString(
-				null, CultureInfo.InvariantCulture, stringifiedValue);
+				null, YburnFormat.YburnCulture, stringifiedValue);
 		}
 
 		public static List<T> ToValueList<T>(

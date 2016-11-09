@@ -52,6 +52,10 @@
       <Project>{38653203-8c76-4f0c-9d56-171d1d1cf775}</Project>
       <Name>Fireball</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FormatUtil\FormatUtil.csproj">
+      <Project>{2CACC9EA-FB3B-4A90-BD50-66903953079E}</Project>
+      <Name>FormatUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PhysUtil\PhysUtil.csproj">
       <Project>{96e5e846-3417-4a44-a4f1-7ed8dca43f43}</Project>
       <Name>PhysUtil</Name>

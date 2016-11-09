@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Globalization;
-using System.Threading;
 using System.Windows.Forms;
+using Yburn.FormatUtil;
 using Yburn.Interfaces;
 
 namespace Yburn
@@ -19,7 +18,7 @@ namespace Yburn
 		{
 			try
 			{
-				Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+				YburnFormat.UseYburnFormat();
 
 				FullNameVersion = NameVersion + " - " + workerName;
 
