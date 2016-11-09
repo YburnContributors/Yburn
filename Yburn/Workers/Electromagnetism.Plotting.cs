@@ -523,10 +523,10 @@ namespace Yburn.Workers
 			SurfacePlotFunction function = (properTime, impactParam) =>
 			{
 				param.ImpactParameterFm = impactParam;
-				ElectromagneticFieldStrengthAverager avg =
-					new ElectromagneticFieldStrengthAverager(param);
+				LCFFieldAverager avg =
+					new LCFFieldAverager(param);
 
-				return avg.CalculateAverageMagneticFieldStrengthPerFm2_LCF(
+				return avg.CalculateAverageMagneticFieldStrengthPerFm2(
 					properTime, QuadratureOrder);
 			};
 
@@ -566,10 +566,10 @@ namespace Yburn.Workers
 			SurfacePlotFunction function = (properTime, impactParam) =>
 			{
 				param.ImpactParameterFm = impactParam;
-				ElectromagneticFieldStrengthAverager avg =
-					new ElectromagneticFieldStrengthAverager(param);
+				LCFFieldAverager avg =
+					new LCFFieldAverager(param);
 
-				return avg.CalculateSpinStateOverlap(properTime, QuadratureOrder);
+				return avg.CalculateAverageSpinStateOverlap(properTime, QuadratureOrder);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);

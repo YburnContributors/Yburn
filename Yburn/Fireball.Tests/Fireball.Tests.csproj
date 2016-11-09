@@ -56,7 +56,7 @@
     <Compile Include="BottomiumCascadeTests.cs" />
     <Compile Include="DummyDecayWidthProvider.cs" />
     <Compile Include="FireballElectromagneticFieldTests.cs" />
-    <Compile Include="ElectromagneticFieldStrengthAveragerTests.cs" />
+    <Compile Include="LCFFieldAveragerTests.cs" />
     <Compile Include="FireballEvolutionTests.cs" />
     <Compile Include="PointChargeElectromagneticFieldTests.cs" />
     <Compile Include="FireballFieldTests.cs" />

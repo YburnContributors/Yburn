@@ -38,7 +38,7 @@
     <Compile Include="FtexsFirstOrderStepper.cs" />
     <Compile Include="Nucleus.cs" />
     <Compile Include="FireballElectromagneticField.cs" />
-    <Compile Include="ElectromagneticFieldStrengthAverager.cs" />
+    <Compile Include="LCFFieldAverager.cs" />
     <Compile Include="NucleusElectromagneticField.cs" />
     <Compile Include="PointChargeElectromagneticField.cs" />
     <Compile Include="Fireball.cs" />

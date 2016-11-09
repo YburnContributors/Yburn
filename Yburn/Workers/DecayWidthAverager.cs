@@ -6,6 +6,9 @@ using Yburn.QQState;
 
 namespace Yburn.Workers
 {
+
+	public delegate double TemperatureDependentFunction(double temperature);
+
 	public class DecayWidthAverager
 	{
 		/********************************************************************************************
@@ -210,12 +213,12 @@ namespace Yburn.Workers
 		}
 
 		private double CalculateAverageDopplerShift(
-			Func<double, double> temperatureDependentObservable,
+			TemperatureDependentFunction function,
 			double qgpTemperature,
 			double qgpVelocity
 			)
 		{
-			Func<double, double> integrand = cosine => temperatureDependentObservable(
+			Func<double, double> integrand = cosine => function(
 				GetDopplerShiftedTemperature(qgpTemperature, qgpVelocity, cosine));
 
 			return 0.5 * Quadrature.IntegrateOverInterval(integrand, -1, 1, NumberAveragingAngles);
