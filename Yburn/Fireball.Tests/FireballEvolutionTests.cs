@@ -15,10 +15,10 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void FireballEvolution()
 		{
-			SetFireball();
-			CalculateFireballEvolution();
+            Fireball = new Fireball(CreateFireballParam());
+            CalculateFireballEvolution();
 
-			double[] qgpSuppressionFactors = GetSuppressionFactors();
+            double[] qgpSuppressionFactors = GetSuppressionFactors();
 			AssertHelper.AssertApproximatelyEqual(0.5708251868116111, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
 			AssertHelper.AssertApproximatelyEqual(0.19042039607106531, qgpSuppressionFactors[(int)BottomiumState.x1P]);
 			AssertHelper.AssertApproximatelyEqual(0.19347049076166911, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
@@ -27,11 +27,26 @@ namespace Yburn.Fireball.Tests
 			AssertHelper.AssertApproximatelyEqual(0.027508390401150242, qgpSuppressionFactors[(int)BottomiumState.x3P]);
 		}
 
-		/********************************************************************************************
+        [TestMethod]
+        public void FireballEvolution_Gaussian()
+        {
+            Fireball = new Fireball(CreateFireballParam_Gaussian());
+            CalculateFireballEvolution();
+
+            double[] qgpSuppressionFactors = GetSuppressionFactors();
+            AssertHelper.AssertApproximatelyEqual(0.87325221039203738, qgpSuppressionFactors[(int)BottomiumState.Y1S]);
+            AssertHelper.AssertApproximatelyEqual(0.63365577949045482, qgpSuppressionFactors[(int)BottomiumState.x1P]);
+            AssertHelper.AssertApproximatelyEqual(0.6331572605415442, qgpSuppressionFactors[(int)BottomiumState.Y2S]);
+            AssertHelper.AssertApproximatelyEqual(0.39329538338543396, qgpSuppressionFactors[(int)BottomiumState.x2P]);
+            AssertHelper.AssertApproximatelyEqual(0.38985441394861575, qgpSuppressionFactors[(int)BottomiumState.Y3S]);
+            AssertHelper.AssertApproximatelyEqual(0.21211270483941475, qgpSuppressionFactors[(int)BottomiumState.x3P]);
+        }
+
+        /********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static readonly double BreakupTemperature = 160;
+        private static readonly double BreakupTemperature = 160;
 
 		private static readonly int NumberBottomiumStates
 			= Enum.GetValues(typeof(BottomiumState)).Length;
@@ -52,7 +67,24 @@ namespace Yburn.Fireball.Tests
 			}
 		}
 
-		private static FireballParam CreateFireballParam()
+        private static FireballParam CreateFireballParam_Gaussian()
+        {
+            FireballParam param = CreateFireballParam();
+
+            param.DiffusenessBFm = 0;
+            param.GridCellSizeFm = 0.5;
+            param.GridRadiusFm = 3.2;
+            param.InelasticppCrossSectionFm = 7.0;
+            param.NuclearRadiusBFm = 0.8775;
+            param.NucleonNumberB = 1;
+            param.NucleusShapeB = NucleusShape.GaussianDistribution;
+            param.ProtonNumberB = 1;
+            param.TemperatureProfile = TemperatureProfile.NmixALICE13;
+
+            return param;
+        }
+
+        private static FireballParam CreateFireballParam()
 		{
 			FireballParam param = new FireballParam();
 
@@ -86,11 +118,6 @@ namespace Yburn.Fireball.Tests
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 		private Fireball Fireball;
-
-		private void SetFireball()
-		{
-			Fireball = new Fireball(CreateFireballParam());
-		}
 
 		private void CalculateFireballEvolution()
 		{

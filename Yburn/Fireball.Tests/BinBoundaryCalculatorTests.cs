@@ -23,7 +23,7 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void CalculateMinBiasBin()
 		{
-			BinBoundaryCalculator calculator = new BinBoundaryCalculator(
+            BinBoundaryCalculator calculator = new BinBoundaryCalculator(
 				CreateFireballParam(), CancellationToken);
 			calculator.Calculate(CentralityBinsInPercent);
 
@@ -31,11 +31,22 @@ namespace Yburn.Fireball.Tests
 			AssertCorrectMeanParticipantsInBin(calculator);
 		}
 
-		/********************************************************************************************
+        [TestMethod]
+        public void CalculateMinBiasBin_Gaussian()
+        {
+            BinBoundaryCalculator calculator = new BinBoundaryCalculator(
+                CreateFireballParam_Gaussian(), CancellationToken);
+            calculator.Calculate(CentralityBinsInPercent);
+
+            AssertCorrectImpactParamsAtBinBoundaries_Gaussian(calculator);
+            AssertCorrectMeanParticipantsInBin_Gaussian(calculator);
+        }
+
+        /********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static readonly List<List<int>> CentralityBinsInPercent
+        private static readonly List<List<int>> CentralityBinsInPercent
 			= new List<List<int>> { new List<int> { 0, 5, 10, 20, 30, 40, 50, 100 } };
 
 		private static readonly int NumberBottomiumStates
@@ -72,15 +83,59 @@ namespace Yburn.Fireball.Tests
 			AssertHelper.AssertApproximatelyEqual(19.648149650443639, nparts[6]);
 		}
 
-		/********************************************************************************************
+        private static void AssertCorrectImpactParamsAtBinBoundaries_Gaussian(BinBoundaryCalculator calculator)
+        {
+            List<double> impactParams = calculator.ImpactParamsAtBinBoundaries[0];
+            Assert.AreEqual(8, impactParams.Count);
+            AssertHelper.AssertApproximatelyEqual(0, impactParams[0]);
+            AssertHelper.AssertApproximatelyEqual(1.5, impactParams[1]);
+            AssertHelper.AssertApproximatelyEqual(2, impactParams[2]);
+            AssertHelper.AssertApproximatelyEqual(3, impactParams[3]);
+            AssertHelper.AssertApproximatelyEqual(4, impactParams[4]);
+            AssertHelper.AssertApproximatelyEqual(5, impactParams[5]);
+            AssertHelper.AssertApproximatelyEqual(5.5, impactParams[6]);
+            AssertHelper.AssertApproximatelyEqual(14, impactParams[7]);
+        }
+
+        private static void AssertCorrectMeanParticipantsInBin_Gaussian(BinBoundaryCalculator calculator)
+        {
+            List<double> nparts = calculator.MeanParticipantsInBin[0];
+            Assert.AreEqual(7, nparts.Count);
+            AssertHelper.AssertApproximatelyEqual(15.444543321872351, nparts[0]);
+            AssertHelper.AssertApproximatelyEqual(15.165100866809057, nparts[1]);
+            AssertHelper.AssertApproximatelyEqual(14.580518650546344, nparts[2]);
+            AssertHelper.AssertApproximatelyEqual(13.413716108530617, nparts[3]);
+            AssertHelper.AssertApproximatelyEqual(11.5829475874222, nparts[4]);
+            AssertHelper.AssertApproximatelyEqual(9.7222474862905273, nparts[5]);
+            AssertHelper.AssertApproximatelyEqual(3.8527205913392981, nparts[6]);
+        }
+
+        /********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private CancellationTokenSource CancellationTokenSource;
+        private CancellationTokenSource CancellationTokenSource;
 
 		private CancellationToken CancellationToken;
 
-		private FireballParam CreateFireballParam()
+        private static FireballParam CreateFireballParam_Gaussian()
+        {
+            FireballParam param = CreateFireballParam();
+
+            param.DiffusenessBFm = 0;
+            param.GridCellSizeFm = 0.5;
+            param.GridRadiusFm = 3.2;
+            param.InelasticppCrossSectionFm = 7.0;
+            param.NuclearRadiusBFm = 0.8775;
+            param.NucleonNumberB = 1;
+            param.NucleusShapeB = NucleusShape.GaussianDistribution;
+            param.ProtonNumberB = 1;
+            param.TemperatureProfile = TemperatureProfile.NmixALICE13;
+
+            return param;
+        }
+
+        private static FireballParam CreateFireballParam()
 		{
 			FireballParam param = new FireballParam();
 
