@@ -96,15 +96,17 @@ namespace Yburn.Workers
 			param.GridCellSizeFm = 0.4;
 			param.GridRadiusFm = 10;
 			param.ImpactParameterFm = ImpactParameterFm;
+			param.InelasticppCrossSectionFm = 6.4;
 			param.NucleonNumberA = NucleonNumberA;
 			param.NucleonNumberB = NucleonNumberB;
 			param.NuclearRadiusAFm = NuclearRadiusAFm;
 			param.NuclearRadiusBFm = NuclearRadiusBFm;
+			param.NucleusShapeA = NucleusShapeA;
+			param.NucleusShapeB = NucleusShapeB;
 			param.ProtonNumberA = ProtonNumberA;
 			param.ProtonNumberB = ProtonNumberB;
 			param.QGPConductivityMeV = QGPConductivityMeV;
-			param.NucleusShapeA = NucleusShapeA;
-			param.NucleusShapeB = NucleusShapeB;
+			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 
 			return param;
 		}
