@@ -22,8 +22,8 @@ namespace Yburn.Workers
 		{
 			if(qgpVelocity > 0)
 			{
-				return qgpTemperature
-					* Math.Sqrt(1.0 - qgpVelocity * qgpVelocity) * Functions.Artanh(qgpVelocity) / qgpVelocity;
+				return qgpTemperature * Math.Sqrt(1.0 - qgpVelocity * qgpVelocity)
+					* Functions.Artanh(qgpVelocity) / qgpVelocity;
 			}
 			else
 			{
@@ -41,6 +41,14 @@ namespace Yburn.Workers
 				* Math.Sqrt(1.0 - qgpVelocity * qgpVelocity) / (1.0 - qgpVelocity * cosine);
 		}
 
+		public static double GetMaximallyBlueshiftedTemperature(
+			double qgpTemperature,
+			double qgpVelocity
+			)
+		{
+			return GetDopplerShiftedTemperature(qgpTemperature, qgpVelocity, 1);
+		}
+
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
@@ -48,8 +56,8 @@ namespace Yburn.Workers
 		private static void SetInterpolation(
 			List<QQDataSet> dataSetList,
 			DecayWidthType decayWidthType,
-			out LinearInterpolation1D interpolatedBindingEnergies,
-			out LinearInterpolation1D interpolatedDecayWidths
+			out LinearInterpolation1D interpolatedDecayWidths,
+			out LinearInterpolation1D interpolatedEnergies
 			)
 		{
 			int listSize = dataSetList.Count;
@@ -63,19 +71,19 @@ namespace Yburn.Workers
 				for(int j = 0; j < listSize; j++)
 				{
 					temperatureList[j] = dataSetList[j].Temperature;
-					energyList[j] = dataSetList[j].Energy;
 					gammaList[j] = dataSetList[j].GetGamma(decayWidthType);
+					energyList[j] = dataSetList[j].Energy;
 				}
 			}
 			else
 			{
 				temperatureList = new double[] { 0 };
-				energyList = new double[] { 0 };
 				gammaList = new double[] { double.PositiveInfinity };
+				energyList = new double[] { 0 };
 			}
 
-			interpolatedBindingEnergies = new LinearInterpolation1D(temperatureList, energyList);
 			interpolatedDecayWidths = new LinearInterpolation1D(temperatureList, gammaList);
+			interpolatedEnergies = new LinearInterpolation1D(temperatureList, energyList);
 		}
 
 		/********************************************************************************************
@@ -90,7 +98,7 @@ namespace Yburn.Workers
 			)
 		{
 			SetInterpolation(dataSetList, decayWidthType,
-				out InterpolatedBindingEnergies, out InterpolatedDecayWidths);
+				out InterpolatedDecayWidths, out InterpolatedEnergies);
 			QGPFormationTemperature = qgpFormationTemperature;
 			NumberAveragingAngles = numberAveragingAngles;
 			AssertValidMembers();
@@ -105,7 +113,7 @@ namespace Yburn.Workers
 		public double GetInMediumDecayWidth(
 			double qgpTemperature,
 			double qgpVelocity,
-			DecayWidthEvaluationType evaluationType
+			DopplerShiftEvaluationType evaluationType
 			)
 		{
 			if(!ExistsMedium(qgpTemperature))
@@ -116,54 +124,68 @@ namespace Yburn.Workers
 			{
 				switch(evaluationType)
 				{
-					case DecayWidthEvaluationType.UnshiftedTemperature:
-						return GetScaledDecayWidth(qgpTemperature);
+					case DopplerShiftEvaluationType.UnshiftedTemperature:
+						return GetEffectiveDecayWidth(qgpTemperature);
 
-					case DecayWidthEvaluationType.MaximallyBlueshifted:
-						return GetScaledDecayWidth(
-							GetDopplerShiftedTemperature(qgpTemperature, qgpVelocity, 1));
+					case DopplerShiftEvaluationType.MaximallyBlueshifted:
+						return GetEffectiveDecayWidth(
+							GetMaximallyBlueshiftedTemperature(qgpTemperature, qgpVelocity));
 
-					case DecayWidthEvaluationType.AveragedTemperature:
-						return GetScaledDecayWidth(
+					case DopplerShiftEvaluationType.AveragedTemperature:
+						return GetEffectiveDecayWidth(
 							GetAveragedTemperature(qgpTemperature, qgpVelocity));
 
-					case DecayWidthEvaluationType.AveragedDecayWidth:
-						return GetScaledAveragedDecayWidth(qgpTemperature, qgpVelocity);
+					case DopplerShiftEvaluationType.AveragedDecayWidth:
+						return GetAveragedDecayWidth(qgpTemperature, qgpVelocity);
+
+					case DopplerShiftEvaluationType.AveragedLifeTime:
+						return GetInverselyAveragedDecayWidth(qgpTemperature, qgpVelocity);
 
 					default:
-						throw new Exception("Invalid DecayWidthEvaluationType.");
+						throw new Exception("Invalid DopplerShiftEvaluationType.");
 				}
 			}
 		}
 
 		public double GetDecayWidth(
-			double effectiveTemperature
+			double temperature
 			)
 		{
-			return InterpolateDecayWidth(effectiveTemperature);
+			if(temperature < InterpolatedDecayWidths.Xmin)
+			{
+				return 0;
+			}
+
+			if(temperature > InterpolatedDecayWidths.Xmax)
+			{
+				return double.PositiveInfinity;
+			}
+
+			return InterpolatedDecayWidths.GetValue(temperature);
+		}
+
+		public double GetEnergy(
+			double temperature
+			)
+		{
+			if(temperature < InterpolatedEnergies.Xmin)
+			{
+				return double.NegativeInfinity;
+			}
+
+			if(temperature > InterpolatedEnergies.Xmax)
+			{
+				return double.PositiveInfinity;
+			}
+
+			return InterpolatedEnergies.GetValue(temperature);
 		}
 
 		public double GetExistenceProbability(
-			double effectiveTemperature
+			double temperature
 			)
 		{
-			return Functions.HeavisideStepFunction(-InterpolateBindingEnergy(effectiveTemperature));
-		}
-
-		public double GetAveragedDecayWidth(
-		double qgpTemperature,
-		double qgpVelocity
-		)
-		{
-			return CalculateAverageDopplerShift(GetDecayWidth, qgpTemperature, qgpVelocity);
-		}
-
-		public double GetAveragedExistenceProbability(
-			double qgpTemperature,
-			double qgpVelocity
-			)
-		{
-			return CalculateAverageDopplerShift(GetExistenceProbability, qgpTemperature, qgpVelocity);
+			return Functions.HeavisideStepFunction(-GetEnergy(temperature));
 		}
 
 		/********************************************************************************************
@@ -172,9 +194,9 @@ namespace Yburn.Workers
 
 		private readonly int NumberAveragingAngles;
 
-		private readonly LinearInterpolation1D InterpolatedBindingEnergies;
-
 		private readonly LinearInterpolation1D InterpolatedDecayWidths;
+
+		private readonly LinearInterpolation1D InterpolatedEnergies;
 
 		private void AssertValidMembers()
 		{
@@ -195,21 +217,33 @@ namespace Yburn.Workers
 			return qgpTemperature >= QGPFormationTemperature;
 		}
 
-		private double GetScaledDecayWidth(
-			double effectiveTemperature
+		private double GetEffectiveDecayWidth(
+			double temperature
 			)
 		{
-			return GetDecayWidth(effectiveTemperature)
-				/ GetExistenceProbability(effectiveTemperature);
+			return GetDecayWidth(temperature)
+				/ GetExistenceProbability(temperature);
 		}
 
-		private double GetScaledAveragedDecayWidth(
+		private double GetAveragedDecayWidth(
 			double qgpTemperature,
 			double qgpVelocity
 			)
 		{
-			return GetAveragedDecayWidth(qgpTemperature, qgpVelocity)
-				/ GetAveragedExistenceProbability(qgpTemperature, qgpVelocity);
+			return CalculateAverageDopplerShift(GetDecayWidth, qgpTemperature, qgpVelocity)
+				/ GetExistenceProbability(
+					GetMaximallyBlueshiftedTemperature(qgpTemperature, qgpVelocity));
+		}
+
+		private double GetInverselyAveragedDecayWidth(
+			double qgpTemperature,
+			double qgpVelocity
+			)
+		{
+			TemperatureDependentFunction effectiveLifeTime
+				= temperature => 1 / GetEffectiveDecayWidth(temperature);
+
+			return 1 / CalculateAverageDopplerShift(effectiveLifeTime, qgpTemperature, qgpVelocity);
 		}
 
 		private double CalculateAverageDopplerShift(
@@ -222,40 +256,6 @@ namespace Yburn.Workers
 				GetDopplerShiftedTemperature(qgpTemperature, qgpVelocity, cosine));
 
 			return 0.5 * Quadrature.IntegrateOverInterval(integrand, -1, 1, NumberAveragingAngles);
-		}
-
-		private double InterpolateBindingEnergy(
-			double temperature
-			)
-		{
-			if(temperature < InterpolatedBindingEnergies.Xmin)
-			{
-				return double.NegativeInfinity;
-			}
-
-			if(temperature > InterpolatedBindingEnergies.Xmax)
-			{
-				return double.PositiveInfinity;
-			}
-
-			return InterpolatedBindingEnergies.GetValue(temperature);
-		}
-
-		private double InterpolateDecayWidth(
-			double temperature
-			)
-		{
-			if(temperature < InterpolatedDecayWidths.Xmin)
-			{
-				return 0;
-			}
-
-			if(temperature > InterpolatedDecayWidths.Xmax)
-			{
-				return double.PositiveInfinity;
-			}
-
-			return InterpolatedDecayWidths.GetValue(temperature);
 		}
 	}
 }

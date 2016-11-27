@@ -11,12 +11,13 @@
 		x3P = 5
 	};
 
-	public enum DecayWidthEvaluationType
+	public enum DopplerShiftEvaluationType
 	{
 		UnshiftedTemperature,
 		MaximallyBlueshifted,
 		AveragedTemperature,
-		AveragedDecayWidth
+		AveragedDecayWidth,
+		AveragedLifeTime
 	};
 
 	public enum ExpansionMode

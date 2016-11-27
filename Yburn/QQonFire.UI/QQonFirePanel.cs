@@ -93,7 +93,7 @@ namespace Yburn.QQonFire.UI
 
 		private void InitializeComboBoxes()
 		{
-			CbxDecayWidthEvaluationType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthEvaluationType"));
+			CbxDopplerShiftEvaluationType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DopplerShiftEvaluationType"));
 			CbxExpansionMode.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ExpansionMode"));
 			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
 			CbxTemperatureProfile.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("TemperatureProfile"));
@@ -113,11 +113,11 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["BreakupTemperature"] = TbxBreakupTemperature.Text;
 			nameValuePairs["CentralityBinBoundaries"] = TbxCentralityBinBoundaries.Text;
 			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
-			nameValuePairs["DecayWidthEvaluationType"] = CbxDecayWidthEvaluationType.Text;
+			nameValuePairs["DopplerShiftEvaluationType"] = CbxDopplerShiftEvaluationType.Text;
 			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
 			nameValuePairs["DiffusenessA"] = TbxDiffusenessA.Text;
 			nameValuePairs["DiffusenessB"] = TbxDiffusenessB.Text;
-			nameValuePairs["DimuonDecaysFromPP"] = TbxDimuonDecaysFromPP.Text;
+			nameValuePairs["DimuonDecaysFrompp"] = TbxDimuonDecaysFrompp.Text;
 			nameValuePairs["ExpansionMode"] = CbxExpansionMode.Text;
 			nameValuePairs["FireballFieldTypes"] = MsxFireballFieldTypes.SelectionString;
 			nameValuePairs["FormationTimes"] = TbxFormationTimes.Text;
@@ -153,7 +153,7 @@ namespace Yburn.QQonFire.UI
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			CbxDecayWidthEvaluationType.Text = nameValuePairs["DecayWidthEvaluationType"];
+			CbxDopplerShiftEvaluationType.Text = nameValuePairs["DopplerShiftEvaluationType"];
 			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"];
 			CbxExpansionMode.Text = nameValuePairs["ExpansionMode"];
 			CbxNucleusShapeA.Text = nameValuePairs["NucleusShapeA"];
@@ -169,7 +169,7 @@ namespace Yburn.QQonFire.UI
 			TbxDataFileName.Text = nameValuePairs["DataFileName"];
 			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA"];
 			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB"];
-			TbxDimuonDecaysFromPP.Text = nameValuePairs["DimuonDecaysFromPP"];
+			TbxDimuonDecaysFrompp.Text = nameValuePairs["DimuonDecaysFrompp"];
 			TbxFormationTimes.Text = nameValuePairs["FormationTimes"];
 			TbxGridCellSize.Text = nameValuePairs["GridCellSize"];
 			TbxGridRadius.Text = nameValuePairs["GridRadius"];

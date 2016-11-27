@@ -162,10 +162,10 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public BottomiumCascade(
-			Dictionary<BottomiumState, double> dimuonDecaysFromPP
+			Dictionary<BottomiumState, double> dimuonDecaysFrompp
 			)
 		{
-			DimuonDecaysFromPP = new BottomiumVector(dimuonDecaysFromPP);
+			DimuonDecaysFrompp = new BottomiumVector(dimuonDecaysFrompp);
 		}
 
 		/********************************************************************************************
@@ -174,7 +174,7 @@ namespace Yburn.Fireball
 
 		public BottomiumVector GetNormalizedProtonProtonDimuonDecays()
 		{
-			return DimuonDecaysFromPP / DimuonDecaysFromPP[BottomiumState.Y1S];
+			return DimuonDecaysFrompp / DimuonDecaysFrompp[BottomiumState.Y1S];
 		}
 
 		public string GetNormalizedProtonProtonDimuonDecaysString()
@@ -275,7 +275,7 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private readonly BottomiumVector DimuonDecaysFromPP;
+		private readonly BottomiumVector DimuonDecaysFrompp;
 
 		private BottomiumVector CalculateReducedInitialQQPopulations(
 			BottomiumVector qgpSuppressionFactors

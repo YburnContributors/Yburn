@@ -96,7 +96,7 @@ namespace Yburn.InMediumDecayWidth.UI
 			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
 			CbxDecayWidthType.Items.Remove("None");
 			MsxBottomiumStates.AddItems(JobOrganizer.GetWorkerEnumEntries("BottomiumState"));
-			MsxDecayWidthEvaluationTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("DecayWidthEvaluationType"));
+			MsxDopplerShiftEvaluationTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("DopplerShiftEvaluationType"));
 			MsxPotentialTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("PotentialType"));
 		}
 
@@ -106,7 +106,7 @@ namespace Yburn.InMediumDecayWidth.UI
 			nameValuePairs["BottomiumStates"] = MsxBottomiumStates.SelectionString;
 			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
 			nameValuePairs["NumberAveragingAngles"] = TbxNumberAveragingAngles.Text;
-			nameValuePairs["DecayWidthEvaluationTypes"] = MsxDecayWidthEvaluationTypes.SelectionString;
+			nameValuePairs["DopplerShiftEvaluationTypes"] = MsxDopplerShiftEvaluationTypes.SelectionString;
 			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
 			nameValuePairs["MediumTemperatures"] = TbxMediumTemperatures.Text;
 			nameValuePairs["MediumVelocities"] = TbxMediumVelocities.Text;
@@ -122,7 +122,7 @@ namespace Yburn.InMediumDecayWidth.UI
 		{
 			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"];
 			MsxBottomiumStates.SelectionString = nameValuePairs["BottomiumStates"];
-			MsxDecayWidthEvaluationTypes.SelectionString = nameValuePairs["DecayWidthEvaluationTypes"];
+			MsxDopplerShiftEvaluationTypes.SelectionString = nameValuePairs["DopplerShiftEvaluationTypes"];
 			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];
 			TbxDataFileName.Text = nameValuePairs["DataFileName"];
 			TbxNumberAveragingAngles.Text = nameValuePairs["NumberAveragingAngles"];
@@ -135,6 +135,8 @@ namespace Yburn.InMediumDecayWidth.UI
 		{
 			MenuEntry = new MenuItemInMediumDecayWidth();
 			MenuEntry.MenuItemCalculateInMediumDecayWidths.Click += new EventHandler(MenuItemCalculateInMediumDecayWidths_Click);
+			MenuEntry.MenuItemPlotDecayWidthsFromQQDataFile.Click += new EventHandler(MenuItemPlotDecayWidthsFromQQDataFile_Click);
+			MenuEntry.MenuItemPlotEnergiesFromQQDataFile.Click += new EventHandler(MenuItemPlotEnergiesFromQQDataFile_Click);
 			MenuEntry.MenuItemPlotInMediumDecayWidthsVersusMediumTemperature.Click += new EventHandler(MenuItemPlotInMediumDecayWidthsVersusMediumTemperature_Click);
 			MenuEntry.MenuItemPlotInMediumDecayWidthsVersusMediumVelocity.Click += new EventHandler(MenuItemPlotInMediumDecayWidthsVersusMediumVelocity_Click);
 			MenuEntry.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature.Click += new EventHandler(MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature_Click);
@@ -160,8 +162,8 @@ namespace Yburn.InMediumDecayWidth.UI
 				"Number of angles relative to the velocity vector from which the angular average is calculated.",
 				LblNumberAveragingAngles, TbxNumberAveragingAngles);
 			toolTipMaker.Add(
-				"DecayWidthEvaluationTypes to be considered in the calculation.",
-				LblDecayWidthEvaluationTypes, MsxDecayWidthEvaluationTypes);
+				"DopplerShiftEvaluationTypes to be considered in the calculation.",
+				LblDopplerShiftEvaluationTypes, MsxDopplerShiftEvaluationTypes);
 			toolTipMaker.Add(
 				"DecayWidthType to be considered in the calculation.",
 				LblDecayWidthType, CbxDecayWidthType);
@@ -183,6 +185,16 @@ namespace Yburn.InMediumDecayWidth.UI
 		private void MenuItemCalculateInMediumDecayWidths_Click(object sender, EventArgs e)
 		{
 			JobOrganizer.RequestNewJob("CalculateInMediumDecayWidth", ControlsValues);
+		}
+
+		private void MenuItemPlotDecayWidthsFromQQDataFile_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotDecayWidthsFromQQDataFile", ControlsValues);
+		}
+
+		private void MenuItemPlotEnergiesFromQQDataFile_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotEnergiesFromQQDataFile", ControlsValues);
 		}
 
 		private void MenuItemPlotInMediumDecayWidthsVersusMediumTemperature_Click(object sender, EventArgs e)

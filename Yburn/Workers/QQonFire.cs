@@ -538,7 +538,7 @@ namespace Yburn.Workers
 		{
 			CurrentJobTitle = "ShowInitialQQPopulations";
 
-			BottomiumCascade cascade = new BottomiumCascade(DimuonDecaysFromPP);
+			BottomiumCascade cascade = new BottomiumCascade(DimuonDecaysFrompp);
 
 			LogMessages.Clear();
 			LogMessages.AppendFormat("Initial QQ populations:\r\n\r\n{0}\r\n\r\n",
@@ -549,7 +549,7 @@ namespace Yburn.Workers
 		{
 			CurrentJobTitle = "ShowProtonProtonDimuonDecays";
 
-			BottomiumCascade cascade = new BottomiumCascade(DimuonDecaysFromPP);
+			BottomiumCascade cascade = new BottomiumCascade(DimuonDecaysFrompp);
 
 			LogMessages.Clear();
 			LogMessages.AppendFormat("Scaled pp dimuon decays:\r\n\r\n{0}\r\n\r\n",
@@ -560,7 +560,7 @@ namespace Yburn.Workers
 		{
 			CurrentJobTitle = "ShowY1SFeedDownFractions";
 
-			BottomiumCascade cascade = new BottomiumCascade(DimuonDecaysFromPP);
+			BottomiumCascade cascade = new BottomiumCascade(DimuonDecaysFrompp);
 
 			LogMessages.Clear();
 			LogMessages.AppendFormat("Y1S feed down fractions:\r\n\r\n{0}\r\n\r\n",
@@ -587,9 +587,9 @@ namespace Yburn.Workers
 			{
 				return typeof(DecayWidthType);
 			}
-			else if(enumName == "DecayWidthEvaluationType")
+			else if(enumName == "DopplerShiftEvaluationType")
 			{
-				return typeof(DecayWidthEvaluationType);
+				return typeof(DopplerShiftEvaluationType);
 			}
 			else if(enumName == "ExpansionMode")
 			{
@@ -677,7 +677,7 @@ namespace Yburn.Workers
 			return new DecayWidthProvider(
 				GetQQDataPathFile(),
 				PotentialTypes,
-				DecayWidthEvaluationType,
+				DopplerShiftEvaluationType,
 				DecayWidthType,
 				QGPFormationTemperature,
 				NumberAveragingAngles);
@@ -687,7 +687,7 @@ namespace Yburn.Workers
 			BottomiumVector qgpSuppressionFactors
 			)
 		{
-			BottomiumCascade cascade = new BottomiumCascade(DimuonDecaysFromPP);
+			BottomiumCascade cascade = new BottomiumCascade(DimuonDecaysFrompp);
 
 			BottomiumVector ppDimuonDecays = cascade.GetNormalizedProtonProtonDimuonDecays();
 			double ppResult1S = ppDimuonDecays[BottomiumState.Y1S];

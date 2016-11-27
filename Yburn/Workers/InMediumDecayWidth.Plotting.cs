@@ -14,6 +14,36 @@ namespace Yburn.Workers
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
+		public Process PlotDecayWidthsFromQQDataFile()
+		{
+			List<DataListCreator> creators = new List<DataListCreator>();
+			foreach(BottomiumState state in BottomiumStates)
+			{
+				creators.Add(() => CreateDecayWidthsFromQQDataFileDataList(state));
+			}
+			creators.Add(CreateDecayWidthsFromQQDataFileContinuousDataList);
+
+			CreateDataFile(creators.ToArray());
+			CreateDecayWidthsFromQQDataFilePlotFile();
+
+			return StartGnuplot();
+		}
+
+		public Process PlotEnergiesFromQQDataFile()
+		{
+			List<DataListCreator> creators = new List<DataListCreator>();
+			foreach(BottomiumState state in BottomiumStates)
+			{
+				creators.Add(() => CreateEnergiesFromQQDataFileDataList(state));
+			}
+			creators.Add(CreateEnergiesFromQQDataFileContinuousDataList);
+
+			CreateDataFile(creators.ToArray());
+			CreateEnergiesFromQQDataFilePlotFile();
+
+			return StartGnuplot();
+		}
+
 		public Process PlotInMediumDecayWidthsVersusMediumTemperature()
 		{
 			MediumVelocities = new List<double> { MediumVelocities[0] };
@@ -23,12 +53,12 @@ namespace Yburn.Workers
 			AppendHeader_InMediumDecayWidthsVersusMediumTemperature(plotFile);
 			plotFile.AppendLine();
 
-			string[][] titleList = new string[DecayWidthEvaluationTypes.Count][];
-			for(int i = 0; i < DecayWidthEvaluationTypes.Count; i++)
+			string[][] titleList = new string[DopplerShiftEvaluationTypes.Count][];
+			for(int i = 0; i < DopplerShiftEvaluationTypes.Count; i++)
 			{
 				titleList[i] = BottomiumStates.ConvertAll(
 					state => GetBottomiumStateGnuplotCode(state) + ", "
-					+ DecayWidthEvaluationTypes[i].ToUIString()).ToArray();
+					+ DopplerShiftEvaluationTypes[i].ToUIString()).ToArray();
 			}
 
 			AppendPlotCommands(
@@ -51,12 +81,12 @@ namespace Yburn.Workers
 			AppendHeader_InMediumDecayWidthsVersusMediumVelocity(plotFile);
 			plotFile.AppendLine();
 
-			string[][] titleList = new string[DecayWidthEvaluationTypes.Count][];
-			for(int i = 0; i < DecayWidthEvaluationTypes.Count; i++)
+			string[][] titleList = new string[DopplerShiftEvaluationTypes.Count][];
+			for(int i = 0; i < DopplerShiftEvaluationTypes.Count; i++)
 			{
 				titleList[i] = BottomiumStates.ConvertAll(
 					state => GetBottomiumStateGnuplotCode(state) + ", "
-					+ DecayWidthEvaluationTypes[i].ToUIString()).ToArray();
+					+ DopplerShiftEvaluationTypes[i].ToUIString()).ToArray();
 			}
 
 			AppendPlotCommands(
@@ -149,6 +179,194 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set linetype cycle " + BottomiumStates.Count);
 		}
 
+		private List<List<double>> CreateDecayWidthsFromQQDataFileDataList(
+			BottomiumState state
+			)
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<QQDataSet> dataSets = DecayWidthProvider.GetBoundStateDataSets(
+				GetQQDataPathFile(), PotentialTypes, state);
+
+			List<double> temperatures = new List<double>();
+			List<double> decayWidths = new List<double>();
+			foreach(QQDataSet dataSet in dataSets)
+			{
+				temperatures.Add(dataSet.Temperature);
+				decayWidths.Add(dataSet.GetGamma(DecayWidthType));
+			}
+
+			dataList.Add(temperatures);
+			dataList.Add(decayWidths);
+
+			return dataList;
+		}
+
+		private List<List<double>> CreateDecayWidthsFromQQDataFileContinuousDataList()
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<double> temperatureValues = GetLinearAbscissaList(0, 800, 800);
+			dataList.Add(temperatureValues);
+
+			foreach(BottomiumState state in BottomiumStates)
+			{
+				List<QQDataSet> dataSets = DecayWidthProvider.GetBoundStateDataSets(
+					GetQQDataPathFile(), PotentialTypes, state);
+				DecayWidthAverager averager = new DecayWidthAverager(
+					dataSets, DecayWidthType, QGPFormationTemperature, NumberAveragingAngles);
+
+				PlotFunction decayWidthFunction
+					= (temperature) => averager.GetDecayWidth(temperature);
+
+				AddPlotFunctionLists(dataList, temperatureValues, decayWidthFunction);
+			}
+
+			return dataList;
+		}
+
+		private void CreateDecayWidthsFromQQDataFilePlotFile()
+		{
+			StringBuilder plotFile = new StringBuilder();
+			plotFile.AppendLine("reset");
+			plotFile.AppendLine("set terminal windows enhanced size 1000,600");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set key spacing 1.1");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Decay widths "
+				+ GetDecayWidthTypeGnuplotCode(DecayWidthType) + " from QQDataFile'");
+			plotFile.AppendLine("set xlabel 'T (MeV)'");
+			plotFile.AppendLine("set ylabel '" + GetDecayWidthTypeGnuplotCode(DecayWidthType) + " (MeV)'");
+			plotFile.AppendLine();
+			SetColorsForBottomiumStates(plotFile);
+			plotFile.AppendLine();
+			plotFile.AppendLine("set grid");
+			plotFile.AppendLine();
+
+			int index = 0;
+			bool isFirst = true;
+			foreach(BottomiumState state in BottomiumStates)
+			{
+				AppendPlotCommands(
+					isFirstPlotCommand: isFirst,
+					plotFile: plotFile,
+					index: index,
+					style: "points",
+					titles: GetBottomiumStateGnuplotCode(state) + ", data file");
+				index++;
+				isFirst = false;
+			}
+
+			int ordinateColumn = 2;
+			foreach(BottomiumState state in BottomiumStates)
+			{
+				AppendPlotCommands(
+					isFirstPlotCommand: isFirst,
+					plotFile: plotFile,
+					index: index,
+					abscissaColumn: 1,
+					firstOrdinateColumn: ordinateColumn,
+					style: "lines noautoscale",
+					titles: GetBottomiumStateGnuplotCode(state) + ", continuous");
+				ordinateColumn++;
+			}
+
+			WritePlotFile(plotFile);
+		}
+
+		private List<List<double>> CreateEnergiesFromQQDataFileDataList(
+			BottomiumState state
+			)
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<QQDataSet> dataSets = DecayWidthProvider.GetBoundStateDataSets(
+				GetQQDataPathFile(), PotentialTypes, state);
+
+			List<double> temperatures = new List<double>();
+			List<double> energies = new List<double>();
+			foreach(QQDataSet dataSet in dataSets)
+			{
+				temperatures.Add(dataSet.Temperature);
+				energies.Add(dataSet.Energy);
+			}
+
+			dataList.Add(temperatures);
+			dataList.Add(energies);
+
+			return dataList;
+		}
+
+		private List<List<double>> CreateEnergiesFromQQDataFileContinuousDataList()
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<double> temperatureValues = GetLinearAbscissaList(0, 800, 800);
+			dataList.Add(temperatureValues);
+
+			foreach(BottomiumState state in BottomiumStates)
+			{
+				List<QQDataSet> dataSets = DecayWidthProvider.GetBoundStateDataSets(
+					GetQQDataPathFile(), PotentialTypes, state);
+				DecayWidthAverager averager = new DecayWidthAverager(
+					dataSets, DecayWidthType, QGPFormationTemperature, NumberAveragingAngles);
+
+				PlotFunction energyFunction = (temperature) => averager.GetEnergy(temperature);
+
+				AddPlotFunctionLists(dataList, temperatureValues, energyFunction);
+			}
+
+			return dataList;
+		}
+
+		private void CreateEnergiesFromQQDataFilePlotFile()
+		{
+			StringBuilder plotFile = new StringBuilder();
+			plotFile.AppendLine("reset");
+			plotFile.AppendLine("set terminal windows enhanced size 1000,600");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set key spacing 1.1");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Energies E from QQDataFile'");
+			plotFile.AppendLine("set xlabel 'T (MeV)'");
+			plotFile.AppendLine("set ylabel 'E (MeV)'");
+			plotFile.AppendLine();
+			SetColorsForBottomiumStates(plotFile);
+			plotFile.AppendLine();
+			plotFile.AppendLine("set grid");
+			plotFile.AppendLine();
+
+			int index = 0;
+			bool isFirst = true;
+			foreach(BottomiumState state in BottomiumStates)
+			{
+				AppendPlotCommands(
+					isFirstPlotCommand: isFirst,
+					plotFile: plotFile,
+					index: index,
+					style: "points",
+					titles: GetBottomiumStateGnuplotCode(state) + ", data file");
+				index++;
+				isFirst = false;
+			}
+
+			int ordinateColumn = 2;
+			foreach(BottomiumState state in BottomiumStates)
+			{
+				AppendPlotCommands(
+					isFirstPlotCommand: isFirst,
+					plotFile: plotFile,
+					index: index,
+					abscissaColumn: 1,
+					firstOrdinateColumn: ordinateColumn,
+					style: "lines noautoscale",
+					titles: GetBottomiumStateGnuplotCode(state) + ", continuous");
+				ordinateColumn++;
+			}
+
+			WritePlotFile(plotFile);
+		}
+
 		private void AppendHeader_InMediumDecayWidthsVersusMediumTemperature(
 			StringBuilder plotFile
 			)
@@ -211,8 +429,8 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set style fill transparent solid 0.2");
 			plotFile.AppendLine();
 
-			string[] titleList =
-				BottomiumStates.ConvertAll(state => GetBottomiumStateGnuplotCode(state)).ToArray();
+			string[] titleList = BottomiumStates.ConvertAll(
+				state => GetBottomiumStateGnuplotCode(state)).ToArray();
 
 			AppendPlotCommands(plotFile, titles: titleList);
 

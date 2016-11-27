@@ -95,7 +95,7 @@ namespace Yburn.Workers.Tests
 			Assert.AreEqual(expectedList, Printer.GetList(
 				new List<double> { 0, 120, 240, 360, 480, 600 },
 				new List<double> { 0 },
-				new List<DecayWidthEvaluationType> { DecayWidthEvaluationType.UnshiftedTemperature }));
+				new List<DopplerShiftEvaluationType> { DopplerShiftEvaluationType.UnshiftedTemperature }));
 		}
 	}
 }

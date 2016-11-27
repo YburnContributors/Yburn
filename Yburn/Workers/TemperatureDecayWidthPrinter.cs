@@ -37,17 +37,17 @@ namespace Yburn.Workers
 		public string GetList(
 			List<double> mediumTemperatures,
 			List<double> mediumVelocities,
-			List<DecayWidthEvaluationType> evaluationTypes
+			List<DopplerShiftEvaluationType> evaluationTypes
 			)
 		{
 			if(evaluationTypes == null || evaluationTypes.Count < 1)
 			{
-				throw new Exception("No DecayWidthEvaluationTypes specified.");
+				throw new Exception("No DopplerShiftEvaluationTypes specified.");
 			}
 
 			StringBuilder builder = new StringBuilder();
 
-			foreach(DecayWidthEvaluationType evaluationType in evaluationTypes)
+			foreach(DopplerShiftEvaluationType evaluationType in evaluationTypes)
 			{
 				builder.Append(GetList(mediumTemperatures, mediumVelocities, evaluationType));
 				builder.AppendLine();
@@ -74,7 +74,7 @@ namespace Yburn.Workers
 		private readonly int NumberAveragingAngles;
 
 		private DecayWidthProvider CreateDecayWidthProvider(
-			DecayWidthEvaluationType evaluationType
+			DopplerShiftEvaluationType evaluationType
 			)
 		{
 			return new DecayWidthProvider(
@@ -89,7 +89,7 @@ namespace Yburn.Workers
 		private string GetList(
 			List<double> mediumTemperatures,
 			List<double> mediumVelocities,
-			DecayWidthEvaluationType evaluationType
+			DopplerShiftEvaluationType evaluationType
 			)
 		{
 			DecayWidthProvider provider = CreateDecayWidthProvider(evaluationType);
@@ -103,7 +103,7 @@ namespace Yburn.Workers
 
 		private void AppendHeader(
 			StringBuilder list,
-			DecayWidthEvaluationType evaluationType
+			DopplerShiftEvaluationType evaluationType
 			)
 		{
 			list.AppendLine("#" + evaluationType.ToUIString());

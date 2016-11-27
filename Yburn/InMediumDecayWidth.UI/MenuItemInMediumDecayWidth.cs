@@ -11,6 +11,8 @@ namespace Yburn.InMediumDecayWidth.UI
 		}
 
 		public ToolStripMenuItem MenuItemCalculateInMediumDecayWidths;
+		public ToolStripMenuItem MenuItemPlotDecayWidthsFromQQDataFile;
+		public ToolStripMenuItem MenuItemPlotEnergiesFromQQDataFile;
 		public ToolStripMenuItem MenuItemPlotInMediumDecayWidthsVersusMediumTemperature;
 		public ToolStripMenuItem MenuItemPlotInMediumDecayWidthsVersusMediumVelocity;
 		public ToolStripMenuItem MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature;
@@ -18,6 +20,8 @@ namespace Yburn.InMediumDecayWidth.UI
 		private void InitializeComponent()
 		{
 			this.MenuItemCalculateInMediumDecayWidths = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemPlotDecayWidthsFromQQDataFile = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemPlotEnergiesFromQQDataFile = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotInMediumDecayWidthsVersusMediumTemperature = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotInMediumDecayWidthsVersusMediumVelocity = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature = new System.Windows.Forms.ToolStripMenuItem();
@@ -27,6 +31,18 @@ namespace Yburn.InMediumDecayWidth.UI
 			this.MenuItemCalculateInMediumDecayWidths.Name = "MenuItemCalculateInMediumDecayWidths";
 			this.MenuItemCalculateInMediumDecayWidths.Size = new System.Drawing.Size(361, 24);
 			this.MenuItemCalculateInMediumDecayWidths.Text = "Ca&lculate in-medium decay widths";
+			//
+			// MenuItemPlotDecayWidthsFromQQDataFile
+			//
+			this.MenuItemPlotDecayWidthsFromQQDataFile.Name = "MenuItemPlotDecayWidthsFromQQDataFile";
+			this.MenuItemPlotDecayWidthsFromQQDataFile.Size = new System.Drawing.Size(361, 24);
+			this.MenuItemPlotDecayWidthsFromQQDataFile.Text = "Plot &decay widths from QQDataFile";
+			//
+			// MenuItemPlotEnergiesFromQQDataFile
+			//
+			this.MenuItemPlotEnergiesFromQQDataFile.Name = "MenuItemPlotEnergiesFromQQDataFile";
+			this.MenuItemPlotEnergiesFromQQDataFile.Size = new System.Drawing.Size(361, 24);
+			this.MenuItemPlotEnergiesFromQQDataFile.Text = "Plot &energies from QQDataFile";
 			//
 			// MenuItemPlotInMediumDecayWidthsVersusMediumTemperature
 			//
@@ -44,12 +60,14 @@ namespace Yburn.InMediumDecayWidth.UI
 			//
 			this.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature.Name = "MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature";
 			this.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature.Size = new System.Drawing.Size(361, 24);
-			this.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature.Text = "Plot in-medium decay widths evaluated at &Doppler-shifted temperature";
+			this.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature.Text = "Plot in-medium decay widths evaluated at Doppler-&shifted temperature";
 			//
 			// MenuItemAverageDecayWidth
 			//
 			this.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
 				this.MenuItemCalculateInMediumDecayWidths,
+				this.MenuItemPlotDecayWidthsFromQQDataFile,
+				this.MenuItemPlotEnergiesFromQQDataFile,
 				this.MenuItemPlotInMediumDecayWidthsVersusMediumTemperature,
 				this.MenuItemPlotInMediumDecayWidthsVersusMediumVelocity,
 				this.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature});

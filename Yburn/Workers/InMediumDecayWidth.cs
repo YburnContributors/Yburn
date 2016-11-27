@@ -48,9 +48,9 @@ namespace Yburn.Workers
 			{
 				return typeof(BottomiumState);
 			}
-			else if(enumName == "DecayWidthEvaluationType")
+			else if(enumName == "DopplerShiftEvaluationType")
 			{
-				return typeof(DecayWidthEvaluationType);
+				return typeof(DopplerShiftEvaluationType);
 			}
 			else if(enumName == "DecayWidthType")
 			{
@@ -72,7 +72,7 @@ namespace Yburn.Workers
 				YburnConfigFile.QQDataPathFile, BottomiumStates, PotentialTypes, DecayWidthType,
 				QGPFormationTemperature, NumberAveragingAngles);
 
-			return printer.GetList(MediumTemperatures, MediumVelocities, DecayWidthEvaluationTypes);
+			return printer.GetList(MediumTemperatures, MediumVelocities, DopplerShiftEvaluationTypes);
 		}
 
 		protected override void StartJob(
@@ -83,6 +83,14 @@ namespace Yburn.Workers
 			{
 				case "CalculateInMediumDecayWidth":
 					CalculateInMediumDecayWidth();
+					break;
+
+				case "PlotDecayWidthsFromQQDataFile":
+					PlotDecayWidthsFromQQDataFile();
+					break;
+
+				case "PlotEnergiesFromQQDataFile":
+					PlotEnergiesFromQQDataFile();
 					break;
 
 				case "PlotInMediumDecayWidthsVersusMediumTemperature":

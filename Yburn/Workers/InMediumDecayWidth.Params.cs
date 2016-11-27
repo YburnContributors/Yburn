@@ -16,7 +16,7 @@ namespace Yburn.Workers
 
 			Store(nameValuePairs, "BottomiumStates", BottomiumStates);
 			Store(nameValuePairs, "DataFileName", DataFileName);
-			Store(nameValuePairs, "DecayWidthEvaluationTypes", DecayWidthEvaluationTypes);
+			Store(nameValuePairs, "DopplerShiftEvaluationTypes", DopplerShiftEvaluationTypes);
 			Store(nameValuePairs, "DecayWidthType", DecayWidthType);
 			Store(nameValuePairs, "MediumTemperatures", MediumTemperatures);
 			Store(nameValuePairs, "MediumVelocities", MediumVelocities);
@@ -33,7 +33,7 @@ namespace Yburn.Workers
 		{
 			TryExtract(nameValuePairs, "BottomiumStates", ref BottomiumStates);
 			TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
-			TryExtract(nameValuePairs, "DecayWidthEvaluationTypes", ref DecayWidthEvaluationTypes);
+			TryExtract(nameValuePairs, "DopplerShiftEvaluationTypes", ref DopplerShiftEvaluationTypes);
 			TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
 			TryExtract(nameValuePairs, "MediumTemperatures", ref MediumTemperatures);
 			TryExtract(nameValuePairs, "MediumVelocities", ref MediumVelocities);
@@ -44,7 +44,7 @@ namespace Yburn.Workers
 
 		private List<BottomiumState> BottomiumStates;
 
-		private List<DecayWidthEvaluationType> DecayWidthEvaluationTypes;
+		private List<DopplerShiftEvaluationType> DopplerShiftEvaluationTypes;
 
 		private DecayWidthType DecayWidthType;
 

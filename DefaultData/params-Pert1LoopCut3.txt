@@ -39,11 +39,11 @@ EnergySteps = 1000
 # Parameters for InMediumDecayWidth #
 #####################################
 
-MediumTemperatures        = 100,200,300,400,500,600
-MediumVelocities          = 0,0.2,0.4,0.6,0.8
-#NumberAveragingAngles     = 20
-DecayWidthEvaluationTypes = UnshiftedTemperature,AveragedDecayWidth
-#QGPFormationTemperature   = 160
+MediumTemperatures          = 100,200,300,400,500,600
+MediumVelocities            = 0,0.2,0.4,0.6,0.8
+#NumberAveragingAngles       = 10
+DopplerShiftEvaluationTypes = UnshiftedTemperature,AveragedDecayWidth
+#QGPFormationTemperature     = 160
 
 
 ###################################
@@ -84,7 +84,7 @@ InelasticppCrossSection = 6.4 # 6.8
 
 # Hydrodynamics
 ExpansionMode             = Transverse
-TemperatureProfile        = NmixPHOBOS13
+TemperatureProfile        = NmixALICE13
 InitialMaximumTemperature = 480
 BreakupTemperature        = 160
 ThermalTime               = 0.1
@@ -94,13 +94,13 @@ BeamRapidity              = 7.987
 QGPFormationTemperature   = 160
 
 # QQStates
-DimuonDecaysFromPP       = Y1S:1.0,x1P:0.271,Y2S:0.56,x2P:0.105,Y3S:0.41,x3P:0.03
-FormationTimes           = Y1S:0.4,x1P:0.4,Y2S:0.4,x2P:0.4,Y3S:0.4,x3P:0.4
-TransverseMomenta        = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
-PotentialTypes           = Complex
-DecayWidthType           = GammaTot
-DecayWidthEvaluationType = AveragedDecayWidth
-NumberAveragingAngles    = 20
+DimuonDecaysFrompp         = Y1S:1.0,x1P:0.271,Y2S:0.56,x2P:0.105,Y3S:0.41,x3P:0.03
+FormationTimes             = Y1S:0.4,x1P:0.4,Y2S:0.4,x2P:0.4,Y3S:0.4,x3P:0.4
+TransverseMomenta          = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+PotentialTypes             = Complex
+DecayWidthType             = GammaTot
+DopplerShiftEvaluationType = AveragedDecayWidth
+NumberAveragingAngles      = 10
 
 # Output
 BottomiumStates         = Y1S,x1P,Y2S,x2P,Y3S,x3P

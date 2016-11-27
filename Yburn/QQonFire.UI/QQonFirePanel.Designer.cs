@@ -40,8 +40,8 @@
 			this.MsxPotentialTypes = new Yburn.UI.MultiSelectBox();
 			this.LblDecayWidthType = new System.Windows.Forms.Label();
 			this.CbxDecayWidthType = new System.Windows.Forms.ComboBox();
-			this.CbxDecayWidthEvaluationType = new System.Windows.Forms.ComboBox();
-			this.LblDecayWidthEvaluationType = new System.Windows.Forms.Label();
+			this.CbxDopplerShiftEvaluationType = new System.Windows.Forms.ComboBox();
+			this.LblDopplerShiftEvaluationType = new System.Windows.Forms.Label();
 			this.LblFormationTimes = new System.Windows.Forms.Label();
 			this.TbxFormationTimes = new System.Windows.Forms.TextBox();
 			this.GbxGlauber = new System.Windows.Forms.GroupBox();
@@ -114,8 +114,8 @@
 			this.CtrlTextBoxLog = new System.Windows.Forms.RichTextBox();
 			this.CtrlStatusTrackingCtrl = new Yburn.UI.StatusTrackingCtrl();
 			this.TbxtF3S2 = new System.Windows.Forms.TextBox();
-			this.TbxDimuonDecaysFromPP = new System.Windows.Forms.TextBox();
-			this.LblDimuonDecaysFromPP = new System.Windows.Forms.Label();
+			this.TbxDimuonDecaysFrompp = new System.Windows.Forms.TextBox();
+			this.LblDimuonDecaysFrompp = new System.Windows.Forms.Label();
 			this.TbxInelasticppCrossSection = new System.Windows.Forms.TextBox();
 			this.LblInelasticppCrossSectionFm = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.VSplit)).BeginInit();
@@ -195,8 +195,8 @@
 			this.LayoutQQStates.ColumnCount = 2;
 			this.LayoutQQStates.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
 			this.LayoutQQStates.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
-			this.LayoutQQStates.Controls.Add(this.LblDimuonDecaysFromPP, 0, 0);
-			this.LayoutQQStates.Controls.Add(this.TbxDimuonDecaysFromPP, 1, 0);
+			this.LayoutQQStates.Controls.Add(this.LblDimuonDecaysFrompp, 0, 0);
+			this.LayoutQQStates.Controls.Add(this.TbxDimuonDecaysFrompp, 1, 0);
 			this.LayoutQQStates.Controls.Add(this.TbxNumberAveragingAngles, 1, 6);
 			this.LayoutQQStates.Controls.Add(this.LblNumberAveragingAngles, 0, 6);
 			this.LayoutQQStates.Controls.Add(this.TbxTransverseMomenta, 1, 2);
@@ -205,8 +205,8 @@
 			this.LayoutQQStates.Controls.Add(this.MsxPotentialTypes, 1, 3);
 			this.LayoutQQStates.Controls.Add(this.LblDecayWidthType, 0, 4);
 			this.LayoutQQStates.Controls.Add(this.CbxDecayWidthType, 1, 4);
-			this.LayoutQQStates.Controls.Add(this.CbxDecayWidthEvaluationType, 1, 5);
-			this.LayoutQQStates.Controls.Add(this.LblDecayWidthEvaluationType, 0, 5);
+			this.LayoutQQStates.Controls.Add(this.CbxDopplerShiftEvaluationType, 1, 5);
+			this.LayoutQQStates.Controls.Add(this.LblDopplerShiftEvaluationType, 0, 5);
 			this.LayoutQQStates.Controls.Add(this.LblFormationTimes, 0, 1);
 			this.LayoutQQStates.Controls.Add(this.TbxFormationTimes, 1, 1);
 			this.LayoutQQStates.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -303,25 +303,25 @@
 			this.CbxDecayWidthType.Size = new System.Drawing.Size(192, 33);
 			this.CbxDecayWidthType.TabIndex = 0;
 			// 
-			// CbxDecayWidthEvaluationType
+			// CbxDopplerShiftEvaluationType
 			// 
-			this.CbxDecayWidthEvaluationType.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CbxDecayWidthEvaluationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.CbxDecayWidthEvaluationType.Location = new System.Drawing.Point(244, 178);
-			this.CbxDecayWidthEvaluationType.Name = "CbxDecayWidthEvaluationType";
-			this.CbxDecayWidthEvaluationType.Size = new System.Drawing.Size(192, 33);
-			this.CbxDecayWidthEvaluationType.TabIndex = 0;
+			this.CbxDopplerShiftEvaluationType.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.CbxDopplerShiftEvaluationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.CbxDopplerShiftEvaluationType.Location = new System.Drawing.Point(244, 178);
+			this.CbxDopplerShiftEvaluationType.Name = "CbxDopplerShiftEvaluationType";
+			this.CbxDopplerShiftEvaluationType.Size = new System.Drawing.Size(192, 33);
+			this.CbxDopplerShiftEvaluationType.TabIndex = 0;
 			// 
-			// LblDecayWidthEvaluationType
+			// LblDopplerShiftEvaluationType
 			// 
-			this.LblDecayWidthEvaluationType.AutoSize = true;
-			this.LblDecayWidthEvaluationType.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDecayWidthEvaluationType.Location = new System.Drawing.Point(3, 175);
-			this.LblDecayWidthEvaluationType.Name = "LblDecayWidthEvaluationType";
-			this.LblDecayWidthEvaluationType.Size = new System.Drawing.Size(235, 25);
-			this.LblDecayWidthEvaluationType.TabIndex = 0;
-			this.LblDecayWidthEvaluationType.Text = "DecayWidthEvaluationType";
-			this.LblDecayWidthEvaluationType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblDopplerShiftEvaluationType.AutoSize = true;
+			this.LblDopplerShiftEvaluationType.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblDopplerShiftEvaluationType.Location = new System.Drawing.Point(3, 175);
+			this.LblDopplerShiftEvaluationType.Name = "LblDopplerShiftEvaluationType";
+			this.LblDopplerShiftEvaluationType.Size = new System.Drawing.Size(235, 25);
+			this.LblDopplerShiftEvaluationType.TabIndex = 0;
+			this.LblDopplerShiftEvaluationType.Text = "DopplerShiftEvaluationType";
+			this.LblDopplerShiftEvaluationType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LblFormationTimes
 			// 
@@ -1139,24 +1139,24 @@
 			this.TbxtF3S2.Size = new System.Drawing.Size(158, 31);
 			this.TbxtF3S2.TabIndex = 0;
 			// 
-			// TbxDimuonDecaysFromPP
+			// TbxDimuonDecaysFrompp
 			// 
-			this.TbxDimuonDecaysFromPP.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxDimuonDecaysFromPP.Location = new System.Drawing.Point(244, 3);
-			this.TbxDimuonDecaysFromPP.Name = "TbxDimuonDecaysFromPP";
-			this.TbxDimuonDecaysFromPP.Size = new System.Drawing.Size(192, 31);
-			this.TbxDimuonDecaysFromPP.TabIndex = 0;
+			this.TbxDimuonDecaysFrompp.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxDimuonDecaysFrompp.Location = new System.Drawing.Point(244, 3);
+			this.TbxDimuonDecaysFrompp.Name = "TbxDimuonDecaysFrompp";
+			this.TbxDimuonDecaysFrompp.Size = new System.Drawing.Size(192, 31);
+			this.TbxDimuonDecaysFrompp.TabIndex = 0;
 			// 
-			// LblDimuonDecaysFromPP
+			// LblDimuonDecaysFrompp
 			// 
-			this.LblDimuonDecaysFromPP.AutoSize = true;
-			this.LblDimuonDecaysFromPP.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDimuonDecaysFromPP.Location = new System.Drawing.Point(3, 0);
-			this.LblDimuonDecaysFromPP.Name = "LblDimuonDecaysFromPP";
-			this.LblDimuonDecaysFromPP.Size = new System.Drawing.Size(235, 25);
-			this.LblDimuonDecaysFromPP.TabIndex = 0;
-			this.LblDimuonDecaysFromPP.Text = "DimuonDecaysFromPP";
-			this.LblDimuonDecaysFromPP.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblDimuonDecaysFrompp.AutoSize = true;
+			this.LblDimuonDecaysFrompp.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblDimuonDecaysFrompp.Location = new System.Drawing.Point(3, 0);
+			this.LblDimuonDecaysFrompp.Name = "LblDimuonDecaysFrompp";
+			this.LblDimuonDecaysFrompp.Size = new System.Drawing.Size(235, 25);
+			this.LblDimuonDecaysFrompp.TabIndex = 0;
+			this.LblDimuonDecaysFrompp.Text = "DimuonDecaysFrompp";
+			this.LblDimuonDecaysFrompp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// TbxInelasticppCrossSectionFm
 			// 
@@ -1257,9 +1257,9 @@
 		private System.Windows.Forms.Label LblFormationTimes;
 		private System.Windows.Forms.TextBox TbxFormationTimes;
 		private System.Windows.Forms.TextBox TbxtF3S2;
-		private System.Windows.Forms.ComboBox CbxDecayWidthEvaluationType;
+		private System.Windows.Forms.ComboBox CbxDopplerShiftEvaluationType;
 		private System.Windows.Forms.TextBox TbxTransverseMomenta;
-		private System.Windows.Forms.Label LblDecayWidthEvaluationType;
+		private System.Windows.Forms.Label LblDopplerShiftEvaluationType;
 		private System.Windows.Forms.Label LblTransverseMomenta;
 		private System.Windows.Forms.GroupBox GbxOutput;
 		private System.Windows.Forms.TableLayoutPanel LayoutOutput;
@@ -1295,8 +1295,8 @@
 		private System.Windows.Forms.Label LblProtonNumberB;
 		private System.Windows.Forms.TextBox TbxProtonNumberA;
 		private System.Windows.Forms.Label LblProtonNumberA;
-		private System.Windows.Forms.Label LblDimuonDecaysFromPP;
-		private System.Windows.Forms.TextBox TbxDimuonDecaysFromPP;
+		private System.Windows.Forms.Label LblDimuonDecaysFrompp;
+		private System.Windows.Forms.TextBox TbxDimuonDecaysFrompp;
 		private System.Windows.Forms.Label LblInelasticppCrossSectionFm;
 		private System.Windows.Forms.TextBox TbxInelasticppCrossSection;
 	}

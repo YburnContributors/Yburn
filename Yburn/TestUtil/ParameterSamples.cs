@@ -109,11 +109,11 @@ namespace Yburn.TestUtil
 				nameValuePairs["BreakupTemperature"] = "3333";
 				nameValuePairs["CentralityBinBoundaries"] = "3,3,3";
 				nameValuePairs["DataFileName"] = "stdout.txt";
-				nameValuePairs["DecayWidthEvaluationType"] = "AveragedTemperature";
+				nameValuePairs["DopplerShiftEvaluationType"] = "AveragedTemperature";
 				nameValuePairs["DecayWidthType"] = "GammaTot";
 				nameValuePairs["DiffusenessA"] = "3333";
 				nameValuePairs["DiffusenessB"] = "3333";
-				nameValuePairs["DimuonDecaysFromPP"] = "Y1S:3,x1P:3,Y2S:3,x2P:3,Y3S:3,x3P:3";
+				nameValuePairs["DimuonDecaysFrompp"] = "Y1S:3,x1P:3,Y2S:3,x2P:3,Y3S:3,x3P:3";
 				nameValuePairs["ExpansionMode"] = "Transverse";
 				nameValuePairs["FireballFieldTypes"] = "Temperature";
 				nameValuePairs["FormationTimes"] = "Y1S:3,x1P:3,Y2S:3,x2P:3,Y3S:3,x3P:3";
@@ -154,7 +154,7 @@ namespace Yburn.TestUtil
 
 				nameValuePairs["BottomiumStates"] = "Y1S,x3P";
 				nameValuePairs["DataFileName"] = "stdout.txt";
-				nameValuePairs["DecayWidthEvaluationTypes"] = "AveragedDecayWidth";
+				nameValuePairs["DopplerShiftEvaluationTypes"] = "AveragedDecayWidth";
 				nameValuePairs["DecayWidthType"] = "GammaTot";
 				nameValuePairs["MediumTemperatures"] = "100,200,300";
 				nameValuePairs["MediumVelocities"] = "0.2";

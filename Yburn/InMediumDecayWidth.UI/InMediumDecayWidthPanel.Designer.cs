@@ -34,14 +34,14 @@
 			this.LayoutAverageParams = new System.Windows.Forms.TableLayoutPanel();
 			this.TbxQGPFormationTemperature = new System.Windows.Forms.TextBox();
 			this.LblQGPFormationTemperature = new System.Windows.Forms.Label();
-			this.MsxDecayWidthEvaluationTypes = new Yburn.UI.MultiSelectBox();
+			this.MsxDopplerShiftEvaluationTypes = new Yburn.UI.MultiSelectBox();
 			this.LblMediumTemperatures = new System.Windows.Forms.Label();
 			this.TbxMediumTemperatures = new System.Windows.Forms.TextBox();
 			this.LblMediumVelocities = new System.Windows.Forms.Label();
 			this.TbxMediumVelocities = new System.Windows.Forms.TextBox();
 			this.LblNumberAveragingAngles = new System.Windows.Forms.Label();
 			this.TbxNumberAveragingAngles = new System.Windows.Forms.TextBox();
-			this.LblDecayWidthEvaluationTypes = new System.Windows.Forms.Label();
+			this.LblDopplerShiftEvaluationTypes = new System.Windows.Forms.Label();
 			this.LblDecayWidthType = new System.Windows.Forms.Label();
 			this.CbxDecayWidthType = new System.Windows.Forms.ComboBox();
 			this.LblPotentialTypes = new System.Windows.Forms.Label();
@@ -126,14 +126,14 @@
 			this.LayoutAverageParams.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
 			this.LayoutAverageParams.Controls.Add(this.TbxQGPFormationTemperature, 1, 7);
 			this.LayoutAverageParams.Controls.Add(this.LblQGPFormationTemperature, 0, 7);
-			this.LayoutAverageParams.Controls.Add(this.MsxDecayWidthEvaluationTypes, 1, 3);
+			this.LayoutAverageParams.Controls.Add(this.MsxDopplerShiftEvaluationTypes, 1, 3);
 			this.LayoutAverageParams.Controls.Add(this.LblMediumTemperatures, 0, 0);
 			this.LayoutAverageParams.Controls.Add(this.TbxMediumTemperatures, 1, 0);
 			this.LayoutAverageParams.Controls.Add(this.LblMediumVelocities, 0, 1);
 			this.LayoutAverageParams.Controls.Add(this.TbxMediumVelocities, 1, 1);
 			this.LayoutAverageParams.Controls.Add(this.LblNumberAveragingAngles, 0, 2);
 			this.LayoutAverageParams.Controls.Add(this.TbxNumberAveragingAngles, 1, 2);
-			this.LayoutAverageParams.Controls.Add(this.LblDecayWidthEvaluationTypes, 0, 3);
+			this.LayoutAverageParams.Controls.Add(this.LblDopplerShiftEvaluationTypes, 0, 3);
 			this.LayoutAverageParams.Controls.Add(this.LblDecayWidthType, 0, 4);
 			this.LayoutAverageParams.Controls.Add(this.CbxDecayWidthType, 1, 4);
 			this.LayoutAverageParams.Controls.Add(this.LblPotentialTypes, 0, 5);
@@ -174,15 +174,15 @@
 			this.LblQGPFormationTemperature.Text = "QGPFormationTemperature (MeV)";
 			this.LblQGPFormationTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// MsxDecayWidthEvaluationTypes
+			// MsxDopplerShiftEvaluationTypes
 			// 
-			this.MsxDecayWidthEvaluationTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MsxDecayWidthEvaluationTypes.Location = new System.Drawing.Point(244, 79);
-			this.MsxDecayWidthEvaluationTypes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
-			this.MsxDecayWidthEvaluationTypes.Name = "MsxDecayWidthEvaluationTypes";
-			this.MsxDecayWidthEvaluationTypes.SelectionString = "";
-			this.MsxDecayWidthEvaluationTypes.Size = new System.Drawing.Size(192, 68);
-			this.MsxDecayWidthEvaluationTypes.TabIndex = 5;
+			this.MsxDopplerShiftEvaluationTypes.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.MsxDopplerShiftEvaluationTypes.Location = new System.Drawing.Point(244, 79);
+			this.MsxDopplerShiftEvaluationTypes.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
+			this.MsxDopplerShiftEvaluationTypes.Name = "MsxDopplerShiftEvaluationTypes";
+			this.MsxDopplerShiftEvaluationTypes.SelectionString = "";
+			this.MsxDopplerShiftEvaluationTypes.Size = new System.Drawing.Size(192, 68);
+			this.MsxDopplerShiftEvaluationTypes.TabIndex = 5;
 			// 
 			// LblMediumTemperatures
 			// 
@@ -241,16 +241,16 @@
 			this.TbxNumberAveragingAngles.Size = new System.Drawing.Size(192, 31);
 			this.TbxNumberAveragingAngles.TabIndex = 4;
 			// 
-			// LblDecayWidthEvaluationTypes
+			// LblDopplerShiftEvaluationTypes
 			// 
-			this.LblDecayWidthEvaluationTypes.AutoSize = true;
-			this.LblDecayWidthEvaluationTypes.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDecayWidthEvaluationTypes.Location = new System.Drawing.Point(3, 75);
-			this.LblDecayWidthEvaluationTypes.Name = "LblDecayWidthEvaluationTypes";
-			this.LblDecayWidthEvaluationTypes.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-			this.LblDecayWidthEvaluationTypes.Size = new System.Drawing.Size(235, 75);
-			this.LblDecayWidthEvaluationTypes.TabIndex = 0;
-			this.LblDecayWidthEvaluationTypes.Text = "DecayWidthEvaluationTypes";
+			this.LblDopplerShiftEvaluationTypes.AutoSize = true;
+			this.LblDopplerShiftEvaluationTypes.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblDopplerShiftEvaluationTypes.Location = new System.Drawing.Point(3, 75);
+			this.LblDopplerShiftEvaluationTypes.Name = "LblDopplerShiftEvaluationTypes";
+			this.LblDopplerShiftEvaluationTypes.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
+			this.LblDopplerShiftEvaluationTypes.Size = new System.Drawing.Size(235, 75);
+			this.LblDopplerShiftEvaluationTypes.TabIndex = 0;
+			this.LblDopplerShiftEvaluationTypes.Text = "DopplerShiftEvaluationTypes";
 			// 
 			// LblDecayWidthType
 			// 
@@ -441,12 +441,12 @@
 		private System.Windows.Forms.ComboBox CbxDecayWidthType;
 		private System.Windows.Forms.Label LblMediumTemperatures;
 		private System.Windows.Forms.TextBox TbxMediumTemperatures;
-		private System.Windows.Forms.Label LblDecayWidthEvaluationTypes;
+		private System.Windows.Forms.Label LblDopplerShiftEvaluationTypes;
 		private System.Windows.Forms.GroupBox GbxOutput;
 		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
 		private System.Windows.Forms.Label LblDataFileName;
 		private System.Windows.Forms.TextBox TbxDataFileName;
-		private Yburn.UI.MultiSelectBox MsxDecayWidthEvaluationTypes;
+		private Yburn.UI.MultiSelectBox MsxDopplerShiftEvaluationTypes;
 		private System.Windows.Forms.TextBox TbxQGPFormationTemperature;
 		private System.Windows.Forms.Label LblQGPFormationTemperature;
 	}

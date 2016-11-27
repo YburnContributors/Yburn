@@ -68,7 +68,7 @@ namespace Yburn.Fireball.Tests
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static Dictionary<BottomiumState, double> DimuonDecaysFromPP
+		private static Dictionary<BottomiumState, double> DimuonDecaysFrompp
 		{
 			get
 			{
@@ -87,7 +87,7 @@ namespace Yburn.Fireball.Tests
 		}
 
 		private static readonly BottomiumCascade BottomiumCascade
-			= new BottomiumCascade(DimuonDecaysFromPP);
+			= new BottomiumCascade(DimuonDecaysFrompp);
 
 		private static void AssertIsSquareOfDimenions(
 			int dimension,

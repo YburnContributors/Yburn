@@ -78,7 +78,7 @@ namespace Yburn.Workers
 		public DecayWidthProvider(
 			string dataPathFile,
 			List<PotentialType> potentialTypes,
-			DecayWidthEvaluationType decayWidthEvaluationType,
+			DopplerShiftEvaluationType dopplerShiftEvaluationType,
 			DecayWidthType decayWidthType,
 			double qgpFormationTemperature,
 			int numberAveragingAngles
@@ -86,7 +86,7 @@ namespace Yburn.Workers
 		{
 			DataPathFile = dataPathFile;
 			PotentialTypes = potentialTypes;
-			DecayWidthEvaluationType = decayWidthEvaluationType;
+			DopplerShiftEvaluationType = dopplerShiftEvaluationType;
 			DecayWidthType = decayWidthType;
 			QGPFormationTemperature = qgpFormationTemperature;
 			NumberAveragingAngles = numberAveragingAngles;
@@ -105,7 +105,7 @@ namespace Yburn.Workers
 			)
 		{
 			return DecayWidthAveragers[(int)state]
-				.GetInMediumDecayWidth(qgpTemperature, velocity, DecayWidthEvaluationType);
+				.GetInMediumDecayWidth(qgpTemperature, velocity, DopplerShiftEvaluationType);
 		}
 
 		/********************************************************************************************
@@ -122,7 +122,7 @@ namespace Yburn.Workers
 
 		private readonly double QGPFormationTemperature;
 
-		private readonly DecayWidthEvaluationType DecayWidthEvaluationType;
+		private readonly DopplerShiftEvaluationType DopplerShiftEvaluationType;
 
 		private readonly List<DecayWidthAverager> DecayWidthAveragers;
 

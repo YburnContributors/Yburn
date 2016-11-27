@@ -19,11 +19,11 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "BottomiumStates", BottomiumStates);
 			Store(nameValuePairs, "CentralityBinBoundaries", CentralityBinBoundaries);
 			Store(nameValuePairs, "DataFileName", DataFileName);
-			Store(nameValuePairs, "DecayWidthEvaluationType", DecayWidthEvaluationType);
+			Store(nameValuePairs, "DopplerShiftEvaluationType", DopplerShiftEvaluationType);
 			Store(nameValuePairs, "DecayWidthType", DecayWidthType);
 			Store(nameValuePairs, "DiffusenessA", DiffusenessA);
 			Store(nameValuePairs, "DiffusenessB", DiffusenessB);
-			Store(nameValuePairs, "DimuonDecaysFromPP", DimuonDecaysFromPP);
+			Store(nameValuePairs, "DimuonDecaysFrompp", DimuonDecaysFrompp);
 			Store(nameValuePairs, "ExpansionMode", ExpansionMode);
 			Store(nameValuePairs, "FireballFieldTypes", FireballFieldTypes);
 			Store(nameValuePairs, "FormationTimes", FormationTimes);
@@ -65,11 +65,11 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "BottomiumStates", ref BottomiumStates);
 			TryExtract(nameValuePairs, "CentralityBinBoundaries", ref CentralityBinBoundaries);
 			TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
-			TryExtract(nameValuePairs, "DecayWidthEvaluationType", ref DecayWidthEvaluationType);
+			TryExtract(nameValuePairs, "DopplerShiftEvaluationType", ref DopplerShiftEvaluationType);
 			TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
 			TryExtract(nameValuePairs, "DiffusenessA", ref DiffusenessA);
 			TryExtract(nameValuePairs, "DiffusenessB", ref DiffusenessB);
-			TryExtract(nameValuePairs, "DimuonDecaysFromPP", ref DimuonDecaysFromPP);
+			TryExtract(nameValuePairs, "DimuonDecaysFrompp", ref DimuonDecaysFrompp);
 			TryExtract(nameValuePairs, "ExpansionMode", ref ExpansionMode);
 			TryExtract(nameValuePairs, "FireballFieldTypes", ref FireballFieldTypes);
 			TryExtract(nameValuePairs, "FormationTimes", ref FormationTimes);
@@ -108,7 +108,7 @@ namespace Yburn.Workers
 
 		private List<List<int>> CentralityBinBoundaries;
 
-		private DecayWidthEvaluationType DecayWidthEvaluationType;
+		private DopplerShiftEvaluationType DopplerShiftEvaluationType;
 
 		private DecayWidthType DecayWidthType;
 
@@ -116,7 +116,7 @@ namespace Yburn.Workers
 
 		private double DiffusenessB;
 
-		private Dictionary<BottomiumState, double> DimuonDecaysFromPP;
+		private Dictionary<BottomiumState, double> DimuonDecaysFrompp;
 
 		private ExpansionMode ExpansionMode;
 

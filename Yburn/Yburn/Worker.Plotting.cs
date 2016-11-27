@@ -173,6 +173,7 @@ namespace Yburn
 
 		protected void AppendPlotCommands(
 			StringBuilder plotFile,
+			bool isFirstPlotCommand = true,
 			int index = 0,
 			int abscissaColumn = 1,
 			int firstOrdinateColumn = 2,
@@ -180,7 +181,10 @@ namespace Yburn
 			params string[] titles
 			)
 		{
-			plotFile.AppendLine("plot\\");
+			if(isFirstPlotCommand)
+			{
+				plotFile.AppendLine("plot\\");
+			}
 
 			int ordinateColumn = firstOrdinateColumn;
 			foreach(string title in titles)
@@ -195,10 +199,14 @@ namespace Yburn
 			int abscissaColumn = 1,
 			int firstOrdinateColumn = 2,
 			string style = "linespoints",
+			bool appendToExistingPlotCommands = false,
 			params string[][] titles
 			)
 		{
-			plotFile.AppendLine("plot\\");
+			if(appendToExistingPlotCommands == false)
+			{
+				plotFile.AppendLine("plot\\");
+			}
 
 			for(int index = 0; index < titles.Length; index++)
 			{

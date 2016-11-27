@@ -544,7 +544,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set title 'Spin state overlap'");
 			plotFile.AppendLine("set xlabel '{/Symbol t} (fm/c)'");
 			plotFile.AppendLine("set ylabel 'b (fm)'");
-			plotFile.AppendLine("set cblabel '|<{/Symbol Y}^+_{/Symbol U}(1S)|{/Symbol h}_b(1S)>|^2'");
+			plotFile.AppendLine("set cblabel '|<{/Symbol Y}_t^0(1S)|{/Symbol h}_b(1S)>|^2'");
 			plotFile.AppendLine();
 
 			AppendSurfacePlotCommands(plotFile);
