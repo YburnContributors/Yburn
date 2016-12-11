@@ -76,10 +76,10 @@ namespace Yburn.Workers
 			return StartGnuplot();
 		}
 
-		public Process PlotSpinStateOverlap()
+		public Process PlotAverageSpinStateOverlap()
 		{
-			CreateDataFile(CreateSpinStateOverlapDataList);
-			CreateSpinStateOverlapPlotFile();
+			CreateDataFile(CreateAverageSpinStateOverlapDataList);
+			CreateAverageSpinStateOverlapPlotFile();
 
 			return StartGnuplot();
 		}
@@ -535,7 +535,7 @@ namespace Yburn.Workers
 			return dataList;
 		}
 
-		private void CreateSpinStateOverlapPlotFile()
+		private void CreateAverageSpinStateOverlapPlotFile()
 		{
 			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
@@ -554,7 +554,7 @@ namespace Yburn.Workers
 			WritePlotFile(plotFile);
 		}
 
-		private List<List<double>> CreateSpinStateOverlapDataList()
+		private List<List<double>> CreateAverageSpinStateOverlapDataList()
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
@@ -569,7 +569,8 @@ namespace Yburn.Workers
 				LCFFieldAverager avg =
 					new LCFFieldAverager(param);
 
-				return avg.CalculateAverageSpinStateOverlap(properTime, QuadratureOrder);
+				return avg.CalculateAverageSpinStateOverlap(
+					BottomiumState.Y1S, properTime, QuadratureOrder);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);

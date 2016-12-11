@@ -57,6 +57,31 @@ namespace Yburn.Fireball
 
 		//private static readonly double TeslaFm2 = 5.017029326E-15;
 
+		private static double GetHyperfineEnergySplitting(
+			BottomiumState tripletState
+			)
+		{
+			switch(tripletState)
+			{
+				case BottomiumState.Y1S:
+					return Constants.RestMassY1SMeV - Constants.RestMassEta1SMeV;
+
+				case BottomiumState.x1P:
+					return Constants.RestMassX1PMeV - Constants.RestMassH1PMeV;
+
+				case BottomiumState.Y2S:
+					return Constants.RestMassY2SMeV - Constants.RestMassEta2SMeV;
+
+				case BottomiumState.x2P:
+					return Constants.RestMassX2PMeV - Constants.RestMassH2PMeV;
+
+				case BottomiumState.Y3S:
+				case BottomiumState.x3P:
+				default:
+					throw new Exception("Invalid BottomiumState.");
+			}
+		}
+
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
@@ -79,7 +104,8 @@ namespace Yburn.Fireball
 		{
 			FireballElectromagneticField emf = new FireballElectromagneticField(Param);
 			LCFFieldFunction function = (x, y, rapidity) =>
-				emf.CalculateElectricFieldPerFm2_LCF(properTimeFm, x, y, rapidity, quadratureOrder).Norm;
+				emf.CalculateElectricFieldPerFm2_LCF(
+					properTimeFm, x, y, rapidity, quadratureOrder).Norm;
 
 			return AverageByBottomiumDistribution(function, Param, quadratureOrder);
 		}
@@ -91,26 +117,53 @@ namespace Yburn.Fireball
 		{
 			FireballElectromagneticField emf = new FireballElectromagneticField(Param);
 			LCFFieldFunction function = (x, y, rapidity) =>
-				emf.CalculateMagneticFieldPerFm2_LCF(properTimeFm, x, y, rapidity, quadratureOrder).Norm;
+				emf.CalculateMagneticFieldPerFm2_LCF(
+					properTimeFm, x, y, rapidity, quadratureOrder).Norm;
 
 			return AverageByBottomiumDistribution(function, Param, quadratureOrder);
 		}
 
-		public double CalculateAverageSpinStateOverlap(
+		public double CalculateAverageSpinStateOverlap_Old(
+			BottomiumState tripletState,
 			double properTimeFm,
 			int quadratureOrder
 			)
 		{
-			double B_PerFmSquared =
-				CalculateAverageMagneticFieldStrengthPerFm2(properTimeFm, quadratureOrder);
+			double HyperfineEnergySplitting_MeV = GetHyperfineEnergySplitting(tripletState);
 
-			double HyperfineEnergySplitting_MeV = Constants.RestMassY2SMeV - Constants.RestMassEtab2SMeV;
+			double B_PerFmSquared
+				= CalculateAverageMagneticFieldStrengthPerFm2(properTimeFm, quadratureOrder);
 
-			double x = 4 * BottomQuarkMagneton_Fm * B_PerFmSquared * Constants.HbarCMeVFm / HyperfineEnergySplitting_MeV;
+			double x = 4 * BottomQuarkMagneton_Fm * B_PerFmSquared * Constants.HbarCMeVFm
+				/ HyperfineEnergySplitting_MeV;
 			double y = x / (1 + Math.Sqrt(1 + x * x));
 			double mixingCoefficient = y / Math.Sqrt(1 + y * y);
 
 			return mixingCoefficient * mixingCoefficient;
+		}
+
+		public double CalculateAverageSpinStateOverlap(
+			BottomiumState tripletState,
+			double properTimeFm,
+			int quadratureOrder
+			)
+		{
+			double HyperfineEnergySplitting_MeV = GetHyperfineEnergySplitting(tripletState);
+
+			LCFFieldFunction mixingCoefficientSquared = (x, y, rapidity) =>
+			{
+				FireballElectromagneticField emf = new FireballElectromagneticField(Param);
+				double B_PerFmSquared = emf.CalculateMagneticFieldPerFm2_LCF(
+					properTimeFm, x, y, rapidity, quadratureOrder).Norm;
+
+				double helper1 = 4 * BottomQuarkMagneton_Fm * B_PerFmSquared * Constants.HbarCMeVFm
+					/ HyperfineEnergySplitting_MeV;
+				double helper2 = helper1 / (1 + Math.Sqrt(1 + helper1 * helper1));
+
+				return helper2 * helper2 / (1 + helper2 * helper2);
+			};
+
+			return AverageByBottomiumDistribution(mixingCoefficientSquared, Param, quadratureOrder);
 		}
 
 		/********************************************************************************************

@@ -43,9 +43,13 @@ namespace Yburn.PhysUtil
 
 		public static readonly double RestMassBottomQuarkMeV = 4660;
 
-		public static readonly double RestMassEtab1SMeV = 9398.0;
+		public static readonly double RestMassEta1SMeV = 9399.0;
 
-		public static readonly double RestMassEtab2SMeV = 9999;
+		public static readonly double RestMassH1PMeV = 9899.3;
+
+		public static readonly double RestMassEta2SMeV = 9999.0;
+
+		public static readonly double RestMassH2PMeV = 10259.8;
 
 		public static readonly double RestMassY1SMeV = 9460.30;
 

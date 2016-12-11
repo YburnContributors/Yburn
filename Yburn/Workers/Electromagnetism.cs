@@ -74,8 +74,8 @@ namespace Yburn.Workers
 					PlotAverageMagneticFieldStrength();
 					break;
 
-				case "PlotSpinStateOverlap":
-					PlotSpinStateOverlap();
+				case "PlotAverageSpinStateOverlap":
+					PlotAverageSpinStateOverlap();
 					break;
 
 				default:

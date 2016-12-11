@@ -168,7 +168,7 @@ namespace Yburn.Electromagnetism.UI
 			MenuEntry.MenuItemPlotNucleusMagneticFieldStrengthInLCF.Click += new EventHandler(MenuItemPlotNucleusMagneticFieldStrengthInLCF_Click);
 			MenuEntry.MenuItemPlotCentralMagneticFieldStrength.Click += new EventHandler(MenuItemPlotCentralMagneticFieldStrength_Click);
 			MenuEntry.MenuItemPlotAverageMagneticFieldStrength.Click += new EventHandler(MenuItemPlotAverageMagneticFieldStrength_Click);
-			MenuEntry.MenuItemPlotSpinStateOverlap.Click += new EventHandler(MenuItemPlotSpinStateOverlap_Click);
+			MenuEntry.MenuItemPlotAverageSpinStateOverlap.Click += new EventHandler(MenuItemPlotAverageSpinStateOverlap_Click);
 		}
 
 		private void MakeToolTips(
@@ -219,9 +219,9 @@ namespace Yburn.Electromagnetism.UI
 			JobOrganizer.RequestNewJob("PlotAverageMagneticFieldStrength", ControlsValues);
 		}
 
-		private void MenuItemPlotSpinStateOverlap_Click(object sender, EventArgs e)
+		private void MenuItemPlotAverageSpinStateOverlap_Click(object sender, EventArgs e)
 		{
-			JobOrganizer.RequestNewJob("PlotSpinStateOverlap", ControlsValues);
+			JobOrganizer.RequestNewJob("PlotAverageSpinStateOverlap", ControlsValues);
 		}
 	}
 }

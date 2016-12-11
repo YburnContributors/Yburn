@@ -17,7 +17,7 @@ namespace Yburn.Electromagnetism.UI
 		public ToolStripMenuItem MenuItemPlotNucleusMagneticFieldStrengthInLCF;
 		public ToolStripMenuItem MenuItemPlotCentralMagneticFieldStrength;
 		public ToolStripMenuItem MenuItemPlotAverageMagneticFieldStrength;
-		public ToolStripMenuItem MenuItemPlotSpinStateOverlap;
+		public ToolStripMenuItem MenuItemPlotAverageSpinStateOverlap;
 
 		private void InitializeComponent()
 		{
@@ -28,7 +28,7 @@ namespace Yburn.Electromagnetism.UI
 			this.MenuItemPlotNucleusMagneticFieldStrengthInLCF = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotCentralMagneticFieldStrength = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotAverageMagneticFieldStrength = new System.Windows.Forms.ToolStripMenuItem();
-			this.MenuItemPlotSpinStateOverlap = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemPlotAverageSpinStateOverlap = new System.Windows.Forms.ToolStripMenuItem();
 			//
 			// MenuItemPlotPointChargeAzimutalMagneticField
 			//
@@ -72,11 +72,11 @@ namespace Yburn.Electromagnetism.UI
 			this.MenuItemPlotAverageMagneticFieldStrength.Size = new System.Drawing.Size(361, 24);
 			this.MenuItemPlotAverageMagneticFieldStrength.Text = "Plot &average magnetic field strength for bb mesons";
 			//
-			// MenuItemPlotSpinStateOverlap
+			// MenuItemPlotAverageSpinStateOverlap
 			//
-			this.MenuItemPlotSpinStateOverlap.Name = "MenuItemPlotSpinStateOverlap";
-			this.MenuItemPlotSpinStateOverlap.Size = new System.Drawing.Size(361, 24);
-			this.MenuItemPlotSpinStateOverlap.Text = "Plot &overlap between magnetically shifted triplet and unshifted singlet spin state";
+			this.MenuItemPlotAverageSpinStateOverlap.Name = "MenuItemPlotAverageSpinStateOverlap";
+			this.MenuItemPlotAverageSpinStateOverlap.Size = new System.Drawing.Size(361, 24);
+			this.MenuItemPlotAverageSpinStateOverlap.Text = "Plot &overlap between magnetically shifted triplet and unshifted singlet spin state";
 			//
 			// MenuItemElectromagnetism
 			//
@@ -88,7 +88,7 @@ namespace Yburn.Electromagnetism.UI
 				this.MenuItemPlotNucleusMagneticFieldStrengthInLCF,
 				this.MenuItemPlotCentralMagneticFieldStrength,
 				this.MenuItemPlotAverageMagneticFieldStrength,
-			this.MenuItemPlotSpinStateOverlap});
+			this.MenuItemPlotAverageSpinStateOverlap});
 			this.Size = new System.Drawing.Size(84, 24);
 			this.Text = "&Electromagnetism";
 		}
