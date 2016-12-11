@@ -74,9 +74,9 @@ namespace Yburn.Fireball.Tests
 			Nucleus.CreateNucleusPair(param, out nucleusA, out nucleusB);
 
 			NucleusElectromagneticField emf = new NucleusElectromagneticField(
-				param.EMFCalculationMethod.Value,
-				param.QGPConductivityMeV.Value,
-				param.BeamRapidity.Value,
+				param.EMFCalculationMethod,
+				param.QGPConductivityMeV,
+				param.BeamRapidity,
 				nucleusA);
 
 			SpatialVector[] fieldValues = new SpatialVector[Positions.Length];

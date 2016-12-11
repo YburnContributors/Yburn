@@ -99,7 +99,7 @@ namespace Yburn.Fireball
 			InitQGPSuppressionFactors();
 
 			// impactParam = 0 does not contribute
-			CurrentImpactParam = FireballParam.GridCellSizeFm.Value;
+			CurrentImpactParam = FireballParam.GridCellSizeFm;
 		}
 
 		private List<double> GetFlatImpactParams()
@@ -178,7 +178,7 @@ namespace Yburn.Fireball
 				CollectResults(fireball);
 				UpdateStatus(maximumTemperature, fireball.LifeTime);
 
-				CurrentImpactParam += FireballParam.GridCellSizeFm.Value;
+				CurrentImpactParam += FireballParam.GridCellSizeFm;
 			}
 		}
 

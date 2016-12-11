@@ -42,6 +42,7 @@ namespace Yburn.QQState
 			SigmaFm = sigmaMeV / Constants.HbarCMeVFm / Constants.HbarCMeVFm;
 			ColorState = colorState;
 
+			AssertValidMembers();
 			SetHelperVariables();
 		}
 
@@ -105,6 +106,14 @@ namespace Yburn.QQState
 		protected double SigmaEffFm;
 
 		protected ColorState ColorState;
+
+		private void AssertValidMembers()
+		{
+			if(SigmaFm < 0)
+			{
+				throw new Exception("Sigma < 0.");
+			}
+		}
 
 		protected virtual void SetHelperVariables()
 		{
@@ -575,6 +584,8 @@ namespace Yburn.QQState
 			SpinState = spinState;
 			SpinCouplingRange = spinCouplingRangeFm;
 			SpinCouplingStrength = spinCouplingStrengthMeV;
+
+			AssertValidMembers();
 			SetHelperVariables();
 		}
 
@@ -621,6 +632,18 @@ namespace Yburn.QQState
 		private double SpinFactor;
 
 		private double TotalSpin;
+
+		private void AssertValidMembers()
+		{
+			if(SpinCouplingRange < 0)
+			{
+				throw new Exception("SpinCouplingRange < 0.");
+			}
+			if(SpinCouplingStrength < 0)
+			{
+				throw new Exception("SpinCouplingStrength < 0.");
+			}
+		}
 
 		protected override void SetHelperVariables()
 		{

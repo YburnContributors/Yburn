@@ -432,9 +432,9 @@ namespace Yburn.Workers
 					param, out nucleusA, out nucleusB);
 
 				NucleusElectromagneticField emf = new NucleusElectromagneticField(
-					param.EMFCalculationMethod.Value,
-					param.QGPConductivityMeV.Value,
-					param.BeamRapidity.Value,
+					param.EMFCalculationMethod,
+					param.QGPConductivityMeV,
+					param.BeamRapidity,
 					nucleusA);
 
 				return emf.CalculateMagneticFieldPerFm2_LCF(

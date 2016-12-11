@@ -26,18 +26,18 @@ namespace Yburn.Fireball
 			)
 		{
 			nucleusA = CreateNucleus(
-				shape: param.NucleusShapeA.Value,
-				nucleonNumber: param.NucleonNumberA.Value,
-				protonNumber: param.ProtonNumberA.Value,
-				nuclearRadiusFm: param.NuclearRadiusAFm.Value,
-				diffusenessFm: param.DiffusenessAFm.Value);
+				shape: param.NucleusShapeA,
+				nucleonNumber: param.NucleonNumberA,
+				protonNumber: param.ProtonNumberA,
+				nuclearRadiusFm: param.NuclearRadiusAFm,
+				diffusenessFm: param.DiffusenessAFm);
 
 			nucleusB = CreateNucleus(
-				shape: param.NucleusShapeB.Value,
-				nucleonNumber: param.NucleonNumberB.Value,
-				protonNumber: param.ProtonNumberB.Value,
-				nuclearRadiusFm: param.NuclearRadiusBFm.Value,
-				diffusenessFm: param.DiffusenessBFm.Value);
+				shape: param.NucleusShapeB,
+				nucleonNumber: param.NucleonNumberB,
+				protonNumber: param.ProtonNumberB,
+				nuclearRadiusFm: param.NuclearRadiusBFm,
+				diffusenessFm: param.DiffusenessBFm);
 		}
 
 		/********************************************************************************************

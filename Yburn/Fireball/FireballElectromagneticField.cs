@@ -12,7 +12,7 @@ namespace Yburn.Fireball
 			FireballParam param
 			)
 		{
-			ImpactParameterFm = param.ImpactParameterFm.Value;
+			ImpactParameterFm = param.ImpactParameterFm;
 
 			Nucleus nucleusA;
 			Nucleus nucleusB;
@@ -20,15 +20,15 @@ namespace Yburn.Fireball
 				param, out nucleusA, out nucleusB);
 
 			NucleusEMFA = new NucleusElectromagneticField(
-				param.EMFCalculationMethod.Value,
-				param.QGPConductivityMeV.Value,
-				param.BeamRapidity.Value,
+				param.EMFCalculationMethod,
+				param.QGPConductivityMeV,
+				param.BeamRapidity,
 				nucleusA);
 
 			NucleusEMFB = new NucleusElectromagneticField(
-				param.EMFCalculationMethod.Value,
-				param.QGPConductivityMeV.Value,
-				-param.BeamRapidity.Value,
+				param.EMFCalculationMethod,
+				param.QGPConductivityMeV,
+				-param.BeamRapidity,
 				nucleusB);
 		}
 

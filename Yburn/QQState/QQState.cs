@@ -297,21 +297,9 @@ namespace Yburn.QQState
 			{
 				errorMessage += "QuarkMass <= 0.\r\n";
 			}
-			if(Param.SigmaMeV < 0)
-			{
-				errorMessage += "Sigma < 0.\r\n";
-			}
 			if(Param.SoftScaleMeV < 0)
 			{
 				errorMessage += "SoftScale < 0.\r\n";
-			}
-			if(Param.SpinCouplingStrengthMeV < 0)
-			{
-				errorMessage += "SpinCouplingStrength < 0.\r\n";
-			}
-			if(Param.SpinCouplingRangeFm < 0)
-			{
-				errorMessage += "SpinCouplingRange < 0.\r\n";
 			}
 			if(Param.StepNumber < 1)
 			{

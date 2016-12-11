@@ -106,14 +106,33 @@ namespace Yburn.QQState.Tests
 			param.AggressivenessAlpha = 0.5;
 			param.ColorState = ColorState.Octet;
 			param.EnergyMeV = 1000;
+			param.GammaDampMeV = 0;
+			param.MaxRadiusFm = 10;
 			param.PotentialType = PotentialType.Tzero_NoString;
 			param.QuarkMassMeV = 4800.90885593666;
-			param.MaxRadiusFm = 10;
 			param.RunningCouplingType = RunningCouplingType.LOperturbative_Cutoff3;
-			param.StepNumber = 20000;
 			param.SoftScaleMeV = 1420;
+			param.StepNumber = 20000;
 			param.TchemMeV = 120;
 			param.TcritMeV = 160;
+			param.TemperatureMeV = 0;
+
+			return param;
+		}
+
+		private static QQStateParam GetCommonBoundStateParam()
+		{
+			QQStateParam param = new QQStateParam();
+			param.AccuracyAlpha = 1e-6;
+			param.ColorState = ColorState.Singlet;
+			param.GammaDampMeV = 0;
+			param.MaxRadiusFm = 10;
+			param.MaxShootingTrials = 5000;
+			param.QuarkMassMeV = 4800.90885593666;
+			param.RunningCouplingType = RunningCouplingType.LOperturbative_Cutoff3;
+			param.TchemMeV = 120;
+			param.TcritMeV = 160;
+			param.TemperatureMeV = 0;
 
 			return param;
 		}
@@ -144,20 +163,6 @@ namespace Yburn.QQState.Tests
 			param.StepNumber = 16000;
 
 			return new QQBoundState(param, 2);
-		}
-
-		private static QQStateParam GetCommonBoundStateParam()
-		{
-			QQStateParam param = new QQStateParam();
-			param.AccuracyAlpha = 1e-6;
-			param.QuarkMassMeV = 4800.90885593666;
-			param.MaxShootingTrials = 5000;
-			param.MaxRadiusFm = 10;
-			param.RunningCouplingType = RunningCouplingType.LOperturbative_Cutoff3;
-			param.TchemMeV = 120;
-			param.TcritMeV = 160;
-
-			return param;
 		}
 
 		private static double GetMaxDeviation(
