@@ -68,10 +68,23 @@ namespace Yburn.Workers
 		{
 			string pathFile = GetQQDataPathFile();
 
-			QQDataDoc.Write(pathFile, QuantumNumberN, QuantumNumberL, ColorState.ToString(),
-				PotentialType.ToString(), Temperature, DebyeMass, RMS,
-				SoftScale, UltraSoftScale, BoundMass, Energy,
-				GammaDamp, GammaDiss, GammaTot);
+			QQDataSet dataSet = new QQDataSet(
+				n: QuantumNumberN,
+				l: QuantumNumberL,
+				colorState: ColorState,
+				potentialType: PotentialType,
+				temperature: Temperature,
+				debyeMass: DebyeMass,
+				rms: RMS,
+				softScale: SoftScale,
+				ultraSoftScale: UltraSoftScale,
+				boundMass: BoundMass,
+				energy: Energy,
+				gammaDamp: GammaDamp,
+				gammaDiss: GammaDiss,
+				gammaTot: GammaTot);
+
+			QQDataDoc.Write(pathFile, dataSet);
 
 			LogMessages.Clear();
 			LogMessages.AppendLine("Results have been saved to QQ-data file.");
@@ -97,7 +110,7 @@ namespace Yburn.Workers
 			{
 				QQDataDoc.CreateNewDataDoc(pathFile, AccuracyAlpha, AccuracyWaveFunction,
 					AggressivenessAlpha, MaxEnergy, EnergySteps, QuarkMass, MaxRadius,
-					StepNumber, AlphaHard, Sigma, SigmaEff, Tchem,
+					StepNumber, Sigma, Tchem,
 					Tcrit);
 			}
 		}

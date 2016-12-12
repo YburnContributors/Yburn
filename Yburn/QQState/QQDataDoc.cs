@@ -159,52 +159,33 @@ namespace Yburn.QQState
 			double quarkMass, // in MeV
 			double rOut, // maximum radius in fm
 			int stepNumber,
-			double alphaS, // AlphaS(QuarkMass), hard scale
 			double sigma, // string coupling in fm^-2
-			double sigmaEff, // effective string-coupling in fm^-1
 			double tchem, // chemical freeze-out temperature in MeV
 			double tcrit // critical temperature in MeV
 			)
 		{
 			File.WriteAllText(pathFile, DataHeader(accuracyAlpha, accuracyWave, aggressivenessAlpha,
-				maxEnergy, eSteps, quarkMass, rOut, stepNumber, alphaS, sigma, sigmaEff, tchem, tcrit));
+				maxEnergy, eSteps, quarkMass, rOut, stepNumber, sigma, tchem, tcrit));
 		}
 
 		public static void Write(
 			string pathFile,
-			int n, // principal quantum number N
-			int l, // orbital quantum number L
-			string colorState,
-			string potentialType,
-			double temperature, // in MeV
-			double debyeMass, // in MeV
-			double rootMeanSquare, // in fm
-			double softScale, // in MeV
-			double ultraSoftScale, // in MeV
-			double boundMass, // in MeV
-			double energy, // in MeV
-			double gammaDamp, // in MeV
-			double gammaDiss, // in MeV
-			double gammaTot // in MeV
-		)
+			QQDataSet dataSet
+			)
 		{
 			// read whole data file
 			List<string> allLines = new List<string>(File.ReadAllLines(pathFile));
 			bool lineFound;
-			int lineIndex = FindLineIndex(allLines, n, l, colorState, potentialType,
-				temperature, out lineFound);
+			int lineIndex = FindLineIndex(allLines, dataSet.N, dataSet.L, dataSet.ColorState,
+				dataSet.PotentialType, dataSet.Temperature, out lineFound);
 
 			if(lineFound)
 			{
-				allLines[lineIndex] = MakeDataLine(n, l, colorState, potentialType, temperature,
-					debyeMass, rootMeanSquare, softScale, ultraSoftScale, boundMass, energy, gammaDamp,
-					gammaDiss, gammaTot);
+				allLines[lineIndex] = MakeDataLine(dataSet);
 			}
 			else
 			{
-				allLines.Insert(lineIndex, MakeDataLine(n, l, colorState, potentialType,
-					temperature, debyeMass, rootMeanSquare, softScale, ultraSoftScale, boundMass, energy,
-					gammaDamp, gammaDiss, gammaTot));
+				allLines.Insert(lineIndex, MakeDataLine(dataSet));
 			}
 
 			File.WriteAllLines(pathFile, allLines);
@@ -218,38 +199,25 @@ namespace Yburn.QQState
 		}
 
 		public static string MakeDataLine(
-			int n, // principal quantum number N
-			int l, // orbital quantum number L
-			string colorState,
-			string potentialType,
-			double temperature, // in MeV
-			double debyeMass, // Debye mass in MeV
-			double rootMeanSquare, // rms  in fm
-			double softScale, // in MeV
-			double ultraSoftScale, // in MeV
-			double boundMass, // bound mass in MeV
-			double energy, // in MeV, negative
-			double gammaDamp, // in MeV
-			double gammaDiss, // in MeV
-			double gammaTot // in MeV
-		)
+			QQDataSet dataSet
+			)
 		{
 			return string.Format(
-				" {0,-8}{1,-8}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}{10,-12}{11,-14}{12,-14}{13,-14}",
-				n.ToString(),
-				l.ToString(),
-				colorState,
-				potentialType,
-				temperature.ToString("G6"),
-				debyeMass.ToString("G6"),
-				rootMeanSquare.ToString("G6"),
-				softScale.ToString("G6"),
-				ultraSoftScale.ToString("G6"),
-				boundMass.ToString("G6"),
-				energy.ToString("G6"),
-				gammaDamp.ToString("G6"),
-				gammaDiss.ToString("G6"),
-				gammaTot.ToString("G6"));
+				" " + ColumnFormat,
+				dataSet.N.ToString(),
+				dataSet.L.ToString(),
+				dataSet.ColorState.ToString(),
+				dataSet.PotentialType.ToString(),
+				dataSet.Temperature.ToString("G6"),
+				dataSet.DebyeMass.ToString("G6"),
+				dataSet.RMS.ToString("G6"),
+				dataSet.SoftScale.ToString("G6"),
+				dataSet.UltraSoftScale.ToString("G6"),
+				dataSet.BoundMass.ToString("G6"),
+				dataSet.Energy.ToString("G6"),
+				dataSet.GammaDamp.ToString("G6"),
+				dataSet.GammaDiss.ToString("G6"),
+				dataSet.GammaTot.ToString("G6"));
 		}
 
 		public static List<QQDataSet> GetDataSets(
@@ -299,10 +267,12 @@ namespace Yburn.QQState
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private const string Separator
-			= "#------------------------------------------------------------------------------------------------------------------------------------------------------------";
+		private static readonly string ColumnFormat = "{0,4}{1,4}{2,12}{3,18}{4,14}{5,12}{6,12}{7,12}{8,12}{9,12}{10,12}{11,14}{12,14}{13,14}";
 
-		private const string CommentarySign = "#";
+		private static readonly string CommentarySign = "#";
+
+		private static readonly string Separator = string.Format(CommentarySign + ColumnFormat,
+			"", "", "", "", "", "", "", "", "", "", "", "", "", "").Replace(' ', '-');
 
 		// Extract a list of values from the QQ-data file with specified N, L, color state and
 		// potential type within a given temperature region.
@@ -378,7 +348,7 @@ namespace Yburn.QQState
 			List<PotentialType> potentialTypes,
 			double minTemperature,
 			double maxTemperature
-		)
+			)
 		{
 			bool isValid = (dataSet.N == n)
 				&& (dataSet.L == l)
@@ -399,9 +369,7 @@ namespace Yburn.QQState
 			double quarkMass, // in MeV
 			double rOut, // maximum radius in fm
 			int stepNumber,
-			double alphaS, // AlphaS(QuarkMass), hard scale
 			double sigma, // string coupling in fm^-2
-			double sigmaEff, // effective string-coupling in fm^-1
 			double tchem, // chemical freeze-out temperature in MeV
 			double tcrit // critical temperature in MeV
 			)
@@ -409,25 +377,27 @@ namespace Yburn.QQState
 			StringBuilder oStringBuilder = new StringBuilder();
 
 			oStringBuilder.AppendLine(Separator);
-			oStringBuilder.AppendLine("#This is a QQDataDoc-file. Commentary lines may inserted using a leading \"#\".");
-			oStringBuilder.AppendLine("#The data has been calculated using the following parameters (hopefully) consistently:");
-			oStringBuilder.AppendLine("#");
-			oStringBuilder.AppendFormat("#{0,22}    {1,-12}\r\n", "AccuracyAlpha", accuracyAlpha.ToString("G4"));
-			oStringBuilder.AppendFormat("#{0,22}    {1,-12}\r\n", "AccuracyWave", accuracyWave.ToString("G4"));
-			oStringBuilder.AppendFormat("#{0,22}    {1,-12}\r\n", "AggressivenessAlpha", aggressivenessAlpha.ToString("G4"));
-			oStringBuilder.AppendFormat("#{0,22}    {1,-12}\r\n", "Emax (MeV)", maxEnergy.ToString("G4"));
-			oStringBuilder.AppendFormat("#{0,22}    {1,-12}\r\n", "ESteps", eSteps);
-			oStringBuilder.AppendFormat("#{0,22}    {1,-12}\r\n", "QuarkMass (MeV)", quarkMass.ToString("G4"));
-			oStringBuilder.AppendFormat("#{0,22}    {1,-12}\r\n", "Rout (fm)", rOut.ToString("G4"));
-			oStringBuilder.AppendFormat("#{0,22}    {1,-12}\r\n", "StepsNumber", stepNumber);
-			oStringBuilder.AppendFormat("#{0,22}    {1,-12}\r\n", "AlphaS_H", alphaS.ToString("G4"));
-			oStringBuilder.AppendFormat("#{0,22}    {1,-12}\r\n", "Sigma (MeV^2)", sigma.ToString("G4"));
-			oStringBuilder.AppendFormat("#{0,22}    {1,-12}\r\n", "SigmaEff (MeV^2)", sigmaEff.ToString("G4"));
-			oStringBuilder.AppendFormat("#{0,22}    {1,-12}\r\n", "Tchem (MeV)", tchem.ToString("G4"));
-			oStringBuilder.AppendFormat("#{0,22}    {1,-12}\r\n", "Tcrit (MeV)", tcrit.ToString("G4"));
+			oStringBuilder.AppendLine(CommentarySign + "This is a QQDataDoc-file. Commentary lines may inserted using a leading \"" + CommentarySign + "\".");
+			oStringBuilder.AppendLine(CommentarySign + "The data has been calculated using the following parameters (hopefully) consistently:");
+			oStringBuilder.AppendLine(CommentarySign);
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "AccuracyAlpha", accuracyAlpha.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "AccuracyWaveFunction", accuracyWave.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "AggressivenessAlpha", aggressivenessAlpha.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "EnergySteps", eSteps);
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "MaxEnergy (MeV)", maxEnergy.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "MaxRadius (fm)", rOut.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "QuarkMass (MeV)", quarkMass.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "Sigma (MeV^2)", sigma.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "StepNumber", stepNumber);
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "Tchem (MeV)", tchem.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "Tcrit (MeV)", tcrit.ToString("G4"));
 			oStringBuilder.AppendLine(Separator);
-			oStringBuilder.AppendLine("#N       L       ColorState  Pot.Type    Temperature DebyeMass   <r^2>^1/2   SoftScale   US_Scale    BoundMass   Energy      GammaDamp   GammaDiss   GammaTot    ");
-			oStringBuilder.AppendLine("#                                        (MeV)       (MeV)       (fm)        (Mev)       (Mev)       (MeV)       (MeV)       (MeV)       (MeV)       (MeV)       ");
+			oStringBuilder.AppendFormat(CommentarySign + ColumnFormat,
+				"N", "L", "ColorState", "PotentialType", "Temperature", "DebyeMass", "<r^2>^1/2", "SoftScale", "US_Scale", "BoundMass", "Energy", "GammaDamp", "GammaDiss", "GammaTot");
+			oStringBuilder.AppendLine();
+			oStringBuilder.AppendFormat(CommentarySign + ColumnFormat,
+				"", "", "", "", "(MeV)", "(MeV)", "(fm)", "(Mev)", "(Mev)", "(MeV)", "(MeV)", "(MeV)", "(MeV)", "(MeV)");
+			oStringBuilder.AppendLine();
 			oStringBuilder.AppendLine(Separator);
 
 			return oStringBuilder.ToString();
@@ -437,15 +407,12 @@ namespace Yburn.QQState
 			List<string> allLines,
 			int n,
 			int l,
-			string colorState,
-			string potentialType,
+			ColorState colorState,
+			PotentialType potentialType,
 			double temperature,
 			out bool lineFound
 			)
 		{
-			string sN = n.ToString();
-			string sL = l.ToString();
-			string sTemperature = temperature.ToString("G6");
 			lineFound = false;
 
 			int lineIndex;
@@ -459,7 +426,7 @@ namespace Yburn.QQState
 
 				string[] values = SplitLineIntoValues(allLines[lineIndex]);
 
-				int nComparison = string.Compare(values[(int)QQDataColumns.N], sN);
+				int nComparison = int.Parse(values[(int)QQDataColumns.N]) - n;
 				if(nComparison < 0)
 				{
 					continue;
@@ -470,7 +437,7 @@ namespace Yburn.QQState
 					return lineIndex;
 				}
 
-				int lComparison = string.Compare(values[(int)QQDataColumns.L], sL);
+				int lComparison = int.Parse(values[(int)QQDataColumns.L]) - l;
 				if(lComparison < 0)
 				{
 					continue;
@@ -481,36 +448,36 @@ namespace Yburn.QQState
 					return lineIndex;
 				}
 
-				int iColorStateComparison = string.Compare(values[(int)QQDataColumns.ColorState], colorState);
-				if(iColorStateComparison < 0)
+				int colorStateComparison = (int)Enum.Parse(typeof(ColorState), values[(int)QQDataColumns.ColorState]) - (int)colorState;
+				if(colorStateComparison < 0)
 				{
 					continue;
 				}
-				else if(iColorStateComparison > 0)
+				else if(colorStateComparison > 0)
 				{
 					// new ColorState value - insert new line here...
 					return lineIndex;
 				}
 
-				int iPotentialTypeComparison = string.Compare(values[(int)QQDataColumns.PotentialType], potentialType);
-				if(iPotentialTypeComparison < 0)
+				double temperatureComparison = double.Parse(values[(int)QQDataColumns.Temperature]) - temperature;
+				if(temperatureComparison < 0)
 				{
 					continue;
 				}
-				else if(iPotentialTypeComparison > 0)
+				if(temperatureComparison > 0)
 				{
-					// new PotentialType value - insert new line here...
+					// new temperature value - insert new line here...
 					return lineIndex;
 				}
 
-				double dTemperatureComparison = double.Parse(values[(int)QQDataColumns.Temperature]) - temperature;
-				if(dTemperatureComparison < 0)
+				int potentialTypeComparison = (int)Enum.Parse(typeof(PotentialType), values[(int)QQDataColumns.PotentialType]) - (int)potentialType;
+				if(potentialTypeComparison < 0)
 				{
 					continue;
 				}
-				if(dTemperatureComparison > 0)
+				else if(potentialTypeComparison > 0)
 				{
-					// new temperature value - insert new line here...
+					// new PotentialType value - insert new line here...
 					return lineIndex;
 				}
 
