@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MathNet.Numerics.Integration;
+using System;
 using System.Collections.Generic;
 using Yburn.Fireball;
 using Yburn.PhysUtil;
@@ -255,7 +256,8 @@ namespace Yburn.Workers
 			Func<double, double> integrand = cosine => function(
 				GetDopplerShiftedTemperature(qgpTemperature, qgpVelocity, cosine));
 
-			return 0.5 * Quadrature.IntegrateOverInterval(integrand, -1, 1, NumberAveragingAngles);
+			return 0.5 * NewtonCotesTrapeziumRule.IntegrateComposite(
+				integrand, -1, 1, NumberAveragingAngles);
 		}
 	}
 }

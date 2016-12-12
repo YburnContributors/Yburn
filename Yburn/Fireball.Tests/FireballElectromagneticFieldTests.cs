@@ -31,12 +31,13 @@ namespace Yburn.Fireball.Tests
 
 		private static readonly double Time = 0.4;
 
-		private static readonly SpatialVector[] Positions =
-			new SpatialVector[] {
-				new SpatialVector(0.0, 0.0, 0.0),
-				new SpatialVector(1.0, 0.0, 0.0),
-				new SpatialVector(1.0, 2.0, 0.0),
-				new SpatialVector(1.0, 2.0, 3.0) };
+		private static readonly SpatialVector[] Positions = new SpatialVector[]
+		{
+			new SpatialVector(0.0, 0.0, 0.0),
+			new SpatialVector(1.0, 0.0, 0.0),
+			new SpatialVector(1.0, 2.0, 0.0),
+			new SpatialVector(1.0, 2.0, 3.0)
+		};
 
 		private static FireballParam CreateFireballParam()
 		{
@@ -91,8 +92,8 @@ namespace Yburn.Fireball.Tests
 
 		private SpatialVector[] CalculateMagneticFieldValues()
 		{
-			FireballElectromagneticField emf =
-				new FireballElectromagneticField(CreateFireballParam());
+			FireballElectromagneticField emf
+				= new FireballElectromagneticField(CreateFireballParam());
 
 			SpatialVector[] fieldValues = new SpatialVector[Positions.Length];
 			for(int i = 0; i < Positions.Length; i++)

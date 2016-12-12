@@ -217,7 +217,7 @@ namespace Yburn.Workers
 					dataSets, DecayWidthType, QGPFormationTemperature, NumberAveragingAngles);
 
 				PlotFunction decayWidthFunction
-					= (temperature) => averager.GetDecayWidth(temperature);
+					= temperature => averager.GetDecayWidth(temperature);
 
 				AddPlotFunctionLists(dataList, temperatureValues, decayWidthFunction);
 			}
@@ -311,7 +311,7 @@ namespace Yburn.Workers
 				DecayWidthAverager averager = new DecayWidthAverager(
 					dataSets, DecayWidthType, QGPFormationTemperature, NumberAveragingAngles);
 
-				PlotFunction energyFunction = (temperature) => averager.GetEnergy(temperature);
+				PlotFunction energyFunction = temperature => averager.GetEnergy(temperature);
 
 				AddPlotFunctionLists(dataList, temperatureValues, energyFunction);
 			}

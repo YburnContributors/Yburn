@@ -415,8 +415,8 @@ namespace Yburn.QQState
 		{
 			double upperScale = Math.Max(PreviousSoftScale, CurrentSoftScale);
 			double lowerScale = Math.Min(PreviousSoftScale, CurrentSoftScale);
-			double newScale =
-				Param.AggressivenessAlpha * CalculateSoftScaleMeV()
+			double newScale
+				= Param.AggressivenessAlpha * CalculateSoftScaleMeV()
 				+ (1.0 - Param.AggressivenessAlpha) * CurrentSoftScale;
 
 			if((newScale < lowerScale && lowerScale == CurrentSoftScale) ||

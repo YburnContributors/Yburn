@@ -163,15 +163,15 @@ namespace Yburn.Fireball
 				{
 					if(stringifiedEntries[(int)BottomiumState.x3P, (int)s] != "0")
 					{
-						stringifiedEntries[(int)BottomiumState.x3P, (int)s] =
-							(this[BottomiumState.x3P, s] / Constants.GammaTot3P).ToUIString()
+						stringifiedEntries[(int)BottomiumState.x3P, (int)s]
+							= (this[BottomiumState.x3P, s] / Constants.GammaTot3P).ToUIString()
 							+ "*GammaTot3P/eV";
 					}
 
 					if(stringifiedEntries[(int)s, (int)BottomiumState.x3P] != "0")
 					{
-						stringifiedEntries[(int)s, (int)BottomiumState.x3P] =
-							(this[s, BottomiumState.x3P] * Constants.GammaTot3P).ToUIString()
+						stringifiedEntries[(int)s, (int)BottomiumState.x3P]
+							= (this[s, BottomiumState.x3P] * Constants.GammaTot3P).ToUIString()
 							+ "/GammaTot3P*eV";
 					}
 				}

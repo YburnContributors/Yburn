@@ -212,8 +212,8 @@ namespace Yburn.Tests
 			List<double> abscissaY = new List<double>() { -5, 0, 5 };
 			Func<double, double, double> function = (x, y) => y / x;
 
-			Table<double> table =
-				Table<double>.FillWithFunctionValues(double.NaN, abscissaX, abscissaY, function);
+			Table<double> table
+				= Table<double>.FillWithFunctionValues(double.NaN, abscissaX, abscissaY, function);
 
 			Assert.AreEqual(abscissaX.Count + 1, table.NumberOfRows);
 			Assert.AreEqual(abscissaY.Count + 1, table.NumberOfColumns);

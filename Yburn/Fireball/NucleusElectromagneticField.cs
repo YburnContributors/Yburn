@@ -45,7 +45,7 @@ namespace Yburn.Fireball
 					* pointChargePosition.Direction.X;
 			};
 
-			double integral = Quadrature.IntegrateOverRealPlane(
+			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
 				2 * Nucleus.NuclearRadiusFm,
 				quadratureOrder);
@@ -70,7 +70,7 @@ namespace Yburn.Fireball
 					* pointChargePosition.Direction.X;
 			};
 
-			double integral = Quadrature.IntegrateOverRealPlane(
+			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
 				2 * Nucleus.NuclearRadiusFm,
 				quadratureOrder);
@@ -95,7 +95,7 @@ namespace Yburn.Fireball
 					* pointChargePosition.Direction.X;
 			};
 
-			double integral = Quadrature.IntegrateOverRealPlane(
+			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
 				2 * Nucleus.NuclearRadiusFm,
 				quadratureOrder);
@@ -122,7 +122,7 @@ namespace Yburn.Fireball
 					* pointChargePosition.Direction.X;
 			};
 
-			double integral = Quadrature.IntegrateOverRealPlane(
+			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
 				2 * Nucleus.NuclearRadiusFm,
 				quadratureOrder);
@@ -149,7 +149,7 @@ namespace Yburn.Fireball
 					* pointChargePosition.Direction.X;
 			};
 
-			double integral = Quadrature.IntegrateOverRealPlane(
+			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
 				2 * Nucleus.NuclearRadiusFm,
 				quadratureOrder);
@@ -176,7 +176,7 @@ namespace Yburn.Fireball
 					* pointChargePosition.Direction.X;
 			};
 
-			double integral = Quadrature.IntegrateOverRealPlane(
+			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
 				2 * Nucleus.NuclearRadiusFm,
 				quadratureOrder);

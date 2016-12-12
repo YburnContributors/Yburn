@@ -164,11 +164,11 @@ namespace Yburn.Fireball
 			double yFm
 			)
 		{
-			Func<double, double> integrand =
-				z => UnnormalizedDensity(Math.Sqrt(xFm * xFm + yFm * yFm + z * z));
+			Func<double, double> integrand
+				= z => UnnormalizedDensity(Math.Sqrt(xFm * xFm + yFm * yFm + z * z));
 
-			double integral =
-				Quadrature.IntegrateOverPositiveAxis(integrand, 2 * NuclearRadiusFm, 64);
+			double integral
+				= ImproperQuadrature.IntegrateOverPositiveAxis(integrand, 2 * NuclearRadiusFm, 64);
 
 			// factor two because integral runs from minus to plus infinity
 			return 2 * integral;

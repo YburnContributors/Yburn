@@ -168,7 +168,7 @@ namespace Yburn.Fireball
 					Func<double, double> integrand = k =>
 					PointChargeLongitudinalElectricFieldIntegrand(k, effectiveTime, radialDistance);
 
-					double integral = Quadrature.IntegrateOverPositiveAxis(integrand, 1, 64);
+					double integral = ImproperQuadrature.IntegrateOverPositiveAxis(integrand, 1, 64);
 
 					return Math.Sign(PointChargeRapidity) * Constants.ElementaryCharge / (4 * Math.PI)
 						* integral;
@@ -189,7 +189,7 @@ namespace Yburn.Fireball
 					Func<double, double> integrand = k =>
 					 PointChargeRadialElectricFieldIntegrand(k, effectiveTime, radialDistance);
 
-					double integral = Quadrature.IntegrateOverPositiveAxis(integrand, 1, 64);
+					double integral = ImproperQuadrature.IntegrateOverPositiveAxis(integrand, 1, 64);
 
 					return Constants.ElementaryCharge / (2 * Math.PI * QGPConductivityPerFm)
 						* integral;

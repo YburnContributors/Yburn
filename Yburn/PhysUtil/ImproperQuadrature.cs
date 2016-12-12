@@ -3,21 +3,11 @@ using System;
 
 namespace Yburn.PhysUtil
 {
-	public static class Quadrature
+	public static class ImproperQuadrature
 	{
 		/********************************************************************************************
 		 * Public static members, functions and properties
 		 ********************************************************************************************/
-
-		public static double IntegrateOverInterval(
-			Func<double, double> integrand,
-			double intervalBegin,
-			double intervalEnd,
-			int order
-			)
-		{
-			return GaussLegendreRule.Integrate(integrand, intervalBegin, intervalEnd, order);
-		}
 
 		public static double IntegrateOverPositiveAxis(
 			Func<double, double> integrand,
@@ -25,8 +15,8 @@ namespace Yburn.PhysUtil
 			int order
 			)
 		{
-			Func<double, double> transformedIntegrand =
-				MapIntegrandToUnitInterval(integrand, approxSupportRadius);
+			Func<double, double> transformedIntegrand
+				= MapIntegrandToUnitInterval(integrand, approxSupportRadius);
 
 			return GaussLegendreRule.Integrate(transformedIntegrand, 0, 1, order);
 		}
@@ -37,23 +27,10 @@ namespace Yburn.PhysUtil
 			int order
 			)
 		{
-			Func<double, double> transformedIntegrand =
-				MapIntegrandToUnitInterval(integrand, approxSupportRadius);
+			Func<double, double> transformedIntegrand
+				= MapIntegrandToUnitInterval(integrand, approxSupportRadius);
 
 			return GaussLegendreRule.Integrate(transformedIntegrand, -1, 1, order);
-		}
-
-		public static double IntegrateOverInterval(
-			Func<double, double, double> integrand,
-			double intervalBeginA,
-			double intervalEndA,
-			double intervalBeginB,
-			double intervalEndB,
-			int order
-			)
-		{
-			return GaussLegendreRule.Integrate(
-				integrand, intervalBeginA, intervalEndA, intervalBeginB, intervalEndB, order);
 		}
 
 		public static double IntegrateOverRealPlane(
@@ -62,8 +39,8 @@ namespace Yburn.PhysUtil
 			int order
 			)
 		{
-			Func<double, double, double> transformedIntegrand =
-				MapIntegrandToUnitInterval(integrand, approxSupportRadius);
+			Func<double, double, double> transformedIntegrand
+				= MapIntegrandToUnitInterval(integrand, approxSupportRadius);
 
 			return GaussLegendreRule.Integrate(transformedIntegrand, -1, 1, -1, 1, order);
 		}

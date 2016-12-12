@@ -103,7 +103,7 @@ namespace Yburn.Workers.Tests
 		{
 			CreateDecayWidthProvider(DopplerShiftEvaluationType.AveragedDecayWidth);
 
-			AssertHelper.AssertApproximatelyEqual(303.343, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 200, 0.2), 6);
+			AssertHelper.AssertApproximatelyEqual(303.366, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 200, 0.2), 6);
 		}
 
 		/********************************************************************************************

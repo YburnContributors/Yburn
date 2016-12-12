@@ -318,8 +318,8 @@ namespace Yburn.QQState
 				LogInfo(j);
 
 				// the unit is mb (factor of 10 is for conversion to from fm^-2 to mb)
-				crossSection[j] =
-					10 * Math.PI * Math.PI / 9.0 * BoundState.AlphaUltraSoft
+				crossSection[j]
+					= 10 * Math.PI * Math.PI / 9.0 * BoundState.AlphaUltraSoft
 					* BoundParam.QuarkMassMeV / Constants.HbarCMeVFm
 					* EnergyMeV[j] / Math.Sqrt(BoundParam.QuarkMassMeV
 					* (EnergyMeV[j] - MinEnergyMeV))

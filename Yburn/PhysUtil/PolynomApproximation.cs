@@ -1,6 +1,5 @@
 ﻿using MathNet.Numerics;
 using System;
-using System.Collections.Generic;
 
 namespace Yburn.PhysUtil
 {

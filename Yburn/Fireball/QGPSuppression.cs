@@ -229,9 +229,9 @@ namespace Yburn.Fireball
 			{
 				foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 				{
-					FlatQGPSuppressionFactors[CurrentBinIndex][pTIndex][state] +=
-						CurrentImpactParam * fireball.IntegrateFireballField(
-						"UnscaledSuppression", state, pTIndex);
+					FlatQGPSuppressionFactors[CurrentBinIndex][pTIndex][state]
+						+= CurrentImpactParam * fireball.IntegrateFireballField(
+							"UnscaledSuppression", state, pTIndex);
 				}
 			}
 		}

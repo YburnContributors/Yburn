@@ -32,8 +32,8 @@ namespace Yburn.Fireball
 						* Functions.GaussianDistributionNormalized1D(
 							rapidity, RapidityDistributionWidth);
 
-					functionColumnDensityValues[i, j] =
-						Quadrature.IntegrateOverRealAxis(
+					functionColumnDensityValues[i, j]
+						= ImproperQuadrature.IntegrateOverRealAxis(
 							integrand, 2 * RapidityDistributionWidth, quadratureOrder)
 						* glauber.NcollField[i, j];
 				}

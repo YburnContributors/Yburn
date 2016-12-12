@@ -119,8 +119,8 @@ namespace Yburn.Fireball.Tests
 			double[,] fieldValues
 			)
 		{
-			double[,] switchedFieldValues =
-				new double[fieldValues.GetLength(0), fieldValues.GetLength(1)];
+			double[,] switchedFieldValues
+				= new double[fieldValues.GetLength(0), fieldValues.GetLength(1)];
 
 			for(int i = 0; i < fieldValues.GetLength(1); i++)
 			{

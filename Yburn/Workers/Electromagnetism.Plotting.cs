@@ -481,8 +481,7 @@ namespace Yburn.Workers
 			SurfacePlotFunction function = (time, impactParam) =>
 			{
 				param.ImpactParameterFm = impactParam;
-				FireballElectromagneticField emf =
-					new FireballElectromagneticField(param);
+				FireballElectromagneticField emf = new FireballElectromagneticField(param);
 
 				return emf.CalculateMagneticFieldPerFm2(time, 0, 0, 0, QuadratureOrder).Norm;
 			};
@@ -523,8 +522,7 @@ namespace Yburn.Workers
 			SurfacePlotFunction function = (properTime, impactParam) =>
 			{
 				param.ImpactParameterFm = impactParam;
-				LCFFieldAverager avg =
-					new LCFFieldAverager(param);
+				LCFFieldAverager avg = new LCFFieldAverager(param);
 
 				return avg.CalculateAverageMagneticFieldStrengthPerFm2(
 					properTime, QuadratureOrder);
@@ -566,8 +564,7 @@ namespace Yburn.Workers
 			SurfacePlotFunction function = (properTime, impactParam) =>
 			{
 				param.ImpactParameterFm = impactParam;
-				LCFFieldAverager avg =
-					new LCFFieldAverager(param);
+				LCFFieldAverager avg = new LCFFieldAverager(param);
 
 				return avg.CalculateAverageSpinStateOverlap(
 					BottomiumState.Y1S, properTime, QuadratureOrder);
