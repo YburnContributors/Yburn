@@ -5,7 +5,7 @@ using Yburn.TestUtil;
 namespace Yburn.Fireball.Tests
 {
 	[TestClass]
-	public class FireballElectromagneticFieldTests
+	public class ElectromagneticFieldTests
 	{
 		/********************************************************************************************
 		 * Public members, functions and properties
@@ -43,21 +43,21 @@ namespace Yburn.Fireball.Tests
 		{
 			FireballParam param = new FireballParam();
 
-			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
-			param.QGPConductivityMeV = 5.8;
-
 			param.BeamRapidity = 7.99;
 			param.DiffusenessAFm = 0.546;
 			param.DiffusenessBFm = 0.546;
-			param.NucleonNumberA = 208;
-			param.NucleonNumberB = 208;
+			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
+			param.EMFQuadratureOrder = 64;
+			param.ImpactParameterFm = 7.0;
 			param.NuclearRadiusAFm = 6.62;
 			param.NuclearRadiusBFm = 6.62;
+			param.NucleonNumberA = 208;
+			param.NucleonNumberB = 208;
 			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
 			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
 			param.ProtonNumberA = 82;
 			param.ProtonNumberB = 82;
-			param.ImpactParameterFm = 7.0;
+			param.QGPConductivityMeV = 5.8;
 
 			return param;
 		}
@@ -78,13 +78,14 @@ namespace Yburn.Fireball.Tests
 				param.EMFCalculationMethod,
 				param.QGPConductivityMeV,
 				param.BeamRapidity,
-				nucleusA);
+				nucleusA,
+				param.EMFQuadratureOrder);
 
 			SpatialVector[] fieldValues = new SpatialVector[Positions.Length];
 			for(int i = 0; i < Positions.Length; i++)
 			{
 				fieldValues[i] = emf.CalculateMagneticFieldPerFm2(
-						Time, Positions[i].X, Positions[i].Y, Positions[i].Z, 64);
+						Time, Positions[i].X, Positions[i].Y, Positions[i].Z);
 			}
 
 			return fieldValues;
@@ -92,14 +93,14 @@ namespace Yburn.Fireball.Tests
 
 		private SpatialVector[] CalculateMagneticFieldValues()
 		{
-			FireballElectromagneticField emf
-				= new FireballElectromagneticField(CreateFireballParam());
+			CollisionalElectromagneticField emf
+				= new CollisionalElectromagneticField(CreateFireballParam());
 
 			SpatialVector[] fieldValues = new SpatialVector[Positions.Length];
 			for(int i = 0; i < Positions.Length; i++)
 			{
 				fieldValues[i] = emf.CalculateMagneticFieldPerFm2(
-					Time, Positions[i].X, Positions[i].Y, Positions[i].Z, 64);
+					Time, Positions[i].X, Positions[i].Y, Positions[i].Z);
 			}
 
 			return fieldValues;

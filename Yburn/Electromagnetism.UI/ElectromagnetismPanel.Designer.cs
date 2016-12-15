@@ -58,16 +58,16 @@
 			this.LayoutGeneralParameters = new System.Windows.Forms.TableLayoutPanel();
 			this.TbxSamples = new System.Windows.Forms.TextBox();
 			this.LblSamples = new System.Windows.Forms.Label();
-			this.TbxQuadratureOrder = new System.Windows.Forms.TextBox();
-			this.LblQuadratureOrder = new System.Windows.Forms.Label();
+			this.TbxEMFQuadratureOrder = new System.Windows.Forms.TextBox();
+			this.LblEMFQuadratureOrder = new System.Windows.Forms.Label();
 			this.LblGridCellSize = new System.Windows.Forms.Label();
 			this.TbxGridCellSize = new System.Windows.Forms.TextBox();
 			this.LblGridRadius = new System.Windows.Forms.Label();
 			this.TbxGridRadius = new System.Windows.Forms.TextBox();
 			this.CbxEMFCalculationMethod = new System.Windows.Forms.ComboBox();
 			this.LblEMFCalculationMethod = new System.Windows.Forms.Label();
-			this.LblQGPConductivityMeV = new System.Windows.Forms.Label();
-			this.TbxQGPConductivityMeV = new System.Windows.Forms.TextBox();
+			this.LblQGPConductivity = new System.Windows.Forms.Label();
+			this.TbxQGPConductivity = new System.Windows.Forms.TextBox();
 			this.GbxSinglePointCharge = new System.Windows.Forms.GroupBox();
 			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
 			this.MsxEMFCalculationMethodSelection = new Yburn.UI.MultiSelectBox();
@@ -437,16 +437,16 @@
 			this.LayoutGeneralParameters.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
 			this.LayoutGeneralParameters.Controls.Add(this.TbxSamples, 1, 5);
 			this.LayoutGeneralParameters.Controls.Add(this.LblSamples, 0, 5);
-			this.LayoutGeneralParameters.Controls.Add(this.TbxQuadratureOrder, 1, 4);
-			this.LayoutGeneralParameters.Controls.Add(this.LblQuadratureOrder, 0, 4);
+			this.LayoutGeneralParameters.Controls.Add(this.TbxEMFQuadratureOrder, 1, 4);
+			this.LayoutGeneralParameters.Controls.Add(this.LblEMFQuadratureOrder, 0, 4);
 			this.LayoutGeneralParameters.Controls.Add(this.LblGridCellSize, 0, 2);
 			this.LayoutGeneralParameters.Controls.Add(this.TbxGridCellSize, 1, 3);
 			this.LayoutGeneralParameters.Controls.Add(this.LblGridRadius, 0, 3);
 			this.LayoutGeneralParameters.Controls.Add(this.TbxGridRadius, 1, 2);
 			this.LayoutGeneralParameters.Controls.Add(this.CbxEMFCalculationMethod, 1, 1);
 			this.LayoutGeneralParameters.Controls.Add(this.LblEMFCalculationMethod, 0, 1);
-			this.LayoutGeneralParameters.Controls.Add(this.LblQGPConductivityMeV, 0, 0);
-			this.LayoutGeneralParameters.Controls.Add(this.TbxQGPConductivityMeV, 1, 0);
+			this.LayoutGeneralParameters.Controls.Add(this.LblQGPConductivity, 0, 0);
+			this.LayoutGeneralParameters.Controls.Add(this.TbxQGPConductivity, 1, 0);
 			this.LayoutGeneralParameters.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LayoutGeneralParameters.Location = new System.Drawing.Point(10, 34);
 			this.LayoutGeneralParameters.Name = "LayoutGeneralParameters";
@@ -479,24 +479,24 @@
 			this.LblSamples.Text = "Samples";
 			this.LblSamples.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxQuadratureOrder
+			// TbxEMFQuadratureOrder
 			// 
-			this.TbxQuadratureOrder.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxQuadratureOrder.Location = new System.Drawing.Point(244, 103);
-			this.TbxQuadratureOrder.Name = "TbxQuadratureOrder";
-			this.TbxQuadratureOrder.Size = new System.Drawing.Size(192, 31);
-			this.TbxQuadratureOrder.TabIndex = 0;
+			this.TbxEMFQuadratureOrder.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxEMFQuadratureOrder.Location = new System.Drawing.Point(244, 103);
+			this.TbxEMFQuadratureOrder.Name = "TbxEMFQuadratureOrder";
+			this.TbxEMFQuadratureOrder.Size = new System.Drawing.Size(192, 31);
+			this.TbxEMFQuadratureOrder.TabIndex = 0;
 			// 
-			// LblQuadratureOrder
+			// LblEMFQuadratureOrder
 			// 
-			this.LblQuadratureOrder.AutoSize = true;
-			this.LblQuadratureOrder.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblQuadratureOrder.Location = new System.Drawing.Point(3, 100);
-			this.LblQuadratureOrder.Name = "LblQuadratureOrder";
-			this.LblQuadratureOrder.Size = new System.Drawing.Size(235, 25);
-			this.LblQuadratureOrder.TabIndex = 0;
-			this.LblQuadratureOrder.Text = "QuadratureOrder";
-			this.LblQuadratureOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblEMFQuadratureOrder.AutoSize = true;
+			this.LblEMFQuadratureOrder.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblEMFQuadratureOrder.Location = new System.Drawing.Point(3, 100);
+			this.LblEMFQuadratureOrder.Name = "LblEMFQuadratureOrder";
+			this.LblEMFQuadratureOrder.Size = new System.Drawing.Size(235, 25);
+			this.LblEMFQuadratureOrder.TabIndex = 0;
+			this.LblEMFQuadratureOrder.Text = "EMFQuadratureOrder";
+			this.LblEMFQuadratureOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LblGridCellSize
 			// 
@@ -556,24 +556,24 @@
 			this.LblEMFCalculationMethod.Text = "EMFCalculationMethod";
 			this.LblEMFCalculationMethod.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// LblQGPConductivityMeV
+			// LblQGPConductivity
 			// 
-			this.LblQGPConductivityMeV.AutoSize = true;
-			this.LblQGPConductivityMeV.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblQGPConductivityMeV.Location = new System.Drawing.Point(3, 0);
-			this.LblQGPConductivityMeV.Name = "LblQGPConductivityMeV";
-			this.LblQGPConductivityMeV.Size = new System.Drawing.Size(235, 25);
-			this.LblQGPConductivityMeV.TabIndex = 0;
-			this.LblQGPConductivityMeV.Text = "QGPConductivity (MeV)";
-			this.LblQGPConductivityMeV.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblQGPConductivity.AutoSize = true;
+			this.LblQGPConductivity.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblQGPConductivity.Location = new System.Drawing.Point(3, 0);
+			this.LblQGPConductivity.Name = "LblQGPConductivity";
+			this.LblQGPConductivity.Size = new System.Drawing.Size(235, 25);
+			this.LblQGPConductivity.TabIndex = 0;
+			this.LblQGPConductivity.Text = "QGPConductivity (MeV)";
+			this.LblQGPConductivity.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxQGPConductivityMeV
+			// TbxQGPConductivity
 			// 
-			this.TbxQGPConductivityMeV.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxQGPConductivityMeV.Location = new System.Drawing.Point(244, 3);
-			this.TbxQGPConductivityMeV.Name = "TbxQGPConductivityMeV";
-			this.TbxQGPConductivityMeV.Size = new System.Drawing.Size(192, 31);
-			this.TbxQGPConductivityMeV.TabIndex = 0;
+			this.TbxQGPConductivity.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxQGPConductivity.Location = new System.Drawing.Point(244, 3);
+			this.TbxQGPConductivity.Name = "TbxQGPConductivity";
+			this.TbxQGPConductivity.Size = new System.Drawing.Size(192, 31);
+			this.TbxQGPConductivity.TabIndex = 0;
 			// 
 			// GbxSinglePointCharge
 			// 
@@ -852,8 +852,8 @@
 		private Yburn.UI.MultiSelectBox MsxEMFCalculationMethodSelection;
 		private System.Windows.Forms.GroupBox GbxGeneralParameters;
 		private System.Windows.Forms.TableLayoutPanel LayoutGeneralParameters;
-		private System.Windows.Forms.Label LblQGPConductivityMeV;
-		private System.Windows.Forms.TextBox TbxQGPConductivityMeV;
+		private System.Windows.Forms.Label LblQGPConductivity;
+		private System.Windows.Forms.TextBox TbxQGPConductivity;
 		private System.Windows.Forms.ComboBox CbxEMFCalculationMethod;
 		private System.Windows.Forms.Label LblEMFCalculationMethod;
 		private System.Windows.Forms.GroupBox GbxGlauber;
@@ -884,8 +884,8 @@
 		private System.Windows.Forms.TextBox TbxGridCellSize;
 		private System.Windows.Forms.Label LblGridRadius;
 		private System.Windows.Forms.TextBox TbxGridRadius;
-		private System.Windows.Forms.Label LblQuadratureOrder;
-		private System.Windows.Forms.TextBox TbxQuadratureOrder;
+		private System.Windows.Forms.Label LblEMFQuadratureOrder;
+		private System.Windows.Forms.TextBox TbxEMFQuadratureOrder;
 		private System.Windows.Forms.TextBox TbxSamples;
 		private System.Windows.Forms.Label LblSamples;
 	}

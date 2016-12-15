@@ -7,7 +7,7 @@ using Yburn.TestUtil;
 namespace Yburn.Workers.Tests
 {
 	[TestClass]
-	public class DecayWidthProviderTests
+	public class QQDataProviderTests
 	{
 		/********************************************************************************************
 		 * Public members, functions and properties
@@ -16,7 +16,7 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void GetBoundStateDataSets()
 		{
-			List<QQDataSet> dataSets = DecayWidthProvider.GetBoundStateDataSets(
+			List<QQDataSet> dataSets = QQDataProvider.GetBoundStateDataSets(
 				DataPathFile, PotentialTypes, BottomiumState.Y1S);
 
 			Assert.AreEqual(4, dataSets.Count);
@@ -30,7 +30,7 @@ namespace Yburn.Workers.Tests
 			Assert.AreEqual(0, dataSets[0].L);
 			Assert.AreEqual(1, dataSets[0].N);
 			Assert.AreEqual(PotentialType.Complex, dataSets[0].PotentialType);
-			Assert.AreEqual(0.23, dataSets[0].RMS);
+			Assert.AreEqual(0.23, dataSets[0].RadiusRMS);
 			Assert.AreEqual(1400, dataSets[0].SoftScale);
 			Assert.AreEqual(100, dataSets[0].Temperature);
 			Assert.AreEqual(900, dataSets[0].UltraSoftScale);
@@ -39,7 +39,7 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void GivenTemperatureBelowQGPFormationTemperature_ReturnZero()
 		{
-			CreateDecayWidthProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
+			CreateQQDataProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
 
 			Assert.AreEqual(0, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 150, 0));
 		}
@@ -47,7 +47,7 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void GivenTemperatureBelowBoundary_ReturnZero()
 		{
-			CreateDecayWidthProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
+			CreateQQDataProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
 
 			Assert.AreEqual(0, Provider.GetInMediumDecayWidth(BottomiumState.x1P, 180, 0));
 		}
@@ -55,7 +55,7 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void GivenTemperatureAboveBoundary_ReturnInfinity()
 		{
-			CreateDecayWidthProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
+			CreateQQDataProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
 
 			Assert.AreEqual(double.PositiveInfinity, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 800, 0));
 		}
@@ -63,7 +63,7 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void NoEntriesInQQDataFile_ReturnZeroOrInfinity()
 		{
-			CreateDecayWidthProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
+			CreateQQDataProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
 
 			Assert.AreEqual(0, Provider.GetInMediumDecayWidth(BottomiumState.x3P, 150, 0));
 			Assert.AreEqual(double.PositiveInfinity, Provider.GetInMediumDecayWidth(BottomiumState.x3P, 180, 0));
@@ -72,7 +72,7 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void UsingUnshiftedTemperature_SimpleInterpolation()
 		{
-			CreateDecayWidthProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
+			CreateQQDataProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
 
 			Assert.AreEqual(450, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 300, 0));
 		}
@@ -80,7 +80,7 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void UsingMaximallyBlueshifted_SimpleInterpolationWithMaximallyDopplerShiftedTemperature()
 		{
-			CreateDecayWidthProvider(DopplerShiftEvaluationType.MaximallyBlueshifted);
+			CreateQQDataProvider(DopplerShiftEvaluationType.MaximallyBlueshifted);
 
 			// maximally blueshifted temperature: T * sqrt(1-v*v)/(1-v)
 			// v = 0.6  =>  sqrt(1-v*v)/(1-v) = 2
@@ -91,7 +91,7 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void UsingAveragedTemperature_SimpleInterpolationWithAverageDopplerShiftedTemperature()
 		{
-			CreateDecayWidthProvider(DopplerShiftEvaluationType.AveragedTemperature);
+			CreateQQDataProvider(DopplerShiftEvaluationType.AveragedTemperature);
 
 			// averaged temperature: T * sqrt(1-v*v) * artanh(v)/v
 			// v = 0.874348...  =>  sqrt(1-v*v) * artanh(v)/v = 0.75
@@ -101,7 +101,7 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void UsingAveragedTemperature_AverageDecayWidthsEvaluatedAtDopplerShiftedTemperatures()
 		{
-			CreateDecayWidthProvider(DopplerShiftEvaluationType.AveragedDecayWidth);
+			CreateQQDataProvider(DopplerShiftEvaluationType.AveragedDecayWidth);
 
 			AssertHelper.AssertApproximatelyEqual(303.366, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 200, 0.2), 6);
 		}
@@ -120,13 +120,13 @@ namespace Yburn.Workers.Tests
 
 		private static int NumberAveragingAngles = 20;
 
-		private static DecayWidthProvider Provider;
+		private static QQDataProvider Provider;
 
-		private static void CreateDecayWidthProvider(
+		private static void CreateQQDataProvider(
 			DopplerShiftEvaluationType evaluationType
 			)
 		{
-			Provider = new DecayWidthProvider(
+			Provider = new QQDataProvider(
 				DataPathFile,
 				PotentialTypes,
 				evaluationType,

@@ -106,6 +106,7 @@ namespace Yburn.Electromagnetism.UI
 			nameValuePairs["DiffusenessB"] = TbxDiffusenessB.Text;
 			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
 			nameValuePairs["EMFCalculationMethodSelection"] = MsxEMFCalculationMethodSelection.SelectionString;
+			nameValuePairs["EMFQuadratureOrder"] = TbxEMFQuadratureOrder.Text;
 			nameValuePairs["GridCellSize"] = TbxGridCellSize.Text;
 			nameValuePairs["GridRadius"] = TbxGridRadius.Text;
 			nameValuePairs["ImpactParameter"] = TbxImpactParameter.Text;
@@ -117,8 +118,7 @@ namespace Yburn.Electromagnetism.UI
 			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
 			nameValuePairs["ProtonNumberA"] = TbxProtonNumberA.Text;
 			nameValuePairs["ProtonNumberB"] = TbxProtonNumberB.Text;
-			nameValuePairs["QuadratureOrder"] = TbxQuadratureOrder.Text;
-			nameValuePairs["QGPConductivityMeV"] = TbxQGPConductivityMeV.Text;
+			nameValuePairs["QGPConductivity"] = TbxQGPConductivity.Text;
 			nameValuePairs["RadialDistance"] = TbxRadialDistance.Text;
 			nameValuePairs["NucleusShapeA"] = CbxNucleusShapeA.Text;
 			nameValuePairs["NucleusShapeB"] = CbxNucleusShapeB.Text;
@@ -139,6 +139,7 @@ namespace Yburn.Electromagnetism.UI
 			MsxEMFCalculationMethodSelection.SelectionString = nameValuePairs["EMFCalculationMethodSelection"];
 			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA"];
 			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB"];
+			TbxEMFQuadratureOrder.Text = nameValuePairs["EMFQuadratureOrder"];
 			TbxGridCellSize.Text = nameValuePairs["GridCellSize"];
 			TbxGridRadius.Text = nameValuePairs["GridRadius"];
 			TbxImpactParameter.Text = nameValuePairs["ImpactParameter"];
@@ -150,8 +151,7 @@ namespace Yburn.Electromagnetism.UI
 			TbxDataFileName.Text = nameValuePairs["DataFileName"];
 			TbxProtonNumberA.Text = nameValuePairs["ProtonNumberA"];
 			TbxProtonNumberB.Text = nameValuePairs["ProtonNumberB"];
-			TbxQGPConductivityMeV.Text = nameValuePairs["QGPConductivityMeV"];
-			TbxQuadratureOrder.Text = nameValuePairs["QuadratureOrder"];
+			TbxQGPConductivity.Text = nameValuePairs["QGPConductivity"];
 			TbxRadialDistance.Text = nameValuePairs["RadialDistance"];
 			TbxSamples.Text = nameValuePairs["Samples"];
 			TbxStartEffectiveTime.Text = nameValuePairs["StartEffectiveTime"];

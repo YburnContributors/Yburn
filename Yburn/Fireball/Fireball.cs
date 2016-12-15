@@ -30,6 +30,7 @@ namespace Yburn.Fireball
 
 			InitXY();
 			InitV();
+			InitElectromagneticFieldStrengths();
 			InitTemperature();
 			InitDecayWidth();
 			InitDampingFactor();
@@ -316,6 +317,10 @@ namespace Yburn.Fireball
 
 		private SimpleFireballField VY;
 
+		private FireballElectromagneticField ElectricField;
+
+		private FireballElectromagneticField MagneticField;
+
 		private void AssertValidMembers()
 		{
 			if(Param.NucleonNumberA <= 0)
@@ -384,6 +389,8 @@ namespace Yburn.Fireball
 				Temperature,
 				VX,
 				VY,
+				ElectricField,
+				MagneticField,
 				Param.FormationTimesFm,
 				CurrentTime,
 				Param.DecayWidthRetrievalFunction);
@@ -403,6 +410,8 @@ namespace Yburn.Fireball
 				Temperature.Advance(CurrentTime);
 			}
 
+			ElectricField.Advance(CurrentTime);
+			MagneticField.Advance(CurrentTime);
 			DecayWidth.Advance(CurrentTime);
 			DampingFactor.SetValues((i, j, k, l) => DampingFactor.Values[k, l][i, j]
 				* Math.Exp(-TimeStep * DecayWidth.Values[k, l][i, j] / Constants.HbarCMeVFm));
@@ -424,6 +433,37 @@ namespace Yburn.Fireball
 			Y = Param.GenerateDiscreteYAxis().ToArray();
 		}
 
+		private void InitV()
+		{
+			VX = new SimpleFireballField(
+				FireballFieldType.VX,
+				Param.NumberGridPointsInX,
+				Param.NumberGridPointsInY,
+				(i, j) => 0);
+
+			VY = new SimpleFireballField(
+				FireballFieldType.VY,
+				Param.NumberGridPointsInX,
+				Param.NumberGridPointsInY,
+				(i, j) => 0);
+		}
+
+		private void InitElectromagneticFieldStrengths()
+		{
+			if(Param.UseElectromagneticFields)
+			{
+				ElectricField = FireballElectromagneticField.CreateFireballElectricField(Param, X, Y);
+				MagneticField = FireballElectromagneticField.CreateFireballMagneticField(Param, X, Y);
+			}
+			else
+			{
+				ElectricField = FireballElectromagneticField.CreateZeroField(
+					FireballFieldType.ElectricFieldStrength, X, Y);
+				MagneticField = FireballElectromagneticField.CreateZeroField(
+					FireballFieldType.MagneticFieldStrength, X, Y);
+			}
+		}
+
 		private void InitTemperature()
 		{
 			Temperature = new FireballTemperatureField(
@@ -441,21 +481,6 @@ namespace Yburn.Fireball
 			}
 
 			Param.InitialMaximumTemperatureMeV = MaximumTemperature;
-		}
-
-		private void InitV()
-		{
-			VX = new SimpleFireballField(
-				FireballFieldType.VX,
-				Param.NumberGridPointsInX,
-				Param.NumberGridPointsInY,
-				(i, j) => 0);
-
-			VY = new SimpleFireballField(
-				FireballFieldType.VY,
-				Param.NumberGridPointsInX,
-				Param.NumberGridPointsInY,
-				(i, j) => 0);
 		}
 
 		private SimpleFireballField GetFireballField(
@@ -512,6 +537,12 @@ namespace Yburn.Fireball
 
 				case "UnscaledSuppression":
 					return GetUnscaledSuppression(state, pTindex);
+
+				case "ElectricFieldStrength":
+					return ElectricField;
+
+				case "MagneticFieldStrength":
+					return MagneticField;
 
 				default:
 					throw new Exception("Unknown FireballField.");

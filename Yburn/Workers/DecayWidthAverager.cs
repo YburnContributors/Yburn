@@ -8,7 +8,7 @@ using Yburn.QQState;
 namespace Yburn.Workers
 {
 
-	public delegate double TemperatureDependentFunction(double temperature);
+	public delegate double QQDataFunction(double temperature);
 
 	public class DecayWidthAverager
 	{
@@ -57,13 +57,15 @@ namespace Yburn.Workers
 		private static void SetInterpolation(
 			List<QQDataSet> dataSetList,
 			DecayWidthType decayWidthType,
-			out LinearInterpolation1D interpolatedDecayWidths,
-			out LinearInterpolation1D interpolatedEnergies
+			out LinearInterpolation1D interpolatedRadiusRMS,
+			out LinearInterpolation1D interpolatedEnergies,
+			out LinearInterpolation1D interpolatedDecayWidths
 			)
 		{
 			int listSize = dataSetList.Count;
 
 			double[] temperatureList = new double[listSize];
+			double[] radiusList = new double[listSize];
 			double[] energyList = new double[listSize];
 			double[] gammaList = new double[listSize];
 
@@ -72,6 +74,7 @@ namespace Yburn.Workers
 				for(int j = 0; j < listSize; j++)
 				{
 					temperatureList[j] = dataSetList[j].Temperature;
+					radiusList[j] = dataSetList[j].RadiusRMS;
 					gammaList[j] = dataSetList[j].GetGamma(decayWidthType);
 					energyList[j] = dataSetList[j].Energy;
 				}
@@ -79,12 +82,19 @@ namespace Yburn.Workers
 			else
 			{
 				temperatureList = new double[] { 0 };
+				radiusList = new double[] { 0 };
 				gammaList = new double[] { double.PositiveInfinity };
 				energyList = new double[] { 0 };
 			}
 
-			interpolatedDecayWidths = new LinearInterpolation1D(temperatureList, gammaList);
+			interpolatedRadiusRMS = new LinearInterpolation1D(temperatureList, radiusList);
 			interpolatedEnergies = new LinearInterpolation1D(temperatureList, energyList);
+			interpolatedDecayWidths = new LinearInterpolation1D(temperatureList, gammaList);
+		}
+
+		private static double GetMagneticDipoleMoment()
+		{
+			return 2 * Constants.MagnetonBottomQuarkFm / 3.0;
 		}
 
 		/********************************************************************************************
@@ -99,7 +109,7 @@ namespace Yburn.Workers
 			)
 		{
 			SetInterpolation(dataSetList, decayWidthType,
-				out InterpolatedDecayWidths, out InterpolatedEnergies);
+				out InterpolatedRadiusRMS, out InterpolatedEnergies, out InterpolatedDecayWidths);
 			QGPFormationTemperature = qgpFormationTemperature;
 			NumberAveragingAngles = numberAveragingAngles;
 			AssertValidMembers();
@@ -112,9 +122,11 @@ namespace Yburn.Workers
 		public readonly double QGPFormationTemperature;
 
 		public double GetInMediumDecayWidth(
+			DopplerShiftEvaluationType evaluationType,
 			double qgpTemperature,
 			double qgpVelocity,
-			DopplerShiftEvaluationType evaluationType
+			double electricFieldStrength,
+			double magneticFieldStrength
 			)
 		{
 			if(!ExistsMedium(qgpTemperature))
@@ -126,21 +138,28 @@ namespace Yburn.Workers
 				switch(evaluationType)
 				{
 					case DopplerShiftEvaluationType.UnshiftedTemperature:
-						return GetEffectiveDecayWidth(qgpTemperature);
+						return GetEffectiveDecayWidth(
+							qgpTemperature, electricFieldStrength, magneticFieldStrength);
 
 					case DopplerShiftEvaluationType.MaximallyBlueshifted:
 						return GetEffectiveDecayWidth(
-							GetMaximallyBlueshiftedTemperature(qgpTemperature, qgpVelocity));
+							GetMaximallyBlueshiftedTemperature(qgpTemperature, qgpVelocity),
+							electricFieldStrength, magneticFieldStrength);
 
 					case DopplerShiftEvaluationType.AveragedTemperature:
 						return GetEffectiveDecayWidth(
-							GetAveragedTemperature(qgpTemperature, qgpVelocity));
+							GetAveragedTemperature(qgpTemperature, qgpVelocity),
+							electricFieldStrength, magneticFieldStrength);
 
 					case DopplerShiftEvaluationType.AveragedDecayWidth:
-						return GetAveragedDecayWidth(qgpTemperature, qgpVelocity);
+						return GetAveragedDecayWidth(
+							qgpTemperature, qgpVelocity,
+							electricFieldStrength, magneticFieldStrength);
 
 					case DopplerShiftEvaluationType.AveragedLifeTime:
-						return GetInverselyAveragedDecayWidth(qgpTemperature, qgpVelocity);
+						return GetInverselyAveragedDecayWidth(
+							qgpTemperature, qgpVelocity,
+							electricFieldStrength, magneticFieldStrength);
 
 					default:
 						throw new Exception("Invalid DopplerShiftEvaluationType.");
@@ -165,6 +184,23 @@ namespace Yburn.Workers
 			return InterpolatedDecayWidths.GetValue(temperature);
 		}
 
+		public double GetRadiusRMS(
+			double temperature
+			)
+		{
+			if(temperature < InterpolatedRadiusRMS.Xmin)
+			{
+				return 0;
+			}
+
+			if(temperature > InterpolatedRadiusRMS.Xmax)
+			{
+				return 0;
+			}
+
+			return InterpolatedRadiusRMS.GetValue(temperature);
+		}
+
 		public double GetEnergy(
 			double temperature
 			)
@@ -182,11 +218,27 @@ namespace Yburn.Workers
 			return InterpolatedEnergies.GetValue(temperature);
 		}
 
-		public double GetExistenceProbability(
-			double temperature
+		public double GetEnergyInElectromagneticField(
+			double temperature,
+			double electricFieldStrength,
+			double magneticFieldStrength
 			)
 		{
-			return Functions.HeavisideStepFunction(-GetEnergy(temperature));
+			return GetEnergy(temperature)
+				- GetElectricDipoleMoment(temperature) * electricFieldStrength * Constants.HbarCMeVFm
+				- GetMagneticDipoleMoment() * magneticFieldStrength * Constants.HbarCMeVFm;
+		}
+
+		public double GetExistenceProbability(
+			double temperature,
+			double electricFieldStrength,
+			double magneticFieldStrength
+			)
+		{
+			double energy = GetEnergyInElectromagneticField(
+				temperature, electricFieldStrength, magneticFieldStrength);
+
+			return Functions.HeavisideStepFunction(-energy);
 		}
 
 		/********************************************************************************************
@@ -196,6 +248,8 @@ namespace Yburn.Workers
 		private readonly int NumberAveragingAngles;
 
 		private readonly LinearInterpolation1D InterpolatedDecayWidths;
+
+		private readonly LinearInterpolation1D InterpolatedRadiusRMS;
 
 		private readonly LinearInterpolation1D InterpolatedEnergies;
 
@@ -218,37 +272,51 @@ namespace Yburn.Workers
 			return qgpTemperature >= QGPFormationTemperature;
 		}
 
-		private double GetEffectiveDecayWidth(
+		private double GetElectricDipoleMoment(
 			double temperature
 			)
 		{
+			return Math.Abs(Constants.ChargeBottomQuark) * 2 * GetRadiusRMS(temperature);
+		}
+
+		private double GetEffectiveDecayWidth(
+			double temperature,
+			double electricFieldStrength,
+			double magneticFieldStrength
+			)
+		{
 			return GetDecayWidth(temperature)
-				/ GetExistenceProbability(temperature);
+				/ GetExistenceProbability(temperature, electricFieldStrength, magneticFieldStrength);
 		}
 
 		private double GetAveragedDecayWidth(
 			double qgpTemperature,
-			double qgpVelocity
+			double qgpVelocity,
+			double electricFieldStrength,
+			double magneticFieldStrength
 			)
 		{
-			return CalculateAverageDopplerShift(GetDecayWidth, qgpTemperature, qgpVelocity)
-				/ GetExistenceProbability(
-					GetMaximallyBlueshiftedTemperature(qgpTemperature, qgpVelocity));
+			QQDataFunction decayWidth = temperature => GetEffectiveDecayWidth(
+				temperature, electricFieldStrength, magneticFieldStrength);
+
+			return CalculateAverageDopplerShift(decayWidth, qgpTemperature, qgpVelocity);
 		}
 
 		private double GetInverselyAveragedDecayWidth(
 			double qgpTemperature,
-			double qgpVelocity
+			double qgpVelocity,
+			double electricFieldStrength,
+			double magneticFieldStrength
 			)
 		{
-			TemperatureDependentFunction effectiveLifeTime
-				= temperature => 1 / GetEffectiveDecayWidth(temperature);
+			QQDataFunction lifeTime = temperature => 1 / GetEffectiveDecayWidth(
+				temperature, electricFieldStrength, magneticFieldStrength);
 
-			return 1 / CalculateAverageDopplerShift(effectiveLifeTime, qgpTemperature, qgpVelocity);
+			return 1 / CalculateAverageDopplerShift(lifeTime, qgpTemperature, qgpVelocity);
 		}
 
 		private double CalculateAverageDopplerShift(
-			TemperatureDependentFunction function,
+			QQDataFunction function,
 			double qgpTemperature,
 			double qgpVelocity
 			)

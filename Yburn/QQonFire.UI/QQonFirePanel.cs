@@ -94,6 +94,7 @@ namespace Yburn.QQonFire.UI
 		private void InitializeComboBoxes()
 		{
 			CbxDopplerShiftEvaluationType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DopplerShiftEvaluationType"));
+			CbxEMFCalculationMethod.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFCalculationMethod"));
 			CbxExpansionMode.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ExpansionMode"));
 			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
 			CbxTemperatureProfile.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("TemperatureProfile"));
@@ -118,6 +119,9 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["DiffusenessA"] = TbxDiffusenessA.Text;
 			nameValuePairs["DiffusenessB"] = TbxDiffusenessB.Text;
 			nameValuePairs["DimuonDecaysFrompp"] = TbxDimuonDecaysFrompp.Text;
+			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
+			nameValuePairs["EMFQuadratureOrder"] = TbxEMFQuadratureOrder.Text;
+			nameValuePairs["EMFRefreshInterval"] = TbxEMFRefreshInterval.Text;
 			nameValuePairs["ExpansionMode"] = CbxExpansionMode.Text;
 			nameValuePairs["FireballFieldTypes"] = MsxFireballFieldTypes.SelectionString;
 			nameValuePairs["FormationTimes"] = TbxFormationTimes.Text;
@@ -140,11 +144,13 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["PotentialTypes"] = MsxPotentialTypes.SelectionString;
 			nameValuePairs["ProtonNumberA"] = TbxProtonNumberA.Text;
 			nameValuePairs["ProtonNumberB"] = TbxProtonNumberB.Text;
+			nameValuePairs["QGPConductivity"] = TbxQGPConductivity.Text;
 			nameValuePairs["QGPFormationTemperature"] = TbxQGPFormationTemperature.Text;
 			nameValuePairs["SnapRate"] = TbxSnapRate.Text;
 			nameValuePairs["TemperatureProfile"] = CbxTemperatureProfile.Text;
 			nameValuePairs["ThermalTime"] = TbxThermalTime.Text;
 			nameValuePairs["TransverseMomenta"] = TbxTransverseMomenta.Text;
+			nameValuePairs["UseElectromagneticFields"] = ChkUseElectromagneticFields.Checked.ToString();
 
 			return nameValuePairs;
 		}
@@ -155,10 +161,12 @@ namespace Yburn.QQonFire.UI
 		{
 			CbxDopplerShiftEvaluationType.Text = nameValuePairs["DopplerShiftEvaluationType"];
 			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"];
+			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"];
 			CbxExpansionMode.Text = nameValuePairs["ExpansionMode"];
 			CbxNucleusShapeA.Text = nameValuePairs["NucleusShapeA"];
 			CbxNucleusShapeB.Text = nameValuePairs["NucleusShapeB"];
 			CbxTemperatureProfile.Text = nameValuePairs["TemperatureProfile"];
+			ChkUseElectromagneticFields.Checked = bool.Parse(nameValuePairs["UseElectromagneticFields"]);
 			MsxBottomiumStates.SelectionString = nameValuePairs["BottomiumStates"];
 			MsxFireballFieldTypes.SelectionString = nameValuePairs["FireballFieldTypes"];
 			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];
@@ -170,6 +178,8 @@ namespace Yburn.QQonFire.UI
 			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA"];
 			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB"];
 			TbxDimuonDecaysFrompp.Text = nameValuePairs["DimuonDecaysFrompp"];
+			TbxEMFQuadratureOrder.Text = nameValuePairs["EMFQuadratureOrder"];
+			TbxEMFRefreshInterval.Text = nameValuePairs["EMFRefreshInterval"];
 			TbxFormationTimes.Text = nameValuePairs["FormationTimes"];
 			TbxGridCellSize.Text = nameValuePairs["GridCellSize"];
 			TbxGridRadius.Text = nameValuePairs["GridRadius"];
@@ -187,6 +197,7 @@ namespace Yburn.QQonFire.UI
 			TbxParticipantsAtBinBoundaries.Text = nameValuePairs["ParticipantsAtBinBoundaries"];
 			TbxProtonNumberA.Text = nameValuePairs["ProtonNumberA"];
 			TbxProtonNumberB.Text = nameValuePairs["ProtonNumberB"];
+			TbxQGPConductivity.Text = nameValuePairs["QGPConductivity"];
 			TbxQGPFormationTemperature.Text = nameValuePairs["QGPFormationTemperature"];
 			TbxSnapRate.Text = nameValuePairs["SnapRate"];
 			TbxThermalTime.Text = nameValuePairs["ThermalTime"];

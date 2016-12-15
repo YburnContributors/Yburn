@@ -24,6 +24,9 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "DiffusenessA", DiffusenessA);
 			Store(nameValuePairs, "DiffusenessB", DiffusenessB);
 			Store(nameValuePairs, "DimuonDecaysFrompp", DimuonDecaysFrompp);
+			Store(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
+			Store(nameValuePairs, "EMFQuadratureOrder", EMFQuadratureOrder);
+			Store(nameValuePairs, "EMFRefreshInterval", EMFRefreshInterval);
 			Store(nameValuePairs, "ExpansionMode", ExpansionMode);
 			Store(nameValuePairs, "FireballFieldTypes", FireballFieldTypes);
 			Store(nameValuePairs, "FormationTimes", FormationTimes);
@@ -45,6 +48,7 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "PotentialTypes", PotentialTypes);
 			Store(nameValuePairs, "ProtonNumberA", ProtonNumberA);
 			Store(nameValuePairs, "ProtonNumberB", ProtonNumberB);
+			Store(nameValuePairs, "QGPConductivity", QGPConductivity);
 			Store(nameValuePairs, "QGPFormationTemperature", QGPFormationTemperature);
 			Store(nameValuePairs, "NucleusShapeA", NucleusShapeA);
 			Store(nameValuePairs, "NucleusShapeB", NucleusShapeB);
@@ -52,6 +56,7 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "TemperatureProfile", TemperatureProfile);
 			Store(nameValuePairs, "ThermalTime", ThermalTime);
 			Store(nameValuePairs, "TransverseMomenta", TransverseMomenta);
+			Store(nameValuePairs, "UseElectromagneticFields", UseElectromagneticFields);
 
 			return nameValuePairs;
 		}
@@ -70,6 +75,9 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "DiffusenessA", ref DiffusenessA);
 			TryExtract(nameValuePairs, "DiffusenessB", ref DiffusenessB);
 			TryExtract(nameValuePairs, "DimuonDecaysFrompp", ref DimuonDecaysFrompp);
+			TryExtract(nameValuePairs, "EMFCalculationMethod", ref EMFCalculationMethod);
+			TryExtract(nameValuePairs, "EMFQuadratureOrder", ref EMFQuadratureOrder);
+			TryExtract(nameValuePairs, "EMFRefreshInterval", ref EMFRefreshInterval);
 			TryExtract(nameValuePairs, "ExpansionMode", ref ExpansionMode);
 			TryExtract(nameValuePairs, "FireballFieldTypes", ref FireballFieldTypes);
 			TryExtract(nameValuePairs, "FormationTimes", ref FormationTimes);
@@ -91,6 +99,7 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "PotentialTypes", ref PotentialTypes);
 			TryExtract(nameValuePairs, "ProtonNumberA", ref ProtonNumberA);
 			TryExtract(nameValuePairs, "ProtonNumberB", ref ProtonNumberB);
+			TryExtract(nameValuePairs, "QGPConductivity", ref QGPConductivity);
 			TryExtract(nameValuePairs, "QGPFormationTemperature", ref QGPFormationTemperature);
 			TryExtract(nameValuePairs, "NucleusShapeA", ref NucleusShapeA);
 			TryExtract(nameValuePairs, "NucleusShapeB", ref NucleusShapeB);
@@ -98,6 +107,7 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "TemperatureProfile", ref TemperatureProfile);
 			TryExtract(nameValuePairs, "ThermalTime", ref ThermalTime);
 			TryExtract(nameValuePairs, "TransverseMomenta", ref TransverseMomenta);
+			TryExtract(nameValuePairs, "UseElectromagneticFields", ref UseElectromagneticFields);
 		}
 
 		private double BeamRapidity;
@@ -117,6 +127,12 @@ namespace Yburn.Workers
 		private double DiffusenessB;
 
 		private Dictionary<BottomiumState, double> DimuonDecaysFrompp;
+
+		private EMFCalculationMethod EMFCalculationMethod;
+
+		private double EMFRefreshInterval;
+
+		private int EMFQuadratureOrder;
 
 		private ExpansionMode ExpansionMode;
 
@@ -166,6 +182,8 @@ namespace Yburn.Workers
 
 		private NucleusShape NucleusShapeB;
 
+		private double QGPConductivity;
+
 		private double SnapRate;
 
 		private TemperatureProfile TemperatureProfile;
@@ -173,5 +191,7 @@ namespace Yburn.Workers
 		private double ThermalTime;
 
 		private List<double> TransverseMomenta;
+
+		private bool UseElectromagneticFields;
 	}
 }

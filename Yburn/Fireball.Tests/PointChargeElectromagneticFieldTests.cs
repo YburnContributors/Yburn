@@ -53,19 +53,7 @@ namespace Yburn.Fireball.Tests
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static FireballParam CreateFireballParam(
-			EMFCalculationMethod emfCalculationMethod
-			)
-		{
-			FireballParam param = new FireballParam();
-
-			param.EMFCalculationMethod = emfCalculationMethod;
-			param.QGPConductivityMeV = 5.8;
-
-			return param;
-		}
-
-		private static readonly double QGPConductivityMeV = 5.8;
+		private static readonly double QGPConductivity = 5.8;
 
 		private static readonly double PointChargeRapidity = 5.3;
 
@@ -80,7 +68,7 @@ namespace Yburn.Fireball.Tests
 		private double[,] CalculatePointChargeFields_PositiveRapidity(EMFCalculationMethod method)
 		{
 			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
-				method, QGPConductivityMeV, PointChargeRapidity);
+				method, QGPConductivity, PointChargeRapidity);
 
 			double[,] fieldValues = new double[3, EffectiveTimes.Length];
 			for(int i = 0; i < EffectiveTimes.Length; i++)
@@ -99,7 +87,7 @@ namespace Yburn.Fireball.Tests
 		private double[,] CalculatePointChargeFields_NegativeRapidity(EMFCalculationMethod method)
 		{
 			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
-				method, QGPConductivityMeV, -PointChargeRapidity);
+				method, QGPConductivity, -PointChargeRapidity);
 
 			double[,] fieldValues = new double[3, EffectiveTimes.Length];
 			for(int i = 0; i < EffectiveTimes.Length; i++)

@@ -33,9 +33,29 @@ namespace Yburn.PhysUtil
 
 		public static readonly double FineStructureConstant = 7.2973525664E-3;
 
-		public static readonly double ElementaryCharge = Math.Sqrt(4 * Math.PI * FineStructureConstant);
+		public static double ElementaryCharge
+		{
+			get
+			{
+				return Math.Sqrt(4 * Math.PI * FineStructureConstant);
+			}
+		}
 
-		public static readonly double ChargeBottomQuark = -ElementaryCharge / 3.0;
+		public static double ChargeBottomQuark
+		{
+			get
+			{
+				return -ElementaryCharge / 3.0;
+			}
+		}
+
+		public static double MagnetonBottomQuarkFm
+		{
+			get
+			{
+				return 0.5 * Math.Abs(ChargeBottomQuark) * HbarCMeVFm / RestMassBottomQuarkMeV;
+			}
+		}
 
 		/********************************************************************************************
 		 * Rest masses (PDG 2015)
@@ -69,7 +89,13 @@ namespace Yburn.PhysUtil
 
 		public static readonly double RestMassPionZeroMeV = 134.9766;
 
-		public static readonly double RestMassPionMeV = (2 * RestMassPionPlusMeV + RestMassPionZeroMeV) / 3.0;
+		public static double RestMassPionMeV
+		{
+			get
+			{
+				return (2 * RestMassPionPlusMeV + RestMassPionZeroMeV) / 3.0;
+			}
+		}
 
 		/********************************************************************************************
 		 * pp Dimuon Decays (CMS2012 & ?)

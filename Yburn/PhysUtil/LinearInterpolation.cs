@@ -232,6 +232,26 @@ namespace Yburn.PhysUtil
 			}
 		}
 
+		public double GetValue(
+			double x,
+			double defaultIfBelowXmin,
+			double defaultIfAboveXmax
+			)
+		{
+			if(x < Xmin)
+			{
+				return defaultIfBelowXmin;
+			}
+			else if(x > Xmax)
+			{
+				return defaultIfAboveXmax;
+			}
+			else
+			{
+				return GetValue(x);
+			}
+		}
+
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/

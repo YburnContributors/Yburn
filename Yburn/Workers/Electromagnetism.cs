@@ -105,7 +105,7 @@ namespace Yburn.Workers
 			param.NucleusShapeB = NucleusShapeB;
 			param.ProtonNumberA = ProtonNumberA;
 			param.ProtonNumberB = ProtonNumberB;
-			param.QGPConductivityMeV = QGPConductivityMeV;
+			param.QGPConductivityMeV = QGPConductivity;
 			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 
 			return param;

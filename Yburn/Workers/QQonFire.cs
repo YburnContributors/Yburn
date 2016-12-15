@@ -490,7 +490,7 @@ namespace Yburn.Workers
 			List<List<QQDataSet>> dataSetLists = new List<List<QQDataSet>>();
 			foreach(BottomiumState state in BottomiumStates)
 			{
-				dataSetLists.Add(DecayWidthProvider.GetBoundStateDataSets(
+				dataSetLists.Add(QQDataProvider.GetBoundStateDataSets(
 					GetQQDataPathFile(), PotentialTypes, state));
 			}
 
@@ -591,6 +591,10 @@ namespace Yburn.Workers
 			{
 				return typeof(DopplerShiftEvaluationType);
 			}
+			else if(enumName == "EMFCalculationMethod")
+			{
+				return typeof(EMFCalculationMethod);
+			}
 			else if(enumName == "ExpansionMode")
 			{
 				return typeof(ExpansionMode);
@@ -647,6 +651,9 @@ namespace Yburn.Workers
 			param.BreakupTemperatureMeV = BreakupTemperature;
 			param.DiffusenessAFm = DiffusenessA;
 			param.DiffusenessBFm = DiffusenessB;
+			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
+			param.EMFQuadratureOrder = EMFQuadratureOrder;
+			param.EMFRefreshIntervalFm = EMFRefreshInterval;
 			param.ExpansionMode = ExpansionMode;
 			param.FormationTimesFm = FormationTimes;
 			param.GridCellSizeFm = GridCellSize;
@@ -662,19 +669,21 @@ namespace Yburn.Workers
 			param.NucleusShapeB = NucleusShapeB;
 			param.ProtonNumberA = ProtonNumberA;
 			param.ProtonNumberB = ProtonNumberB;
+			param.QGPConductivityMeV = QGPConductivity;
 			param.TemperatureProfile = TemperatureProfile;
 			param.ThermalTimeFm = ThermalTime;
 			param.TransverseMomentaGeV = TransverseMomenta;
+			param.UseElectromagneticFields = UseElectromagneticFields;
 
-			DecayWidthProvider provider = CreateDecayWidthProvider();
+			QQDataProvider provider = CreateQQDataProvider();
 			param.DecayWidthRetrievalFunction = provider.GetInMediumDecayWidth;
 
 			return param;
 		}
 
-		private DecayWidthProvider CreateDecayWidthProvider()
+		private QQDataProvider CreateQQDataProvider()
 		{
-			return new DecayWidthProvider(
+			return new QQDataProvider(
 				GetQQDataPathFile(),
 				PotentialTypes,
 				DopplerShiftEvaluationType,

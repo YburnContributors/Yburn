@@ -15,7 +15,7 @@ namespace Yburn.Fireball.Tests
 		{
 			LCFFieldAverager averager = new LCFFieldAverager(CreateFireballParam());
 
-			double result = averager.CalculateAverageElectricFieldStrengthPerFm2(0.4, 8);
+			double result = averager.CalculateAverageElectricFieldStrengthPerFm2(0.4);
 
 			AssertHelper.AssertApproximatelyEqual(8.68669889202293, result);
 		}
@@ -25,7 +25,7 @@ namespace Yburn.Fireball.Tests
 		{
 			LCFFieldAverager averager = new LCFFieldAverager(CreateFireballParam());
 
-			double result = averager.CalculateAverageMagneticFieldStrengthPerFm2(0.4, 8);
+			double result = averager.CalculateAverageMagneticFieldStrengthPerFm2(0.4);
 
 			AssertHelper.AssertApproximatelyEqual(0.23624004632176207, result);
 		}
@@ -42,6 +42,7 @@ namespace Yburn.Fireball.Tests
 			param.DiffusenessAFm = 0.546;
 			param.DiffusenessBFm = 0.546;
 			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
+			param.EMFQuadratureOrder = 8;
 			param.GridCellSizeFm = 1;
 			param.GridRadiusFm = 10;
 			param.ImpactParameterFm = 7;

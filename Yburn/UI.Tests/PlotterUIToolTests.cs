@@ -82,7 +82,7 @@ namespace Yburn.UI.Tests
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
 			nameValuePairs.Add("MinEnergy", "-440");
-			nameValuePairs.Add("MaxEnergy", "1E+04");
+			nameValuePairs.Add("MaxEnergy", "10000");
 			nameValuePairs.Add("Samples", "1000");
 			nameValuePairs.Add("DataFileName", "stdout.txt");
 			nameValuePairs.Add("RunningCouplingTypeSelection", "LOperturbative_Cutoff3");

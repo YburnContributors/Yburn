@@ -17,7 +17,7 @@ namespace Yburn.FormatUtil
 		{
 			if(value is double)
 			{
-				return string.Format(YburnFormat.YburnCulture, "{0:G4}", value);
+				return string.Format(YburnFormat.YburnCulture, "{0:G5}", value);
 			}
 			else
 			{

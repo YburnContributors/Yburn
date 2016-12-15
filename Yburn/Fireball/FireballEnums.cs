@@ -43,6 +43,8 @@
 		VX,
 		VY,
 		UnscaledSuppression,
+		ElectricFieldStrength,
+		MagneticFieldStrength
 	};
 
 	public enum TemperatureProfile

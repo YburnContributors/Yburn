@@ -73,11 +73,11 @@ namespace Yburn.Workers
 
 		private readonly int NumberAveragingAngles;
 
-		private DecayWidthProvider CreateDecayWidthProvider(
+		private QQDataProvider CreateQQDataProvider(
 			DopplerShiftEvaluationType evaluationType
 			)
 		{
-			return new DecayWidthProvider(
+			return new QQDataProvider(
 				DataPathFile,
 				PotentialTypes,
 				evaluationType,
@@ -92,7 +92,7 @@ namespace Yburn.Workers
 			DopplerShiftEvaluationType evaluationType
 			)
 		{
-			DecayWidthProvider provider = CreateDecayWidthProvider(evaluationType);
+			QQDataProvider provider = CreateQQDataProvider(evaluationType);
 
 			StringBuilder list = new StringBuilder();
 			AppendHeader(list, evaluationType);
@@ -131,7 +131,7 @@ namespace Yburn.Workers
 			StringBuilder list,
 			List<double> mediumTemperatures,
 			List<double> mediumVelocities,
-			DecayWidthProvider provider
+			QQDataProvider provider
 			)
 		{
 			foreach(double temperature in mediumTemperatures)
@@ -151,7 +151,7 @@ namespace Yburn.Workers
 			StringBuilder list,
 			double temperature,
 			double velocity,
-			DecayWidthProvider provider
+			QQDataProvider provider
 			)
 		{
 			list.AppendFormat("{0,-20}", temperature.ToUIString());
@@ -168,7 +168,7 @@ namespace Yburn.Workers
 			BottomiumState state,
 			double temperature,
 			double velocity,
-			DecayWidthProvider provider
+			QQDataProvider provider
 			)
 		{
 			list.AppendFormat("{0,-20}",

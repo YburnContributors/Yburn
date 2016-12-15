@@ -26,7 +26,7 @@
 			) : this(type, xDimension, yDimension)
 		{
 			AssertValidFunction(function);
-			InitializeDiscreteValues(function);
+			SetDiscreteValues(function);
 		}
 
 		public SimpleFireballField(
@@ -37,7 +37,7 @@
 			) : this(type, xAxis.Length, yAxis.Length)
 		{
 			AssertValidFunction(function);
-			InitializeDiscreteValues(function, xAxis, yAxis);
+			SetDiscreteValues(function, xAxis, yAxis);
 		}
 
 		public SimpleFireballField(
@@ -69,6 +69,34 @@
 		public void SetDiscreteValues(double[,] discreteValues)
 		{
 			DiscreteValues = (double[,])discreteValues.Clone();
+		}
+
+		public void SetDiscreteValues(
+			SimpleFireballFieldDiscreteFunction function
+			)
+		{
+			for(int i = 0; i < XDimension; i++)
+			{
+				for(int j = 0; j < YDimension; j++)
+				{
+					DiscreteValues[i, j] = function(i, j);
+				}
+			}
+		}
+
+		public void SetDiscreteValues(
+			SimpleFireballFieldContinuousFunction function,
+			double[] xAxis,
+			double[] yAxis
+			)
+		{
+			for(int i = 0; i < XDimension; i++)
+			{
+				for(int j = 0; j < YDimension; j++)
+				{
+					DiscreteValues[i, j] = function(xAxis[i], yAxis[j]);
+				}
+			}
 		}
 
 		public double GetMaxValue()
@@ -116,6 +144,8 @@
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
+		protected double[,] DiscreteValues;
+
 		private void AssertValidFunction(
 			SimpleFireballFieldDiscreteFunction function
 			)
@@ -133,36 +163,6 @@
 			if(function == null)
 			{
 				throw new InvalidFireballFieldFunctionException();
-			}
-		}
-
-		protected double[,] DiscreteValues;
-
-		protected void InitializeDiscreteValues(
-			SimpleFireballFieldDiscreteFunction function
-			)
-		{
-			for(int i = 0; i < XDimension; i++)
-			{
-				for(int j = 0; j < YDimension; j++)
-				{
-					DiscreteValues[i, j] = function(i, j);
-				}
-			}
-		}
-
-		protected void InitializeDiscreteValues(
-			SimpleFireballFieldContinuousFunction function,
-			double[] xAxis,
-			double[] yAxis
-			)
-		{
-			for(int i = 0; i < XDimension; i++)
-			{
-				for(int j = 0; j < YDimension; j++)
-				{
-					DiscreteValues[i, j] = function(xAxis[i], yAxis[j]);
-				}
 			}
 		}
 	}

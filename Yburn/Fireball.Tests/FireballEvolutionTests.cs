@@ -93,6 +93,7 @@ namespace Yburn.Fireball.Tests
 			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 			param.ThermalTimeFm = 0.1;
 			param.TransverseMomentaGeV = new List<double> { 6 };
+			param.UseElectromagneticFields = false;
 
 			return param;
 		}

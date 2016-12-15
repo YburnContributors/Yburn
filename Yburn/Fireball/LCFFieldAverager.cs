@@ -14,8 +14,7 @@ namespace Yburn.Fireball
 
 		public static double AverageByBottomiumDistribution(
 			LCFFieldFunction function,
-			FireballParam param,
-			int quadratureOrder
+			FireballParam param
 			)
 		{
 			GlauberCalculation glauber = new GlauberCalculation(param);
@@ -34,7 +33,7 @@ namespace Yburn.Fireball
 
 					functionColumnDensityValues[i, j]
 						= ImproperQuadrature.IntegrateOverRealAxis(
-							integrand, 2 * RapidityDistributionWidth, quadratureOrder)
+							integrand, 2 * RapidityDistributionWidth, param.EMFQuadratureOrder)
 						* glauber.NcollField[i, j];
 				}
 			}
@@ -51,9 +50,6 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		private static readonly double RapidityDistributionWidth = 2.7;
-
-		private static readonly double BottomQuarkMagneton_Fm = 0.5 * Constants.ChargeBottomQuark
-			* Constants.HbarCMeVFm / Constants.RestMassBottomQuarkMeV;
 
 		//private static readonly double TeslaFm2 = 5.017029326E-15;
 
@@ -98,72 +94,48 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public double CalculateAverageElectricFieldStrengthPerFm2(
-			double properTimeFm,
-			int quadratureOrder
+			double properTimeFm
 			)
 		{
-			FireballElectromagneticField emf = new FireballElectromagneticField(Param);
+			CollisionalElectromagneticField emf = new CollisionalElectromagneticField(Param);
 			LCFFieldFunction function = (x, y, rapidity) =>
-				emf.CalculateElectricFieldPerFm2_LCF(
-					properTimeFm, x, y, rapidity, quadratureOrder).Norm;
+				emf.CalculateElectricFieldPerFm2_LCF(properTimeFm, x, y, rapidity).Norm;
 
-			return AverageByBottomiumDistribution(function, Param, quadratureOrder);
+			return AverageByBottomiumDistribution(function, Param);
 		}
 
 		public double CalculateAverageMagneticFieldStrengthPerFm2(
-			double properTimeFm,
-			int quadratureOrder
+			double properTimeFm
 			)
 		{
-			FireballElectromagneticField emf = new FireballElectromagneticField(Param);
+			CollisionalElectromagneticField emf = new CollisionalElectromagneticField(Param);
 			LCFFieldFunction function = (x, y, rapidity) =>
-				emf.CalculateMagneticFieldPerFm2_LCF(
-					properTimeFm, x, y, rapidity, quadratureOrder).Norm;
+				emf.CalculateMagneticFieldPerFm2_LCF(properTimeFm, x, y, rapidity).Norm;
 
-			return AverageByBottomiumDistribution(function, Param, quadratureOrder);
-		}
-
-		public double CalculateAverageSpinStateOverlap_Old(
-			BottomiumState tripletState,
-			double properTimeFm,
-			int quadratureOrder
-			)
-		{
-			double HyperfineEnergySplitting_MeV = GetHyperfineEnergySplitting(tripletState);
-
-			double B_PerFmSquared
-				= CalculateAverageMagneticFieldStrengthPerFm2(properTimeFm, quadratureOrder);
-
-			double x = 4 * BottomQuarkMagneton_Fm * B_PerFmSquared * Constants.HbarCMeVFm
-				/ HyperfineEnergySplitting_MeV;
-			double y = x / (1 + Math.Sqrt(1 + x * x));
-			double mixingCoefficient = y / Math.Sqrt(1 + y * y);
-
-			return mixingCoefficient * mixingCoefficient;
+			return AverageByBottomiumDistribution(function, Param);
 		}
 
 		public double CalculateAverageSpinStateOverlap(
 			BottomiumState tripletState,
-			double properTimeFm,
-			int quadratureOrder
+			double properTimeFm
 			)
 		{
 			double HyperfineEnergySplitting_MeV = GetHyperfineEnergySplitting(tripletState);
 
 			LCFFieldFunction mixingCoefficientSquared = (x, y, rapidity) =>
 			{
-				FireballElectromagneticField emf = new FireballElectromagneticField(Param);
+				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(Param);
 				double B_PerFmSquared = emf.CalculateMagneticFieldPerFm2_LCF(
-					properTimeFm, x, y, rapidity, quadratureOrder).Norm;
+					properTimeFm, x, y, rapidity).Norm;
 
-				double helper1 = 4 * BottomQuarkMagneton_Fm * B_PerFmSquared * Constants.HbarCMeVFm
-					/ HyperfineEnergySplitting_MeV;
+				double helper1 = 4 * Constants.MagnetonBottomQuarkFm * B_PerFmSquared
+					* Constants.HbarCMeVFm / HyperfineEnergySplitting_MeV;
 				double helper2 = helper1 / (1 + Math.Sqrt(1 + helper1 * helper1));
 
 				return helper2 * helper2 / (1 + helper2 * helper2);
 			};
 
-			return AverageByBottomiumDistribution(mixingCoefficientSquared, Param, quadratureOrder);
+			return AverageByBottomiumDistribution(mixingCoefficientSquared, Param);
 		}
 
 		/********************************************************************************************

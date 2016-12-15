@@ -30,8 +30,22 @@
 		{
 			this.VSplit = new System.Windows.Forms.SplitContainer();
 			this.LayoutBottom = new System.Windows.Forms.TableLayoutPanel();
+			this.GbxElectromagnetics = new System.Windows.Forms.GroupBox();
+			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.TbxQGPConductivity = new System.Windows.Forms.TextBox();
+			this.LblQGPConductivity = new System.Windows.Forms.Label();
+			this.TbxEMFQuadratureOrder = new System.Windows.Forms.TextBox();
+			this.LblEMFQuadratureOrder = new System.Windows.Forms.Label();
+			this.TbxEMFRefreshInterval = new System.Windows.Forms.TextBox();
+			this.LblEMFRefreshInterval = new System.Windows.Forms.Label();
+			this.CbxEMFCalculationMethod = new System.Windows.Forms.ComboBox();
+			this.LblEMFCalculationMethod = new System.Windows.Forms.Label();
+			this.ChkUseElectromagneticFields = new System.Windows.Forms.CheckBox();
+			this.LblUseElectromagneticFields = new System.Windows.Forms.Label();
 			this.GbxQQStates = new System.Windows.Forms.GroupBox();
 			this.LayoutQQStates = new System.Windows.Forms.TableLayoutPanel();
+			this.LblDimuonDecaysFrompp = new System.Windows.Forms.Label();
+			this.TbxDimuonDecaysFrompp = new System.Windows.Forms.TextBox();
 			this.TbxNumberAveragingAngles = new System.Windows.Forms.TextBox();
 			this.LblNumberAveragingAngles = new System.Windows.Forms.Label();
 			this.TbxTransverseMomenta = new System.Windows.Forms.TextBox();
@@ -46,6 +60,8 @@
 			this.TbxFormationTimes = new System.Windows.Forms.TextBox();
 			this.GbxGlauber = new System.Windows.Forms.GroupBox();
 			this.LayoutGlauber = new System.Windows.Forms.TableLayoutPanel();
+			this.LblInelasticppCrossSectionFm = new System.Windows.Forms.Label();
+			this.TbxInelasticppCrossSection = new System.Windows.Forms.TextBox();
 			this.TbxProtonNumberB = new System.Windows.Forms.TextBox();
 			this.LblProtonNumberB = new System.Windows.Forms.Label();
 			this.TbxProtonNumberA = new System.Windows.Forms.TextBox();
@@ -68,7 +84,7 @@
 			this.TbxNuclearRadiusB = new System.Windows.Forms.TextBox();
 			this.LblImpactParameter = new System.Windows.Forms.Label();
 			this.TbxImpactParameter = new System.Windows.Forms.TextBox();
-			this.GbxHydro = new System.Windows.Forms.GroupBox();
+			this.GbxHydrodynamics = new System.Windows.Forms.GroupBox();
 			this.LayoutHydro = new System.Windows.Forms.TableLayoutPanel();
 			this.LblQGPFormationTemperature = new System.Windows.Forms.Label();
 			this.TbxQGPFormationTemperature = new System.Windows.Forms.TextBox();
@@ -114,20 +130,18 @@
 			this.CtrlTextBoxLog = new System.Windows.Forms.RichTextBox();
 			this.CtrlStatusTrackingCtrl = new Yburn.UI.StatusTrackingCtrl();
 			this.TbxtF3S2 = new System.Windows.Forms.TextBox();
-			this.TbxDimuonDecaysFrompp = new System.Windows.Forms.TextBox();
-			this.LblDimuonDecaysFrompp = new System.Windows.Forms.Label();
-			this.TbxInelasticppCrossSection = new System.Windows.Forms.TextBox();
-			this.LblInelasticppCrossSectionFm = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.VSplit)).BeginInit();
 			this.VSplit.Panel1.SuspendLayout();
 			this.VSplit.Panel2.SuspendLayout();
 			this.VSplit.SuspendLayout();
 			this.LayoutBottom.SuspendLayout();
+			this.GbxElectromagnetics.SuspendLayout();
+			this.tableLayoutPanel1.SuspendLayout();
 			this.GbxQQStates.SuspendLayout();
 			this.LayoutQQStates.SuspendLayout();
 			this.GbxGlauber.SuspendLayout();
 			this.LayoutGlauber.SuspendLayout();
-			this.GbxHydro.SuspendLayout();
+			this.GbxHydrodynamics.SuspendLayout();
 			this.LayoutHydro.SuspendLayout();
 			this.GbxOutput.SuspendLayout();
 			this.LayoutOutput.SuspendLayout();
@@ -162,14 +176,16 @@
 			this.LayoutBottom.BackColor = System.Drawing.SystemColors.Control;
 			this.LayoutBottom.ColumnCount = 1;
 			this.LayoutBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-			this.LayoutBottom.Controls.Add(this.GbxQQStates, 2, 0);
+			this.LayoutBottom.Controls.Add(this.GbxElectromagnetics, 2, 0);
+			this.LayoutBottom.Controls.Add(this.GbxQQStates, 3, 0);
 			this.LayoutBottom.Controls.Add(this.GbxGlauber, 0, 0);
-			this.LayoutBottom.Controls.Add(this.GbxHydro, 1, 0);
-			this.LayoutBottom.Controls.Add(this.GbxOutput, 3, 0);
+			this.LayoutBottom.Controls.Add(this.GbxHydrodynamics, 1, 0);
+			this.LayoutBottom.Controls.Add(this.GbxOutput, 4, 0);
 			this.LayoutBottom.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LayoutBottom.Location = new System.Drawing.Point(0, 0);
 			this.LayoutBottom.Name = "LayoutBottom";
-			this.LayoutBottom.RowCount = 4;
+			this.LayoutBottom.RowCount = 5;
+			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle());
@@ -177,11 +193,152 @@
 			this.LayoutBottom.Size = new System.Drawing.Size(500, 503);
 			this.LayoutBottom.TabIndex = 0;
 			// 
+			// GbxElectromagnetics
+			// 
+			this.GbxElectromagnetics.Controls.Add(this.tableLayoutPanel1);
+			this.GbxElectromagnetics.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.GbxElectromagnetics.Location = new System.Drawing.Point(10, 645);
+			this.GbxElectromagnetics.Margin = new System.Windows.Forms.Padding(10);
+			this.GbxElectromagnetics.Name = "GbxElectromagnetics";
+			this.GbxElectromagnetics.Padding = new System.Windows.Forms.Padding(10);
+			this.GbxElectromagnetics.Size = new System.Drawing.Size(459, 160);
+			this.GbxElectromagnetics.TabIndex = 1;
+			this.GbxElectromagnetics.TabStop = false;
+			this.GbxElectromagnetics.Text = "Electromagnetics";
+			// 
+			// tableLayoutPanel1
+			// 
+			this.tableLayoutPanel1.ColumnCount = 2;
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
+			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
+			this.tableLayoutPanel1.Controls.Add(this.TbxQGPConductivity, 1, 4);
+			this.tableLayoutPanel1.Controls.Add(this.LblQGPConductivity, 0, 4);
+			this.tableLayoutPanel1.Controls.Add(this.TbxEMFQuadratureOrder, 1, 3);
+			this.tableLayoutPanel1.Controls.Add(this.LblEMFQuadratureOrder, 0, 3);
+			this.tableLayoutPanel1.Controls.Add(this.TbxEMFRefreshInterval, 1, 2);
+			this.tableLayoutPanel1.Controls.Add(this.LblEMFRefreshInterval, 0, 2);
+			this.tableLayoutPanel1.Controls.Add(this.CbxEMFCalculationMethod, 1, 1);
+			this.tableLayoutPanel1.Controls.Add(this.LblEMFCalculationMethod, 0, 1);
+			this.tableLayoutPanel1.Controls.Add(this.ChkUseElectromagneticFields, 1, 0);
+			this.tableLayoutPanel1.Controls.Add(this.LblUseElectromagneticFields, 0, 0);
+			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 34);
+			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+			this.tableLayoutPanel1.RowCount = 5;
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 116);
+			this.tableLayoutPanel1.TabIndex = 0;
+			// 
+			// TbxQGPConductivity
+			// 
+			this.TbxQGPConductivity.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxQGPConductivity.Location = new System.Drawing.Point(244, 103);
+			this.TbxQGPConductivity.Name = "TbxQGPConductivity";
+			this.TbxQGPConductivity.Size = new System.Drawing.Size(192, 31);
+			this.TbxQGPConductivity.TabIndex = 46;
+			// 
+			// LblQGPConductivity
+			// 
+			this.LblQGPConductivity.AutoSize = true;
+			this.LblQGPConductivity.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblQGPConductivity.Location = new System.Drawing.Point(3, 100);
+			this.LblQGPConductivity.Name = "LblQGPConductivity";
+			this.LblQGPConductivity.Size = new System.Drawing.Size(235, 25);
+			this.LblQGPConductivity.TabIndex = 45;
+			this.LblQGPConductivity.Text = "QGPConductivity (MeV)";
+			this.LblQGPConductivity.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// TbxEMFQuadratureOrder
+			// 
+			this.TbxEMFQuadratureOrder.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxEMFQuadratureOrder.Location = new System.Drawing.Point(244, 78);
+			this.TbxEMFQuadratureOrder.Name = "TbxEMFQuadratureOrder";
+			this.TbxEMFQuadratureOrder.Size = new System.Drawing.Size(192, 31);
+			this.TbxEMFQuadratureOrder.TabIndex = 44;
+			// 
+			// LblEMFQuadratureOrder
+			// 
+			this.LblEMFQuadratureOrder.AutoSize = true;
+			this.LblEMFQuadratureOrder.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblEMFQuadratureOrder.Location = new System.Drawing.Point(3, 75);
+			this.LblEMFQuadratureOrder.Name = "LblEMFQuadratureOrder";
+			this.LblEMFQuadratureOrder.Size = new System.Drawing.Size(235, 25);
+			this.LblEMFQuadratureOrder.TabIndex = 43;
+			this.LblEMFQuadratureOrder.Text = "EMFQuadratureOrder";
+			this.LblEMFQuadratureOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// TbxEMFRefreshInterval
+			// 
+			this.TbxEMFRefreshInterval.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxEMFRefreshInterval.Location = new System.Drawing.Point(244, 53);
+			this.TbxEMFRefreshInterval.Name = "TbxEMFRefreshInterval";
+			this.TbxEMFRefreshInterval.Size = new System.Drawing.Size(192, 31);
+			this.TbxEMFRefreshInterval.TabIndex = 42;
+			// 
+			// LblEMFRefreshInterval
+			// 
+			this.LblEMFRefreshInterval.AutoSize = true;
+			this.LblEMFRefreshInterval.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblEMFRefreshInterval.Location = new System.Drawing.Point(3, 50);
+			this.LblEMFRefreshInterval.Name = "LblEMFRefreshInterval";
+			this.LblEMFRefreshInterval.Size = new System.Drawing.Size(235, 25);
+			this.LblEMFRefreshInterval.TabIndex = 41;
+			this.LblEMFRefreshInterval.Text = "EMFRefreshInterval (fm/c)";
+			this.LblEMFRefreshInterval.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// CbxEMFCalculationMethod
+			// 
+			this.CbxEMFCalculationMethod.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.CbxEMFCalculationMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.CbxEMFCalculationMethod.Location = new System.Drawing.Point(244, 28);
+			this.CbxEMFCalculationMethod.Name = "CbxEMFCalculationMethod";
+			this.CbxEMFCalculationMethod.Size = new System.Drawing.Size(192, 33);
+			this.CbxEMFCalculationMethod.TabIndex = 40;
+			// 
+			// LblEMFCalculationMethod
+			// 
+			this.LblEMFCalculationMethod.AutoSize = true;
+			this.LblEMFCalculationMethod.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblEMFCalculationMethod.Location = new System.Drawing.Point(3, 25);
+			this.LblEMFCalculationMethod.Name = "LblEMFCalculationMethod";
+			this.LblEMFCalculationMethod.Size = new System.Drawing.Size(235, 25);
+			this.LblEMFCalculationMethod.TabIndex = 39;
+			this.LblEMFCalculationMethod.Text = "EMFCalculationMethod";
+			this.LblEMFCalculationMethod.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// ChkUseElectromagneticFields
+			// 
+			this.ChkUseElectromagneticFields.AutoSize = true;
+			this.ChkUseElectromagneticFields.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.ChkUseElectromagneticFields.Location = new System.Drawing.Point(244, 3);
+			this.ChkUseElectromagneticFields.Name = "ChkUseElectromagneticFields";
+			this.ChkUseElectromagneticFields.Size = new System.Drawing.Size(192, 19);
+			this.ChkUseElectromagneticFields.TabIndex = 38;
+			this.ChkUseElectromagneticFields.UseVisualStyleBackColor = true;
+			// 
+			// LblUseElectromagneticFields
+			// 
+			this.LblUseElectromagneticFields.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblUseElectromagneticFields.Location = new System.Drawing.Point(3, 0);
+			this.LblUseElectromagneticFields.Name = "LblUseElectromagneticFields";
+			this.LblUseElectromagneticFields.Size = new System.Drawing.Size(235, 25);
+			this.LblUseElectromagneticFields.TabIndex = 37;
+			this.LblUseElectromagneticFields.Text = "UseElectromagneticFields";
+			this.LblUseElectromagneticFields.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
 			// GbxQQStates
 			// 
 			this.GbxQQStates.Controls.Add(this.LayoutQQStates);
 			this.GbxQQStates.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxQQStates.Location = new System.Drawing.Point(10, 645);
+			this.GbxQQStates.Location = new System.Drawing.Point(10, 825);
 			this.GbxQQStates.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxQQStates.Name = "GbxQQStates";
 			this.GbxQQStates.Padding = new System.Windows.Forms.Padding(10);
@@ -223,6 +380,25 @@
 			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.LayoutQQStates.Size = new System.Drawing.Size(439, 216);
 			this.LayoutQQStates.TabIndex = 0;
+			// 
+			// LblDimuonDecaysFrompp
+			// 
+			this.LblDimuonDecaysFrompp.AutoSize = true;
+			this.LblDimuonDecaysFrompp.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblDimuonDecaysFrompp.Location = new System.Drawing.Point(3, 0);
+			this.LblDimuonDecaysFrompp.Name = "LblDimuonDecaysFrompp";
+			this.LblDimuonDecaysFrompp.Size = new System.Drawing.Size(235, 25);
+			this.LblDimuonDecaysFrompp.TabIndex = 0;
+			this.LblDimuonDecaysFrompp.Text = "DimuonDecaysFrompp";
+			this.LblDimuonDecaysFrompp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// TbxDimuonDecaysFrompp
+			// 
+			this.TbxDimuonDecaysFrompp.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxDimuonDecaysFrompp.Location = new System.Drawing.Point(244, 3);
+			this.TbxDimuonDecaysFrompp.Name = "TbxDimuonDecaysFrompp";
+			this.TbxDimuonDecaysFrompp.Size = new System.Drawing.Size(192, 31);
+			this.TbxDimuonDecaysFrompp.TabIndex = 0;
 			// 
 			// TbxNumberAveragingAngles
 			// 
@@ -402,6 +578,25 @@
 			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutGlauber.Size = new System.Drawing.Size(439, 291);
 			this.LayoutGlauber.TabIndex = 0;
+			// 
+			// LblInelasticppCrossSectionFm
+			// 
+			this.LblInelasticppCrossSectionFm.AutoSize = true;
+			this.LblInelasticppCrossSectionFm.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblInelasticppCrossSectionFm.Location = new System.Drawing.Point(3, 275);
+			this.LblInelasticppCrossSectionFm.Name = "LblInelasticppCrossSectionFm";
+			this.LblInelasticppCrossSectionFm.Size = new System.Drawing.Size(235, 25);
+			this.LblInelasticppCrossSectionFm.TabIndex = 0;
+			this.LblInelasticppCrossSectionFm.Text = "InelasticppCrossSection (fm)";
+			this.LblInelasticppCrossSectionFm.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// TbxInelasticppCrossSection
+			// 
+			this.TbxInelasticppCrossSection.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxInelasticppCrossSection.Location = new System.Drawing.Point(244, 278);
+			this.TbxInelasticppCrossSection.Name = "TbxInelasticppCrossSection";
+			this.TbxInelasticppCrossSection.Size = new System.Drawing.Size(192, 31);
+			this.TbxInelasticppCrossSection.TabIndex = 0;
 			// 
 			// TbxProtonNumberB
 			// 
@@ -614,18 +809,18 @@
 			this.TbxImpactParameter.Size = new System.Drawing.Size(192, 31);
 			this.TbxImpactParameter.TabIndex = 0;
 			// 
-			// GbxHydro
+			// GbxHydrodynamics
 			// 
-			this.GbxHydro.Controls.Add(this.LayoutHydro);
-			this.GbxHydro.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxHydro.Location = new System.Drawing.Point(10, 365);
-			this.GbxHydro.Margin = new System.Windows.Forms.Padding(10);
-			this.GbxHydro.Name = "GbxHydro";
-			this.GbxHydro.Padding = new System.Windows.Forms.Padding(10);
-			this.GbxHydro.Size = new System.Drawing.Size(459, 260);
-			this.GbxHydro.TabIndex = 0;
-			this.GbxHydro.TabStop = false;
-			this.GbxHydro.Text = "Hydrodynamics";
+			this.GbxHydrodynamics.Controls.Add(this.LayoutHydro);
+			this.GbxHydrodynamics.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.GbxHydrodynamics.Location = new System.Drawing.Point(10, 365);
+			this.GbxHydrodynamics.Margin = new System.Windows.Forms.Padding(10);
+			this.GbxHydrodynamics.Name = "GbxHydrodynamics";
+			this.GbxHydrodynamics.Padding = new System.Windows.Forms.Padding(10);
+			this.GbxHydrodynamics.Size = new System.Drawing.Size(459, 260);
+			this.GbxHydrodynamics.TabIndex = 0;
+			this.GbxHydrodynamics.TabStop = false;
+			this.GbxHydrodynamics.Text = "Hydrodynamics";
 			// 
 			// LayoutHydro
 			// 
@@ -843,7 +1038,7 @@
 			// 
 			this.GbxOutput.Controls.Add(this.LayoutOutput);
 			this.GbxOutput.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxOutput.Location = new System.Drawing.Point(10, 925);
+			this.GbxOutput.Location = new System.Drawing.Point(10, 1105);
 			this.GbxOutput.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxOutput.Name = "GbxOutput";
 			this.GbxOutput.Padding = new System.Windows.Forms.Padding(10);
@@ -1139,44 +1334,6 @@
 			this.TbxtF3S2.Size = new System.Drawing.Size(158, 31);
 			this.TbxtF3S2.TabIndex = 0;
 			// 
-			// TbxDimuonDecaysFrompp
-			// 
-			this.TbxDimuonDecaysFrompp.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxDimuonDecaysFrompp.Location = new System.Drawing.Point(244, 3);
-			this.TbxDimuonDecaysFrompp.Name = "TbxDimuonDecaysFrompp";
-			this.TbxDimuonDecaysFrompp.Size = new System.Drawing.Size(192, 31);
-			this.TbxDimuonDecaysFrompp.TabIndex = 0;
-			// 
-			// LblDimuonDecaysFrompp
-			// 
-			this.LblDimuonDecaysFrompp.AutoSize = true;
-			this.LblDimuonDecaysFrompp.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblDimuonDecaysFrompp.Location = new System.Drawing.Point(3, 0);
-			this.LblDimuonDecaysFrompp.Name = "LblDimuonDecaysFrompp";
-			this.LblDimuonDecaysFrompp.Size = new System.Drawing.Size(235, 25);
-			this.LblDimuonDecaysFrompp.TabIndex = 0;
-			this.LblDimuonDecaysFrompp.Text = "DimuonDecaysFrompp";
-			this.LblDimuonDecaysFrompp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
-			// TbxInelasticppCrossSectionFm
-			// 
-			this.TbxInelasticppCrossSection.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxInelasticppCrossSection.Location = new System.Drawing.Point(244, 278);
-			this.TbxInelasticppCrossSection.Name = "TbxInelasticppCrossSectionFm";
-			this.TbxInelasticppCrossSection.Size = new System.Drawing.Size(192, 31);
-			this.TbxInelasticppCrossSection.TabIndex = 0;
-			// 
-			// LblInelasticppCrossSectionFm
-			// 
-			this.LblInelasticppCrossSectionFm.AutoSize = true;
-			this.LblInelasticppCrossSectionFm.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblInelasticppCrossSectionFm.Location = new System.Drawing.Point(3, 275);
-			this.LblInelasticppCrossSectionFm.Name = "LblInelasticppCrossSectionFm";
-			this.LblInelasticppCrossSectionFm.Size = new System.Drawing.Size(235, 25);
-			this.LblInelasticppCrossSectionFm.TabIndex = 0;
-			this.LblInelasticppCrossSectionFm.Text = "InelasticppCrossSection (fm)";
-			this.LblInelasticppCrossSectionFm.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-			// 
 			// QQonFirePanel
 			// 
 			this.Controls.Add(this.VSplit);
@@ -1187,13 +1344,16 @@
 			((System.ComponentModel.ISupportInitialize)(this.VSplit)).EndInit();
 			this.VSplit.ResumeLayout(false);
 			this.LayoutBottom.ResumeLayout(false);
+			this.GbxElectromagnetics.ResumeLayout(false);
+			this.tableLayoutPanel1.ResumeLayout(false);
+			this.tableLayoutPanel1.PerformLayout();
 			this.GbxQQStates.ResumeLayout(false);
 			this.LayoutQQStates.ResumeLayout(false);
 			this.LayoutQQStates.PerformLayout();
 			this.GbxGlauber.ResumeLayout(false);
 			this.LayoutGlauber.ResumeLayout(false);
 			this.LayoutGlauber.PerformLayout();
-			this.GbxHydro.ResumeLayout(false);
+			this.GbxHydrodynamics.ResumeLayout(false);
 			this.LayoutHydro.ResumeLayout(false);
 			this.LayoutHydro.PerformLayout();
 			this.GbxOutput.ResumeLayout(false);
@@ -1230,7 +1390,7 @@
 		private System.Windows.Forms.TextBox TbxNuclearRadiusA;
 		private System.Windows.Forms.TextBox TbxNuclearRadiusB;
 		private System.Windows.Forms.TextBox TbxImpactParameter;
-		private System.Windows.Forms.GroupBox GbxHydro;
+		private System.Windows.Forms.GroupBox GbxHydrodynamics;
 		private System.Windows.Forms.TableLayoutPanel LayoutHydro;
 		private System.Windows.Forms.Label LblExpansionMode;
 		private System.Windows.Forms.ComboBox CbxExpansionMode;
@@ -1299,5 +1459,17 @@
 		private System.Windows.Forms.TextBox TbxDimuonDecaysFrompp;
 		private System.Windows.Forms.Label LblInelasticppCrossSectionFm;
 		private System.Windows.Forms.TextBox TbxInelasticppCrossSection;
+		private System.Windows.Forms.GroupBox GbxElectromagnetics;
+		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.Label LblUseElectromagneticFields;
+		private System.Windows.Forms.CheckBox ChkUseElectromagneticFields;
+		private System.Windows.Forms.Label LblEMFCalculationMethod;
+		private System.Windows.Forms.ComboBox CbxEMFCalculationMethod;
+		private System.Windows.Forms.TextBox TbxEMFRefreshInterval;
+		private System.Windows.Forms.Label LblEMFRefreshInterval;
+		private System.Windows.Forms.Label LblEMFQuadratureOrder;
+		private System.Windows.Forms.TextBox TbxEMFQuadratureOrder;
+		private System.Windows.Forms.Label LblQGPConductivity;
+		private System.Windows.Forms.TextBox TbxQGPConductivity;
 	}
 }

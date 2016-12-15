@@ -7,7 +7,10 @@ namespace Yburn.Fireball
 	public delegate double DecayWidthRetrievalFunction(
 		BottomiumState state,
 		double temperature,
-		double velocity);
+		double velocity,
+		double electricFieldStrength,
+		double magneticFieldStrength
+		);
 
 	public class FireballDecayWidthField : StateSpecificFireballField
 	{
@@ -40,6 +43,8 @@ namespace Yburn.Fireball
 			FireballTemperatureField temperature,
 			SimpleFireballField vx,
 			SimpleFireballField vy,
+			FireballElectromagneticField electricField,
+			FireballElectromagneticField magneticField,
 			Dictionary<BottomiumState, double> formationTimes,
 			double initialTime,
 			DecayWidthRetrievalFunction decayWidthFunction
@@ -53,6 +58,8 @@ namespace Yburn.Fireball
 			Temperature = temperature;
 			VX = vx;
 			VY = vy;
+			ElectricField = electricField;
+			MagneticField = magneticField;
 			FormationTimes = SetFormationTimes(formationTimes);
 			InitialTime = initialTime;
 			GetDecayWidth = decayWidthFunction;
@@ -71,6 +78,8 @@ namespace Yburn.Fireball
 			LinearInterpolation2D interpT = new LinearInterpolation2D(X, Y, Temperature.GetDiscreteValues());
 			LinearInterpolation2D interpVX = new LinearInterpolation2D(X, Y, VX.GetDiscreteValues());
 			LinearInterpolation2D interpVY = new LinearInterpolation2D(X, Y, VY.GetDiscreteValues());
+			LinearInterpolation2D interpE = new LinearInterpolation2D(X, Y, ElectricField.GetDiscreteValues());
+			LinearInterpolation2D interpB = new LinearInterpolation2D(X, Y, MagneticField.GetDiscreteValues());
 
 			SetValues((i, j, k, l) =>
 			{
@@ -92,8 +101,13 @@ namespace Yburn.Fireball
 					{
 						double vQQ = Math.Sqrt(Math.Pow(interpVX.GetValue(x, y), 2)
 							+ Math.Pow(interpVY.GetValue(x, y), 2));
-						return GetDecayWidth((BottomiumState)l, interpT.GetValue(x, y),
-							GetRelativeVelocityInLabFrame(BetaT[k, l], vQQ)) / GammaT[k, l];
+
+						return GetDecayWidth(
+							(BottomiumState)l,
+							interpT.GetValue(x, y),
+							GetRelativeVelocityInLabFrame(BetaT[k, l], vQQ),
+							interpE.GetValue(x, y),
+							interpB.GetValue(x, y)) / GammaT[k, l];
 					}
 				}
 			});
@@ -131,6 +145,10 @@ namespace Yburn.Fireball
 
 		private readonly SimpleFireballField VY;
 
+		private readonly FireballElectromagneticField ElectricField;
+
+		private readonly FireballElectromagneticField MagneticField;
+
 		private readonly double[] FormationTimes;
 
 		private readonly double InitialTime;
@@ -143,7 +161,7 @@ namespace Yburn.Fireball
 			SetValues((i, j, k, l) =>
 			{
 				return IsStateAlreadyFormed(k, l, InitialTime) ?
-					 GetDecayWidth((BottomiumState)l, Temperature[i, j], 0) / GammaT[k, l]
+					 GetDecayWidth((BottomiumState)l, Temperature[i, j], 0, 0, 0) / GammaT[k, l]
 					: double.PositiveInfinity;
 			});
 		}

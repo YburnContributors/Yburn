@@ -282,6 +282,30 @@ namespace Yburn.Fireball
 			}
 		}
 
+		public int EMFQuadratureOrder
+		{
+			get
+			{
+				return EMFQuadratureOrder_Nullable.Value;
+			}
+			set
+			{
+				EMFQuadratureOrder_Nullable = value;
+			}
+		}
+
+		public double EMFRefreshIntervalFm
+		{
+			get
+			{
+				return EMFRefreshIntervalFm_Nullable.Value;
+			}
+			set
+			{
+				EMFRefreshIntervalFm_Nullable = value;
+			}
+		}
+
 		public NucleusShape NucleusShapeA
 		{
 			get
@@ -315,6 +339,18 @@ namespace Yburn.Fireball
 			set
 			{
 				DecayWidthRetrievalFunction_Nullable = (DecayWidthRetrievalFunction)value.Clone();
+			}
+		}
+
+		public bool UseElectromagneticFields
+		{
+			get
+			{
+				return UseElectromagneticFields_Nullable.Value;
+			}
+			set
+			{
+				UseElectromagneticFields_Nullable = value;
 			}
 		}
 
@@ -374,6 +410,8 @@ namespace Yburn.Fireball
 			param.DiffusenessAFm_Nullable = DiffusenessAFm_Nullable;
 			param.DiffusenessBFm_Nullable = DiffusenessBFm_Nullable;
 			param.EMFCalculationMethod_Nullable = EMFCalculationMethod_Nullable;
+			param.EMFQuadratureOrder_Nullable = EMFQuadratureOrder_Nullable;
+			param.EMFRefreshIntervalFm_Nullable = EMFRefreshIntervalFm_Nullable;
 			param.ExpansionMode_Nullable = ExpansionMode_Nullable;
 			param.FormationTimesFm_Nullable = FormationTimesFm_Nullable;
 			param.GridCellSizeFm_Nullable = GridCellSizeFm_Nullable;
@@ -394,6 +432,7 @@ namespace Yburn.Fireball
 			param.TemperatureProfile_Nullable = TemperatureProfile_Nullable;
 			param.ThermalTimeFm_Nullable = ThermalTimeFm_Nullable;
 			param.TransverseMomentaGeV_Nullable = TransverseMomentaGeV_Nullable;
+			param.UseElectromagneticFields_Nullable = UseElectromagneticFields_Nullable;
 
 			return param;
 		}
@@ -480,10 +519,16 @@ namespace Yburn.Fireball
 
 		private EMFCalculationMethod? EMFCalculationMethod_Nullable;
 
+		private int? EMFQuadratureOrder_Nullable;
+
+		private double? EMFRefreshIntervalFm_Nullable;
+
 		private NucleusShape? NucleusShapeA_Nullable;
 
 		private NucleusShape? NucleusShapeB_Nullable;
 
 		private DecayWidthRetrievalFunction DecayWidthRetrievalFunction_Nullable;
+
+		private bool? UseElectromagneticFields_Nullable;
 	}
 }

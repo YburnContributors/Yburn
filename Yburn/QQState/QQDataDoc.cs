@@ -16,7 +16,7 @@ namespace Yburn.QQState
 	 * Enums
 	 ********************************************************************************************/
 
-	public enum QQDataColumns
+	public enum QQDataColumn
 	{
 		N,
 		L,
@@ -24,7 +24,7 @@ namespace Yburn.QQState
 		PotentialType,
 		Temperature,
 		DebyeMass,
-		RMS,
+		RadiusRMS,
 		SoftScale,
 		UltraSoftScale,
 		BoundMass,
@@ -52,7 +52,7 @@ namespace Yburn.QQState
 			PotentialType potentialType,
 			double temperature,
 			double debyeMass,
-			double rms,
+			double radiusRMS,
 			double softScale,
 			double ultraSoftScale,
 			double boundMass,
@@ -68,7 +68,7 @@ namespace Yburn.QQState
 			PotentialType = potentialType;
 			Temperature = temperature;
 			DebyeMass = debyeMass;
-			RMS = rms;
+			RadiusRMS = radiusRMS;
 			SoftScale = softScale;
 			UltraSoftScale = ultraSoftScale;
 			BoundMass = boundMass;
@@ -94,7 +94,7 @@ namespace Yburn.QQState
 
 		public readonly double DebyeMass;
 
-		public readonly double RMS;
+		public readonly double RadiusRMS;
 
 		public readonly double SoftScale;
 
@@ -109,6 +109,59 @@ namespace Yburn.QQState
 		public readonly double GammaDiss;
 
 		public readonly double GammaTot;
+
+		public double GetData(
+			QQDataColumn dataColumn
+			)
+		{
+			switch(dataColumn)
+			{
+				case QQDataColumn.N:
+					return N;
+
+				case QQDataColumn.L:
+					return L;
+
+				case QQDataColumn.ColorState:
+					return (int)ColorState;
+
+				case QQDataColumn.PotentialType:
+					return (int)PotentialType;
+
+				case QQDataColumn.Temperature:
+					return Temperature;
+
+				case QQDataColumn.DebyeMass:
+					return DebyeMass;
+
+				case QQDataColumn.RadiusRMS:
+					return RadiusRMS;
+
+				case QQDataColumn.SoftScale:
+					return SoftScale;
+
+				case QQDataColumn.UltraSoftScale:
+					return UltraSoftScale;
+
+				case QQDataColumn.BoundMass:
+					return BoundMass;
+
+				case QQDataColumn.Energy:
+					return Energy;
+
+				case QQDataColumn.GammaDamp:
+					return GammaDamp;
+
+				case QQDataColumn.GammaDiss:
+					return GammaDiss;
+
+				case QQDataColumn.GammaTot:
+					return GammaTot;
+
+				default:
+					throw new Exception("Invalid QQDataColumn.");
+			}
+		}
 
 		public double GetGamma(
 			DecayWidthType type
@@ -210,7 +263,7 @@ namespace Yburn.QQState
 				dataSet.PotentialType.ToString(),
 				dataSet.Temperature.ToString("G6"),
 				dataSet.DebyeMass.ToString("G6"),
-				dataSet.RMS.ToString("G6"),
+				dataSet.RadiusRMS.ToString("G6"),
 				dataSet.SoftScale.ToString("G6"),
 				dataSet.UltraSoftScale.ToString("G6"),
 				dataSet.BoundMass.ToString("G6"),
@@ -322,22 +375,22 @@ namespace Yburn.QQState
 			string[] values = SplitLineIntoValues(line);
 
 			return new QQDataSet(
-				n: int.Parse(values[(int)QQDataColumns.N]),
-				l: int.Parse(values[(int)QQDataColumns.L]),
+				n: int.Parse(values[(int)QQDataColumn.N]),
+				l: int.Parse(values[(int)QQDataColumn.L]),
 				colorState: (ColorState)Enum.Parse(
-					typeof(ColorState), values[(int)QQDataColumns.ColorState]),
+					typeof(ColorState), values[(int)QQDataColumn.ColorState]),
 				potentialType: (PotentialType)Enum.Parse(
-					typeof(PotentialType), values[(int)QQDataColumns.PotentialType]),
-				temperature: double.Parse(values[(int)QQDataColumns.Temperature]),
-				debyeMass: double.Parse(values[(int)QQDataColumns.DebyeMass]),
-				rms: double.Parse(values[(int)QQDataColumns.RMS]),
-				softScale: double.Parse(values[(int)QQDataColumns.SoftScale]),
-				ultraSoftScale: double.Parse(values[(int)QQDataColumns.UltraSoftScale]),
-				boundMass: double.Parse(values[(int)QQDataColumns.BoundMass]),
-				energy: double.Parse(values[(int)QQDataColumns.Energy]),
-				gammaDamp: double.Parse(values[(int)QQDataColumns.GammaDamp]),
-				gammaDiss: double.Parse(values[(int)QQDataColumns.GammaDiss]),
-				gammaTot: double.Parse(values[(int)QQDataColumns.GammaTot]));
+					typeof(PotentialType), values[(int)QQDataColumn.PotentialType]),
+				temperature: double.Parse(values[(int)QQDataColumn.Temperature]),
+				debyeMass: double.Parse(values[(int)QQDataColumn.DebyeMass]),
+				radiusRMS: double.Parse(values[(int)QQDataColumn.RadiusRMS]),
+				softScale: double.Parse(values[(int)QQDataColumn.SoftScale]),
+				ultraSoftScale: double.Parse(values[(int)QQDataColumn.UltraSoftScale]),
+				boundMass: double.Parse(values[(int)QQDataColumn.BoundMass]),
+				energy: double.Parse(values[(int)QQDataColumn.Energy]),
+				gammaDamp: double.Parse(values[(int)QQDataColumn.GammaDamp]),
+				gammaDiss: double.Parse(values[(int)QQDataColumn.GammaDiss]),
+				gammaTot: double.Parse(values[(int)QQDataColumn.GammaTot]));
 		}
 
 		private static bool IsDataSetValid(
@@ -426,7 +479,7 @@ namespace Yburn.QQState
 
 				string[] values = SplitLineIntoValues(allLines[lineIndex]);
 
-				int nComparison = int.Parse(values[(int)QQDataColumns.N]) - n;
+				int nComparison = int.Parse(values[(int)QQDataColumn.N]) - n;
 				if(nComparison < 0)
 				{
 					continue;
@@ -437,7 +490,7 @@ namespace Yburn.QQState
 					return lineIndex;
 				}
 
-				int lComparison = int.Parse(values[(int)QQDataColumns.L]) - l;
+				int lComparison = int.Parse(values[(int)QQDataColumn.L]) - l;
 				if(lComparison < 0)
 				{
 					continue;
@@ -448,7 +501,7 @@ namespace Yburn.QQState
 					return lineIndex;
 				}
 
-				int colorStateComparison = (int)Enum.Parse(typeof(ColorState), values[(int)QQDataColumns.ColorState]) - (int)colorState;
+				int colorStateComparison = (int)Enum.Parse(typeof(ColorState), values[(int)QQDataColumn.ColorState]) - (int)colorState;
 				if(colorStateComparison < 0)
 				{
 					continue;
@@ -459,7 +512,7 @@ namespace Yburn.QQState
 					return lineIndex;
 				}
 
-				double temperatureComparison = double.Parse(values[(int)QQDataColumns.Temperature]) - temperature;
+				double temperatureComparison = double.Parse(values[(int)QQDataColumn.Temperature]) - temperature;
 				if(temperatureComparison < 0)
 				{
 					continue;
@@ -470,7 +523,7 @@ namespace Yburn.QQState
 					return lineIndex;
 				}
 
-				int potentialTypeComparison = (int)Enum.Parse(typeof(PotentialType), values[(int)QQDataColumns.PotentialType]) - (int)potentialType;
+				int potentialTypeComparison = (int)Enum.Parse(typeof(PotentialType), values[(int)QQDataColumn.PotentialType]) - (int)potentialType;
 				if(potentialTypeComparison < 0)
 				{
 					continue;

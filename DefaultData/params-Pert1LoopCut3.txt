@@ -51,9 +51,9 @@ DopplerShiftEvaluationTypes = UnshiftedTemperature,AveragedDecayWidth
 ###################################
 
 # General Parameters
-QGPConductivityMeV   = 5.8
+QGPConductivity      = 5.8
 EMFCalculationMethod = DiffusionApproximation
-QuadratureOrder      = 8
+EMFQuadratureOrder   = 8
 Samples              = 10
 
 # Single Point Charge
@@ -92,6 +92,13 @@ GridCellSize              = 0.4
 GridRadius                = 10
 BeamRapidity              = 7.987
 QGPFormationTemperature   = 160
+
+# Electromagnetics
+UseElectromagneticFields = True
+#EMFCalculationMethod     = DiffusionApproximation
+EMFRefreshInterval       = 0.4
+#EMFQuadratureOrder       = 8
+#QGPConductivity          = 5.8
 
 # QQStates
 DimuonDecaysFrompp         = Y1S:1.0,x1P:0.271,Y2S:0.56,x2P:0.105,Y3S:0.41,x3P:0.03

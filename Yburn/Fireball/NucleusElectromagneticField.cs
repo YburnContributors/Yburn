@@ -13,15 +13,16 @@ namespace Yburn.Fireball
 			EMFCalculationMethod emfCalculationMethod,
 			double qgpConductivityMeV,
 			double nucleusRapidity,
-			Nucleus nucleus
+			Nucleus nucleus,
+			int quadratureOrder
 			)
 		{
 			PointChargeEMF = PointChargeElectromagneticField.Create(
 				emfCalculationMethod, qgpConductivityMeV, nucleusRapidity);
 
 			Nucleus = nucleus;
-
 			NucleusVelocity = Math.Tanh(nucleusRapidity);
+			QuadratureOrder = quadratureOrder;
 		}
 
 		/********************************************************************************************
@@ -30,8 +31,7 @@ namespace Yburn.Fireball
 
 		public double CalculateAzimutalMagneticField(
 			double effectiveTime,
-			double radialDistance,
-			int quadratureOrder
+			double radialDistance
 			)
 		{
 			Func<double, double, double> integrand = (x, y) =>
@@ -48,15 +48,14 @@ namespace Yburn.Fireball
 			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
 				2 * Nucleus.NuclearRadiusFm,
-				quadratureOrder);
+				QuadratureOrder);
 
 			return integral;
 		}
 
 		public double CalculateLongitudinalElectricField(
 			double effectiveTime,
-			double radialDistance,
-			int quadratureOrder
+			double radialDistance
 			)
 		{
 			Func<double, double, double> integrand = (x, y) =>
@@ -73,15 +72,14 @@ namespace Yburn.Fireball
 			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
 				2 * Nucleus.NuclearRadiusFm,
-				quadratureOrder);
+				QuadratureOrder);
 
 			return integral;
 		}
 
 		public double CalculateRadialElectricField(
 			double effectiveTime,
-			double radialDistance,
-			int quadratureOrder
+			double radialDistance
 			)
 		{
 			Func<double, double, double> integrand = (x, y) =>
@@ -98,7 +96,7 @@ namespace Yburn.Fireball
 			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
 				2 * Nucleus.NuclearRadiusFm,
-				quadratureOrder);
+				QuadratureOrder);
 
 			return integral;
 		}
@@ -106,8 +104,7 @@ namespace Yburn.Fireball
 		public double CalculateAzimutalMagneticField_LCF(
 			double effectiveTime,
 			double radialDistance,
-			double observerRapidity,
-			int quadratureOrder
+			double observerRapidity
 			)
 		{
 			Func<double, double, double> integrand = (x, y) =>
@@ -125,7 +122,7 @@ namespace Yburn.Fireball
 			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
 				2 * Nucleus.NuclearRadiusFm,
-				quadratureOrder);
+				QuadratureOrder);
 
 			return integral;
 		}
@@ -133,8 +130,7 @@ namespace Yburn.Fireball
 		public double CalculateLongitudinalElectricField_LCF(
 			double effectiveTime,
 			double radialDistance,
-			double observerRapidity,
-			int quadratureOrder
+			double observerRapidity
 			)
 		{
 			Func<double, double, double> integrand = (x, y) =>
@@ -152,7 +148,7 @@ namespace Yburn.Fireball
 			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
 				2 * Nucleus.NuclearRadiusFm,
-				quadratureOrder);
+				QuadratureOrder);
 
 			return integral;
 		}
@@ -160,8 +156,7 @@ namespace Yburn.Fireball
 		public double CalculateRadialElectricField_LCF(
 			double effectiveTime,
 			double radialDistance,
-			double observerRapidity,
-			int quadratureOrder
+			double observerRapidity
 			)
 		{
 			Func<double, double, double> integrand = (x, y) =>
@@ -179,7 +174,7 @@ namespace Yburn.Fireball
 			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
 				2 * Nucleus.NuclearRadiusFm,
-				quadratureOrder);
+				QuadratureOrder);
 
 			return integral;
 		}
@@ -188,18 +183,17 @@ namespace Yburn.Fireball
 			double t,
 			double x,
 			double y,
-			double z,
-			int quadratureOrder
+			double z
 			)
 		{
 			double effectiveTime = CalculateEffectiveTime(t, z);
 			double radialDistance = CalculateRadialDistance(x, y);
 
-			double longitudinalField = CalculateLongitudinalElectricField(
-				effectiveTime, radialDistance, quadratureOrder);
+			double longitudinalField
+				= CalculateLongitudinalElectricField(effectiveTime, radialDistance);
 
-			double radialField = CalculateRadialElectricField(
-				effectiveTime, radialDistance, quadratureOrder);
+			double radialField
+				= CalculateRadialElectricField(effectiveTime, radialDistance);
 
 			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
 				x, y, radialField, 0, longitudinalField);
@@ -209,18 +203,17 @@ namespace Yburn.Fireball
 			double properTime,
 			double x,
 			double y,
-			double rapidity,
-			int quadratureOrder
+			double rapidity
 			)
 		{
 			double effectiveTime = CalculateEffectiveTime_LCF(properTime, rapidity);
 			double radialDistance = CalculateRadialDistance(x, y);
 
-			double longitudinalField = CalculateLongitudinalElectricField_LCF(
-				effectiveTime, radialDistance, rapidity, quadratureOrder);
+			double longitudinalField
+				= CalculateLongitudinalElectricField_LCF(effectiveTime, radialDistance, rapidity);
 
-			double radialField = CalculateRadialElectricField_LCF(
-				effectiveTime, radialDistance, rapidity, quadratureOrder);
+			double radialField
+				= CalculateRadialElectricField_LCF(effectiveTime, radialDistance, rapidity);
 
 			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
 				x, y, radialField, 0, longitudinalField);
@@ -230,15 +223,14 @@ namespace Yburn.Fireball
 			double t,
 			double x,
 			double y,
-			double z,
-			int quadratureOrder
+			double z
 			)
 		{
 			double effectiveTime = CalculateEffectiveTime(t, z);
 			double radialDistance = CalculateRadialDistance(x, y);
 
-			double azimutalField = CalculateAzimutalMagneticField(
-				effectiveTime, radialDistance, quadratureOrder);
+			double azimutalField
+				= CalculateAzimutalMagneticField(effectiveTime, radialDistance);
 
 			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
 				x, y, 0, azimutalField, 0);
@@ -248,15 +240,14 @@ namespace Yburn.Fireball
 			double properTime,
 			double x,
 			double y,
-			double rapidity,
-			int quadratureOrder
+			double rapidity
 			)
 		{
 			double effectiveTime = CalculateEffectiveTime_LCF(properTime, rapidity);
 			double radialDistance = CalculateRadialDistance(x, y);
 
-			double azimutalField = CalculateAzimutalMagneticField_LCF(
-				effectiveTime, radialDistance, rapidity, quadratureOrder);
+			double azimutalField
+				= CalculateAzimutalMagneticField_LCF(effectiveTime, radialDistance, rapidity);
 
 			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
 				x, y, 0, azimutalField, 0);
@@ -271,6 +262,8 @@ namespace Yburn.Fireball
 		private Nucleus Nucleus;
 
 		private double NucleusVelocity;
+
+		private int QuadratureOrder;
 
 		private double CalculateEffectiveTime(
 			double t,

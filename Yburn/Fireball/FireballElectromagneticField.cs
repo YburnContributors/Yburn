@@ -1,157 +1,99 @@
-﻿using Yburn.PhysUtil;
+﻿using System;
 
 namespace Yburn.Fireball
 {
-	public class FireballElectromagneticField
+	public class FireballElectromagneticField : SimpleFireballField
 	{
+		public static FireballElectromagneticField CreateFireballElectricField(
+			FireballParam param,
+			double[] xAxis,
+			double[] yAxis
+			)
+		{
+			CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
+			Func<double, double, double, double> fieldFunction
+				= (tau, x, y) => emf.CalculateElectricFieldPerFm2_LCF(tau, x, y, 2.7).Norm;
+
+			return new FireballElectromagneticField(FireballFieldType.ElectricFieldStrength,
+				xAxis, yAxis, fieldFunction, param.EMFRefreshIntervalFm);
+		}
+
+		public static FireballElectromagneticField CreateFireballMagneticField(
+			FireballParam param,
+			double[] xAxis,
+			double[] yAxis
+			)
+		{
+			CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
+			Func<double, double, double, double> fieldFunction
+				= (tau, x, y) => emf.CalculateMagneticFieldPerFm2_LCF(tau, x, y, 2.7).Norm;
+
+			return new FireballElectromagneticField(FireballFieldType.MagneticFieldStrength,
+				xAxis, yAxis, fieldFunction, param.EMFRefreshIntervalFm);
+		}
+
+		public static FireballElectromagneticField CreateZeroField(
+			FireballFieldType type,
+			double[] xAxis,
+			double[] yAxis
+			)
+		{
+			Func<double, double, double, double> fieldFunction = (tau, x, y) => 0;
+
+			return new FireballElectromagneticField(
+				type, xAxis, yAxis, fieldFunction, double.PositiveInfinity);
+		}
+
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-		public FireballElectromagneticField(
-			FireballParam param
-			)
+		protected FireballElectromagneticField(
+			FireballFieldType type,
+			double[] xAxis,
+			double[] yAxis,
+			Func<double, double, double, double> fieldFunction,
+			double fieldRefreshInterval
+			) : base(type, xAxis, yAxis, (x, y) => 0)
 		{
-			ImpactParameterFm = param.ImpactParameterFm;
+			XAxis = xAxis;
+			YAxis = yAxis;
+			FieldFunction = fieldFunction;
 
-			Nucleus nucleusA;
-			Nucleus nucleusB;
-			Nucleus.CreateNucleusPair(
-				param, out nucleusA, out nucleusB);
-
-			NucleusEMFA = new NucleusElectromagneticField(
-				param.EMFCalculationMethod,
-				param.QGPConductivityMeV,
-				param.BeamRapidity,
-				nucleusA);
-
-			NucleusEMFB = new NucleusElectromagneticField(
-				param.EMFCalculationMethod,
-				param.QGPConductivityMeV,
-				-param.BeamRapidity,
-				nucleusB);
+			RefreshInterval = fieldRefreshInterval;
+			CurrentTime = 0;
 		}
 
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public SpatialVector CalculateElectricFieldPerFm2(
-			double t,
-			double x,
-			double y,
-			double z,
-			int quadratureOrder
+		public void Advance(
+			double newTime
 			)
 		{
-			// Nucleus A is located at negative x and moves in positive z direction
-			SpatialVector fieldNucleusA = NucleusEMFA.CalculateElectricFieldPerFm2(
-				t,
-				x + 0.5 * ImpactParameterFm,
-				y,
-				z,
-				quadratureOrder);
+			if(Math.Abs(newTime - CurrentTime) > RefreshInterval)
+			{
+				SimpleFireballFieldContinuousFunction function
+					= (x, y) => FieldFunction(newTime, x, y);
 
-			// Nucleus B is located at positive x and moves in negative z direction
-			SpatialVector fieldNucleusB = NucleusEMFB.CalculateElectricFieldPerFm2(
-				t,
-				x - 0.5 * ImpactParameterFm,
-				y,
-				z,
-				quadratureOrder);
-
-			return fieldNucleusA + fieldNucleusB;
-		}
-
-		public SpatialVector CalculateElectricFieldPerFm2_LCF(
-			double properTime,
-			double x,
-			double y,
-			double rapidity,
-			int quadratureOrder
-			)
-		{
-			// Nucleus A is located at negative x and moves in positive z direction
-			SpatialVector fieldNucleusA = NucleusEMFA.CalculateElectricFieldPerFm2_LCF(
-				properTime,
-				x + 0.5 * ImpactParameterFm,
-				y,
-				rapidity,
-				quadratureOrder);
-
-			// Nucleus B is located at positive x and moves in negative z direction
-			SpatialVector fieldNucleusB = NucleusEMFB.CalculateElectricFieldPerFm2_LCF(
-				properTime,
-				x - 0.5 * ImpactParameterFm,
-				y,
-				rapidity,
-				quadratureOrder);
-
-			return fieldNucleusA + fieldNucleusB;
-		}
-
-		public SpatialVector CalculateMagneticFieldPerFm2(
-			double t,
-			double x,
-			double y,
-			double z,
-			int quadratureOrder
-			)
-		{
-			// Nucleus A is located at negative x and moves in positive z direction
-			SpatialVector fieldNucleusA = NucleusEMFA.CalculateMagneticFieldPerFm2(
-				t,
-				x + 0.5 * ImpactParameterFm,
-				y,
-				z,
-				quadratureOrder);
-
-			// Nucleus B is located at positive x and moves in negative z direction
-			SpatialVector fieldNucleusB = NucleusEMFB.CalculateMagneticFieldPerFm2(
-				t,
-				x - 0.5 * ImpactParameterFm,
-				y,
-				z,
-				quadratureOrder);
-
-			return fieldNucleusA + fieldNucleusB;
-		}
-
-		public SpatialVector CalculateMagneticFieldPerFm2_LCF(
-			double properTime,
-			double x,
-			double y,
-			double rapidity,
-			int quadratureOrder
-			)
-		{
-			// Nucleus A is located at negative x and moves in positive z direction
-			SpatialVector fieldNucleusA = NucleusEMFA.CalculateMagneticFieldPerFm2_LCF(
-				properTime,
-				x + 0.5 * ImpactParameterFm,
-				y,
-				rapidity,
-				quadratureOrder);
-
-			// Nucleus B is located at positive x and moves in negative z direction
-			SpatialVector fieldNucleusB = NucleusEMFB.CalculateMagneticFieldPerFm2_LCF(
-				properTime,
-				x - 0.5 * ImpactParameterFm,
-				y,
-				rapidity,
-				quadratureOrder);
-
-			return fieldNucleusA + fieldNucleusB;
+				SetDiscreteValues(function, XAxis, YAxis);
+				CurrentTime = newTime;
+			}
 		}
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private double ImpactParameterFm;
+		private readonly double[] XAxis;
 
-		private NucleusElectromagneticField NucleusEMFA;
+		private readonly double[] YAxis;
 
-		private NucleusElectromagneticField NucleusEMFB;
+		protected readonly Func<double, double, double, double> FieldFunction;
+
+		private readonly double RefreshInterval;
+
+		private double CurrentTime;
 	}
 }

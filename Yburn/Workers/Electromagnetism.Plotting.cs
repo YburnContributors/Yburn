@@ -167,7 +167,7 @@ namespace Yburn.Workers
 			foreach(EMFCalculationMethod method in EMFCalculationMethodSelection)
 			{
 				PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
-					method, QGPConductivityMeV, PointChargeRapidity);
+					method, QGPConductivity, PointChargeRapidity);
 
 				PlotFunction fieldValue = time => EMFieldNormalization
 					* emf.CalculateAzimutalMagneticField(time, RadialDistance);
@@ -216,7 +216,7 @@ namespace Yburn.Workers
 			foreach(EMFCalculationMethod method in EMFCalculationMethodSelection)
 			{
 				PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
-					method, QGPConductivityMeV, PointChargeRapidity);
+					method, QGPConductivity, PointChargeRapidity);
 
 				PlotFunction fieldValue = time => Math.Abs(EMFieldNormalization
 					* emf.CalculateLongitudinalElectricField(time, RadialDistance));
@@ -265,7 +265,7 @@ namespace Yburn.Workers
 			foreach(EMFCalculationMethod method in EMFCalculationMethodSelection)
 			{
 				PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
-					method, QGPConductivityMeV, PointChargeRapidity);
+					method, QGPConductivity, PointChargeRapidity);
 
 				PlotFunction fieldValue = time => EMFieldNormalization
 					* emf.CalculateRadialElectricField(time, RadialDistance);
@@ -338,17 +338,17 @@ namespace Yburn.Workers
 				CreateFireballParam(EMFCalculationMethod), out nucleusA, out nucleusB);
 
 			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
-				EMFCalculationMethod, QGPConductivityMeV, PointChargeRapidity);
+				EMFCalculationMethod, QGPConductivity, PointChargeRapidity);
 			NucleusElectromagneticField nucEMF = new NucleusElectromagneticField(
-				EMFCalculationMethod, QGPConductivityMeV, PointChargeRapidity, nucleusA);
+				EMFCalculationMethod, QGPConductivity, PointChargeRapidity, nucleusA, EMFQuadratureOrder);
 
 			PlotFunction[] plotFunctions = {
 				t => pcEMF.CalculateRadialElectricField(t, RadialDistance),
 				t => pcEMF.CalculateAzimutalMagneticField(t, RadialDistance),
 				t => Math.Abs(pcEMF.CalculateLongitudinalElectricField(t, RadialDistance)),
-				t => nucEMF.CalculateRadialElectricField(t, RadialDistance, QuadratureOrder),
-				t => nucEMF.CalculateAzimutalMagneticField(t, RadialDistance, QuadratureOrder),
-				t => Math.Abs(nucEMF.CalculateLongitudinalElectricField(t, RadialDistance, QuadratureOrder)) };
+				t => nucEMF.CalculateRadialElectricField(t, RadialDistance),
+				t => nucEMF.CalculateAzimutalMagneticField(t, RadialDistance),
+				t => Math.Abs(nucEMF.CalculateLongitudinalElectricField(t, RadialDistance)) };
 
 			foreach(PlotFunction function in plotFunctions)
 			{
@@ -374,9 +374,9 @@ namespace Yburn.Workers
 				CreateFireballParam(EMFCalculationMethod), out nucleusA, out nucleusB);
 
 			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
-				EMFCalculationMethod, QGPConductivityMeV, PointChargeRapidity);
+				EMFCalculationMethod, QGPConductivity, PointChargeRapidity);
 			NucleusElectromagneticField nucEMF = new NucleusElectromagneticField(
-				EMFCalculationMethod, QGPConductivityMeV, PointChargeRapidity, nucleusA);
+				EMFCalculationMethod, QGPConductivity, PointChargeRapidity, nucleusA, EMFQuadratureOrder);
 
 			double effectiveTime = 0.4;
 
@@ -384,9 +384,9 @@ namespace Yburn.Workers
 				r => pcEMF.CalculateRadialElectricField(effectiveTime, r),
 				r => pcEMF.CalculateAzimutalMagneticField(effectiveTime, r),
 				r => Math.Abs(pcEMF.CalculateLongitudinalElectricField(effectiveTime, r)),
-				r => nucEMF.CalculateRadialElectricField(effectiveTime, r, QuadratureOrder),
-				r => nucEMF.CalculateAzimutalMagneticField(effectiveTime, r, QuadratureOrder),
-				r => Math.Abs(nucEMF.CalculateLongitudinalElectricField(effectiveTime, r, QuadratureOrder)) };
+				r => nucEMF.CalculateRadialElectricField(effectiveTime, r),
+				r => nucEMF.CalculateAzimutalMagneticField(effectiveTime, r),
+				r => Math.Abs(nucEMF.CalculateLongitudinalElectricField(effectiveTime, r)) };
 
 			foreach(PlotFunction function in plotFunctions)
 			{
@@ -435,14 +435,10 @@ namespace Yburn.Workers
 					param.EMFCalculationMethod,
 					param.QGPConductivityMeV,
 					param.BeamRapidity,
-					nucleusA);
+					nucleusA,
+					EMFQuadratureOrder);
 
-				return emf.CalculateMagneticFieldPerFm2_LCF(
-					0.4,
-					radialDistance,
-					0,
-					rapidity,
-					QuadratureOrder).Norm;
+				return emf.CalculateMagneticFieldPerFm2_LCF(0.4, radialDistance, 0, rapidity).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, rapidityValues, radialDistanceValues, function);
@@ -481,9 +477,9 @@ namespace Yburn.Workers
 			SurfacePlotFunction function = (time, impactParam) =>
 			{
 				param.ImpactParameterFm = impactParam;
-				FireballElectromagneticField emf = new FireballElectromagneticField(param);
+				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return emf.CalculateMagneticFieldPerFm2(time, 0, 0, 0, QuadratureOrder).Norm;
+				return emf.CalculateMagneticFieldPerFm2(time, 0, 0, 0).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, timeValues, impactParamValues, function);
@@ -524,8 +520,7 @@ namespace Yburn.Workers
 				param.ImpactParameterFm = impactParam;
 				LCFFieldAverager avg = new LCFFieldAverager(param);
 
-				return avg.CalculateAverageMagneticFieldStrengthPerFm2(
-					properTime, QuadratureOrder);
+				return avg.CalculateAverageMagneticFieldStrengthPerFm2(properTime);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);
@@ -566,8 +561,7 @@ namespace Yburn.Workers
 				param.ImpactParameterFm = impactParam;
 				LCFFieldAverager avg = new LCFFieldAverager(param);
 
-				return avg.CalculateAverageSpinStateOverlap(
-					BottomiumState.Y1S, properTime, QuadratureOrder);
+				return avg.CalculateAverageSpinStateOverlap(BottomiumState.Y1S, properTime);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);

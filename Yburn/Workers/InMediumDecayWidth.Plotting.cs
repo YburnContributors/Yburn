@@ -185,7 +185,7 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<QQDataSet> dataSets = DecayWidthProvider.GetBoundStateDataSets(
+			List<QQDataSet> dataSets = QQDataProvider.GetBoundStateDataSets(
 				GetQQDataPathFile(), PotentialTypes, state);
 
 			List<double> temperatures = new List<double>();
@@ -211,7 +211,7 @@ namespace Yburn.Workers
 
 			foreach(BottomiumState state in BottomiumStates)
 			{
-				List<QQDataSet> dataSets = DecayWidthProvider.GetBoundStateDataSets(
+				List<QQDataSet> dataSets = QQDataProvider.GetBoundStateDataSets(
 					GetQQDataPathFile(), PotentialTypes, state);
 				DecayWidthAverager averager = new DecayWidthAverager(
 					dataSets, DecayWidthType, QGPFormationTemperature, NumberAveragingAngles);
@@ -280,7 +280,7 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<QQDataSet> dataSets = DecayWidthProvider.GetBoundStateDataSets(
+			List<QQDataSet> dataSets = QQDataProvider.GetBoundStateDataSets(
 				GetQQDataPathFile(), PotentialTypes, state);
 
 			List<double> temperatures = new List<double>();
@@ -306,7 +306,7 @@ namespace Yburn.Workers
 
 			foreach(BottomiumState state in BottomiumStates)
 			{
-				List<QQDataSet> dataSets = DecayWidthProvider.GetBoundStateDataSets(
+				List<QQDataSet> dataSets = QQDataProvider.GetBoundStateDataSets(
 					GetQQDataPathFile(), PotentialTypes, state);
 				DecayWidthAverager averager = new DecayWidthAverager(
 					dataSets, DecayWidthType, QGPFormationTemperature, NumberAveragingAngles);
@@ -467,7 +467,7 @@ namespace Yburn.Workers
 			List<DecayWidthAverager> averagers = new List<DecayWidthAverager>();
 			foreach(BottomiumState state in BottomiumStates)
 			{
-				List<QQDataSet> dataSets = DecayWidthProvider.GetBoundStateDataSets(
+				List<QQDataSet> dataSets = QQDataProvider.GetBoundStateDataSets(
 					YburnConfigFile.QQDataPathFile,
 					PotentialTypes,
 					state);

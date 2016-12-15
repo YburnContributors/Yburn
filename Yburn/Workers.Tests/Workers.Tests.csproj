@@ -55,7 +55,7 @@
     <Compile Include="ElectromagnetismPlottingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SingleQQPlottingTests.cs" />
-    <Compile Include="DecayWidthProviderTests.cs" />
+    <Compile Include="QQDataProviderTests.cs" />
     <Compile Include="WorkerTests.cs" />
     <Compile Include="TemperatureDecayWidthPrinterTests.cs" />
   </ItemGroup>

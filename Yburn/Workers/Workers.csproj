@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DecayWidthAverager.cs" />
-    <Compile Include="DecayWidthProvider.cs" />
+    <Compile Include="QQDataProvider.cs" />
     <Compile Include="Electromagnetism.cs" />
     <Compile Include="Electromagnetism.Params.cs" />
     <Compile Include="InMediumDecayWidth.cs" />

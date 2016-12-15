@@ -18,6 +18,7 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "DiffusenessB", DiffusenessBFm);
 			Store(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
 			Store(nameValuePairs, "EMFCalculationMethodSelection", EMFCalculationMethodSelection);
+			Store(nameValuePairs, "EMFQuadratureOrder", EMFQuadratureOrder);
 			Store(nameValuePairs, "GridCellSize", GridCellSizeFm);
 			Store(nameValuePairs, "GridRadius", GridRadiusFm);
 			Store(nameValuePairs, "ImpactParameter", ImpactParameterFm);
@@ -28,8 +29,7 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "PointChargeRapidity", PointChargeRapidity);
 			Store(nameValuePairs, "ProtonNumberA", ProtonNumberA);
 			Store(nameValuePairs, "ProtonNumberB", ProtonNumberB);
-			Store(nameValuePairs, "QuadratureOrder", QuadratureOrder);
-			Store(nameValuePairs, "QGPConductivityMeV", QGPConductivityMeV);
+			Store(nameValuePairs, "QGPConductivity", QGPConductivity);
 			Store(nameValuePairs, "RadialDistance", RadialDistance);
 			Store(nameValuePairs, "NucleusShapeA", NucleusShapeA);
 			Store(nameValuePairs, "NucleusShapeB", NucleusShapeB);
@@ -49,6 +49,7 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "DiffusenessB", ref DiffusenessBFm);
 			TryExtract(nameValuePairs, "EMFCalculationMethod", ref EMFCalculationMethod);
 			TryExtract(nameValuePairs, "EMFCalculationMethodSelection", ref EMFCalculationMethodSelection);
+			TryExtract(nameValuePairs, "EMFQuadratureOrder", ref EMFQuadratureOrder);
 			TryExtract(nameValuePairs, "GridCellSize", ref GridCellSizeFm);
 			TryExtract(nameValuePairs, "GridRadius", ref GridRadiusFm);
 			TryExtract(nameValuePairs, "ImpactParameter", ref ImpactParameterFm);
@@ -59,8 +60,7 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "PointChargeRapidity", ref PointChargeRapidity);
 			TryExtract(nameValuePairs, "ProtonNumberA", ref ProtonNumberA);
 			TryExtract(nameValuePairs, "ProtonNumberB", ref ProtonNumberB);
-			TryExtract(nameValuePairs, "QuadratureOrder", ref QuadratureOrder);
-			TryExtract(nameValuePairs, "QGPConductivityMeV", ref QGPConductivityMeV);
+			TryExtract(nameValuePairs, "QGPConductivity", ref QGPConductivity);
 			TryExtract(nameValuePairs, "RadialDistance", ref RadialDistance);
 			TryExtract(nameValuePairs, "NucleusShapeA", ref NucleusShapeA);
 			TryExtract(nameValuePairs, "NucleusShapeB", ref NucleusShapeB);
@@ -76,6 +76,8 @@ namespace Yburn.Workers
 		private EMFCalculationMethod EMFCalculationMethod;
 
 		private List<EMFCalculationMethod> EMFCalculationMethodSelection;
+
+		private int EMFQuadratureOrder;
 
 		private double GridCellSizeFm;
 
@@ -97,9 +99,7 @@ namespace Yburn.Workers
 
 		private uint ProtonNumberB;
 
-		private int QuadratureOrder;
-
-		private double QGPConductivityMeV;
+		private double QGPConductivity;
 
 		private double RadialDistance;
 
