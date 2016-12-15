@@ -21,8 +21,8 @@ namespace Yburn.Workers
 	public partial class SingleQQ : Worker
 	{
 		/********************************************************************************************
-		 * Public static members, functions and properties
-		 ********************************************************************************************/
+		* Public static members, functions and properties
+		********************************************************************************************/
 
 		public static string[] BoundWaveStatusTitles
 		{
@@ -435,6 +435,7 @@ namespace Yburn.Workers
 			param.AccuracyAlpha = AccuracyAlpha;
 			param.AccuracyWaveFunction = AccuracyWaveFunction;
 			param.AggressivenessAlpha = AggressivenessAlpha;
+			param.AggressivenessEnergy = AggressivenessEnergy;
 			param.ColorState = ColorState;
 			param.EnergyMeV = Energy;
 			param.GammaDampMeV = GammaDamp;

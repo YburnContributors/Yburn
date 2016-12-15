@@ -60,10 +60,10 @@
 			this.TbxSpinCouplingStrength = new System.Windows.Forms.TextBox();
 			this.GbxShooting = new System.Windows.Forms.GroupBox();
 			this.LayoutShooting = new System.Windows.Forms.TableLayoutPanel();
-			this.LblUseFixedAlpha = new System.Windows.Forms.Label();
 			this.LblAccuracyAlpha = new System.Windows.Forms.Label();
 			this.LblAccuracyWaveFunction = new System.Windows.Forms.Label();
 			this.LblAggressivenessAlpha = new System.Windows.Forms.Label();
+			this.LblAggressivenessEnergy = new System.Windows.Forms.Label();
 			this.LblBoundMass = new System.Windows.Forms.Label();
 			this.LblEnergy = new System.Windows.Forms.Label();
 			this.LblGammaDamp = new System.Windows.Forms.Label();
@@ -72,9 +72,11 @@
 			this.LblMaxRadius = new System.Windows.Forms.Label();
 			this.LblStepNumber = new System.Windows.Forms.Label();
 			this.LblSoftScale = new System.Windows.Forms.Label();
+			this.LblUseFixedAlpha = new System.Windows.Forms.Label();
 			this.TbxAccuracyAlpha = new System.Windows.Forms.TextBox();
 			this.TbxAccuracyWaveFunction = new System.Windows.Forms.TextBox();
 			this.TbxAggressivenessAlpha = new System.Windows.Forms.TextBox();
+			this.TbxAggressivenessEnergy = new System.Windows.Forms.TextBox();
 			this.TbxBoundMass = new System.Windows.Forms.TextBox();
 			this.TbxEnergy = new System.Windows.Forms.TextBox();
 			this.TbxGammaDamp = new System.Windows.Forms.TextBox();
@@ -497,7 +499,7 @@
 			this.GbxShooting.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxShooting.Name = "GbxShooting";
 			this.GbxShooting.Padding = new System.Windows.Forms.Padding(10);
-			this.GbxShooting.Size = new System.Drawing.Size(399, 335);
+			this.GbxShooting.Size = new System.Drawing.Size(399, 360);
 			this.GbxShooting.TabIndex = 1;
 			this.GbxShooting.TabStop = false;
 			this.GbxShooting.Text = "Shooting";
@@ -507,34 +509,36 @@
 			this.LayoutShooting.ColumnCount = 2;
 			this.LayoutShooting.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
 			this.LayoutShooting.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
-			this.LayoutShooting.Controls.Add(this.LblUseFixedAlpha, 0, 11);
 			this.LayoutShooting.Controls.Add(this.LblAccuracyAlpha, 0, 0);
 			this.LayoutShooting.Controls.Add(this.LblAccuracyWaveFunction, 0, 1);
 			this.LayoutShooting.Controls.Add(this.LblAggressivenessAlpha, 0, 2);
-			this.LayoutShooting.Controls.Add(this.LblBoundMass, 0, 3);
-			this.LayoutShooting.Controls.Add(this.LblEnergy, 0, 4);
-			this.LayoutShooting.Controls.Add(this.LblGammaDamp, 0, 5);
-			this.LayoutShooting.Controls.Add(this.LblMaxShootingTrials, 0, 6);
-			this.LayoutShooting.Controls.Add(this.LblQuarkMass, 0, 7);
-			this.LayoutShooting.Controls.Add(this.LblMaxRadius, 0, 8);
-			this.LayoutShooting.Controls.Add(this.LblStepNumber, 0, 9);
-			this.LayoutShooting.Controls.Add(this.LblSoftScale, 0, 10);
+			this.LayoutShooting.Controls.Add(this.LblAggressivenessEnergy, 0, 3);
+			this.LayoutShooting.Controls.Add(this.LblBoundMass, 0, 4);
+			this.LayoutShooting.Controls.Add(this.LblEnergy, 0, 5);
+			this.LayoutShooting.Controls.Add(this.LblGammaDamp, 0, 6);
+			this.LayoutShooting.Controls.Add(this.LblMaxShootingTrials, 0, 7);
+			this.LayoutShooting.Controls.Add(this.LblQuarkMass, 0, 8);
+			this.LayoutShooting.Controls.Add(this.LblMaxRadius, 0, 9);
+			this.LayoutShooting.Controls.Add(this.LblStepNumber, 0, 10);
+			this.LayoutShooting.Controls.Add(this.LblSoftScale, 0, 11);
+			this.LayoutShooting.Controls.Add(this.LblUseFixedAlpha, 0, 12);
 			this.LayoutShooting.Controls.Add(this.TbxAccuracyAlpha, 1, 0);
 			this.LayoutShooting.Controls.Add(this.TbxAccuracyWaveFunction, 1, 1);
 			this.LayoutShooting.Controls.Add(this.TbxAggressivenessAlpha, 1, 2);
-			this.LayoutShooting.Controls.Add(this.TbxBoundMass, 1, 3);
-			this.LayoutShooting.Controls.Add(this.TbxEnergy, 1, 4);
-			this.LayoutShooting.Controls.Add(this.TbxGammaDamp, 1, 5);
-			this.LayoutShooting.Controls.Add(this.TbxMaxShootingTrials, 1, 6);
-			this.LayoutShooting.Controls.Add(this.TbxQuarkMass, 1, 7);
-			this.LayoutShooting.Controls.Add(this.TbxMaxRadius, 1, 8);
-			this.LayoutShooting.Controls.Add(this.TbxStepNumber, 1, 9);
-			this.LayoutShooting.Controls.Add(this.TbxSoftScale, 1, 10);
-			this.LayoutShooting.Controls.Add(this.ChkUseFixedAlpha, 1, 11);
+			this.LayoutShooting.Controls.Add(this.TbxAggressivenessEnergy, 0, 3);
+			this.LayoutShooting.Controls.Add(this.TbxBoundMass, 1, 4);
+			this.LayoutShooting.Controls.Add(this.TbxEnergy, 1, 5);
+			this.LayoutShooting.Controls.Add(this.TbxGammaDamp, 1, 6);
+			this.LayoutShooting.Controls.Add(this.TbxMaxShootingTrials, 1, 7);
+			this.LayoutShooting.Controls.Add(this.TbxQuarkMass, 1, 8);
+			this.LayoutShooting.Controls.Add(this.TbxMaxRadius, 1, 9);
+			this.LayoutShooting.Controls.Add(this.TbxStepNumber, 1, 10);
+			this.LayoutShooting.Controls.Add(this.TbxSoftScale, 1, 11);
+			this.LayoutShooting.Controls.Add(this.ChkUseFixedAlpha, 1, 12);
 			this.LayoutShooting.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LayoutShooting.Location = new System.Drawing.Point(10, 25);
 			this.LayoutShooting.Name = "LayoutShooting";
-			this.LayoutShooting.RowCount = 12;
+			this.LayoutShooting.RowCount = 13;
 			this.LayoutShooting.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutShooting.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutShooting.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -547,18 +551,9 @@
 			this.LayoutShooting.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutShooting.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutShooting.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutShooting.Size = new System.Drawing.Size(379, 300);
+			this.LayoutShooting.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutShooting.Size = new System.Drawing.Size(379, 325);
 			this.LayoutShooting.TabIndex = 0;
-			// 
-			// LblUseFixedAlpha
-			// 
-			this.LblUseFixedAlpha.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblUseFixedAlpha.Location = new System.Drawing.Point(3, 275);
-			this.LblUseFixedAlpha.Name = "LblUseFixedAlpha";
-			this.LblUseFixedAlpha.Size = new System.Drawing.Size(202, 25);
-			this.LblUseFixedAlpha.TabIndex = 36;
-			this.LblUseFixedAlpha.Text = "UseFixedAlpha";
-			this.LblUseFixedAlpha.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LblAccuracyAlpha
 			// 
@@ -590,10 +585,20 @@
 			this.LblAggressivenessAlpha.Text = "AggressivenessAlpha";
 			this.LblAggressivenessAlpha.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
+			// LblAggressivenessEnergy
+			// 
+			this.LblAggressivenessEnergy.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblAggressivenessEnergy.Location = new System.Drawing.Point(3, 75);
+			this.LblAggressivenessEnergy.Name = "LblAggressivenessEnergy";
+			this.LblAggressivenessEnergy.Size = new System.Drawing.Size(202, 25);
+			this.LblAggressivenessEnergy.TabIndex = 38;
+			this.LblAggressivenessEnergy.Text = "AggressivenessEnergy";
+			this.LblAggressivenessEnergy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
 			// LblBoundMass
 			// 
 			this.LblBoundMass.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblBoundMass.Location = new System.Drawing.Point(3, 75);
+			this.LblBoundMass.Location = new System.Drawing.Point(3, 100);
 			this.LblBoundMass.Name = "LblBoundMass";
 			this.LblBoundMass.Size = new System.Drawing.Size(202, 25);
 			this.LblBoundMass.TabIndex = 8;
@@ -603,7 +608,7 @@
 			// LblEnergy
 			// 
 			this.LblEnergy.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblEnergy.Location = new System.Drawing.Point(3, 100);
+			this.LblEnergy.Location = new System.Drawing.Point(3, 125);
 			this.LblEnergy.Name = "LblEnergy";
 			this.LblEnergy.Size = new System.Drawing.Size(202, 25);
 			this.LblEnergy.TabIndex = 13;
@@ -613,7 +618,7 @@
 			// LblGammaDamp
 			// 
 			this.LblGammaDamp.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblGammaDamp.Location = new System.Drawing.Point(3, 125);
+			this.LblGammaDamp.Location = new System.Drawing.Point(3, 150);
 			this.LblGammaDamp.Name = "LblGammaDamp";
 			this.LblGammaDamp.Size = new System.Drawing.Size(202, 25);
 			this.LblGammaDamp.TabIndex = 15;
@@ -623,7 +628,7 @@
 			// LblMaxShootingTrials
 			// 
 			this.LblMaxShootingTrials.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblMaxShootingTrials.Location = new System.Drawing.Point(3, 150);
+			this.LblMaxShootingTrials.Location = new System.Drawing.Point(3, 175);
 			this.LblMaxShootingTrials.Name = "LblMaxShootingTrials";
 			this.LblMaxShootingTrials.Size = new System.Drawing.Size(202, 25);
 			this.LblMaxShootingTrials.TabIndex = 21;
@@ -633,7 +638,7 @@
 			// LblQuarkMass
 			// 
 			this.LblQuarkMass.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblQuarkMass.Location = new System.Drawing.Point(3, 175);
+			this.LblQuarkMass.Location = new System.Drawing.Point(3, 200);
 			this.LblQuarkMass.Name = "LblQuarkMass";
 			this.LblQuarkMass.Size = new System.Drawing.Size(202, 25);
 			this.LblQuarkMass.TabIndex = 27;
@@ -643,7 +648,7 @@
 			// LblMaxRadius
 			// 
 			this.LblMaxRadius.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblMaxRadius.Location = new System.Drawing.Point(3, 200);
+			this.LblMaxRadius.Location = new System.Drawing.Point(3, 225);
 			this.LblMaxRadius.Name = "LblMaxRadius";
 			this.LblMaxRadius.Size = new System.Drawing.Size(202, 25);
 			this.LblMaxRadius.TabIndex = 30;
@@ -653,7 +658,7 @@
 			// LblStepNumber
 			// 
 			this.LblStepNumber.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblStepNumber.Location = new System.Drawing.Point(3, 225);
+			this.LblStepNumber.Location = new System.Drawing.Point(3, 250);
 			this.LblStepNumber.Name = "LblStepNumber";
 			this.LblStepNumber.Size = new System.Drawing.Size(202, 25);
 			this.LblStepNumber.TabIndex = 32;
@@ -663,12 +668,22 @@
 			// LblSoftScale
 			// 
 			this.LblSoftScale.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblSoftScale.Location = new System.Drawing.Point(3, 250);
+			this.LblSoftScale.Location = new System.Drawing.Point(3, 275);
 			this.LblSoftScale.Name = "LblSoftScale";
 			this.LblSoftScale.Size = new System.Drawing.Size(202, 25);
 			this.LblSoftScale.TabIndex = 35;
 			this.LblSoftScale.Text = "SoftScale (MeV)";
 			this.LblSoftScale.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			// 
+			// LblUseFixedAlpha
+			// 
+			this.LblUseFixedAlpha.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblUseFixedAlpha.Location = new System.Drawing.Point(3, 300);
+			this.LblUseFixedAlpha.Name = "LblUseFixedAlpha";
+			this.LblUseFixedAlpha.Size = new System.Drawing.Size(202, 25);
+			this.LblUseFixedAlpha.TabIndex = 36;
+			this.LblUseFixedAlpha.Text = "UseFixedAlpha";
+			this.LblUseFixedAlpha.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// TbxAccuracyAlpha
 			// 
@@ -694,84 +709,92 @@
 			this.TbxAggressivenessAlpha.Size = new System.Drawing.Size(165, 22);
 			this.TbxAggressivenessAlpha.TabIndex = 14;
 			// 
+			// TbxAggressivenessEnergy
+			// 
+			this.TbxAggressivenessEnergy.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxAggressivenessEnergy.Location = new System.Drawing.Point(211, 78);
+			this.TbxAggressivenessEnergy.Name = "TbxAggressivenessEnergy";
+			this.TbxAggressivenessEnergy.Size = new System.Drawing.Size(165, 22);
+			this.TbxAggressivenessEnergy.TabIndex = 15;
+			// 
 			// TbxBoundMass
 			// 
 			this.TbxBoundMass.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxBoundMass.Location = new System.Drawing.Point(211, 78);
+			this.TbxBoundMass.Location = new System.Drawing.Point(211, 103);
 			this.TbxBoundMass.Name = "TbxBoundMass";
 			this.TbxBoundMass.Size = new System.Drawing.Size(165, 22);
-			this.TbxBoundMass.TabIndex = 15;
+			this.TbxBoundMass.TabIndex = 16;
 			// 
 			// TbxEnergy
 			// 
 			this.TbxEnergy.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxEnergy.Location = new System.Drawing.Point(211, 103);
+			this.TbxEnergy.Location = new System.Drawing.Point(211, 128);
 			this.TbxEnergy.Name = "TbxEnergy";
 			this.TbxEnergy.Size = new System.Drawing.Size(165, 22);
-			this.TbxEnergy.TabIndex = 16;
+			this.TbxEnergy.TabIndex = 17;
 			// 
 			// TbxGammaDamp
 			// 
 			this.TbxGammaDamp.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxGammaDamp.Location = new System.Drawing.Point(211, 128);
+			this.TbxGammaDamp.Location = new System.Drawing.Point(211, 153);
 			this.TbxGammaDamp.Name = "TbxGammaDamp";
 			this.TbxGammaDamp.Size = new System.Drawing.Size(165, 22);
-			this.TbxGammaDamp.TabIndex = 17;
+			this.TbxGammaDamp.TabIndex = 18;
 			// 
 			// TbxMaxShootingTrials
 			// 
 			this.TbxMaxShootingTrials.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxMaxShootingTrials.Location = new System.Drawing.Point(211, 153);
+			this.TbxMaxShootingTrials.Location = new System.Drawing.Point(211, 178);
 			this.TbxMaxShootingTrials.Name = "TbxMaxShootingTrials";
 			this.TbxMaxShootingTrials.Size = new System.Drawing.Size(165, 22);
-			this.TbxMaxShootingTrials.TabIndex = 18;
+			this.TbxMaxShootingTrials.TabIndex = 19;
 			// 
 			// TbxQuarkMass
 			// 
 			this.TbxQuarkMass.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxQuarkMass.Location = new System.Drawing.Point(211, 178);
+			this.TbxQuarkMass.Location = new System.Drawing.Point(211, 203);
 			this.TbxQuarkMass.Name = "TbxQuarkMass";
 			this.TbxQuarkMass.Size = new System.Drawing.Size(165, 22);
-			this.TbxQuarkMass.TabIndex = 19;
+			this.TbxQuarkMass.TabIndex = 20;
 			// 
 			// TbxMaxRadius
 			// 
 			this.TbxMaxRadius.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxMaxRadius.Location = new System.Drawing.Point(211, 203);
+			this.TbxMaxRadius.Location = new System.Drawing.Point(211, 228);
 			this.TbxMaxRadius.Name = "TbxMaxRadius";
 			this.TbxMaxRadius.Size = new System.Drawing.Size(165, 22);
-			this.TbxMaxRadius.TabIndex = 20;
+			this.TbxMaxRadius.TabIndex = 21;
 			// 
 			// TbxStepNumber
 			// 
 			this.TbxStepNumber.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxStepNumber.Location = new System.Drawing.Point(211, 228);
+			this.TbxStepNumber.Location = new System.Drawing.Point(211, 253);
 			this.TbxStepNumber.Name = "TbxStepNumber";
 			this.TbxStepNumber.Size = new System.Drawing.Size(165, 22);
-			this.TbxStepNumber.TabIndex = 21;
+			this.TbxStepNumber.TabIndex = 22;
 			// 
 			// TbxSoftScale
 			// 
 			this.TbxSoftScale.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxSoftScale.Location = new System.Drawing.Point(211, 253);
+			this.TbxSoftScale.Location = new System.Drawing.Point(211, 278);
 			this.TbxSoftScale.Name = "TbxSoftScale";
 			this.TbxSoftScale.Size = new System.Drawing.Size(165, 22);
-			this.TbxSoftScale.TabIndex = 22;
+			this.TbxSoftScale.TabIndex = 23;
 			// 
 			// ChkUseFixedAlpha
 			// 
 			this.ChkUseFixedAlpha.AutoSize = true;
 			this.ChkUseFixedAlpha.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.ChkUseFixedAlpha.Location = new System.Drawing.Point(211, 278);
+			this.ChkUseFixedAlpha.Location = new System.Drawing.Point(211, 303);
 			this.ChkUseFixedAlpha.Name = "ChkUseFixedAlpha";
 			this.ChkUseFixedAlpha.Size = new System.Drawing.Size(165, 19);
-			this.ChkUseFixedAlpha.TabIndex = 37;
+			this.ChkUseFixedAlpha.TabIndex = 24;
 			this.ChkUseFixedAlpha.UseVisualStyleBackColor = true;
 			// 
 			// GbxDiss
 			// 
 			this.GbxDiss.Controls.Add(this.LayoutDiss);
-			this.GbxDiss.Location = new System.Drawing.Point(10, 745);
+			this.GbxDiss.Location = new System.Drawing.Point(10, 770);
 			this.GbxDiss.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxDiss.Name = "GbxDiss";
 			this.GbxDiss.Padding = new System.Windows.Forms.Padding(10);
@@ -824,7 +847,7 @@
 			this.TbxMaxEnergy.Location = new System.Drawing.Point(211, 3);
 			this.TbxMaxEnergy.Name = "TbxMaxEnergy";
 			this.TbxMaxEnergy.Size = new System.Drawing.Size(165, 22);
-			this.TbxMaxEnergy.TabIndex = 23;
+			this.TbxMaxEnergy.TabIndex = 25;
 			// 
 			// TbxEnergySteps
 			// 
@@ -832,12 +855,12 @@
 			this.TbxEnergySteps.Location = new System.Drawing.Point(211, 28);
 			this.TbxEnergySteps.Name = "TbxEnergySteps";
 			this.TbxEnergySteps.Size = new System.Drawing.Size(165, 22);
-			this.TbxEnergySteps.TabIndex = 24;
+			this.TbxEnergySteps.TabIndex = 26;
 			// 
 			// GbxOutput
 			// 
 			this.GbxOutput.Controls.Add(this.LayoutOutput);
-			this.GbxOutput.Location = new System.Drawing.Point(10, 850);
+			this.GbxOutput.Location = new System.Drawing.Point(10, 875);
 			this.GbxOutput.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxOutput.Name = "GbxOutput";
 			this.GbxOutput.Padding = new System.Windows.Forms.Padding(10);
@@ -1378,5 +1401,7 @@
 		private System.Windows.Forms.TextBox TbxSpinCouplingStrength;
 		private System.Windows.Forms.Label LblUseFixedAlpha;
 		private System.Windows.Forms.CheckBox ChkUseFixedAlpha;
+		private System.Windows.Forms.Label LblAggressivenessEnergy;
+		private System.Windows.Forms.TextBox TbxAggressivenessEnergy;
 	}
 }

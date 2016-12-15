@@ -16,6 +16,7 @@ namespace Yburn.Workers
 			Extractor.Store(nameValuePairs, "AccuracyAlpha", AccuracyAlpha);
 			Extractor.Store(nameValuePairs, "AccuracyWaveFunction", AccuracyWaveFunction);
 			Extractor.Store(nameValuePairs, "AggressivenessAlpha", AggressivenessAlpha);
+			Extractor.Store(nameValuePairs, "AggressivenessEnergy", AggressivenessEnergy);
 			Extractor.Store(nameValuePairs, "AlphaHard", AlphaHard);
 			Extractor.Store(nameValuePairs, "AlphaSoft", AlphaSoft);
 			Extractor.Store(nameValuePairs, "AlphaThermal", AlphaThermal);
@@ -72,6 +73,7 @@ namespace Yburn.Workers
 			Extractor.TryExtract(nameValuePairs, "AccuracyAlpha", ref AccuracyAlpha);
 			Extractor.TryExtract(nameValuePairs, "AccuracyWaveFunction", ref AccuracyWaveFunction);
 			Extractor.TryExtract(nameValuePairs, "AggressivenessAlpha", ref AggressivenessAlpha);
+			Extractor.TryExtract(nameValuePairs, "AggressivenessEnergy", ref AggressivenessEnergy);
 			Extractor.TryExtract(nameValuePairs, "AlphaHard", ref AlphaHard);
 			Extractor.TryExtract(nameValuePairs, "AlphaSoft", ref AlphaSoft);
 			Extractor.TryExtract(nameValuePairs, "AlphaThermal", ref AlphaThermal);
@@ -124,6 +126,8 @@ namespace Yburn.Workers
 		private double AccuracyWaveFunction;
 
 		private double AggressivenessAlpha;
+
+		private double AggressivenessEnergy;
 
 		private double AlphaHard;
 

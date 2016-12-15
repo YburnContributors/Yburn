@@ -345,7 +345,6 @@
 			// 
 			// SingleQQPanel
 			// 
-			this.SingleQQPanel.ControlsValues = ((System.Collections.Generic.Dictionary<string, string>)(resources.GetObject("SingleQQPanel.ControlsValues")));
 			this.SingleQQPanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.SingleQQPanel.Location = new System.Drawing.Point(3, 103);
 			this.SingleQQPanel.Name = "SingleQQPanel";

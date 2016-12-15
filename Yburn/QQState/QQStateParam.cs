@@ -21,6 +21,8 @@
 		// determines how strong AlphaS is changed between each step
 		public double AggressivenessAlpha;
 
+		public double AggressivenessEnergy;
+
 		public ColorState ColorState;
 
 		// difference between twice the quark mass and the bound state mass
@@ -69,6 +71,7 @@
 			param.AccuracyAlpha = AccuracyAlpha;
 			param.AccuracyWaveFunction = AccuracyWaveFunction;
 			param.AggressivenessAlpha = AggressivenessAlpha;
+			param.AggressivenessEnergy = AggressivenessEnergy;
 			param.ColorState = ColorState;
 			param.EnergyMeV = EnergyMeV;
 			param.GammaDampMeV = GammaDampMeV;

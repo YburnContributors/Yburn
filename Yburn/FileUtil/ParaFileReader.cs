@@ -72,7 +72,7 @@ namespace Yburn.FileUtil
 			foreach(string line in allLines)
 			{
 				string[] nameValuePair = line.Split(new char[] { '=' }, 2);
-				nameValuePairs.Add(nameValuePair[0], nameValuePair[1]);
+				nameValuePairs[nameValuePair[0]] = nameValuePair[1];
 			}
 		}
 	}
