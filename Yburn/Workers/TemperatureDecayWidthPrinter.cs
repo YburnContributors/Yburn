@@ -36,8 +36,8 @@ namespace Yburn.Workers
 
 		public string GetList(
 			List<DopplerShiftEvaluationType> dopplerShiftEvaluationTypes,
-			EMFDipoleInteractionType electricDipoleInteractionType,
-			EMFDipoleInteractionType magneticDipoleInteractionType,
+			EMFDipoleAlignmentType electricDipoleAlignmentType,
+			EMFDipoleAlignmentType magneticDipoleAlignmentType,
 			List<double> mediumTemperatures,
 			List<double> mediumVelocities,
 			double electricField,
@@ -54,7 +54,7 @@ namespace Yburn.Workers
 			foreach(DopplerShiftEvaluationType evaluationType in dopplerShiftEvaluationTypes)
 			{
 				builder.Append(GetList(
-					evaluationType, electricDipoleInteractionType, magneticDipoleInteractionType,
+					evaluationType, electricDipoleAlignmentType, magneticDipoleAlignmentType,
 					mediumTemperatures, mediumVelocities, electricField, magneticField));
 				builder.AppendLine();
 				builder.AppendLine();
@@ -81,16 +81,16 @@ namespace Yburn.Workers
 
 		private QQDataProvider CreateQQDataProvider(
 			DopplerShiftEvaluationType dopplerShiftEvaluationType,
-			EMFDipoleInteractionType electricDipoleInteractionType,
-			EMFDipoleInteractionType magneticDipoleInteractionType
+			EMFDipoleAlignmentType electricDipoleAlignmentType,
+			EMFDipoleAlignmentType magneticDipoleAlignmentType
 			)
 		{
 			return new QQDataProvider(
 				DataPathFile,
 				PotentialTypes,
 				dopplerShiftEvaluationType,
-				electricDipoleInteractionType,
-				magneticDipoleInteractionType,
+				electricDipoleAlignmentType,
+				magneticDipoleAlignmentType,
 				DecayWidthType,
 				QGPFormationTemperature,
 				NumberAveragingAngles);
@@ -98,8 +98,8 @@ namespace Yburn.Workers
 
 		private string GetList(
 			DopplerShiftEvaluationType dopplerShiftEvaluationType,
-			EMFDipoleInteractionType electricDipoleInteractionType,
-			EMFDipoleInteractionType magneticDipoleInteractionType,
+			EMFDipoleAlignmentType electricDipoleAlignmentType,
+			EMFDipoleAlignmentType magneticDipoleAlignmentType,
 			List<double> mediumTemperatures,
 			List<double> mediumVelocities,
 			double electricField,
@@ -107,7 +107,7 @@ namespace Yburn.Workers
 			)
 		{
 			QQDataProvider provider = CreateQQDataProvider(dopplerShiftEvaluationType,
-				electricDipoleInteractionType, magneticDipoleInteractionType);
+				electricDipoleAlignmentType, magneticDipoleAlignmentType);
 
 			StringBuilder list = new StringBuilder();
 			AppendHeader(list, dopplerShiftEvaluationType);

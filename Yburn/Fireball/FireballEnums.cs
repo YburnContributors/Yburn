@@ -20,12 +20,12 @@
 		AveragedLifeTime
 	};
 
-	public enum EMFDipoleInteractionType
+	public enum EMFDipoleAlignmentType
 	{
 		None,
-		FieldAlignedDipoles_MinimizeEnergy,
-		FieldAlignedDipoles_MaximizeEnergy,
-		StatisticallyDistributedDipoles
+		MinimizeEnergy,
+		MaximizeEnergy,
+		StatisticallyDistributed
 	}
 
 	public enum ExpansionMode

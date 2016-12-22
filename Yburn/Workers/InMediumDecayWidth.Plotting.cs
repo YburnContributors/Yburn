@@ -183,7 +183,7 @@ namespace Yburn.Workers
 		{
 			return new QQDataProvider(
 				QQDataPathFile, PotentialTypes, DopplerShiftEvaluationType.UnshiftedTemperature,
-				EMFDipoleInteractionType.None, EMFDipoleInteractionType.None,
+				EMFDipoleAlignmentType.None, EMFDipoleAlignmentType.None,
 				DecayWidthType, QGPFormationTemperature, NumberAveragingAngles);
 		}
 

@@ -27,8 +27,8 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "DopplerShiftEvaluationType", DopplerShiftEvaluationType);
 			Store(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
 			Store(nameValuePairs, "EMFQuadratureOrder", EMFQuadratureOrder);
-			Store(nameValuePairs, "EMFRefreshInterval", EMFRefreshInterval);
-			Store(nameValuePairs, "ElectricDipoleInteractionType", ElectricDipoleInteractionType);
+			Store(nameValuePairs, "EMFUpdateInterval", EMFUpdateInterval);
+			Store(nameValuePairs, "ElectricDipoleAlignmentType", ElectricDipoleAlignmentType);
 			Store(nameValuePairs, "ExpansionMode", ExpansionMode);
 			Store(nameValuePairs, "FireballFieldTypes", FireballFieldTypes);
 			Store(nameValuePairs, "FormationTimes", FormationTimes);
@@ -39,8 +39,8 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "InelasticppCrossSection", InelasticppCrossSection);
 			Store(nameValuePairs, "InitialMaximumTemperature", InitialMaximumTemperature);
 			Store(nameValuePairs, "LifeTime", LifeTime);
-			Store(nameValuePairs, "MagneticDipoleInteractionType", MagneticDipoleInteractionType);
-			Store(nameValuePairs, "MagneticDipoleInteractionType", MagneticDipoleInteractionType);
+			Store(nameValuePairs, "MagneticDipoleAlignmentType", MagneticDipoleAlignmentType);
+			Store(nameValuePairs, "MagneticDipoleAlignmentType", MagneticDipoleAlignmentType);
 			Store(nameValuePairs, "MeanParticipantsInBin", MeanParticipantsInBin);
 			Store(nameValuePairs, "NuclearRadiusA", NuclearRadiusA);
 			Store(nameValuePairs, "NuclearRadiusB", NuclearRadiusB);
@@ -80,8 +80,8 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "DopplerShiftEvaluationType", ref DopplerShiftEvaluationType);
 			TryExtract(nameValuePairs, "EMFCalculationMethod", ref EMFCalculationMethod);
 			TryExtract(nameValuePairs, "EMFQuadratureOrder", ref EMFQuadratureOrder);
-			TryExtract(nameValuePairs, "EMFRefreshInterval", ref EMFRefreshInterval);
-			TryExtract(nameValuePairs, "ElectricDipoleInteractionType", ref ElectricDipoleInteractionType);
+			TryExtract(nameValuePairs, "EMFUpdateInterval", ref EMFUpdateInterval);
+			TryExtract(nameValuePairs, "ElectricDipoleAlignmentType", ref ElectricDipoleAlignmentType);
 			TryExtract(nameValuePairs, "ExpansionMode", ref ExpansionMode);
 			TryExtract(nameValuePairs, "FireballFieldTypes", ref FireballFieldTypes);
 			TryExtract(nameValuePairs, "FormationTimes", ref FormationTimes);
@@ -92,8 +92,8 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "InelasticppCrossSection", ref InelasticppCrossSection);
 			TryExtract(nameValuePairs, "InitialMaximumTemperature", ref InitialMaximumTemperature);
 			TryExtract(nameValuePairs, "LifeTime", ref LifeTime);
-			TryExtract(nameValuePairs, "MagneticDipoleInteractionType", ref MagneticDipoleInteractionType);
-			TryExtract(nameValuePairs, "MagneticDipoleInteractionType", ref MagneticDipoleInteractionType);
+			TryExtract(nameValuePairs, "MagneticDipoleAlignmentType", ref MagneticDipoleAlignmentType);
+			TryExtract(nameValuePairs, "MagneticDipoleAlignmentType", ref MagneticDipoleAlignmentType);
 			TryExtract(nameValuePairs, "MeanParticipantsInBin", ref MeanParticipantsInBin);
 			TryExtract(nameValuePairs, "NuclearRadiusA", ref NuclearRadiusA);
 			TryExtract(nameValuePairs, "NuclearRadiusB", ref NuclearRadiusB);
@@ -132,11 +132,11 @@ namespace Yburn.Workers
 
 		private Dictionary<BottomiumState, double> DimuonDecaysFrompp;
 
-		private EMFDipoleInteractionType ElectricDipoleInteractionType;
+		private EMFDipoleAlignmentType ElectricDipoleAlignmentType;
 
 		private EMFCalculationMethod EMFCalculationMethod;
 
-		private double EMFRefreshInterval;
+		private double EMFUpdateInterval;
 
 		private int EMFQuadratureOrder;
 
@@ -160,7 +160,7 @@ namespace Yburn.Workers
 
 		private double LifeTime;
 
-		private EMFDipoleInteractionType MagneticDipoleInteractionType;
+		private EMFDipoleAlignmentType MagneticDipoleAlignmentType;
 
 		private List<List<double>> MeanParticipantsInBin;
 
@@ -204,7 +204,7 @@ namespace Yburn.Workers
 		{
 			get
 			{
-				return ElectricDipoleInteractionType != EMFDipoleInteractionType.None;
+				return ElectricDipoleAlignmentType != EMFDipoleAlignmentType.None;
 			}
 		}
 
@@ -212,7 +212,7 @@ namespace Yburn.Workers
 		{
 			get
 			{
-				return MagneticDipoleInteractionType != EMFDipoleInteractionType.None;
+				return MagneticDipoleAlignmentType != EMFDipoleAlignmentType.None;
 			}
 		}
 	}

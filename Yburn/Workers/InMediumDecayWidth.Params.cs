@@ -18,9 +18,9 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "DataFileName", DataFileName);
 			Store(nameValuePairs, "DopplerShiftEvaluationTypes", DopplerShiftEvaluationTypes);
 			Store(nameValuePairs, "DecayWidthType", DecayWidthType);
-			Store(nameValuePairs, "ElectricDipoleInteractionType", ElectricDipoleInteractionType);
+			Store(nameValuePairs, "ElectricDipoleAlignmentType", ElectricDipoleAlignmentType);
 			Store(nameValuePairs, "ElectricFieldStrength", ElectricFieldStrength);
-			Store(nameValuePairs, "MagneticDipoleInteractionType", MagneticDipoleInteractionType);
+			Store(nameValuePairs, "MagneticDipoleAlignmentType", MagneticDipoleAlignmentType);
 			Store(nameValuePairs, "MagneticFieldStrength", MagneticFieldStrength);
 			Store(nameValuePairs, "MediumTemperatures", MediumTemperatures);
 			Store(nameValuePairs, "MediumVelocities", MediumVelocities);
@@ -39,9 +39,9 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
 			TryExtract(nameValuePairs, "DopplerShiftEvaluationTypes", ref DopplerShiftEvaluationTypes);
 			TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
-			TryExtract(nameValuePairs, "ElectricDipoleInteractionType", ref ElectricDipoleInteractionType);
+			TryExtract(nameValuePairs, "ElectricDipoleAlignmentType", ref ElectricDipoleAlignmentType);
 			TryExtract(nameValuePairs, "ElectricFieldStrength", ref ElectricFieldStrength);
-			TryExtract(nameValuePairs, "MagneticDipoleInteractionType", ref MagneticDipoleInteractionType);
+			TryExtract(nameValuePairs, "MagneticDipoleAlignmentType", ref MagneticDipoleAlignmentType);
 			TryExtract(nameValuePairs, "MagneticFieldStrength", ref MagneticFieldStrength);
 			TryExtract(nameValuePairs, "MediumTemperatures", ref MediumTemperatures);
 			TryExtract(nameValuePairs, "MediumVelocities", ref MediumVelocities);
@@ -56,11 +56,11 @@ namespace Yburn.Workers
 
 		private DecayWidthType DecayWidthType;
 
-		private EMFDipoleInteractionType ElectricDipoleInteractionType;
+		private EMFDipoleAlignmentType ElectricDipoleAlignmentType;
 
 		private double ElectricFieldStrength;
 
-		private EMFDipoleInteractionType MagneticDipoleInteractionType;
+		private EMFDipoleAlignmentType MagneticDipoleAlignmentType;
 
 		private double MagneticFieldStrength;
 

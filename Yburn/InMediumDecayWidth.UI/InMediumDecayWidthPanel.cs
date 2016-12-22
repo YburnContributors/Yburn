@@ -95,8 +95,8 @@ namespace Yburn.InMediumDecayWidth.UI
 		{
 			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
 			CbxDecayWidthType.Items.Remove("None");
-			CbxElectricDipoleInteractionType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleInteractionType"));
-			CbxMagneticDipoleInteractionType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleInteractionType"));
+			CbxElectricDipoleAlignmentType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleAlignmentType"));
+			CbxMagneticDipoleAlignmentType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleAlignmentType"));
 			MsxBottomiumStates.AddItems(JobOrganizer.GetWorkerEnumEntries("BottomiumState"));
 			MsxDopplerShiftEvaluationTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("DopplerShiftEvaluationType"));
 			MsxPotentialTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("PotentialType"));
@@ -110,9 +110,9 @@ namespace Yburn.InMediumDecayWidth.UI
 			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
 			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
 			nameValuePairs["DopplerShiftEvaluationTypes"] = MsxDopplerShiftEvaluationTypes.SelectionString;
-			nameValuePairs["ElectricDipoleInteractionType"] = CbxElectricDipoleInteractionType.Text;
+			nameValuePairs["ElectricDipoleAlignmentType"] = CbxElectricDipoleAlignmentType.Text;
 			nameValuePairs["ElectricFieldStrength"] = TbxElectricFieldStrength.Text;
-			nameValuePairs["MagneticDipoleInteractionType"] = CbxMagneticDipoleInteractionType.Text;
+			nameValuePairs["MagneticDipoleAlignmentType"] = CbxMagneticDipoleAlignmentType.Text;
 			nameValuePairs["MagneticFieldStrength"] = TbxMagneticFieldStrength.Text;
 			nameValuePairs["MediumTemperatures"] = TbxMediumTemperatures.Text;
 			nameValuePairs["MediumVelocities"] = TbxMediumVelocities.Text;
@@ -128,8 +128,8 @@ namespace Yburn.InMediumDecayWidth.UI
 			)
 		{
 			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"];
-			CbxElectricDipoleInteractionType.Text = nameValuePairs["ElectricDipoleInteractionType"];
-			CbxMagneticDipoleInteractionType.Text = nameValuePairs["MagneticDipoleInteractionType"];
+			CbxElectricDipoleAlignmentType.Text = nameValuePairs["ElectricDipoleAlignmentType"];
+			CbxMagneticDipoleAlignmentType.Text = nameValuePairs["MagneticDipoleAlignmentType"];
 			MsxBottomiumStates.SelectionString = nameValuePairs["BottomiumStates"];
 			MsxDopplerShiftEvaluationTypes.SelectionString = nameValuePairs["DopplerShiftEvaluationTypes"];
 			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];

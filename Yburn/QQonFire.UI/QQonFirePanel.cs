@@ -96,9 +96,9 @@ namespace Yburn.QQonFire.UI
 			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
 			CbxDopplerShiftEvaluationType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DopplerShiftEvaluationType"));
 			CbxEMFCalculationMethod.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFCalculationMethod"));
-			CbxElectricDipoleInteractionType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleInteractionType"));
+			CbxElectricDipoleAlignmentType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleAlignmentType"));
 			CbxExpansionMode.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ExpansionMode"));
-			CbxMagneticDipoleInteractionType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleInteractionType"));
+			CbxMagneticDipoleAlignmentType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleAlignmentType"));
 			CbxNucleusShapeA.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("NucleusShape"));
 			CbxNucleusShapeB.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("NucleusShape"));
 			CbxTemperatureProfile.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("TemperatureProfile"));
@@ -124,8 +124,8 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["DopplerShiftEvaluationType"] = CbxDopplerShiftEvaluationType.Text;
 			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
 			nameValuePairs["EMFQuadratureOrder"] = TbxEMFQuadratureOrder.Text;
-			nameValuePairs["EMFRefreshInterval"] = TbxEMFRefreshInterval.Text;
-			nameValuePairs["ElectricDipoleInteractionType"] = CbxElectricDipoleInteractionType.Text;
+			nameValuePairs["EMFUpdateInterval"] = TbxEMFUpdateInterval.Text;
+			nameValuePairs["ElectricDipoleAlignmentType"] = CbxElectricDipoleAlignmentType.Text;
 			nameValuePairs["ExpansionMode"] = CbxExpansionMode.Text;
 			nameValuePairs["FireballFieldTypes"] = MsxFireballFieldTypes.SelectionString;
 			nameValuePairs["FormationTimes"] = TbxFormationTimes.Text;
@@ -136,7 +136,7 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["InelasticppCrossSection"] = TbxInelasticppCrossSection.Text;
 			nameValuePairs["InitialMaximumTemperature"] = TbxInitialMaximumTemperature.Text;
 			nameValuePairs["LifeTime"] = TbxLifeTime.Text;
-			nameValuePairs["MagneticDipoleInteractionType"] = CbxMagneticDipoleInteractionType.Text;
+			nameValuePairs["MagneticDipoleAlignmentType"] = CbxMagneticDipoleAlignmentType.Text;
 			nameValuePairs["MeanParticipantsInBin"] = TbxMeanParticipantsInBin.Text;
 			nameValuePairs["NuclearRadiusA"] = TbxNuclearRadiusA.Text;
 			nameValuePairs["NuclearRadiusB"] = TbxNuclearRadiusB.Text;
@@ -166,9 +166,9 @@ namespace Yburn.QQonFire.UI
 			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"];
 			CbxDopplerShiftEvaluationType.Text = nameValuePairs["DopplerShiftEvaluationType"];
 			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"];
-			CbxElectricDipoleInteractionType.Text = nameValuePairs["ElectricDipoleInteractionType"];
+			CbxElectricDipoleAlignmentType.Text = nameValuePairs["ElectricDipoleAlignmentType"];
 			CbxExpansionMode.Text = nameValuePairs["ExpansionMode"];
-			CbxMagneticDipoleInteractionType.Text = nameValuePairs["MagneticDipoleInteractionType"];
+			CbxMagneticDipoleAlignmentType.Text = nameValuePairs["MagneticDipoleAlignmentType"];
 			CbxNucleusShapeA.Text = nameValuePairs["NucleusShapeA"];
 			CbxNucleusShapeB.Text = nameValuePairs["NucleusShapeB"];
 			CbxTemperatureProfile.Text = nameValuePairs["TemperatureProfile"];
@@ -184,7 +184,7 @@ namespace Yburn.QQonFire.UI
 			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB"];
 			TbxDimuonDecaysFrompp.Text = nameValuePairs["DimuonDecaysFrompp"];
 			TbxEMFQuadratureOrder.Text = nameValuePairs["EMFQuadratureOrder"];
-			TbxEMFRefreshInterval.Text = nameValuePairs["EMFRefreshInterval"];
+			TbxEMFUpdateInterval.Text = nameValuePairs["EMFUpdateInterval"];
 			TbxFormationTimes.Text = nameValuePairs["FormationTimes"];
 			TbxGridCellSize.Text = nameValuePairs["GridCellSize"];
 			TbxGridRadius.Text = nameValuePairs["GridRadius"];

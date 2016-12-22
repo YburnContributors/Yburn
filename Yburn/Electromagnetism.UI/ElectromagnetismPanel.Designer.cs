@@ -69,7 +69,7 @@
 			this.LblQGPConductivity = new System.Windows.Forms.Label();
 			this.TbxQGPConductivity = new System.Windows.Forms.TextBox();
 			this.GbxSinglePointCharge = new System.Windows.Forms.GroupBox();
-			this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
+			this.LayoutSinglePointCharge = new System.Windows.Forms.TableLayoutPanel();
 			this.MsxEMFCalculationMethodSelection = new Yburn.UI.MultiSelectBox();
 			this.LblEMFCalculationMethodSelection = new System.Windows.Forms.Label();
 			this.TbxPointChargeRapidity = new System.Windows.Forms.TextBox();
@@ -81,7 +81,7 @@
 			this.TbxStopEffectiveTime = new System.Windows.Forms.TextBox();
 			this.LblPointChargeRapidity = new System.Windows.Forms.Label();
 			this.GbxOutput = new System.Windows.Forms.GroupBox();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+			this.LayoutOutput = new System.Windows.Forms.TableLayoutPanel();
 			this.LblDataFileName = new System.Windows.Forms.Label();
 			this.TbxDataFileName = new System.Windows.Forms.TextBox();
 			this.HSplit = new System.Windows.Forms.SplitContainer();
@@ -97,9 +97,9 @@
 			this.GbxGeneralParameters.SuspendLayout();
 			this.LayoutGeneralParameters.SuspendLayout();
 			this.GbxSinglePointCharge.SuspendLayout();
-			this.tableLayoutPanel2.SuspendLayout();
+			this.LayoutSinglePointCharge.SuspendLayout();
 			this.GbxOutput.SuspendLayout();
-			this.tableLayoutPanel1.SuspendLayout();
+			this.LayoutOutput.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.HSplit)).BeginInit();
 			this.HSplit.Panel1.SuspendLayout();
 			this.HSplit.Panel2.SuspendLayout();
@@ -577,7 +577,7 @@
 			// 
 			// GbxSinglePointCharge
 			// 
-			this.GbxSinglePointCharge.Controls.Add(this.tableLayoutPanel2);
+			this.GbxSinglePointCharge.Controls.Add(this.LayoutSinglePointCharge);
 			this.GbxSinglePointCharge.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.GbxSinglePointCharge.Location = new System.Drawing.Point(10, 545);
 			this.GbxSinglePointCharge.Margin = new System.Windows.Forms.Padding(10);
@@ -588,33 +588,33 @@
 			this.GbxSinglePointCharge.TabStop = false;
 			this.GbxSinglePointCharge.Text = "Single Point Charge";
 			// 
-			// tableLayoutPanel2
+			// LayoutSinglePointCharge
 			// 
-			this.tableLayoutPanel2.ColumnCount = 2;
-			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
-			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
-			this.tableLayoutPanel2.Controls.Add(this.MsxEMFCalculationMethodSelection, 1, 4);
-			this.tableLayoutPanel2.Controls.Add(this.LblEMFCalculationMethodSelection, 0, 4);
-			this.tableLayoutPanel2.Controls.Add(this.TbxPointChargeRapidity, 1, 0);
-			this.tableLayoutPanel2.Controls.Add(this.LblRadialDistance, 0, 1);
-			this.tableLayoutPanel2.Controls.Add(this.TbxRadialDistance, 1, 1);
-			this.tableLayoutPanel2.Controls.Add(this.LblStartEffectiveTime, 0, 2);
-			this.tableLayoutPanel2.Controls.Add(this.TbxStartEffectiveTime, 1, 2);
-			this.tableLayoutPanel2.Controls.Add(this.LblStopEffectiveTime, 0, 3);
-			this.tableLayoutPanel2.Controls.Add(this.TbxStopEffectiveTime, 1, 3);
-			this.tableLayoutPanel2.Controls.Add(this.LblPointChargeRapidity, 0, 0);
-			this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel2.Location = new System.Drawing.Point(10, 34);
-			this.tableLayoutPanel2.Name = "tableLayoutPanel2";
-			this.tableLayoutPanel2.RowCount = 5;
-			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
-			this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanel2.Size = new System.Drawing.Size(439, 166);
-			this.tableLayoutPanel2.TabIndex = 0;
+			this.LayoutSinglePointCharge.ColumnCount = 2;
+			this.LayoutSinglePointCharge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
+			this.LayoutSinglePointCharge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
+			this.LayoutSinglePointCharge.Controls.Add(this.MsxEMFCalculationMethodSelection, 1, 4);
+			this.LayoutSinglePointCharge.Controls.Add(this.LblEMFCalculationMethodSelection, 0, 4);
+			this.LayoutSinglePointCharge.Controls.Add(this.TbxPointChargeRapidity, 1, 0);
+			this.LayoutSinglePointCharge.Controls.Add(this.LblRadialDistance, 0, 1);
+			this.LayoutSinglePointCharge.Controls.Add(this.TbxRadialDistance, 1, 1);
+			this.LayoutSinglePointCharge.Controls.Add(this.LblStartEffectiveTime, 0, 2);
+			this.LayoutSinglePointCharge.Controls.Add(this.TbxStartEffectiveTime, 1, 2);
+			this.LayoutSinglePointCharge.Controls.Add(this.LblStopEffectiveTime, 0, 3);
+			this.LayoutSinglePointCharge.Controls.Add(this.TbxStopEffectiveTime, 1, 3);
+			this.LayoutSinglePointCharge.Controls.Add(this.LblPointChargeRapidity, 0, 0);
+			this.LayoutSinglePointCharge.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LayoutSinglePointCharge.Location = new System.Drawing.Point(10, 34);
+			this.LayoutSinglePointCharge.Name = "LayoutSinglePointCharge";
+			this.LayoutSinglePointCharge.RowCount = 5;
+			this.LayoutSinglePointCharge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutSinglePointCharge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutSinglePointCharge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutSinglePointCharge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutSinglePointCharge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
+			this.LayoutSinglePointCharge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.LayoutSinglePointCharge.Size = new System.Drawing.Size(439, 166);
+			this.LayoutSinglePointCharge.TabIndex = 0;
 			// 
 			// MsxEMFCalculationMethodSelection
 			// 
@@ -715,7 +715,7 @@
 			// 
 			// GbxOutput
 			// 
-			this.GbxOutput.Controls.Add(this.tableLayoutPanel1);
+			this.GbxOutput.Controls.Add(this.LayoutOutput);
 			this.GbxOutput.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.GbxOutput.Location = new System.Drawing.Point(10, 775);
 			this.GbxOutput.Margin = new System.Windows.Forms.Padding(10);
@@ -726,20 +726,20 @@
 			this.GbxOutput.TabStop = false;
 			this.GbxOutput.Text = "Output";
 			// 
-			// tableLayoutPanel1
+			// LayoutOutput
 			// 
-			this.tableLayoutPanel1.ColumnCount = 2;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
-			this.tableLayoutPanel1.Controls.Add(this.LblDataFileName, 0, 0);
-			this.tableLayoutPanel1.Controls.Add(this.TbxDataFileName, 1, 0);
-			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 34);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.RowCount = 1;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 16);
-			this.tableLayoutPanel1.TabIndex = 0;
+			this.LayoutOutput.ColumnCount = 2;
+			this.LayoutOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
+			this.LayoutOutput.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
+			this.LayoutOutput.Controls.Add(this.LblDataFileName, 0, 0);
+			this.LayoutOutput.Controls.Add(this.TbxDataFileName, 1, 0);
+			this.LayoutOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LayoutOutput.Location = new System.Drawing.Point(10, 34);
+			this.LayoutOutput.Name = "LayoutOutput";
+			this.LayoutOutput.RowCount = 1;
+			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutOutput.Size = new System.Drawing.Size(439, 16);
+			this.LayoutOutput.TabIndex = 0;
 			// 
 			// LblDataFileName
 			// 
@@ -814,11 +814,11 @@
 			this.LayoutGeneralParameters.ResumeLayout(false);
 			this.LayoutGeneralParameters.PerformLayout();
 			this.GbxSinglePointCharge.ResumeLayout(false);
-			this.tableLayoutPanel2.ResumeLayout(false);
-			this.tableLayoutPanel2.PerformLayout();
+			this.LayoutSinglePointCharge.ResumeLayout(false);
+			this.LayoutSinglePointCharge.PerformLayout();
 			this.GbxOutput.ResumeLayout(false);
-			this.tableLayoutPanel1.ResumeLayout(false);
-			this.tableLayoutPanel1.PerformLayout();
+			this.LayoutOutput.ResumeLayout(false);
+			this.LayoutOutput.PerformLayout();
 			this.HSplit.Panel1.ResumeLayout(false);
 			this.HSplit.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.HSplit)).EndInit();
@@ -835,11 +835,11 @@
 		private System.Windows.Forms.RichTextBox CtrlTextBoxLog;
 		private Yburn.UI.StatusTrackingCtrl CtrlStatusTrackingCtrl;
 		private System.Windows.Forms.GroupBox GbxOutput;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.TableLayoutPanel LayoutOutput;
 		private System.Windows.Forms.Label LblDataFileName;
 		private System.Windows.Forms.TextBox TbxDataFileName;
 		private System.Windows.Forms.GroupBox GbxSinglePointCharge;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
+		private System.Windows.Forms.TableLayoutPanel LayoutSinglePointCharge;
 		private System.Windows.Forms.Label LblRadialDistance;
 		private System.Windows.Forms.TextBox TbxRadialDistance;
 		private System.Windows.Forms.Label LblStartEffectiveTime;

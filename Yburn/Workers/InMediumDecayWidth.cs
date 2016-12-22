@@ -56,9 +56,9 @@ namespace Yburn.Workers
 			{
 				return typeof(DecayWidthType);
 			}
-			else if(enumName == "EMFDipoleInteractionType")
+			else if(enumName == "EMFDipoleAlignmentType")
 			{
-				return typeof(EMFDipoleInteractionType);
+				return typeof(EMFDipoleAlignmentType);
 			}
 			else if(enumName == "PotentialType")
 			{
@@ -77,7 +77,7 @@ namespace Yburn.Workers
 				QGPFormationTemperature, NumberAveragingAngles);
 
 			return printer.GetList(DopplerShiftEvaluationTypes,
-				ElectricDipoleInteractionType, MagneticDipoleInteractionType,
+				ElectricDipoleAlignmentType, MagneticDipoleAlignmentType,
 				MediumTemperatures, MediumVelocities, ElectricFieldStrength, MagneticFieldStrength);
 		}
 

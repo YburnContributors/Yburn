@@ -69,8 +69,8 @@ namespace Yburn.Workers
 			LinearInterpolation1D interpolatedEnergies,
 			LinearInterpolation1D interpolatedRadiusRMS,
 			DopplerShiftEvaluationType dopplerShiftEvaluationType,
-			EMFDipoleInteractionType electricDipoleInteractionType,
-			EMFDipoleInteractionType magneticDipoleInteractionType,
+			EMFDipoleAlignmentType electricDipoleAlignmentType,
+			EMFDipoleAlignmentType magneticDipoleAlignmentType,
 			double qgpFormationTemperature,
 			int numberAveragingAngles
 			)
@@ -80,8 +80,8 @@ namespace Yburn.Workers
 			InterpolatedRadiusRMS = interpolatedRadiusRMS;
 
 			DopplerShiftEvaluationType = dopplerShiftEvaluationType;
-			ElectricDipoleInteractionType = electricDipoleInteractionType;
-			MagneticDipoleInteractionType = magneticDipoleInteractionType;
+			ElectricDipoleAlignmentType = electricDipoleAlignmentType;
+			MagneticDipoleAlignmentType = magneticDipoleAlignmentType;
 
 			QGPFormationTemperature = qgpFormationTemperature;
 			NumberAveragingAngles = numberAveragingAngles;
@@ -170,46 +170,46 @@ namespace Yburn.Workers
 			double B = 0;
 			double C = 0;
 
-			switch(ElectricDipoleInteractionType)
+			switch(ElectricDipoleAlignmentType)
 			{
-				case EMFDipoleInteractionType.None:
+				case EMFDipoleAlignmentType.None:
 					break;
 
-				case EMFDipoleInteractionType.FieldAlignedDipoles_MinimizeEnergy:
+				case EMFDipoleAlignmentType.MinimizeEnergy:
 					A += GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
 					break;
 
-				case EMFDipoleInteractionType.FieldAlignedDipoles_MaximizeEnergy:
+				case EMFDipoleAlignmentType.MaximizeEnergy:
 					A -= GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
 					break;
 
-				case EMFDipoleInteractionType.StatisticallyDistributedDipoles:
+				case EMFDipoleAlignmentType.StatisticallyDistributed:
 					B = GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
 					break;
 
 				default:
-					throw new Exception("Invalid ElectricDipoleInteractionType.");
+					throw new Exception("Invalid ElectricDipoleAlignmentType.");
 			}
 
-			switch(MagneticDipoleInteractionType)
+			switch(MagneticDipoleAlignmentType)
 			{
-				case EMFDipoleInteractionType.None:
+				case EMFDipoleAlignmentType.None:
 					break;
 
-				case EMFDipoleInteractionType.FieldAlignedDipoles_MinimizeEnergy:
+				case EMFDipoleAlignmentType.MinimizeEnergy:
 					A += GetAbsoluteMagneticPotentialEnergy(magneticFieldStrength);
 					break;
 
-				case EMFDipoleInteractionType.FieldAlignedDipoles_MaximizeEnergy:
+				case EMFDipoleAlignmentType.MaximizeEnergy:
 					A -= GetAbsoluteMagneticPotentialEnergy(magneticFieldStrength);
 					break;
 
-				case EMFDipoleInteractionType.StatisticallyDistributedDipoles:
+				case EMFDipoleAlignmentType.StatisticallyDistributed:
 					C = GetAbsoluteMagneticPotentialEnergy(magneticFieldStrength);
 					break;
 
 				default:
-					throw new Exception("Invalid MagneticDipoleInteractionType.");
+					throw new Exception("Invalid MagneticDipoleAlignmentType.");
 			}
 
 			return Functions.AveragedHeavisideStepFunctionWithLinearArgument(A, B, C);
@@ -225,9 +225,9 @@ namespace Yburn.Workers
 
 		private readonly DopplerShiftEvaluationType DopplerShiftEvaluationType;
 
-		private readonly EMFDipoleInteractionType ElectricDipoleInteractionType;
+		private readonly EMFDipoleAlignmentType ElectricDipoleAlignmentType;
 
-		private readonly EMFDipoleInteractionType MagneticDipoleInteractionType;
+		private readonly EMFDipoleAlignmentType MagneticDipoleAlignmentType;
 
 		private readonly LinearInterpolation1D InterpolatedDecayWidths;
 

@@ -595,9 +595,9 @@ namespace Yburn.Workers
 			{
 				return typeof(EMFCalculationMethod);
 			}
-			else if(enumName == "EMFDipoleInteractionType")
+			else if(enumName == "EMFDipoleAlignmentType")
 			{
-				return typeof(EMFDipoleInteractionType);
+				return typeof(EMFDipoleAlignmentType);
 			}
 			else if(enumName == "ExpansionMode")
 			{
@@ -657,7 +657,7 @@ namespace Yburn.Workers
 			param.DiffusenessBFm = DiffusenessB;
 			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
 			param.EMFQuadratureOrder = EMFQuadratureOrder;
-			param.EMFRefreshIntervalFm = EMFRefreshInterval;
+			param.EMFUpdateIntervalFm = EMFUpdateInterval;
 			param.ExpansionMode = ExpansionMode;
 			param.FormationTimesFm = FormationTimes;
 			param.GridCellSizeFm = GridCellSize;
@@ -692,8 +692,8 @@ namespace Yburn.Workers
 				QQDataPathFile,
 				PotentialTypes,
 				DopplerShiftEvaluationType,
-				ElectricDipoleInteractionType,
-				MagneticDipoleInteractionType,
+				ElectricDipoleAlignmentType,
+				MagneticDipoleAlignmentType,
 				DecayWidthType,
 				QGPFormationTemperature,
 				NumberAveragingAngles);

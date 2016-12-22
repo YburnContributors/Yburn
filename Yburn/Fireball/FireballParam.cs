@@ -294,15 +294,15 @@ namespace Yburn.Fireball
 			}
 		}
 
-		public double EMFRefreshIntervalFm
+		public double EMFUpdateIntervalFm
 		{
 			get
 			{
-				return EMFRefreshIntervalFm_Nullable.Value;
+				return EMFUpdateIntervalFm_Nullable.Value;
 			}
 			set
 			{
-				EMFRefreshIntervalFm_Nullable = value;
+				EMFUpdateIntervalFm_Nullable = value;
 			}
 		}
 
@@ -423,7 +423,7 @@ namespace Yburn.Fireball
 			param.DiffusenessBFm_Nullable = DiffusenessBFm_Nullable;
 			param.EMFCalculationMethod_Nullable = EMFCalculationMethod_Nullable;
 			param.EMFQuadratureOrder_Nullable = EMFQuadratureOrder_Nullable;
-			param.EMFRefreshIntervalFm_Nullable = EMFRefreshIntervalFm_Nullable;
+			param.EMFUpdateIntervalFm_Nullable = EMFUpdateIntervalFm_Nullable;
 			param.ExpansionMode_Nullable = ExpansionMode_Nullable;
 			param.FormationTimesFm_Nullable = FormationTimesFm_Nullable;
 			param.GridCellSizeFm_Nullable = GridCellSizeFm_Nullable;
@@ -534,7 +534,7 @@ namespace Yburn.Fireball
 
 		private int? EMFQuadratureOrder_Nullable;
 
-		private double? EMFRefreshIntervalFm_Nullable;
+		private double? EMFUpdateIntervalFm_Nullable;
 
 		private NucleusShape? NucleusShapeA_Nullable;
 

@@ -31,17 +31,17 @@
 			this.VSplit = new System.Windows.Forms.SplitContainer();
 			this.LayoutBottom = new System.Windows.Forms.TableLayoutPanel();
 			this.GbxElectromagnetics = new System.Windows.Forms.GroupBox();
-			this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-			this.CbxMagneticDipoleInteractionType = new System.Windows.Forms.ComboBox();
-			this.CbxElectricDipoleInteractionType = new System.Windows.Forms.ComboBox();
-			this.LblMagneticDipoleInteractionType = new System.Windows.Forms.Label();
-			this.LblElectricDipoleInteractionType = new System.Windows.Forms.Label();
+			this.LayoutElectromagnetics = new System.Windows.Forms.TableLayoutPanel();
+			this.CbxMagneticDipoleAlignmentType = new System.Windows.Forms.ComboBox();
+			this.CbxElectricDipoleAlignmentType = new System.Windows.Forms.ComboBox();
+			this.LblMagneticDipoleAlignmentType = new System.Windows.Forms.Label();
+			this.LblElectricDipoleAlignmentType = new System.Windows.Forms.Label();
 			this.TbxQGPConductivity = new System.Windows.Forms.TextBox();
 			this.LblQGPConductivity = new System.Windows.Forms.Label();
 			this.TbxEMFQuadratureOrder = new System.Windows.Forms.TextBox();
 			this.LblEMFQuadratureOrder = new System.Windows.Forms.Label();
-			this.TbxEMFRefreshInterval = new System.Windows.Forms.TextBox();
-			this.LblEMFRefreshInterval = new System.Windows.Forms.Label();
+			this.TbxEMFUpdateInterval = new System.Windows.Forms.TextBox();
+			this.LblEMFUpdateInterval = new System.Windows.Forms.Label();
 			this.CbxEMFCalculationMethod = new System.Windows.Forms.ComboBox();
 			this.LblEMFCalculationMethod = new System.Windows.Forms.Label();
 			this.GbxQQStates = new System.Windows.Forms.GroupBox();
@@ -138,7 +138,7 @@
 			this.VSplit.SuspendLayout();
 			this.LayoutBottom.SuspendLayout();
 			this.GbxElectromagnetics.SuspendLayout();
-			this.tableLayoutPanel1.SuspendLayout();
+			this.LayoutElectromagnetics.SuspendLayout();
 			this.GbxQQStates.SuspendLayout();
 			this.LayoutQQStates.SuspendLayout();
 			this.GbxGlauber.SuspendLayout();
@@ -197,7 +197,7 @@
 			// 
 			// GbxElectromagnetics
 			// 
-			this.GbxElectromagnetics.Controls.Add(this.tableLayoutPanel1);
+			this.GbxElectromagnetics.Controls.Add(this.LayoutElectromagnetics);
 			this.GbxElectromagnetics.FlatStyle = System.Windows.Forms.FlatStyle.System;
 			this.GbxElectromagnetics.Location = new System.Drawing.Point(10, 645);
 			this.GbxElectromagnetics.Margin = new System.Windows.Forms.Padding(10);
@@ -208,76 +208,76 @@
 			this.GbxElectromagnetics.TabStop = false;
 			this.GbxElectromagnetics.Text = "Electromagnetics";
 			// 
-			// tableLayoutPanel1
+			// LayoutElectromagnetics
 			// 
-			this.tableLayoutPanel1.ColumnCount = 2;
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
-			this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
-			this.tableLayoutPanel1.Controls.Add(this.CbxMagneticDipoleInteractionType, 1, 1);
-			this.tableLayoutPanel1.Controls.Add(this.CbxElectricDipoleInteractionType, 1, 0);
-			this.tableLayoutPanel1.Controls.Add(this.LblMagneticDipoleInteractionType, 0, 1);
-			this.tableLayoutPanel1.Controls.Add(this.LblElectricDipoleInteractionType, 0, 0);
-			this.tableLayoutPanel1.Controls.Add(this.TbxQGPConductivity, 1, 5);
-			this.tableLayoutPanel1.Controls.Add(this.LblQGPConductivity, 0, 5);
-			this.tableLayoutPanel1.Controls.Add(this.TbxEMFQuadratureOrder, 1, 3);
-			this.tableLayoutPanel1.Controls.Add(this.LblEMFQuadratureOrder, 0, 3);
-			this.tableLayoutPanel1.Controls.Add(this.TbxEMFRefreshInterval, 1, 4);
-			this.tableLayoutPanel1.Controls.Add(this.LblEMFRefreshInterval, 0, 4);
-			this.tableLayoutPanel1.Controls.Add(this.CbxEMFCalculationMethod, 1, 2);
-			this.tableLayoutPanel1.Controls.Add(this.LblEMFCalculationMethod, 0, 2);
-			this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.tableLayoutPanel1.Location = new System.Drawing.Point(10, 34);
-			this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-			this.tableLayoutPanel1.RowCount = 6;
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.tableLayoutPanel1.Size = new System.Drawing.Size(439, 141);
-			this.tableLayoutPanel1.TabIndex = 0;
+			this.LayoutElectromagnetics.ColumnCount = 2;
+			this.LayoutElectromagnetics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
+			this.LayoutElectromagnetics.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
+			this.LayoutElectromagnetics.Controls.Add(this.CbxMagneticDipoleAlignmentType, 1, 1);
+			this.LayoutElectromagnetics.Controls.Add(this.CbxElectricDipoleAlignmentType, 1, 0);
+			this.LayoutElectromagnetics.Controls.Add(this.LblMagneticDipoleAlignmentType, 0, 1);
+			this.LayoutElectromagnetics.Controls.Add(this.LblElectricDipoleAlignmentType, 0, 0);
+			this.LayoutElectromagnetics.Controls.Add(this.TbxQGPConductivity, 1, 5);
+			this.LayoutElectromagnetics.Controls.Add(this.LblQGPConductivity, 0, 5);
+			this.LayoutElectromagnetics.Controls.Add(this.TbxEMFQuadratureOrder, 1, 3);
+			this.LayoutElectromagnetics.Controls.Add(this.LblEMFQuadratureOrder, 0, 3);
+			this.LayoutElectromagnetics.Controls.Add(this.TbxEMFUpdateInterval, 1, 4);
+			this.LayoutElectromagnetics.Controls.Add(this.LblEMFUpdateInterval, 0, 4);
+			this.LayoutElectromagnetics.Controls.Add(this.CbxEMFCalculationMethod, 1, 2);
+			this.LayoutElectromagnetics.Controls.Add(this.LblEMFCalculationMethod, 0, 2);
+			this.LayoutElectromagnetics.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LayoutElectromagnetics.Location = new System.Drawing.Point(10, 34);
+			this.LayoutElectromagnetics.Name = "LayoutElectromagnetics";
+			this.LayoutElectromagnetics.RowCount = 6;
+			this.LayoutElectromagnetics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutElectromagnetics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutElectromagnetics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutElectromagnetics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutElectromagnetics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutElectromagnetics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+			this.LayoutElectromagnetics.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+			this.LayoutElectromagnetics.Size = new System.Drawing.Size(439, 141);
+			this.LayoutElectromagnetics.TabIndex = 0;
 			// 
-			// CbxMagneticDipoleInteractionType
+			// CbxMagneticDipoleAlignmentType
 			// 
-			this.CbxMagneticDipoleInteractionType.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CbxMagneticDipoleInteractionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.CbxMagneticDipoleInteractionType.Location = new System.Drawing.Point(244, 28);
-			this.CbxMagneticDipoleInteractionType.Name = "CbxMagneticDipoleInteractionType";
-			this.CbxMagneticDipoleInteractionType.Size = new System.Drawing.Size(192, 33);
-			this.CbxMagneticDipoleInteractionType.TabIndex = 0;
+			this.CbxMagneticDipoleAlignmentType.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.CbxMagneticDipoleAlignmentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.CbxMagneticDipoleAlignmentType.Location = new System.Drawing.Point(244, 28);
+			this.CbxMagneticDipoleAlignmentType.Name = "CbxMagneticDipoleAlignmentType";
+			this.CbxMagneticDipoleAlignmentType.Size = new System.Drawing.Size(192, 33);
+			this.CbxMagneticDipoleAlignmentType.TabIndex = 0;
 			// 
-			// CbxElectricDipoleInteractionType
+			// CbxElectricDipoleAlignmentType
 			// 
-			this.CbxElectricDipoleInteractionType.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.CbxElectricDipoleInteractionType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.CbxElectricDipoleInteractionType.Location = new System.Drawing.Point(244, 3);
-			this.CbxElectricDipoleInteractionType.Name = "CbxElectricDipoleInteractionType";
-			this.CbxElectricDipoleInteractionType.Size = new System.Drawing.Size(192, 33);
-			this.CbxElectricDipoleInteractionType.TabIndex = 0;
+			this.CbxElectricDipoleAlignmentType.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.CbxElectricDipoleAlignmentType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.CbxElectricDipoleAlignmentType.Location = new System.Drawing.Point(244, 3);
+			this.CbxElectricDipoleAlignmentType.Name = "CbxElectricDipoleAlignmentType";
+			this.CbxElectricDipoleAlignmentType.Size = new System.Drawing.Size(192, 33);
+			this.CbxElectricDipoleAlignmentType.TabIndex = 0;
 			// 
-			// LblMagneticDipoleInteractionType
+			// LblMagneticDipoleAlignmentType
 			// 
-			this.LblMagneticDipoleInteractionType.AutoSize = true;
-			this.LblMagneticDipoleInteractionType.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblMagneticDipoleInteractionType.Location = new System.Drawing.Point(3, 25);
-			this.LblMagneticDipoleInteractionType.Name = "LblMagneticDipoleInteractionType";
-			this.LblMagneticDipoleInteractionType.Size = new System.Drawing.Size(235, 25);
-			this.LblMagneticDipoleInteractionType.TabIndex = 0;
-			this.LblMagneticDipoleInteractionType.Text = "MagneticDipoleInteractionType";
-			this.LblMagneticDipoleInteractionType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblMagneticDipoleAlignmentType.AutoSize = true;
+			this.LblMagneticDipoleAlignmentType.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblMagneticDipoleAlignmentType.Location = new System.Drawing.Point(3, 25);
+			this.LblMagneticDipoleAlignmentType.Name = "LblMagneticDipoleAlignmentType";
+			this.LblMagneticDipoleAlignmentType.Size = new System.Drawing.Size(235, 25);
+			this.LblMagneticDipoleAlignmentType.TabIndex = 0;
+			this.LblMagneticDipoleAlignmentType.Text = "MagneticDipoleAlignmentType";
+			this.LblMagneticDipoleAlignmentType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// LblElectricDipoleInteractionType
+			// LblElectricDipoleAlignmentType
 			// 
-			this.LblElectricDipoleInteractionType.AutoSize = true;
-			this.LblElectricDipoleInteractionType.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblElectricDipoleInteractionType.Location = new System.Drawing.Point(3, 0);
-			this.LblElectricDipoleInteractionType.Name = "LblElectricDipoleInteractionType";
-			this.LblElectricDipoleInteractionType.Size = new System.Drawing.Size(235, 25);
-			this.LblElectricDipoleInteractionType.TabIndex = 0;
-			this.LblElectricDipoleInteractionType.Text = "ElectricDipoleInteractionType";
-			this.LblElectricDipoleInteractionType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblElectricDipoleAlignmentType.AutoSize = true;
+			this.LblElectricDipoleAlignmentType.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblElectricDipoleAlignmentType.Location = new System.Drawing.Point(3, 0);
+			this.LblElectricDipoleAlignmentType.Name = "LblElectricDipoleAlignmentType";
+			this.LblElectricDipoleAlignmentType.Size = new System.Drawing.Size(235, 25);
+			this.LblElectricDipoleAlignmentType.TabIndex = 0;
+			this.LblElectricDipoleAlignmentType.Text = "ElectricDipoleAlignmentType";
+			this.LblElectricDipoleAlignmentType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// TbxQGPConductivity
 			// 
@@ -317,24 +317,24 @@
 			this.LblEMFQuadratureOrder.Text = "EMFQuadratureOrder";
 			this.LblEMFQuadratureOrder.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxEMFRefreshInterval
+			// TbxEMFUpdateInterval
 			// 
-			this.TbxEMFRefreshInterval.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxEMFRefreshInterval.Location = new System.Drawing.Point(244, 103);
-			this.TbxEMFRefreshInterval.Name = "TbxEMFRefreshInterval";
-			this.TbxEMFRefreshInterval.Size = new System.Drawing.Size(192, 31);
-			this.TbxEMFRefreshInterval.TabIndex = 0;
+			this.TbxEMFUpdateInterval.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxEMFUpdateInterval.Location = new System.Drawing.Point(244, 103);
+			this.TbxEMFUpdateInterval.Name = "TbxEMFUpdateInterval";
+			this.TbxEMFUpdateInterval.Size = new System.Drawing.Size(192, 31);
+			this.TbxEMFUpdateInterval.TabIndex = 0;
 			// 
-			// LblEMFRefreshInterval
+			// LblEMFUpdateInterval
 			// 
-			this.LblEMFRefreshInterval.AutoSize = true;
-			this.LblEMFRefreshInterval.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblEMFRefreshInterval.Location = new System.Drawing.Point(3, 100);
-			this.LblEMFRefreshInterval.Name = "LblEMFRefreshInterval";
-			this.LblEMFRefreshInterval.Size = new System.Drawing.Size(235, 25);
-			this.LblEMFRefreshInterval.TabIndex = 0;
-			this.LblEMFRefreshInterval.Text = "EMFRefreshInterval (fm/c)";
-			this.LblEMFRefreshInterval.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblEMFUpdateInterval.AutoSize = true;
+			this.LblEMFUpdateInterval.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblEMFUpdateInterval.Location = new System.Drawing.Point(3, 100);
+			this.LblEMFUpdateInterval.Name = "LblEMFUpdateInterval";
+			this.LblEMFUpdateInterval.Size = new System.Drawing.Size(235, 25);
+			this.LblEMFUpdateInterval.TabIndex = 0;
+			this.LblEMFUpdateInterval.Text = "EMFUpdateInterval (fm/c)";
+			this.LblEMFUpdateInterval.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// CbxEMFCalculationMethod
 			// 
@@ -1367,8 +1367,8 @@
 			this.VSplit.ResumeLayout(false);
 			this.LayoutBottom.ResumeLayout(false);
 			this.GbxElectromagnetics.ResumeLayout(false);
-			this.tableLayoutPanel1.ResumeLayout(false);
-			this.tableLayoutPanel1.PerformLayout();
+			this.LayoutElectromagnetics.ResumeLayout(false);
+			this.LayoutElectromagnetics.PerformLayout();
 			this.GbxQQStates.ResumeLayout(false);
 			this.LayoutQQStates.ResumeLayout(false);
 			this.LayoutQQStates.PerformLayout();
@@ -1482,18 +1482,18 @@
 		private System.Windows.Forms.Label LblInelasticppCrossSectionFm;
 		private System.Windows.Forms.TextBox TbxInelasticppCrossSection;
 		private System.Windows.Forms.GroupBox GbxElectromagnetics;
-		private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
+		private System.Windows.Forms.TableLayoutPanel LayoutElectromagnetics;
 		private System.Windows.Forms.Label LblEMFCalculationMethod;
 		private System.Windows.Forms.ComboBox CbxEMFCalculationMethod;
-		private System.Windows.Forms.TextBox TbxEMFRefreshInterval;
-		private System.Windows.Forms.Label LblEMFRefreshInterval;
+		private System.Windows.Forms.TextBox TbxEMFUpdateInterval;
+		private System.Windows.Forms.Label LblEMFUpdateInterval;
 		private System.Windows.Forms.Label LblEMFQuadratureOrder;
 		private System.Windows.Forms.TextBox TbxEMFQuadratureOrder;
 		private System.Windows.Forms.Label LblQGPConductivity;
 		private System.Windows.Forms.TextBox TbxQGPConductivity;
-		private System.Windows.Forms.ComboBox CbxMagneticDipoleInteractionType;
-		private System.Windows.Forms.ComboBox CbxElectricDipoleInteractionType;
-		private System.Windows.Forms.Label LblMagneticDipoleInteractionType;
-		private System.Windows.Forms.Label LblElectricDipoleInteractionType;
+		private System.Windows.Forms.ComboBox CbxMagneticDipoleAlignmentType;
+		private System.Windows.Forms.ComboBox CbxElectricDipoleAlignmentType;
+		private System.Windows.Forms.Label LblMagneticDipoleAlignmentType;
+		private System.Windows.Forms.Label LblElectricDipoleAlignmentType;
 	}
 }

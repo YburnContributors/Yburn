@@ -15,7 +15,7 @@ namespace Yburn.Fireball
 				= (tau, x, y) => emf.CalculateElectricFieldPerFm2_LCF(tau, x, y, 2.7).Norm;
 
 			return new FireballElectromagneticField(FireballFieldType.ElectricFieldStrength,
-				xAxis, yAxis, fieldFunction, param.EMFRefreshIntervalFm);
+				xAxis, yAxis, fieldFunction, param.EMFUpdateIntervalFm);
 		}
 
 		public static FireballElectromagneticField CreateFireballMagneticField(
@@ -29,7 +29,7 @@ namespace Yburn.Fireball
 				= (tau, x, y) => emf.CalculateMagneticFieldPerFm2_LCF(tau, x, y, 2.7).Norm;
 
 			return new FireballElectromagneticField(FireballFieldType.MagneticFieldStrength,
-				xAxis, yAxis, fieldFunction, param.EMFRefreshIntervalFm);
+				xAxis, yAxis, fieldFunction, param.EMFUpdateIntervalFm);
 		}
 
 		public static FireballElectromagneticField CreateZeroField(
@@ -53,14 +53,14 @@ namespace Yburn.Fireball
 			double[] xAxis,
 			double[] yAxis,
 			Func<double, double, double, double> fieldFunction,
-			double fieldRefreshInterval
+			double fieldUpdateInterval
 			) : base(type, xAxis, yAxis, (x, y) => 0)
 		{
 			XAxis = xAxis;
 			YAxis = yAxis;
 			FieldFunction = fieldFunction;
 
-			RefreshInterval = fieldRefreshInterval;
+			UpdateInterval = fieldUpdateInterval;
 			CurrentTime = 0;
 		}
 
@@ -72,7 +72,7 @@ namespace Yburn.Fireball
 			double newTime
 			)
 		{
-			if(Math.Abs(newTime - CurrentTime) >= RefreshInterval)
+			if(Math.Abs(newTime - CurrentTime) >= UpdateInterval)
 			{
 				SimpleFireballFieldContinuousFunction function
 					= (x, y) => FieldFunction(newTime, x, y);
@@ -92,7 +92,7 @@ namespace Yburn.Fireball
 
 		protected readonly Func<double, double, double, double> FieldFunction;
 
-		private readonly double RefreshInterval;
+		private readonly double UpdateInterval;
 
 		private double CurrentTime;
 	}
