@@ -167,7 +167,7 @@
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.LayoutBottom.Size = new System.Drawing.Size(1182, 607);
-			this.LayoutBottom.TabIndex = 2;
+			this.LayoutBottom.TabIndex = 0;
 			// 
 			// YburnConfigDataBox
 			// 
@@ -178,7 +178,7 @@
 			this.YburnConfigDataBox.OutputPath = "";
 			this.YburnConfigDataBox.QQDataPathFile = "";
 			this.YburnConfigDataBox.Size = new System.Drawing.Size(600, 90);
-			this.YburnConfigDataBox.TabIndex = 1;
+			this.YburnConfigDataBox.TabIndex = 0;
 			// 
 			// QQonFirePanel
 			// 

@@ -35,21 +35,27 @@ namespace Yburn.Workers
 		 ********************************************************************************************/
 
 		public string GetList(
+			List<DopplerShiftEvaluationType> dopplerShiftEvaluationTypes,
+			EMFDipoleInteractionType electricDipoleInteractionType,
+			EMFDipoleInteractionType magneticDipoleInteractionType,
 			List<double> mediumTemperatures,
 			List<double> mediumVelocities,
-			List<DopplerShiftEvaluationType> evaluationTypes
+			double electricField,
+			double magneticField
 			)
 		{
-			if(evaluationTypes == null || evaluationTypes.Count < 1)
+			if(dopplerShiftEvaluationTypes == null || dopplerShiftEvaluationTypes.Count < 1)
 			{
 				throw new Exception("No DopplerShiftEvaluationTypes specified.");
 			}
 
 			StringBuilder builder = new StringBuilder();
 
-			foreach(DopplerShiftEvaluationType evaluationType in evaluationTypes)
+			foreach(DopplerShiftEvaluationType evaluationType in dopplerShiftEvaluationTypes)
 			{
-				builder.Append(GetList(mediumTemperatures, mediumVelocities, evaluationType));
+				builder.Append(GetList(
+					evaluationType, electricDipoleInteractionType, magneticDipoleInteractionType,
+					mediumTemperatures, mediumVelocities, electricField, magneticField));
 				builder.AppendLine();
 				builder.AppendLine();
 			}
@@ -74,29 +80,39 @@ namespace Yburn.Workers
 		private readonly int NumberAveragingAngles;
 
 		private QQDataProvider CreateQQDataProvider(
-			DopplerShiftEvaluationType evaluationType
+			DopplerShiftEvaluationType dopplerShiftEvaluationType,
+			EMFDipoleInteractionType electricDipoleInteractionType,
+			EMFDipoleInteractionType magneticDipoleInteractionType
 			)
 		{
 			return new QQDataProvider(
 				DataPathFile,
 				PotentialTypes,
-				evaluationType,
+				dopplerShiftEvaluationType,
+				electricDipoleInteractionType,
+				magneticDipoleInteractionType,
 				DecayWidthType,
 				QGPFormationTemperature,
 				NumberAveragingAngles);
 		}
 
 		private string GetList(
+			DopplerShiftEvaluationType dopplerShiftEvaluationType,
+			EMFDipoleInteractionType electricDipoleInteractionType,
+			EMFDipoleInteractionType magneticDipoleInteractionType,
 			List<double> mediumTemperatures,
 			List<double> mediumVelocities,
-			DopplerShiftEvaluationType evaluationType
+			double electricField,
+			double magneticField
 			)
 		{
-			QQDataProvider provider = CreateQQDataProvider(evaluationType);
+			QQDataProvider provider = CreateQQDataProvider(dopplerShiftEvaluationType,
+				electricDipoleInteractionType, magneticDipoleInteractionType);
 
 			StringBuilder list = new StringBuilder();
-			AppendHeader(list, evaluationType);
-			AppendDataLines(list, mediumTemperatures, mediumVelocities, provider);
+			AppendHeader(list, dopplerShiftEvaluationType);
+			AppendDataLines(
+				list, mediumTemperatures, mediumVelocities, electricField, magneticField, provider);
 
 			return list.ToString();
 		}
@@ -131,6 +147,8 @@ namespace Yburn.Workers
 			StringBuilder list,
 			List<double> mediumTemperatures,
 			List<double> mediumVelocities,
+			double electricField,
+			double magneticField,
 			QQDataProvider provider
 			)
 		{
@@ -138,7 +156,8 @@ namespace Yburn.Workers
 			{
 				foreach(double velocity in mediumVelocities)
 				{
-					AppendDataLine(list, temperature, velocity, provider);
+					AppendDataLine(
+						list, temperature, velocity, electricField, magneticField, provider);
 				}
 				if((mediumTemperatures.Count > 1) && (mediumVelocities.Count > 1))
 				{
@@ -151,6 +170,8 @@ namespace Yburn.Workers
 			StringBuilder list,
 			double temperature,
 			double velocity,
+			double electricField,
+			double magneticField,
 			QQDataProvider provider
 			)
 		{
@@ -158,7 +179,8 @@ namespace Yburn.Workers
 			list.AppendFormat("{0,-20}", velocity.ToUIString());
 			foreach(BottomiumState state in BottomiumStates)
 			{
-				AppendDecayWidthValue(list, state, temperature, velocity, provider);
+				AppendDecayWidthValue(
+					list, state, temperature, velocity, electricField, magneticField, provider);
 			}
 			list.AppendLine();
 		}
@@ -168,11 +190,13 @@ namespace Yburn.Workers
 			BottomiumState state,
 			double temperature,
 			double velocity,
+			double electricField,
+			double magneticField,
 			QQDataProvider provider
 			)
 		{
-			list.AppendFormat("{0,-20}",
-				provider.GetInMediumDecayWidth(state, temperature, velocity).ToUIString());
+			list.AppendFormat("{0,-20}", provider.GetInMediumDecayWidth(
+				state, temperature, velocity, electricField, magneticField).ToUIString());
 		}
 	}
 }

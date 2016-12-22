@@ -53,7 +53,7 @@ namespace Yburn.PhysUtil
 		{
 			get
 			{
-				return 0.5 * Math.Abs(ChargeBottomQuark) * HbarCMeVFm / RestMassBottomQuarkMeV;
+				return 0.5 * ChargeBottomQuark * HbarCMeVFm / RestMassBottomQuarkMeV;
 			}
 		}
 

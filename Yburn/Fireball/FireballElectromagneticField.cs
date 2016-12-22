@@ -72,7 +72,7 @@ namespace Yburn.Fireball
 			double newTime
 			)
 		{
-			if(Math.Abs(newTime - CurrentTime) > RefreshInterval)
+			if(Math.Abs(newTime - CurrentTime) >= RefreshInterval)
 			{
 				SimpleFireballFieldContinuousFunction function
 					= (x, y) => FieldFunction(newTime, x, y);

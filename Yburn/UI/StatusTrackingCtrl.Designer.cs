@@ -94,7 +94,7 @@
 			this.Label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.Label8.Name = "Label8";
 			this.Label8.Size = new System.Drawing.Size(142, 39);
-			this.Label8.TabIndex = 13;
+			this.Label8.TabIndex = 0;
 			// 
 			// Label7
 			// 
@@ -103,7 +103,7 @@
 			this.Label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.Label7.Name = "Label7";
 			this.Label7.Size = new System.Drawing.Size(0, 25);
-			this.Label7.TabIndex = 12;
+			this.Label7.TabIndex = 0;
 			// 
 			// Label6
 			// 
@@ -113,7 +113,7 @@
 			this.Label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.Label6.Name = "Label6";
 			this.Label6.Size = new System.Drawing.Size(142, 39);
-			this.Label6.TabIndex = 11;
+			this.Label6.TabIndex = 0;
 			// 
 			// Label5
 			// 
@@ -123,7 +123,7 @@
 			this.Label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.Label5.Name = "Label5";
 			this.Label5.Size = new System.Drawing.Size(142, 39);
-			this.Label5.TabIndex = 5;
+			this.Label5.TabIndex = 0;
 			// 
 			// Label4
 			// 
@@ -133,7 +133,7 @@
 			this.Label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.Label4.Name = "Label4";
 			this.Label4.Size = new System.Drawing.Size(142, 39);
-			this.Label4.TabIndex = 4;
+			this.Label4.TabIndex = 0;
 			// 
 			// Label3
 			// 
@@ -143,7 +143,7 @@
 			this.Label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.Label3.Name = "Label3";
 			this.Label3.Size = new System.Drawing.Size(142, 39);
-			this.Label3.TabIndex = 3;
+			this.Label3.TabIndex = 0;
 			// 
 			// Label2
 			// 
@@ -153,7 +153,7 @@
 			this.Label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
 			this.Label2.Name = "Label2";
 			this.Label2.Size = new System.Drawing.Size(142, 39);
-			this.Label2.TabIndex = 2;
+			this.Label2.TabIndex = 0;
 			// 
 			// Label1
 			// 
@@ -171,7 +171,7 @@
 			this.TextBox8.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.TextBox8.Name = "TextBox8";
 			this.TextBox8.Size = new System.Drawing.Size(139, 31);
-			this.TextBox8.TabIndex = 16;
+			this.TextBox8.TabIndex = 0;
 			this.TextBox8.Visible = false;
 			// 
 			// TextBox7
@@ -181,7 +181,7 @@
 			this.TextBox7.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.TextBox7.Name = "TextBox7";
 			this.TextBox7.Size = new System.Drawing.Size(142, 31);
-			this.TextBox7.TabIndex = 15;
+			this.TextBox7.TabIndex = 0;
 			this.TextBox7.Visible = false;
 			// 
 			// TextBox6
@@ -191,7 +191,7 @@
 			this.TextBox6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.TextBox6.Name = "TextBox6";
 			this.TextBox6.Size = new System.Drawing.Size(142, 31);
-			this.TextBox6.TabIndex = 14;
+			this.TextBox6.TabIndex = 0;
 			this.TextBox6.Visible = false;
 			// 
 			// TextBox5
@@ -201,7 +201,7 @@
 			this.TextBox5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.TextBox5.Name = "TextBox5";
 			this.TextBox5.Size = new System.Drawing.Size(142, 31);
-			this.TextBox5.TabIndex = 10;
+			this.TextBox5.TabIndex = 0;
 			this.TextBox5.Visible = false;
 			// 
 			// TextBox4
@@ -211,7 +211,7 @@
 			this.TextBox4.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.TextBox4.Name = "TextBox4";
 			this.TextBox4.Size = new System.Drawing.Size(142, 31);
-			this.TextBox4.TabIndex = 9;
+			this.TextBox4.TabIndex = 0;
 			this.TextBox4.Visible = false;
 			// 
 			// TextBox3
@@ -221,7 +221,7 @@
 			this.TextBox3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.TextBox3.Name = "TextBox3";
 			this.TextBox3.Size = new System.Drawing.Size(142, 31);
-			this.TextBox3.TabIndex = 8;
+			this.TextBox3.TabIndex = 0;
 			this.TextBox3.Visible = false;
 			// 
 			// TextBox2
@@ -231,7 +231,7 @@
 			this.TextBox2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.TextBox2.Name = "TextBox2";
 			this.TextBox2.Size = new System.Drawing.Size(142, 31);
-			this.TextBox2.TabIndex = 7;
+			this.TextBox2.TabIndex = 0;
 			this.TextBox2.Visible = false;
 			// 
 			// TextBox1
@@ -241,7 +241,7 @@
 			this.TextBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.TextBox1.Name = "TextBox1";
 			this.TextBox1.Size = new System.Drawing.Size(142, 31);
-			this.TextBox1.TabIndex = 6;
+			this.TextBox1.TabIndex = 0;
 			this.TextBox1.Visible = false;
 			// 
 			// StatusTrackingCtrl

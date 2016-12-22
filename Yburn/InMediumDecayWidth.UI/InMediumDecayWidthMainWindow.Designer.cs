@@ -172,7 +172,7 @@
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
 			this.tabPage2.Size = new System.Drawing.Size(981, 411);
-			this.tabPage2.TabIndex = 2;
+			this.tabPage2.TabIndex = 0;
 			this.tabPage2.Text = "InMediumDecayWidth";
 			this.tabPage2.UseVisualStyleBackColor = true;
 			// 
@@ -189,7 +189,7 @@
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.LayoutBottom.Size = new System.Drawing.Size(1182, 607);
-			this.LayoutBottom.TabIndex = 1;
+			this.LayoutBottom.TabIndex = 0;
 			// 
 			// InMediumDecayWidthPanel
 			// 
@@ -209,7 +209,7 @@
 			this.YburnConfigDataBox.OutputPath = "";
 			this.YburnConfigDataBox.QQDataPathFile = "";
 			this.YburnConfigDataBox.Size = new System.Drawing.Size(600, 90);
-			this.YburnConfigDataBox.TabIndex = 1;
+			this.YburnConfigDataBox.TabIndex = 0;
 			// 
 			// InMediumDecayWidthMainWindow
 			// 

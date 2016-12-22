@@ -81,18 +81,21 @@ namespace Yburn.Workers
 			string dataPathFile,
 			List<PotentialType> potentialTypes,
 			DopplerShiftEvaluationType dopplerShiftEvaluationType,
+			EMFDipoleInteractionType electricDipoleInteractionType,
+			EMFDipoleInteractionType magneticDipoleInteractionType,
 			DecayWidthType decayWidthType,
 			double qgpFormationTemperature,
 			int numberAveragingAngles
 			)
 		{
-			DataPathFile = dataPathFile;
-			PotentialTypes = potentialTypes;
 			DopplerShiftEvaluationType = dopplerShiftEvaluationType;
+			ElectricDipoleInteractionType = electricDipoleInteractionType;
+			MagneticDipoleInteractionType = magneticDipoleInteractionType;
 			DecayWidthType = decayWidthType;
 			QGPFormationTemperature = qgpFormationTemperature;
 			NumberAveragingAngles = numberAveragingAngles;
 
+			DataSets = InitializeDataSets(dataPathFile, potentialTypes);
 			DecayWidthAveragers = InitializeDecayWidthAveragers();
 		}
 
@@ -100,27 +103,37 @@ namespace Yburn.Workers
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
+		public DecayWidthAverager CreateDecayWidthAverager(
+			BottomiumState state
+			)
+		{
+			return new DecayWidthAverager(
+				CreateDecayWidthInterpolation(state),
+				CreateLinearInterpolationByTemperature(DataSets[state], QQDataColumn.Energy),
+				CreateLinearInterpolationByTemperature(DataSets[state], QQDataColumn.RadiusRMS),
+				DopplerShiftEvaluationType, ElectricDipoleInteractionType, MagneticDipoleInteractionType,
+				QGPFormationTemperature, NumberAveragingAngles);
+		}
+
 		public double GetInMediumDecayWidth(
 			BottomiumState state,
 			double temperature,
 			double velocity,
-			double electricFieldStrength = 0,
-			double magneticFieldStrength = 0
+			double electricField,
+			double magneticField
 			)
 		{
 			return DecayWidthAveragers[state].GetInMediumDecayWidth(
-				DopplerShiftEvaluationType, temperature, velocity, electricFieldStrength, magneticFieldStrength);
+				temperature, velocity, electricField, magneticField);
 		}
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private readonly string DataPathFile;
+		private readonly Dictionary<BottomiumState, List<QQDataSet>> DataSets;
 
 		private readonly DecayWidthType DecayWidthType;
-
-		private readonly List<PotentialType> PotentialTypes;
 
 		private readonly int NumberAveragingAngles;
 
@@ -128,26 +141,81 @@ namespace Yburn.Workers
 
 		private readonly DopplerShiftEvaluationType DopplerShiftEvaluationType;
 
+		private readonly EMFDipoleInteractionType ElectricDipoleInteractionType;
+
+		private readonly EMFDipoleInteractionType MagneticDipoleInteractionType;
+
 		private readonly Dictionary<BottomiumState, DecayWidthAverager> DecayWidthAveragers;
 
-		private LinearInterpolation1D GetLinearInterpolationByTemperature(
+		private Dictionary<BottomiumState, List<QQDataSet>> InitializeDataSets(
+			string dataPathFile,
+			List<PotentialType> potentialTypes
+			)
+		{
+			Dictionary<BottomiumState, List<QQDataSet>> dataSets
+				= new Dictionary<BottomiumState, List<QQDataSet>>();
+
+			foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
+			{
+				dataSets.Add(state, GetBoundStateDataSets(dataPathFile, potentialTypes, state));
+			}
+
+			return dataSets;
+		}
+
+		private LinearInterpolation1D CreateLinearInterpolationByTemperature(
 			List<QQDataSet> dataSets,
 			QQDataColumn dataColumn
 			)
 		{
-			IOrderedEnumerable<QQDataSet> orderedDataSets
-				= dataSets.OrderBy(dataSet => dataSet.Temperature);
-
 			List<double> temperature = new List<double>(dataSets.Capacity);
 			List<double> observable = new List<double>(dataSets.Capacity);
 
-			foreach(QQDataSet dataSet in orderedDataSets)
+			if(dataSets.Count > 0)
 			{
-				temperature.Add(dataSet.Temperature);
-				observable.Add(dataSet.GetData(dataColumn));
+				IOrderedEnumerable<QQDataSet> orderedDataSets
+					= dataSets.OrderBy(dataSet => dataSet.Temperature);
+
+				foreach(QQDataSet dataSet in orderedDataSets)
+				{
+					temperature.Add(dataSet.Temperature);
+					observable.Add(dataSet.GetData(dataColumn));
+				}
+			}
+			else
+			{
+				temperature.Add(0);
+				observable.Add(0);
 			}
 
 			return new LinearInterpolation1D(temperature.ToArray(), observable.ToArray());
+		}
+
+		private LinearInterpolation1D CreateDecayWidthInterpolation(
+			BottomiumState state
+			)
+		{
+			switch(DecayWidthType)
+			{
+				case DecayWidthType.None:
+					return CreateLinearInterpolationByTemperature(
+						DataSets[state], QQDataColumn.None);
+
+				case DecayWidthType.GammaDamp:
+					return CreateLinearInterpolationByTemperature(
+						DataSets[state], QQDataColumn.GammaDamp);
+
+				case DecayWidthType.GammaDiss:
+					return CreateLinearInterpolationByTemperature(
+						DataSets[state], QQDataColumn.GammaDiss);
+
+				case DecayWidthType.GammaTot:
+					return CreateLinearInterpolationByTemperature(
+						DataSets[state], QQDataColumn.GammaTot);
+
+				default:
+					throw new Exception("Invalid DecayWidthType.");
+			}
 		}
 
 		private Dictionary<BottomiumState, DecayWidthAverager> InitializeDecayWidthAveragers()
@@ -161,16 +229,6 @@ namespace Yburn.Workers
 			}
 
 			return averagers;
-		}
-
-		private DecayWidthAverager CreateDecayWidthAverager(
-			BottomiumState state
-			)
-		{
-			List<QQDataSet> dataSets = GetBoundStateDataSets(DataPathFile, PotentialTypes, state);
-
-			return new DecayWidthAverager(
-				dataSets, DecayWidthType, QGPFormationTemperature, NumberAveragingAngles);
 		}
 	}
 }

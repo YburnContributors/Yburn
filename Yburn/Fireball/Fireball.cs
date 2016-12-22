@@ -30,7 +30,7 @@ namespace Yburn.Fireball
 
 			InitXY();
 			InitV();
-			InitElectromagneticFieldStrengths();
+			InitElectromagneticFields();
 			InitTemperature();
 			InitDecayWidth();
 			InitDampingFactor();
@@ -448,17 +448,24 @@ namespace Yburn.Fireball
 				(i, j) => 0);
 		}
 
-		private void InitElectromagneticFieldStrengths()
+		private void InitElectromagneticFields()
 		{
-			if(Param.UseElectromagneticFields)
+			if(Param.UseElectricField)
 			{
 				ElectricField = FireballElectromagneticField.CreateFireballElectricField(Param, X, Y);
-				MagneticField = FireballElectromagneticField.CreateFireballMagneticField(Param, X, Y);
 			}
 			else
 			{
 				ElectricField = FireballElectromagneticField.CreateZeroField(
 					FireballFieldType.ElectricFieldStrength, X, Y);
+			}
+
+			if(Param.UseMagneticField)
+			{
+				MagneticField = FireballElectromagneticField.CreateFireballMagneticField(Param, X, Y);
+			}
+			else
+			{
 				MagneticField = FireballElectromagneticField.CreateZeroField(
 					FireballFieldType.MagneticFieldStrength, X, Y);
 			}

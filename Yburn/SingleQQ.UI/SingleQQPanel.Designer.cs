@@ -255,7 +255,7 @@
 			this.LblColorState.Location = new System.Drawing.Point(3, 0);
 			this.LblColorState.Name = "LblColorState";
 			this.LblColorState.Size = new System.Drawing.Size(202, 25);
-			this.LblColorState.TabIndex = 9;
+			this.LblColorState.TabIndex = 0;
 			this.LblColorState.Text = "ColorState";
 			this.LblColorState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -274,7 +274,7 @@
 			this.LblSpinState.Location = new System.Drawing.Point(3, 25);
 			this.LblSpinState.Name = "LblSpinState";
 			this.LblSpinState.Size = new System.Drawing.Size(202, 25);
-			this.LblSpinState.TabIndex = 41;
+			this.LblSpinState.TabIndex = 0;
 			this.LblSpinState.Text = "SpinState";
 			this.LblSpinState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -286,7 +286,7 @@
 			this.CbxSpinState.Location = new System.Drawing.Point(211, 28);
 			this.CbxSpinState.Name = "CbxSpinState";
 			this.CbxSpinState.Size = new System.Drawing.Size(165, 33);
-			this.CbxSpinState.TabIndex = 1;
+			this.CbxSpinState.TabIndex = 0;
 			// 
 			// LblPotentialType
 			// 
@@ -294,7 +294,7 @@
 			this.LblPotentialType.Location = new System.Drawing.Point(3, 50);
 			this.LblPotentialType.Name = "LblPotentialType";
 			this.LblPotentialType.Size = new System.Drawing.Size(202, 25);
-			this.LblPotentialType.TabIndex = 26;
+			this.LblPotentialType.TabIndex = 0;
 			this.LblPotentialType.Text = "PotentialType";
 			this.LblPotentialType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -306,7 +306,7 @@
 			this.CbxPotentialType.Location = new System.Drawing.Point(211, 53);
 			this.CbxPotentialType.Name = "CbxPotentialType";
 			this.CbxPotentialType.Size = new System.Drawing.Size(165, 33);
-			this.CbxPotentialType.TabIndex = 2;
+			this.CbxPotentialType.TabIndex = 0;
 			// 
 			// LblRunningCouplingType
 			// 
@@ -314,7 +314,7 @@
 			this.LblRunningCouplingType.Location = new System.Drawing.Point(3, 75);
 			this.LblRunningCouplingType.Name = "LblRunningCouplingType";
 			this.LblRunningCouplingType.Size = new System.Drawing.Size(202, 25);
-			this.LblRunningCouplingType.TabIndex = 28;
+			this.LblRunningCouplingType.TabIndex = 0;
 			this.LblRunningCouplingType.Text = "RunningCouplingType";
 			this.LblRunningCouplingType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -326,7 +326,7 @@
 			this.CbxRunningCouplingType.Location = new System.Drawing.Point(211, 78);
 			this.CbxRunningCouplingType.Name = "CbxRunningCouplingType";
 			this.CbxRunningCouplingType.Size = new System.Drawing.Size(165, 33);
-			this.CbxRunningCouplingType.TabIndex = 3;
+			this.CbxRunningCouplingType.TabIndex = 0;
 			// 
 			// LblQuantumNumberL
 			// 
@@ -334,7 +334,7 @@
 			this.LblQuantumNumberL.Location = new System.Drawing.Point(3, 100);
 			this.LblQuantumNumberL.Name = "LblQuantumNumberL";
 			this.LblQuantumNumberL.Size = new System.Drawing.Size(202, 25);
-			this.LblQuantumNumberL.TabIndex = 20;
+			this.LblQuantumNumberL.TabIndex = 0;
 			this.LblQuantumNumberL.Text = "QuantumNumberL";
 			this.LblQuantumNumberL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -344,7 +344,7 @@
 			this.TbxQuantumNumberL.Location = new System.Drawing.Point(211, 103);
 			this.TbxQuantumNumberL.Name = "TbxQuantumNumberL";
 			this.TbxQuantumNumberL.Size = new System.Drawing.Size(165, 31);
-			this.TbxQuantumNumberL.TabIndex = 4;
+			this.TbxQuantumNumberL.TabIndex = 0;
 			// 
 			// LblQuantumNumberN
 			// 
@@ -352,7 +352,7 @@
 			this.LblQuantumNumberN.Location = new System.Drawing.Point(3, 125);
 			this.LblQuantumNumberN.Name = "LblQuantumNumberN";
 			this.LblQuantumNumberN.Size = new System.Drawing.Size(202, 25);
-			this.LblQuantumNumberN.TabIndex = 22;
+			this.LblQuantumNumberN.TabIndex = 0;
 			this.LblQuantumNumberN.Text = "QuantumNumberN";
 			this.LblQuantumNumberN.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -362,7 +362,7 @@
 			this.TbxQuantumNumberN.Location = new System.Drawing.Point(211, 128);
 			this.TbxQuantumNumberN.Name = "TbxQuantumNumberN";
 			this.TbxQuantumNumberN.Size = new System.Drawing.Size(165, 31);
-			this.TbxQuantumNumberN.TabIndex = 5;
+			this.TbxQuantumNumberN.TabIndex = 0;
 			// 
 			// LblDataFileName
 			// 
@@ -370,7 +370,7 @@
 			this.LblDataFileName.Location = new System.Drawing.Point(3, 150);
 			this.LblDataFileName.Name = "LblDataFileName";
 			this.LblDataFileName.Size = new System.Drawing.Size(202, 25);
-			this.LblDataFileName.TabIndex = 24;
+			this.LblDataFileName.TabIndex = 0;
 			this.LblDataFileName.Text = "DataFileName";
 			this.LblDataFileName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -380,7 +380,7 @@
 			this.TbxDataFileName.Location = new System.Drawing.Point(211, 153);
 			this.TbxDataFileName.Name = "TbxDataFileName";
 			this.TbxDataFileName.Size = new System.Drawing.Size(165, 31);
-			this.TbxDataFileName.TabIndex = 6;
+			this.TbxDataFileName.TabIndex = 0;
 			// 
 			// LblSigma
 			// 
@@ -388,7 +388,7 @@
 			this.LblSigma.Location = new System.Drawing.Point(3, 175);
 			this.LblSigma.Name = "LblSigma";
 			this.LblSigma.Size = new System.Drawing.Size(202, 25);
-			this.LblSigma.TabIndex = 33;
+			this.LblSigma.TabIndex = 0;
 			this.LblSigma.Text = "Sigma (MeV^2)";
 			this.LblSigma.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -398,7 +398,7 @@
 			this.TbxSigma.Location = new System.Drawing.Point(211, 178);
 			this.TbxSigma.Name = "TbxSigma";
 			this.TbxSigma.Size = new System.Drawing.Size(165, 31);
-			this.TbxSigma.TabIndex = 7;
+			this.TbxSigma.TabIndex = 0;
 			// 
 			// LblTemperature
 			// 
@@ -406,7 +406,7 @@
 			this.LblTemperature.Location = new System.Drawing.Point(3, 200);
 			this.LblTemperature.Name = "LblTemperature";
 			this.LblTemperature.Size = new System.Drawing.Size(202, 25);
-			this.LblTemperature.TabIndex = 36;
+			this.LblTemperature.TabIndex = 0;
 			this.LblTemperature.Text = "Temperature (MeV)";
 			this.LblTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -416,7 +416,7 @@
 			this.TbxTemperature.Location = new System.Drawing.Point(211, 203);
 			this.TbxTemperature.Name = "TbxTemperature";
 			this.TbxTemperature.Size = new System.Drawing.Size(165, 31);
-			this.TbxTemperature.TabIndex = 8;
+			this.TbxTemperature.TabIndex = 0;
 			// 
 			// LblTchem
 			// 
@@ -424,7 +424,7 @@
 			this.LblTchem.Location = new System.Drawing.Point(3, 225);
 			this.LblTchem.Name = "LblTchem";
 			this.LblTchem.Size = new System.Drawing.Size(202, 25);
-			this.LblTchem.TabIndex = 37;
+			this.LblTchem.TabIndex = 0;
 			this.LblTchem.Text = "Tchem (MeV)";
 			this.LblTchem.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -434,7 +434,7 @@
 			this.TbxTchem.Location = new System.Drawing.Point(211, 228);
 			this.TbxTchem.Name = "TbxTchem";
 			this.TbxTchem.Size = new System.Drawing.Size(165, 31);
-			this.TbxTchem.TabIndex = 9;
+			this.TbxTchem.TabIndex = 0;
 			// 
 			// LblTcrit
 			// 
@@ -442,7 +442,7 @@
 			this.LblTcrit.Location = new System.Drawing.Point(3, 250);
 			this.LblTcrit.Name = "LblTcrit";
 			this.LblTcrit.Size = new System.Drawing.Size(202, 25);
-			this.LblTcrit.TabIndex = 38;
+			this.LblTcrit.TabIndex = 0;
 			this.LblTcrit.Text = "Tcrit (MeV)";
 			this.LblTcrit.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -452,7 +452,7 @@
 			this.TbxTcrit.Location = new System.Drawing.Point(211, 253);
 			this.TbxTcrit.Name = "TbxTcrit";
 			this.TbxTcrit.Size = new System.Drawing.Size(165, 31);
-			this.TbxTcrit.TabIndex = 10;
+			this.TbxTcrit.TabIndex = 0;
 			// 
 			// LblSpinCouplingRange
 			// 
@@ -460,7 +460,7 @@
 			this.LblSpinCouplingRange.Location = new System.Drawing.Point(3, 275);
 			this.LblSpinCouplingRange.Name = "LblSpinCouplingRange";
 			this.LblSpinCouplingRange.Size = new System.Drawing.Size(202, 25);
-			this.LblSpinCouplingRange.TabIndex = 39;
+			this.LblSpinCouplingRange.TabIndex = 0;
 			this.LblSpinCouplingRange.Text = "SpinCouplingRange (fm)";
 			this.LblSpinCouplingRange.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -470,7 +470,7 @@
 			this.TbxSpinCouplingRange.Location = new System.Drawing.Point(211, 278);
 			this.TbxSpinCouplingRange.Name = "TbxSpinCouplingRange";
 			this.TbxSpinCouplingRange.Size = new System.Drawing.Size(165, 31);
-			this.TbxSpinCouplingRange.TabIndex = 11;
+			this.TbxSpinCouplingRange.TabIndex = 0;
 			// 
 			// LblSpinCouplingStrength
 			// 
@@ -478,7 +478,7 @@
 			this.LblSpinCouplingStrength.Location = new System.Drawing.Point(3, 300);
 			this.LblSpinCouplingStrength.Name = "LblSpinCouplingStrength";
 			this.LblSpinCouplingStrength.Size = new System.Drawing.Size(202, 25);
-			this.LblSpinCouplingStrength.TabIndex = 40;
+			this.LblSpinCouplingStrength.TabIndex = 0;
 			this.LblSpinCouplingStrength.Text = "SpinCouplingStrength (MeV)";
 			this.LblSpinCouplingStrength.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -488,7 +488,7 @@
 			this.TbxSpinCouplingStrength.Location = new System.Drawing.Point(211, 303);
 			this.TbxSpinCouplingStrength.Name = "TbxSpinCouplingStrength";
 			this.TbxSpinCouplingStrength.Size = new System.Drawing.Size(165, 31);
-			this.TbxSpinCouplingStrength.TabIndex = 12;
+			this.TbxSpinCouplingStrength.TabIndex = 0;
 			// 
 			// GbxShooting
 			// 
@@ -498,7 +498,7 @@
 			this.GbxShooting.Name = "GbxShooting";
 			this.GbxShooting.Padding = new System.Windows.Forms.Padding(10);
 			this.GbxShooting.Size = new System.Drawing.Size(399, 335);
-			this.GbxShooting.TabIndex = 1;
+			this.GbxShooting.TabIndex = 0;
 			this.GbxShooting.TabStop = false;
 			this.GbxShooting.Text = "Shooting";
 			// 
@@ -556,7 +556,7 @@
 			this.LblUseFixedAlpha.Location = new System.Drawing.Point(3, 275);
 			this.LblUseFixedAlpha.Name = "LblUseFixedAlpha";
 			this.LblUseFixedAlpha.Size = new System.Drawing.Size(202, 25);
-			this.LblUseFixedAlpha.TabIndex = 36;
+			this.LblUseFixedAlpha.TabIndex = 0;
 			this.LblUseFixedAlpha.Text = "UseFixedAlpha";
 			this.LblUseFixedAlpha.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -576,7 +576,7 @@
 			this.LblAccuracyWaveFunction.Location = new System.Drawing.Point(3, 25);
 			this.LblAccuracyWaveFunction.Name = "LblAccuracyWaveFunction";
 			this.LblAccuracyWaveFunction.Size = new System.Drawing.Size(202, 25);
-			this.LblAccuracyWaveFunction.TabIndex = 1;
+			this.LblAccuracyWaveFunction.TabIndex = 0;
 			this.LblAccuracyWaveFunction.Text = "AccuracyWaveFunction";
 			this.LblAccuracyWaveFunction.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -586,7 +586,7 @@
 			this.LblAggressivenessAlpha.Location = new System.Drawing.Point(3, 50);
 			this.LblAggressivenessAlpha.Name = "LblAggressivenessAlpha";
 			this.LblAggressivenessAlpha.Size = new System.Drawing.Size(202, 25);
-			this.LblAggressivenessAlpha.TabIndex = 2;
+			this.LblAggressivenessAlpha.TabIndex = 0;
 			this.LblAggressivenessAlpha.Text = "AggressivenessAlpha";
 			this.LblAggressivenessAlpha.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -596,7 +596,7 @@
 			this.LblBoundMass.Location = new System.Drawing.Point(3, 75);
 			this.LblBoundMass.Name = "LblBoundMass";
 			this.LblBoundMass.Size = new System.Drawing.Size(202, 25);
-			this.LblBoundMass.TabIndex = 8;
+			this.LblBoundMass.TabIndex = 0;
 			this.LblBoundMass.Text = "BoundMass (MeV)";
 			this.LblBoundMass.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -606,7 +606,7 @@
 			this.LblEnergy.Location = new System.Drawing.Point(3, 100);
 			this.LblEnergy.Name = "LblEnergy";
 			this.LblEnergy.Size = new System.Drawing.Size(202, 25);
-			this.LblEnergy.TabIndex = 13;
+			this.LblEnergy.TabIndex = 0;
 			this.LblEnergy.Text = "Energy (MeV)";
 			this.LblEnergy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -616,7 +616,7 @@
 			this.LblGammaDamp.Location = new System.Drawing.Point(3, 125);
 			this.LblGammaDamp.Name = "LblGammaDamp";
 			this.LblGammaDamp.Size = new System.Drawing.Size(202, 25);
-			this.LblGammaDamp.TabIndex = 15;
+			this.LblGammaDamp.TabIndex = 0;
 			this.LblGammaDamp.Text = "GammaDamp (MeV)";
 			this.LblGammaDamp.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -626,7 +626,7 @@
 			this.LblMaxShootingTrials.Location = new System.Drawing.Point(3, 150);
 			this.LblMaxShootingTrials.Name = "LblMaxShootingTrials";
 			this.LblMaxShootingTrials.Size = new System.Drawing.Size(202, 25);
-			this.LblMaxShootingTrials.TabIndex = 21;
+			this.LblMaxShootingTrials.TabIndex = 0;
 			this.LblMaxShootingTrials.Text = "MaxShootingTrials";
 			this.LblMaxShootingTrials.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -636,7 +636,7 @@
 			this.LblQuarkMass.Location = new System.Drawing.Point(3, 175);
 			this.LblQuarkMass.Name = "LblQuarkMass";
 			this.LblQuarkMass.Size = new System.Drawing.Size(202, 25);
-			this.LblQuarkMass.TabIndex = 27;
+			this.LblQuarkMass.TabIndex = 0;
 			this.LblQuarkMass.Text = "QuarkMass (MeV)";
 			this.LblQuarkMass.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -646,7 +646,7 @@
 			this.LblMaxRadius.Location = new System.Drawing.Point(3, 200);
 			this.LblMaxRadius.Name = "LblMaxRadius";
 			this.LblMaxRadius.Size = new System.Drawing.Size(202, 25);
-			this.LblMaxRadius.TabIndex = 30;
+			this.LblMaxRadius.TabIndex = 0;
 			this.LblMaxRadius.Text = "MaxRadius (fm)";
 			this.LblMaxRadius.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -656,7 +656,7 @@
 			this.LblStepNumber.Location = new System.Drawing.Point(3, 225);
 			this.LblStepNumber.Name = "LblStepNumber";
 			this.LblStepNumber.Size = new System.Drawing.Size(202, 25);
-			this.LblStepNumber.TabIndex = 32;
+			this.LblStepNumber.TabIndex = 0;
 			this.LblStepNumber.Text = "StepNumber";
 			this.LblStepNumber.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -666,7 +666,7 @@
 			this.LblSoftScale.Location = new System.Drawing.Point(3, 250);
 			this.LblSoftScale.Name = "LblSoftScale";
 			this.LblSoftScale.Size = new System.Drawing.Size(202, 25);
-			this.LblSoftScale.TabIndex = 35;
+			this.LblSoftScale.TabIndex = 0;
 			this.LblSoftScale.Text = "SoftScale (MeV)";
 			this.LblSoftScale.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -676,7 +676,7 @@
 			this.TbxAccuracyAlpha.Location = new System.Drawing.Point(211, 3);
 			this.TbxAccuracyAlpha.Name = "TbxAccuracyAlpha";
 			this.TbxAccuracyAlpha.Size = new System.Drawing.Size(165, 31);
-			this.TbxAccuracyAlpha.TabIndex = 13;
+			this.TbxAccuracyAlpha.TabIndex = 0;
 			// 
 			// TbxAccuracyWaveFunction
 			// 
@@ -684,7 +684,7 @@
 			this.TbxAccuracyWaveFunction.Location = new System.Drawing.Point(211, 28);
 			this.TbxAccuracyWaveFunction.Name = "TbxAccuracyWaveFunction";
 			this.TbxAccuracyWaveFunction.Size = new System.Drawing.Size(165, 31);
-			this.TbxAccuracyWaveFunction.TabIndex = 14;
+			this.TbxAccuracyWaveFunction.TabIndex = 0;
 			// 
 			// TbxAggressivenessAlpha
 			// 
@@ -692,7 +692,7 @@
 			this.TbxAggressivenessAlpha.Location = new System.Drawing.Point(211, 53);
 			this.TbxAggressivenessAlpha.Name = "TbxAggressivenessAlpha";
 			this.TbxAggressivenessAlpha.Size = new System.Drawing.Size(165, 31);
-			this.TbxAggressivenessAlpha.TabIndex = 14;
+			this.TbxAggressivenessAlpha.TabIndex = 0;
 			// 
 			// TbxBoundMass
 			// 
@@ -700,7 +700,7 @@
 			this.TbxBoundMass.Location = new System.Drawing.Point(211, 78);
 			this.TbxBoundMass.Name = "TbxBoundMass";
 			this.TbxBoundMass.Size = new System.Drawing.Size(165, 31);
-			this.TbxBoundMass.TabIndex = 15;
+			this.TbxBoundMass.TabIndex = 0;
 			// 
 			// TbxEnergy
 			// 
@@ -708,7 +708,7 @@
 			this.TbxEnergy.Location = new System.Drawing.Point(211, 103);
 			this.TbxEnergy.Name = "TbxEnergy";
 			this.TbxEnergy.Size = new System.Drawing.Size(165, 31);
-			this.TbxEnergy.TabIndex = 16;
+			this.TbxEnergy.TabIndex = 0;
 			// 
 			// TbxGammaDamp
 			// 
@@ -716,7 +716,7 @@
 			this.TbxGammaDamp.Location = new System.Drawing.Point(211, 128);
 			this.TbxGammaDamp.Name = "TbxGammaDamp";
 			this.TbxGammaDamp.Size = new System.Drawing.Size(165, 31);
-			this.TbxGammaDamp.TabIndex = 17;
+			this.TbxGammaDamp.TabIndex = 0;
 			// 
 			// TbxMaxShootingTrials
 			// 
@@ -724,7 +724,7 @@
 			this.TbxMaxShootingTrials.Location = new System.Drawing.Point(211, 153);
 			this.TbxMaxShootingTrials.Name = "TbxMaxShootingTrials";
 			this.TbxMaxShootingTrials.Size = new System.Drawing.Size(165, 31);
-			this.TbxMaxShootingTrials.TabIndex = 18;
+			this.TbxMaxShootingTrials.TabIndex = 0;
 			// 
 			// TbxQuarkMass
 			// 
@@ -732,7 +732,7 @@
 			this.TbxQuarkMass.Location = new System.Drawing.Point(211, 178);
 			this.TbxQuarkMass.Name = "TbxQuarkMass";
 			this.TbxQuarkMass.Size = new System.Drawing.Size(165, 31);
-			this.TbxQuarkMass.TabIndex = 19;
+			this.TbxQuarkMass.TabIndex = 0;
 			// 
 			// TbxMaxRadius
 			// 
@@ -740,7 +740,7 @@
 			this.TbxMaxRadius.Location = new System.Drawing.Point(211, 203);
 			this.TbxMaxRadius.Name = "TbxMaxRadius";
 			this.TbxMaxRadius.Size = new System.Drawing.Size(165, 31);
-			this.TbxMaxRadius.TabIndex = 20;
+			this.TbxMaxRadius.TabIndex = 0;
 			// 
 			// TbxStepNumber
 			// 
@@ -748,7 +748,7 @@
 			this.TbxStepNumber.Location = new System.Drawing.Point(211, 228);
 			this.TbxStepNumber.Name = "TbxStepNumber";
 			this.TbxStepNumber.Size = new System.Drawing.Size(165, 31);
-			this.TbxStepNumber.TabIndex = 21;
+			this.TbxStepNumber.TabIndex = 0;
 			// 
 			// TbxSoftScale
 			// 
@@ -756,7 +756,7 @@
 			this.TbxSoftScale.Location = new System.Drawing.Point(211, 253);
 			this.TbxSoftScale.Name = "TbxSoftScale";
 			this.TbxSoftScale.Size = new System.Drawing.Size(165, 31);
-			this.TbxSoftScale.TabIndex = 22;
+			this.TbxSoftScale.TabIndex = 0;
 			// 
 			// ChkUseFixedAlpha
 			// 
@@ -765,7 +765,7 @@
 			this.ChkUseFixedAlpha.Location = new System.Drawing.Point(211, 278);
 			this.ChkUseFixedAlpha.Name = "ChkUseFixedAlpha";
 			this.ChkUseFixedAlpha.Size = new System.Drawing.Size(165, 19);
-			this.ChkUseFixedAlpha.TabIndex = 37;
+			this.ChkUseFixedAlpha.TabIndex = 0;
 			this.ChkUseFixedAlpha.UseVisualStyleBackColor = true;
 			// 
 			// GbxDiss
@@ -776,7 +776,7 @@
 			this.GbxDiss.Name = "GbxDiss";
 			this.GbxDiss.Padding = new System.Windows.Forms.Padding(10);
 			this.GbxDiss.Size = new System.Drawing.Size(399, 85);
-			this.GbxDiss.TabIndex = 2;
+			this.GbxDiss.TabIndex = 0;
 			this.GbxDiss.TabStop = false;
 			this.GbxDiss.Text = "Gluodissociation";
 			// 
@@ -804,7 +804,7 @@
 			this.LblMaxEnergy.Location = new System.Drawing.Point(3, 0);
 			this.LblMaxEnergy.Name = "LblMaxEnergy";
 			this.LblMaxEnergy.Size = new System.Drawing.Size(202, 25);
-			this.LblMaxEnergy.TabIndex = 12;
+			this.LblMaxEnergy.TabIndex = 0;
 			this.LblMaxEnergy.Text = "MaxEnergy (MeV)";
 			this.LblMaxEnergy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -814,7 +814,7 @@
 			this.LblEnergySteps.Location = new System.Drawing.Point(3, 25);
 			this.LblEnergySteps.Name = "LblEnergySteps";
 			this.LblEnergySteps.Size = new System.Drawing.Size(202, 25);
-			this.LblEnergySteps.TabIndex = 14;
+			this.LblEnergySteps.TabIndex = 0;
 			this.LblEnergySteps.Text = "EnergySteps";
 			this.LblEnergySteps.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -824,7 +824,7 @@
 			this.TbxMaxEnergy.Location = new System.Drawing.Point(211, 3);
 			this.TbxMaxEnergy.Name = "TbxMaxEnergy";
 			this.TbxMaxEnergy.Size = new System.Drawing.Size(165, 31);
-			this.TbxMaxEnergy.TabIndex = 23;
+			this.TbxMaxEnergy.TabIndex = 0;
 			// 
 			// TbxEnergySteps
 			// 
@@ -832,7 +832,7 @@
 			this.TbxEnergySteps.Location = new System.Drawing.Point(211, 28);
 			this.TbxEnergySteps.Name = "TbxEnergySteps";
 			this.TbxEnergySteps.Size = new System.Drawing.Size(165, 31);
-			this.TbxEnergySteps.TabIndex = 24;
+			this.TbxEnergySteps.TabIndex = 0;
 			// 
 			// GbxOutput
 			// 
@@ -842,7 +842,7 @@
 			this.GbxOutput.Name = "GbxOutput";
 			this.GbxOutput.Padding = new System.Windows.Forms.Padding(10);
 			this.GbxOutput.Size = new System.Drawing.Size(399, 435);
-			this.GbxOutput.TabIndex = 3;
+			this.GbxOutput.TabIndex = 0;
 			this.GbxOutput.TabStop = false;
 			this.GbxOutput.Text = "Output";
 			// 
@@ -913,7 +913,7 @@
 			this.LblAlphaHard.Location = new System.Drawing.Point(3, 0);
 			this.LblAlphaHard.Name = "LblAlphaHard";
 			this.LblAlphaHard.Size = new System.Drawing.Size(202, 25);
-			this.LblAlphaHard.TabIndex = 4;
+			this.LblAlphaHard.TabIndex = 0;
 			this.LblAlphaHard.Text = "AlphaHard";
 			this.LblAlphaHard.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -923,7 +923,7 @@
 			this.LblAlphaSoft.Location = new System.Drawing.Point(3, 25);
 			this.LblAlphaSoft.Name = "LblAlphaSoft";
 			this.LblAlphaSoft.Size = new System.Drawing.Size(202, 25);
-			this.LblAlphaSoft.TabIndex = 5;
+			this.LblAlphaSoft.TabIndex = 0;
 			this.LblAlphaSoft.Text = "AlphaSoft";
 			this.LblAlphaSoft.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -933,7 +933,7 @@
 			this.LblAlphaThermal.Location = new System.Drawing.Point(3, 50);
 			this.LblAlphaThermal.Name = "LblAlphaThermal";
 			this.LblAlphaThermal.Size = new System.Drawing.Size(202, 25);
-			this.LblAlphaThermal.TabIndex = 6;
+			this.LblAlphaThermal.TabIndex = 0;
 			this.LblAlphaThermal.Text = "AlphaThermal";
 			this.LblAlphaThermal.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -943,7 +943,7 @@
 			this.LblAlphaUltraSoft.Location = new System.Drawing.Point(3, 75);
 			this.LblAlphaUltraSoft.Name = "LblAlphaUltraSoft";
 			this.LblAlphaUltraSoft.Size = new System.Drawing.Size(202, 25);
-			this.LblAlphaUltraSoft.TabIndex = 7;
+			this.LblAlphaUltraSoft.TabIndex = 0;
 			this.LblAlphaUltraSoft.Text = "AlphaUltraSoft";
 			this.LblAlphaUltraSoft.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -953,7 +953,7 @@
 			this.LblDebyeMass.Location = new System.Drawing.Point(3, 100);
 			this.LblDebyeMass.Name = "LblDebyeMass";
 			this.LblDebyeMass.Size = new System.Drawing.Size(202, 25);
-			this.LblDebyeMass.TabIndex = 10;
+			this.LblDebyeMass.TabIndex = 0;
 			this.LblDebyeMass.Text = "DebyeMass (MeV)";
 			this.LblDebyeMass.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -963,7 +963,7 @@
 			this.LblGammaDiss.Location = new System.Drawing.Point(3, 125);
 			this.LblGammaDiss.Name = "LblGammaDiss";
 			this.LblGammaDiss.Size = new System.Drawing.Size(202, 25);
-			this.LblGammaDiss.TabIndex = 16;
+			this.LblGammaDiss.TabIndex = 0;
 			this.LblGammaDiss.Text = "GammaDiss (MeV)";
 			this.LblGammaDiss.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -973,7 +973,7 @@
 			this.LblGammaTot.Location = new System.Drawing.Point(3, 150);
 			this.LblGammaTot.Name = "LblGammaTot";
 			this.LblGammaTot.Size = new System.Drawing.Size(202, 20);
-			this.LblGammaTot.TabIndex = 17;
+			this.LblGammaTot.TabIndex = 0;
 			this.LblGammaTot.Text = "GammaTot (MeV)";
 			this.LblGammaTot.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -983,7 +983,7 @@
 			this.LblNumberExtrema.Location = new System.Drawing.Point(3, 175);
 			this.LblNumberExtrema.Name = "LblNumberExtrema";
 			this.LblNumberExtrema.Size = new System.Drawing.Size(202, 25);
-			this.LblNumberExtrema.TabIndex = 23;
+			this.LblNumberExtrema.TabIndex = 0;
 			this.LblNumberExtrema.Text = "Num.WaveF.Extrema";
 			this.LblNumberExtrema.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -993,7 +993,7 @@
 			this.LblAvInvRadius.Location = new System.Drawing.Point(3, 200);
 			this.LblAvInvRadius.Name = "LblAvInvRadius";
 			this.LblAvInvRadius.Size = new System.Drawing.Size(202, 25);
-			this.LblAvInvRadius.TabIndex = 29;
+			this.LblAvInvRadius.TabIndex = 0;
 			this.LblAvInvRadius.Text = "<1/r> (fm^-1)";
 			this.LblAvInvRadius.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -1003,7 +1003,7 @@
 			this.LblRMS.Location = new System.Drawing.Point(3, 225);
 			this.LblRMS.Name = "LblRMS";
 			this.LblRMS.Size = new System.Drawing.Size(202, 25);
-			this.LblRMS.TabIndex = 31;
+			this.LblRMS.TabIndex = 0;
 			this.LblRMS.Text = "(<r^2>)^1/2 (fm)";
 			this.LblRMS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -1013,7 +1013,7 @@
 			this.LblSigmaEff.Location = new System.Drawing.Point(3, 250);
 			this.LblSigmaEff.Name = "LblSigmaEff";
 			this.LblSigmaEff.Size = new System.Drawing.Size(202, 25);
-			this.LblSigmaEff.TabIndex = 34;
+			this.LblSigmaEff.TabIndex = 0;
 			this.LblSigmaEff.Text = "SigmaEff (MeV^2)";
 			this.LblSigmaEff.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -1023,7 +1023,7 @@
 			this.LblStepsPerPeriod.Location = new System.Drawing.Point(3, 275);
 			this.LblStepsPerPeriod.Name = "LblStepsPerPeriod";
 			this.LblStepsPerPeriod.Size = new System.Drawing.Size(202, 25);
-			this.LblStepsPerPeriod.TabIndex = 19;
+			this.LblStepsPerPeriod.TabIndex = 0;
 			this.LblStepsPerPeriod.Text = "StepsPerPeriod";
 			this.LblStepsPerPeriod.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -1033,7 +1033,7 @@
 			this.LblStepSize.Location = new System.Drawing.Point(3, 300);
 			this.LblStepSize.Name = "LblStepSize";
 			this.LblStepSize.Size = new System.Drawing.Size(202, 25);
-			this.LblStepSize.TabIndex = 11;
+			this.LblStepSize.TabIndex = 0;
 			this.LblStepSize.Text = "StepSize";
 			this.LblStepSize.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -1043,7 +1043,7 @@
 			this.LblTrials.Location = new System.Drawing.Point(3, 325);
 			this.LblTrials.Name = "LblTrials";
 			this.LblTrials.Size = new System.Drawing.Size(202, 25);
-			this.LblTrials.TabIndex = 39;
+			this.LblTrials.TabIndex = 0;
 			this.LblTrials.Text = "Trials";
 			this.LblTrials.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -1053,7 +1053,7 @@
 			this.LblUltraSoftScale.Location = new System.Drawing.Point(3, 350);
 			this.LblUltraSoftScale.Name = "LblUltraSoftScale";
 			this.LblUltraSoftScale.Size = new System.Drawing.Size(202, 25);
-			this.LblUltraSoftScale.TabIndex = 40;
+			this.LblUltraSoftScale.TabIndex = 0;
 			this.LblUltraSoftScale.Text = "UltraSoftScale (MeV)";
 			this.LblUltraSoftScale.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -1063,7 +1063,7 @@
 			this.LblWaveVector.Location = new System.Drawing.Point(3, 375);
 			this.LblWaveVector.Name = "LblWaveVector";
 			this.LblWaveVector.Size = new System.Drawing.Size(202, 25);
-			this.LblWaveVector.TabIndex = 18;
+			this.LblWaveVector.TabIndex = 0;
 			this.LblWaveVector.Text = "WaveVector (fm^-1)";
 			this.LblWaveVector.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -1074,7 +1074,7 @@
 			this.TbxAlphaHard.Name = "TbxAlphaHard";
 			this.TbxAlphaHard.ReadOnly = true;
 			this.TbxAlphaHard.Size = new System.Drawing.Size(165, 31);
-			this.TbxAlphaHard.TabIndex = 23;
+			this.TbxAlphaHard.TabIndex = 0;
 			// 
 			// TbxAlphaSoft
 			// 
@@ -1083,7 +1083,7 @@
 			this.TbxAlphaSoft.Name = "TbxAlphaSoft";
 			this.TbxAlphaSoft.ReadOnly = true;
 			this.TbxAlphaSoft.Size = new System.Drawing.Size(165, 31);
-			this.TbxAlphaSoft.TabIndex = 24;
+			this.TbxAlphaSoft.TabIndex = 0;
 			// 
 			// TbxAlphaThermal
 			// 
@@ -1092,7 +1092,7 @@
 			this.TbxAlphaThermal.Name = "TbxAlphaThermal";
 			this.TbxAlphaThermal.ReadOnly = true;
 			this.TbxAlphaThermal.Size = new System.Drawing.Size(165, 31);
-			this.TbxAlphaThermal.TabIndex = 25;
+			this.TbxAlphaThermal.TabIndex = 0;
 			// 
 			// TbxAlphaUltraSoft
 			// 
@@ -1101,7 +1101,7 @@
 			this.TbxAlphaUltraSoft.Name = "TbxAlphaUltraSoft";
 			this.TbxAlphaUltraSoft.ReadOnly = true;
 			this.TbxAlphaUltraSoft.Size = new System.Drawing.Size(165, 31);
-			this.TbxAlphaUltraSoft.TabIndex = 25;
+			this.TbxAlphaUltraSoft.TabIndex = 0;
 			// 
 			// TbxDebyeMass
 			// 
@@ -1110,7 +1110,7 @@
 			this.TbxDebyeMass.Name = "TbxDebyeMass";
 			this.TbxDebyeMass.ReadOnly = true;
 			this.TbxDebyeMass.Size = new System.Drawing.Size(165, 31);
-			this.TbxDebyeMass.TabIndex = 26;
+			this.TbxDebyeMass.TabIndex = 0;
 			// 
 			// TbxGammaDiss
 			// 
@@ -1119,7 +1119,7 @@
 			this.TbxGammaDiss.Name = "TbxGammaDiss";
 			this.TbxGammaDiss.ReadOnly = true;
 			this.TbxGammaDiss.Size = new System.Drawing.Size(165, 31);
-			this.TbxGammaDiss.TabIndex = 27;
+			this.TbxGammaDiss.TabIndex = 0;
 			// 
 			// TbxGammaTot
 			// 
@@ -1128,7 +1128,7 @@
 			this.TbxGammaTot.Name = "TbxGammaTot";
 			this.TbxGammaTot.ReadOnly = true;
 			this.TbxGammaTot.Size = new System.Drawing.Size(165, 31);
-			this.TbxGammaTot.TabIndex = 28;
+			this.TbxGammaTot.TabIndex = 0;
 			// 
 			// TbxNumberExtrema
 			// 
@@ -1137,7 +1137,7 @@
 			this.TbxNumberExtrema.Name = "TbxNumberExtrema";
 			this.TbxNumberExtrema.ReadOnly = true;
 			this.TbxNumberExtrema.Size = new System.Drawing.Size(165, 31);
-			this.TbxNumberExtrema.TabIndex = 29;
+			this.TbxNumberExtrema.TabIndex = 0;
 			// 
 			// TbxAvInvRadius
 			// 
@@ -1146,7 +1146,7 @@
 			this.TbxAvInvRadius.Name = "TbxAvInvRadius";
 			this.TbxAvInvRadius.ReadOnly = true;
 			this.TbxAvInvRadius.Size = new System.Drawing.Size(165, 31);
-			this.TbxAvInvRadius.TabIndex = 31;
+			this.TbxAvInvRadius.TabIndex = 0;
 			// 
 			// TbxRMS
 			// 
@@ -1155,7 +1155,7 @@
 			this.TbxRMS.Name = "TbxRMS";
 			this.TbxRMS.ReadOnly = true;
 			this.TbxRMS.Size = new System.Drawing.Size(165, 31);
-			this.TbxRMS.TabIndex = 32;
+			this.TbxRMS.TabIndex = 0;
 			// 
 			// TbxSigmaEff
 			// 
@@ -1164,7 +1164,7 @@
 			this.TbxSigmaEff.Name = "TbxSigmaEff";
 			this.TbxSigmaEff.ReadOnly = true;
 			this.TbxSigmaEff.Size = new System.Drawing.Size(165, 31);
-			this.TbxSigmaEff.TabIndex = 34;
+			this.TbxSigmaEff.TabIndex = 0;
 			// 
 			// TbxStepsPerPeriod
 			// 
@@ -1173,7 +1173,7 @@
 			this.TbxStepsPerPeriod.Name = "TbxStepsPerPeriod";
 			this.TbxStepsPerPeriod.ReadOnly = true;
 			this.TbxStepsPerPeriod.Size = new System.Drawing.Size(165, 31);
-			this.TbxStepsPerPeriod.TabIndex = 35;
+			this.TbxStepsPerPeriod.TabIndex = 0;
 			// 
 			// TbxStepSize
 			// 
@@ -1182,7 +1182,7 @@
 			this.TbxStepSize.Name = "TbxStepSize";
 			this.TbxStepSize.ReadOnly = true;
 			this.TbxStepSize.Size = new System.Drawing.Size(165, 31);
-			this.TbxStepSize.TabIndex = 36;
+			this.TbxStepSize.TabIndex = 0;
 			// 
 			// TbxTrials
 			// 
@@ -1191,7 +1191,7 @@
 			this.TbxTrials.Name = "TbxTrials";
 			this.TbxTrials.ReadOnly = true;
 			this.TbxTrials.Size = new System.Drawing.Size(165, 31);
-			this.TbxTrials.TabIndex = 37;
+			this.TbxTrials.TabIndex = 0;
 			// 
 			// TbxUltraSoftScale
 			// 
@@ -1200,7 +1200,7 @@
 			this.TbxUltraSoftScale.Name = "TbxUltraSoftScale";
 			this.TbxUltraSoftScale.ReadOnly = true;
 			this.TbxUltraSoftScale.Size = new System.Drawing.Size(165, 31);
-			this.TbxUltraSoftScale.TabIndex = 38;
+			this.TbxUltraSoftScale.TabIndex = 0;
 			// 
 			// TbxWaveVector
 			// 
@@ -1209,7 +1209,7 @@
 			this.TbxWaveVector.Name = "TbxWaveVector";
 			this.TbxWaveVector.ReadOnly = true;
 			this.TbxWaveVector.Size = new System.Drawing.Size(165, 31);
-			this.TbxWaveVector.TabIndex = 39;
+			this.TbxWaveVector.TabIndex = 0;
 			// 
 			// HSplit
 			// 

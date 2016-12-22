@@ -41,7 +41,7 @@ namespace Yburn.Workers.Tests
 		{
 			CreateQQDataProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
 
-			Assert.AreEqual(0, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 150, 0));
+			Assert.AreEqual(0, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, QGPFormationTemperature - 10, 0, 0, 0));
 		}
 
 		[TestMethod]
@@ -49,7 +49,7 @@ namespace Yburn.Workers.Tests
 		{
 			CreateQQDataProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
 
-			Assert.AreEqual(0, Provider.GetInMediumDecayWidth(BottomiumState.x1P, 180, 0));
+			Assert.AreEqual(0, Provider.GetInMediumDecayWidth(BottomiumState.x1P, 180, 0, 0, 0));
 		}
 
 		[TestMethod]
@@ -57,7 +57,7 @@ namespace Yburn.Workers.Tests
 		{
 			CreateQQDataProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
 
-			Assert.AreEqual(double.PositiveInfinity, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 800, 0));
+			Assert.AreEqual(double.PositiveInfinity, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 800, 0, 0, 0));
 		}
 
 		[TestMethod]
@@ -65,8 +65,8 @@ namespace Yburn.Workers.Tests
 		{
 			CreateQQDataProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
 
-			Assert.AreEqual(0, Provider.GetInMediumDecayWidth(BottomiumState.x3P, 150, 0));
-			Assert.AreEqual(double.PositiveInfinity, Provider.GetInMediumDecayWidth(BottomiumState.x3P, 180, 0));
+			Assert.AreEqual(0, Provider.GetInMediumDecayWidth(BottomiumState.x3P, QGPFormationTemperature - 10, 0, 0, 0));
+			Assert.AreEqual(double.PositiveInfinity, Provider.GetInMediumDecayWidth(BottomiumState.x3P, QGPFormationTemperature + 20, 0, 0, 0));
 		}
 
 		[TestMethod]
@@ -74,7 +74,7 @@ namespace Yburn.Workers.Tests
 		{
 			CreateQQDataProvider(DopplerShiftEvaluationType.UnshiftedTemperature);
 
-			Assert.AreEqual(450, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 300, 0));
+			Assert.AreEqual(450, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 300, 0, 0, 0));
 		}
 
 		[TestMethod]
@@ -84,7 +84,7 @@ namespace Yburn.Workers.Tests
 
 			// maximally blueshifted temperature: T * sqrt(1-v*v)/(1-v)
 			// v = 0.6  =>  sqrt(1-v*v)/(1-v) = 2
-			Assert.AreEqual(600, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 200, 0.6));
+			Assert.AreEqual(600, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 200, 0.6, 0, 0));
 
 		}
 
@@ -95,7 +95,7 @@ namespace Yburn.Workers.Tests
 
 			// averaged temperature: T * sqrt(1-v*v) * artanh(v)/v
 			// v = 0.874348...  =>  sqrt(1-v*v) * artanh(v)/v = 0.75
-			AssertHelper.AssertApproximatelyEqual(450, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 400, 0.874348), 6);
+			AssertHelper.AssertApproximatelyEqual(450, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 400, 0.874348, 0, 0), 6);
 		}
 
 		[TestMethod]
@@ -103,7 +103,7 @@ namespace Yburn.Workers.Tests
 		{
 			CreateQQDataProvider(DopplerShiftEvaluationType.AveragedDecayWidth);
 
-			AssertHelper.AssertApproximatelyEqual(303.366, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 200, 0.2), 6);
+			AssertHelper.AssertApproximatelyEqual(303.366, Provider.GetInMediumDecayWidth(BottomiumState.Y1S, 200, 0.2, 0, 0), 6);
 		}
 
 		/********************************************************************************************
@@ -130,6 +130,8 @@ namespace Yburn.Workers.Tests
 				DataPathFile,
 				PotentialTypes,
 				evaluationType,
+				EMFDipoleInteractionType.None,
+				EMFDipoleInteractionType.None,
 				DecayWidthType,
 				QGPFormationTemperature,
 				NumberAveragingAngles);

@@ -95,6 +95,8 @@ namespace Yburn.InMediumDecayWidth.UI
 		{
 			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
 			CbxDecayWidthType.Items.Remove("None");
+			CbxElectricDipoleInteractionType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleInteractionType"));
+			CbxMagneticDipoleInteractionType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleInteractionType"));
 			MsxBottomiumStates.AddItems(JobOrganizer.GetWorkerEnumEntries("BottomiumState"));
 			MsxDopplerShiftEvaluationTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("DopplerShiftEvaluationType"));
 			MsxPotentialTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("PotentialType"));
@@ -103,13 +105,18 @@ namespace Yburn.InMediumDecayWidth.UI
 		private Dictionary<string, string> GetControlsValues()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+
 			nameValuePairs["BottomiumStates"] = MsxBottomiumStates.SelectionString;
 			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
-			nameValuePairs["NumberAveragingAngles"] = TbxNumberAveragingAngles.Text;
-			nameValuePairs["DopplerShiftEvaluationTypes"] = MsxDopplerShiftEvaluationTypes.SelectionString;
 			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
+			nameValuePairs["DopplerShiftEvaluationTypes"] = MsxDopplerShiftEvaluationTypes.SelectionString;
+			nameValuePairs["ElectricDipoleInteractionType"] = CbxElectricDipoleInteractionType.Text;
+			nameValuePairs["ElectricFieldStrength"] = TbxElectricFieldStrength.Text;
+			nameValuePairs["MagneticDipoleInteractionType"] = CbxMagneticDipoleInteractionType.Text;
+			nameValuePairs["MagneticFieldStrength"] = TbxMagneticFieldStrength.Text;
 			nameValuePairs["MediumTemperatures"] = TbxMediumTemperatures.Text;
 			nameValuePairs["MediumVelocities"] = TbxMediumVelocities.Text;
+			nameValuePairs["NumberAveragingAngles"] = TbxNumberAveragingAngles.Text;
 			nameValuePairs["PotentialTypes"] = MsxPotentialTypes.SelectionString;
 			nameValuePairs["QGPFormationTemperature"] = TbxQGPFormationTemperature.Text;
 
@@ -121,13 +128,17 @@ namespace Yburn.InMediumDecayWidth.UI
 			)
 		{
 			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"];
+			CbxElectricDipoleInteractionType.Text = nameValuePairs["ElectricDipoleInteractionType"];
+			CbxMagneticDipoleInteractionType.Text = nameValuePairs["MagneticDipoleInteractionType"];
 			MsxBottomiumStates.SelectionString = nameValuePairs["BottomiumStates"];
 			MsxDopplerShiftEvaluationTypes.SelectionString = nameValuePairs["DopplerShiftEvaluationTypes"];
 			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];
 			TbxDataFileName.Text = nameValuePairs["DataFileName"];
-			TbxNumberAveragingAngles.Text = nameValuePairs["NumberAveragingAngles"];
+			TbxElectricFieldStrength.Text = nameValuePairs["ElectricFieldStrength"];
+			TbxMagneticFieldStrength.Text = nameValuePairs["MagneticFieldStrength"];
 			TbxMediumTemperatures.Text = nameValuePairs["MediumTemperatures"];
 			TbxMediumVelocities.Text = nameValuePairs["MediumVelocities"];
+			TbxNumberAveragingAngles.Text = nameValuePairs["NumberAveragingAngles"];
 			TbxQGPFormationTemperature.Text = nameValuePairs["QGPFormationTemperature"];
 		}
 
@@ -151,7 +162,7 @@ namespace Yburn.InMediumDecayWidth.UI
 				+ "relative to the velocity vector. The decay width as a function of temperature and\r\n"
 				+ "velocity is calculated as an average over the solid angle. The average is calculated\r\n"
 				+ "from samples of dedicated azimuthal angles given by the user.",
-				GbxAverageParams);
+				GbxGeneralParams);
 			toolTipMaker.Add(
 				"Temperatures in MeV to be considered in the calculation.",
 				LblMediumTemperatures, TbxMediumTemperatures);

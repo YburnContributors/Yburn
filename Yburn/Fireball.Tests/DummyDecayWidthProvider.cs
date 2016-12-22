@@ -12,8 +12,8 @@ namespace Yburn.Fireball.Tests
 			BottomiumState state,
 			double temperature,
 			double velocity,
-			double electricFieldStrength,
-			double magneticFieldStrength
+			double electricField,
+			double magneticField
 			)
 		{
 			double decayWidth = GetQuadraticDummyDecayWidth(state, temperature);

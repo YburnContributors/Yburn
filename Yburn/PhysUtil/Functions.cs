@@ -1,4 +1,5 @@
-﻿using Meta.Numerics.Functions;
+﻿using MathNet.Numerics.Integration;
+using Meta.Numerics.Functions;
 using System;
 
 namespace Yburn.PhysUtil
@@ -14,6 +15,70 @@ namespace Yburn.PhysUtil
 			)
 		{
 			return 0.5 * Math.Log((1.0 + x) / (1.0 - x));
+		}
+
+		/// <summary>
+		/// Returns the integral of 0.5 * Θ(A + B*x) over the interval [-1,1].
+		/// </summary>
+		public static double AveragedHeavisideStepFunctionWithLinearArgument(
+			double A,
+			double B
+			)
+		{
+			if(B == 0)
+			{
+				return HeavisideStepFunction(A);
+			}
+			else if(double.IsInfinity(A))
+			{
+				return HeavisideStepFunction(A);
+			}
+			else
+			{
+				B = Math.Abs(B);
+
+				return HeavisideStepFunction(A - B)
+					+ 0.5 * (A / B + 1) * HeavisideStepFunction(B - Math.Abs(A));
+			}
+		}
+
+		/// <summary>
+		/// Returns the integral of 0.25 * Θ(A + B*x + C*y) over the interval [-1,1]×[-1,1].
+		/// </summary>
+		public static double AveragedHeavisideStepFunctionWithLinearArgument(
+			double A,
+			double B,
+			double C
+			)
+		{
+			if(C == 0)
+			{
+				return AveragedHeavisideStepFunctionWithLinearArgument(A, B);
+			}
+			else if(double.IsInfinity(A))
+			{
+				return HeavisideStepFunction(A);
+			}
+			else if(double.IsInfinity(B))
+			{
+				return AveragedHeavisideStepFunctionWithLinearArgument(A, B);
+			}
+			else if(double.IsInfinity(C))
+			{
+				return AveragedHeavisideStepFunctionWithLinearArgument(A, C);
+			}
+			else
+			{
+				B = Math.Abs(B);
+				C = Math.Abs(C);
+
+				Func<double, double> integrand
+					= y => ((A + C * y) / B + 1) * HeavisideStepFunction(B - Math.Abs(A + C * y));
+
+				return HeavisideStepFunction(A - B - C)
+					+ 0.5 * ((A - B) / C + 1) * HeavisideStepFunction(C - Math.Abs(A - B))
+					+ 0.25 * GaussLegendreRule.Integrate(integrand, -1, 1, 10);
+			}
 		}
 
 		public static double HeavisideStepFunction(

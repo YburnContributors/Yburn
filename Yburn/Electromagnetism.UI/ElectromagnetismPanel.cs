@@ -102,6 +102,7 @@ namespace Yburn.Electromagnetism.UI
 		private Dictionary<string, string> GetControlsValues()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+
 			nameValuePairs["DiffusenessA"] = TbxDiffusenessA.Text;
 			nameValuePairs["DiffusenessB"] = TbxDiffusenessB.Text;
 			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;

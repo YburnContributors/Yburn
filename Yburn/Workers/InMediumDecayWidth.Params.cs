@@ -18,6 +18,10 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "DataFileName", DataFileName);
 			Store(nameValuePairs, "DopplerShiftEvaluationTypes", DopplerShiftEvaluationTypes);
 			Store(nameValuePairs, "DecayWidthType", DecayWidthType);
+			Store(nameValuePairs, "ElectricDipoleInteractionType", ElectricDipoleInteractionType);
+			Store(nameValuePairs, "ElectricFieldStrength", ElectricFieldStrength);
+			Store(nameValuePairs, "MagneticDipoleInteractionType", MagneticDipoleInteractionType);
+			Store(nameValuePairs, "MagneticFieldStrength", MagneticFieldStrength);
 			Store(nameValuePairs, "MediumTemperatures", MediumTemperatures);
 			Store(nameValuePairs, "MediumVelocities", MediumVelocities);
 			Store(nameValuePairs, "NumberAveragingAngles", NumberAveragingAngles);
@@ -35,6 +39,10 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
 			TryExtract(nameValuePairs, "DopplerShiftEvaluationTypes", ref DopplerShiftEvaluationTypes);
 			TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
+			TryExtract(nameValuePairs, "ElectricDipoleInteractionType", ref ElectricDipoleInteractionType);
+			TryExtract(nameValuePairs, "ElectricFieldStrength", ref ElectricFieldStrength);
+			TryExtract(nameValuePairs, "MagneticDipoleInteractionType", ref MagneticDipoleInteractionType);
+			TryExtract(nameValuePairs, "MagneticFieldStrength", ref MagneticFieldStrength);
 			TryExtract(nameValuePairs, "MediumTemperatures", ref MediumTemperatures);
 			TryExtract(nameValuePairs, "MediumVelocities", ref MediumVelocities);
 			TryExtract(nameValuePairs, "NumberAveragingAngles", ref NumberAveragingAngles);
@@ -47,6 +55,14 @@ namespace Yburn.Workers
 		private List<DopplerShiftEvaluationType> DopplerShiftEvaluationTypes;
 
 		private DecayWidthType DecayWidthType;
+
+		private EMFDipoleInteractionType ElectricDipoleInteractionType;
+
+		private double ElectricFieldStrength;
+
+		private EMFDipoleInteractionType MagneticDipoleInteractionType;
+
+		private double MagneticFieldStrength;
 
 		private List<double> MediumTemperatures;
 

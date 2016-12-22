@@ -179,6 +179,14 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set linetype cycle " + BottomiumStates.Count);
 		}
 
+		private QQDataProvider CreateQQDataProvider()
+		{
+			return new QQDataProvider(
+				QQDataPathFile, PotentialTypes, DopplerShiftEvaluationType.UnshiftedTemperature,
+				EMFDipoleInteractionType.None, EMFDipoleInteractionType.None,
+				DecayWidthType, QGPFormationTemperature, NumberAveragingAngles);
+		}
+
 		private List<List<double>> CreateDecayWidthsFromQQDataFileDataList(
 			BottomiumState state
 			)
@@ -186,7 +194,7 @@ namespace Yburn.Workers
 			List<List<double>> dataList = new List<List<double>>();
 
 			List<QQDataSet> dataSets = QQDataProvider.GetBoundStateDataSets(
-				GetQQDataPathFile(), PotentialTypes, state);
+				QQDataPathFile, PotentialTypes, state);
 
 			List<double> temperatures = new List<double>();
 			List<double> decayWidths = new List<double>();
@@ -209,12 +217,11 @@ namespace Yburn.Workers
 			List<double> temperatureValues = GetLinearAbscissaList(0, 800, 800);
 			dataList.Add(temperatureValues);
 
+			QQDataProvider provider = CreateQQDataProvider();
+
 			foreach(BottomiumState state in BottomiumStates)
 			{
-				List<QQDataSet> dataSets = QQDataProvider.GetBoundStateDataSets(
-					GetQQDataPathFile(), PotentialTypes, state);
-				DecayWidthAverager averager = new DecayWidthAverager(
-					dataSets, DecayWidthType, QGPFormationTemperature, NumberAveragingAngles);
+				DecayWidthAverager averager = provider.CreateDecayWidthAverager(state);
 
 				PlotFunction decayWidthFunction
 					= temperature => averager.GetDecayWidth(temperature);
@@ -281,7 +288,7 @@ namespace Yburn.Workers
 			List<List<double>> dataList = new List<List<double>>();
 
 			List<QQDataSet> dataSets = QQDataProvider.GetBoundStateDataSets(
-				GetQQDataPathFile(), PotentialTypes, state);
+				QQDataPathFile, PotentialTypes, state);
 
 			List<double> temperatures = new List<double>();
 			List<double> energies = new List<double>();
@@ -304,12 +311,11 @@ namespace Yburn.Workers
 			List<double> temperatureValues = GetLinearAbscissaList(0, 800, 800);
 			dataList.Add(temperatureValues);
 
+			QQDataProvider provider = CreateQQDataProvider();
+
 			foreach(BottomiumState state in BottomiumStates)
 			{
-				List<QQDataSet> dataSets = QQDataProvider.GetBoundStateDataSets(
-					GetQQDataPathFile(), PotentialTypes, state);
-				DecayWidthAverager averager = new DecayWidthAverager(
-					dataSets, DecayWidthType, QGPFormationTemperature, NumberAveragingAngles);
+				DecayWidthAverager averager = provider.CreateDecayWidthAverager(state);
 
 				PlotFunction energyFunction = temperature => averager.GetEnergy(temperature);
 
@@ -464,16 +470,12 @@ namespace Yburn.Workers
 			List<double> cosineValues = GetLinearAbscissaList(-1, 1, NumberAveragingAngles);
 			dataList.Add(cosineValues);
 
+			QQDataProvider provider = CreateQQDataProvider();
+
 			List<DecayWidthAverager> averagers = new List<DecayWidthAverager>();
 			foreach(BottomiumState state in BottomiumStates)
 			{
-				List<QQDataSet> dataSets = QQDataProvider.GetBoundStateDataSets(
-					YburnConfigFile.QQDataPathFile,
-					PotentialTypes,
-					state);
-
-				averagers.Add(new DecayWidthAverager(
-					dataSets, DecayWidthType, QGPFormationTemperature, NumberAveragingAngles));
+				averagers.Add(provider.CreateDecayWidthAverager(state));
 			}
 
 			foreach(DecayWidthAverager averager in averagers)

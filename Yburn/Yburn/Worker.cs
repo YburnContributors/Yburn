@@ -72,14 +72,17 @@ namespace Yburn
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		protected static string GetQQDataPathFile()
+		protected static string QQDataPathFile
 		{
-			string pathFile = YburnConfigFile.QQDataPathFile;
-			if(string.IsNullOrEmpty(pathFile))
+			get
 			{
-				throw new Exception("Invalid QQ-data file.");
+				string pathFile = YburnConfigFile.QQDataPathFile;
+				if(string.IsNullOrEmpty(pathFile))
+				{
+					throw new Exception("Invalid QQ-data file.");
+				}
+				return pathFile;
 			}
-			return pathFile;
 		}
 
 		private static void AppendVariableNameValuePairs(

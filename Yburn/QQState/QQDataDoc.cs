@@ -158,6 +158,9 @@ namespace Yburn.QQState
 				case QQDataColumn.GammaTot:
 					return GammaTot;
 
+				case QQDataColumn.None:
+					return 0;
+
 				default:
 					throw new Exception("Invalid QQDataColumn.");
 			}

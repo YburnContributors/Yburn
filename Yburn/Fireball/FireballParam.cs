@@ -342,15 +342,27 @@ namespace Yburn.Fireball
 			}
 		}
 
-		public bool UseElectromagneticFields
+		public bool UseElectricField
 		{
 			get
 			{
-				return UseElectromagneticFields_Nullable.Value;
+				return UseElectricField_Nullable.Value;
 			}
 			set
 			{
-				UseElectromagneticFields_Nullable = value;
+				UseElectricField_Nullable = value;
+			}
+		}
+
+		public bool UseMagneticField
+		{
+			get
+			{
+				return UseMagneticField_Nullable.Value;
+			}
+			set
+			{
+				UseMagneticField_Nullable = value;
 			}
 		}
 
@@ -432,7 +444,8 @@ namespace Yburn.Fireball
 			param.TemperatureProfile_Nullable = TemperatureProfile_Nullable;
 			param.ThermalTimeFm_Nullable = ThermalTimeFm_Nullable;
 			param.TransverseMomentaGeV_Nullable = TransverseMomentaGeV_Nullable;
-			param.UseElectromagneticFields_Nullable = UseElectromagneticFields_Nullable;
+			param.UseElectricField_Nullable = UseElectricField_Nullable;
+			param.UseMagneticField_Nullable = UseMagneticField_Nullable;
 
 			return param;
 		}
@@ -529,6 +542,8 @@ namespace Yburn.Fireball
 
 		private DecayWidthRetrievalFunction DecayWidthRetrievalFunction_Nullable;
 
-		private bool? UseElectromagneticFields_Nullable;
+		private bool? UseElectricField_Nullable;
+
+		private bool? UseMagneticField_Nullable;
 	}
 }

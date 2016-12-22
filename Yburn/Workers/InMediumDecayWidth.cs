@@ -56,6 +56,10 @@ namespace Yburn.Workers
 			{
 				return typeof(DecayWidthType);
 			}
+			else if(enumName == "EMFDipoleInteractionType")
+			{
+				return typeof(EMFDipoleInteractionType);
+			}
 			else if(enumName == "PotentialType")
 			{
 				return typeof(PotentialType);
@@ -72,7 +76,9 @@ namespace Yburn.Workers
 				YburnConfigFile.QQDataPathFile, BottomiumStates, PotentialTypes, DecayWidthType,
 				QGPFormationTemperature, NumberAveragingAngles);
 
-			return printer.GetList(MediumTemperatures, MediumVelocities, DopplerShiftEvaluationTypes);
+			return printer.GetList(DopplerShiftEvaluationTypes,
+				ElectricDipoleInteractionType, MagneticDipoleInteractionType,
+				MediumTemperatures, MediumVelocities, ElectricFieldStrength, MagneticFieldStrength);
 		}
 
 		protected override void StartJob(

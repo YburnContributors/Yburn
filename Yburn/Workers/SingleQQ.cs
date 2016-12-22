@@ -66,7 +66,7 @@ namespace Yburn.Workers
 
 		public void ArchiveQQData()
 		{
-			string pathFile = GetQQDataPathFile();
+			string pathFile = QQDataPathFile;
 
 			QQDataSet dataSet = new QQDataSet(
 				n: QuantumNumberN,
@@ -94,7 +94,7 @@ namespace Yburn.Workers
 
 		public void ShowArchivedQQData()
 		{
-			string pathFile = GetQQDataPathFile();
+			string pathFile = QQDataPathFile;
 			LogMessages.Clear();
 			LogMessages.AppendLine("Current QQ-data file:");
 			LogMessages.AppendLine();
@@ -527,7 +527,7 @@ namespace Yburn.Workers
 
 		private QQDataSet GetArchivedValues()
 		{
-			string pathFile = GetQQDataPathFile();
+			string pathFile = QQDataPathFile;
 
 			return QQDataDoc.GetDataSet(pathFile, QuantumNumberN, QuantumNumberL, ColorState,
 				new List<PotentialType> { PotentialType }, Temperature);

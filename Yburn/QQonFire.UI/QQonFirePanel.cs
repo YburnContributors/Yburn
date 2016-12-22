@@ -93,35 +93,39 @@ namespace Yburn.QQonFire.UI
 
 		private void InitializeComboBoxes()
 		{
+			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
 			CbxDopplerShiftEvaluationType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DopplerShiftEvaluationType"));
 			CbxEMFCalculationMethod.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFCalculationMethod"));
+			CbxElectricDipoleInteractionType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleInteractionType"));
 			CbxExpansionMode.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ExpansionMode"));
-			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
-			CbxTemperatureProfile.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("TemperatureProfile"));
+			CbxMagneticDipoleInteractionType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleInteractionType"));
 			CbxNucleusShapeA.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("NucleusShape"));
 			CbxNucleusShapeB.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("NucleusShape"));
+			CbxTemperatureProfile.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("TemperatureProfile"));
+			MsxBottomiumStates.AddItems(JobOrganizer.GetWorkerEnumEntries("BottomiumState"));
 			MsxFireballFieldTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("FireballFieldType"));
 			MsxPotentialTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("PotentialType"));
-			MsxBottomiumStates.AddItems(JobOrganizer.GetWorkerEnumEntries("BottomiumState"));
 		}
 
 		private Dictionary<string, string> GetControlsValues()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+
 			nameValuePairs["BeamRapidity"] = TbxBeamRapidity.Text;
 			nameValuePairs["BjorkenLifeTime"] = TbxBjorkenLifeTime.Text;
 			nameValuePairs["BottomiumStates"] = MsxBottomiumStates.SelectionString;
 			nameValuePairs["BreakupTemperature"] = TbxBreakupTemperature.Text;
 			nameValuePairs["CentralityBinBoundaries"] = TbxCentralityBinBoundaries.Text;
 			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
-			nameValuePairs["DopplerShiftEvaluationType"] = CbxDopplerShiftEvaluationType.Text;
 			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
 			nameValuePairs["DiffusenessA"] = TbxDiffusenessA.Text;
 			nameValuePairs["DiffusenessB"] = TbxDiffusenessB.Text;
 			nameValuePairs["DimuonDecaysFrompp"] = TbxDimuonDecaysFrompp.Text;
+			nameValuePairs["DopplerShiftEvaluationType"] = CbxDopplerShiftEvaluationType.Text;
 			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
 			nameValuePairs["EMFQuadratureOrder"] = TbxEMFQuadratureOrder.Text;
 			nameValuePairs["EMFRefreshInterval"] = TbxEMFRefreshInterval.Text;
+			nameValuePairs["ElectricDipoleInteractionType"] = CbxElectricDipoleInteractionType.Text;
 			nameValuePairs["ExpansionMode"] = CbxExpansionMode.Text;
 			nameValuePairs["FireballFieldTypes"] = MsxFireballFieldTypes.SelectionString;
 			nameValuePairs["FormationTimes"] = TbxFormationTimes.Text;
@@ -132,6 +136,7 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["InelasticppCrossSection"] = TbxInelasticppCrossSection.Text;
 			nameValuePairs["InitialMaximumTemperature"] = TbxInitialMaximumTemperature.Text;
 			nameValuePairs["LifeTime"] = TbxLifeTime.Text;
+			nameValuePairs["MagneticDipoleInteractionType"] = CbxMagneticDipoleInteractionType.Text;
 			nameValuePairs["MeanParticipantsInBin"] = TbxMeanParticipantsInBin.Text;
 			nameValuePairs["NuclearRadiusA"] = TbxNuclearRadiusA.Text;
 			nameValuePairs["NuclearRadiusB"] = TbxNuclearRadiusB.Text;
@@ -150,7 +155,6 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["TemperatureProfile"] = CbxTemperatureProfile.Text;
 			nameValuePairs["ThermalTime"] = TbxThermalTime.Text;
 			nameValuePairs["TransverseMomenta"] = TbxTransverseMomenta.Text;
-			nameValuePairs["UseElectromagneticFields"] = ChkUseElectromagneticFields.Checked.ToString();
 
 			return nameValuePairs;
 		}
@@ -159,14 +163,15 @@ namespace Yburn.QQonFire.UI
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			CbxDopplerShiftEvaluationType.Text = nameValuePairs["DopplerShiftEvaluationType"];
 			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"];
+			CbxDopplerShiftEvaluationType.Text = nameValuePairs["DopplerShiftEvaluationType"];
 			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"];
+			CbxElectricDipoleInteractionType.Text = nameValuePairs["ElectricDipoleInteractionType"];
 			CbxExpansionMode.Text = nameValuePairs["ExpansionMode"];
+			CbxMagneticDipoleInteractionType.Text = nameValuePairs["MagneticDipoleInteractionType"];
 			CbxNucleusShapeA.Text = nameValuePairs["NucleusShapeA"];
 			CbxNucleusShapeB.Text = nameValuePairs["NucleusShapeB"];
 			CbxTemperatureProfile.Text = nameValuePairs["TemperatureProfile"];
-			ChkUseElectromagneticFields.Checked = bool.Parse(nameValuePairs["UseElectromagneticFields"]);
 			MsxBottomiumStates.SelectionString = nameValuePairs["BottomiumStates"];
 			MsxFireballFieldTypes.SelectionString = nameValuePairs["FireballFieldTypes"];
 			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];

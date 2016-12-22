@@ -68,7 +68,7 @@
 			this.BtnPlot.Location = new System.Drawing.Point(102, 468);
 			this.BtnPlot.Name = "BtnPlot";
 			this.BtnPlot.Size = new System.Drawing.Size(143, 35);
-			this.BtnPlot.TabIndex = 6;
+			this.BtnPlot.TabIndex = 0;
 			this.BtnPlot.Text = "&Plot";
 			this.BtnPlot.UseVisualStyleBackColor = true;
 			this.BtnPlot.Click += new System.EventHandler(this.BtnPlot_Click);
@@ -80,7 +80,7 @@
 			this.BtnLeave.Location = new System.Drawing.Point(251, 468);
 			this.BtnLeave.Name = "BtnLeave";
 			this.BtnLeave.Size = new System.Drawing.Size(143, 35);
-			this.BtnLeave.TabIndex = 7;
+			this.BtnLeave.TabIndex = 0;
 			this.BtnLeave.Text = "&Leave";
 			this.BtnLeave.UseVisualStyleBackColor = true;
 			// 
@@ -138,7 +138,7 @@
 			this.LayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.LayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
 			this.LayoutPanel.Size = new System.Drawing.Size(450, 400);
-			this.LayoutPanel.TabIndex = 3;
+			this.LayoutPanel.TabIndex = 0;
 			// 
 			// LblPotentialType
 			// 
@@ -148,7 +148,7 @@
 			this.LblPotentialType.Name = "LblPotentialType";
 			this.LblPotentialType.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblPotentialType.Size = new System.Drawing.Size(214, 30);
-			this.LblPotentialType.TabIndex = 11;
+			this.LblPotentialType.TabIndex = 0;
 			this.LblPotentialType.Text = "PotentialType";
 			this.LblPotentialType.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -170,7 +170,7 @@
 			this.LblColorState.Name = "LblColorState";
 			this.LblColorState.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblColorState.Size = new System.Drawing.Size(214, 30);
-			this.LblColorState.TabIndex = 13;
+			this.LblColorState.TabIndex = 0;
 			this.LblColorState.Text = "ColorState";
 			this.LblColorState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -182,7 +182,7 @@
 			this.CbxColorState.Location = new System.Drawing.Point(228, 38);
 			this.CbxColorState.Name = "CbxColorState";
 			this.CbxColorState.Size = new System.Drawing.Size(214, 24);
-			this.CbxColorState.TabIndex = 1;
+			this.CbxColorState.TabIndex = 0;
 			// 
 			// LblSpinState
 			// 
@@ -192,7 +192,7 @@
 			this.LblSpinState.Name = "LblSpinState";
 			this.LblSpinState.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblSpinState.Size = new System.Drawing.Size(214, 30);
-			this.LblSpinState.TabIndex = 16;
+			this.LblSpinState.TabIndex = 0;
 			this.LblSpinState.Text = "SpinState";
 			this.LblSpinState.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -204,7 +204,7 @@
 			this.CbxSpinState.Location = new System.Drawing.Point(228, 68);
 			this.CbxSpinState.Name = "CbxSpinState";
 			this.CbxSpinState.Size = new System.Drawing.Size(214, 24);
-			this.CbxSpinState.TabIndex = 2;
+			this.CbxSpinState.TabIndex = 0;
 			// 
 			// LblAlphaSoft
 			// 
@@ -214,7 +214,7 @@
 			this.LblAlphaSoft.Name = "LblAlphaSoft";
 			this.LblAlphaSoft.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblAlphaSoft.Size = new System.Drawing.Size(214, 30);
-			this.LblAlphaSoft.TabIndex = 17;
+			this.LblAlphaSoft.TabIndex = 0;
 			this.LblAlphaSoft.Text = "AlphaSoft";
 			this.LblAlphaSoft.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -224,7 +224,7 @@
 			this.TbxAlphaSoft.Location = new System.Drawing.Point(228, 98);
 			this.TbxAlphaSoft.Name = "TbxAlphaSoft";
 			this.TbxAlphaSoft.Size = new System.Drawing.Size(214, 22);
-			this.TbxAlphaSoft.TabIndex = 3;
+			this.TbxAlphaSoft.TabIndex = 0;
 			// 
 			// LblSigma
 			// 
@@ -234,7 +234,7 @@
 			this.LblSigma.Name = "LblSigma";
 			this.LblSigma.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblSigma.Size = new System.Drawing.Size(214, 30);
-			this.LblSigma.TabIndex = 12;
+			this.LblSigma.TabIndex = 0;
 			this.LblSigma.Text = "Sigma (MeV)";
 			this.LblSigma.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -244,7 +244,7 @@
 			this.TbxSigma.Location = new System.Drawing.Point(228, 128);
 			this.TbxSigma.Name = "TbxSigma";
 			this.TbxSigma.Size = new System.Drawing.Size(214, 22);
-			this.TbxSigma.TabIndex = 4;
+			this.TbxSigma.TabIndex = 0;
 			// 
 			// LblTemperature
 			// 
@@ -254,7 +254,7 @@
 			this.LblTemperature.Name = "LblTemperature";
 			this.LblTemperature.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblTemperature.Size = new System.Drawing.Size(214, 30);
-			this.LblTemperature.TabIndex = 14;
+			this.LblTemperature.TabIndex = 0;
 			this.LblTemperature.Text = "Temperature (MeV)";
 			this.LblTemperature.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -264,7 +264,7 @@
 			this.TbxTemperature.Location = new System.Drawing.Point(228, 158);
 			this.TbxTemperature.Name = "TbxTemperature";
 			this.TbxTemperature.Size = new System.Drawing.Size(214, 22);
-			this.TbxTemperature.TabIndex = 5;
+			this.TbxTemperature.TabIndex = 0;
 			// 
 			// LblDebyeMass
 			// 
@@ -274,7 +274,7 @@
 			this.LblDebyeMass.Name = "LblDebyeMass";
 			this.LblDebyeMass.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblDebyeMass.Size = new System.Drawing.Size(214, 30);
-			this.LblDebyeMass.TabIndex = 15;
+			this.LblDebyeMass.TabIndex = 0;
 			this.LblDebyeMass.Text = "DebyeMass (MeV)";
 			this.LblDebyeMass.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -284,7 +284,7 @@
 			this.TbxDebyeMass.Location = new System.Drawing.Point(228, 188);
 			this.TbxDebyeMass.Name = "TbxDebyeMass";
 			this.TbxDebyeMass.Size = new System.Drawing.Size(214, 22);
-			this.TbxDebyeMass.TabIndex = 6;
+			this.TbxDebyeMass.TabIndex = 0;
 			// 
 			// LblSpinCouplingRange
 			// 
@@ -294,7 +294,7 @@
 			this.LblSpinCouplingRange.Name = "LblSpinCouplingRange";
 			this.LblSpinCouplingRange.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblSpinCouplingRange.Size = new System.Drawing.Size(214, 30);
-			this.LblSpinCouplingRange.TabIndex = 18;
+			this.LblSpinCouplingRange.TabIndex = 0;
 			this.LblSpinCouplingRange.Text = "SpinCouplingRange (fm)";
 			this.LblSpinCouplingRange.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -304,7 +304,7 @@
 			this.TbxSpinCouplingRange.Location = new System.Drawing.Point(228, 218);
 			this.TbxSpinCouplingRange.Name = "TbxSpinCouplingRange";
 			this.TbxSpinCouplingRange.Size = new System.Drawing.Size(214, 22);
-			this.TbxSpinCouplingRange.TabIndex = 7;
+			this.TbxSpinCouplingRange.TabIndex = 0;
 			// 
 			// LblSpinCouplingStrength
 			// 
@@ -314,7 +314,7 @@
 			this.LblSpinCouplingStrength.Name = "LblSpinCouplingStrength";
 			this.LblSpinCouplingStrength.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblSpinCouplingStrength.Size = new System.Drawing.Size(214, 30);
-			this.LblSpinCouplingStrength.TabIndex = 19;
+			this.LblSpinCouplingStrength.TabIndex = 0;
 			this.LblSpinCouplingStrength.Text = "SpinCouplingStrength (MeV)";
 			this.LblSpinCouplingStrength.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -324,7 +324,7 @@
 			this.TbxSpinCouplingStrength.Location = new System.Drawing.Point(228, 248);
 			this.TbxSpinCouplingStrength.Name = "TbxSpinCouplingStrength";
 			this.TbxSpinCouplingStrength.Size = new System.Drawing.Size(214, 22);
-			this.TbxSpinCouplingStrength.TabIndex = 8;
+			this.TbxSpinCouplingStrength.TabIndex = 0;
 			// 
 			// LblMinRadius
 			// 
@@ -334,7 +334,7 @@
 			this.LblMinRadius.Name = "LblMinRadius";
 			this.LblMinRadius.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblMinRadius.Size = new System.Drawing.Size(214, 30);
-			this.LblMinRadius.TabIndex = 20;
+			this.LblMinRadius.TabIndex = 0;
 			this.LblMinRadius.Text = "MinRadius (fm)";
 			this.LblMinRadius.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -344,7 +344,7 @@
 			this.TbxMinRadius.Location = new System.Drawing.Point(228, 278);
 			this.TbxMinRadius.Name = "TbxMinRadius";
 			this.TbxMinRadius.Size = new System.Drawing.Size(214, 22);
-			this.TbxMinRadius.TabIndex = 9;
+			this.TbxMinRadius.TabIndex = 0;
 			// 
 			// LblMaxRadius
 			// 
@@ -354,7 +354,7 @@
 			this.LblMaxRadius.Name = "LblMaxRadius";
 			this.LblMaxRadius.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblMaxRadius.Size = new System.Drawing.Size(214, 30);
-			this.LblMaxRadius.TabIndex = 5;
+			this.LblMaxRadius.TabIndex = 0;
 			this.LblMaxRadius.Text = "MaxRadius (fm)";
 			this.LblMaxRadius.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -364,7 +364,7 @@
 			this.TbxMaxRadius.Location = new System.Drawing.Point(228, 308);
 			this.TbxMaxRadius.Name = "TbxMaxRadius";
 			this.TbxMaxRadius.Size = new System.Drawing.Size(214, 22);
-			this.TbxMaxRadius.TabIndex = 10;
+			this.TbxMaxRadius.TabIndex = 0;
 			// 
 			// LblSamples
 			// 
@@ -374,7 +374,7 @@
 			this.LblSamples.Name = "LblSamples";
 			this.LblSamples.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblSamples.Size = new System.Drawing.Size(214, 30);
-			this.LblSamples.TabIndex = 8;
+			this.LblSamples.TabIndex = 0;
 			this.LblSamples.Text = "Samples";
 			this.LblSamples.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -384,7 +384,7 @@
 			this.TbxSamples.Location = new System.Drawing.Point(228, 338);
 			this.TbxSamples.Name = "TbxSamples";
 			this.TbxSamples.Size = new System.Drawing.Size(214, 22);
-			this.TbxSamples.TabIndex = 11;
+			this.TbxSamples.TabIndex = 0;
 			// 
 			// LblDataFileName
 			// 
@@ -394,7 +394,7 @@
 			this.LblDataFileName.Name = "LblDataFileName";
 			this.LblDataFileName.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblDataFileName.Size = new System.Drawing.Size(214, 30);
-			this.LblDataFileName.TabIndex = 10;
+			this.LblDataFileName.TabIndex = 0;
 			this.LblDataFileName.Text = "DataFileName";
 			this.LblDataFileName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -404,7 +404,7 @@
 			this.TbxDataFileName.Location = new System.Drawing.Point(228, 368);
 			this.TbxDataFileName.Name = "TbxDataFileName";
 			this.TbxDataFileName.Size = new System.Drawing.Size(214, 22);
-			this.TbxDataFileName.TabIndex = 12;
+			this.TbxDataFileName.TabIndex = 0;
 			// 
 			// GbxPlotParams
 			// 
@@ -414,7 +414,7 @@
 			this.GbxPlotParams.Margin = new System.Windows.Forms.Padding(0);
 			this.GbxPlotParams.Name = "GbxPlotParams";
 			this.GbxPlotParams.Size = new System.Drawing.Size(456, 421);
-			this.GbxPlotParams.TabIndex = 4;
+			this.GbxPlotParams.TabIndex = 0;
 			this.GbxPlotParams.TabStop = false;
 			this.GbxPlotParams.Text = "Plot parameters";
 			// 

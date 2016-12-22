@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace Yburn.FileUtil
@@ -67,7 +68,15 @@ namespace Yburn.FileUtil
 			foreach(string line in allLines)
 			{
 				string[] nameValuePair = line.Split(new char[] { '=' }, 2);
-				dummyNameValueDict.Add(nameValuePair[0], nameValuePair[1]);
+
+				if(dummyNameValueDict.ContainsKey(nameValuePair[0]))
+				{
+					throw new Exception("Variable \"" + nameValuePair[0] + "\" multiply defined.");
+				}
+				else
+				{
+					dummyNameValueDict.Add(nameValuePair[0], nameValuePair[1]);
+				}
 
 				if(nameValuePair[0] == "Job")
 				{

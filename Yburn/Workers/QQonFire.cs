@@ -491,7 +491,7 @@ namespace Yburn.Workers
 			foreach(BottomiumState state in BottomiumStates)
 			{
 				dataSetLists.Add(QQDataProvider.GetBoundStateDataSets(
-					GetQQDataPathFile(), PotentialTypes, state));
+					QQDataPathFile, PotentialTypes, state));
 			}
 
 			LogMessages.Clear();
@@ -595,6 +595,10 @@ namespace Yburn.Workers
 			{
 				return typeof(EMFCalculationMethod);
 			}
+			else if(enumName == "EMFDipoleInteractionType")
+			{
+				return typeof(EMFDipoleInteractionType);
+			}
 			else if(enumName == "ExpansionMode")
 			{
 				return typeof(ExpansionMode);
@@ -673,7 +677,8 @@ namespace Yburn.Workers
 			param.TemperatureProfile = TemperatureProfile;
 			param.ThermalTimeFm = ThermalTime;
 			param.TransverseMomentaGeV = TransverseMomenta;
-			param.UseElectromagneticFields = UseElectromagneticFields;
+			param.UseElectricField = UseElectricField;
+			param.UseMagneticField = UseMagneticField;
 
 			QQDataProvider provider = CreateQQDataProvider();
 			param.DecayWidthRetrievalFunction = provider.GetInMediumDecayWidth;
@@ -684,9 +689,11 @@ namespace Yburn.Workers
 		private QQDataProvider CreateQQDataProvider()
 		{
 			return new QQDataProvider(
-				GetQQDataPathFile(),
+				QQDataPathFile,
 				PotentialTypes,
 				DopplerShiftEvaluationType,
+				ElectricDipoleInteractionType,
+				MagneticDipoleInteractionType,
 				DecayWidthType,
 				QGPFormationTemperature,
 				NumberAveragingAngles);

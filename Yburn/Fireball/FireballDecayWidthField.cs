@@ -8,8 +8,8 @@ namespace Yburn.Fireball
 		BottomiumState state,
 		double temperature,
 		double velocity,
-		double electricFieldStrength,
-		double magneticFieldStrength
+		double electricField,
+		double magneticField
 		);
 
 	public class FireballDecayWidthField : StateSpecificFireballField

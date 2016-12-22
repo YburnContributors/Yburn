@@ -17,16 +17,18 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "BeamRapidity", BeamRapidity);
 			Store(nameValuePairs, "BjorkenLifeTime", BjorkenLifeTime);
 			Store(nameValuePairs, "BottomiumStates", BottomiumStates);
+			Store(nameValuePairs, "BreakupTemperature", BreakupTemperature);
 			Store(nameValuePairs, "CentralityBinBoundaries", CentralityBinBoundaries);
 			Store(nameValuePairs, "DataFileName", DataFileName);
-			Store(nameValuePairs, "DopplerShiftEvaluationType", DopplerShiftEvaluationType);
 			Store(nameValuePairs, "DecayWidthType", DecayWidthType);
 			Store(nameValuePairs, "DiffusenessA", DiffusenessA);
 			Store(nameValuePairs, "DiffusenessB", DiffusenessB);
 			Store(nameValuePairs, "DimuonDecaysFrompp", DimuonDecaysFrompp);
+			Store(nameValuePairs, "DopplerShiftEvaluationType", DopplerShiftEvaluationType);
 			Store(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
 			Store(nameValuePairs, "EMFQuadratureOrder", EMFQuadratureOrder);
 			Store(nameValuePairs, "EMFRefreshInterval", EMFRefreshInterval);
+			Store(nameValuePairs, "ElectricDipoleInteractionType", ElectricDipoleInteractionType);
 			Store(nameValuePairs, "ExpansionMode", ExpansionMode);
 			Store(nameValuePairs, "FireballFieldTypes", FireballFieldTypes);
 			Store(nameValuePairs, "FormationTimes", FormationTimes);
@@ -37,12 +39,15 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "InelasticppCrossSection", InelasticppCrossSection);
 			Store(nameValuePairs, "InitialMaximumTemperature", InitialMaximumTemperature);
 			Store(nameValuePairs, "LifeTime", LifeTime);
+			Store(nameValuePairs, "MagneticDipoleInteractionType", MagneticDipoleInteractionType);
+			Store(nameValuePairs, "MagneticDipoleInteractionType", MagneticDipoleInteractionType);
 			Store(nameValuePairs, "MeanParticipantsInBin", MeanParticipantsInBin);
-			Store(nameValuePairs, "BreakupTemperature", BreakupTemperature);
 			Store(nameValuePairs, "NuclearRadiusA", NuclearRadiusA);
 			Store(nameValuePairs, "NuclearRadiusB", NuclearRadiusB);
 			Store(nameValuePairs, "NucleonNumberA", NucleonNumberA);
 			Store(nameValuePairs, "NucleonNumberB", NucleonNumberB);
+			Store(nameValuePairs, "NucleusShapeA", NucleusShapeA);
+			Store(nameValuePairs, "NucleusShapeB", NucleusShapeB);
 			Store(nameValuePairs, "NumberAveragingAngles", NumberAveragingAngles);
 			Store(nameValuePairs, "ParticipantsAtBinBoundaries", ParticipantsAtBinBoundaries);
 			Store(nameValuePairs, "PotentialTypes", PotentialTypes);
@@ -50,13 +55,10 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "ProtonNumberB", ProtonNumberB);
 			Store(nameValuePairs, "QGPConductivity", QGPConductivity);
 			Store(nameValuePairs, "QGPFormationTemperature", QGPFormationTemperature);
-			Store(nameValuePairs, "NucleusShapeA", NucleusShapeA);
-			Store(nameValuePairs, "NucleusShapeB", NucleusShapeB);
 			Store(nameValuePairs, "SnapRate", SnapRate);
 			Store(nameValuePairs, "TemperatureProfile", TemperatureProfile);
 			Store(nameValuePairs, "ThermalTime", ThermalTime);
 			Store(nameValuePairs, "TransverseMomenta", TransverseMomenta);
-			Store(nameValuePairs, "UseElectromagneticFields", UseElectromagneticFields);
 
 			return nameValuePairs;
 		}
@@ -68,16 +70,18 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "BeamRapidity", ref BeamRapidity);
 			TryExtract(nameValuePairs, "BjorkenLifeTime", ref BjorkenLifeTime);
 			TryExtract(nameValuePairs, "BottomiumStates", ref BottomiumStates);
+			TryExtract(nameValuePairs, "BreakupTemperature", ref BreakupTemperature);
 			TryExtract(nameValuePairs, "CentralityBinBoundaries", ref CentralityBinBoundaries);
 			TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
-			TryExtract(nameValuePairs, "DopplerShiftEvaluationType", ref DopplerShiftEvaluationType);
 			TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
 			TryExtract(nameValuePairs, "DiffusenessA", ref DiffusenessA);
 			TryExtract(nameValuePairs, "DiffusenessB", ref DiffusenessB);
 			TryExtract(nameValuePairs, "DimuonDecaysFrompp", ref DimuonDecaysFrompp);
+			TryExtract(nameValuePairs, "DopplerShiftEvaluationType", ref DopplerShiftEvaluationType);
 			TryExtract(nameValuePairs, "EMFCalculationMethod", ref EMFCalculationMethod);
 			TryExtract(nameValuePairs, "EMFQuadratureOrder", ref EMFQuadratureOrder);
 			TryExtract(nameValuePairs, "EMFRefreshInterval", ref EMFRefreshInterval);
+			TryExtract(nameValuePairs, "ElectricDipoleInteractionType", ref ElectricDipoleInteractionType);
 			TryExtract(nameValuePairs, "ExpansionMode", ref ExpansionMode);
 			TryExtract(nameValuePairs, "FireballFieldTypes", ref FireballFieldTypes);
 			TryExtract(nameValuePairs, "FormationTimes", ref FormationTimes);
@@ -88,12 +92,15 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "InelasticppCrossSection", ref InelasticppCrossSection);
 			TryExtract(nameValuePairs, "InitialMaximumTemperature", ref InitialMaximumTemperature);
 			TryExtract(nameValuePairs, "LifeTime", ref LifeTime);
+			TryExtract(nameValuePairs, "MagneticDipoleInteractionType", ref MagneticDipoleInteractionType);
+			TryExtract(nameValuePairs, "MagneticDipoleInteractionType", ref MagneticDipoleInteractionType);
 			TryExtract(nameValuePairs, "MeanParticipantsInBin", ref MeanParticipantsInBin);
-			TryExtract(nameValuePairs, "BreakupTemperature", ref BreakupTemperature);
 			TryExtract(nameValuePairs, "NuclearRadiusA", ref NuclearRadiusA);
 			TryExtract(nameValuePairs, "NuclearRadiusB", ref NuclearRadiusB);
 			TryExtract(nameValuePairs, "NucleonNumberA", ref NucleonNumberA);
 			TryExtract(nameValuePairs, "NucleonNumberB", ref NucleonNumberB);
+			TryExtract(nameValuePairs, "NucleusShapeA", ref NucleusShapeA);
+			TryExtract(nameValuePairs, "NucleusShapeB", ref NucleusShapeB);
 			TryExtract(nameValuePairs, "NumberAveragingAngles", ref NumberAveragingAngles);
 			TryExtract(nameValuePairs, "ParticipantsAtBinBoundaries", ref ParticipantsAtBinBoundaries);
 			TryExtract(nameValuePairs, "PotentialTypes", ref PotentialTypes);
@@ -101,13 +108,10 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "ProtonNumberB", ref ProtonNumberB);
 			TryExtract(nameValuePairs, "QGPConductivity", ref QGPConductivity);
 			TryExtract(nameValuePairs, "QGPFormationTemperature", ref QGPFormationTemperature);
-			TryExtract(nameValuePairs, "NucleusShapeA", ref NucleusShapeA);
-			TryExtract(nameValuePairs, "NucleusShapeB", ref NucleusShapeB);
 			TryExtract(nameValuePairs, "SnapRate", ref SnapRate);
 			TryExtract(nameValuePairs, "TemperatureProfile", ref TemperatureProfile);
 			TryExtract(nameValuePairs, "ThermalTime", ref ThermalTime);
 			TryExtract(nameValuePairs, "TransverseMomenta", ref TransverseMomenta);
-			TryExtract(nameValuePairs, "UseElectromagneticFields", ref UseElectromagneticFields);
 		}
 
 		private double BeamRapidity;
@@ -127,6 +131,8 @@ namespace Yburn.Workers
 		private double DiffusenessB;
 
 		private Dictionary<BottomiumState, double> DimuonDecaysFrompp;
+
+		private EMFDipoleInteractionType ElectricDipoleInteractionType;
 
 		private EMFCalculationMethod EMFCalculationMethod;
 
@@ -153,6 +159,8 @@ namespace Yburn.Workers
 		private double InitialMaximumTemperature;
 
 		private double LifeTime;
+
+		private EMFDipoleInteractionType MagneticDipoleInteractionType;
 
 		private List<List<double>> MeanParticipantsInBin;
 
@@ -192,6 +200,20 @@ namespace Yburn.Workers
 
 		private List<double> TransverseMomenta;
 
-		private bool UseElectromagneticFields;
+		private bool UseElectricField
+		{
+			get
+			{
+				return ElectricDipoleInteractionType != EMFDipoleInteractionType.None;
+			}
+		}
+
+		private bool UseMagneticField
+		{
+			get
+			{
+				return MagneticDipoleInteractionType != EMFDipoleInteractionType.None;
+			}
+		}
 	}
 }

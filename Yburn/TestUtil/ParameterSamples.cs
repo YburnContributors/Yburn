@@ -117,6 +117,7 @@ namespace Yburn.TestUtil
 				nameValuePairs["EMFCalculationMethod"] = "DiffusionApproximation";
 				nameValuePairs["EMFQuadratureOrder"] = "3333";
 				nameValuePairs["EMFRefreshInterval"] = "3333";
+				nameValuePairs["ElectricDipoleInteractionType"] = "None";
 				nameValuePairs["ExpansionMode"] = "Transverse";
 				nameValuePairs["FireballFieldTypes"] = "Temperature";
 				nameValuePairs["FormationTimes"] = "Y1S:3,x1P:3,Y2S:3,x2P:3,Y3S:3,x3P:3";
@@ -127,6 +128,7 @@ namespace Yburn.TestUtil
 				nameValuePairs["InelasticppCrossSection"] = "3333";
 				nameValuePairs["InitialMaximumTemperature"] = "3333";
 				nameValuePairs["LifeTime"] = "3333";
+				nameValuePairs["MagneticDipoleInteractionType"] = "None";
 				nameValuePairs["MeanParticipantsInBin"] = "3,3,3,3";
 				nameValuePairs["NuclearRadiusA"] = "3333";
 				nameValuePairs["NuclearRadiusB"] = "3333";
@@ -145,7 +147,6 @@ namespace Yburn.TestUtil
 				nameValuePairs["TemperatureProfile"] = "Ncoll13";
 				nameValuePairs["ThermalTime"] = "3333";
 				nameValuePairs["TransverseMomenta"] = "3,3,3,3";
-				nameValuePairs["UseElectromagneticFields"] = "True";
 
 				return nameValuePairs;
 			}
@@ -159,8 +160,12 @@ namespace Yburn.TestUtil
 
 				nameValuePairs["BottomiumStates"] = "Y1S,x3P";
 				nameValuePairs["DataFileName"] = "stdout.txt";
-				nameValuePairs["DopplerShiftEvaluationTypes"] = "AveragedDecayWidth";
 				nameValuePairs["DecayWidthType"] = "GammaTot";
+				nameValuePairs["DopplerShiftEvaluationTypes"] = "AveragedDecayWidth";
+				nameValuePairs["ElectricDipoleInteractionType"] = "None";
+				nameValuePairs["ElectricFieldStrength"] = "3333";
+				nameValuePairs["MagneticDipoleInteractionType"] = "None";
+				nameValuePairs["MagneticFieldStrength"] = "3333";
 				nameValuePairs["MediumTemperatures"] = "100,200,300";
 				nameValuePairs["MediumVelocities"] = "0.2";
 				nameValuePairs["NumberAveragingAngles"] = "5";

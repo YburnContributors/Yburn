@@ -330,7 +330,7 @@
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle());
 			this.LayoutBottom.Size = new System.Drawing.Size(1182, 607);
-			this.LayoutBottom.TabIndex = 3;
+			this.LayoutBottom.TabIndex = 0;
 			// 
 			// YburnConfigDataBox
 			// 
@@ -341,7 +341,7 @@
 			this.YburnConfigDataBox.OutputPath = "";
 			this.YburnConfigDataBox.QQDataPathFile = "";
 			this.YburnConfigDataBox.Size = new System.Drawing.Size(600, 90);
-			this.YburnConfigDataBox.TabIndex = 1;
+			this.YburnConfigDataBox.TabIndex = 0;
 			// 
 			// SingleQQPanel
 			// 
@@ -350,7 +350,7 @@
 			this.SingleQQPanel.Location = new System.Drawing.Point(3, 103);
 			this.SingleQQPanel.Name = "SingleQQPanel";
 			this.SingleQQPanel.Size = new System.Drawing.Size(1176, 525);
-			this.SingleQQPanel.TabIndex = 2;
+			this.SingleQQPanel.TabIndex = 0;
 			// 
 			// SingleQQMainWindow
 			// 
