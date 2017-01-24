@@ -422,10 +422,10 @@ namespace Yburn.Workers
 			PlotFunction[] plotFunctions = {
 				r => pcEMF.CalculateRadialElectricField(effectiveTime, r),
 				r => pcEMF.CalculateAzimutalMagneticField(effectiveTime, r),
-				r => Math.Abs(pcEMF.CalculateLongitudinalElectricField(effectiveTime, r)),
+				r => pcEMF.CalculateLongitudinalElectricField(effectiveTime, r),
 				r => nucEMF.CalculateRadialElectricField(effectiveTime, r),
 				r => nucEMF.CalculateAzimutalMagneticField(effectiveTime, r),
-				r => Math.Abs(nucEMF.CalculateLongitudinalElectricField(effectiveTime, r)) };
+				r => nucEMF.CalculateLongitudinalElectricField(effectiveTime, r) };
 
 			foreach(PlotFunction function in plotFunctions)
 			{
