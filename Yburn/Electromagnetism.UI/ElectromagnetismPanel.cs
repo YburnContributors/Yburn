@@ -111,7 +111,7 @@ namespace Yburn.Electromagnetism.UI
 			nameValuePairs["GridCellSize"] = TbxGridCellSize.Text;
 			nameValuePairs["GridRadius"] = TbxGridRadius.Text;
 			nameValuePairs["ImpactParameter"] = TbxImpactParameter.Text;
-			nameValuePairs["PointChargeRapidity"] = TbxPointChargeRapidity.Text;
+			nameValuePairs["ParticleRapidity"] = TbxParticleRapidity.Text;
 			nameValuePairs["NuclearRadiusA"] = TbxNuclearRadiusA.Text;
 			nameValuePairs["NuclearRadiusB"] = TbxNuclearRadiusB.Text;
 			nameValuePairs["NucleonNumberA"] = TbxNucleonNumberA.Text;
@@ -124,8 +124,8 @@ namespace Yburn.Electromagnetism.UI
 			nameValuePairs["NucleusShapeA"] = CbxNucleusShapeA.Text;
 			nameValuePairs["NucleusShapeB"] = CbxNucleusShapeB.Text;
 			nameValuePairs["Samples"] = TbxSamples.Text;
-			nameValuePairs["StartEffectiveTime"] = TbxStartEffectiveTime.Text;
-			nameValuePairs["StopEffectiveTime"] = TbxStopEffectiveTime.Text;
+			nameValuePairs["StartTime"] = TbxStartTime.Text;
+			nameValuePairs["StopTime"] = TbxStopTime.Text;
 
 			return nameValuePairs;
 		}
@@ -144,7 +144,7 @@ namespace Yburn.Electromagnetism.UI
 			TbxGridCellSize.Text = nameValuePairs["GridCellSize"];
 			TbxGridRadius.Text = nameValuePairs["GridRadius"];
 			TbxImpactParameter.Text = nameValuePairs["ImpactParameter"];
-			TbxPointChargeRapidity.Text = nameValuePairs["PointChargeRapidity"];
+			TbxParticleRapidity.Text = nameValuePairs["ParticleRapidity"];
 			TbxNuclearRadiusA.Text = nameValuePairs["NuclearRadiusA"];
 			TbxNuclearRadiusB.Text = nameValuePairs["NuclearRadiusB"];
 			TbxNucleonNumberA.Text = nameValuePairs["NucleonNumberA"];
@@ -155,8 +155,8 @@ namespace Yburn.Electromagnetism.UI
 			TbxQGPConductivity.Text = nameValuePairs["QGPConductivity"];
 			TbxRadialDistance.Text = nameValuePairs["RadialDistance"];
 			TbxSamples.Text = nameValuePairs["Samples"];
-			TbxStartEffectiveTime.Text = nameValuePairs["StartEffectiveTime"];
-			TbxStopEffectiveTime.Text = nameValuePairs["StopEffectiveTime"];
+			TbxStartTime.Text = nameValuePairs["StartTime"];
+			TbxStopTime.Text = nameValuePairs["StopTime"];
 		}
 
 		private void InitializeMenuEntry()
@@ -165,9 +165,10 @@ namespace Yburn.Electromagnetism.UI
 			MenuEntry.MenuItemPlotPointChargeAzimutalMagneticField.Click += new EventHandler(MenuItemPlotPointChargeAzimutalMagneticField_Click);
 			MenuEntry.MenuItemPlotPointChargeLongitudinalElectricField.Click += new EventHandler(MenuItemPlotPointChargeLongitudinalElectricField_Click);
 			MenuEntry.MenuItemPlotPointChargeRadialElectricField.Click += new EventHandler(MenuItemPlotPointChargeRadialElectricField_Click);
-			MenuEntry.MenuItemPlotPointChargeAndNucleusFieldComponents.Click += new EventHandler(MenuItemPlotPointChargeAndNucleusFieldComponents_Click);
+			MenuEntry.MenuItemPlotPointChargeAndNucleusFields.Click += new EventHandler(MenuItemPlotPointChargeAndNucleusFields_Click);
 			MenuEntry.MenuItemPlotNucleusMagneticFieldStrengthInLCF.Click += new EventHandler(MenuItemPlotNucleusMagneticFieldStrengthInLCF_Click);
 			MenuEntry.MenuItemPlotCentralMagneticFieldStrength.Click += new EventHandler(MenuItemPlotCentralMagneticFieldStrength_Click);
+			MenuEntry.MenuItemPlotAverageElectricFieldStrength.Click += new EventHandler(MenuItemPlotAverageElectricFieldStrength_Click);
 			MenuEntry.MenuItemPlotAverageMagneticFieldStrength.Click += new EventHandler(MenuItemPlotAverageMagneticFieldStrength_Click);
 			MenuEntry.MenuItemPlotAverageSpinStateOverlap.Click += new EventHandler(MenuItemPlotAverageSpinStateOverlap_Click);
 		}
@@ -200,9 +201,9 @@ namespace Yburn.Electromagnetism.UI
 			JobOrganizer.RequestNewJob("PlotPointChargeRadialElectricField", ControlsValues);
 		}
 
-		private void MenuItemPlotPointChargeAndNucleusFieldComponents_Click(object sender, EventArgs e)
+		private void MenuItemPlotPointChargeAndNucleusFields_Click(object sender, EventArgs e)
 		{
-			JobOrganizer.RequestNewJob("PlotPointChargeAndNucleusFieldComponents", ControlsValues);
+			JobOrganizer.RequestNewJob("PlotPointChargeAndNucleusFields", ControlsValues);
 		}
 
 		private void MenuItemPlotNucleusMagneticFieldStrengthInLCF_Click(object sender, EventArgs e)
@@ -213,6 +214,11 @@ namespace Yburn.Electromagnetism.UI
 		private void MenuItemPlotCentralMagneticFieldStrength_Click(object sender, EventArgs e)
 		{
 			JobOrganizer.RequestNewJob("PlotCentralMagneticFieldStrength", ControlsValues);
+		}
+
+		private void MenuItemPlotAverageElectricFieldStrength_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotAverageElectricFieldStrength", ControlsValues);
 		}
 
 		private void MenuItemPlotAverageMagneticFieldStrength_Click(object sender, EventArgs e)

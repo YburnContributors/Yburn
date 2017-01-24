@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
@@ -32,6 +33,18 @@ namespace Yburn
 			}
 
 			return abscissaList;
+		}
+
+		protected static List<double> GetLogarithmicAbscissaList(
+			double startValue,
+			double stopValue,
+			int samples
+			)
+		{
+			List<double> abscissaList = GetLinearAbscissaList(
+				Math.Log10(startValue), Math.Log10(stopValue), samples);
+
+			return abscissaList.ConvertAll(x => Math.Pow(10, x));
 		}
 
 		protected static void WriteLine(
@@ -91,6 +104,18 @@ namespace Yburn
 			}
 
 			return functionValues;
+		}
+
+		protected static void ReduceNumberOfColors(
+			StringBuilder plotFile,
+			int numberOfColors
+			)
+		{
+			for(int i = 8; i > numberOfColors; i--)
+			{
+				plotFile.AppendLine(string.Format("unset linetype {0}", i));
+			}
+			plotFile.AppendLine("set linetype cycle " + numberOfColors);
 		}
 
 		/********************************************************************************************

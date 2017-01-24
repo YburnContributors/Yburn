@@ -58,8 +58,8 @@ namespace Yburn.Workers
 					PlotPointChargeRadialElectricField();
 					break;
 
-				case "PlotPointChargeAndNucleusFieldComponents":
-					PlotPointChargeAndNucleusFieldComponents();
+				case "PlotPointChargeAndNucleusFields":
+					PlotPointChargeAndNucleusFields();
 					break;
 
 				case "PlotNucleusMagneticFieldStrengthInLCF":
@@ -68,6 +68,10 @@ namespace Yburn.Workers
 
 				case "PlotCentralMagneticFieldStrength":
 					PlotCentralMagneticFieldStrength();
+					break;
+
+				case "PlotAverageElectricFieldStrength":
+					PlotAverageElectricFieldStrength();
 					break;
 
 				case "PlotAverageMagneticFieldStrength":
@@ -89,12 +93,13 @@ namespace Yburn.Workers
 		{
 			FireballParam param = new FireballParam();
 
-			param.BeamRapidity = 7.99;
+			param.BeamRapidity = ParticleRapidity;
 			param.DiffusenessAFm = DiffusenessAFm;
 			param.DiffusenessBFm = DiffusenessBFm;
 			param.EMFCalculationMethod = emfCalculationMethod;
-			param.GridCellSizeFm = 0.4;
-			param.GridRadiusFm = 10;
+			param.EMFQuadratureOrder = EMFQuadratureOrder;
+			param.GridCellSizeFm = GridCellSizeFm;
+			param.GridRadiusFm = GridRadiusFm;
 			param.ImpactParameterFm = ImpactParameterFm;
 			param.InelasticppCrossSectionFm = 6.4;
 			param.NucleonNumberA = NucleonNumberA;

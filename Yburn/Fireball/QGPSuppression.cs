@@ -137,7 +137,7 @@ namespace Yburn.Fireball
 			for(int binIndex = 0; binIndex < NumberFlatBins; binIndex++)
 			{
 				FlatQGPSuppressionFactors[binIndex]
-						  = new BottomiumVector[FireballParam.TransverseMomentaGeV.Count];
+					= new BottomiumVector[FireballParam.TransverseMomentaGeV.Count];
 				for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Count; pTIndex++)
 				{
 					FlatQGPSuppressionFactors[binIndex][pTIndex] = new BottomiumVector();

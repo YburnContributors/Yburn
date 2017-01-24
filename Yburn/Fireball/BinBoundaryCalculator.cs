@@ -32,7 +32,7 @@ namespace Yburn.Fireball
 
 			AssertInputValid();
 
-			GetValuesFromFireball();
+			GetValuesFromGlauberCalculation();
 			CalculateBinBoundaries();
 			CalculateMeanParticipants();
 		}
@@ -130,7 +130,7 @@ namespace Yburn.Fireball
 			}
 		}
 
-		private void GetValuesFromFireball()
+		private void GetValuesFromGlauberCalculation()
 		{
 			ImpactParams = new List<double>();
 			Ncolls = new List<double>();
@@ -147,7 +147,7 @@ namespace Yburn.Fireball
 				}
 
 				ImpactParams.Add(step * FireballParam.GridCellSizeFm);
-				GetValuesFromFireball(ImpactParams[step]);
+				GetValuesFromGlauberCalculation(ImpactParams[step]);
 
 				step++;
 			}
@@ -161,7 +161,7 @@ namespace Yburn.Fireball
 			return step > 1 && (DSigmaDbs[step - 1] / Sigmas[step - 1]) < 1e-5;
 		}
 
-		private void GetValuesFromFireball(
+		private void GetValuesFromGlauberCalculation(
 			double impactParam
 			)
 		{
@@ -169,7 +169,7 @@ namespace Yburn.Fireball
 			double npart;
 			double dsigmadb;
 			double sigma;
-			GetValuesFromFireball(impactParam, out ncoll, out npart, out dsigmadb, out sigma);
+			GetValuesFromGlauberCalculation(impactParam, out ncoll, out npart, out dsigmadb, out sigma);
 
 			Ncolls.Add(ncoll);
 			Nparts.Add(npart);
@@ -179,7 +179,7 @@ namespace Yburn.Fireball
 			UpdateStatus(impactParam, ncoll, npart, dsigmadb, sigma);
 		}
 
-		private void GetValuesFromFireball(
+		private void GetValuesFromGlauberCalculation(
 			double impactParam,
 			out double ncoll,
 			out double npart,

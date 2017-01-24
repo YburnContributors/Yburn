@@ -12,6 +12,18 @@ namespace Yburn.Fireball
 		 * Public static members, functions and properties
 		 ********************************************************************************************/
 
+		public static double AverageRapidityDependence(
+			Func<double, double> function,
+			int quadratureOrder
+			)
+		{
+			Func<double, double> integrand = rapidity => function(rapidity)
+				* Functions.GaussianDistributionNormalized1D(rapidity, RapidityDistributionWidth);
+
+			return ImproperQuadrature.IntegrateOverRealAxis(
+				integrand, 2 * RapidityDistributionWidth, quadratureOrder);
+		}
+
 		public static double AverageByBottomiumDistribution(
 			LCFFieldFunction function,
 			FireballParam param

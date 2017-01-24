@@ -88,11 +88,11 @@ MagneticFieldStrength       = 0.1
 Samples              = 10
 
 # Single Point Charge
-PointChargeRapidity   = 7.987
-RadialDistance        = 6.62
-StartEffectiveTime    = 0.0
-StopEffectiveTime     = 3.0
-EMFCalculationMethods = URLimitFourierSynthesis,DiffusionApproximation,FreeSpace
+ParticleRapidity              = 7.987
+RadialDistance                = 6.62
+StartTime                     = 0.01
+StopTime                      = 10.0
+EMFCalculationMethodSelection = URLimitFourierSynthesis,DiffusionApproximation,FreeSpace
 
 # Output
 #DataFileName = stdout.txt

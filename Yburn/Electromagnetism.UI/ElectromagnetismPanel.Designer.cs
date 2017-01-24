@@ -68,18 +68,18 @@
 			this.LblEMFCalculationMethod = new System.Windows.Forms.Label();
 			this.LblQGPConductivity = new System.Windows.Forms.Label();
 			this.TbxQGPConductivity = new System.Windows.Forms.TextBox();
-			this.GbxSinglePointCharge = new System.Windows.Forms.GroupBox();
+			this.GbxPlotSettings = new System.Windows.Forms.GroupBox();
 			this.LayoutSinglePointCharge = new System.Windows.Forms.TableLayoutPanel();
 			this.MsxEMFCalculationMethodSelection = new Yburn.UI.MultiSelectBox();
 			this.LblEMFCalculationMethodSelection = new System.Windows.Forms.Label();
-			this.TbxPointChargeRapidity = new System.Windows.Forms.TextBox();
+			this.TbxParticleRapidity = new System.Windows.Forms.TextBox();
 			this.LblRadialDistance = new System.Windows.Forms.Label();
 			this.TbxRadialDistance = new System.Windows.Forms.TextBox();
-			this.LblStartEffectiveTime = new System.Windows.Forms.Label();
-			this.TbxStartEffectiveTime = new System.Windows.Forms.TextBox();
-			this.LblStopEffectiveTime = new System.Windows.Forms.Label();
-			this.TbxStopEffectiveTime = new System.Windows.Forms.TextBox();
-			this.LblPointChargeRapidity = new System.Windows.Forms.Label();
+			this.LblStartTime = new System.Windows.Forms.Label();
+			this.TbxStartTime = new System.Windows.Forms.TextBox();
+			this.LblStopTime = new System.Windows.Forms.Label();
+			this.TbxStopTime = new System.Windows.Forms.TextBox();
+			this.LblParticleRapidity = new System.Windows.Forms.Label();
 			this.GbxOutput = new System.Windows.Forms.GroupBox();
 			this.LayoutOutput = new System.Windows.Forms.TableLayoutPanel();
 			this.LblDataFileName = new System.Windows.Forms.Label();
@@ -96,7 +96,7 @@
 			this.LayoutGlauber.SuspendLayout();
 			this.GbxGeneralParameters.SuspendLayout();
 			this.LayoutGeneralParameters.SuspendLayout();
-			this.GbxSinglePointCharge.SuspendLayout();
+			this.GbxPlotSettings.SuspendLayout();
 			this.LayoutSinglePointCharge.SuspendLayout();
 			this.GbxOutput.SuspendLayout();
 			this.LayoutOutput.SuspendLayout();
@@ -133,7 +133,7 @@
 			this.LayoutBottom.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
 			this.LayoutBottom.Controls.Add(this.GbxGlauber, 0, 0);
 			this.LayoutBottom.Controls.Add(this.GbxGeneralParameters, 0, 1);
-			this.LayoutBottom.Controls.Add(this.GbxSinglePointCharge, 0, 2);
+			this.LayoutBottom.Controls.Add(this.GbxPlotSettings, 0, 2);
 			this.LayoutBottom.Controls.Add(this.GbxOutput, 0, 3);
 			this.LayoutBottom.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LayoutBottom.Location = new System.Drawing.Point(0, 0);
@@ -575,18 +575,18 @@
 			this.TbxQGPConductivity.Size = new System.Drawing.Size(192, 31);
 			this.TbxQGPConductivity.TabIndex = 0;
 			// 
-			// GbxSinglePointCharge
+			// GbxPlotSettings
 			// 
-			this.GbxSinglePointCharge.Controls.Add(this.LayoutSinglePointCharge);
-			this.GbxSinglePointCharge.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxSinglePointCharge.Location = new System.Drawing.Point(10, 545);
-			this.GbxSinglePointCharge.Margin = new System.Windows.Forms.Padding(10);
-			this.GbxSinglePointCharge.Name = "GbxSinglePointCharge";
-			this.GbxSinglePointCharge.Padding = new System.Windows.Forms.Padding(10);
-			this.GbxSinglePointCharge.Size = new System.Drawing.Size(459, 210);
-			this.GbxSinglePointCharge.TabIndex = 0;
-			this.GbxSinglePointCharge.TabStop = false;
-			this.GbxSinglePointCharge.Text = "Single Point Charge";
+			this.GbxPlotSettings.Controls.Add(this.LayoutSinglePointCharge);
+			this.GbxPlotSettings.FlatStyle = System.Windows.Forms.FlatStyle.System;
+			this.GbxPlotSettings.Location = new System.Drawing.Point(10, 545);
+			this.GbxPlotSettings.Margin = new System.Windows.Forms.Padding(10);
+			this.GbxPlotSettings.Name = "GbxPlotSettings";
+			this.GbxPlotSettings.Padding = new System.Windows.Forms.Padding(10);
+			this.GbxPlotSettings.Size = new System.Drawing.Size(459, 210);
+			this.GbxPlotSettings.TabIndex = 0;
+			this.GbxPlotSettings.TabStop = false;
+			this.GbxPlotSettings.Text = "Plot Settings";
 			// 
 			// LayoutSinglePointCharge
 			// 
@@ -595,14 +595,14 @@
 			this.LayoutSinglePointCharge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
 			this.LayoutSinglePointCharge.Controls.Add(this.MsxEMFCalculationMethodSelection, 1, 4);
 			this.LayoutSinglePointCharge.Controls.Add(this.LblEMFCalculationMethodSelection, 0, 4);
-			this.LayoutSinglePointCharge.Controls.Add(this.TbxPointChargeRapidity, 1, 0);
+			this.LayoutSinglePointCharge.Controls.Add(this.TbxParticleRapidity, 1, 0);
 			this.LayoutSinglePointCharge.Controls.Add(this.LblRadialDistance, 0, 1);
 			this.LayoutSinglePointCharge.Controls.Add(this.TbxRadialDistance, 1, 1);
-			this.LayoutSinglePointCharge.Controls.Add(this.LblStartEffectiveTime, 0, 2);
-			this.LayoutSinglePointCharge.Controls.Add(this.TbxStartEffectiveTime, 1, 2);
-			this.LayoutSinglePointCharge.Controls.Add(this.LblStopEffectiveTime, 0, 3);
-			this.LayoutSinglePointCharge.Controls.Add(this.TbxStopEffectiveTime, 1, 3);
-			this.LayoutSinglePointCharge.Controls.Add(this.LblPointChargeRapidity, 0, 0);
+			this.LayoutSinglePointCharge.Controls.Add(this.LblStartTime, 0, 2);
+			this.LayoutSinglePointCharge.Controls.Add(this.TbxStartTime, 1, 2);
+			this.LayoutSinglePointCharge.Controls.Add(this.LblStopTime, 0, 3);
+			this.LayoutSinglePointCharge.Controls.Add(this.TbxStopTime, 1, 3);
+			this.LayoutSinglePointCharge.Controls.Add(this.LblParticleRapidity, 0, 0);
 			this.LayoutSinglePointCharge.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LayoutSinglePointCharge.Location = new System.Drawing.Point(10, 34);
 			this.LayoutSinglePointCharge.Name = "LayoutSinglePointCharge";
@@ -637,13 +637,13 @@
 			this.LblEMFCalculationMethodSelection.TabIndex = 0;
 			this.LblEMFCalculationMethodSelection.Text = "EMFCalculationMethodSelection";
 			// 
-			// TbxPointChargeRapidity
+			// TbxParticleRapidity
 			// 
-			this.TbxPointChargeRapidity.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxPointChargeRapidity.Location = new System.Drawing.Point(244, 3);
-			this.TbxPointChargeRapidity.Name = "TbxPointChargeRapidity";
-			this.TbxPointChargeRapidity.Size = new System.Drawing.Size(192, 31);
-			this.TbxPointChargeRapidity.TabIndex = 0;
+			this.TbxParticleRapidity.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxParticleRapidity.Location = new System.Drawing.Point(244, 3);
+			this.TbxParticleRapidity.Name = "TbxParticleRapidity";
+			this.TbxParticleRapidity.Size = new System.Drawing.Size(192, 31);
+			this.TbxParticleRapidity.TabIndex = 0;
 			// 
 			// LblRadialDistance
 			// 
@@ -664,54 +664,54 @@
 			this.TbxRadialDistance.Size = new System.Drawing.Size(192, 31);
 			this.TbxRadialDistance.TabIndex = 0;
 			// 
-			// LblStartEffectiveTime
+			// LblStartTime
 			// 
-			this.LblStartEffectiveTime.AutoSize = true;
-			this.LblStartEffectiveTime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblStartEffectiveTime.Location = new System.Drawing.Point(3, 50);
-			this.LblStartEffectiveTime.Name = "LblStartEffectiveTime";
-			this.LblStartEffectiveTime.Size = new System.Drawing.Size(235, 25);
-			this.LblStartEffectiveTime.TabIndex = 0;
-			this.LblStartEffectiveTime.Text = "StartEffectiveTime (fm/c)";
-			this.LblStartEffectiveTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblStartTime.AutoSize = true;
+			this.LblStartTime.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblStartTime.Location = new System.Drawing.Point(3, 50);
+			this.LblStartTime.Name = "LblStartTime";
+			this.LblStartTime.Size = new System.Drawing.Size(235, 25);
+			this.LblStartTime.TabIndex = 0;
+			this.LblStartTime.Text = "StartTime (fm/c)";
+			this.LblStartTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxStartEffectiveTime
+			// TbxStartTime
 			// 
-			this.TbxStartEffectiveTime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxStartEffectiveTime.Location = new System.Drawing.Point(244, 53);
-			this.TbxStartEffectiveTime.Name = "TbxStartEffectiveTime";
-			this.TbxStartEffectiveTime.Size = new System.Drawing.Size(192, 31);
-			this.TbxStartEffectiveTime.TabIndex = 0;
+			this.TbxStartTime.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxStartTime.Location = new System.Drawing.Point(244, 53);
+			this.TbxStartTime.Name = "TbxStartTime";
+			this.TbxStartTime.Size = new System.Drawing.Size(192, 31);
+			this.TbxStartTime.TabIndex = 0;
 			// 
-			// LblStopEffectiveTime
+			// LblStopTime
 			// 
-			this.LblStopEffectiveTime.AutoSize = true;
-			this.LblStopEffectiveTime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblStopEffectiveTime.Location = new System.Drawing.Point(3, 75);
-			this.LblStopEffectiveTime.Name = "LblStopEffectiveTime";
-			this.LblStopEffectiveTime.Size = new System.Drawing.Size(235, 25);
-			this.LblStopEffectiveTime.TabIndex = 0;
-			this.LblStopEffectiveTime.Text = "StopEffectiveTime (fm/c)";
-			this.LblStopEffectiveTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblStopTime.AutoSize = true;
+			this.LblStopTime.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblStopTime.Location = new System.Drawing.Point(3, 75);
+			this.LblStopTime.Name = "LblStopTime";
+			this.LblStopTime.Size = new System.Drawing.Size(235, 25);
+			this.LblStopTime.TabIndex = 0;
+			this.LblStopTime.Text = "StopTime (fm/c)";
+			this.LblStopTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxStopEffectiveTime
+			// TbxStopTime
 			// 
-			this.TbxStopEffectiveTime.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxStopEffectiveTime.Location = new System.Drawing.Point(244, 78);
-			this.TbxStopEffectiveTime.Name = "TbxStopEffectiveTime";
-			this.TbxStopEffectiveTime.Size = new System.Drawing.Size(192, 31);
-			this.TbxStopEffectiveTime.TabIndex = 0;
+			this.TbxStopTime.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxStopTime.Location = new System.Drawing.Point(244, 78);
+			this.TbxStopTime.Name = "TbxStopTime";
+			this.TbxStopTime.Size = new System.Drawing.Size(192, 31);
+			this.TbxStopTime.TabIndex = 0;
 			// 
-			// LblPointChargeRapidity
+			// LblParticleRapidity
 			// 
-			this.LblPointChargeRapidity.AutoSize = true;
-			this.LblPointChargeRapidity.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblPointChargeRapidity.Location = new System.Drawing.Point(3, 0);
-			this.LblPointChargeRapidity.Name = "LblPointChargeRapidity";
-			this.LblPointChargeRapidity.Size = new System.Drawing.Size(235, 25);
-			this.LblPointChargeRapidity.TabIndex = 0;
-			this.LblPointChargeRapidity.Text = "PointChargeRapidity";
-			this.LblPointChargeRapidity.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblParticleRapidity.AutoSize = true;
+			this.LblParticleRapidity.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblParticleRapidity.Location = new System.Drawing.Point(3, 0);
+			this.LblParticleRapidity.Name = "LblParticleRapidity";
+			this.LblParticleRapidity.Size = new System.Drawing.Size(235, 25);
+			this.LblParticleRapidity.TabIndex = 0;
+			this.LblParticleRapidity.Text = "ParticleRapidity";
+			this.LblParticleRapidity.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// GbxOutput
 			// 
@@ -813,7 +813,7 @@
 			this.GbxGeneralParameters.ResumeLayout(false);
 			this.LayoutGeneralParameters.ResumeLayout(false);
 			this.LayoutGeneralParameters.PerformLayout();
-			this.GbxSinglePointCharge.ResumeLayout(false);
+			this.GbxPlotSettings.ResumeLayout(false);
 			this.LayoutSinglePointCharge.ResumeLayout(false);
 			this.LayoutSinglePointCharge.PerformLayout();
 			this.GbxOutput.ResumeLayout(false);
@@ -838,16 +838,16 @@
 		private System.Windows.Forms.TableLayoutPanel LayoutOutput;
 		private System.Windows.Forms.Label LblDataFileName;
 		private System.Windows.Forms.TextBox TbxDataFileName;
-		private System.Windows.Forms.GroupBox GbxSinglePointCharge;
+		private System.Windows.Forms.GroupBox GbxPlotSettings;
 		private System.Windows.Forms.TableLayoutPanel LayoutSinglePointCharge;
 		private System.Windows.Forms.Label LblRadialDistance;
 		private System.Windows.Forms.TextBox TbxRadialDistance;
-		private System.Windows.Forms.Label LblStartEffectiveTime;
-		private System.Windows.Forms.TextBox TbxStartEffectiveTime;
-		private System.Windows.Forms.Label LblStopEffectiveTime;
-		private System.Windows.Forms.TextBox TbxStopEffectiveTime;
-		private System.Windows.Forms.Label LblPointChargeRapidity;
-		private System.Windows.Forms.TextBox TbxPointChargeRapidity;
+		private System.Windows.Forms.Label LblStartTime;
+		private System.Windows.Forms.TextBox TbxStartTime;
+		private System.Windows.Forms.Label LblStopTime;
+		private System.Windows.Forms.TextBox TbxStopTime;
+		private System.Windows.Forms.Label LblParticleRapidity;
+		private System.Windows.Forms.TextBox TbxParticleRapidity;
 		private System.Windows.Forms.Label LblEMFCalculationMethodSelection;
 		private Yburn.UI.MultiSelectBox MsxEMFCalculationMethodSelection;
 		private System.Windows.Forms.GroupBox GbxGeneralParameters;

@@ -11,8 +11,14 @@ namespace Yburn.Fireball
 			)
 		{
 			CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
-			Func<double, double, double, double> fieldFunction
-				= (tau, x, y) => emf.CalculateElectricFieldPerFm2_LCF(tau, x, y, 2.7).Norm;
+			Func<double, double, double, double> fieldFunction = (tau, x, y) =>
+			{
+				Func<double, double> integrand
+					= rapidity => emf.CalculateElectricFieldPerFm2_LCF(tau, x, y, rapidity).Norm;
+
+				return LCFFieldAverager.AverageRapidityDependence(
+					integrand, param.EMFQuadratureOrder);
+			};
 
 			return new FireballElectromagneticField(FireballFieldType.ElectricFieldStrength,
 				xAxis, yAxis, fieldFunction, param.EMFUpdateIntervalFm);
@@ -25,8 +31,14 @@ namespace Yburn.Fireball
 			)
 		{
 			CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
-			Func<double, double, double, double> fieldFunction
-				= (tau, x, y) => emf.CalculateMagneticFieldPerFm2_LCF(tau, x, y, 2.7).Norm;
+			Func<double, double, double, double> fieldFunction = (tau, x, y) =>
+			{
+				Func<double, double> integrand
+					= rapidity => emf.CalculateMagneticFieldPerFm2_LCF(tau, x, y, rapidity).Norm;
+
+				return LCFFieldAverager.AverageRapidityDependence(
+					integrand, param.EMFQuadratureOrder);
+			};
 
 			return new FireballElectromagneticField(FireballFieldType.MagneticFieldStrength,
 				xAxis, yAxis, fieldFunction, param.EMFUpdateIntervalFm);

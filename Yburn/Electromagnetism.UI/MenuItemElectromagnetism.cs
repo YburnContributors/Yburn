@@ -13,9 +13,10 @@ namespace Yburn.Electromagnetism.UI
 		public ToolStripMenuItem MenuItemPlotPointChargeAzimutalMagneticField;
 		public ToolStripMenuItem MenuItemPlotPointChargeLongitudinalElectricField;
 		public ToolStripMenuItem MenuItemPlotPointChargeRadialElectricField;
-		public ToolStripMenuItem MenuItemPlotPointChargeAndNucleusFieldComponents;
+		public ToolStripMenuItem MenuItemPlotPointChargeAndNucleusFields;
 		public ToolStripMenuItem MenuItemPlotNucleusMagneticFieldStrengthInLCF;
 		public ToolStripMenuItem MenuItemPlotCentralMagneticFieldStrength;
+		public ToolStripMenuItem MenuItemPlotAverageElectricFieldStrength;
 		public ToolStripMenuItem MenuItemPlotAverageMagneticFieldStrength;
 		public ToolStripMenuItem MenuItemPlotAverageSpinStateOverlap;
 
@@ -24,9 +25,10 @@ namespace Yburn.Electromagnetism.UI
 			this.MenuItemPlotPointChargeAzimutalMagneticField = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotPointChargeLongitudinalElectricField = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotPointChargeRadialElectricField = new System.Windows.Forms.ToolStripMenuItem();
-			this.MenuItemPlotPointChargeAndNucleusFieldComponents = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemPlotPointChargeAndNucleusFields = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotNucleusMagneticFieldStrengthInLCF = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotCentralMagneticFieldStrength = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemPlotAverageElectricFieldStrength = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotAverageMagneticFieldStrength = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotAverageSpinStateOverlap = new System.Windows.Forms.ToolStripMenuItem();
 			//
@@ -48,11 +50,11 @@ namespace Yburn.Electromagnetism.UI
 			this.MenuItemPlotPointChargeRadialElectricField.Size = new System.Drawing.Size(361, 24);
 			this.MenuItemPlotPointChargeRadialElectricField.Text = "Plot point charge &radial electric field";
 			//
-			// MenuItemPlotPointChargeAndNucleusFieldComponents
+			// MenuItemPlotPointChargeAndNucleusFields
 			//
-			this.MenuItemPlotPointChargeAndNucleusFieldComponents.Name = "MenuItemPlotPointChargeAndNucleusFieldComponents";
-			this.MenuItemPlotPointChargeAndNucleusFieldComponents.Size = new System.Drawing.Size(361, 24);
-			this.MenuItemPlotPointChargeAndNucleusFieldComponents.Text = "Plot point charge and nucleus &field components";
+			this.MenuItemPlotPointChargeAndNucleusFields.Name = "MenuItemPlotPointChargeAndNucleusFields";
+			this.MenuItemPlotPointChargeAndNucleusFields.Size = new System.Drawing.Size(361, 24);
+			this.MenuItemPlotPointChargeAndNucleusFields.Text = "Plot point charge and nucleus &field components";
 			//
 			// MenuItemPlotNucleusMagneticFieldStrengthInLCF
 			//
@@ -66,11 +68,17 @@ namespace Yburn.Electromagnetism.UI
 			this.MenuItemPlotCentralMagneticFieldStrength.Size = new System.Drawing.Size(361, 24);
 			this.MenuItemPlotCentralMagneticFieldStrength.Text = "Plot &central magnetic field strength";
 			//
+			// MenuItemPlotAverageElectricFieldStrength
+			//
+			this.MenuItemPlotAverageElectricFieldStrength.Name = "MenuItemPlotAverageElectricFieldStrength";
+			this.MenuItemPlotAverageElectricFieldStrength.Size = new System.Drawing.Size(361, 24);
+			this.MenuItemPlotAverageElectricFieldStrength.Text = "Plot average &electric field strength for bb mesons";
+			//
 			// MenuItemPlotAverageMagneticFieldStrength
 			//
 			this.MenuItemPlotAverageMagneticFieldStrength.Name = "MenuItemPlotAverageMagneticFieldStrength";
 			this.MenuItemPlotAverageMagneticFieldStrength.Size = new System.Drawing.Size(361, 24);
-			this.MenuItemPlotAverageMagneticFieldStrength.Text = "Plot &average magnetic field strength for bb mesons";
+			this.MenuItemPlotAverageMagneticFieldStrength.Text = "Plot average &magnetic field strength for bb mesons";
 			//
 			// MenuItemPlotAverageSpinStateOverlap
 			//
@@ -84,11 +92,12 @@ namespace Yburn.Electromagnetism.UI
 				this.MenuItemPlotPointChargeAzimutalMagneticField,
 				this.MenuItemPlotPointChargeLongitudinalElectricField,
 				this.MenuItemPlotPointChargeRadialElectricField,
-				this.MenuItemPlotPointChargeAndNucleusFieldComponents,
+				this.MenuItemPlotPointChargeAndNucleusFields,
 				this.MenuItemPlotNucleusMagneticFieldStrengthInLCF,
 				this.MenuItemPlotCentralMagneticFieldStrength,
+				this.MenuItemPlotAverageElectricFieldStrength,
 				this.MenuItemPlotAverageMagneticFieldStrength,
-			this.MenuItemPlotAverageSpinStateOverlap});
+				this.MenuItemPlotAverageSpinStateOverlap});
 			this.Size = new System.Drawing.Size(84, 24);
 			this.Text = "&Electromagnetism";
 		}

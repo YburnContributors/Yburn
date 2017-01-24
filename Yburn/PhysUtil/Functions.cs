@@ -51,7 +51,11 @@ namespace Yburn.PhysUtil
 			double C
 			)
 		{
-			if(C == 0)
+			if(B == 0)
+			{
+				return AveragedHeavisideStepFunctionWithLinearArgument(A, C);
+			}
+			else if(C == 0)
 			{
 				return AveragedHeavisideStepFunctionWithLinearArgument(A, B);
 			}

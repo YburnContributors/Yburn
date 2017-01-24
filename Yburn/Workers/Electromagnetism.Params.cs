@@ -26,7 +26,7 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "NuclearRadiusB", NuclearRadiusBFm);
 			Store(nameValuePairs, "NucleonNumberA", NucleonNumberA);
 			Store(nameValuePairs, "NucleonNumberB", NucleonNumberB);
-			Store(nameValuePairs, "PointChargeRapidity", PointChargeRapidity);
+			Store(nameValuePairs, "ParticleRapidity", ParticleRapidity);
 			Store(nameValuePairs, "ProtonNumberA", ProtonNumberA);
 			Store(nameValuePairs, "ProtonNumberB", ProtonNumberB);
 			Store(nameValuePairs, "QGPConductivity", QGPConductivity);
@@ -34,8 +34,8 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "NucleusShapeA", NucleusShapeA);
 			Store(nameValuePairs, "NucleusShapeB", NucleusShapeB);
 			Store(nameValuePairs, "Samples", Samples);
-			Store(nameValuePairs, "StartEffectiveTime", StartEffectiveTime);
-			Store(nameValuePairs, "StopEffectiveTime", StopEffectiveTime);
+			Store(nameValuePairs, "StartTime", StartTime);
+			Store(nameValuePairs, "StopTime", StopTime);
 
 			return nameValuePairs;
 		}
@@ -57,7 +57,7 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "NuclearRadiusB", ref NuclearRadiusBFm);
 			TryExtract(nameValuePairs, "NucleonNumberA", ref NucleonNumberA);
 			TryExtract(nameValuePairs, "NucleonNumberB", ref NucleonNumberB);
-			TryExtract(nameValuePairs, "PointChargeRapidity", ref PointChargeRapidity);
+			TryExtract(nameValuePairs, "ParticleRapidity", ref ParticleRapidity);
 			TryExtract(nameValuePairs, "ProtonNumberA", ref ProtonNumberA);
 			TryExtract(nameValuePairs, "ProtonNumberB", ref ProtonNumberB);
 			TryExtract(nameValuePairs, "QGPConductivity", ref QGPConductivity);
@@ -65,8 +65,8 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "NucleusShapeA", ref NucleusShapeA);
 			TryExtract(nameValuePairs, "NucleusShapeB", ref NucleusShapeB);
 			TryExtract(nameValuePairs, "Samples", ref Samples);
-			TryExtract(nameValuePairs, "StartEffectiveTime", ref StartEffectiveTime);
-			TryExtract(nameValuePairs, "StopEffectiveTime", ref StopEffectiveTime);
+			TryExtract(nameValuePairs, "StartTime", ref StartTime);
+			TryExtract(nameValuePairs, "StopTime", ref StopTime);
 		}
 
 		private double DiffusenessAFm;
@@ -93,7 +93,7 @@ namespace Yburn.Workers
 
 		private uint NucleonNumberB;
 
-		private double PointChargeRapidity;
+		private double ParticleRapidity;
 
 		private uint ProtonNumberA;
 
@@ -109,8 +109,8 @@ namespace Yburn.Workers
 
 		private int Samples;
 
-		private double StartEffectiveTime;
+		private double StartTime;
 
-		private double StopEffectiveTime;
+		private double StopTime;
 	}
 }

@@ -168,17 +168,6 @@ namespace Yburn.Workers
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private void SetColorsForBottomiumStates(
-			StringBuilder plotFile
-			)
-		{
-			for(int i = 8; i > BottomiumStates.Count; i--)
-			{
-				plotFile.AppendLine(string.Format("unset linetype {0}", i));
-			}
-			plotFile.AppendLine("set linetype cycle " + BottomiumStates.Count);
-		}
-
 		private QQDataProvider CreateQQDataProvider()
 		{
 			return new QQDataProvider(
@@ -245,7 +234,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set xlabel 'T (MeV)'");
 			plotFile.AppendLine("set ylabel '" + GetDecayWidthTypeGnuplotCode(DecayWidthType) + " (MeV)'");
 			plotFile.AppendLine();
-			SetColorsForBottomiumStates(plotFile);
+			ReduceNumberOfColors(plotFile, BottomiumStates.Count);
 			plotFile.AppendLine();
 			plotFile.AppendLine("set grid");
 			plotFile.AppendLine();
@@ -337,7 +326,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set xlabel 'T (MeV)'");
 			plotFile.AppendLine("set ylabel 'E (MeV)'");
 			plotFile.AppendLine();
-			SetColorsForBottomiumStates(plotFile);
+			ReduceNumberOfColors(plotFile, BottomiumStates.Count);
 			plotFile.AppendLine();
 			plotFile.AppendLine("set grid");
 			plotFile.AppendLine();
@@ -387,7 +376,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set xlabel 'T (MeV)'");
 			plotFile.AppendLine("set ylabel '" + GetDecayWidthTypeGnuplotCode(DecayWidthType) + " (MeV)'");
 			plotFile.AppendLine();
-			SetColorsForBottomiumStates(plotFile);
+			ReduceNumberOfColors(plotFile, BottomiumStates.Count);
 		}
 
 		private void AppendHeader_InMediumDecayWidthsVersusMediumVelocity(
@@ -404,7 +393,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set xlabel 'u (c)'");
 			plotFile.AppendLine("set ylabel '" + GetDecayWidthTypeGnuplotCode(DecayWidthType) + " (MeV)'");
 			plotFile.AppendLine();
-			SetColorsForBottomiumStates(plotFile);
+			ReduceNumberOfColors(plotFile, BottomiumStates.Count);
 		}
 
 		private string InMediumDecayWidthPlottingTitle
@@ -430,7 +419,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set ylabel '"
 				+ GetDecayWidthTypeGnuplotCode(DecayWidthType) + " (MeV)'");
 			plotFile.AppendLine();
-			SetColorsForBottomiumStates(plotFile);
+			ReduceNumberOfColors(plotFile, BottomiumStates.Count);
 			plotFile.AppendLine();
 			plotFile.AppendLine("set style fill transparent solid 0.2");
 			plotFile.AppendLine();

@@ -22,7 +22,7 @@ namespace Yburn.TestUtil
 				nameValuePairs["NucleonNumberA"] = "3333";
 				nameValuePairs["NucleonNumberB"] = "3333";
 				nameValuePairs["DataFileName"] = "stdout.txt";
-				nameValuePairs["PointChargeRapidity"] = "3333";
+				nameValuePairs["ParticleRapidity"] = "3333";
 				nameValuePairs["ProtonNumberA"] = "3333";
 				nameValuePairs["ProtonNumberB"] = "3333";
 				nameValuePairs["QGPConductivity"] = "3333";
@@ -30,8 +30,8 @@ namespace Yburn.TestUtil
 				nameValuePairs["NucleusShapeA"] = "GaussianDistribution";
 				nameValuePairs["NucleusShapeB"] = "WoodsSaxonPotential";
 				nameValuePairs["Samples"] = "3333";
-				nameValuePairs["StartEffectiveTime"] = "3333";
-				nameValuePairs["StopEffectiveTime"] = "3333";
+				nameValuePairs["StartTime"] = "3333";
+				nameValuePairs["StopTime"] = "3333";
 
 				return nameValuePairs;
 			}

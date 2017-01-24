@@ -15,6 +15,13 @@ namespace Yburn.Fireball
 		FreeSpace
 	}
 
+	public enum EMFComponent
+	{
+		AzimutalMagneticField,
+		LongitudinalElectricField,
+		RadialElectricField
+	}
+
 	public abstract class PointChargeElectromagneticField
 	{
 		/********************************************************************************************
@@ -70,6 +77,28 @@ namespace Yburn.Fireball
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
+
+		public double CalculateElectromagneticField(
+			EMFComponent component,
+			double effectiveTime,
+			double radialDistance
+			)
+		{
+			switch(component)
+			{
+				case EMFComponent.AzimutalMagneticField:
+					return CalculateAzimutalMagneticField(effectiveTime, radialDistance);
+
+				case EMFComponent.LongitudinalElectricField:
+					return CalculateLongitudinalElectricField(effectiveTime, radialDistance);
+
+				case EMFComponent.RadialElectricField:
+					return CalculateRadialElectricField(effectiveTime, radialDistance);
+
+				default:
+					throw new Exception("Invalid EMFComponent.");
+			}
+		}
 
 		public abstract double CalculateAzimutalMagneticField(
 			double effectiveTime,
