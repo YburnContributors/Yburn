@@ -206,7 +206,7 @@
 			this.LayoutQQStates.Controls.Add(this.LblFormationTimes, 0, 5);
 			this.LayoutQQStates.Controls.Add(this.TbxFormationTimes, 1, 5);
 			this.LayoutQQStates.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LayoutQQStates.Location = new System.Drawing.Point(10, 34);
+			this.LayoutQQStates.Location = new System.Drawing.Point(10, 25);
 			this.LayoutQQStates.Name = "LayoutQQStates";
 			this.LayoutQQStates.RowCount = 8;
 			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -217,7 +217,7 @@
 			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutQQStates.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutQQStates.Size = new System.Drawing.Size(439, 245);
+			this.LayoutQQStates.Size = new System.Drawing.Size(439, 254);
 			this.LayoutQQStates.TabIndex = 0;
 			// 
 			// CbxProtonProtonBaseline
@@ -226,7 +226,7 @@
 			this.CbxProtonProtonBaseline.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.CbxProtonProtonBaseline.Location = new System.Drawing.Point(244, 232);
 			this.CbxProtonProtonBaseline.Name = "CbxProtonProtonBaseline";
-			this.CbxProtonProtonBaseline.Size = new System.Drawing.Size(192, 33);
+			this.CbxProtonProtonBaseline.Size = new System.Drawing.Size(192, 24);
 			this.CbxProtonProtonBaseline.TabIndex = 25;
 			// 
 			// LblProtonProtonBaseline
@@ -245,7 +245,7 @@
 			this.TbxDecayWidthAveragingAngles.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxDecayWidthAveragingAngles.Location = new System.Drawing.Point(244, 28);
 			this.TbxDecayWidthAveragingAngles.Name = "TbxDecayWidthAveragingAngles";
-			this.TbxDecayWidthAveragingAngles.Size = new System.Drawing.Size(192, 31);
+			this.TbxDecayWidthAveragingAngles.Size = new System.Drawing.Size(192, 22);
 			this.TbxDecayWidthAveragingAngles.TabIndex = 19;
 			// 
 			// LblDecayWidthAveragingAngles
@@ -264,7 +264,7 @@
 			this.TbxTransverseMomenta.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxTransverseMomenta.Location = new System.Drawing.Point(244, 207);
 			this.TbxTransverseMomenta.Name = "TbxTransverseMomenta";
-			this.TbxTransverseMomenta.Size = new System.Drawing.Size(192, 31);
+			this.TbxTransverseMomenta.Size = new System.Drawing.Size(192, 22);
 			this.TbxTransverseMomenta.TabIndex = 24;
 			// 
 			// LblTransverseMomenta
@@ -294,7 +294,7 @@
 			this.TbxFeedDown3P.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxFeedDown3P.Location = new System.Drawing.Point(244, 157);
 			this.TbxFeedDown3P.Name = "TbxFeedDown3P";
-			this.TbxFeedDown3P.Size = new System.Drawing.Size(192, 31);
+			this.TbxFeedDown3P.Size = new System.Drawing.Size(192, 22);
 			this.TbxFeedDown3P.TabIndex = 22;
 			// 
 			// LblPotentialTypes
@@ -335,7 +335,7 @@
 			this.CbxDecayWidthType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.CbxDecayWidthType.Location = new System.Drawing.Point(244, 53);
 			this.CbxDecayWidthType.Name = "CbxDecayWidthType";
-			this.CbxDecayWidthType.Size = new System.Drawing.Size(192, 33);
+			this.CbxDecayWidthType.Size = new System.Drawing.Size(192, 24);
 			this.CbxDecayWidthType.TabIndex = 20;
 			// 
 			// CbxDecayWidthEvaluationType
@@ -344,7 +344,7 @@
 			this.CbxDecayWidthEvaluationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.CbxDecayWidthEvaluationType.Location = new System.Drawing.Point(244, 3);
 			this.CbxDecayWidthEvaluationType.Name = "CbxDecayWidthEvaluationType";
-			this.CbxDecayWidthEvaluationType.Size = new System.Drawing.Size(192, 33);
+			this.CbxDecayWidthEvaluationType.Size = new System.Drawing.Size(192, 24);
 			this.CbxDecayWidthEvaluationType.TabIndex = 18;
 			// 
 			// LblDecayWidthEvaluationType
@@ -374,7 +374,7 @@
 			this.TbxFormationTimes.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxFormationTimes.Location = new System.Drawing.Point(244, 182);
 			this.TbxFormationTimes.Name = "TbxFormationTimes";
-			this.TbxFormationTimes.Size = new System.Drawing.Size(192, 31);
+			this.TbxFormationTimes.Size = new System.Drawing.Size(192, 22);
 			this.TbxFormationTimes.TabIndex = 23;
 			// 
 			// GbxGlauber
@@ -414,7 +414,7 @@
 			this.LayoutGlauber.Controls.Add(this.LblImpactParameter, 0, 8);
 			this.LayoutGlauber.Controls.Add(this.TbxImpactParameter, 1, 8);
 			this.LayoutGlauber.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LayoutGlauber.Location = new System.Drawing.Point(10, 34);
+			this.LayoutGlauber.Location = new System.Drawing.Point(10, 25);
 			this.LayoutGlauber.Name = "LayoutGlauber";
 			this.LayoutGlauber.RowCount = 9;
 			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -426,7 +426,7 @@
 			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutGlauber.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutGlauber.Size = new System.Drawing.Size(439, 216);
+			this.LayoutGlauber.Size = new System.Drawing.Size(439, 225);
 			this.LayoutGlauber.TabIndex = 0;
 			// 
 			// LblShapeFunctionTypeA
@@ -446,7 +446,7 @@
 			this.CbxShapeFunctionTypeA.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.CbxShapeFunctionTypeA.Location = new System.Drawing.Point(244, 3);
 			this.CbxShapeFunctionTypeA.Name = "CbxShapeFunctionTypeA";
-			this.CbxShapeFunctionTypeA.Size = new System.Drawing.Size(192, 33);
+			this.CbxShapeFunctionTypeA.Size = new System.Drawing.Size(192, 24);
 			this.CbxShapeFunctionTypeA.TabIndex = 0;
 			// 
 			// LblShapeFunctionTypeB
@@ -466,7 +466,7 @@
 			this.CbxShapeFunctionTypeB.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.CbxShapeFunctionTypeB.Location = new System.Drawing.Point(244, 103);
 			this.CbxShapeFunctionTypeB.Name = "CbxShapeFunctionTypeB";
-			this.CbxShapeFunctionTypeB.Size = new System.Drawing.Size(192, 33);
+			this.CbxShapeFunctionTypeB.Size = new System.Drawing.Size(192, 24);
 			this.CbxShapeFunctionTypeB.TabIndex = 0;
 			// 
 			// LblDiffusenessA
@@ -485,7 +485,7 @@
 			this.TbxDiffusenessA.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxDiffusenessA.Location = new System.Drawing.Point(244, 78);
 			this.TbxDiffusenessA.Name = "TbxDiffusenessA";
-			this.TbxDiffusenessA.Size = new System.Drawing.Size(192, 31);
+			this.TbxDiffusenessA.Size = new System.Drawing.Size(192, 22);
 			this.TbxDiffusenessA.TabIndex = 0;
 			// 
 			// LblDiffusenessB
@@ -504,7 +504,7 @@
 			this.TbxDiffusenessB.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxDiffusenessB.Location = new System.Drawing.Point(244, 178);
 			this.TbxDiffusenessB.Name = "TbxDiffusenessB";
-			this.TbxDiffusenessB.Size = new System.Drawing.Size(192, 31);
+			this.TbxDiffusenessB.Size = new System.Drawing.Size(192, 22);
 			this.TbxDiffusenessB.TabIndex = 0;
 			// 
 			// LblNucleonNumberA
@@ -523,7 +523,7 @@
 			this.TbxNucleonNumberA.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxNucleonNumberA.Location = new System.Drawing.Point(244, 28);
 			this.TbxNucleonNumberA.Name = "TbxNucleonNumberA";
-			this.TbxNucleonNumberA.Size = new System.Drawing.Size(192, 31);
+			this.TbxNucleonNumberA.Size = new System.Drawing.Size(192, 22);
 			this.TbxNucleonNumberA.TabIndex = 0;
 			// 
 			// LblNucleonNumberB
@@ -542,7 +542,7 @@
 			this.TbxNucleonNumberB.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxNucleonNumberB.Location = new System.Drawing.Point(244, 128);
 			this.TbxNucleonNumberB.Name = "TbxNucleonNumberB";
-			this.TbxNucleonNumberB.Size = new System.Drawing.Size(192, 31);
+			this.TbxNucleonNumberB.Size = new System.Drawing.Size(192, 22);
 			this.TbxNucleonNumberB.TabIndex = 0;
 			// 
 			// LblNuclearRadiusA
@@ -561,7 +561,7 @@
 			this.TbxNuclearRadiusA.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxNuclearRadiusA.Location = new System.Drawing.Point(244, 53);
 			this.TbxNuclearRadiusA.Name = "TbxNuclearRadiusA";
-			this.TbxNuclearRadiusA.Size = new System.Drawing.Size(192, 31);
+			this.TbxNuclearRadiusA.Size = new System.Drawing.Size(192, 22);
 			this.TbxNuclearRadiusA.TabIndex = 0;
 			// 
 			// LblNuclearRadiusB
@@ -580,26 +580,26 @@
 			this.TbxNuclearRadiusB.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxNuclearRadiusB.Location = new System.Drawing.Point(244, 153);
 			this.TbxNuclearRadiusB.Name = "TbxNuclearRadiusB";
-			this.TbxNuclearRadiusB.Size = new System.Drawing.Size(192, 31);
+			this.TbxNuclearRadiusB.Size = new System.Drawing.Size(192, 22);
 			this.TbxNuclearRadiusB.TabIndex = 0;
 			// 
-			// LblImpactParam
+			// LblImpactParameter
 			// 
 			this.LblImpactParameter.AutoSize = true;
 			this.LblImpactParameter.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LblImpactParameter.Location = new System.Drawing.Point(3, 200);
-			this.LblImpactParameter.Name = "LblImpactParam";
+			this.LblImpactParameter.Name = "LblImpactParameter";
 			this.LblImpactParameter.Size = new System.Drawing.Size(235, 25);
 			this.LblImpactParameter.TabIndex = 0;
 			this.LblImpactParameter.Text = "ImpactParameter (fm)";
 			this.LblImpactParameter.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// TbxImpactParam
+			// TbxImpactParameter
 			// 
 			this.TbxImpactParameter.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxImpactParameter.Location = new System.Drawing.Point(244, 203);
-			this.TbxImpactParameter.Name = "TbxImpactParam";
-			this.TbxImpactParameter.Size = new System.Drawing.Size(192, 31);
+			this.TbxImpactParameter.Name = "TbxImpactParameter";
+			this.TbxImpactParameter.Size = new System.Drawing.Size(192, 22);
 			this.TbxImpactParameter.TabIndex = 0;
 			// 
 			// GbxHydro
@@ -637,7 +637,7 @@
 			this.LayoutHydro.Controls.Add(this.LblGridRadius, 0, 6);
 			this.LayoutHydro.Controls.Add(this.TbxGridRadius, 1, 6);
 			this.LayoutHydro.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LayoutHydro.Location = new System.Drawing.Point(10, 34);
+			this.LayoutHydro.Location = new System.Drawing.Point(10, 25);
 			this.LayoutHydro.Name = "LayoutHydro";
 			this.LayoutHydro.RowCount = 8;
 			this.LayoutHydro.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -648,7 +648,7 @@
 			this.LayoutHydro.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutHydro.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutHydro.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutHydro.Size = new System.Drawing.Size(439, 191);
+			this.LayoutHydro.Size = new System.Drawing.Size(439, 200);
 			this.LayoutHydro.TabIndex = 0;
 			// 
 			// TbxBeamRapidity
@@ -656,7 +656,7 @@
 			this.TbxBeamRapidity.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxBeamRapidity.Location = new System.Drawing.Point(244, 178);
 			this.TbxBeamRapidity.Name = "TbxBeamRapidity";
-			this.TbxBeamRapidity.Size = new System.Drawing.Size(192, 31);
+			this.TbxBeamRapidity.Size = new System.Drawing.Size(192, 22);
 			this.TbxBeamRapidity.TabIndex = 16;
 			// 
 			// LblBeamRapidity
@@ -687,7 +687,7 @@
 			this.CbxExpansionMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.CbxExpansionMode.Location = new System.Drawing.Point(244, 3);
 			this.CbxExpansionMode.Name = "CbxExpansionMode";
-			this.CbxExpansionMode.Size = new System.Drawing.Size(192, 33);
+			this.CbxExpansionMode.Size = new System.Drawing.Size(192, 24);
 			this.CbxExpansionMode.TabIndex = 0;
 			// 
 			// LblTemperatureProfile
@@ -707,7 +707,7 @@
 			this.CbxTemperatureProfile.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.CbxTemperatureProfile.Location = new System.Drawing.Point(244, 28);
 			this.CbxTemperatureProfile.Name = "CbxTemperatureProfile";
-			this.CbxTemperatureProfile.Size = new System.Drawing.Size(192, 33);
+			this.CbxTemperatureProfile.Size = new System.Drawing.Size(192, 24);
 			this.CbxTemperatureProfile.TabIndex = 10;
 			// 
 			// LblInitialMaximumTemperature
@@ -726,7 +726,7 @@
 			this.TbxInitialMaximumTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxInitialMaximumTemperature.Location = new System.Drawing.Point(244, 53);
 			this.TbxInitialMaximumTemperature.Name = "TbxInitialMaximumTemperature";
-			this.TbxInitialMaximumTemperature.Size = new System.Drawing.Size(192, 31);
+			this.TbxInitialMaximumTemperature.Size = new System.Drawing.Size(192, 22);
 			this.TbxInitialMaximumTemperature.TabIndex = 11;
 			// 
 			// LblBreakupTemperature
@@ -745,7 +745,7 @@
 			this.TbxBreakupTemperature.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxBreakupTemperature.Location = new System.Drawing.Point(244, 78);
 			this.TbxBreakupTemperature.Name = "TbxBreakupTemperature";
-			this.TbxBreakupTemperature.Size = new System.Drawing.Size(192, 31);
+			this.TbxBreakupTemperature.Size = new System.Drawing.Size(192, 22);
 			this.TbxBreakupTemperature.TabIndex = 12;
 			// 
 			// LblThermalTime
@@ -764,7 +764,7 @@
 			this.TbxThermalTime.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxThermalTime.Location = new System.Drawing.Point(244, 103);
 			this.TbxThermalTime.Name = "TbxThermalTime";
-			this.TbxThermalTime.Size = new System.Drawing.Size(192, 31);
+			this.TbxThermalTime.Size = new System.Drawing.Size(192, 22);
 			this.TbxThermalTime.TabIndex = 13;
 			// 
 			// LblGridCellSize
@@ -783,7 +783,7 @@
 			this.TbxGridCellSize.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxGridCellSize.Location = new System.Drawing.Point(244, 128);
 			this.TbxGridCellSize.Name = "TbxGridCellSize";
-			this.TbxGridCellSize.Size = new System.Drawing.Size(192, 31);
+			this.TbxGridCellSize.Size = new System.Drawing.Size(192, 22);
 			this.TbxGridCellSize.TabIndex = 14;
 			// 
 			// LblGridRadius
@@ -802,7 +802,7 @@
 			this.TbxGridRadius.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxGridRadius.Location = new System.Drawing.Point(244, 153);
 			this.TbxGridRadius.Name = "TbxGridRadius";
-			this.TbxGridRadius.Size = new System.Drawing.Size(192, 31);
+			this.TbxGridRadius.Size = new System.Drawing.Size(192, 22);
 			this.TbxGridRadius.TabIndex = 15;
 			// 
 			// GbxOutput
@@ -844,7 +844,7 @@
 			this.LayoutOutput.Controls.Add(this.LblMeanParticipantsInBin, 0, 9);
 			this.LayoutOutput.Controls.Add(this.TbxMeanParticipantsInBin, 1, 9);
 			this.LayoutOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LayoutOutput.Location = new System.Drawing.Point(10, 34);
+			this.LayoutOutput.Location = new System.Drawing.Point(10, 25);
 			this.LayoutOutput.Name = "LayoutOutput";
 			this.LayoutOutput.RowCount = 10;
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 79F));
@@ -857,7 +857,7 @@
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutOutput.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutOutput.Size = new System.Drawing.Size(439, 349);
+			this.LayoutOutput.Size = new System.Drawing.Size(439, 358);
 			this.LayoutOutput.TabIndex = 0;
 			// 
 			// LblBottomiumStates
@@ -918,7 +918,7 @@
 			this.TbxSnapRate.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxSnapRate.Location = new System.Drawing.Point(244, 161);
 			this.TbxSnapRate.Name = "TbxSnapRate";
-			this.TbxSnapRate.Size = new System.Drawing.Size(192, 31);
+			this.TbxSnapRate.Size = new System.Drawing.Size(192, 22);
 			this.TbxSnapRate.TabIndex = 29;
 			// 
 			// LblDataFileName
@@ -937,7 +937,7 @@
 			this.TbxDataFileName.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxDataFileName.Location = new System.Drawing.Point(244, 186);
 			this.TbxDataFileName.Name = "TbxDataFileName";
-			this.TbxDataFileName.Size = new System.Drawing.Size(192, 31);
+			this.TbxDataFileName.Size = new System.Drawing.Size(192, 22);
 			this.TbxDataFileName.TabIndex = 30;
 			// 
 			// LblBjorkenLifeTime
@@ -957,7 +957,7 @@
 			this.TbxBjorkenLifeTime.Location = new System.Drawing.Point(244, 211);
 			this.TbxBjorkenLifeTime.Name = "TbxBjorkenLifeTime";
 			this.TbxBjorkenLifeTime.ReadOnly = true;
-			this.TbxBjorkenLifeTime.Size = new System.Drawing.Size(192, 31);
+			this.TbxBjorkenLifeTime.Size = new System.Drawing.Size(192, 22);
 			this.TbxBjorkenLifeTime.TabIndex = 31;
 			// 
 			// LblLifeTime
@@ -977,7 +977,7 @@
 			this.TbxLifeTime.Location = new System.Drawing.Point(244, 236);
 			this.TbxLifeTime.Name = "TbxLifeTime";
 			this.TbxLifeTime.ReadOnly = true;
-			this.TbxLifeTime.Size = new System.Drawing.Size(192, 31);
+			this.TbxLifeTime.Size = new System.Drawing.Size(192, 22);
 			this.TbxLifeTime.TabIndex = 32;
 			// 
 			// LblCentralityBinBoundaries
@@ -996,7 +996,7 @@
 			this.TbxCentralityBinBoundaries.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxCentralityBinBoundaries.Location = new System.Drawing.Point(244, 261);
 			this.TbxCentralityBinBoundaries.Name = "TbxCentralityBinBoundaries";
-			this.TbxCentralityBinBoundaries.Size = new System.Drawing.Size(192, 31);
+			this.TbxCentralityBinBoundaries.Size = new System.Drawing.Size(192, 22);
 			this.TbxCentralityBinBoundaries.TabIndex = 33;
 			// 
 			// LblImpactParamsAtBinBoundaries
@@ -1016,7 +1016,7 @@
 			this.TbxImpactParamsAtBinBoundaries.Location = new System.Drawing.Point(244, 286);
 			this.TbxImpactParamsAtBinBoundaries.Name = "TbxImpactParamsAtBinBoundaries";
 			this.TbxImpactParamsAtBinBoundaries.ReadOnly = true;
-			this.TbxImpactParamsAtBinBoundaries.Size = new System.Drawing.Size(192, 31);
+			this.TbxImpactParamsAtBinBoundaries.Size = new System.Drawing.Size(192, 22);
 			this.TbxImpactParamsAtBinBoundaries.TabIndex = 34;
 			// 
 			// LblParticipantsAtBinBoundaries
@@ -1036,7 +1036,7 @@
 			this.TbxParticipantsAtBinBoundaries.Location = new System.Drawing.Point(244, 311);
 			this.TbxParticipantsAtBinBoundaries.Name = "TbxParticipantsAtBinBoundaries";
 			this.TbxParticipantsAtBinBoundaries.ReadOnly = true;
-			this.TbxParticipantsAtBinBoundaries.Size = new System.Drawing.Size(192, 31);
+			this.TbxParticipantsAtBinBoundaries.Size = new System.Drawing.Size(192, 22);
 			this.TbxParticipantsAtBinBoundaries.TabIndex = 35;
 			// 
 			// LblMeanParticipantsInBin
@@ -1056,7 +1056,7 @@
 			this.TbxMeanParticipantsInBin.Location = new System.Drawing.Point(244, 336);
 			this.TbxMeanParticipantsInBin.Name = "TbxMeanParticipantsInBin";
 			this.TbxMeanParticipantsInBin.ReadOnly = true;
-			this.TbxMeanParticipantsInBin.Size = new System.Drawing.Size(192, 31);
+			this.TbxMeanParticipantsInBin.Size = new System.Drawing.Size(192, 22);
 			this.TbxMeanParticipantsInBin.TabIndex = 36;
 			// 
 			// HSplit
@@ -1101,7 +1101,7 @@
 			this.TbxtF3S2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.TbxtF3S2.Location = new System.Drawing.Point(3, 263);
 			this.TbxtF3S2.Name = "TbxtF3S2";
-			this.TbxtF3S2.Size = new System.Drawing.Size(158, 31);
+			this.TbxtF3S2.Size = new System.Drawing.Size(158, 22);
 			this.TbxtF3S2.TabIndex = 10;
 			// 
 			// QQonFirePanel

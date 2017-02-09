@@ -32,8 +32,8 @@
   <ItemGroup>
     <Compile Include="BinBoundaryCalculator.cs" />
     <Compile Include="BottomiumCascade.cs" />
+    <Compile Include="FtexsLaxWendroff.cs" />
     <Compile Include="FtexsLaxWendroffStepper.cs" />
-    <Compile Include="FtexsFirstOrderStepper.cs" />
     <Compile Include="NuclearDensityFunction.cs" />
     <Compile Include="DecayWidthAverager.cs" />
     <Compile Include="FireballElectromagneticField.cs" />
