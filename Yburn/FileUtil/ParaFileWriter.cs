@@ -4,10 +4,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
 using System.Text;
-using System.Threading;
+using Yburn.FormatUtil;
 
 namespace Yburn.FileUtil
 {
@@ -39,7 +38,7 @@ namespace Yburn.FileUtil
 
 		protected ParaFileWriter()
 		{
-			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+			YburnFormat.UseYburnFormat();
 		}
 
 		/********************************************************************************************

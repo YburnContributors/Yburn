@@ -13,28 +13,29 @@ namespace Yburn.Workers
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-			Extractor.Store(nameValuePairs, "DataFileName", DataFileName);
-			Extractor.Store(nameValuePairs, "DiffusenessA", DiffusenessAFm);
-			Extractor.Store(nameValuePairs, "DiffusenessB", DiffusenessBFm);
-			Extractor.Store(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
-			Extractor.Store(nameValuePairs, "EMFCalculationMethodSelection", EMFCalculationMethodSelection);
-			Extractor.Store(nameValuePairs, "EffectiveTimeSamples", EffectiveTimeSamples);
-			Extractor.Store(nameValuePairs, "GridCellSize", GridCellSizeFm);
-			Extractor.Store(nameValuePairs, "GridRadius", GridRadiusFm);
-			Extractor.Store(nameValuePairs, "ImpactParameter", ImpactParameterFm);
-			Extractor.Store(nameValuePairs, "NuclearRadiusA", NuclearRadiusAFm);
-			Extractor.Store(nameValuePairs, "NuclearRadiusB", NuclearRadiusBFm);
-			Extractor.Store(nameValuePairs, "NucleonNumberA", NucleonNumberA);
-			Extractor.Store(nameValuePairs, "NucleonNumberB", NucleonNumberB);
-			Extractor.Store(nameValuePairs, "PointChargeVelocity", PointChargeVelocity);
-			Extractor.Store(nameValuePairs, "ProtonNumberA", ProtonNumberA);
-			Extractor.Store(nameValuePairs, "ProtonNumberB", ProtonNumberB);
-			Extractor.Store(nameValuePairs, "QGPConductivityMeV", QGPConductivityMeV);
-			Extractor.Store(nameValuePairs, "RadialDistance", RadialDistance);
-			Extractor.Store(nameValuePairs, "ShapeFunctionTypeA", ShapeFunctionTypeA);
-			Extractor.Store(nameValuePairs, "ShapeFunctionTypeB", ShapeFunctionTypeB);
-			Extractor.Store(nameValuePairs, "StartEffectiveTime", StartEffectiveTime);
-			Extractor.Store(nameValuePairs, "StopEffectiveTime", StopEffectiveTime);
+			Store(nameValuePairs, "DataFileName", DataFileName);
+			Store(nameValuePairs, "DiffusenessA", DiffusenessAFm);
+			Store(nameValuePairs, "DiffusenessB", DiffusenessBFm);
+			Store(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
+			Store(nameValuePairs, "EMFCalculationMethodSelection", EMFCalculationMethodSelection);
+			Store(nameValuePairs, "EMFQuadratureOrder", EMFQuadratureOrder);
+			Store(nameValuePairs, "GridCellSize", GridCellSizeFm);
+			Store(nameValuePairs, "GridRadius", GridRadiusFm);
+			Store(nameValuePairs, "ImpactParameter", ImpactParameterFm);
+			Store(nameValuePairs, "NuclearRadiusA", NuclearRadiusAFm);
+			Store(nameValuePairs, "NuclearRadiusB", NuclearRadiusBFm);
+			Store(nameValuePairs, "NucleonNumberA", NucleonNumberA);
+			Store(nameValuePairs, "NucleonNumberB", NucleonNumberB);
+			Store(nameValuePairs, "ParticleRapidity", ParticleRapidity);
+			Store(nameValuePairs, "ProtonNumberA", ProtonNumberA);
+			Store(nameValuePairs, "ProtonNumberB", ProtonNumberB);
+			Store(nameValuePairs, "QGPConductivity", QGPConductivity);
+			Store(nameValuePairs, "RadialDistance", RadialDistance);
+			Store(nameValuePairs, "NucleusShapeA", NucleusShapeA);
+			Store(nameValuePairs, "NucleusShapeB", NucleusShapeB);
+			Store(nameValuePairs, "Samples", Samples);
+			Store(nameValuePairs, "StartTime", StartTime);
+			Store(nameValuePairs, "StopTime", StopTime);
 
 			return nameValuePairs;
 		}
@@ -43,39 +44,40 @@ namespace Yburn.Workers
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			Extractor.TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
-			Extractor.TryExtract(nameValuePairs, "DiffusenessA", ref DiffusenessAFm);
-			Extractor.TryExtract(nameValuePairs, "DiffusenessB", ref DiffusenessBFm);
-			Extractor.TryExtract(nameValuePairs, "EMFCalculationMethod", ref EMFCalculationMethod);
-			Extractor.TryExtract(nameValuePairs, "EMFCalculationMethodSelection", ref EMFCalculationMethodSelection);
-			Extractor.TryExtract(nameValuePairs, "EffectiveTimeSamples", ref EffectiveTimeSamples);
-			Extractor.TryExtract(nameValuePairs, "GridCellSize", ref GridCellSizeFm);
-			Extractor.TryExtract(nameValuePairs, "GridRadius", ref GridRadiusFm);
-			Extractor.TryExtract(nameValuePairs, "ImpactParameter", ref ImpactParameterFm);
-			Extractor.TryExtract(nameValuePairs, "NuclearRadiusA", ref NuclearRadiusAFm);
-			Extractor.TryExtract(nameValuePairs, "NuclearRadiusB", ref NuclearRadiusBFm);
-			Extractor.TryExtract(nameValuePairs, "NucleonNumberA", ref NucleonNumberA);
-			Extractor.TryExtract(nameValuePairs, "NucleonNumberB", ref NucleonNumberB);
-			Extractor.TryExtract(nameValuePairs, "PointChargeVelocity", ref PointChargeVelocity);
-			Extractor.TryExtract(nameValuePairs, "ProtonNumberA", ref ProtonNumberA);
-			Extractor.TryExtract(nameValuePairs, "ProtonNumberB", ref ProtonNumberB);
-			Extractor.TryExtract(nameValuePairs, "QGPConductivityMeV", ref QGPConductivityMeV);
-			Extractor.TryExtract(nameValuePairs, "RadialDistance", ref RadialDistance);
-			Extractor.TryExtract(nameValuePairs, "ShapeFunctionTypeA", ref ShapeFunctionTypeA);
-			Extractor.TryExtract(nameValuePairs, "ShapeFunctionTypeB", ref ShapeFunctionTypeB);
-			Extractor.TryExtract(nameValuePairs, "StartEffectiveTime", ref StartEffectiveTime);
-			Extractor.TryExtract(nameValuePairs, "StopEffectiveTime", ref StopEffectiveTime);
+			TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
+			TryExtract(nameValuePairs, "DiffusenessA", ref DiffusenessAFm);
+			TryExtract(nameValuePairs, "DiffusenessB", ref DiffusenessBFm);
+			TryExtract(nameValuePairs, "EMFCalculationMethod", ref EMFCalculationMethod);
+			TryExtract(nameValuePairs, "EMFCalculationMethodSelection", ref EMFCalculationMethodSelection);
+			TryExtract(nameValuePairs, "EMFQuadratureOrder", ref EMFQuadratureOrder);
+			TryExtract(nameValuePairs, "GridCellSize", ref GridCellSizeFm);
+			TryExtract(nameValuePairs, "GridRadius", ref GridRadiusFm);
+			TryExtract(nameValuePairs, "ImpactParameter", ref ImpactParameterFm);
+			TryExtract(nameValuePairs, "NuclearRadiusA", ref NuclearRadiusAFm);
+			TryExtract(nameValuePairs, "NuclearRadiusB", ref NuclearRadiusBFm);
+			TryExtract(nameValuePairs, "NucleonNumberA", ref NucleonNumberA);
+			TryExtract(nameValuePairs, "NucleonNumberB", ref NucleonNumberB);
+			TryExtract(nameValuePairs, "ParticleRapidity", ref ParticleRapidity);
+			TryExtract(nameValuePairs, "ProtonNumberA", ref ProtonNumberA);
+			TryExtract(nameValuePairs, "ProtonNumberB", ref ProtonNumberB);
+			TryExtract(nameValuePairs, "QGPConductivity", ref QGPConductivity);
+			TryExtract(nameValuePairs, "RadialDistance", ref RadialDistance);
+			TryExtract(nameValuePairs, "NucleusShapeA", ref NucleusShapeA);
+			TryExtract(nameValuePairs, "NucleusShapeB", ref NucleusShapeB);
+			TryExtract(nameValuePairs, "Samples", ref Samples);
+			TryExtract(nameValuePairs, "StartTime", ref StartTime);
+			TryExtract(nameValuePairs, "StopTime", ref StopTime);
 		}
 
 		private double DiffusenessAFm;
 
 		private double DiffusenessBFm;
 
-		private int EffectiveTimeSamples;
-
 		private EMFCalculationMethod EMFCalculationMethod;
 
-		private EMFCalculationMethod[] EMFCalculationMethodSelection = new EMFCalculationMethod[0];
+		private List<EMFCalculationMethod> EMFCalculationMethodSelection;
+
+		private int EMFQuadratureOrder;
 
 		private double GridCellSizeFm;
 
@@ -87,26 +89,28 @@ namespace Yburn.Workers
 
 		private double NuclearRadiusBFm;
 
-		private int NucleonNumberA;
+		private uint NucleonNumberA;
 
-		private int NucleonNumberB;
+		private uint NucleonNumberB;
 
-		private double PointChargeVelocity;
+		private double ParticleRapidity;
 
-		private int ProtonNumberA;
+		private uint ProtonNumberA;
 
-		private int ProtonNumberB;
+		private uint ProtonNumberB;
 
-		private double QGPConductivityMeV;
+		private double QGPConductivity;
 
 		private double RadialDistance;
 
-		private ShapeFunctionType ShapeFunctionTypeA;
+		private NucleusShape NucleusShapeA;
 
-		private ShapeFunctionType ShapeFunctionTypeB;
+		private NucleusShape NucleusShapeB;
 
-		private double StartEffectiveTime;
+		private int Samples;
 
-		private double StopEffectiveTime;
+		private double StartTime;
+
+		private double StopTime;
 	}
 }

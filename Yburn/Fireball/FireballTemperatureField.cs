@@ -42,7 +42,7 @@ namespace Yburn.Fireball
 			double newTime
 			)
 		{
-			InitializeDiscreteValues((i, j) =>
+			SetDiscreteValues((i, j) =>
 			{
 				return Tnorm[i, j] / Math.Pow(newTime, 1 / 3.0);
 			});

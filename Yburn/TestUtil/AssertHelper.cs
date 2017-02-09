@@ -1,7 +1,9 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
+using System.Threading;
 
 namespace Yburn.TestUtil
 {
@@ -11,18 +13,21 @@ namespace Yburn.TestUtil
 		   * Public static members, functions and properties
 		   ********************************************************************************************/
 
-		public static void AssertRoundedEqual(
+		public static void AssertApproximatelyEqual(
 			double expected,
 			double actual,
-			uint digits = 15
+			int digits = 14
 			)
 		{
 			if(expected == 0)
 			{
-				actual = Math.Round(actual, Convert.ToInt32(digits));
+				actual = Math.Round(actual, digits);
 			}
+
 			string format = "G" + digits.ToString("D");
-			Assert.AreEqual(expected.ToString(format), actual.ToString(format));
+			CultureInfo provider = Thread.CurrentThread.CurrentUICulture;
+
+			Assert.AreEqual(expected.ToString(format, provider), actual.ToString(format, provider));
 		}
 
 		public static void AssertAllElementsEqual(

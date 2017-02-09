@@ -30,8 +30,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MathNet.Numerics, Version=3.11.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MathNet.Numerics.3.11.1\lib\net40\MathNet.Numerics.dll</HintPath>
+    <Reference Include="MathNet.Numerics, Version=3.13.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MathNet.Numerics.3.13.1\lib\net40\MathNet.Numerics.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Meta.Numerics, Version=3.0.0.0, Culture=neutral, PublicKeyToken=67d25c65a6631347, processorArchitecture=MSIL">
@@ -43,6 +43,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DecayWidth.cs" />
+    <Compile Include="QQStateEnums.cs" />
+    <Compile Include="QQDataDoc.cs" />
     <Compile Include="RseShootingSolver.cs" />
     <Compile Include="PionGDF.cs" />
     <Compile Include="QQBoundState.cs" />
@@ -61,6 +63,10 @@
     <ProjectReference Include="..\FileUtil\FileUtil.csproj">
       <Project>{59e7bc95-adee-49ac-a6c8-4df0f322209e}</Project>
       <Name>FileUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FormatUtil\FormatUtil.csproj">
+      <Project>{2CACC9EA-FB3B-4A90-BD50-66903953079E}</Project>
+      <Name>FormatUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\PhysUtil\PhysUtil.csproj">
       <Project>{96E5E846-3417-4A44-A4F1-7ED8DCA43F43}</Project>

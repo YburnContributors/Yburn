@@ -88,11 +88,11 @@ namespace Yburn.Workers.Tests
 		private Dictionary<string, string> GetPointChargeFieldPlotParams()
 		{
 			Dictionary<string, string> paramList = new Dictionary<string, string>();
-			paramList["PointChargeVelocity"] = "0.9";
+			paramList["ParticleRapidity"] = "5.3";
 			paramList["RadialDistance"] = "7.4";
-			paramList["StartEffectiveTime"] = "0.0";
-			paramList["StopEffectiveTime"] = "10.0";
-			paramList["EffectiveTimeSamples"] = "1000";
+			paramList["Samples"] = "1000";
+			paramList["StartTime"] = "0.0";
+			paramList["StopTime"] = "10.0";
 			paramList["EMFCalculationMethodSelection"] = "URLimitFourierSynthesis,DiffusionApproximation,FreeSpace";
 			paramList["DataFileName"] = "PlotPointChargeFieldTest.txt";
 

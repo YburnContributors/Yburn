@@ -52,7 +52,7 @@
 			this.BtnPlot.Location = new System.Drawing.Point(102, 300);
 			this.BtnPlot.Name = "BtnPlot";
 			this.BtnPlot.Size = new System.Drawing.Size(143, 35);
-			this.BtnPlot.TabIndex = 6;
+			this.BtnPlot.TabIndex = 0;
 			this.BtnPlot.Text = "&Plot";
 			this.BtnPlot.UseVisualStyleBackColor = true;
 			this.BtnPlot.Click += new System.EventHandler(this.BtnPlot_Click);
@@ -64,7 +64,7 @@
 			this.BtnLeave.Location = new System.Drawing.Point(251, 300);
 			this.BtnLeave.Name = "BtnLeave";
 			this.BtnLeave.Size = new System.Drawing.Size(143, 35);
-			this.BtnLeave.TabIndex = 7;
+			this.BtnLeave.TabIndex = 0;
 			this.BtnLeave.Text = "&Leave";
 			this.BtnLeave.UseVisualStyleBackColor = true;
 			// 
@@ -94,7 +94,7 @@
 			this.LayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.LayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
 			this.LayoutPanel.Size = new System.Drawing.Size(450, 232);
-			this.LayoutPanel.TabIndex = 3;
+			this.LayoutPanel.TabIndex = 0;
 			// 
 			// TbxDataFileName
 			// 
@@ -102,7 +102,7 @@
 			this.TbxDataFileName.Location = new System.Drawing.Point(228, 203);
 			this.TbxDataFileName.Name = "TbxDataFileName";
 			this.TbxDataFileName.Size = new System.Drawing.Size(214, 22);
-			this.TbxDataFileName.TabIndex = 4;
+			this.TbxDataFileName.TabIndex = 0;
 			// 
 			// TbxSamples
 			// 
@@ -110,7 +110,7 @@
 			this.TbxSamples.Location = new System.Drawing.Point(228, 173);
 			this.TbxSamples.Name = "TbxSamples";
 			this.TbxSamples.Size = new System.Drawing.Size(214, 22);
-			this.TbxSamples.TabIndex = 3;
+			this.TbxSamples.TabIndex = 0;
 			// 
 			// TbxMaxEnergy
 			// 
@@ -118,7 +118,7 @@
 			this.TbxMaxEnergy.Location = new System.Drawing.Point(228, 143);
 			this.TbxMaxEnergy.Name = "TbxMaxEnergy";
 			this.TbxMaxEnergy.Size = new System.Drawing.Size(214, 22);
-			this.TbxMaxEnergy.TabIndex = 2;
+			this.TbxMaxEnergy.TabIndex = 0;
 			// 
 			// TbxMinEnergy
 			// 
@@ -126,7 +126,7 @@
 			this.TbxMinEnergy.Location = new System.Drawing.Point(228, 113);
 			this.TbxMinEnergy.Name = "TbxMinEnergy";
 			this.TbxMinEnergy.Size = new System.Drawing.Size(214, 22);
-			this.TbxMinEnergy.TabIndex = 1;
+			this.TbxMinEnergy.TabIndex = 0;
 			// 
 			// LblDataFileName
 			// 
@@ -136,7 +136,7 @@
 			this.LblDataFileName.Name = "LblDataFileName";
 			this.LblDataFileName.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblDataFileName.Size = new System.Drawing.Size(214, 30);
-			this.LblDataFileName.TabIndex = 10;
+			this.LblDataFileName.TabIndex = 0;
 			this.LblDataFileName.Text = "DataFileName";
 			this.LblDataFileName.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -148,7 +148,7 @@
 			this.LblSamples.Name = "LblSamples";
 			this.LblSamples.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblSamples.Size = new System.Drawing.Size(214, 30);
-			this.LblSamples.TabIndex = 8;
+			this.LblSamples.TabIndex = 0;
 			this.LblSamples.Text = "Samples";
 			this.LblSamples.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -160,7 +160,7 @@
 			this.LblMaxEnergy.Name = "LblMaxEnergy";
 			this.LblMaxEnergy.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblMaxEnergy.Size = new System.Drawing.Size(214, 30);
-			this.LblMaxEnergy.TabIndex = 5;
+			this.LblMaxEnergy.TabIndex = 0;
 			this.LblMaxEnergy.Text = "MaxEnergy (MeV)";
 			this.LblMaxEnergy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -172,7 +172,7 @@
 			this.LblMinEnergy.Name = "LblMinEnergy";
 			this.LblMinEnergy.Padding = new System.Windows.Forms.Padding(3, 0, 3, 0);
 			this.LblMinEnergy.Size = new System.Drawing.Size(214, 30);
-			this.LblMinEnergy.TabIndex = 4;
+			this.LblMinEnergy.TabIndex = 0;
 			this.LblMinEnergy.Text = "MinEnergy (MeV)";
 			this.LblMinEnergy.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
@@ -184,7 +184,7 @@
 			this.LblRunningCouplingType.Name = "LblRunningCouplingType";
 			this.LblRunningCouplingType.Padding = new System.Windows.Forms.Padding(3, 3, 3, 0);
 			this.LblRunningCouplingType.Size = new System.Drawing.Size(214, 105);
-			this.LblRunningCouplingType.TabIndex = 14;
+			this.LblRunningCouplingType.TabIndex = 0;
 			this.LblRunningCouplingType.Text = "RunningCouplingType";
 			// 
 			// MsxRunningCouplingType
@@ -204,7 +204,7 @@
 			this.GbxPlotParams.Margin = new System.Windows.Forms.Padding(0);
 			this.GbxPlotParams.Name = "GbxPlotParams";
 			this.GbxPlotParams.Size = new System.Drawing.Size(456, 253);
-			this.GbxPlotParams.TabIndex = 4;
+			this.GbxPlotParams.TabIndex = 0;
 			this.GbxPlotParams.TabStop = false;
 			this.GbxPlotParams.Text = "Plot parameters";
 			// 

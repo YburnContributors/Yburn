@@ -30,9 +30,9 @@ namespace Yburn.Workers
 			{
 				return typeof(EMFCalculationMethod);
 			}
-			if(enumName == "ShapeFunction")
+			if(enumName == "NucleusShape")
 			{
-				return typeof(ShapeFunctionType);
+				return typeof(NucleusShape);
 			}
 			else
 			{
@@ -58,20 +58,28 @@ namespace Yburn.Workers
 					PlotPointChargeRadialElectricField();
 					break;
 
-				case "PlotSingleNucleusMagneticFieldStrength":
-					PlotSingleNucleusMagneticFieldStrength();
+				case "PlotPointChargeAndNucleusFields":
+					PlotPointChargeAndNucleusFields();
+					break;
+
+				case "PlotNucleusMagneticFieldStrengthInLCF":
+					PlotNucleusMagneticFieldStrengthInLCF();
 					break;
 
 				case "PlotCentralMagneticFieldStrength":
 					PlotCentralMagneticFieldStrength();
 					break;
 
+				case "PlotAverageElectricFieldStrength":
+					PlotAverageElectricFieldStrength();
+					break;
+
 				case "PlotAverageMagneticFieldStrength":
 					PlotAverageMagneticFieldStrength();
 					break;
 
-				case "PlotOrthoParaStateOverlap":
-					PlotOrthoParaStateOverlap();
+				case "PlotAverageSpinStateOverlap":
+					PlotAverageSpinStateOverlap();
 					break;
 
 				default:
@@ -85,23 +93,25 @@ namespace Yburn.Workers
 		{
 			FireballParam param = new FireballParam();
 
-			param.BeamRapidity = 7.99;
+			param.BeamRapidity = ParticleRapidity;
 			param.DiffusenessAFm = DiffusenessAFm;
 			param.DiffusenessBFm = DiffusenessBFm;
 			param.EMFCalculationMethod = emfCalculationMethod;
-			param.FormationTimesFm = new double[] { 0.4, 0.4, 0.4, 0.4, 0.4, 0.4 };
-			param.GridCellSizeFm = 0.4;
-			param.GridRadiusFm = 10;
+			param.EMFQuadratureOrder = EMFQuadratureOrder;
+			param.GridCellSizeFm = GridCellSizeFm;
+			param.GridRadiusFm = GridRadiusFm;
 			param.ImpactParameterFm = ImpactParameterFm;
+			param.InelasticppCrossSectionFm = 6.4;
 			param.NucleonNumberA = NucleonNumberA;
 			param.NucleonNumberB = NucleonNumberB;
 			param.NuclearRadiusAFm = NuclearRadiusAFm;
 			param.NuclearRadiusBFm = NuclearRadiusBFm;
+			param.NucleusShapeA = NucleusShapeA;
+			param.NucleusShapeB = NucleusShapeB;
 			param.ProtonNumberA = ProtonNumberA;
 			param.ProtonNumberB = ProtonNumberB;
-			param.QGPConductivityMeV = QGPConductivityMeV;
-			param.ShapeFunctionTypeA = ShapeFunctionTypeA;
-			param.ShapeFunctionTypeB = ShapeFunctionTypeB;
+			param.QGPConductivityMeV = QGPConductivity;
+			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 
 			return param;
 		}

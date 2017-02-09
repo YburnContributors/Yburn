@@ -1,5 +1,4 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
 using System.Collections.Generic;
 using System.Threading;
 using Yburn.TestUtil;
@@ -21,67 +20,86 @@ namespace Yburn.Fireball.Tests
 		}
 
 		[TestMethod]
-		public void CalculateMinBiasBin()
+		public void CalculateBins_PbPb()
 		{
 			BinBoundaryCalculator calculator = new BinBoundaryCalculator(
-				CreateFireballParam(), CancellationToken);
+				CreateFireballParam_PbPb(), CancellationToken);
 			calculator.Calculate(CentralityBinsInPercent);
 
-			AssertCorrectImpactParamsAtBinBoundaries(calculator);
-			AssertCorrectMeanParticipantsInBin(calculator);
+			AssertCorrectImpactParamsAtBinBoundaries_PbPb(calculator);
+			AssertCorrectMeanParticipantsInBin_PbPb(calculator);
+		}
+
+		[TestMethod]
+		public void CalculateBins_pPb()
+		{
+			BinBoundaryCalculator calculator = new BinBoundaryCalculator(
+				CreateFireballParam_pPb(), CancellationToken);
+			calculator.Calculate(CentralityBinsInPercent);
+
+			AssertCorrectImpactParamsAtBinBoundaries_pPb(calculator);
+			AssertCorrectMeanParticipantsInBin_pPb(calculator);
 		}
 
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static readonly int[][] CentralityBinsInPercent = new int[][] {
-			new int[] { 0, 5, 10, 20, 30, 40, 50, 100 } };
+		private static readonly List<List<int>> CentralityBinsInPercent
+			= new List<List<int>> { new List<int> { 0, 5, 10, 20, 30, 40, 50, 100 } };
 
-		private static readonly int NumberBottomiumStates
-			= Enum.GetValues(typeof(BottomiumState)).Length;
-
-		private static double GridCellSize = 0.4;
-
-		private static int GridRadiusFm = 10;
-
-		private List<KeyValuePair<double, double>>[] GetTemperatureDecayWidthList()
+		private static void AssertCorrectImpactParamsAtBinBoundaries_PbPb(BinBoundaryCalculator calculator)
 		{
-			List<KeyValuePair<double, double>>[] list
-				= new List<KeyValuePair<double, double>>[NumberBottomiumStates];
-			for(int i = 0; i < list.Length; i++)
-			{
-				list[i] = new List<KeyValuePair<double, double>>();
-			}
-
-			return list;
+			List<double> impactParams = calculator.ImpactParamsAtBinBoundaries[0];
+			Assert.AreEqual(8, impactParams.Count);
+			AssertHelper.AssertApproximatelyEqual(0, impactParams[0]);
+			AssertHelper.AssertApproximatelyEqual(3.2, impactParams[1]);
+			AssertHelper.AssertApproximatelyEqual(4.4, impactParams[2]);
+			AssertHelper.AssertApproximatelyEqual(6.8, impactParams[3]);
+			AssertHelper.AssertApproximatelyEqual(8.4, impactParams[4]);
+			AssertHelper.AssertApproximatelyEqual(9.6, impactParams[5]);
+			AssertHelper.AssertApproximatelyEqual(10.8, impactParams[6]);
+			AssertHelper.AssertApproximatelyEqual(21.2, impactParams[7]);
 		}
 
-		private static void AssertCorrectImpactParamsAtBinBoundaries(BinBoundaryCalculator calculator)
+		private static void AssertCorrectMeanParticipantsInBin_PbPb(BinBoundaryCalculator calculator)
 		{
-			double[] impactParams = calculator.ImpactParamsAtBinBoundaries[0];
-			Assert.AreEqual(8, impactParams.Length);
-			AssertHelper.AssertRoundedEqual(0, impactParams[0]);
-			AssertHelper.AssertRoundedEqual(3.2, impactParams[1]);
-			AssertHelper.AssertRoundedEqual(4.4, impactParams[2]);
-			AssertHelper.AssertRoundedEqual(6.8, impactParams[3]);
-			AssertHelper.AssertRoundedEqual(8.4, impactParams[4]);
-			AssertHelper.AssertRoundedEqual(9.6, impactParams[5]);
-			AssertHelper.AssertRoundedEqual(10.8, impactParams[6]);
-			AssertHelper.AssertRoundedEqual(21.2, impactParams[7]);
+			List<double> nparts = calculator.MeanParticipantsInBin[0];
+			Assert.AreEqual(7, nparts.Count);
+			AssertHelper.AssertApproximatelyEqual(383.63733145261438, nparts[0]);
+			AssertHelper.AssertApproximatelyEqual(340.22338305849638, nparts[1]);
+			AssertHelper.AssertApproximatelyEqual(268.43057326077735, nparts[2]);
+			AssertHelper.AssertApproximatelyEqual(187.36409577711942, nparts[3]);
+			AssertHelper.AssertApproximatelyEqual(131.9447405820836, nparts[4]);
+			AssertHelper.AssertApproximatelyEqual(89.250454155387914, nparts[5]);
+			AssertHelper.AssertApproximatelyEqual(19.648149650443639, nparts[6]);
 		}
 
-		private static void AssertCorrectMeanParticipantsInBin(BinBoundaryCalculator calculator)
+		private static void AssertCorrectImpactParamsAtBinBoundaries_pPb(BinBoundaryCalculator calculator)
 		{
-			double[] nparts = calculator.MeanParticipantsInBin[0];
-			Assert.AreEqual(7, nparts.Length);
-			AssertHelper.AssertRoundedEqual(383.63733145093573, nparts[0]);
-			AssertHelper.AssertRoundedEqual(340.22338305697457, nparts[1]);
-			AssertHelper.AssertRoundedEqual(268.43057325955948, nparts[2]);
-			AssertHelper.AssertRoundedEqual(187.36409577622052, nparts[3]);
-			AssertHelper.AssertRoundedEqual(131.94474058138835, nparts[4]);
-			AssertHelper.AssertRoundedEqual(89.250454154885873, nparts[5]);
-			AssertHelper.AssertRoundedEqual(19.648149650345413, nparts[6]);
+			List<double> impactParams = calculator.ImpactParamsAtBinBoundaries[0];
+			Assert.AreEqual(8, impactParams.Count);
+			AssertHelper.AssertApproximatelyEqual(0, impactParams[0]);
+			AssertHelper.AssertApproximatelyEqual(1.6, impactParams[1]);
+			AssertHelper.AssertApproximatelyEqual(2.4, impactParams[2]);
+			AssertHelper.AssertApproximatelyEqual(3.6, impactParams[3]);
+			AssertHelper.AssertApproximatelyEqual(4.4, impactParams[4]);
+			AssertHelper.AssertApproximatelyEqual(5.0, impactParams[5]);
+			AssertHelper.AssertApproximatelyEqual(5.6, impactParams[6]);
+			AssertHelper.AssertApproximatelyEqual(14.0, impactParams[7]);
+		}
+
+		private static void AssertCorrectMeanParticipantsInBin_pPb(BinBoundaryCalculator calculator)
+		{
+			List<double> nparts = calculator.MeanParticipantsInBin[0];
+			Assert.AreEqual(7, nparts.Count);
+			AssertHelper.AssertApproximatelyEqual(14.974233725674532, nparts[0]);
+			AssertHelper.AssertApproximatelyEqual(14.487499546553337, nparts[1]);
+			AssertHelper.AssertApproximatelyEqual(13.489194925233843, nparts[2]);
+			AssertHelper.AssertApproximatelyEqual(12.008818387583021, nparts[3]);
+			AssertHelper.AssertApproximatelyEqual(10.510321287054687, nparts[4]);
+			AssertHelper.AssertApproximatelyEqual(8.8777714843503954, nparts[5]);
+			AssertHelper.AssertApproximatelyEqual(3.459490632960875, nparts[6]);
 		}
 
 		/********************************************************************************************
@@ -92,27 +110,43 @@ namespace Yburn.Fireball.Tests
 
 		private CancellationToken CancellationToken;
 
-		private FireballParam CreateFireballParam()
+		private static FireballParam CreateFireballParam_PbPb()
 		{
 			FireballParam param = new FireballParam();
-			param.InitialMaximumTemperatureMeV = 550;
+
 			param.BreakupTemperatureMeV = 160;
-			param.FormationTimesFm = new double[] { 0.3, 0.3, 0.3, 0.3, 0.3, 0.3 };
-
-			param.GridCellSizeFm = GridCellSize;
-			param.GridRadiusFm = GridRadiusFm;
-
-			param.NucleonNumberA = 208;
-			param.NuclearRadiusAFm = 6.62;
 			param.DiffusenessAFm = 0.546;
-
-			param.NucleonNumberB = 208;
-			param.NuclearRadiusBFm = 6.62;
 			param.DiffusenessBFm = 0.546;
+			param.GridCellSizeFm = 0.4;
+			param.GridRadiusFm = 10;
+			param.InelasticppCrossSectionFm = 6.4;
+			param.InitialMaximumTemperatureMeV = 550;
+			param.NuclearRadiusAFm = 6.62;
+			param.NuclearRadiusBFm = 6.62;
+			param.NucleonNumberA = 208;
+			param.NucleonNumberB = 208;
+			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
+			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
+			param.ProtonNumberA = 82;
+			param.ProtonNumberB = 82;
+			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 
-			param.TemperatureDecayWidthList = GetTemperatureDecayWidthList();
-			param.ShapeFunctionTypeA = ShapeFunctionType.WoodsSaxonPotential;
-			param.ShapeFunctionTypeB = ShapeFunctionType.WoodsSaxonPotential;
+			return param;
+		}
+
+		private static FireballParam CreateFireballParam_pPb()
+		{
+			FireballParam param = CreateFireballParam_PbPb();
+
+			param.DiffusenessBFm = 0;
+			param.GridCellSizeFm = 0.2;
+			param.GridRadiusFm = 5;
+			param.InelasticppCrossSectionFm = 6.8;
+			param.NuclearRadiusBFm = 0.8775;
+			param.NucleonNumberB = 1;
+			param.NucleusShapeB = NucleusShape.GaussianDistribution;
+			param.ProtonNumberB = 1;
+			param.TemperatureProfile = TemperatureProfile.NmixALICE13;
 
 			return param;
 		}

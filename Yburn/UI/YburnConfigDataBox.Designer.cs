@@ -48,7 +48,7 @@
 			this.GbxYburnConfig.Name = "GbxYburnConfig";
 			this.GbxYburnConfig.Padding = new System.Windows.Forms.Padding(15, 16, 15, 16);
 			this.GbxYburnConfig.Size = new System.Drawing.Size(900, 156);
-			this.GbxYburnConfig.TabIndex = 2;
+			this.GbxYburnConfig.TabIndex = 0;
 			this.GbxYburnConfig.TabStop = false;
 			this.GbxYburnConfig.Text = "Configuration Data";
 			// 
@@ -89,7 +89,7 @@
 			this.BtnOutputPath.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
 			this.BtnOutputPath.Name = "BtnOutputPath";
 			this.BtnOutputPath.Size = new System.Drawing.Size(209, 40);
-			this.BtnOutputPath.TabIndex = 2;
+			this.BtnOutputPath.TabIndex = 0;
 			this.BtnOutputPath.Text = "Set OutputPath";
 			this.BtnOutputPath.UseVisualStyleBackColor = true;
 			// 
@@ -101,7 +101,7 @@
 			this.TbxQQDataFile.Name = "TbxQQDataFile";
 			this.TbxQQDataFile.ReadOnly = true;
 			this.TbxQQDataFile.Size = new System.Drawing.Size(645, 31);
-			this.TbxQQDataFile.TabIndex = 1;
+			this.TbxQQDataFile.TabIndex = 0;
 			// 
 			// TbxOutputPath
 			// 
@@ -111,7 +111,7 @@
 			this.TbxOutputPath.Name = "TbxOutputPath";
 			this.TbxOutputPath.ReadOnly = true;
 			this.TbxOutputPath.Size = new System.Drawing.Size(645, 31);
-			this.TbxOutputPath.TabIndex = 3;
+			this.TbxOutputPath.TabIndex = 0;
 			// 
 			// YburnConfigDataBox
 			// 

@@ -22,6 +22,10 @@ namespace Yburn
 			IsBatchProcessRunning = false;
 		}
 
+		/********************************************************************************************
+		 * Public members, functions and properties
+		 ********************************************************************************************/
+
 		public event JobStartEventHandler JobStart;
 
 		public event JobFinishedEventHandler JobFinished;
@@ -257,6 +261,8 @@ namespace Yburn
 			JobStartEventArgs args
 			)
 		{
+			NativeMethods.KeepSystemAwake();
+
 			if(JobStart != null)
 			{
 				JobStart(this, args);
@@ -268,6 +274,8 @@ namespace Yburn
 			JobFinishedEventArgs args
 			)
 		{
+			NativeMethods.AllowSleepMode();
+
 			WriteToLogFile();
 
 			if(JobFinished != null)
@@ -291,6 +299,8 @@ namespace Yburn
 			Task task
 			)
 		{
+			NativeMethods.AllowSleepMode();
+
 			if(task.Exception != null)
 			{
 				OnJobFailure(task.Exception.InnerException);

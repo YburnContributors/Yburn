@@ -70,7 +70,7 @@ namespace Yburn.QQState
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static double AlphaSatIRfixpoint = 8.915 / PhysConst.NC;
+		private static double AlphaSatIRfixpoint = 8.915 / Constants.NumberQCDColors;
 
 		protected static double LOpert(
 			double energyMeV

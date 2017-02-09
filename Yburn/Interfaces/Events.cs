@@ -30,7 +30,7 @@ namespace Yburn.Interfaces
 
 	public delegate void JobFailureEventHandler(
 		object sender,
-		JobFailureEventArgs args
+		JobFailureEventArgs e
 		);
 
 	public class JobFailureEventArgs : EventArgs

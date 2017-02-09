@@ -1,3 +1,0 @@
-QQDataPathFile C:\Users\LordPonne\Documents\Visual Studio 2015\Projects\Yburn\Data\Parameter and Batch Files\bbdata-Pert1LoopCut3.txt
-OutputPath C:\Users\LordPonne\Source\Repos\Yburn\Yburn\DefaultData\Output\
-LastParaFile C:\Users\LordPonne\Documents\Visual Studio 2015\Projects\Yburn\Data\Parameter and Batch Files\params-Pert1LoopCut3.txt

@@ -1,32 +1,32 @@
-﻿using System.ComponentModel;
-
-namespace Yburn.Fireball
+﻿namespace Yburn.Fireball
 {
 	public enum BottomiumState
 	{
-		Y1S,
-		x1P,
-		Y2S,
-		x2P,
-		Y3S,
-		x3P
+		//Sorted by rest mass from light to heavy.
+		Y1S = 0,
+		x1P = 1,
+		Y2S = 2,
+		x2P = 3,
+		Y3S = 4,
+		x3P = 5
 	};
 
-	public enum DecayWidthType
-	{
-		None,
-		GammaDamp,
-		GammaDiss,
-		GammaTot
-	};
-
-	public enum DecayWidthEvaluationType
+	public enum DopplerShiftEvaluationType
 	{
 		UnshiftedTemperature,
 		MaximallyBlueshifted,
 		AveragedTemperature,
-		AveragedDecayWidth
+		AveragedDecayWidth,
+		AveragedLifeTime
 	};
+
+	public enum EMFDipoleAlignmentType
+	{
+		None,
+		MinimizeEnergy,
+		MaximizeEnergy,
+		StatisticallyDistributed
+	}
 
 	public enum ExpansionMode
 	{
@@ -51,14 +51,8 @@ namespace Yburn.Fireball
 		VX,
 		VY,
 		UnscaledSuppression,
-	};
-
-	public enum ProtonProtonBaseline
-	{
-		[Description("pp@2.76TeV (CMS2012)")]
-		CMS2012,
-		[Description("pp@5.02TeV (Not yet available!)")]
-		Estimate502TeV
+		ElectricFieldStrength,
+		MagneticFieldStrength
 	};
 
 	public enum TemperatureProfile

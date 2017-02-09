@@ -107,6 +107,7 @@ namespace Yburn.SingleQQ.UI
 		private Dictionary<string, string> GetControlsValues()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+
 			nameValuePairs["AccuracyAlpha"] = TbxAccuracyAlpha.Text;
 			nameValuePairs["AccuracyWaveFunction"] = TbxAccuracyWaveFunction.Text;
 			nameValuePairs["AggressivenessAlpha"] = TbxAggressivenessAlpha.Text;

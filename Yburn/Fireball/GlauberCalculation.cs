@@ -5,113 +5,7 @@ namespace Yburn.Fireball
 	public class GlauberCalculation
 	{
 		/********************************************************************************************
-		 * Constructors
-		 ********************************************************************************************/
-
-		public GlauberCalculation(
-			FireballParam param
-			)
-		{
-			Param = param.Clone();
-
-			AssertValidMembers();
-
-			InitXY();
-			InitNucleonDensityFunctionsAB();
-			InitNucleonDensityFieldsAB();
-			InitColumnDensityFieldsAB();
-			InitOverlapField();
-			InitNcollField();
-			InitNpartField();
-			InitTemperatureScalingField();
-		}
-
-		/********************************************************************************************
-		 * Public members, functions and properties
-		 ********************************************************************************************/
-
-		public SimpleFireballField NucleonDensityFieldA
-		{
-			get;
-			private set;
-		}
-
-		public SimpleFireballField NucleonDensityFieldB
-		{
-			get;
-			private set;
-		}
-
-		public SimpleFireballField NcollField
-		{
-			get;
-			private set;
-		}
-
-		public double GetTotalNumberCollisions()
-		{
-			if(Param.AreParticlesABIdentical)
-			{
-				// include a factor of 4 because only a quarter has been integrated
-				return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm
-					* NcollField.TrapezoidalRuleSummedValues();
-			}
-			else
-			{
-				// include a factor of 2 because only a half has been integrated
-				return 2 * Param.GridCellSizeFm * Param.GridCellSizeFm
-					* NcollField.TrapezoidalRuleSummedValues();
-			}
-		}
-
-		public SimpleFireballField NpartField
-		{
-			get;
-			private set;
-		}
-
-		public double GetTotalNumberParticipants()
-		{
-			if(Param.AreParticlesABIdentical)
-			{
-				// include a factor of 4 because only a quarter has been integrated
-				return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm
-					* NpartField.TrapezoidalRuleSummedValues();
-			}
-			else
-			{
-				// include a factor of 2 because only a half has been integrated
-				return 2 * Param.GridCellSizeFm * Param.GridCellSizeFm
-					* NpartField.TrapezoidalRuleSummedValues();
-			}
-		}
-
-		public SimpleFireballField ColumnDensityFieldA
-		{
-			get;
-			private set;
-		}
-
-		public SimpleFireballField ColumnDensityFieldB
-		{
-			get;
-			private set;
-		}
-
-		public SimpleFireballField OverlapField
-		{
-			get;
-			private set;
-		}
-
-		public SimpleFireballField TemperatureScalingField
-		{
-			get;
-			private set;
-		}
-
-		/********************************************************************************************
-		 * Private/protected members, functions and properties
+		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
 		private static double GetNmixPHOBOS(
@@ -135,37 +29,132 @@ namespace Yburn.Fireball
 
 		private static readonly double NmixALICEFittingConstant = 0.8;
 
-		private double InelasticppCrossSectionFm
+		/********************************************************************************************
+		 * Constructors
+		 ********************************************************************************************/
+
+		public GlauberCalculation(
+			FireballParam param
+			)
 		{
-			get
+			Param = param.Clone();
+
+			AssertValidMembers();
+
+			InitXY();
+			InitNucleusAB();
+			InitNucleonNumberDensityFieldsAB();
+			InitNucleonNumberColumnDensityFieldsAB();
+			InitOverlapField();
+			InitNcollField();
+			InitNpartField();
+			InitTemperatureScalingField();
+		}
+
+		/********************************************************************************************
+		 * Public members, functions and properties
+		 ********************************************************************************************/
+
+		public SimpleFireballField NucleonNumberDensityFieldA
+		{
+			get;
+			private set;
+		}
+
+		public SimpleFireballField NucleonNumberDensityFieldB
+		{
+			get;
+			private set;
+		}
+
+		public SimpleFireballField NcollField
+		{
+			get;
+			private set;
+		}
+
+		public double GetTotalNumberCollisions()
+		{
+			if(Param.AreNucleusABIdentical)
 			{
-				switch(Param.ProtonProtonBaseline)
-				{
-					// inelastic cross section for pp collisions is 64 mb = 6.4 fm^2 at 2.76 TeV
-					case ProtonProtonBaseline.CMS2012:
-						return 6.4;
-
-					// inelastic cross section for pp collisions is 68 mb = 6.8 fm^2 at 5.02 TeV
-					case ProtonProtonBaseline.Estimate502TeV:
-						return 6.8;
-
-					default:
-						throw new Exception("Invalid Baseline.");
-				}
+				// include a factor of 4 because only a quarter has been integrated
+				return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm
+					* NcollField.TrapezoidalRuleSummedValues();
+			}
+			else
+			{
+				// include a factor of 2 because only a half has been integrated
+				return 2 * Param.GridCellSizeFm * Param.GridCellSizeFm
+					* NcollField.TrapezoidalRuleSummedValues();
 			}
 		}
 
+		public SimpleFireballField NpartField
+		{
+			get;
+			private set;
+		}
+
+		public double GetTotalNumberParticipants()
+		{
+			if(Param.AreNucleusABIdentical)
+			{
+				// include a factor of 4 because only a quarter has been integrated
+				return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm
+					* NpartField.TrapezoidalRuleSummedValues();
+			}
+			else
+			{
+				// include a factor of 2 because only a half has been integrated
+				return 2 * Param.GridCellSizeFm * Param.GridCellSizeFm
+					* NpartField.TrapezoidalRuleSummedValues();
+			}
+		}
+
+		public SimpleFireballField NucleonNumberColumnDensityFieldA
+		{
+			get;
+			private set;
+		}
+
+		public SimpleFireballField NucleonNumberColumnDensityFieldB
+		{
+			get;
+			private set;
+		}
+
+		public SimpleFireballField OverlapField
+		{
+			get;
+			private set;
+		}
+
+		public SimpleFireballField TemperatureScalingField
+		{
+			get;
+			private set;
+		}
+
+		/********************************************************************************************
+		 * Private/protected members, functions and properties
+		 ********************************************************************************************/
+
 		private FireballParam Param;
 
-		private NuclearDensityFunction NucleonDensityFunctionA;
+		private Nucleus NucleusA;
 
-		private NuclearDensityFunction NucleonDensityFunctionB;
+		private Nucleus NucleusB;
 
 		private void AssertValidMembers()
 		{
 			if(Param.GridCellSizeFm <= 0)
 			{
 				throw new Exception("GridCellSize <= 0.");
+			}
+
+			if(Param.InelasticppCrossSectionFm <= 0)
+			{
+				throw new Exception("InelasticppCrossSection <= 0.");
 			}
 
 			if(Param.NumberGridPoints <= 0)
@@ -186,44 +175,44 @@ namespace Yburn.Fireball
 
 		private double[] Y;
 
-		private void InitNucleonDensityFunctionsAB()
+		private void InitNucleusAB()
 		{
-			NuclearDensityFunction.CreateNucleonDensityFunctionPair(
-				Param, out NucleonDensityFunctionA, out NucleonDensityFunctionB);
+			Nucleus.CreateNucleusPair(
+				Param, out NucleusA, out NucleusB);
 		}
 
-		private void InitNucleonDensityFieldsAB()
+		private void InitNucleonNumberDensityFieldsAB()
 		{
-			if(Param.AreParticlesABIdentical)
+			if(Param.AreNucleusABIdentical)
 			{
-				NucleonDensityFieldA = new SimpleFireballField(
+				NucleonNumberDensityFieldA = new SimpleFireballField(
 					FireballFieldType.NucleonDensityA,
 					Param.NumberGridPointsInX,
 					Param.NumberGridPointsInY,
-					(i, j) => NucleonDensityFunctionA.Value(Math.Sqrt(Math.Pow(
+					(i, j) => NucleusA.GetNucleonNumberDensityPerFm3(Math.Sqrt(Math.Pow(
 						X[i] + 0.5 * Param.ImpactParameterFm, 2) + Math.Pow(Y[j], 2))));
 
-				NucleonDensityFieldB = new SimpleFireballField(
+				NucleonNumberDensityFieldB = new SimpleFireballField(
 					FireballFieldType.NucleonDensityB,
 					Param.NumberGridPointsInX,
 					Param.NumberGridPointsInY,
-					(i, j) => NucleonDensityFunctionB.Value(Math.Sqrt(Math.Pow(
+					(i, j) => NucleusB.GetNucleonNumberDensityPerFm3(Math.Sqrt(Math.Pow(
 						X[i] - 0.5 * Param.ImpactParameterFm, 2) + Math.Pow(Y[j], 2))));
 			}
 			else
 			{
-				NucleonDensityFieldA = new SimpleFireballField(
+				NucleonNumberDensityFieldA = new SimpleFireballField(
 					FireballFieldType.NucleonDensityA,
 					Param.NumberGridPointsInX,
 					Param.NumberGridPointsInY,
-					(i, j) => NucleonDensityFunctionA.Value(Math.Sqrt(Math.Pow(
+					(i, j) => NucleusA.GetNucleonNumberDensityPerFm3(Math.Sqrt(Math.Pow(
 						X[i] + Param.ImpactParameterFm, 2) + Math.Pow(Y[j], 2))));
 
-				NucleonDensityFieldB = new SimpleFireballField(
+				NucleonNumberDensityFieldB = new SimpleFireballField(
 					FireballFieldType.NucleonDensityB,
 					Param.NumberGridPointsInX,
 					Param.NumberGridPointsInY,
-					(i, j) => NucleonDensityFunctionB.Value(Math.Sqrt(Math.Pow(
+					(i, j) => NucleusB.GetNucleonNumberDensityPerFm3(Math.Sqrt(Math.Pow(
 						X[i], 2) + Math.Pow(Y[j], 2))));
 			}
 		}
@@ -234,7 +223,7 @@ namespace Yburn.Fireball
 				FireballFieldType.Ncoll,
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
-				(i, j) => InelasticppCrossSectionFm * OverlapField[i, j]);
+				(i, j) => Param.InelasticppCrossSectionFm * OverlapField[i, j]);
 		}
 
 		private void InitNpartField()
@@ -244,11 +233,11 @@ namespace Yburn.Fireball
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
 				(i, j) =>
-					ColumnDensityFieldA[i, j] * (1.0 - Math.Pow(
-						1.0 - InelasticppCrossSectionFm * ColumnDensityFieldB[i, j]
+					NucleonNumberColumnDensityFieldA[i, j] * (1.0 - Math.Pow(
+						1.0 - Param.InelasticppCrossSectionFm * NucleonNumberColumnDensityFieldB[i, j]
 						/ Param.NucleonNumberB, Param.NucleonNumberB))
-					+ ColumnDensityFieldB[i, j] * (1.0 - Math.Pow(
-						1.0 - InelasticppCrossSectionFm * ColumnDensityFieldA[i, j]
+					+ NucleonNumberColumnDensityFieldB[i, j] * (1.0 - Math.Pow(
+						1.0 - Param.InelasticppCrossSectionFm * NucleonNumberColumnDensityFieldA[i, j]
 						/ Param.NucleonNumberA, Param.NucleonNumberA)));
 		}
 
@@ -258,47 +247,47 @@ namespace Yburn.Fireball
 				FireballFieldType.Overlap,
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
-				(i, j) => ColumnDensityFieldA[i, j] * ColumnDensityFieldB[i, j]);
+				(i, j) => NucleonNumberColumnDensityFieldA[i, j] * NucleonNumberColumnDensityFieldB[i, j]);
 		}
 
 		private void InitXY()
 		{
-			X = Param.GenerateDiscreteXAxis();
-			Y = Param.GenerateDiscreteYAxis();
+			X = Param.GenerateDiscreteXAxis().ToArray();
+			Y = Param.GenerateDiscreteYAxis().ToArray();
 		}
 
-		private void InitColumnDensityFieldsAB()
+		private void InitNucleonNumberColumnDensityFieldsAB()
 		{
-			if(Param.AreParticlesABIdentical)
+			if(Param.AreNucleusABIdentical)
 			{
-				ColumnDensityFieldA = new SimpleFireballField(
+				NucleonNumberColumnDensityFieldA = new SimpleFireballField(
 					FireballFieldType.ColumnDensityA,
 					Param.NumberGridPointsInX,
 					Param.NumberGridPointsInY,
-					(i, j) => NucleonDensityFunctionA.GetColumnDensity(
+					(i, j) => NucleusA.GetNucleonNumberColumnDensityPerFm3(
 						X[i] + 0.5 * Param.ImpactParameterFm, Y[j]));
 
-				ColumnDensityFieldB = new SimpleFireballField(
+				NucleonNumberColumnDensityFieldB = new SimpleFireballField(
 					FireballFieldType.ColumnDensityB,
 					Param.NumberGridPointsInX,
 					Param.NumberGridPointsInY,
-					(i, j) => NucleonDensityFunctionB.GetColumnDensity(
+					(i, j) => NucleusB.GetNucleonNumberColumnDensityPerFm3(
 						X[i] - 0.5 * Param.ImpactParameterFm, Y[j]));
 			}
 			else
 			{
-				ColumnDensityFieldA = new SimpleFireballField(
+				NucleonNumberColumnDensityFieldA = new SimpleFireballField(
 					FireballFieldType.ColumnDensityA,
 					Param.NumberGridPointsInX,
 					Param.NumberGridPointsInY,
-					(i, j) => NucleonDensityFunctionA.GetColumnDensity(
+					(i, j) => NucleusA.GetNucleonNumberColumnDensityPerFm3(
 						X[i] + Param.ImpactParameterFm, Y[j]));
 
-				ColumnDensityFieldB = new SimpleFireballField(
+				NucleonNumberColumnDensityFieldB = new SimpleFireballField(
 					FireballFieldType.ColumnDensityB,
 					Param.NumberGridPointsInX,
 					Param.NumberGridPointsInY,
-					(i, j) => NucleonDensityFunctionB.GetColumnDensity(
+					(i, j) => NucleusB.GetNucleonNumberColumnDensityPerFm3(
 						X[i], Y[j]));
 			}
 		}
@@ -343,16 +332,16 @@ namespace Yburn.Fireball
 
 		private double GetTemperatureScalingFieldNormalization()
 		{
-			double columnA = NucleonDensityFunctionA.GetColumnDensity(0, 0);
-			double columnB = NucleonDensityFunctionB.GetColumnDensity(0, 0);
+			double columnA = NucleusA.GetNucleonNumberColumnDensityPerFm3(0, 0);
+			double columnB = NucleusB.GetNucleonNumberColumnDensityPerFm3(0, 0);
 
-			double ncoll = InelasticppCrossSectionFm * columnA * columnB;
-			double npart =
-				columnA * (1.0 - Math.Pow(
-					1.0 - InelasticppCrossSectionFm * columnB / Param.NucleonNumberB,
+			double ncoll = Param.InelasticppCrossSectionFm * columnA * columnB;
+			double npart
+				= columnA * (1.0 - Math.Pow(
+					1.0 - Param.InelasticppCrossSectionFm * columnB / Param.NucleonNumberB,
 					Param.NucleonNumberB))
 				+ columnB * (1.0 - Math.Pow(
-					1.0 - InelasticppCrossSectionFm * columnA / Param.NucleonNumberA,
+					1.0 - Param.InelasticppCrossSectionFm * columnA / Param.NucleonNumberA,
 					Param.NucleonNumberA));
 
 			switch(Param.TemperatureProfile)

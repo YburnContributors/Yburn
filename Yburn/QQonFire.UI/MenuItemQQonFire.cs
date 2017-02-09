@@ -157,7 +157,7 @@ namespace Yburn.QQonFire.UI
 			//
 			this.MenuItemShowFeedDown.Name = "MenuItemShowFeedDown";
 			this.MenuItemShowFeedDown.Size = new System.Drawing.Size(361, 24);
-			this.MenuItemShowFeedDown.Text = "Show Y1S &feed down";
+			this.MenuItemShowFeedDown.Text = "Show Y1S &feed down fractions";
 			//
 			//
 			this.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {

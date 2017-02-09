@@ -54,7 +54,7 @@
             this.MenuItemFile});
 			this.MenuStrip.Location = new System.Drawing.Point(0, 0);
 			this.MenuStrip.Name = "MenuStrip";
-			this.MenuStrip.Size = new System.Drawing.Size(1161, 28);
+			this.MenuStrip.Size = new System.Drawing.Size(1182, 42);
 			this.MenuStrip.TabIndex = 0;
 			this.MenuStrip.Text = "MenuStrip";
 			// 
@@ -74,7 +74,7 @@
 			this.MenuItemFile.ShortcutKeyDisplayString = "Shift+Alt+S";
 			this.MenuItemFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.S)));
-			this.MenuItemFile.Size = new System.Drawing.Size(44, 24);
+			this.MenuItemFile.Size = new System.Drawing.Size(64, 38);
 			this.MenuItemFile.Text = "&File";
 			// 
 			// MenuItemAbortProcess
@@ -83,7 +83,7 @@
 			this.MenuItemAbortProcess.ShortcutKeyDisplayString = "Shift+Alt+Del";
 			this.MenuItemAbortProcess.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.Delete)));
-			this.MenuItemAbortProcess.Size = new System.Drawing.Size(331, 26);
+			this.MenuItemAbortProcess.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemAbortProcess.Text = "&Abort running process";
 			this.MenuItemAbortProcess.Click += new System.EventHandler(this.MenuItemAbortProcess_Click);
 			// 
@@ -93,7 +93,7 @@
 			this.MenuItemClearScreen.ShortcutKeyDisplayString = "Alt+Shift+L";
 			this.MenuItemClearScreen.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.L)));
-			this.MenuItemClearScreen.Size = new System.Drawing.Size(331, 26);
+			this.MenuItemClearScreen.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemClearScreen.Text = "&Clear screen";
 			this.MenuItemClearScreen.Click += new System.EventHandler(this.MenuItemClearScreen_Click);
 			// 
@@ -102,14 +102,14 @@
 			this.MenuItemLoadParaFile.Name = "MenuItemLoadParaFile";
 			this.MenuItemLoadParaFile.ShortcutKeyDisplayString = "Ctrl+O";
 			this.MenuItemLoadParaFile.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-			this.MenuItemLoadParaFile.Size = new System.Drawing.Size(331, 26);
+			this.MenuItemLoadParaFile.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemLoadParaFile.Text = "Load &parameter file";
 			this.MenuItemLoadParaFile.Click += new System.EventHandler(this.MenuItemLoadParaFile_Click);
 			// 
 			// MenutItemSaveValuesAsParameterFile
 			// 
 			this.MenutItemSaveValuesAsParameterFile.Name = "MenutItemSaveValuesAsParameterFile";
-			this.MenutItemSaveValuesAsParameterFile.Size = new System.Drawing.Size(331, 26);
+			this.MenutItemSaveValuesAsParameterFile.Size = new System.Drawing.Size(513, 38);
 			this.MenutItemSaveValuesAsParameterFile.Text = "&Save current values as parameter file";
 			this.MenutItemSaveValuesAsParameterFile.Click += new System.EventHandler(this.MenutItemSaveValuesAsParameterFile_Click);
 			// 
@@ -119,21 +119,21 @@
 			this.MenuItemLoadBatchFile.ShortcutKeyDisplayString = "Ctrl+Shift+O";
 			this.MenuItemLoadBatchFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
             | System.Windows.Forms.Keys.O)));
-			this.MenuItemLoadBatchFile.Size = new System.Drawing.Size(331, 26);
+			this.MenuItemLoadBatchFile.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemLoadBatchFile.Text = "Load &batch file";
 			this.MenuItemLoadBatchFile.Click += new System.EventHandler(this.MenuItemLoadBatchFile_Click);
 			// 
 			// MenuItemSelectQQDataFile
 			// 
 			this.MenuItemSelectQQDataFile.Name = "MenuItemSelectQQDataFile";
-			this.MenuItemSelectQQDataFile.Size = new System.Drawing.Size(331, 26);
+			this.MenuItemSelectQQDataFile.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemSelectQQDataFile.Text = "Select &QQDataFile";
 			this.MenuItemSelectQQDataFile.Click += new System.EventHandler(this.MenuItemSelectQQDataFile_Click);
 			// 
 			// MenuItemSelectOutputPath
 			// 
 			this.MenuItemSelectOutputPath.Name = "MenuItemSelectOutputPath";
-			this.MenuItemSelectOutputPath.Size = new System.Drawing.Size(331, 26);
+			this.MenuItemSelectOutputPath.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemSelectOutputPath.Text = "Select &OutputPath";
 			this.MenuItemSelectOutputPath.Click += new System.EventHandler(this.MenuItemSelectOutputPath_Click);
 			// 
@@ -142,7 +142,7 @@
 			this.MenuItemOpenReadMe.Name = "MenuItemOpenReadMe";
 			this.MenuItemOpenReadMe.ShortcutKeyDisplayString = "F1";
 			this.MenuItemOpenReadMe.ShortcutKeys = System.Windows.Forms.Keys.F1;
-			this.MenuItemOpenReadMe.Size = new System.Drawing.Size(331, 26);
+			this.MenuItemOpenReadMe.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemOpenReadMe.Text = "Open &ReadMe";
 			this.MenuItemOpenReadMe.Click += new System.EventHandler(this.MenuItemOpenReadMe_Click);
 			// 
@@ -150,7 +150,7 @@
 			// 
 			this.MenuItemQuit.Name = "MenuItemQuit";
 			this.MenuItemQuit.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Q)));
-			this.MenuItemQuit.Size = new System.Drawing.Size(331, 26);
+			this.MenuItemQuit.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemQuit.Text = "&Quit";
 			this.MenuItemQuit.Click += new System.EventHandler(this.MenuItemQuit_Click);
 			// 
@@ -161,13 +161,13 @@
 			this.LayoutBottom.Controls.Add(this.YburnConfigDataBox, 0, 0);
 			this.LayoutBottom.Controls.Add(this.QQonFirePanel, 0, 1);
 			this.LayoutBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LayoutBottom.Location = new System.Drawing.Point(0, 28);
+			this.LayoutBottom.Location = new System.Drawing.Point(0, 42);
 			this.LayoutBottom.Name = "LayoutBottom";
 			this.LayoutBottom.RowCount = 2;
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 100F));
 			this.LayoutBottom.RowStyles.Add(new System.Windows.Forms.RowStyle());
-			this.LayoutBottom.Size = new System.Drawing.Size(1161, 972);
-			this.LayoutBottom.TabIndex = 2;
+			this.LayoutBottom.Size = new System.Drawing.Size(1182, 607);
+			this.LayoutBottom.TabIndex = 0;
 			// 
 			// YburnConfigDataBox
 			// 
@@ -178,25 +178,22 @@
 			this.YburnConfigDataBox.OutputPath = "";
 			this.YburnConfigDataBox.QQDataPathFile = "";
 			this.YburnConfigDataBox.Size = new System.Drawing.Size(600, 90);
-			this.YburnConfigDataBox.TabIndex = 1;
+			this.YburnConfigDataBox.TabIndex = 0;
 			// 
 			// QQonFirePanel
 			// 
-			this.QQonFirePanel.AutoScroll = true;
 			this.QQonFirePanel.BackColor = System.Drawing.SystemColors.Control;
 			this.QQonFirePanel.ControlsValues = ((System.Collections.Generic.Dictionary<string, string>)(resources.GetObject("QQonFirePanel.ControlsValues")));
 			this.QQonFirePanel.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.QQonFirePanel.Location = new System.Drawing.Point(3, 103);
 			this.QQonFirePanel.Name = "QQonFirePanel";
-			this.QQonFirePanel.Size = new System.Drawing.Size(1155, 866);
+			this.QQonFirePanel.Size = new System.Drawing.Size(1176, 584);
 			this.QQonFirePanel.TabIndex = 0;
 			// 
 			// QQonFireMainWindow
 			// 
-			this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 18F);
+			this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 28F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.AutoScroll = true;
-			this.AutoScrollMinSize = new System.Drawing.Size(0, 1000);
 			this.ClientSize = new System.Drawing.Size(1182, 649);
 			this.Controls.Add(this.LayoutBottom);
 			this.Controls.Add(this.MenuStrip);

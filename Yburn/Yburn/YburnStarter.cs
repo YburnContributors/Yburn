@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Globalization;
-using System.Threading;
 using System.Windows.Forms;
+using Yburn.FormatUtil;
 using Yburn.Interfaces;
 
 namespace Yburn
@@ -9,7 +8,7 @@ namespace Yburn
 	public static class YburnStarter
 	{
 		/********************************************************************************************
-		 * Public members, functions and properties
+		 * Public static members, functions and properties
 		 ********************************************************************************************/
 
 		public static void Execute(
@@ -19,7 +18,7 @@ namespace Yburn
 		{
 			try
 			{
-				Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+				YburnFormat.UseYburnFormat();
 
 				FullNameVersion = NameVersion + " - " + workerName;
 
@@ -38,7 +37,7 @@ namespace Yburn
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static readonly string NameVersion = "Yburn 6.0";
+		private static readonly string NameVersion = "Yburn 6.2";
 
 		private static string FullNameVersion;
 

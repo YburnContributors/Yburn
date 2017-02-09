@@ -1,151 +1,111 @@
-﻿using Yburn.PhysUtil;
+﻿using System;
 
 namespace Yburn.Fireball
 {
-	public class FireballElectromagneticField
+	public class FireballElectromagneticField : SimpleFireballField
 	{
+		public static FireballElectromagneticField CreateFireballElectricField(
+			FireballParam param,
+			double[] xAxis,
+			double[] yAxis
+			)
+		{
+			CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
+			Func<double, double, double, double> fieldFunction = (tau, x, y) =>
+			{
+				Func<double, double> integrand
+					= rapidity => emf.CalculateElectricFieldPerFm2_LCF(tau, x, y, rapidity).Norm;
+
+				return LCFFieldAverager.AverageRapidityDependence(
+					integrand, param.EMFQuadratureOrder);
+			};
+
+			return new FireballElectromagneticField(FireballFieldType.ElectricFieldStrength,
+				xAxis, yAxis, fieldFunction, param.EMFUpdateIntervalFm);
+		}
+
+		public static FireballElectromagneticField CreateFireballMagneticField(
+			FireballParam param,
+			double[] xAxis,
+			double[] yAxis
+			)
+		{
+			CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
+			Func<double, double, double, double> fieldFunction = (tau, x, y) =>
+			{
+				Func<double, double> integrand
+					= rapidity => emf.CalculateMagneticFieldPerFm2_LCF(tau, x, y, rapidity).Norm;
+
+				return LCFFieldAverager.AverageRapidityDependence(
+					integrand, param.EMFQuadratureOrder);
+			};
+
+			return new FireballElectromagneticField(FireballFieldType.MagneticFieldStrength,
+				xAxis, yAxis, fieldFunction, param.EMFUpdateIntervalFm);
+		}
+
+		public static FireballElectromagneticField CreateZeroField(
+			FireballFieldType type,
+			double[] xAxis,
+			double[] yAxis
+			)
+		{
+			Func<double, double, double, double> fieldFunction = (tau, x, y) => 0;
+
+			return new FireballElectromagneticField(
+				type, xAxis, yAxis, fieldFunction, double.PositiveInfinity);
+		}
+
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
-		public FireballElectromagneticField(
-			FireballParam param
-			)
+		protected FireballElectromagneticField(
+			FireballFieldType type,
+			double[] xAxis,
+			double[] yAxis,
+			Func<double, double, double, double> fieldFunction,
+			double fieldUpdateInterval
+			) : base(type, xAxis, yAxis, (x, y) => 0)
 		{
-			Param = param.Clone();
+			XAxis = xAxis;
+			YAxis = yAxis;
+			FieldFunction = fieldFunction;
 
-			NuclearDensityFunction.CreateProtonDensityFunctionPair(
-				param, out ProtonDensityFunctionA, out ProtonDensityFunctionB);
+			UpdateInterval = fieldUpdateInterval;
+			CurrentTime = 0;
 		}
 
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public EuclideanVector3D CalculateMagneticFieldInCMS(
-			double time,
-			EuclideanVector3D position,
-			QuadraturePrecision precision = QuadraturePrecision.Use64Points
+		public void Advance(
+			double newTime
 			)
 		{
-			EuclideanVector3D nucleusOffset = new EuclideanVector3D(
-				0.5 * Param.ImpactParameterFm, 0, 0);
+			if(Math.Abs(newTime - CurrentTime) >= UpdateInterval)
+			{
+				SimpleFireballFieldContinuousFunction function
+					= (x, y) => FieldFunction(newTime, x, y);
 
-			// Nucleus A is located at negative x and moves in positive z direction
-			EuclideanVector3D fieldNucleusA = CalculateSingleNucleusMagneticFieldInCMS(
-				time,
-				position + nucleusOffset,
-				Param.ParticleVelocity,
-				ProtonDensityFunctionA,
-				precision);
-
-			// Nucleus B is located at positive x and moves in negative z direction
-			EuclideanVector3D fieldNucleusB = CalculateSingleNucleusMagneticFieldInCMS(
-				time,
-				position - nucleusOffset,
-				-Param.ParticleVelocity,
-				ProtonDensityFunctionA,
-				precision);
-
-			return fieldNucleusA + fieldNucleusB;
-		}
-
-		public EuclideanVector3D CalculateSingleNucleusMagneticFieldInCMS(
-			double time,
-			EuclideanVector3D position,
-			double nucleusVelocity,
-			NuclearDensityFunction protonDensityFunction,
-			QuadraturePrecision precision = QuadraturePrecision.Use64Points
-			)
-		{
-			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
-				Param.EMFCalculationMethod, Param.QGPConductivityMeV, nucleusVelocity);
-
-			IntegrandIn2D<EuclideanVector3D> integrand = (x, y) =>
-				protonDensityFunction.GetColumnDensity(x, y)
-				* pcEMF.CalculatePointChargeMagneticField(
-					time,
-					position.X - x,
-					position.Y - y,
-					position.Z);
-
-			EuclideanVector3D integral = Quadrature.UseGaussLegendre_RealPlane(
-				integrand,
-				protonDensityFunction.NuclearRadius,
-				protonDensityFunction.NuclearRadius,
-				precision);
-
-			return integral;
-		}
-
-		public EuclideanVector3D CalculateMagneticFieldInLCF(
-			double properTime,
-			EuclideanVector2D position,
-			double rapidity,
-			QuadraturePrecision precision = QuadraturePrecision.Use64Points
-			)
-		{
-			EuclideanVector2D nucleusOffset = new EuclideanVector2D(
-				0.5 * Param.ImpactParameterFm, 0);
-
-			// Nucleus A is located at negative x and moves in positive z direction
-			EuclideanVector3D fieldNucleusA = CalculateSingleNucleusMagneticFieldInLCF(
-				properTime,
-				position + nucleusOffset,
-				rapidity,
-				Param.ParticleVelocity,
-				ProtonDensityFunctionA,
-				precision);
-
-			// Nucleus B is located at positive x and moves in negative z direction
-			EuclideanVector3D fieldNucleusB = CalculateSingleNucleusMagneticFieldInLCF(
-				properTime,
-				position - nucleusOffset,
-				rapidity,
-				-Param.ParticleVelocity,
-				ProtonDensityFunctionA,
-				precision);
-
-			return fieldNucleusA + fieldNucleusB;
-		}
-
-		public EuclideanVector3D CalculateSingleNucleusMagneticFieldInLCF(
-			double properTime,
-			EuclideanVector2D position,
-			double rapidity,
-			double nucleusVelocity,
-			NuclearDensityFunction protonDensityFunction,
-			QuadraturePrecision precision = QuadraturePrecision.Use64Points
-			)
-		{
-			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
-				Param.EMFCalculationMethod, Param.QGPConductivityMeV, nucleusVelocity);
-
-			IntegrandIn2D<EuclideanVector3D> integrand = (x, y) =>
-				protonDensityFunction.GetColumnDensity(x, y)
-				* pcEMF.CalculatePointChargeMagneticField_LCF(
-					properTime,
-					position.X - x,
-					position.Y - y,
-					rapidity);
-
-			EuclideanVector3D integral = Quadrature.UseGaussLegendre_RealPlane(
-				integrand,
-				protonDensityFunction.NuclearRadius,
-				protonDensityFunction.NuclearRadius,
-				precision);
-
-			return integral;
+				SetDiscreteValues(function, XAxis, YAxis);
+				CurrentTime = newTime;
+			}
 		}
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private FireballParam Param;
+		private readonly double[] XAxis;
 
-		private NuclearDensityFunction ProtonDensityFunctionA;
+		private readonly double[] YAxis;
 
-		private NuclearDensityFunction ProtonDensityFunctionB;
+		protected readonly Func<double, double, double, double> FieldFunction;
+
+		private readonly double UpdateInterval;
+
+		private double CurrentTime;
 	}
 }

@@ -18,10 +18,6 @@ namespace Yburn.QQState
 	public class DecayWidth
 	{
 		/********************************************************************************************
-		 * Public static members, functions and properties
-		 ********************************************************************************************/
-
-		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
@@ -141,10 +137,6 @@ namespace Yburn.QQState
 		}
 
 		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-
-		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
@@ -187,7 +179,7 @@ namespace Yburn.QQState
 				case PotentialType.Tzero:
 				case PotentialType.Tzero_NoString:
 					// hadronic medium - dissociation into b-meson pair
-					return 2 * PhysConst.BMesonMass - BoundState.BoundMassMeV;
+					return 2 * Constants.RestMassBMesonMeV - BoundState.BoundMassMeV;
 
 				default:
 					// we have a QGP
@@ -220,22 +212,22 @@ namespace Yburn.QQState
 			for(int j = 1; j < EnergySteps; j++)
 			{
 				integral += HadronicCrossSectionMb[j]
-					* (2.0 * BEdist(EnergyMeV[j], PhysConst.ChargedPionMass)
-						+ BEdist(EnergyMeV[j], PhysConst.NeutralPionMass))
+					* (2.0 * BEdist(EnergyMeV[j], Constants.RestMassPionPlusMeV)
+						+ BEdist(EnergyMeV[j], Constants.RestMassPionZeroMeV))
 					* EnergyMeV[j] * EnergyMeV[j]
 					* (EnergyMeV[j + 1] - EnergyMeV[j - 1]);
 			}
 
 			// first step vanishes because CrossSection[0] = 0
 			integral += HadronicCrossSectionMb[EnergySteps]
-				* (2.0 * BEdist(EnergyMeV[EnergySteps], PhysConst.ChargedPionMass)
-					+ BEdist(EnergyMeV[EnergySteps], PhysConst.NeutralPionMass))
+				* (2.0 * BEdist(EnergyMeV[EnergySteps], Constants.RestMassPionPlusMeV)
+					+ BEdist(EnergyMeV[EnergySteps], Constants.RestMassPionZeroMeV))
 				* EnergyMeV[EnergySteps] * EnergyMeV[EnergySteps]
 				* (EnergyMeV[EnergySteps] - EnergyMeV[EnergySteps - 1]);
 			integral *= 0.5;
 
 			// MeV^3 * mb  -->  MeV^3 * 0.1 fm^2  -->  0.1 MeV
-			return 0.5 / Math.PI / Math.PI * integral * 0.1 / PhysConst.HBARC / PhysConst.HBARC;
+			return 0.5 / Math.PI / Math.PI * integral * 0.1 / Constants.HbarCMeVFm / Constants.HbarCMeVFm;
 		}
 
 		private double[] GetHadronicCrossSection()
@@ -293,7 +285,7 @@ namespace Yburn.QQState
 			// include 16 gluonic degrees of freedom
 			// MeV^3 * mb  -->  MeV^3 * 0.1 fm^2  -->  0.1 MeV
 			return 16 * 0.5 / Math.PI / Math.PI * integral
-				* 0.1 / PhysConst.HBARC / PhysConst.HBARC;
+				* 0.1 / Constants.HbarCMeVFm / Constants.HbarCMeVFm;
 		}
 
 		// Check at the maximum energy value.
@@ -326,9 +318,9 @@ namespace Yburn.QQState
 				LogInfo(j);
 
 				// the unit is mb (factor of 10 is for conversion to from fm^-2 to mb)
-				crossSection[j] =
-					10 * Math.PI * Math.PI / 9.0 * BoundState.AlphaUltraSoft
-					* BoundParam.QuarkMassMeV / PhysConst.HBARC
+				crossSection[j]
+					= 10 * Math.PI * Math.PI / 9.0 * BoundState.AlphaUltraSoft
+					* BoundParam.QuarkMassMeV / Constants.HbarCMeVFm
 					* EnergyMeV[j] / Math.Sqrt(BoundParam.QuarkMassMeV
 					* (EnergyMeV[j] - MinEnergyMeV))
 					* RadialOverlapIntegral(EnergyMeV[j]);

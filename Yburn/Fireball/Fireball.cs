@@ -30,6 +30,7 @@ namespace Yburn.Fireball
 
 			InitXY();
 			InitV();
+			InitElectromagneticFields();
 			InitTemperature();
 			InitDecayWidth();
 			InitDampingFactor();
@@ -68,7 +69,7 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				if(Param.AreParticlesABIdentical)
+				if(Param.AreNucleusABIdentical)
 				{
 					return Temperature[0, 0];
 				}
@@ -100,8 +101,8 @@ namespace Yburn.Fireball
 		}
 
 		public string FieldsToString(
-			string[] fieldNames,
-			string states
+			List<string> fieldNames,
+			List<BottomiumState> states
 			)
 		{
 			StringBuilder stringBuilder = new StringBuilder();
@@ -112,11 +113,11 @@ namespace Yburn.Fireball
 			{
 				if(IsPtDependent(fieldName))
 				{
-					for(int k = 0; k < Param.TransverseMomentaGeV.Length; k++)
+					for(int k = 0; k < Param.TransverseMomentaGeV.Count; k++)
 					{
 						foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 						{
-							if(states.Contains(state.ToString()))
+							if(states.Contains(state))
 							{
 								fields.Add(GetFireballField(fieldName, state, k));
 								stringBuilder.AppendFormat("{0,20}",
@@ -168,7 +169,7 @@ namespace Yburn.Fireball
 		{
 			SimpleFireballField field = GetFireballField(fieldName, state, pTindex);
 
-			if(Param.AreParticlesABIdentical)
+			if(Param.AreNucleusABIdentical)
 			{
 				// include a factor of 4 because only a quarter has been integrated
 				return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm
@@ -248,7 +249,7 @@ namespace Yburn.Fireball
 				}
 			}
 
-			if(Param.AreParticlesABIdentical)
+			if(Param.AreNucleusABIdentical)
 			{
 				// include a factor of 4 because only a quarter has been integrated
 				CollisionInQGP *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
@@ -316,6 +317,10 @@ namespace Yburn.Fireball
 
 		private SimpleFireballField VY;
 
+		private FireballElectromagneticField ElectricField;
+
+		private FireballElectromagneticField MagneticField;
+
 		private void AssertValidMembers()
 		{
 			if(Param.NucleonNumberA <= 0)
@@ -343,12 +348,7 @@ namespace Yburn.Fireball
 				throw new Exception("ImpactParameter < 0.");
 			}
 
-			if(Param.FormationTimesFm.Length != NumberBottomiumStates)
-			{
-				throw new Exception("FormationTime-array has invalid size.");
-			}
-
-			foreach(double time in Param.FormationTimesFm)
+			foreach(double time in Param.FormationTimesFm.Values)
 			{
 				if(time <= 0)
 				{
@@ -366,12 +366,7 @@ namespace Yburn.Fireball
 				throw new Exception("BreakupTemperature <= 0.");
 			}
 
-			if(Param.BeamRapidity < 0)
-			{
-				throw new Exception("BeamRapidity < 0.");
-			}
-
-			if(Param.TransverseMomentaGeV.Length == 0)
+			if(Param.TransverseMomentaGeV.Count == 0)
 			{
 				throw new Exception("TransverseMomenta-array is empty.");
 			}
@@ -390,16 +385,15 @@ namespace Yburn.Fireball
 			DecayWidth = new FireballDecayWidthField(
 				X,
 				Y,
-				Param.GridCellSizeFm,
 				Param.TransverseMomentaGeV,
 				Temperature,
 				VX,
 				VY,
+				ElectricField,
+				MagneticField,
 				Param.FormationTimesFm,
 				CurrentTime,
-				Param.DecayWidthEvaluationType,
-				Param.DecayWidthAveragingAngles,
-				Param.TemperatureDecayWidthList);
+				Param.DecayWidthRetrievalFunction);
 		}
 
 		private void AdvanceFields()
@@ -416,9 +410,11 @@ namespace Yburn.Fireball
 				Temperature.Advance(CurrentTime);
 			}
 
+			ElectricField.Advance(CurrentTime);
+			MagneticField.Advance(CurrentTime);
 			DecayWidth.Advance(CurrentTime);
 			DampingFactor.SetValues((i, j, k, l) => DampingFactor.Values[k, l][i, j]
-				* Math.Exp(-TimeStep * DecayWidth.Values[k, l][i, j] / PhysConst.HBARC));
+				* Math.Exp(-TimeStep * DecayWidth.Values[k, l][i, j] / Constants.HbarCMeVFm));
 		}
 
 		private void InitDampingFactor()
@@ -427,14 +423,52 @@ namespace Yburn.Fireball
 				FireballFieldType.DampingFactor,
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
-				Param.TransverseMomentaGeV.Length,
+				Param.TransverseMomentaGeV.Count,
 				(i, j, k, l) => 1);
 		}
 
 		private void InitXY()
 		{
-			X = Param.GenerateDiscreteXAxis();
-			Y = Param.GenerateDiscreteYAxis();
+			X = Param.GenerateDiscreteXAxis().ToArray();
+			Y = Param.GenerateDiscreteYAxis().ToArray();
+		}
+
+		private void InitV()
+		{
+			VX = new SimpleFireballField(
+				FireballFieldType.VX,
+				Param.NumberGridPointsInX,
+				Param.NumberGridPointsInY,
+				(i, j) => 0);
+
+			VY = new SimpleFireballField(
+				FireballFieldType.VY,
+				Param.NumberGridPointsInX,
+				Param.NumberGridPointsInY,
+				(i, j) => 0);
+		}
+
+		private void InitElectromagneticFields()
+		{
+			if(Param.UseElectricField)
+			{
+				ElectricField = FireballElectromagneticField.CreateFireballElectricField(Param, X, Y);
+			}
+			else
+			{
+				ElectricField = FireballElectromagneticField.CreateZeroField(
+					FireballFieldType.ElectricFieldStrength, X, Y);
+			}
+
+			if(Param.UseMagneticField)
+			{
+				MagneticField = FireballElectromagneticField.CreateFireballMagneticField(Param, X, Y);
+			}
+			else
+			{
+				MagneticField = FireballElectromagneticField.CreateZeroField(
+					FireballFieldType.MagneticFieldStrength, X, Y);
+			}
 		}
 
 		private void InitTemperature()
@@ -456,28 +490,13 @@ namespace Yburn.Fireball
 			Param.InitialMaximumTemperatureMeV = MaximumTemperature;
 		}
 
-		private void InitV()
-		{
-			VX = new SimpleFireballField(
-				FireballFieldType.VX,
-				Param.NumberGridPointsInX,
-				Param.NumberGridPointsInY,
-				(i, j) => 0);
-
-			VY = new SimpleFireballField(
-				FireballFieldType.VY,
-				Param.NumberGridPointsInX,
-				Param.NumberGridPointsInY,
-				(i, j) => 0);
-		}
-
 		private SimpleFireballField GetFireballField(
 			string fieldName,
 			BottomiumState state = BottomiumState.Y1S,
 			int pTindex = 0
 			)
 		{
-			if(pTindex >= Param.TransverseMomentaGeV.Length || pTindex < 0)
+			if(pTindex >= Param.TransverseMomentaGeV.Count || pTindex < 0)
 			{
 				throw new Exception("pTindex is invalid.");
 			}
@@ -485,10 +504,10 @@ namespace Yburn.Fireball
 			switch(fieldName)
 			{
 				case "ColumnDensityA":
-					return GlauberCalculation.ColumnDensityFieldA;
+					return GlauberCalculation.NucleonNumberColumnDensityFieldA;
 
 				case "ColumnDensityB":
-					return GlauberCalculation.ColumnDensityFieldB;
+					return GlauberCalculation.NucleonNumberColumnDensityFieldB;
 
 				case "DampingFactor":
 					return DampingFactor.GetSimpleFireballField(pTindex, state);
@@ -497,10 +516,10 @@ namespace Yburn.Fireball
 					return DecayWidth.GetSimpleFireballField(pTindex, state);
 
 				case "NucleonDensityA":
-					return GlauberCalculation.NucleonDensityFieldA;
+					return GlauberCalculation.NucleonNumberDensityFieldA;
 
 				case "NucleonDensityB":
-					return GlauberCalculation.NucleonDensityFieldB;
+					return GlauberCalculation.NucleonNumberDensityFieldB;
 
 				case "Ncoll":
 					return GlauberCalculation.NcollField;
@@ -525,6 +544,12 @@ namespace Yburn.Fireball
 
 				case "UnscaledSuppression":
 					return GetUnscaledSuppression(state, pTindex);
+
+				case "ElectricFieldStrength":
+					return ElectricField;
+
+				case "MagneticFieldStrength":
+					return MagneticField;
 
 				default:
 					throw new Exception("Unknown FireballField.");

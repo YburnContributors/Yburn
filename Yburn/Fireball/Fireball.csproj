@@ -32,12 +32,15 @@
   <ItemGroup>
     <Compile Include="BinBoundaryCalculator.cs" />
     <Compile Include="BottomiumCascade.cs" />
-    <Compile Include="FtexsLaxWendroff.cs" />
-    <Compile Include="FtexsLaxWendroffStepper.cs" />
-    <Compile Include="NuclearDensityFunction.cs" />
-    <Compile Include="DecayWidthAverager.cs" />
+    <Compile Include="BottomiumCascadeMatrix.cs" />
+    <Compile Include="BottomiumVector.cs" />
     <Compile Include="FireballElectromagneticField.cs" />
-    <Compile Include="MagneticFieldStrengthAverager.cs" />
+    <Compile Include="FtexsLaxWendroffStepper.cs" />
+    <Compile Include="FtexsFirstOrderStepper.cs" />
+    <Compile Include="Nucleus.cs" />
+    <Compile Include="CollisionalElectromagneticField.cs" />
+    <Compile Include="LCFFieldAverager.cs" />
+    <Compile Include="NucleusElectromagneticField.cs" />
     <Compile Include="PointChargeElectromagneticField.cs" />
     <Compile Include="Fireball.cs" />
     <Compile Include="FireballDecayWidthField.cs" />
@@ -49,11 +52,9 @@
     <Compile Include="GlauberCalculation.cs" />
     <Compile Include="FireballExceptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QQDataDoc.cs" />
     <Compile Include="StateSpecificFireballField.cs" />
     <Compile Include="SimpleFireballField.cs" />
     <Compile Include="QGPSuppression.cs" />
-    <Compile Include="TemperatureDecayWidthListHelper.cs" />
     <Compile Include="TransverseMomentumAverager.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,9 +68,17 @@
       <Project>{59e7bc95-adee-49ac-a6c8-4df0f322209e}</Project>
       <Name>FileUtil</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FormatUtil\FormatUtil.csproj">
+      <Project>{2CACC9EA-FB3B-4A90-BD50-66903953079E}</Project>
+      <Name>FormatUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PhysUtil\PhysUtil.csproj">
       <Project>{96E5E846-3417-4A44-A4F1-7ED8DCA43F43}</Project>
       <Name>PhysUtil</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Yburn\Yburn.csproj">
+      <Project>{EB474E7F-D6F1-408D-A30B-CF662B311C93}</Project>
+      <Name>Yburn</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

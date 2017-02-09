@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Threading;
+using Yburn.FormatUtil;
 
 namespace Yburn.FileUtil
 {
@@ -13,7 +12,7 @@ namespace Yburn.FileUtil
 
 		protected FileReader()
 		{
-			Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+			YburnFormat.UseYburnFormat();
 		}
 
 		/********************************************************************************************

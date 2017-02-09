@@ -39,9 +39,10 @@ namespace Yburn.QQState
 			)
 		{
 			AlphaSoft = alphaSoft;
-			SigmaFm = sigmaMeV / PhysConst.HBARC / PhysConst.HBARC;
+			SigmaFm = sigmaMeV / Constants.HbarCMeVFm / Constants.HbarCMeVFm;
 			ColorState = colorState;
 
+			AssertValidMembers();
 			SetHelperVariables();
 		}
 
@@ -73,7 +74,7 @@ namespace Yburn.QQState
 		{
 			get
 			{
-				return SigmaEffFm * PhysConst.HBARC * PhysConst.HBARC;
+				return SigmaEffFm * Constants.HbarCMeVFm * Constants.HbarCMeVFm;
 			}
 		}
 
@@ -106,17 +107,25 @@ namespace Yburn.QQState
 
 		protected ColorState ColorState;
 
+		private void AssertValidMembers()
+		{
+			if(SigmaFm < 0)
+			{
+				throw new Exception("Sigma < 0.");
+			}
+		}
+
 		protected virtual void SetHelperVariables()
 		{
 			if(ColorState == ColorState.Singlet)
 			{
-				AlphaEff = PhysConst.CF * AlphaSoft;
+				AlphaEff = Constants.QuadraticCasimir_Fundamental * AlphaSoft;
 				SigmaEffFm = SigmaFm;
 			}
 			else if(ColorState == ColorState.Octet)
 			{
-				AlphaEff = (PhysConst.CF - 0.5 * PhysConst.CA) * AlphaSoft;
-				SigmaEffFm = PhysConst.CA / PhysConst.CF * SigmaFm;
+				AlphaEff = (Constants.QuadraticCasimir_Fundamental - 0.5 * Constants.QuadraticCasimir_Adjoint) * AlphaSoft;
+				SigmaEffFm = Constants.QuadraticCasimir_Adjoint / Constants.QuadraticCasimir_Fundamental * SigmaFm;
 			}
 		}
 	}
@@ -162,8 +171,8 @@ namespace Yburn.QQState
 		{
 			base.SetHelperVariables();
 
-			AlphaOverDebyeMassFm = AlphaEff * TemperatureMeV / PhysConst.HBARC;
-			SigmaOverDebyeMassFm = SigmaEffFm / DebyeMassMeV * PhysConst.HBARC;
+			AlphaOverDebyeMassFm = AlphaEff * TemperatureMeV / Constants.HbarCMeVFm;
+			SigmaOverDebyeMassFm = SigmaEffFm / DebyeMassMeV * Constants.HbarCMeVFm;
 		}
 	}
 
@@ -216,7 +225,7 @@ namespace Yburn.QQState
 			double radiusFm
 			)
 		{
-			double X = DebyeMassMeV * radiusFm / PhysConst.HBARC;
+			double X = DebyeMassMeV * radiusFm / Constants.HbarCMeVFm;
 			if(radiusFm == 0)
 			{
 				return new Complex(0, 0);
@@ -323,14 +332,14 @@ namespace Yburn.QQState
 			double xm2 = xm * xm;
 			return new Complex(
 				-SigmaOverDebyeMassFm * Math.Exp(-xm)
-				- AlphaEff / radiusFm * (1.0 - PhysConst.NC * AlphaSoft * xt2 / 36.0 / PI
-				+ 3 * PhysConst.Zeta3 / 4.0 / PI / PI * xt * xm2
-				- PhysConst.Zeta3 * PhysConst.NC * AlphaSoft * xt * xt2 / 12.0 / PI / PI / PI
+				- AlphaEff / radiusFm * (1.0 - Constants.NumberQCDColors * AlphaSoft * xt2 / 36.0 / PI
+				+ 3 * Constants.RiemannZetaFunctionAt3 / 4.0 / PI / PI * xt * xm2
+				- Constants.RiemannZetaFunctionAt3 * Constants.NumberQCDColors * AlphaSoft * xt * xt2 / 12.0 / PI / PI / PI
 				- xm * xm2 / 6.0),
-				-AlphaOverDebyeMassFm * (PhysConst.NC * PhysConst.NC * AlphaSoft * AlphaSoft / 6.0
+				-AlphaOverDebyeMassFm * (Constants.NumberQCDColors * Constants.NumberQCDColors * AlphaSoft * AlphaSoft / 6.0
 				+ xm2 / 6.0 * (2 * Math.Log(TemperatureMeV / DebyeMassMeV) + 1
-				+ 4 * Math.Log(2) + 2 * PhysConst.Zetap2 / PhysConst.Zeta2 - 2 * PhysConst.EULER_GAMMA)
-				- Math.Log(2) * PhysConst.NC * AlphaSoft / 9.0 / PI * xt2));
+				+ 4 * Math.Log(2) + 2 * Constants.RiemannZetaFunctionDerivativeAt2 / Constants.RiemannZetaFunctionAt2 - 2 * Constants.EulerMascheroniConstant)
+				- Math.Log(2) * Constants.NumberQCDColors * AlphaSoft / 9.0 / PI * xt2));
 		}
 
 		/********************************************************************************************
@@ -349,10 +358,10 @@ namespace Yburn.QQState
 		{
 			base.SetHelperVariables();
 
-			TwoPiTemperatureFm = 2 * Math.PI * TemperatureMeV / PhysConst.HBARC;
+			TwoPiTemperatureFm = 2 * Math.PI * TemperatureMeV / Constants.HbarCMeVFm;
 			TwoPiTemperatureFm2 = TwoPiTemperatureFm * TwoPiTemperatureFm;
 
-			DebyeMassFm = DebyeMassMeV / PhysConst.HBARC;
+			DebyeMassFm = DebyeMassMeV / Constants.HbarCMeVFm;
 			DebyeMassFm2 = DebyeMassFm * DebyeMassFm;
 		}
 	}
@@ -435,7 +444,7 @@ namespace Yburn.QQState
 			)
 		{
 			return new Complex(-(AlphaEff / radiusFm + SigmaOverDebyeMassFm)
-				* Math.Exp(-DebyeMassMeV * radiusFm / PhysConst.HBARC), 0);
+				* Math.Exp(-DebyeMassMeV * radiusFm / Constants.HbarCMeVFm), 0);
 		}
 	}
 
@@ -575,6 +584,8 @@ namespace Yburn.QQState
 			SpinState = spinState;
 			SpinCouplingRange = spinCouplingRangeFm;
 			SpinCouplingStrength = spinCouplingStrengthMeV;
+
+			AssertValidMembers();
 			SetHelperVariables();
 		}
 
@@ -621,6 +632,18 @@ namespace Yburn.QQState
 		private double SpinFactor;
 
 		private double TotalSpin;
+
+		private void AssertValidMembers()
+		{
+			if(SpinCouplingRange < 0)
+			{
+				throw new Exception("SpinCouplingRange < 0.");
+			}
+			if(SpinCouplingStrength < 0)
+			{
+				throw new Exception("SpinCouplingStrength < 0.");
+			}
+		}
 
 		protected override void SetHelperVariables()
 		{

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Text;
 using Yburn.Fireball;
+using Yburn.FormatUtil;
+using Yburn.QQState;
 
 namespace Yburn.Workers
 {
@@ -13,227 +15,188 @@ namespace Yburn.Workers
 
 		public TemperatureDecayWidthPrinter(
 			string dataPathFile,
-			BottomiumState[] bottomiumStates,
+			List<BottomiumState> bottomiumStates,
+			List<PotentialType> potentialTypes,
 			DecayWidthType decayWidthType,
-			string[] potentialTypes,
-			double minTemperature,
-			double maxTemperature,
-			double stepSize,
-			double mediumVelocity,
-			double[] averagingAngles
+			double qgpFormationTemperature,
+			int numberAveragingAngles
 			)
 		{
 			DataPathFile = dataPathFile;
 			BottomiumStates = bottomiumStates;
-			DecayWidthType = decayWidthType;
 			PotentialTypes = potentialTypes;
-			MinTemperature = minTemperature;
-			MaxTemperature = maxTemperature;
-			StepSize = stepSize;
-			MediumVelocity = mediumVelocity;
-			AveragingAngles = averagingAngles;
-
-			AssertValidInput();
+			DecayWidthType = decayWidthType;
+			QGPFormationTemperature = qgpFormationTemperature;
+			NumberAveragingAngles = numberAveragingAngles;
 		}
 
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public string GetList()
-		{
-			UseAveragedTemperature = false;
-			DecayWidthAverager[] averagers = CreateDecayWidthAveragers();
-
-			return GetList(averagers);
-		}
-
-		public string GetListUsingAveragedTemperature()
-		{
-			DecayWidthAverager[] averagers = CreateDecayWidthAveragers();
-
-			UseAveragedTemperature = false;
-			string list = GetList(averagers);
-
-			UseAveragedTemperature = true;
-			list += "\r\n";
-			list += GetList(averagers);
-
-			return list;
-		}
-
-		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-
-		private static string DoubleToString(
-			double aDouble
+		public string GetList(
+			List<DopplerShiftEvaluationType> dopplerShiftEvaluationTypes,
+			EMFDipoleAlignmentType electricDipoleAlignmentType,
+			EMFDipoleAlignmentType magneticDipoleAlignmentType,
+			List<double> mediumTemperatures,
+			List<double> mediumVelocities,
+			double electricField,
+			double magneticField
 			)
 		{
-			return aDouble.ToString("G4");
+			if(dopplerShiftEvaluationTypes == null || dopplerShiftEvaluationTypes.Count < 1)
+			{
+				throw new Exception("No DopplerShiftEvaluationTypes specified.");
+			}
+
+			StringBuilder builder = new StringBuilder();
+
+			foreach(DopplerShiftEvaluationType evaluationType in dopplerShiftEvaluationTypes)
+			{
+				builder.Append(GetList(
+					evaluationType, electricDipoleAlignmentType, magneticDipoleAlignmentType,
+					mediumTemperatures, mediumVelocities, electricField, magneticField));
+				builder.AppendLine();
+				builder.AppendLine();
+			}
+
+			return builder.ToString();
 		}
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private string DataPathFile;
+		private readonly string DataPathFile;
 
-		private BottomiumState[] BottomiumStates;
+		private readonly List<BottomiumState> BottomiumStates;
 
-		private DecayWidthType DecayWidthType;
+		private readonly List<PotentialType> PotentialTypes;
 
-		private string[] PotentialTypes;
+		private readonly DecayWidthType DecayWidthType;
 
-		private double StepSize;
+		private readonly double QGPFormationTemperature;
 
-		private double MaxTemperature;
+		private readonly int NumberAveragingAngles;
 
-		private double MinTemperature;
-
-		private double MediumVelocity;
-
-		private double[] AveragingAngles;
-
-		private bool UseAveragedTemperature;
-
-		private void AssertValidInput()
-		{
-			if(StepSize <= 0)
-			{
-				throw new ArgumentException("StepSize <= 0.");
-			}
-		}
-
-		private DecayWidthAverager[] CreateDecayWidthAveragers()
-		{
-			DecayWidthAverager[] averagers = new DecayWidthAverager[BottomiumStates.Length];
-			for(int i = 0; i < averagers.Length; i++)
-			{
-				averagers[i] = CreateDecayWidthAverager(BottomiumStates[i]);
-			}
-
-			return averagers;
-		}
-
-		protected virtual DecayWidthAverager CreateDecayWidthAverager(
-			BottomiumState state
+		private QQDataProvider CreateQQDataProvider(
+			DopplerShiftEvaluationType dopplerShiftEvaluationType,
+			EMFDipoleAlignmentType electricDipoleAlignmentType,
+			EMFDipoleAlignmentType magneticDipoleAlignmentType
 			)
 		{
-			List<KeyValuePair<double, double>> list = TemperatureDecayWidthListHelper.GetList(
-				DataPathFile, state, DecayWidthType, PotentialTypes);
-
-			return AveragingAngles == null || AveragingAngles.Length == 0 ?
-				new DecayWidthAverager(list)
-				: new DecayWidthAverager(list, AveragingAngles);
+			return new QQDataProvider(
+				DataPathFile,
+				PotentialTypes,
+				dopplerShiftEvaluationType,
+				electricDipoleAlignmentType,
+				magneticDipoleAlignmentType,
+				DecayWidthType,
+				QGPFormationTemperature,
+				NumberAveragingAngles);
 		}
 
 		private string GetList(
-			DecayWidthAverager[] averagers
+			DopplerShiftEvaluationType dopplerShiftEvaluationType,
+			EMFDipoleAlignmentType electricDipoleAlignmentType,
+			EMFDipoleAlignmentType magneticDipoleAlignmentType,
+			List<double> mediumTemperatures,
+			List<double> mediumVelocities,
+			double electricField,
+			double magneticField
 			)
 		{
+			QQDataProvider provider = CreateQQDataProvider(dopplerShiftEvaluationType,
+				electricDipoleAlignmentType, magneticDipoleAlignmentType);
+
 			StringBuilder list = new StringBuilder();
-			AppendHeader(list);
-			AppendDataLines(averagers, list);
-			list.AppendFormat("\r\n");
+			AppendHeader(list, dopplerShiftEvaluationType);
+			AppendDataLines(
+				list, mediumTemperatures, mediumVelocities, electricField, magneticField, provider);
 
 			return list.ToString();
 		}
 
 		private void AppendHeader(
-			StringBuilder list
+			StringBuilder list,
+			DopplerShiftEvaluationType evaluationType
 			)
 		{
-			AppendHeaderTemperature(list);
+			list.AppendLine("#" + evaluationType.ToUIString());
+			list.AppendFormat("{0,-20}", "#MediumTemperature");
+			list.AppendFormat("{0,-20}", "MediumVelocity");
 			foreach(BottomiumState state in BottomiumStates)
 			{
 				list.AppendFormat("{0,-20}", "DecayWidth(" + state + ")");
 			}
 
-			list.AppendFormat("\r\n");
+			list.AppendLine();
 
 			list.AppendFormat("{0,-20}", "#(MeV)");
+			list.AppendFormat("{0,-20}", "(c)");
 			foreach(BottomiumState state in BottomiumStates)
 			{
 				list.AppendFormat("{0,-20}", "(MeV)");
 			}
 
-			list.AppendFormat("\r\n#\r\n");
-		}
-
-		private void AppendHeaderTemperature(
-			StringBuilder list
-			)
-		{
-			if(UseAveragedTemperature)
-			{
-				list.AppendFormat("{0,-20}", "#Eff. Temperature");
-			}
-			else
-			{
-				list.AppendFormat("{0,-20}", "#Temperature");
-			}
+			list.AppendLine();
+			list.AppendLine("#");
 		}
 
 		private void AppendDataLines(
-			DecayWidthAverager[] averagers,
-			StringBuilder list
+			StringBuilder list,
+			List<double> mediumTemperatures,
+			List<double> mediumVelocities,
+			double electricField,
+			double magneticField,
+			QQDataProvider provider
 			)
 		{
-			double temperature = MinTemperature;
-			while(temperature <= MaxTemperature)
+			foreach(double temperature in mediumTemperatures)
 			{
-				AppendDataLine(averagers, list, temperature);
-				temperature += StepSize;
+				foreach(double velocity in mediumVelocities)
+				{
+					AppendDataLine(
+						list, temperature, velocity, electricField, magneticField, provider);
+				}
+				if((mediumTemperatures.Count > 1) && (mediumVelocities.Count > 1))
+				{
+					list.AppendLine();
+				}
 			}
 		}
 
 		private void AppendDataLine(
-			DecayWidthAverager[] averagers,
 			StringBuilder list,
-			double temperature
+			double temperature,
+			double velocity,
+			double electricField,
+			double magneticField,
+			QQDataProvider provider
 			)
 		{
-			AppendTemperatureValue(list, temperature);
-			foreach(DecayWidthAverager averager in averagers)
+			list.AppendFormat("{0,-20}", temperature.ToUIString());
+			list.AppendFormat("{0,-20}", velocity.ToUIString());
+			foreach(BottomiumState state in BottomiumStates)
 			{
-				AppendDecayWidthValue(list, temperature, averager);
+				AppendDecayWidthValue(
+					list, state, temperature, velocity, electricField, magneticField, provider);
 			}
-			list.AppendFormat("\r\n");
-		}
-
-		private void AppendTemperatureValue(
-			StringBuilder list,
-			double temperature
-			)
-		{
-			if(UseAveragedTemperature)
-			{
-				list.AppendFormat("{0,-20}", DoubleToString(
-					DecayWidthAverager.GetAveragedTemperature(temperature, MediumVelocity)));
-			}
-			else
-			{
-				list.AppendFormat("{0,-20}", DoubleToString(temperature));
-			}
+			list.AppendLine();
 		}
 
 		private void AppendDecayWidthValue(
 			StringBuilder list,
+			BottomiumState state,
 			double temperature,
-			DecayWidthAverager averager
+			double velocity,
+			double electricField,
+			double magneticField,
+			QQDataProvider provider
 			)
 		{
-			if(UseAveragedTemperature)
-			{
-				list.AppendFormat("{0,-20}", DoubleToString(
-					averager.GetDecayWidthUsingAveragedTemperature(temperature, MediumVelocity)));
-			}
-			else
-			{
-				list.AppendFormat("{0,-20}", DoubleToString(
-					averager.GetDecayWidth(temperature, MediumVelocity)));
-			}
+			list.AppendFormat("{0,-20}", provider.GetInMediumDecayWidth(
+				state, temperature, velocity, electricField, magneticField).ToUIString());
 		}
 	}
 }

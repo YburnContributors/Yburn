@@ -95,23 +95,30 @@ namespace Yburn.InMediumDecayWidth.UI
 		{
 			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
 			CbxDecayWidthType.Items.Remove("None");
-			MsxPotentialTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("PotentialType"));
+			CbxElectricDipoleAlignmentType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleAlignmentType"));
+			CbxMagneticDipoleAlignmentType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleAlignmentType"));
 			MsxBottomiumStates.AddItems(JobOrganizer.GetWorkerEnumEntries("BottomiumState"));
+			MsxDopplerShiftEvaluationTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("DopplerShiftEvaluationType"));
+			MsxPotentialTypes.AddItems(JobOrganizer.GetWorkerEnumEntries("PotentialType"));
 		}
 
 		private Dictionary<string, string> GetControlsValues()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs["MinTemperature"] = TbxMinTemperature.Text;
-			nameValuePairs["MaxTemperature"] = TbxMaxTemperature.Text;
-			nameValuePairs["DecayWidthAveragingAngles"] = TbxDecayWidthAveragingAngles.Text;
-			nameValuePairs["MediumVelocity"] = TbxMediumVelocity.Text;
-			nameValuePairs["TemperatureStepSize"] = TbxTemperatureStepSize.Text;
-			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
-			nameValuePairs["PotentialTypes"] = MsxPotentialTypes.SelectionString;
+
 			nameValuePairs["BottomiumStates"] = MsxBottomiumStates.SelectionString;
-			nameValuePairs["UseAveragedTemperature"] = ChkUseAveragedTemperature.Checked.ToString();
 			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
+			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
+			nameValuePairs["DopplerShiftEvaluationTypes"] = MsxDopplerShiftEvaluationTypes.SelectionString;
+			nameValuePairs["ElectricDipoleAlignmentType"] = CbxElectricDipoleAlignmentType.Text;
+			nameValuePairs["ElectricFieldStrength"] = TbxElectricFieldStrength.Text;
+			nameValuePairs["MagneticDipoleAlignmentType"] = CbxMagneticDipoleAlignmentType.Text;
+			nameValuePairs["MagneticFieldStrength"] = TbxMagneticFieldStrength.Text;
+			nameValuePairs["MediumTemperatures"] = TbxMediumTemperatures.Text;
+			nameValuePairs["MediumVelocities"] = TbxMediumVelocities.Text;
+			nameValuePairs["NumberAveragingAngles"] = TbxNumberAveragingAngles.Text;
+			nameValuePairs["PotentialTypes"] = MsxPotentialTypes.SelectionString;
+			nameValuePairs["QGPFormationTemperature"] = TbxQGPFormationTemperature.Text;
 
 			return nameValuePairs;
 		}
@@ -120,23 +127,30 @@ namespace Yburn.InMediumDecayWidth.UI
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			TbxMinTemperature.Text = nameValuePairs["MinTemperature"];
-			TbxMaxTemperature.Text = nameValuePairs["MaxTemperature"];
-			TbxMediumVelocity.Text = nameValuePairs["MediumVelocity"];
-			TbxDecayWidthAveragingAngles.Text = nameValuePairs["DecayWidthAveragingAngles"];
-			TbxTemperatureStepSize.Text = nameValuePairs["TemperatureStepSize"];
 			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"];
-			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];
+			CbxElectricDipoleAlignmentType.Text = nameValuePairs["ElectricDipoleAlignmentType"];
+			CbxMagneticDipoleAlignmentType.Text = nameValuePairs["MagneticDipoleAlignmentType"];
 			MsxBottomiumStates.SelectionString = nameValuePairs["BottomiumStates"];
-			ChkUseAveragedTemperature.Checked = bool.Parse(nameValuePairs["UseAveragedTemperature"]);
+			MsxDopplerShiftEvaluationTypes.SelectionString = nameValuePairs["DopplerShiftEvaluationTypes"];
+			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];
 			TbxDataFileName.Text = nameValuePairs["DataFileName"];
+			TbxElectricFieldStrength.Text = nameValuePairs["ElectricFieldStrength"];
+			TbxMagneticFieldStrength.Text = nameValuePairs["MagneticFieldStrength"];
+			TbxMediumTemperatures.Text = nameValuePairs["MediumTemperatures"];
+			TbxMediumVelocities.Text = nameValuePairs["MediumVelocities"];
+			TbxNumberAveragingAngles.Text = nameValuePairs["NumberAveragingAngles"];
+			TbxQGPFormationTemperature.Text = nameValuePairs["QGPFormationTemperature"];
 		}
 
 		private void InitializeMenuEntry()
 		{
 			MenuEntry = new MenuItemInMediumDecayWidth();
 			MenuEntry.MenuItemCalculateInMediumDecayWidths.Click += new EventHandler(MenuItemCalculateInMediumDecayWidths_Click);
-			MenuEntry.MenuItemPlotInMediumDecayWidths.Click += new EventHandler(MenuItemPlotInMediumDecayWidths_Click);
+			MenuEntry.MenuItemPlotDecayWidthsFromQQDataFile.Click += new EventHandler(MenuItemPlotDecayWidthsFromQQDataFile_Click);
+			MenuEntry.MenuItemPlotEnergiesFromQQDataFile.Click += new EventHandler(MenuItemPlotEnergiesFromQQDataFile_Click);
+			MenuEntry.MenuItemPlotInMediumDecayWidthsVersusMediumTemperature.Click += new EventHandler(MenuItemPlotInMediumDecayWidthsVersusMediumTemperature_Click);
+			MenuEntry.MenuItemPlotInMediumDecayWidthsVersusMediumVelocity.Click += new EventHandler(MenuItemPlotInMediumDecayWidthsVersusMediumVelocity_Click);
+			MenuEntry.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature.Click += new EventHandler(MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature_Click);
 		}
 
 		private void MakeToolTips(
@@ -144,31 +158,23 @@ namespace Yburn.InMediumDecayWidth.UI
 			)
 		{
 			toolTipMaker.Add(
-				"In medium bottomium decay widths depend on temperature, velocity and angle\r\n"
+				"In-medium bottomium decay widths depend on temperature, velocity and angle\r\n"
 				+ "relative to the velocity vector. The decay width as a function of temperature and\r\n"
 				+ "velocity is calculated as an average over the solid angle. The average is calculated\r\n"
 				+ "from samples of dedicated azimuthal angles given by the user.",
-				GbxAverageParams);
+				GbxGeneralParams);
 			toolTipMaker.Add(
-				"Minimum temperature in MeV to be considered in the calculation.",
-				LblMinTemperature, TbxMinTemperature);
+				"Temperatures in MeV to be considered in the calculation.",
+				LblMediumTemperatures, TbxMediumTemperatures);
 			toolTipMaker.Add(
-				"Maximum temperature in MeV to be considered in the calculation.",
-				LblMaxTemperature, TbxMaxTemperature);
+				"Velocities of the QGP medium in the bottomium rest frame in units of c.",
+				LblMediumVelocities, TbxMediumVelocities);
 			toolTipMaker.Add(
-				"Size of temperature steps between samples in MeV to be considered in the calculation.",
-				LblTemperatureStepSize, TbxTemperatureStepSize);
+				"Number of angles relative to the velocity vector from which the angular average is calculated.",
+				LblNumberAveragingAngles, TbxNumberAveragingAngles);
 			toolTipMaker.Add(
-				"Relative velocity between the bottomium state and the QGP medium in units of c.",
-				LblMediumVelocity, TbxMediumVelocity);
-			toolTipMaker.Add(
-				"Angles relative to the velocity vector from which the angular average is calculated.\r\n"
-				+ "The angles are given by a comma separated list with values in degree.",
-				LblDecayWidthAveragingAngles, TbxDecayWidthAveragingAngles);
-			toolTipMaker.Add(
-				"Instead of averaging the decay width, calculate the (exact) angular average of\r\n"
-				+ "temperature and evaluate the decay width at that effective temperature.",
-				LblUseAveragedTemperature, ChkUseAveragedTemperature);
+				"DopplerShiftEvaluationTypes to be considered in the calculation.",
+				LblDopplerShiftEvaluationTypes, MsxDopplerShiftEvaluationTypes);
 			toolTipMaker.Add(
 				"DecayWidthType to be considered in the calculation.",
 				LblDecayWidthType, CbxDecayWidthType);
@@ -182,6 +188,9 @@ namespace Yburn.InMediumDecayWidth.UI
 				"Name of the output file. The standard output path can be set\r\n"
 				+ "in the menu \"File\" using \"Set output path\".",
 				LblDataFileName, TbxDataFileName);
+			toolTipMaker.Add(
+				"Critical temperature for the formation of the quark-gluon medium.",
+				LblQGPFormationTemperature);
 		}
 
 		private void MenuItemCalculateInMediumDecayWidths_Click(object sender, EventArgs e)
@@ -189,9 +198,29 @@ namespace Yburn.InMediumDecayWidth.UI
 			JobOrganizer.RequestNewJob("CalculateInMediumDecayWidth", ControlsValues);
 		}
 
-		private void MenuItemPlotInMediumDecayWidths_Click(object sender, EventArgs e)
+		private void MenuItemPlotDecayWidthsFromQQDataFile_Click(object sender, EventArgs e)
 		{
-			JobOrganizer.RequestNewJob("PlotInMediumDecayWidth", ControlsValues);
+			JobOrganizer.RequestNewJob("PlotDecayWidthsFromQQDataFile", ControlsValues);
+		}
+
+		private void MenuItemPlotEnergiesFromQQDataFile_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotEnergiesFromQQDataFile", ControlsValues);
+		}
+
+		private void MenuItemPlotInMediumDecayWidthsVersusMediumTemperature_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotInMediumDecayWidthsVersusMediumTemperature", ControlsValues);
+		}
+
+		private void MenuItemPlotInMediumDecayWidthsVersusMediumVelocity_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotInMediumDecayWidthsVersusMediumVelocity", ControlsValues);
+		}
+
+		private void MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotDecayWidthEvaluatedAtDopplerShiftedTemperature", ControlsValues);
 		}
 	}
 }

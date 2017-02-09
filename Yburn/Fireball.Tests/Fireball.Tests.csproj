@@ -54,16 +54,15 @@
   <ItemGroup>
     <Compile Include="BinBoundaryCalculatorTests.cs" />
     <Compile Include="BottomiumCascadeTests.cs" />
-    <Compile Include="FireballElectromagneticFieldTests.cs" />
-    <Compile Include="MagneticFieldStrengthAveragerTests.cs" />
+    <Compile Include="DummyDecayWidthProvider.cs" />
+    <Compile Include="ElectromagneticFieldTests.cs" />
+    <Compile Include="LCFFieldAveragerTests.cs" />
+    <Compile Include="FireballEvolutionTests.cs" />
     <Compile Include="PointChargeElectromagneticFieldTests.cs" />
-    <Compile Include="DecayWidthAveragerTests.cs" />
     <Compile Include="FireballFieldTests.cs" />
-    <Compile Include="FireballTests.cs" />
     <Compile Include="FtexsTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="QGPSuppressionTests.cs" />
-    <Compile Include="TemperatureDecayWidthListTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Fireball\Fireball.csproj">

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Yburn.Fireball;
+using Yburn.QQState;
 
 namespace Yburn.Workers
 {
@@ -13,16 +14,19 @@ namespace Yburn.Workers
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-			Extractor.Store(nameValuePairs, "BottomiumStates", BottomiumStates);
-			Extractor.Store(nameValuePairs, "DataFileName", DataFileName);
-			Extractor.Store(nameValuePairs, "DecayWidthAveragingAngles", DecayWidthAveragingAngles);
-			Extractor.Store(nameValuePairs, "DecayWidthType", DecayWidthType);
-			Extractor.Store(nameValuePairs, "MaxTemperature", MaxTemperature);
-			Extractor.Store(nameValuePairs, "MediumVelocity", MediumVelocity);
-			Extractor.Store(nameValuePairs, "MinTemperature", MinTemperature);
-			Extractor.Store(nameValuePairs, "PotentialTypes", PotentialTypes);
-			Extractor.Store(nameValuePairs, "TemperatureStepSize", TemperatureStepSize);
-			Extractor.Store(nameValuePairs, "UseAveragedTemperature", UseAveragedTemperature);
+			Store(nameValuePairs, "BottomiumStates", BottomiumStates);
+			Store(nameValuePairs, "DataFileName", DataFileName);
+			Store(nameValuePairs, "DopplerShiftEvaluationTypes", DopplerShiftEvaluationTypes);
+			Store(nameValuePairs, "DecayWidthType", DecayWidthType);
+			Store(nameValuePairs, "ElectricDipoleAlignmentType", ElectricDipoleAlignmentType);
+			Store(nameValuePairs, "ElectricFieldStrength", ElectricFieldStrength);
+			Store(nameValuePairs, "MagneticDipoleAlignmentType", MagneticDipoleAlignmentType);
+			Store(nameValuePairs, "MagneticFieldStrength", MagneticFieldStrength);
+			Store(nameValuePairs, "MediumTemperatures", MediumTemperatures);
+			Store(nameValuePairs, "MediumVelocities", MediumVelocities);
+			Store(nameValuePairs, "NumberAveragingAngles", NumberAveragingAngles);
+			Store(nameValuePairs, "PotentialTypes", PotentialTypes);
+			Store(nameValuePairs, "QGPFormationTemperature", QGPFormationTemperature);
 
 			return nameValuePairs;
 		}
@@ -31,34 +35,43 @@ namespace Yburn.Workers
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			Extractor.TryExtract(nameValuePairs, "BottomiumStates", ref BottomiumStates);
-			Extractor.TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
-			Extractor.TryExtract(nameValuePairs, "DecayWidthAveragingAngles", ref DecayWidthAveragingAngles);
-			Extractor.TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
-			Extractor.TryExtract(nameValuePairs, "MaxTemperature", ref MaxTemperature);
-			Extractor.TryExtract(nameValuePairs, "MediumVelocity", ref MediumVelocity);
-			Extractor.TryExtract(nameValuePairs, "MinTemperature", ref MinTemperature);
-			Extractor.TryExtract(nameValuePairs, "PotentialTypes", ref PotentialTypes);
-			Extractor.TryExtract(nameValuePairs, "TemperatureStepSize", ref TemperatureStepSize);
-			Extractor.TryExtract(nameValuePairs, "UseAveragedTemperature", ref UseAveragedTemperature);
+			TryExtract(nameValuePairs, "BottomiumStates", ref BottomiumStates);
+			TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
+			TryExtract(nameValuePairs, "DopplerShiftEvaluationTypes", ref DopplerShiftEvaluationTypes);
+			TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
+			TryExtract(nameValuePairs, "ElectricDipoleAlignmentType", ref ElectricDipoleAlignmentType);
+			TryExtract(nameValuePairs, "ElectricFieldStrength", ref ElectricFieldStrength);
+			TryExtract(nameValuePairs, "MagneticDipoleAlignmentType", ref MagneticDipoleAlignmentType);
+			TryExtract(nameValuePairs, "MagneticFieldStrength", ref MagneticFieldStrength);
+			TryExtract(nameValuePairs, "MediumTemperatures", ref MediumTemperatures);
+			TryExtract(nameValuePairs, "MediumVelocities", ref MediumVelocities);
+			TryExtract(nameValuePairs, "NumberAveragingAngles", ref NumberAveragingAngles);
+			TryExtract(nameValuePairs, "PotentialTypes", ref PotentialTypes);
+			TryExtract(nameValuePairs, "QGPFormationTemperature", ref QGPFormationTemperature);
 		}
 
-		private BottomiumState[] BottomiumStates = new BottomiumState[0];
+		private List<BottomiumState> BottomiumStates;
 
-		private double[] DecayWidthAveragingAngles = new double[0];
+		private List<DopplerShiftEvaluationType> DopplerShiftEvaluationTypes;
 
 		private DecayWidthType DecayWidthType;
 
-		private double MaxTemperature;
+		private EMFDipoleAlignmentType ElectricDipoleAlignmentType;
 
-		private double MediumVelocity;
+		private double ElectricFieldStrength;
 
-		private double MinTemperature;
+		private EMFDipoleAlignmentType MagneticDipoleAlignmentType;
 
-		private string[] PotentialTypes = new string[0];
+		private double MagneticFieldStrength;
 
-		private double TemperatureStepSize;
+		private List<double> MediumTemperatures;
 
-		private bool UseAveragedTemperature;
+		private List<double> MediumVelocities;
+
+		private int NumberAveragingAngles;
+
+		private List<PotentialType> PotentialTypes;
+
+		private double QGPFormationTemperature;
 	}
 }

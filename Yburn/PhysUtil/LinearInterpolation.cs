@@ -7,7 +7,7 @@ namespace Yburn.PhysUtil
 	 * classes of a given dimension.
 	 ***********************************************************************************************/
 
-	public class LinearInterpolationBase
+	public abstract class LinearInterpolationBase
 	{
 		/********************************************************************************************
 		 * Constructors
@@ -191,7 +191,7 @@ namespace Yburn.PhysUtil
 	 * Instances of the class LinearInterpolation1D are used to interpolate values of a scalar
 	 * function f(x) defined on the real numbers x. The f[i] = f(x[i]) should be given on a set of
 	 * ascending points x[i], i.e. x[i] < x[i+1]. The input has to be given in the form of arrays
-	 * double[] fi and double[] x.
+	 * double[] x and double[] f.
 	 ***********************************************************************************************/
 
 	public class LinearInterpolation1D : LinearInterpolationBase
@@ -232,6 +232,26 @@ namespace Yburn.PhysUtil
 			}
 		}
 
+		public double GetValue(
+			double x,
+			double defaultIfBelowXmin,
+			double defaultIfAboveXmax
+			)
+		{
+			if(x < Xmin)
+			{
+				return defaultIfBelowXmin;
+			}
+			else if(x > Xmax)
+			{
+				return defaultIfAboveXmax;
+			}
+			else
+			{
+				return GetValue(x);
+			}
+		}
+
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
@@ -263,9 +283,10 @@ namespace Yburn.PhysUtil
 
 	/***********************************************************************************************
 	 * Instances of the class LinearInterpolation2D are used to interpolate values of a scalar
-	 * function f(x,y) defined on the real numbers (x,y). The f[i][j] = f(x[i],y[j]) should be given
+	 * function f(x,y) defined on the real numbers (x,y). The f[i,j] = f(x[i],y[j]) should be given
 	 * on a set of ascending points (x[i],y[j]), i.e. x[i] < x[i+1] and y[j] < y[j+1]. The input has
-	 * to be given in the form of two-dimensional arrays double[,] fij and double[,] x,y.
+	 * to be given in the form of one-dimensional arrays double[] x, double[] y and a two-
+	 * dimensional array double[,] f.
 	 ***********************************************************************************************/
 
 	public class LinearInterpolation2D : LinearInterpolationBase

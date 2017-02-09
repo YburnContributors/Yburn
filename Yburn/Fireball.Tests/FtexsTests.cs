@@ -47,7 +47,7 @@ namespace Yburn.Fireball.Tests
 		{
 			AssertEquallySizedFields(analyticalSolution, numericalSolution);
 
-			AssertHelper.AssertRoundedEqual(0, GetMaxDeviation(analyticalSolution, numericalSolution));
+			AssertHelper.AssertApproximatelyEqual(0, GetMaxDeviation(analyticalSolution, numericalSolution));
 		}
 
 		private static void AssertMaxDeviationBelow(
@@ -251,12 +251,12 @@ namespace Yburn.Fireball.Tests
 				for(int j = 0; j < GridCellNumberY; j++)
 				{
 					radiusSquare = GridCellSize * GridCellSize * (i * i + j * j);
-					temperature[i, j] =
-						 4000.0 * InitialTime * Math.Pow(time, -1 / 3.0) * Math.Pow(2 * GubserQ, 2 / 3.0)
+					temperature[i, j]
+						= 4000.0 * InitialTime * Math.Pow(time, -1 / 3.0) * Math.Pow(2 * GubserQ, 2 / 3.0)
 						* Math.Pow(
-						1 + gubserQSquare * (time * time + radiusSquare)
-						+ gubserQPower4 * Math.Pow(time * time - radiusSquare, 2),
-						-1 / 3.0);
+							1 + gubserQSquare * (time * time + radiusSquare)
+							+ gubserQPower4 * Math.Pow(time * time - radiusSquare, 2),
+							-1 / 3.0);
 				}
 			}
 

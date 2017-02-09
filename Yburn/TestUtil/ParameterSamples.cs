@@ -13,7 +13,7 @@ namespace Yburn.TestUtil
 				nameValuePairs["DiffusenessB"] = "3333";
 				nameValuePairs["EMFCalculationMethod"] = "URLimitFourierSynthesis";
 				nameValuePairs["EMFCalculationMethodSelection"] = "URLimitFourierSynthesis";
-				nameValuePairs["EffectiveTimeSamples"] = "3333";
+				nameValuePairs["EMFQuadratureOrder"] = "3333";
 				nameValuePairs["GridCellSize"] = "3333";
 				nameValuePairs["GridRadius"] = "3333";
 				nameValuePairs["ImpactParameter"] = "3333";
@@ -22,15 +22,16 @@ namespace Yburn.TestUtil
 				nameValuePairs["NucleonNumberA"] = "3333";
 				nameValuePairs["NucleonNumberB"] = "3333";
 				nameValuePairs["DataFileName"] = "stdout.txt";
-				nameValuePairs["PointChargeVelocity"] = "3333";
+				nameValuePairs["ParticleRapidity"] = "3333";
 				nameValuePairs["ProtonNumberA"] = "3333";
 				nameValuePairs["ProtonNumberB"] = "3333";
-				nameValuePairs["QGPConductivityMeV"] = "3333";
+				nameValuePairs["QGPConductivity"] = "3333";
 				nameValuePairs["RadialDistance"] = "3333";
-				nameValuePairs["ShapeFunctionTypeA"] = "GaussianDistribution";
-				nameValuePairs["ShapeFunctionTypeB"] = "WoodsSaxonPotential";
-				nameValuePairs["StartEffectiveTime"] = "3333";
-				nameValuePairs["StopEffectiveTime"] = "3333";
+				nameValuePairs["NucleusShapeA"] = "GaussianDistribution";
+				nameValuePairs["NucleusShapeB"] = "WoodsSaxonPotential";
+				nameValuePairs["Samples"] = "3333";
+				nameValuePairs["StartTime"] = "3333";
+				nameValuePairs["StopTime"] = "3333";
 
 				return nameValuePairs;
 			}
@@ -103,41 +104,50 @@ namespace Yburn.TestUtil
 			{
 				Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-				nameValuePairs["ExpansionMode"] = "Transverse";
-				nameValuePairs["DecayWidthType"] = "GammaTot";
-				nameValuePairs["DecayWidthAveragingAngles"] = "10,20,30";
-				nameValuePairs["TemperatureProfile"] = "Ncoll13";
-				nameValuePairs["ProtonProtonBaseline"] = "CMS2012";
-				nameValuePairs["DiffusenessA"] = "3333";
-				nameValuePairs["DiffusenessB"] = "3333";
-				nameValuePairs["FireballFieldTypes"] = "Temperature";
-				nameValuePairs["ImpactParameter"] = "3333";
-				nameValuePairs["FeedDown3P"] = "3333";
-				nameValuePairs["NucleonNumberA"] = "3333";
-				nameValuePairs["NucleonNumberB"] = "3333";
-				nameValuePairs["DataFileName"] = "stdout.txt";
-				nameValuePairs["PotentialTypes"] = "Tzero";
-				nameValuePairs["TransverseMomenta"] = "3,3,3,3";
-				nameValuePairs["NuclearRadiusA"] = "3333";
-				nameValuePairs["NuclearRadiusB"] = "3333";
-				nameValuePairs["SnapRate"] = "3333";
-				nameValuePairs["CentralityBinBoundaries"] = "3,3,3";
-				nameValuePairs["ImpactParamsAtBinBoundaries"] = "3,3,3";
-				nameValuePairs["ParticipantsAtBinBoundaries"] = "3,3,3";
-				nameValuePairs["MeanParticipantsInBin"] = "3,3,3";
-				nameValuePairs["BottomiumStates"] = "Y1S,x3P";
-				nameValuePairs["InitialMaximumTemperature"] = "3333";
-				nameValuePairs["BreakupTemperature"] = "3333";
-				nameValuePairs["FormationTimes"] = "3,3,3,3,3,3";
-				nameValuePairs["ThermalTime"] = "3333";
-				nameValuePairs["GridCellSize"] = "3333";
-				nameValuePairs["GridRadius"] = "3333";
 				nameValuePairs["BeamRapidity"] = "3333";
 				nameValuePairs["BjorkenLifeTime"] = "3333";
+				nameValuePairs["BottomiumStates"] = "Y1S,x3P";
+				nameValuePairs["BreakupTemperature"] = "3333";
+				nameValuePairs["CentralityBinBoundaries"] = "3,3,3,3";
+				nameValuePairs["DataFileName"] = "stdout.txt";
+				nameValuePairs["DecayWidthType"] = "GammaTot";
+				nameValuePairs["DiffusenessA"] = "3333";
+				nameValuePairs["DiffusenessB"] = "3333";
+				nameValuePairs["DimuonDecaysFrompp"] = "Y1S:3,x1P:3,Y2S:3,x2P:3,Y3S:3,x3P:3";
+				nameValuePairs["DopplerShiftEvaluationType"] = "AveragedTemperature";
+				nameValuePairs["EMFCalculationMethod"] = "DiffusionApproximation";
+				nameValuePairs["EMFQuadratureOrder"] = "3333";
+				nameValuePairs["EMFUpdateInterval"] = "3333";
+				nameValuePairs["ElectricDipoleAlignmentType"] = "None";
+				nameValuePairs["ExpansionMode"] = "Transverse";
+				nameValuePairs["FireballFieldTypes"] = "Temperature";
+				nameValuePairs["FormationTimes"] = "Y1S:3,x1P:3,Y2S:3,x2P:3,Y3S:3,x3P:3";
+				nameValuePairs["GridCellSize"] = "3333";
+				nameValuePairs["GridRadius"] = "3333";
+				nameValuePairs["ImpactParameter"] = "3333";
+				nameValuePairs["ImpactParamsAtBinBoundaries"] = "3,3,3,3";
+				nameValuePairs["InelasticppCrossSection"] = "3333";
+				nameValuePairs["InitialMaximumTemperature"] = "3333";
 				nameValuePairs["LifeTime"] = "3333";
-				nameValuePairs["DecayWidthEvaluationType"] = "AveragedTemperature";
-				nameValuePairs["ShapeFunctionTypeA"] = "GaussianDistribution";
-				nameValuePairs["ShapeFunctionTypeB"] = "WoodsSaxonPotential";
+				nameValuePairs["MagneticDipoleAlignmentType"] = "None";
+				nameValuePairs["MeanParticipantsInBin"] = "3,3,3,3";
+				nameValuePairs["NuclearRadiusA"] = "3333";
+				nameValuePairs["NuclearRadiusB"] = "3333";
+				nameValuePairs["NucleonNumberA"] = "3333";
+				nameValuePairs["NucleonNumberB"] = "3333";
+				nameValuePairs["NucleusShapeA"] = "GaussianDistribution";
+				nameValuePairs["NucleusShapeB"] = "WoodsSaxonPotential";
+				nameValuePairs["NumberAveragingAngles"] = "5";
+				nameValuePairs["ParticipantsAtBinBoundaries"] = "3,3,3,3";
+				nameValuePairs["PotentialTypes"] = "Tzero";
+				nameValuePairs["ProtonNumberA"] = "3333";
+				nameValuePairs["ProtonNumberB"] = "3333";
+				nameValuePairs["QGPConductivity"] = "3333";
+				nameValuePairs["QGPFormationTemperature"] = "3333";
+				nameValuePairs["SnapRate"] = "3333";
+				nameValuePairs["TemperatureProfile"] = "Ncoll13";
+				nameValuePairs["ThermalTime"] = "3333";
+				nameValuePairs["TransverseMomenta"] = "3,3,3,3";
 
 				return nameValuePairs;
 			}
@@ -149,16 +159,19 @@ namespace Yburn.TestUtil
 			{
 				Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-				nameValuePairs["MinTemperature"] = "100.5";
-				nameValuePairs["MaxTemperature"] = "310";
 				nameValuePairs["BottomiumStates"] = "Y1S,x3P";
-				nameValuePairs["TemperatureStepSize"] = "6.5";
-				nameValuePairs["DecayWidthType"] = "GammaTot";
-				nameValuePairs["DecayWidthAveragingAngles"] = "10,20,30";
-				nameValuePairs["MediumVelocity"] = "0.2";
-				nameValuePairs["PotentialTypes"] = "Tzero";
-				nameValuePairs["UseAveragedTemperature"] = "True";
 				nameValuePairs["DataFileName"] = "stdout.txt";
+				nameValuePairs["DecayWidthType"] = "GammaTot";
+				nameValuePairs["DopplerShiftEvaluationTypes"] = "AveragedDecayWidth";
+				nameValuePairs["ElectricDipoleAlignmentType"] = "None";
+				nameValuePairs["ElectricFieldStrength"] = "3333";
+				nameValuePairs["MagneticDipoleAlignmentType"] = "None";
+				nameValuePairs["MagneticFieldStrength"] = "3333";
+				nameValuePairs["MediumTemperatures"] = "100,200,300";
+				nameValuePairs["MediumVelocities"] = "0.2";
+				nameValuePairs["NumberAveragingAngles"] = "5";
+				nameValuePairs["PotentialTypes"] = "Tzero";
+				nameValuePairs["QGPFormationTemperature"] = "160";
 
 				return nameValuePairs;
 			}

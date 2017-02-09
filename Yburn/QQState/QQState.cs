@@ -106,7 +106,7 @@ namespace Yburn.QQState
 			get
 			{
 				return Math.Sqrt(Param.QuarkMassMeV * Math.Abs(Param.EnergyMeV))
-					/ PhysConst.HBARC;
+					/ Constants.HbarCMeVFm;
 			}
 		}
 
@@ -170,7 +170,7 @@ namespace Yburn.QQState
 			double radiusFm
 			)
 		{
-			double quarkMassFm = Param.QuarkMassMeV / PhysConst.HBARC;
+			double quarkMassFm = Param.QuarkMassMeV / Constants.HbarCMeVFm;
 			double centrifugalTerm = Param.QuantumNumberL * (Param.QuantumNumberL + 1)
 				/ radiusFm / radiusFm;
 
@@ -182,7 +182,7 @@ namespace Yburn.QQState
 			)
 		{
 			Complex eigenvalue = (new Complex(Param.EnergyMeV, -0.5 * Param.GammaDampMeV))
-				* Param.QuarkMassMeV / PhysConst.HBARC / PhysConst.HBARC;
+				* Param.QuarkMassMeV / Constants.HbarCMeVFm / Constants.HbarCMeVFm;
 
 			return EffectivePotential(radiusFm) - eigenvalue;
 		}
@@ -190,7 +190,7 @@ namespace Yburn.QQState
 		private void SetDebyeMass()
 		{
 			DebyeMassMeV = Param.TemperatureMeV * Math.Sqrt(2 * Math.PI
-				* AlphaThermal * (2 * PhysConst.NC + NumberLightFlavors) / 3.0);
+				* AlphaThermal * (2 * Constants.NumberQCDColors + NumberLightFlavors) / 3.0);
 		}
 
 		private void SetCouplings()
@@ -297,21 +297,9 @@ namespace Yburn.QQState
 			{
 				errorMessage += "QuarkMass <= 0.\r\n";
 			}
-			if(Param.SigmaMeV < 0)
-			{
-				errorMessage += "Sigma < 0.\r\n";
-			}
 			if(Param.SoftScaleMeV < 0)
 			{
 				errorMessage += "SoftScale < 0.\r\n";
-			}
-			if(Param.SpinCouplingStrengthMeV < 0)
-			{
-				errorMessage += "SpinCouplingStrength < 0.\r\n";
-			}
-			if(Param.SpinCouplingRangeFm < 0)
-			{
-				errorMessage += "SpinCouplingRange < 0.\r\n";
 			}
 			if(Param.StepNumber < 1)
 			{

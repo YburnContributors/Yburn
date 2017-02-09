@@ -45,15 +45,17 @@
     </When>
     <Otherwise>
       <ItemGroup>
-        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework" />
+        <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
+          <Private>False</Private>
+        </Reference>
       </ItemGroup>
     </Otherwise>
   </Choose>
   <ItemGroup>
     <Compile Include="ElectromagnetismPlottingTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QQonFireTests.cs" />
     <Compile Include="SingleQQPlottingTests.cs" />
+    <Compile Include="QQDataProviderTests.cs" />
     <Compile Include="WorkerTests.cs" />
     <Compile Include="TemperatureDecayWidthPrinterTests.cs" />
   </ItemGroup>
@@ -62,9 +64,17 @@
       <Project>{38653203-8c76-4f0c-9d56-171d1d1cf775}</Project>
       <Name>Fireball</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FormatUtil\FormatUtil.csproj">
+      <Project>{2CACC9EA-FB3B-4A90-BD50-66903953079E}</Project>
+      <Name>FormatUtil</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interfaces\Interfaces.csproj">
       <Project>{742600e8-00ef-4a05-bb96-31449ae45336}</Project>
       <Name>Interfaces</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PhysUtil\PhysUtil.csproj">
+      <Project>{96E5E846-3417-4A44-A4F1-7ED8DCA43F43}</Project>
+      <Name>PhysUtil</Name>
     </ProjectReference>
     <ProjectReference Include="..\QQState\QQState.csproj">
       <Project>{3a5b70f6-b463-45f2-982a-3bce9eb9f247}</Project>

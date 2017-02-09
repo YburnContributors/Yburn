@@ -64,7 +64,7 @@ namespace Yburn.QQState
 		{
 			get
 			{
-				return PhysConst.HBARC * PotentialExpectationValueFm();
+				return Constants.HbarCMeVFm * PotentialExpectationValueFm();
 			}
 		}
 
@@ -229,7 +229,7 @@ namespace Yburn.QQState
 
 		private double CalculateSoftScaleMeV()
 		{
-			return PhysConst.HBARC * RadiusExpectationValue(-1);
+			return Constants.HbarCMeVFm * RadiusExpectationValue(-1);
 		}
 
 		private double PotentialExpectationValueFm()
@@ -415,8 +415,8 @@ namespace Yburn.QQState
 		{
 			double upperScale = Math.Max(PreviousSoftScale, CurrentSoftScale);
 			double lowerScale = Math.Min(PreviousSoftScale, CurrentSoftScale);
-			double newScale =
-				Param.AggressivenessAlpha * CalculateSoftScaleMeV()
+			double newScale
+				= Param.AggressivenessAlpha * CalculateSoftScaleMeV()
 				+ (1.0 - Param.AggressivenessAlpha) * CurrentSoftScale;
 
 			if((newScale < lowerScale && lowerScale == CurrentSoftScale) ||
@@ -506,15 +506,15 @@ namespace Yburn.QQState
 		private Complex GetEigenvalue()
 		{
 			return (new Complex(Param.EnergyMeV, -0.5 * Param.GammaDampMeV))
-				* Param.QuarkMassMeV / PhysConst.HBARC / PhysConst.HBARC;
+				* Param.QuarkMassMeV / Constants.HbarCMeVFm / Constants.HbarCMeVFm;
 		}
 
 		private void UpdateEigenvalue()
 		{
 			Param.EnergyMeV = ShootingSolver.Eigenvalue.Re
-				* PhysConst.HBARC * PhysConst.HBARC / Param.QuarkMassMeV;
+				* Constants.HbarCMeVFm * Constants.HbarCMeVFm / Param.QuarkMassMeV;
 			Param.GammaDampMeV = -2 * ShootingSolver.Eigenvalue.Im
-				* PhysConst.HBARC * PhysConst.HBARC / Param.QuarkMassMeV;
+				* Constants.HbarCMeVFm * Constants.HbarCMeVFm / Param.QuarkMassMeV;
 		}
 	}
 }

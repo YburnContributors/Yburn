@@ -239,10 +239,10 @@ namespace Yburn.QQState
 			double[] A = new double[MAX];
 			double DebyeSum = 0;
 			double dx = WaveVectorFm * StepSizeFm;
-			double DK = DebyeMassMeV / WaveVectorFm / PhysConst.HBARC;
-			double ZK = PotentialFm.AlphaEff * Param.QuarkMassMeV / WaveVectorFm / PhysConst.HBARC;
+			double DK = DebyeMassMeV / WaveVectorFm / Constants.HbarCMeVFm;
+			double ZK = PotentialFm.AlphaEff * Param.QuarkMassMeV / WaveVectorFm / Constants.HbarCMeVFm;
 			double SK = DebyeMassMeV == 0 ? 0
-				: SigmaEffMeV / DebyeMassMeV / PhysConst.HBARC / WaveVectorFm / WaveVectorFm;
+				: SigmaEffMeV / DebyeMassMeV / Constants.HbarCMeVFm / WaveVectorFm / WaveVectorFm;
 
 			A[0] = 1.0;
 			A[1] = 0.5 * ZK / (Param.QuantumNumberL + 1.0);

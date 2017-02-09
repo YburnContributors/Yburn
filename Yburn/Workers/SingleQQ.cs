@@ -9,7 +9,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using Yburn.Fireball;
 using Yburn.QQState;
 
 namespace Yburn.Workers
@@ -67,12 +66,25 @@ namespace Yburn.Workers
 
 		public void ArchiveQQData()
 		{
-			string pathFile = GetQQDataPathFile();
+			string pathFile = QQDataPathFile;
 
-			QQDataDoc.Write(pathFile, QuantumNumberN, QuantumNumberL, ColorState.ToString(),
-				PotentialType.ToString(), Temperature, DebyeMass, RMS,
-				SoftScale, UltraSoftScale, BoundMass, Energy,
-				GammaDamp, GammaDiss, GammaTot);
+			QQDataSet dataSet = new QQDataSet(
+				n: QuantumNumberN,
+				l: QuantumNumberL,
+				colorState: ColorState,
+				potentialType: PotentialType,
+				temperature: Temperature,
+				debyeMass: DebyeMass,
+				radiusRMS: RMS,
+				softScale: SoftScale,
+				ultraSoftScale: UltraSoftScale,
+				boundMass: BoundMass,
+				energy: Energy,
+				gammaDamp: GammaDamp,
+				gammaDiss: GammaDiss,
+				gammaTot: GammaTot);
+
+			QQDataDoc.Write(pathFile, dataSet);
 
 			LogMessages.Clear();
 			LogMessages.AppendLine("Results have been saved to QQ-data file.");
@@ -82,7 +94,7 @@ namespace Yburn.Workers
 
 		public void ShowArchivedQQData()
 		{
-			string pathFile = GetQQDataPathFile();
+			string pathFile = QQDataPathFile;
 			LogMessages.Clear();
 			LogMessages.AppendLine("Current QQ-data file:");
 			LogMessages.AppendLine();
@@ -98,27 +110,16 @@ namespace Yburn.Workers
 			{
 				QQDataDoc.CreateNewDataDoc(pathFile, AccuracyAlpha, AccuracyWaveFunction,
 					AggressivenessAlpha, MaxEnergy, EnergySteps, QuarkMass, MaxRadius,
-					StepNumber, AlphaHard, Sigma, SigmaEff, Tchem,
+					StepNumber, Sigma, Tchem,
 					Tcrit);
 			}
 		}
 
 		public void CompareResultsWithArchivedData()
 		{
-			double debyeMass;
-			double rMS;
-			double softScale;
-			double ultraSoftScale;
-			double boundMass;
-			double energy;
-			double gammaDamp;
-			double gammaDiss;
-			double gammaTot;
-			GetArchivedValues(out debyeMass, out rMS, out softScale, out ultraSoftScale,
-				out boundMass, out energy, out gammaDamp, out gammaDiss, out gammaTot);
+			QQDataSet dataSet = GetArchivedValues();
 
-			CompareResultsWithArchivedData(debyeMass, rMS, softScale, ultraSoftScale, boundMass,
-				energy, gammaDamp, gammaDiss, gammaTot);
+			CompareResultsWithDataSet(dataSet);
 		}
 
 		public void CalculateBoundWaveFunction()
@@ -458,16 +459,8 @@ namespace Yburn.Workers
 			return param;
 		}
 
-		private void CompareResultsWithArchivedData(
-			double debyeMass,
-			double rMS,
-			double softScale,
-			double ultraSoftScale,
-			double boundMass,
-			double energy,
-			double gammaDamp,
-			double gammaDiss,
-			double gammaTot
+		private void CompareResultsWithDataSet(
+			QQDataSet dataSet
 			)
 		{
 			LogMessages.Clear();
@@ -509,71 +502,36 @@ namespace Yburn.Workers
 				GammaTot.ToString("G6")));
 			LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}",
 				"Archived:",
-				debyeMass.ToString("G6"),
-				rMS.ToString("G6"),
-				softScale.ToString("G6"),
-				ultraSoftScale.ToString("G6"),
-				boundMass.ToString("G6"),
-				energy.ToString("G6"),
-				gammaDamp.ToString("G6"),
-				gammaDiss.ToString("G6"),
-				gammaTot.ToString("G6")));
+				dataSet.DebyeMass.ToString("G6"),
+				dataSet.RadiusRMS.ToString("G6"),
+				dataSet.SoftScale.ToString("G6"),
+				dataSet.UltraSoftScale.ToString("G6"),
+				dataSet.BoundMass.ToString("G6"),
+				dataSet.Energy.ToString("G6"),
+				dataSet.GammaDamp.ToString("G6"),
+				dataSet.GammaDiss.ToString("G6"),
+				dataSet.GammaTot.ToString("G6")));
 			LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}",
 				"Deviation:",
-				(DebyeMass / debyeMass - 1).ToString("G3"),
-				(RMS / rMS - 1).ToString("G3"),
-				(SoftScale / softScale - 1).ToString("G3"),
-				(UltraSoftScale / ultraSoftScale - 1).ToString("G3"),
-				(BoundMass / boundMass - 1).ToString("G3"),
-				(Energy / energy - 1).ToString("G3"),
-				(GammaDamp / gammaDamp - 1).ToString("G3"),
-				(GammaDiss / gammaDiss - 1).ToString("G3"),
-				(GammaTot / gammaTot - 1).ToString("G3")));
+				(DebyeMass / dataSet.DebyeMass - 1).ToString("G3"),
+				(RMS / dataSet.RadiusRMS - 1).ToString("G3"),
+				(SoftScale / dataSet.SoftScale - 1).ToString("G3"),
+				(UltraSoftScale / dataSet.UltraSoftScale - 1).ToString("G3"),
+				(BoundMass / dataSet.BoundMass - 1).ToString("G3"),
+				(Energy / dataSet.Energy - 1).ToString("G3"),
+				(GammaDamp / dataSet.GammaDamp - 1).ToString("G3"),
+				(GammaDiss / dataSet.GammaDiss - 1).ToString("G3"),
+				(GammaTot / dataSet.GammaTot - 1).ToString("G3")));
 			LogMessages.AppendLine();
 			LogMessages.AppendLine();
 		}
 
-		private void GetArchivedValues(
-			out double debyeMass,
-			out double rMS,
-			out double softScale,
-			out double ultraSoftScale,
-			out double boundMass,
-			out double energy,
-			out double gammaDamp,
-			out double gammaDiss,
-			out double gammaTot
-			)
+		private QQDataSet GetArchivedValues()
 		{
-			string pathFile = GetQQDataPathFile();
+			string pathFile = QQDataPathFile;
 
-			debyeMass = QQDataDoc.GetValue(pathFile, QQDataColumns.DebyeMass,
-				QuantumNumberN, QuantumNumberL, ColorState.ToString(), PotentialType.ToString(),
-				Temperature);
-			rMS = QQDataDoc.GetValue(pathFile, QQDataColumns.RMS,
-				QuantumNumberN, QuantumNumberL, ColorState.ToString(), PotentialType.ToString(),
-				Temperature);
-			softScale = QQDataDoc.GetValue(pathFile, QQDataColumns.SoftScale,
-				QuantumNumberN, QuantumNumberL, ColorState.ToString(), PotentialType.ToString(),
-				Temperature);
-			ultraSoftScale = QQDataDoc.GetValue(pathFile, QQDataColumns.UltraSoftScale,
-				QuantumNumberN, QuantumNumberL, ColorState.ToString(), PotentialType.ToString(),
-				Temperature);
-			boundMass = QQDataDoc.GetValue(pathFile, QQDataColumns.BoundMass,
-				QuantumNumberN, QuantumNumberL, ColorState.ToString(), PotentialType.ToString(),
-				Temperature);
-			energy = QQDataDoc.GetValue(pathFile, QQDataColumns.Energy,
-				QuantumNumberN, QuantumNumberL, ColorState.ToString(), PotentialType.ToString(),
-				Temperature);
-			gammaDamp = QQDataDoc.GetValue(pathFile, QQDataColumns.GammaDamp,
-				QuantumNumberN, QuantumNumberL, ColorState.ToString(), PotentialType.ToString(),
-				Temperature);
-			gammaDiss = QQDataDoc.GetValue(pathFile, QQDataColumns.GammaDiss,
-				QuantumNumberN, QuantumNumberL, ColorState.ToString(), PotentialType.ToString(),
-				Temperature);
-			gammaTot = QQDataDoc.GetValue(pathFile, QQDataColumns.GammaTot,
-				QuantumNumberN, QuantumNumberL, ColorState.ToString(), PotentialType.ToString(),
-				Temperature);
+			return QQDataDoc.GetDataSet(pathFile, QuantumNumberN, QuantumNumberL, ColorState,
+				new List<PotentialType> { PotentialType }, Temperature);
 		}
 
 		protected override void StartJob(
