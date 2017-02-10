@@ -3,218 +3,216 @@ using Yburn.QQState;
 
 namespace Yburn.Workers
 {
-	partial class SingleQQ
-	{
-		/********************************************************************************************
+   partial class SingleQQ
+   {
+      /********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		protected override Dictionary<string, string> GetVariableNameValuePairs()
-		{
-			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
+      protected override Dictionary<string, string> GetVariableNameValuePairs() {
+         Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-			Extractor.Store(nameValuePairs, "AccuracyAlpha", AccuracyAlpha);
-			Extractor.Store(nameValuePairs, "AccuracyWaveFunction", AccuracyWaveFunction);
-			Extractor.Store(nameValuePairs, "AggressivenessAlpha", AggressivenessAlpha);
-			Extractor.Store(nameValuePairs, "AggressivenessEnergy", AggressivenessEnergy);
-			Extractor.Store(nameValuePairs, "AlphaHard", AlphaHard);
-			Extractor.Store(nameValuePairs, "AlphaSoft", AlphaSoft);
-			Extractor.Store(nameValuePairs, "AlphaThermal", AlphaThermal);
-			Extractor.Store(nameValuePairs, "AlphaUltraSoft", AlphaUltraSoft);
-			Extractor.Store(nameValuePairs, "AvInvRadius", AvInvRadius);
-			Extractor.Store(nameValuePairs, "BoundMass", BoundMass);
-			Extractor.Store(nameValuePairs, "ColorState", ColorState);
-			Extractor.Store(nameValuePairs, "DataFileName", DataFileName);
-			Extractor.Store(nameValuePairs, "DebyeMass", DebyeMass);
-			Extractor.Store(nameValuePairs, "Energy", Energy);
-			Extractor.Store(nameValuePairs, "EnergyScale", EnergyScale);
-			Extractor.Store(nameValuePairs, "EnergySteps", EnergySteps);
-			Extractor.Store(nameValuePairs, "GammaDamp", GammaDamp);
-			Extractor.Store(nameValuePairs, "GammaDiss", GammaDiss);
-			Extractor.Store(nameValuePairs, "GammaTot", GammaTot);
-			Extractor.Store(nameValuePairs, "MaxEnergy", MaxEnergy);
-			Extractor.Store(nameValuePairs, "MaxRadius", MaxRadius);
-			Extractor.Store(nameValuePairs, "MaxShootingTrials", MaxShootingTrials);
-			Extractor.Store(nameValuePairs, "MinEnergy", MinEnergy);
-			Extractor.Store(nameValuePairs, "MinRadius", MinRadius);
-			Extractor.Store(nameValuePairs, "NumberExtrema", NumberExtrema);
-			Extractor.Store(nameValuePairs, "PotentialType", PotentialType);
-			Extractor.Store(nameValuePairs, "QuantumNumberL", QuantumNumberL);
-			Extractor.Store(nameValuePairs, "QuantumNumberN", QuantumNumberN);
-			Extractor.Store(nameValuePairs, "QuarkMass", QuarkMass);
-			Extractor.Store(nameValuePairs, "RMS", RMS);
-			Extractor.Store(nameValuePairs, "RunningCouplingType", RunningCouplingType);
-			Extractor.Store(nameValuePairs, "RunningCouplingTypeSelection", RunningCouplingTypeSelection);
-			Extractor.Store(nameValuePairs, "Samples", Samples);
-			Extractor.Store(nameValuePairs, "Sigma", Sigma);
-			Extractor.Store(nameValuePairs, "SigmaEff", SigmaEff);
-			Extractor.Store(nameValuePairs, "SoftScale", SoftScale);
-			Extractor.Store(nameValuePairs, "SpinCouplingRange", SpinCouplingRange);
-			Extractor.Store(nameValuePairs, "SpinCouplingStrength", SpinCouplingStrength);
-			Extractor.Store(nameValuePairs, "SpinState", SpinState);
-			Extractor.Store(nameValuePairs, "StepNumber", StepNumber);
-			Extractor.Store(nameValuePairs, "StepSize", StepSize);
-			Extractor.Store(nameValuePairs, "StepsPerPeriod", StepsPerPeriod);
-			Extractor.Store(nameValuePairs, "Tchem", Tchem);
-			Extractor.Store(nameValuePairs, "Tcrit", Tcrit);
-			Extractor.Store(nameValuePairs, "Temperature", Temperature);
-			Extractor.Store(nameValuePairs, "Trials", Trials);
-			Extractor.Store(nameValuePairs, "UltraSoftScale", UltraSoftScale);
-			Extractor.Store(nameValuePairs, "UseFixedAlpha", UseFixedAlpha);
-			Extractor.Store(nameValuePairs, "WaveVector", WaveVector);
+         Store(nameValuePairs, "AccuracyAlpha", AccuracyAlpha);
+         Store(nameValuePairs, "AccuracyWaveFunction", AccuracyWaveFunction);
+         Store(nameValuePairs, "AggressivenessAlpha", AggressivenessAlpha);
+         Store(nameValuePairs, "AggressivenessEnergy", AggressivenessEnergy);
+         Store(nameValuePairs, "AlphaHard", AlphaHard);
+         Store(nameValuePairs, "AlphaSoft", AlphaSoft);
+         Store(nameValuePairs, "AlphaThermal", AlphaThermal);
+         Store(nameValuePairs, "AlphaUltraSoft", AlphaUltraSoft);
+         Store(nameValuePairs, "AvInvRadius", AvInvRadius);
+         Store(nameValuePairs, "BoundMass", BoundMass);
+         Store(nameValuePairs, "ColorState", ColorState);
+         Store(nameValuePairs, "DataFileName", DataFileName);
+         Store(nameValuePairs, "DebyeMass", DebyeMass);
+         Store(nameValuePairs, "Energy", Energy);
+         Store(nameValuePairs, "EnergyScale", EnergyScale);
+         Store(nameValuePairs, "EnergySteps", EnergySteps);
+         Store(nameValuePairs, "GammaDamp", GammaDamp);
+         Store(nameValuePairs, "GammaDiss", GammaDiss);
+         Store(nameValuePairs, "GammaTot", GammaTot);
+         Store(nameValuePairs, "MaxEnergy", MaxEnergy);
+         Store(nameValuePairs, "MaxRadius", MaxRadius);
+         Store(nameValuePairs, "MaxShootingTrials", MaxShootingTrials);
+         Store(nameValuePairs, "MinEnergy", MinEnergy);
+         Store(nameValuePairs, "MinRadius", MinRadius);
+         Store(nameValuePairs, "NumberExtrema", NumberExtrema);
+         Store(nameValuePairs, "PotentialType", PotentialType);
+         Store(nameValuePairs, "QuantumNumberL", QuantumNumberL);
+         Store(nameValuePairs, "QuantumNumberN", QuantumNumberN);
+         Store(nameValuePairs, "QuarkMass", QuarkMass);
+         Store(nameValuePairs, "RMS", RMS);
+         Store(nameValuePairs, "RunningCouplingType", RunningCouplingType);
+         Store(nameValuePairs, "RunningCouplingTypeSelection", RunningCouplingTypeSelection);
+         Store(nameValuePairs, "Samples", Samples);
+         Store(nameValuePairs, "Sigma", Sigma);
+         Store(nameValuePairs, "SigmaEff", SigmaEff);
+         Store(nameValuePairs, "SoftScale", SoftScale);
+         Store(nameValuePairs, "SpinCouplingRange", SpinCouplingRange);
+         Store(nameValuePairs, "SpinCouplingStrength", SpinCouplingStrength);
+         Store(nameValuePairs, "SpinState", SpinState);
+         Store(nameValuePairs, "StepNumber", StepNumber);
+         Store(nameValuePairs, "StepSize", StepSize);
+         Store(nameValuePairs, "StepsPerPeriod", StepsPerPeriod);
+         Store(nameValuePairs, "Tchem", Tchem);
+         Store(nameValuePairs, "Tcrit", Tcrit);
+         Store(nameValuePairs, "Temperature", Temperature);
+         Store(nameValuePairs, "Trials", Trials);
+         Store(nameValuePairs, "UltraSoftScale", UltraSoftScale);
+         Store(nameValuePairs, "UseFixedAlpha", UseFixedAlpha);
+         Store(nameValuePairs, "WaveVector", WaveVector);
 
-			return nameValuePairs;
-		}
+         return nameValuePairs;
+      }
 
-		protected override void SetVariableNameValuePairs(
-			Dictionary<string, string> nameValuePairs
-			)
-		{
-			Extractor.TryExtract(nameValuePairs, "AccuracyAlpha", ref AccuracyAlpha);
-			Extractor.TryExtract(nameValuePairs, "AccuracyWaveFunction", ref AccuracyWaveFunction);
-			Extractor.TryExtract(nameValuePairs, "AggressivenessAlpha", ref AggressivenessAlpha);
-			Extractor.TryExtract(nameValuePairs, "AggressivenessEnergy", ref AggressivenessEnergy);
-			Extractor.TryExtract(nameValuePairs, "AlphaHard", ref AlphaHard);
-			Extractor.TryExtract(nameValuePairs, "AlphaSoft", ref AlphaSoft);
-			Extractor.TryExtract(nameValuePairs, "AlphaThermal", ref AlphaThermal);
-			Extractor.TryExtract(nameValuePairs, "AlphaUltraSoft", ref AlphaUltraSoft);
-			Extractor.TryExtract(nameValuePairs, "AvInvRadius", ref AvInvRadius);
-			Extractor.TryExtract(nameValuePairs, "BoundMass", ref BoundMass);
-			Extractor.TryExtract(nameValuePairs, "ColorState", ref ColorState);
-			Extractor.TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
-			Extractor.TryExtract(nameValuePairs, "DebyeMass", ref DebyeMass);
-			Extractor.TryExtract(nameValuePairs, "Energy", ref Energy);
-			Extractor.TryExtract(nameValuePairs, "EnergyScale", ref EnergyScale);
-			Extractor.TryExtract(nameValuePairs, "EnergySteps", ref EnergySteps);
-			Extractor.TryExtract(nameValuePairs, "GammaDamp", ref GammaDamp);
-			Extractor.TryExtract(nameValuePairs, "GammaDiss", ref GammaDiss);
-			Extractor.TryExtract(nameValuePairs, "GammaTot", ref GammaTot);
-			Extractor.TryExtract(nameValuePairs, "MaxEnergy", ref MaxEnergy);
-			Extractor.TryExtract(nameValuePairs, "MaxRadius", ref MaxRadius);
-			Extractor.TryExtract(nameValuePairs, "MaxShootingTrials", ref MaxShootingTrials);
-			Extractor.TryExtract(nameValuePairs, "MinEnergy", ref MinEnergy);
-			Extractor.TryExtract(nameValuePairs, "MinRadius", ref MinRadius);
-			Extractor.TryExtract(nameValuePairs, "NumberExtrema", ref NumberExtrema);
-			Extractor.TryExtract(nameValuePairs, "PotentialType", ref PotentialType);
-			Extractor.TryExtract(nameValuePairs, "QuantumNumberL", ref QuantumNumberL);
-			Extractor.TryExtract(nameValuePairs, "QuantumNumberN", ref QuantumNumberN);
-			Extractor.TryExtract(nameValuePairs, "QuarkMass", ref QuarkMass);
-			Extractor.TryExtract(nameValuePairs, "RMS", ref RMS);
-			Extractor.TryExtract(nameValuePairs, "RunningCouplingType", ref RunningCouplingType);
-			Extractor.TryExtract(nameValuePairs, "RunningCouplingTypeSelection", ref RunningCouplingTypeSelection);
-			Extractor.TryExtract(nameValuePairs, "Samples", ref Samples);
-			Extractor.TryExtract(nameValuePairs, "Sigma", ref Sigma);
-			Extractor.TryExtract(nameValuePairs, "SigmaEff", ref SigmaEff);
-			Extractor.TryExtract(nameValuePairs, "SoftScale", ref SoftScale);
-			Extractor.TryExtract(nameValuePairs, "SpinCouplingRange", ref SpinCouplingRange);
-			Extractor.TryExtract(nameValuePairs, "SpinCouplingStrength", ref SpinCouplingStrength);
-			Extractor.TryExtract(nameValuePairs, "SpinState", ref SpinState);
-			Extractor.TryExtract(nameValuePairs, "StepNumber", ref StepNumber);
-			Extractor.TryExtract(nameValuePairs, "StepSize", ref StepSize);
-			Extractor.TryExtract(nameValuePairs, "StepsPerPeriod", ref StepsPerPeriod);
-			Extractor.TryExtract(nameValuePairs, "Tchem", ref Tchem);
-			Extractor.TryExtract(nameValuePairs, "Tcrit", ref Tcrit);
-			Extractor.TryExtract(nameValuePairs, "Temperature", ref Temperature);
-			Extractor.TryExtract(nameValuePairs, "Trials", ref Trials);
-			Extractor.TryExtract(nameValuePairs, "UltraSoftScale", ref UltraSoftScale);
-			Extractor.TryExtract(nameValuePairs, "UseFixedAlpha", ref UseFixedAlpha);
-			Extractor.TryExtract(nameValuePairs, "WaveVector", ref WaveVector);
-		}
+      protected override void SetVariableNameValuePairs(
+         Dictionary<string, string> nameValuePairs
+         ) {
+         TryExtract(nameValuePairs, "AccuracyAlpha", ref AccuracyAlpha);
+         TryExtract(nameValuePairs, "AccuracyWaveFunction", ref AccuracyWaveFunction);
+         TryExtract(nameValuePairs, "AggressivenessAlpha", ref AggressivenessAlpha);
+         TryExtract(nameValuePairs, "AggressivenessEnergy", ref AggressivenessEnergy);
+         TryExtract(nameValuePairs, "AlphaHard", ref AlphaHard);
+         TryExtract(nameValuePairs, "AlphaSoft", ref AlphaSoft);
+         TryExtract(nameValuePairs, "AlphaThermal", ref AlphaThermal);
+         TryExtract(nameValuePairs, "AlphaUltraSoft", ref AlphaUltraSoft);
+         TryExtract(nameValuePairs, "AvInvRadius", ref AvInvRadius);
+         TryExtract(nameValuePairs, "BoundMass", ref BoundMass);
+         TryExtract(nameValuePairs, "ColorState", ref ColorState);
+         TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
+         TryExtract(nameValuePairs, "DebyeMass", ref DebyeMass);
+         TryExtract(nameValuePairs, "Energy", ref Energy);
+         TryExtract(nameValuePairs, "EnergyScale", ref EnergyScale);
+         TryExtract(nameValuePairs, "EnergySteps", ref EnergySteps);
+         TryExtract(nameValuePairs, "GammaDamp", ref GammaDamp);
+         TryExtract(nameValuePairs, "GammaDiss", ref GammaDiss);
+         TryExtract(nameValuePairs, "GammaTot", ref GammaTot);
+         TryExtract(nameValuePairs, "MaxEnergy", ref MaxEnergy);
+         TryExtract(nameValuePairs, "MaxRadius", ref MaxRadius);
+         TryExtract(nameValuePairs, "MaxShootingTrials", ref MaxShootingTrials);
+         TryExtract(nameValuePairs, "MinEnergy", ref MinEnergy);
+         TryExtract(nameValuePairs, "MinRadius", ref MinRadius);
+         TryExtract(nameValuePairs, "NumberExtrema", ref NumberExtrema);
+         TryExtract(nameValuePairs, "PotentialType", ref PotentialType);
+         TryExtract(nameValuePairs, "QuantumNumberL", ref QuantumNumberL);
+         TryExtract(nameValuePairs, "QuantumNumberN", ref QuantumNumberN);
+         TryExtract(nameValuePairs, "QuarkMass", ref QuarkMass);
+         TryExtract(nameValuePairs, "RMS", ref RMS);
+         TryExtract(nameValuePairs, "RunningCouplingType", ref RunningCouplingType);
+         TryExtract(nameValuePairs, "RunningCouplingTypeSelection", ref RunningCouplingTypeSelection);
+         TryExtract(nameValuePairs, "Samples", ref Samples);
+         TryExtract(nameValuePairs, "Sigma", ref Sigma);
+         TryExtract(nameValuePairs, "SigmaEff", ref SigmaEff);
+         TryExtract(nameValuePairs, "SoftScale", ref SoftScale);
+         TryExtract(nameValuePairs, "SpinCouplingRange", ref SpinCouplingRange);
+         TryExtract(nameValuePairs, "SpinCouplingStrength", ref SpinCouplingStrength);
+         TryExtract(nameValuePairs, "SpinState", ref SpinState);
+         TryExtract(nameValuePairs, "StepNumber", ref StepNumber);
+         TryExtract(nameValuePairs, "StepSize", ref StepSize);
+         TryExtract(nameValuePairs, "StepsPerPeriod", ref StepsPerPeriod);
+         TryExtract(nameValuePairs, "Tchem", ref Tchem);
+         TryExtract(nameValuePairs, "Tcrit", ref Tcrit);
+         TryExtract(nameValuePairs, "Temperature", ref Temperature);
+         TryExtract(nameValuePairs, "Trials", ref Trials);
+         TryExtract(nameValuePairs, "UltraSoftScale", ref UltraSoftScale);
+         TryExtract(nameValuePairs, "UseFixedAlpha", ref UseFixedAlpha);
+         TryExtract(nameValuePairs, "WaveVector", ref WaveVector);
+      }
 
-		private double AccuracyAlpha;
+      private double AccuracyAlpha;
 
-		private double AccuracyWaveFunction;
+      private double AccuracyWaveFunction;
 
-		private double AggressivenessAlpha;
+      private double AggressivenessAlpha;
 
-		private double AggressivenessEnergy;
+      private double AggressivenessEnergy;
 
-		private double AlphaHard;
+      private double AlphaHard;
 
-		private double AlphaSoft;
+      private double AlphaSoft;
 
-		private double AlphaThermal;
+      private double AlphaThermal;
 
-		private double AlphaUltraSoft;
+      private double AlphaUltraSoft;
 
-		private double AvInvRadius;
+      private double AvInvRadius;
 
-		private double BoundMass;
+      private double BoundMass;
 
-		private ColorState ColorState;
+      private ColorState ColorState;
 
-		private double DebyeMass;
+      private double DebyeMass;
 
-		private double Energy;
+      private double Energy;
 
-		private double EnergyScale;
+      private double EnergyScale;
 
-		private int EnergySteps;
+      private int EnergySteps;
 
-		private double GammaDamp;
+      private double GammaDamp;
 
-		private double GammaDiss;
+      private double GammaDiss;
 
-		private double GammaTot;
+      private double GammaTot;
 
-		private double MaxEnergy;
+      private double MaxEnergy;
 
-		private double MaxRadius;
+      private double MaxRadius;
 
-		private int MaxShootingTrials;
+      private int MaxShootingTrials;
 
-		private double MinEnergy;
+      private double MinEnergy;
 
-		private double MinRadius;
+      private double MinRadius;
 
-		private int NumberExtrema;
+      private int NumberExtrema;
 
-		private PotentialType PotentialType;
+      private PotentialType PotentialType;
 
-		private int QuantumNumberL;
+      private int QuantumNumberL;
 
-		private int QuantumNumberN;
+      private int QuantumNumberN;
 
-		private double QuarkMass;
+      private double QuarkMass;
 
-		private double RMS;
+      private double RMS;
 
-		private RunningCouplingType RunningCouplingType;
+      private RunningCouplingType RunningCouplingType;
 
-		private RunningCouplingType[] RunningCouplingTypeSelection = new RunningCouplingType[0];
+      private List<RunningCouplingType> RunningCouplingTypeSelection = new List<RunningCouplingType>();
 
-		private int Samples;
+      private int Samples;
 
-		private double Sigma;
+      private double Sigma;
 
-		private double SigmaEff;
+      private double SigmaEff;
 
-		private double SoftScale;
+      private double SoftScale;
 
-		private double SpinCouplingRange;
+      private double SpinCouplingRange;
 
-		private double SpinCouplingStrength;
+      private double SpinCouplingStrength;
 
-		private SpinState SpinState;
+      private SpinState SpinState;
 
-		private int StepNumber;
+      private int StepNumber;
 
-		private double StepSize;
+      private double StepSize;
 
-		private double StepsPerPeriod;
+      private double StepsPerPeriod;
 
-		private double Tchem;
+      private double Tchem;
 
-		private double Tcrit;
+      private double Tcrit;
 
-		private double Temperature;
+      private double Temperature;
 
-		private double Trials;
+      private double Trials;
 
-		private double UltraSoftScale;
+      private double UltraSoftScale;
 
-		private bool UseFixedAlpha;
+      private bool UseFixedAlpha;
 
-		private double WaveVector;
-	}
+      private double WaveVector;
+   }
 }
