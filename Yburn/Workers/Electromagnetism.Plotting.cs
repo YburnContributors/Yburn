@@ -102,7 +102,7 @@ namespace Yburn.Workers
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static readonly double EMFieldNormalization = Constants.ElementaryCharge
+		private static readonly double EMFNormalization = Constants.ElementaryCharge
 			* (Constants.HbarCMeVFm / Constants.RestMassPionMeV)
 			* (Constants.HbarCMeVFm / Constants.RestMassPionMeV);
 
@@ -222,7 +222,7 @@ namespace Yburn.Workers
 				PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
 					method, QGPConductivity, ParticleRapidity);
 
-				PlotFunction fieldValue = time => EMFieldNormalization
+				PlotFunction fieldValue = time => EMFNormalization
 					* emf.CalculateElectromagneticField(component, time, RadialDistance);
 
 				AddPlotFunctionLists(dataList, effectiveTimeValues, fieldValue);
@@ -245,7 +245,7 @@ namespace Yburn.Workers
 				PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
 					method, QGPConductivity, ParticleRapidity);
 
-				PlotFunction fieldValue = radius => EMFieldNormalization
+				PlotFunction fieldValue = radius => EMFNormalization
 					* emf.CalculateElectromagneticField(component, FormationTime, radius);
 
 				AddPlotFunctionLists(dataList, radialDistanceValues, fieldValue);
@@ -307,7 +307,8 @@ namespace Yburn.Workers
 		{
 			string[] titleList = {
 				"E^1_{/Symbol r}", "B^1_{/Symbol f}", "E^1_z",
-				"E^Z_{/Symbol r}", "B^Z_{/Symbol f}", "E^Z_z" };
+				"E^Z_{/Symbol r}", "B^Z_{/Symbol f}", "E^Z_z"
+			};
 
 			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
@@ -317,7 +318,7 @@ namespace Yburn.Workers
 				+ " with rapidity y = " + ParticleRapidity.ToString("G6")
 				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6") + " fm'");
 			plotFile.AppendLine("set xlabel 't - z/v (fm/c)'");
-			plotFile.AppendLine("set ylabel '|E|, |B|'");
+			plotFile.AppendLine("set ylabel 'eE/m_{/Symbol p}^2, eB/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set logscale xy 10");
 			plotFile.AppendLine("set format xy '%g'");
@@ -385,12 +386,13 @@ namespace Yburn.Workers
 				EMFCalculationMethod, QGPConductivity, ParticleRapidity, nucleusA, EMFQuadratureOrder);
 
 			PlotFunction[] plotFunctions = {
-				t => pcEMF.CalculateRadialElectricField(t, RadialDistance),
-				t => pcEMF.CalculateAzimutalMagneticField(t, RadialDistance),
-				t => pcEMF.CalculateLongitudinalElectricField(t, RadialDistance),
-				t => nucEMF.CalculateRadialElectricField(t, RadialDistance),
-				t => nucEMF.CalculateAzimutalMagneticField(t, RadialDistance),
-				t => nucEMF.CalculateLongitudinalElectricField(t, RadialDistance) };
+				t => EMFNormalization * pcEMF.CalculateRadialElectricField(t, RadialDistance),
+				t => EMFNormalization * pcEMF.CalculateAzimutalMagneticField(t, RadialDistance),
+				t => EMFNormalization * pcEMF.CalculateLongitudinalElectricField(t, RadialDistance),
+				t => EMFNormalization * nucEMF.CalculateRadialElectricField(t, RadialDistance),
+				t => EMFNormalization * nucEMF.CalculateAzimutalMagneticField(t, RadialDistance),
+				t => EMFNormalization * nucEMF.CalculateLongitudinalElectricField(t, RadialDistance)
+			};
 
 			foreach(PlotFunction function in plotFunctions)
 			{
@@ -420,12 +422,13 @@ namespace Yburn.Workers
 			double effectiveTime = FormationTime;
 
 			PlotFunction[] plotFunctions = {
-				r => pcEMF.CalculateRadialElectricField(effectiveTime, r),
-				r => pcEMF.CalculateAzimutalMagneticField(effectiveTime, r),
-				r => pcEMF.CalculateLongitudinalElectricField(effectiveTime, r),
-				r => nucEMF.CalculateRadialElectricField(effectiveTime, r),
-				r => nucEMF.CalculateAzimutalMagneticField(effectiveTime, r),
-				r => nucEMF.CalculateLongitudinalElectricField(effectiveTime, r) };
+				r => EMFNormalization * pcEMF.CalculateRadialElectricField(effectiveTime, r),
+				r => EMFNormalization * pcEMF.CalculateAzimutalMagneticField(effectiveTime, r),
+				r => EMFNormalization * pcEMF.CalculateLongitudinalElectricField(effectiveTime, r),
+				r => EMFNormalization * nucEMF.CalculateRadialElectricField(effectiveTime, r),
+				r => EMFNormalization * nucEMF.CalculateAzimutalMagneticField(effectiveTime, r),
+				r => EMFNormalization * nucEMF.CalculateLongitudinalElectricField(effectiveTime, r)
+			};
 
 			foreach(PlotFunction function in plotFunctions)
 			{
@@ -444,7 +447,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set title 'Single nucleus magnetic field strength in LCF'");
 			plotFile.AppendLine("set xlabel '{/Symbol q}'");
 			plotFile.AppendLine("set ylabel '{/Symbol r} (fm)'");
-			plotFile.AppendLine("set cblabel '|B| (1/fm^2)'");
+			plotFile.AppendLine("set cblabel 'e|B|/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
 
 			AppendSurfacePlotCommands(plotFile);
@@ -477,7 +480,7 @@ namespace Yburn.Workers
 					nucleusA,
 					EMFQuadratureOrder);
 
-				return emf.CalculateMagneticFieldPerFm2_LCF(
+				return EMFNormalization * emf.CalculateMagneticFieldPerFm2_LCF(
 					FormationTime, radialDistance, 0, rapidity).Norm;
 			};
 
@@ -495,7 +498,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set title 'Central magnetic field strength'");
 			plotFile.AppendLine("set xlabel 't (fm/c)'");
 			plotFile.AppendLine("set ylabel 'b (fm)'");
-			plotFile.AppendLine("set cblabel '|B(0,0,0)| (1/fm^2)'");
+			plotFile.AppendLine("set cblabel 'e|B(0,0,0)|/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set xrange [0.0099:]");
 			plotFile.AppendLine("set logscale x 10");
@@ -523,7 +526,7 @@ namespace Yburn.Workers
 				param.ImpactParameterFm = impactParam;
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return emf.CalculateMagneticFieldPerFm2(time, 0, 0, 0).Norm;
+				return EMFNormalization * emf.CalculateMagneticFieldPerFm2(time, 0, 0, 0).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, timeValues, impactParamValues, function);
@@ -540,7 +543,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set title 'Average Electric field strength for bb mesons'");
 			plotFile.AppendLine("set xlabel '{/Symbol t} (fm/c)'");
 			plotFile.AppendLine("set ylabel 'b (fm)'");
-			plotFile.AppendLine("set cblabel '<|E|> (1/fm^2)'");
+			plotFile.AppendLine("set cblabel 'e<|E|>/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set xrange [0.0099:]");
 			plotFile.AppendLine("set logscale x 10");
@@ -568,7 +571,7 @@ namespace Yburn.Workers
 				param.ImpactParameterFm = impactParam;
 				LCFFieldAverager avg = new LCFFieldAverager(param);
 
-				return avg.CalculateAverageElectricFieldStrengthPerFm2(properTime);
+				return EMFNormalization * avg.CalculateAverageElectricFieldStrengthPerFm2(properTime);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);
@@ -585,7 +588,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set title 'Average magnetic field strength for bb mesons'");
 			plotFile.AppendLine("set xlabel '{/Symbol t} (fm/c)'");
 			plotFile.AppendLine("set ylabel 'b (fm)'");
-			plotFile.AppendLine("set cblabel '<|B|> (1/fm^2)'");
+			plotFile.AppendLine("set cblabel 'e<|B|>/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set xrange [0.0099:]");
 			plotFile.AppendLine("set logscale x 10");
@@ -613,7 +616,7 @@ namespace Yburn.Workers
 				param.ImpactParameterFm = impactParam;
 				LCFFieldAverager avg = new LCFFieldAverager(param);
 
-				return avg.CalculateAverageMagneticFieldStrengthPerFm2(properTime);
+				return EMFNormalization * avg.CalculateAverageMagneticFieldStrengthPerFm2(properTime);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);
