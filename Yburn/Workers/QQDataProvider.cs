@@ -110,7 +110,7 @@ namespace Yburn.Workers
 			return new DecayWidthAverager(
 				CreateDecayWidthInterpolation(state),
 				CreateLinearInterpolationByTemperature(DataSets[state], QQDataColumn.Energy),
-				CreateLinearInterpolationByTemperature(DataSets[state], QQDataColumn.RadiusRMS),
+				CreateLinearInterpolationByTemperature(DataSets[state], QQDataColumn.DisplacementRMS),
 				DopplerShiftEvaluationType, ElectricDipoleAlignmentType, MagneticDipoleAlignmentType,
 				QGPFormationTemperature, NumberAveragingAngles);
 		}

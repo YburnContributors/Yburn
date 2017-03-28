@@ -24,7 +24,7 @@ namespace Yburn.QQState
 		PotentialType,
 		Temperature,
 		DebyeMass,
-		RadiusRMS,
+		DisplacementRMS,
 		SoftScale,
 		UltraSoftScale,
 		BoundMass,
@@ -52,7 +52,7 @@ namespace Yburn.QQState
 			PotentialType potentialType,
 			double temperature,
 			double debyeMass,
-			double radiusRMS,
+			double displacementRMS,
 			double softScale,
 			double ultraSoftScale,
 			double boundMass,
@@ -68,7 +68,7 @@ namespace Yburn.QQState
 			PotentialType = potentialType;
 			Temperature = temperature;
 			DebyeMass = debyeMass;
-			RadiusRMS = radiusRMS;
+			DisplacementRMS = displacementRMS;
 			SoftScale = softScale;
 			UltraSoftScale = ultraSoftScale;
 			BoundMass = boundMass;
@@ -94,7 +94,7 @@ namespace Yburn.QQState
 
 		public readonly double DebyeMass;
 
-		public readonly double RadiusRMS;
+		public readonly double DisplacementRMS;
 
 		public readonly double SoftScale;
 
@@ -134,8 +134,8 @@ namespace Yburn.QQState
 				case QQDataColumn.DebyeMass:
 					return DebyeMass;
 
-				case QQDataColumn.RadiusRMS:
-					return RadiusRMS;
+				case QQDataColumn.DisplacementRMS:
+					return DisplacementRMS;
 
 				case QQDataColumn.SoftScale:
 					return SoftScale;
@@ -266,7 +266,7 @@ namespace Yburn.QQState
 				dataSet.PotentialType.ToString(),
 				dataSet.Temperature.ToString("G6"),
 				dataSet.DebyeMass.ToString("G6"),
-				dataSet.RadiusRMS.ToString("G6"),
+				dataSet.DisplacementRMS.ToString("G6"),
 				dataSet.SoftScale.ToString("G6"),
 				dataSet.UltraSoftScale.ToString("G6"),
 				dataSet.BoundMass.ToString("G6"),
@@ -386,7 +386,7 @@ namespace Yburn.QQState
 					typeof(PotentialType), values[(int)QQDataColumn.PotentialType]),
 				temperature: double.Parse(values[(int)QQDataColumn.Temperature]),
 				debyeMass: double.Parse(values[(int)QQDataColumn.DebyeMass]),
-				radiusRMS: double.Parse(values[(int)QQDataColumn.RadiusRMS]),
+				displacementRMS: double.Parse(values[(int)QQDataColumn.DisplacementRMS]),
 				softScale: double.Parse(values[(int)QQDataColumn.SoftScale]),
 				ultraSoftScale: double.Parse(values[(int)QQDataColumn.UltraSoftScale]),
 				boundMass: double.Parse(values[(int)QQDataColumn.BoundMass]),

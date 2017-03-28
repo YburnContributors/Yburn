@@ -50,7 +50,7 @@ namespace Yburn.TestUtil
 				nameValuePairs["AlphaSoft"] = "3333";
 				nameValuePairs["AlphaThermal"] = "3333";
 				nameValuePairs["AlphaUltraSoft"] = "3333";
-				nameValuePairs["AvInvRadius"] = "3333";
+				nameValuePairs["AvgInvDisplacement"] = "3333";
 				nameValuePairs["BoundMass"] = "3333";
 				nameValuePairs["ColorState"] = "Octet";
 				nameValuePairs["DataFileName"] = "stdout.txt";
@@ -73,7 +73,7 @@ namespace Yburn.TestUtil
 				nameValuePairs["DataFileName"] = "stdout.txt";
 				nameValuePairs["PotentialType"] = "Real_NoString";
 				nameValuePairs["QuarkMass"] = "3333";
-				nameValuePairs["RMS"] = "3333";
+				nameValuePairs["DisplacementRMS"] = "3333";
 				nameValuePairs["RunningCouplingType"] = "LOperturbative_Cutoff3";
 				nameValuePairs["RunningCouplingTypeSelection"] = "1111";
 				nameValuePairs["Samples"] = "4444";

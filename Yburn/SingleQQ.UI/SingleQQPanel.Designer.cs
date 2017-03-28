@@ -102,8 +102,8 @@
 			this.LblGammaDiss = new System.Windows.Forms.Label();
 			this.LblGammaTot = new System.Windows.Forms.Label();
 			this.LblNumberExtrema = new System.Windows.Forms.Label();
-			this.LblAvInvRadius = new System.Windows.Forms.Label();
-			this.LblRMS = new System.Windows.Forms.Label();
+			this.LblAvgInvDisplacement = new System.Windows.Forms.Label();
+			this.LblDisplacementRMS = new System.Windows.Forms.Label();
 			this.LblSigmaEff = new System.Windows.Forms.Label();
 			this.LblStepsPerPeriod = new System.Windows.Forms.Label();
 			this.LblStepSize = new System.Windows.Forms.Label();
@@ -118,8 +118,8 @@
 			this.TbxGammaDiss = new System.Windows.Forms.TextBox();
 			this.TbxGammaTot = new System.Windows.Forms.TextBox();
 			this.TbxNumberExtrema = new System.Windows.Forms.TextBox();
-			this.TbxAvInvRadius = new System.Windows.Forms.TextBox();
-			this.TbxRMS = new System.Windows.Forms.TextBox();
+			this.TbxAvgInvDisplacement = new System.Windows.Forms.TextBox();
+			this.TbxDisplacementRMS = new System.Windows.Forms.TextBox();
 			this.TbxSigmaEff = new System.Windows.Forms.TextBox();
 			this.TbxStepsPerPeriod = new System.Windows.Forms.TextBox();
 			this.TbxStepSize = new System.Windows.Forms.TextBox();
@@ -882,8 +882,8 @@
 			this.LayoutOutput.Controls.Add(this.LblGammaDiss, 0, 5);
 			this.LayoutOutput.Controls.Add(this.LblGammaTot, 0, 6);
 			this.LayoutOutput.Controls.Add(this.LblNumberExtrema, 0, 7);
-			this.LayoutOutput.Controls.Add(this.LblAvInvRadius, 0, 8);
-			this.LayoutOutput.Controls.Add(this.LblRMS, 0, 9);
+			this.LayoutOutput.Controls.Add(this.LblAvgInvDisplacement, 0, 8);
+			this.LayoutOutput.Controls.Add(this.LblDisplacementRMS, 0, 9);
 			this.LayoutOutput.Controls.Add(this.LblSigmaEff, 0, 10);
 			this.LayoutOutput.Controls.Add(this.LblStepsPerPeriod, 0, 11);
 			this.LayoutOutput.Controls.Add(this.LblStepSize, 0, 12);
@@ -898,8 +898,8 @@
 			this.LayoutOutput.Controls.Add(this.TbxGammaDiss, 1, 5);
 			this.LayoutOutput.Controls.Add(this.TbxGammaTot, 1, 6);
 			this.LayoutOutput.Controls.Add(this.TbxNumberExtrema, 1, 7);
-			this.LayoutOutput.Controls.Add(this.TbxAvInvRadius, 1, 8);
-			this.LayoutOutput.Controls.Add(this.TbxRMS, 1, 9);
+			this.LayoutOutput.Controls.Add(this.TbxAvgInvDisplacement, 1, 8);
+			this.LayoutOutput.Controls.Add(this.TbxDisplacementRMS, 1, 9);
 			this.LayoutOutput.Controls.Add(this.TbxSigmaEff, 1, 10);
 			this.LayoutOutput.Controls.Add(this.TbxStepsPerPeriod, 1, 11);
 			this.LayoutOutput.Controls.Add(this.TbxStepSize, 1, 12);
@@ -1010,25 +1010,25 @@
 			this.LblNumberExtrema.Text = "Num.WaveF.Extrema";
 			this.LblNumberExtrema.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// LblAvInvRadius
+			// LblAvgInvDisplacement
 			// 
-			this.LblAvInvRadius.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblAvInvRadius.Location = new System.Drawing.Point(3, 200);
-			this.LblAvInvRadius.Name = "LblAvInvRadius";
-			this.LblAvInvRadius.Size = new System.Drawing.Size(202, 25);
-			this.LblAvInvRadius.TabIndex = 29;
-			this.LblAvInvRadius.Text = "<1/r> (fm^-1)";
-			this.LblAvInvRadius.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblAvgInvDisplacement.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblAvgInvDisplacement.Location = new System.Drawing.Point(3, 200);
+			this.LblAvgInvDisplacement.Name = "LblAvgInvDisplacement";
+			this.LblAvgInvDisplacement.Size = new System.Drawing.Size(202, 25);
+			this.LblAvgInvDisplacement.TabIndex = 29;
+			this.LblAvgInvDisplacement.Text = "<1/r> (fm^-1)";
+			this.LblAvgInvDisplacement.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
-			// LblRMS
+			// LblDisplacementRMS
 			// 
-			this.LblRMS.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblRMS.Location = new System.Drawing.Point(3, 225);
-			this.LblRMS.Name = "LblRMS";
-			this.LblRMS.Size = new System.Drawing.Size(202, 25);
-			this.LblRMS.TabIndex = 31;
-			this.LblRMS.Text = "(<r^2>)^1/2 (fm)";
-			this.LblRMS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+			this.LblDisplacementRMS.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.LblDisplacementRMS.Location = new System.Drawing.Point(3, 225);
+			this.LblDisplacementRMS.Name = "LblDisplacementRMS";
+			this.LblDisplacementRMS.Size = new System.Drawing.Size(202, 25);
+			this.LblDisplacementRMS.TabIndex = 31;
+			this.LblDisplacementRMS.Text = "(<r^2>)^1/2 (fm)";
+			this.LblDisplacementRMS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LblSigmaEff
 			// 
@@ -1162,23 +1162,23 @@
 			this.TbxNumberExtrema.Size = new System.Drawing.Size(165, 22);
 			this.TbxNumberExtrema.TabIndex = 29;
 			// 
-			// TbxAvInvRadius
+			// TbxAvgInvDisplacement
 			// 
-			this.TbxAvInvRadius.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxAvInvRadius.Location = new System.Drawing.Point(211, 203);
-			this.TbxAvInvRadius.Name = "TbxAvInvRadius";
-			this.TbxAvInvRadius.ReadOnly = true;
-			this.TbxAvInvRadius.Size = new System.Drawing.Size(165, 22);
-			this.TbxAvInvRadius.TabIndex = 31;
+			this.TbxAvgInvDisplacement.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxAvgInvDisplacement.Location = new System.Drawing.Point(211, 203);
+			this.TbxAvgInvDisplacement.Name = "TbxAvgInvDisplacement";
+			this.TbxAvgInvDisplacement.ReadOnly = true;
+			this.TbxAvgInvDisplacement.Size = new System.Drawing.Size(165, 22);
+			this.TbxAvgInvDisplacement.TabIndex = 31;
 			// 
-			// TbxRMS
+			// TbxDisplacementRMS
 			// 
-			this.TbxRMS.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.TbxRMS.Location = new System.Drawing.Point(211, 228);
-			this.TbxRMS.Name = "TbxRMS";
-			this.TbxRMS.ReadOnly = true;
-			this.TbxRMS.Size = new System.Drawing.Size(165, 22);
-			this.TbxRMS.TabIndex = 32;
+			this.TbxDisplacementRMS.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.TbxDisplacementRMS.Location = new System.Drawing.Point(211, 228);
+			this.TbxDisplacementRMS.Name = "TbxDisplacementRMS";
+			this.TbxDisplacementRMS.ReadOnly = true;
+			this.TbxDisplacementRMS.Size = new System.Drawing.Size(165, 22);
+			this.TbxDisplacementRMS.TabIndex = 32;
 			// 
 			// TbxSigmaEff
 			// 
@@ -1335,9 +1335,9 @@
 		private System.Windows.Forms.Label LblPotentialType;
 		private System.Windows.Forms.Label LblQuarkMass;
 		private System.Windows.Forms.Label LblRunningCouplingType;
-		private System.Windows.Forms.Label LblAvInvRadius;
+		private System.Windows.Forms.Label LblAvgInvDisplacement;
 		private System.Windows.Forms.Label LblMaxRadius;
-		private System.Windows.Forms.Label LblRMS;
+		private System.Windows.Forms.Label LblDisplacementRMS;
 		private System.Windows.Forms.Label LblStepNumber;
 		private System.Windows.Forms.Label LblSigma;
 		private System.Windows.Forms.Label LblSigmaEff;
@@ -1374,9 +1374,9 @@
 		private System.Windows.Forms.ComboBox CbxPotentialType;
 		private System.Windows.Forms.TextBox TbxQuarkMass;
 		private System.Windows.Forms.ComboBox CbxRunningCouplingType;
-		private System.Windows.Forms.TextBox TbxAvInvRadius;
+		private System.Windows.Forms.TextBox TbxAvgInvDisplacement;
 		private System.Windows.Forms.TextBox TbxMaxRadius;
-		private System.Windows.Forms.TextBox TbxRMS;
+		private System.Windows.Forms.TextBox TbxDisplacementRMS;
 		private System.Windows.Forms.TextBox TbxStepNumber;
 		private System.Windows.Forms.TextBox TbxSigma;
 		private System.Windows.Forms.TextBox TbxSigmaEff;

@@ -56,7 +56,7 @@ namespace Yburn.Workers
 			double magneticFieldStrength
 			)
 		{
-			return Math.Abs(2 * Constants.MagnetonBottomQuarkFm / 3.0
+			return Math.Abs(2 * Constants.MagnetonBottomQuarkFm
 				* magneticFieldStrength * Constants.HbarCMeVFm);
 		}
 
@@ -67,7 +67,7 @@ namespace Yburn.Workers
 		public DecayWidthAverager(
 			LinearInterpolation1D interpolatedDecayWidths,
 			LinearInterpolation1D interpolatedEnergies,
-			LinearInterpolation1D interpolatedRadiusRMS,
+			LinearInterpolation1D interpolatedDisplacementRMS,
 			DopplerShiftEvaluationType dopplerShiftEvaluationType,
 			EMFDipoleAlignmentType electricDipoleAlignmentType,
 			EMFDipoleAlignmentType magneticDipoleAlignmentType,
@@ -77,7 +77,7 @@ namespace Yburn.Workers
 		{
 			InterpolatedDecayWidths = interpolatedDecayWidths;
 			InterpolatedEnergies = interpolatedEnergies;
-			InterpolatedRadiusRMS = interpolatedRadiusRMS;
+			InterpolatedDisplacementRMS = interpolatedDisplacementRMS;
 
 			DopplerShiftEvaluationType = dopplerShiftEvaluationType;
 			ElectricDipoleAlignmentType = electricDipoleAlignmentType;
@@ -153,11 +153,11 @@ namespace Yburn.Workers
 				temperature, double.NegativeInfinity, double.PositiveInfinity);
 		}
 
-		public double GetRadiusRMS(
+		public double GetDisplacementRMS(
 			double temperature
 			)
 		{
-			return InterpolatedRadiusRMS.GetValue(temperature, 0, 0);
+			return InterpolatedDisplacementRMS.GetValue(temperature, 0, 0);
 		}
 
 		public double GetExistenceProbability(
@@ -168,22 +168,22 @@ namespace Yburn.Workers
 		{
 			double A = -GetEnergy(temperature);
 			double B = 0;
-			double C = 0;
+			double C = -GetAbsoluteMagneticPotentialEnergy(magneticFieldStrength);
 
 			switch(ElectricDipoleAlignmentType)
 			{
 				case EMFDipoleAlignmentType.None:
 					break;
 
-				case EMFDipoleAlignmentType.MinimizeEnergy:
-					A += GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
-					break;
-
-				case EMFDipoleAlignmentType.MaximizeEnergy:
+				case EMFDipoleAlignmentType.WeakenBinding:
 					A -= GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
 					break;
 
-				case EMFDipoleAlignmentType.StatisticallyDistributed:
+				case EMFDipoleAlignmentType.StrengthenBinding:
+					A += GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
+					break;
+
+				case EMFDipoleAlignmentType.RandomAlignment:
 					B = GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
 					break;
 
@@ -191,28 +191,8 @@ namespace Yburn.Workers
 					throw new Exception("Invalid ElectricDipoleAlignmentType.");
 			}
 
-			switch(MagneticDipoleAlignmentType)
-			{
-				case EMFDipoleAlignmentType.None:
-					break;
-
-				case EMFDipoleAlignmentType.MinimizeEnergy:
-					A += GetAbsoluteMagneticPotentialEnergy(magneticFieldStrength);
-					break;
-
-				case EMFDipoleAlignmentType.MaximizeEnergy:
-					A -= GetAbsoluteMagneticPotentialEnergy(magneticFieldStrength);
-					break;
-
-				case EMFDipoleAlignmentType.StatisticallyDistributed:
-					C = GetAbsoluteMagneticPotentialEnergy(magneticFieldStrength);
-					break;
-
-				default:
-					throw new Exception("Invalid MagneticDipoleAlignmentType.");
-			}
-
-			return Functions.AveragedHeavisideStepFunctionWithLinearArgument(A, B, C);
+			return (2 * Functions.AveragedHeavisideStepFunctionWithLinearArgument(A, B)
+				+ Functions.AveragedHeavisideStepFunctionWithLinearArgument(A + C, B)) / 3;
 		}
 
 		/********************************************************************************************
@@ -233,7 +213,7 @@ namespace Yburn.Workers
 
 		private readonly LinearInterpolation1D InterpolatedEnergies;
 
-		private readonly LinearInterpolation1D InterpolatedRadiusRMS;
+		private readonly LinearInterpolation1D InterpolatedDisplacementRMS;
 
 		private void AssertValidMembers()
 		{
@@ -259,7 +239,7 @@ namespace Yburn.Workers
 			double electricFieldStrength
 			)
 		{
-			return Math.Abs(Constants.ChargeBottomQuark * 2 * GetRadiusRMS(temperature)
+			return Math.Abs(Constants.ChargeBottomQuark * GetDisplacementRMS(temperature)
 				* electricFieldStrength * Constants.HbarCMeVFm);
 		}
 

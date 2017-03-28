@@ -116,7 +116,7 @@ namespace Yburn.SingleQQ.UI
 			nameValuePairs["AlphaSoft"] = TbxAlphaSoft.Text;
 			nameValuePairs["AlphaThermal"] = TbxAlphaThermal.Text;
 			nameValuePairs["AlphaUltraSoft"] = TbxAlphaUltraSoft.Text;
-			nameValuePairs["AvInvRadius"] = TbxAvInvRadius.Text;
+			nameValuePairs["AvgInvDisplacement"] = TbxAvgInvDisplacement.Text;
 			nameValuePairs["BoundMass"] = TbxBoundMass.Text;
 			nameValuePairs["ColorState"] = CbxColorState.Text;
 			nameValuePairs["DataFileName"] = DataFileName;
@@ -138,7 +138,7 @@ namespace Yburn.SingleQQ.UI
 			nameValuePairs["QuantumNumberL"] = TbxQuantumNumberL.Text;
 			nameValuePairs["QuantumNumberN"] = TbxQuantumNumberN.Text;
 			nameValuePairs["QuarkMass"] = TbxQuarkMass.Text;
-			nameValuePairs["RMS"] = TbxRMS.Text;
+			nameValuePairs["DisplacementRMS"] = TbxDisplacementRMS.Text;
 			nameValuePairs["RunningCouplingType"] = CbxRunningCouplingType.Text;
 			nameValuePairs["RunningCouplingTypeSelection"] = RunningCouplingTypeSelection;
 			nameValuePairs["Samples"] = Samples;
@@ -174,7 +174,7 @@ namespace Yburn.SingleQQ.UI
 			TbxAlphaSoft.Text = nameValuePairs["AlphaSoft"];
 			TbxAlphaThermal.Text = nameValuePairs["AlphaThermal"];
 			TbxAlphaUltraSoft.Text = nameValuePairs["AlphaUltraSoft"];
-			TbxAvInvRadius.Text = nameValuePairs["AvInvRadius"];
+			TbxAvgInvDisplacement.Text = nameValuePairs["AvgInvDisplacement"];
 			TbxBoundMass.Text = nameValuePairs["BoundMass"];
 			CbxColorState.Text = nameValuePairs["ColorState"];
 			DataFileName = nameValuePairs["DataFileName"];
@@ -196,7 +196,7 @@ namespace Yburn.SingleQQ.UI
 			TbxQuantumNumberL.Text = nameValuePairs["QuantumNumberL"];
 			TbxQuantumNumberN.Text = nameValuePairs["QuantumNumberN"];
 			TbxQuarkMass.Text = nameValuePairs["QuarkMass"];
-			TbxRMS.Text = nameValuePairs["RMS"];
+			TbxDisplacementRMS.Text = nameValuePairs["DisplacementRMS"];
 			CbxRunningCouplingType.Text = nameValuePairs["RunningCouplingType"];
 			RunningCouplingTypeSelection = nameValuePairs["RunningCouplingTypeSelection"];
 			Samples = nameValuePairs["Samples"];

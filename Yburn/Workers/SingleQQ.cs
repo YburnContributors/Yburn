@@ -75,7 +75,7 @@ namespace Yburn.Workers
 				potentialType: PotentialType,
 				temperature: Temperature,
 				debyeMass: DebyeMass,
-				radiusRMS: RMS,
+				displacementRMS: DisplacementRMS,
 				softScale: SoftScale,
 				ultraSoftScale: UltraSoftScale,
 				boundMass: BoundMass,
@@ -169,7 +169,7 @@ namespace Yburn.Workers
 				LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}",
 					Temperature.ToString("G6"),
 					DebyeMass.ToString("G6"),
-					RMS.ToString("G6"),
+					DisplacementRMS.ToString("G6"),
 					SoftScale.ToString("G6"),
 					UltraSoftScale.ToString("G6"),
 					BoundMass.ToString("G6"),
@@ -283,7 +283,7 @@ namespace Yburn.Workers
 				LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}",
 					Temperature.ToString("G6"),
 					DebyeMass.ToString("G6"),
-					RMS.ToString("G6"),
+					DisplacementRMS.ToString("G6"),
 					SoftScale.ToString("G6"),
 					UltraSoftScale.ToString("G6"),
 					BoundMass.ToString("G6"),
@@ -423,8 +423,8 @@ namespace Yburn.Workers
 				QQBoundState boundState = state as QQBoundState;
 				NumberExtrema = boundState.NumberExtrema;
 				BoundMass = boundState.BoundMassMeV;
-				AvInvRadius = boundState.RadiusExpectationValue(-1);
-				RMS = Math.Sqrt(boundState.RadiusExpectationValue(2));
+				AvgInvDisplacement = boundState.RadiusExpectationValue(-1);
+				DisplacementRMS = Math.Sqrt(boundState.RadiusExpectationValue(2));
 				AlphaUltraSoft = boundState.AlphaUltraSoft;
 				UltraSoftScale = boundState.UltraSoftScaleMeV;
 			}
@@ -492,7 +492,7 @@ namespace Yburn.Workers
 			LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}",
 				"Current:",
 				DebyeMass.ToString("G6"),
-				RMS.ToString("G6"),
+				DisplacementRMS.ToString("G6"),
 				SoftScale.ToString("G6"),
 				UltraSoftScale.ToString("G6"),
 				BoundMass.ToString("G6"),
@@ -503,7 +503,7 @@ namespace Yburn.Workers
 			LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}",
 				"Archived:",
 				dataSet.DebyeMass.ToString("G6"),
-				dataSet.RadiusRMS.ToString("G6"),
+				dataSet.DisplacementRMS.ToString("G6"),
 				dataSet.SoftScale.ToString("G6"),
 				dataSet.UltraSoftScale.ToString("G6"),
 				dataSet.BoundMass.ToString("G6"),
@@ -514,7 +514,7 @@ namespace Yburn.Workers
 			LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}",
 				"Deviation:",
 				(DebyeMass / dataSet.DebyeMass - 1).ToString("G3"),
-				(RMS / dataSet.RadiusRMS - 1).ToString("G3"),
+				(DisplacementRMS / dataSet.DisplacementRMS - 1).ToString("G3"),
 				(SoftScale / dataSet.SoftScale - 1).ToString("G3"),
 				(UltraSoftScale / dataSet.UltraSoftScale - 1).ToString("G3"),
 				(BoundMass / dataSet.BoundMass - 1).ToString("G3"),

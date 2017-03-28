@@ -30,7 +30,7 @@ namespace Yburn.Workers.Tests
 			Assert.AreEqual(0, dataSets[0].L);
 			Assert.AreEqual(1, dataSets[0].N);
 			Assert.AreEqual(PotentialType.Complex, dataSets[0].PotentialType);
-			Assert.AreEqual(0.23, dataSets[0].RadiusRMS);
+			Assert.AreEqual(0.23, dataSets[0].DisplacementRMS);
 			Assert.AreEqual(1400, dataSets[0].SoftScale);
 			Assert.AreEqual(100, dataSets[0].Temperature);
 			Assert.AreEqual(900, dataSets[0].UltraSoftScale);

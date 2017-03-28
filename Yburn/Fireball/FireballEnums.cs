@@ -23,9 +23,9 @@
 	public enum EMFDipoleAlignmentType
 	{
 		None,
-		MinimizeEnergy,
-		MaximizeEnergy,
-		StatisticallyDistributed
+		WeakenBinding,
+		StrengthenBinding,
+		RandomAlignment
 	}
 
 	public enum ExpansionMode
