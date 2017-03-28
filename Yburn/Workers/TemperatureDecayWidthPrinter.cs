@@ -36,8 +36,7 @@ namespace Yburn.Workers
 
 		public string GetList(
 			List<DopplerShiftEvaluationType> dopplerShiftEvaluationTypes,
-			EMFDipoleAlignmentType electricDipoleAlignmentType,
-			EMFDipoleAlignmentType magneticDipoleAlignmentType,
+			ElectricDipoleAlignment electricDipoleAlignment,
 			List<double> mediumTemperatures,
 			List<double> mediumVelocities,
 			double electricField,
@@ -54,7 +53,7 @@ namespace Yburn.Workers
 			foreach(DopplerShiftEvaluationType evaluationType in dopplerShiftEvaluationTypes)
 			{
 				builder.Append(GetList(
-					evaluationType, electricDipoleAlignmentType, magneticDipoleAlignmentType,
+					evaluationType, electricDipoleAlignment,
 					mediumTemperatures, mediumVelocities, electricField, magneticField));
 				builder.AppendLine();
 				builder.AppendLine();
@@ -81,16 +80,14 @@ namespace Yburn.Workers
 
 		private QQDataProvider CreateQQDataProvider(
 			DopplerShiftEvaluationType dopplerShiftEvaluationType,
-			EMFDipoleAlignmentType electricDipoleAlignmentType,
-			EMFDipoleAlignmentType magneticDipoleAlignmentType
+			ElectricDipoleAlignment electricDipoleAlignment
 			)
 		{
 			return new QQDataProvider(
 				DataPathFile,
 				PotentialTypes,
 				dopplerShiftEvaluationType,
-				electricDipoleAlignmentType,
-				magneticDipoleAlignmentType,
+				electricDipoleAlignment,
 				DecayWidthType,
 				QGPFormationTemperature,
 				NumberAveragingAngles);
@@ -98,16 +95,15 @@ namespace Yburn.Workers
 
 		private string GetList(
 			DopplerShiftEvaluationType dopplerShiftEvaluationType,
-			EMFDipoleAlignmentType electricDipoleAlignmentType,
-			EMFDipoleAlignmentType magneticDipoleAlignmentType,
+			ElectricDipoleAlignment electricDipoleAlignment,
 			List<double> mediumTemperatures,
 			List<double> mediumVelocities,
 			double electricField,
 			double magneticField
 			)
 		{
-			QQDataProvider provider = CreateQQDataProvider(dopplerShiftEvaluationType,
-				electricDipoleAlignmentType, magneticDipoleAlignmentType);
+			QQDataProvider provider = CreateQQDataProvider(
+				dopplerShiftEvaluationType, electricDipoleAlignment);
 
 			StringBuilder list = new StringBuilder();
 			AppendHeader(list, dopplerShiftEvaluationType);

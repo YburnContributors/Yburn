@@ -67,10 +67,10 @@
 			// 
 			this.MenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
 			this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemFile,
-            this.MenuItemCalculate,
-            this.MenuItemPlot,
-            this.MenuItemArchive});
+			this.MenuItemFile,
+			this.MenuItemCalculate,
+			this.MenuItemPlot,
+			this.MenuItemArchive});
 			this.MenuStrip.Location = new System.Drawing.Point(0, 0);
 			this.MenuStrip.Name = "MenuStrip";
 			this.MenuStrip.Size = new System.Drawing.Size(1182, 42);
@@ -80,19 +80,19 @@
 			// MenuItemFile
 			// 
 			this.MenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemAbortProcess,
-            this.MenuItemClearScreen,
-            this.MenuItemLoadParaFile,
-            this.MenutItemSaveValuesAsParameterFile,
-            this.MenuItemLoadBatchFile,
-            this.MenuItemSelectQQDataFile,
-            this.MenuItemSelectOutputPath,
-            this.MenuItemOpenReadMe,
-            this.MenuItemQuit});
+			this.MenuItemAbortProcess,
+			this.MenuItemClearScreen,
+			this.MenuItemLoadParaFile,
+			this.MenutItemSaveValuesAsParameterFile,
+			this.MenuItemLoadBatchFile,
+			this.MenuItemSelectQQDataFile,
+			this.MenuItemSelectOutputPath,
+			this.MenuItemOpenReadMe,
+			this.MenuItemQuit});
 			this.MenuItemFile.Name = "MenuItemFile";
 			this.MenuItemFile.ShortcutKeyDisplayString = "Shift+Alt+S";
-			this.MenuItemFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.S)));
+			this.MenuItemFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift)
+			| System.Windows.Forms.Keys.S)));
 			this.MenuItemFile.Size = new System.Drawing.Size(64, 38);
 			this.MenuItemFile.Text = "&File";
 			// 
@@ -100,8 +100,8 @@
 			// 
 			this.MenuItemAbortProcess.Name = "MenuItemAbortProcess";
 			this.MenuItemAbortProcess.ShortcutKeyDisplayString = "Shift+Alt+Del";
-			this.MenuItemAbortProcess.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.Delete)));
+			this.MenuItemAbortProcess.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift)
+			| System.Windows.Forms.Keys.Delete)));
 			this.MenuItemAbortProcess.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemAbortProcess.Text = "&Abort running process";
 			this.MenuItemAbortProcess.Click += new System.EventHandler(this.MenuItemAbortProcess_Click);
@@ -110,8 +110,8 @@
 			// 
 			this.MenuItemClearScreen.Name = "MenuItemClearScreen";
 			this.MenuItemClearScreen.ShortcutKeyDisplayString = "Alt+Shift+L";
-			this.MenuItemClearScreen.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.L)));
+			this.MenuItemClearScreen.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift)
+			| System.Windows.Forms.Keys.L)));
 			this.MenuItemClearScreen.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemClearScreen.Text = "&Clear screen";
 			this.MenuItemClearScreen.Click += new System.EventHandler(this.MenuItemClearScreen_Click);
@@ -136,8 +136,8 @@
 			// 
 			this.MenuItemLoadBatchFile.Name = "MenuItemLoadBatchFile";
 			this.MenuItemLoadBatchFile.ShortcutKeyDisplayString = "Ctrl+Shift+O";
-			this.MenuItemLoadBatchFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.O)));
+			this.MenuItemLoadBatchFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+			| System.Windows.Forms.Keys.O)));
 			this.MenuItemLoadBatchFile.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemLoadBatchFile.Text = "Load &batch file";
 			this.MenuItemLoadBatchFile.Click += new System.EventHandler(this.MenuItemLoadBatchFile_Click);
@@ -176,10 +176,10 @@
 			// MenuItemCalculate
 			// 
 			this.MenuItemCalculate.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemCalculateBoundWave,
-            this.MenuItemCalculateFreeWave,
-            this.MenuItemCalculateGammaDiss,
-            this.MenuItemCalculateQuarkMass});
+			this.MenuItemCalculateBoundWave,
+			this.MenuItemCalculateFreeWave,
+			this.MenuItemCalculateGammaDiss,
+			this.MenuItemCalculateQuarkMass});
 			this.MenuItemCalculate.Name = "MenuItemCalculate";
 			this.MenuItemCalculate.ShortcutKeyDisplayString = "Ctrl+W";
 			this.MenuItemCalculate.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
@@ -225,11 +225,11 @@
 			// MenuItemPlot
 			// 
 			this.MenuItemPlot.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemPlotWave,
-            this.MenuItemPlotCrossSection,
-            this.MenuItemPlotAlpha,
-            this.MenuItemPlotPionGDF,
-            this.MenuItemPlotPotential});
+			this.MenuItemPlotWave,
+			this.MenuItemPlotCrossSection,
+			this.MenuItemPlotAlpha,
+			this.MenuItemPlotPionGDF,
+			this.MenuItemPlotPotential});
 			this.MenuItemPlot.Name = "MenuItemPlot";
 			this.MenuItemPlot.ShortcutKeyDisplayString = "";
 			this.MenuItemPlot.Size = new System.Drawing.Size(68, 38);
@@ -248,8 +248,8 @@
 			// 
 			this.MenuItemPlotCrossSection.Name = "MenuItemPlotCrossSection";
 			this.MenuItemPlotCrossSection.ShortcutKeyDisplayString = "Ctrl+Shift+C";
-			this.MenuItemPlotCrossSection.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.C)));
+			this.MenuItemPlotCrossSection.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+			| System.Windows.Forms.Keys.C)));
 			this.MenuItemPlotCrossSection.Size = new System.Drawing.Size(530, 38);
 			this.MenuItemPlotCrossSection.Text = "Plot current &cross section";
 			this.MenuItemPlotCrossSection.Click += new System.EventHandler(this.MenuItemPlotCrossSection_Click);
@@ -279,10 +279,10 @@
 			// MenuItemArchive
 			// 
 			this.MenuItemArchive.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemArchiveQQData,
-            this.MenuItemShowArchivedQQData,
-            this.MenuItemSelectArchiveDataFile,
-            this.MenuItemCompareResultsWithArchivedData});
+			this.MenuItemArchiveQQData,
+			this.MenuItemShowArchivedQQData,
+			this.MenuItemSelectArchiveDataFile,
+			this.MenuItemCompareResultsWithArchivedData});
 			this.MenuItemArchive.Name = "MenuItemArchive";
 			this.MenuItemArchive.Size = new System.Drawing.Size(106, 38);
 			this.MenuItemArchive.Text = "&Archive";
@@ -384,27 +384,27 @@
 		private System.Windows.Forms.ToolStripMenuItem MenuItemQuit;
 		private System.Windows.Forms.ToolStripMenuItem MenuItemSelectOutputPath;
 		private System.Windows.Forms.ToolStripMenuItem MenuItemLoadBatchFile;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemSelectQQDataFile;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemCalculateBoundWave;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemCalculateFreeWave;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemCalculateGammaDiss;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemCalculateQuarkMass;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemPlot;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemPlotWave;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemPlotPotential;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemPlotCrossSection;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemArchiveQQData;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemShowArchivedQQData;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemPlotPionGDF;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemSelectArchiveDataFile;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemCompareResultsWithArchivedData;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemPlotAlpha;
-      private System.Windows.Forms.TableLayoutPanel LayoutBottom;
-      private Yburn.UI.YburnConfigDataBox YburnConfigDataBox;
-      private SingleQQPanel SingleQQPanel;
-      private System.Windows.Forms.ToolStripMenuItem MenutItemSaveValuesAsParameterFile;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemCalculate;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemArchive;
-   }
+		private System.Windows.Forms.ToolStripMenuItem MenuItemSelectQQDataFile;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemCalculateBoundWave;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemCalculateFreeWave;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemCalculateGammaDiss;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemCalculateQuarkMass;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemPlot;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemPlotWave;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemPlotPotential;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemPlotCrossSection;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemArchiveQQData;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemShowArchivedQQData;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemPlotPionGDF;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemSelectArchiveDataFile;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemCompareResultsWithArchivedData;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemPlotAlpha;
+		private System.Windows.Forms.TableLayoutPanel LayoutBottom;
+		private Yburn.UI.YburnConfigDataBox YburnConfigDataBox;
+		private SingleQQPanel SingleQQPanel;
+		private System.Windows.Forms.ToolStripMenuItem MenutItemSaveValuesAsParameterFile;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemCalculate;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemArchive;
+	}
 }
 

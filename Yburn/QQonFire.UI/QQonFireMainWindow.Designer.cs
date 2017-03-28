@@ -1,33 +1,33 @@
 ﻿namespace Yburn.QQonFire.UI
 {
-   partial class QQonFireMainWindow
-   {
-      /// <summary>
-      /// Required designer variable.
-      /// </summary>
-      private System.ComponentModel.IContainer components = null;
+	partial class QQonFireMainWindow
+	{
+		/// <summary>
+		/// Required designer variable.
+		/// </summary>
+		private System.ComponentModel.IContainer components = null;
 
-      /// <summary>
-      /// Clean up any resources being used.
-      /// </summary>
-      /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-      protected override void Dispose(bool disposing)
-      {
-         if(disposing && (components != null))
-         {
-            components.Dispose();
-         }
-         base.Dispose(disposing);
-      }
+		/// <summary>
+		/// Clean up any resources being used.
+		/// </summary>
+		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+		protected override void Dispose(bool disposing)
+		{
+			if(disposing && (components != null))
+			{
+				components.Dispose();
+			}
+			base.Dispose(disposing);
+		}
 
-      #region Windows Form Designer generated code
+		#region Windows Form Designer generated code
 
-      /// <summary>
-      /// Required method for Designer support - do not modify
-      /// the contents of this method with the code editor.
-      /// </summary>
-      private void InitializeComponent()
-      {
+		/// <summary>
+		/// Required method for Designer support - do not modify
+		/// the contents of this method with the code editor.
+		/// </summary>
+		private void InitializeComponent()
+		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QQonFireMainWindow));
 			this.MenuStrip = new System.Windows.Forms.MenuStrip();
 			this.MenuItemFile = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,7 +51,7 @@
 			// 
 			this.MenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
 			this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemFile});
+			this.MenuItemFile});
 			this.MenuStrip.Location = new System.Drawing.Point(0, 0);
 			this.MenuStrip.Name = "MenuStrip";
 			this.MenuStrip.Size = new System.Drawing.Size(1182, 42);
@@ -61,19 +61,19 @@
 			// MenuItemFile
 			// 
 			this.MenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemAbortProcess,
-            this.MenuItemClearScreen,
-            this.MenuItemLoadParaFile,
-            this.MenutItemSaveValuesAsParameterFile,
-            this.MenuItemLoadBatchFile,
-            this.MenuItemSelectQQDataFile,
-            this.MenuItemSelectOutputPath,
-            this.MenuItemOpenReadMe,
-            this.MenuItemQuit});
+			this.MenuItemAbortProcess,
+			this.MenuItemClearScreen,
+			this.MenuItemLoadParaFile,
+			this.MenutItemSaveValuesAsParameterFile,
+			this.MenuItemLoadBatchFile,
+			this.MenuItemSelectQQDataFile,
+			this.MenuItemSelectOutputPath,
+			this.MenuItemOpenReadMe,
+			this.MenuItemQuit});
 			this.MenuItemFile.Name = "MenuItemFile";
 			this.MenuItemFile.ShortcutKeyDisplayString = "Shift+Alt+S";
-			this.MenuItemFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.S)));
+			this.MenuItemFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift)
+			| System.Windows.Forms.Keys.S)));
 			this.MenuItemFile.Size = new System.Drawing.Size(64, 38);
 			this.MenuItemFile.Text = "&File";
 			// 
@@ -81,8 +81,8 @@
 			// 
 			this.MenuItemAbortProcess.Name = "MenuItemAbortProcess";
 			this.MenuItemAbortProcess.ShortcutKeyDisplayString = "Shift+Alt+Del";
-			this.MenuItemAbortProcess.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.Delete)));
+			this.MenuItemAbortProcess.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift)
+			| System.Windows.Forms.Keys.Delete)));
 			this.MenuItemAbortProcess.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemAbortProcess.Text = "&Abort running process";
 			this.MenuItemAbortProcess.Click += new System.EventHandler(this.MenuItemAbortProcess_Click);
@@ -91,8 +91,8 @@
 			// 
 			this.MenuItemClearScreen.Name = "MenuItemClearScreen";
 			this.MenuItemClearScreen.ShortcutKeyDisplayString = "Alt+Shift+L";
-			this.MenuItemClearScreen.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.L)));
+			this.MenuItemClearScreen.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift)
+			| System.Windows.Forms.Keys.L)));
 			this.MenuItemClearScreen.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemClearScreen.Text = "&Clear screen";
 			this.MenuItemClearScreen.Click += new System.EventHandler(this.MenuItemClearScreen_Click);
@@ -117,8 +117,8 @@
 			// 
 			this.MenuItemLoadBatchFile.Name = "MenuItemLoadBatchFile";
 			this.MenuItemLoadBatchFile.ShortcutKeyDisplayString = "Ctrl+Shift+O";
-			this.MenuItemLoadBatchFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.O)));
+			this.MenuItemLoadBatchFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+			| System.Windows.Forms.Keys.O)));
 			this.MenuItemLoadBatchFile.Size = new System.Drawing.Size(513, 38);
 			this.MenuItemLoadBatchFile.Text = "Load &batch file";
 			this.MenuItemLoadBatchFile.Click += new System.EventHandler(this.MenuItemLoadBatchFile_Click);
@@ -210,24 +210,24 @@
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
-      }
+		}
 
-      #endregion
+		#endregion
 
-      private System.Windows.Forms.MenuStrip MenuStrip;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemFile;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemAbortProcess;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemClearScreen;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemLoadParaFile;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemOpenReadMe;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemQuit;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemSelectOutputPath;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemLoadBatchFile;
-      private QQonFirePanel QQonFirePanel;
-      private System.Windows.Forms.TableLayoutPanel LayoutBottom;
-      private Yburn.UI.YburnConfigDataBox YburnConfigDataBox;
-      private System.Windows.Forms.ToolStripMenuItem MenuItemSelectQQDataFile;
-      private System.Windows.Forms.ToolStripMenuItem MenutItemSaveValuesAsParameterFile;
-   }
+		private System.Windows.Forms.MenuStrip MenuStrip;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemFile;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemAbortProcess;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemClearScreen;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemLoadParaFile;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemOpenReadMe;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemQuit;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemSelectOutputPath;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemLoadBatchFile;
+		private QQonFirePanel QQonFirePanel;
+		private System.Windows.Forms.TableLayoutPanel LayoutBottom;
+		private Yburn.UI.YburnConfigDataBox YburnConfigDataBox;
+		private System.Windows.Forms.ToolStripMenuItem MenuItemSelectQQDataFile;
+		private System.Windows.Forms.ToolStripMenuItem MenutItemSaveValuesAsParameterFile;
+	}
 }
 

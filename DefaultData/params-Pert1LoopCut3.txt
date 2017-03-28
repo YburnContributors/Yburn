@@ -54,10 +54,9 @@ DopplerShiftEvaluationTypes = UnshiftedTemperature,AveragedDecayWidth
 #NumberAveragingAngles       = 10
 
 # Electromagnetic Energy
-#ElectricDipoleAlignmentType = None
-ElectricFieldStrength       = 30
-#MagneticDipoleAlignmentType = None
-MagneticFieldStrength       = 0.1
+#ElectricDipoleAlignment = Random
+ElectricFieldStrength   = 0
+MagneticFieldStrength   = 0
 
 # Output
 #DataFileName = stdout.txt
@@ -128,12 +127,13 @@ CenterOfMassEnergy        = 2.76
 QGPFormationTemperature   = 160
 
 # Electromagnetics
-ElectricDipoleAlignmentType = None
-MagneticDipoleAlignmentType = None
-EMFCalculationMethod        = DiffusionApproximation
-EMFQuadratureOrder          = 8
-EMFUpdateInterval           = 0.1
-QGPConductivity             = 5.8
+UseElectricField        = False
+UseMagneticField        = False
+ElectricDipoleAlignment = Random
+EMFCalculationMethod    = DiffusionApproximation
+EMFQuadratureOrder      = 8
+EMFUpdateInterval       = 0.1
+QGPConductivity         = 5.8
 
 # QQStates
 DimuonDecaysFrompp         = Y1S:1.0,x1P:0.271,Y2S:0.56,x2P:0.105,Y3S:0.41,x3P:0.03

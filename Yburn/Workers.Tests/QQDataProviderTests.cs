@@ -130,8 +130,7 @@ namespace Yburn.Workers.Tests
 				DataPathFile,
 				PotentialTypes,
 				evaluationType,
-				EMFDipoleAlignmentType.None,
-				EMFDipoleAlignmentType.None,
+				ElectricDipoleAlignment.Random,
 				DecayWidthType,
 				QGPFormationTemperature,
 				NumberAveragingAngles);

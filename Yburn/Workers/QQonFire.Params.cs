@@ -28,7 +28,7 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
 			Store(nameValuePairs, "EMFQuadratureOrder", EMFQuadratureOrder);
 			Store(nameValuePairs, "EMFUpdateInterval", EMFUpdateInterval);
-			Store(nameValuePairs, "ElectricDipoleAlignmentType", ElectricDipoleAlignmentType);
+			Store(nameValuePairs, "ElectricDipoleAlignment", ElectricDipoleAlignment);
 			Store(nameValuePairs, "ExpansionMode", ExpansionMode);
 			Store(nameValuePairs, "FireballFieldTypes", FireballFieldTypes);
 			Store(nameValuePairs, "FormationTimes", FormationTimes);
@@ -38,8 +38,6 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "ImpactParamsAtBinBoundaries", ImpactParamsAtBinBoundaries);
 			Store(nameValuePairs, "InitialMaximumTemperature", InitialMaximumTemperature);
 			Store(nameValuePairs, "LifeTime", LifeTime);
-			Store(nameValuePairs, "MagneticDipoleAlignmentType", MagneticDipoleAlignmentType);
-			Store(nameValuePairs, "MagneticDipoleAlignmentType", MagneticDipoleAlignmentType);
 			Store(nameValuePairs, "MeanParticipantsInBin", MeanParticipantsInBin);
 			Store(nameValuePairs, "NuclearRadiusA", NuclearRadiusA);
 			Store(nameValuePairs, "NuclearRadiusB", NuclearRadiusB);
@@ -58,6 +56,8 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "TemperatureProfile", TemperatureProfile);
 			Store(nameValuePairs, "ThermalTime", ThermalTime);
 			Store(nameValuePairs, "TransverseMomenta", TransverseMomenta);
+			Store(nameValuePairs, "UseElectricField", UseElectricField);
+			Store(nameValuePairs, "UseMagneticField", UseMagneticField);
 
 			return nameValuePairs;
 		}
@@ -80,7 +80,7 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "EMFCalculationMethod", ref EMFCalculationMethod);
 			TryExtract(nameValuePairs, "EMFQuadratureOrder", ref EMFQuadratureOrder);
 			TryExtract(nameValuePairs, "EMFUpdateInterval", ref EMFUpdateInterval);
-			TryExtract(nameValuePairs, "ElectricDipoleAlignmentType", ref ElectricDipoleAlignmentType);
+			TryExtract(nameValuePairs, "ElectricDipoleAlignment", ref ElectricDipoleAlignment);
 			TryExtract(nameValuePairs, "ExpansionMode", ref ExpansionMode);
 			TryExtract(nameValuePairs, "FireballFieldTypes", ref FireballFieldTypes);
 			TryExtract(nameValuePairs, "FormationTimes", ref FormationTimes);
@@ -90,8 +90,6 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "ImpactParamsAtBinBoundaries", ref ImpactParamsAtBinBoundaries);
 			TryExtract(nameValuePairs, "InitialMaximumTemperature", ref InitialMaximumTemperature);
 			TryExtract(nameValuePairs, "LifeTime", ref LifeTime);
-			TryExtract(nameValuePairs, "MagneticDipoleAlignmentType", ref MagneticDipoleAlignmentType);
-			TryExtract(nameValuePairs, "MagneticDipoleAlignmentType", ref MagneticDipoleAlignmentType);
 			TryExtract(nameValuePairs, "MeanParticipantsInBin", ref MeanParticipantsInBin);
 			TryExtract(nameValuePairs, "NuclearRadiusA", ref NuclearRadiusA);
 			TryExtract(nameValuePairs, "NuclearRadiusB", ref NuclearRadiusB);
@@ -110,6 +108,8 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "TemperatureProfile", ref TemperatureProfile);
 			TryExtract(nameValuePairs, "ThermalTime", ref ThermalTime);
 			TryExtract(nameValuePairs, "TransverseMomenta", ref TransverseMomenta);
+			TryExtract(nameValuePairs, "UseElectricField", ref UseElectricField);
+			TryExtract(nameValuePairs, "UseMagneticField", ref UseMagneticField);
 		}
 
 		private double BjorkenLifeTime;
@@ -130,7 +130,7 @@ namespace Yburn.Workers
 
 		private Dictionary<BottomiumState, double> DimuonDecaysFrompp;
 
-		private EMFDipoleAlignmentType ElectricDipoleAlignmentType;
+		private ElectricDipoleAlignment ElectricDipoleAlignment;
 
 		private EMFCalculationMethod EMFCalculationMethod;
 
@@ -155,8 +155,6 @@ namespace Yburn.Workers
 		private double InitialMaximumTemperature;
 
 		private double LifeTime;
-
-		private EMFDipoleAlignmentType MagneticDipoleAlignmentType;
 
 		private List<List<double>> MeanParticipantsInBin;
 
@@ -196,20 +194,8 @@ namespace Yburn.Workers
 
 		private List<double> TransverseMomenta;
 
-		private bool UseElectricField
-		{
-			get
-			{
-				return ElectricDipoleAlignmentType != EMFDipoleAlignmentType.None;
-			}
-		}
+		private bool UseElectricField;
 
-		private bool UseMagneticField
-		{
-			get
-			{
-				return MagneticDipoleAlignmentType != EMFDipoleAlignmentType.None;
-			}
-		}
+		private bool UseMagneticField;
 	}
 }

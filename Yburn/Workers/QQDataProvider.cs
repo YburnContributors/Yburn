@@ -81,16 +81,14 @@ namespace Yburn.Workers
 			string dataPathFile,
 			List<PotentialType> potentialTypes,
 			DopplerShiftEvaluationType dopplerShiftEvaluationType,
-			EMFDipoleAlignmentType electricDipoleAlignmentType,
-			EMFDipoleAlignmentType magneticDipoleAlignmentType,
+			ElectricDipoleAlignment electricDipoleAlignment,
 			DecayWidthType decayWidthType,
 			double qgpFormationTemperature,
 			int numberAveragingAngles
 			)
 		{
 			DopplerShiftEvaluationType = dopplerShiftEvaluationType;
-			ElectricDipoleAlignmentType = electricDipoleAlignmentType;
-			MagneticDipoleAlignmentType = magneticDipoleAlignmentType;
+			ElectricDipoleAlignment = electricDipoleAlignment;
 			DecayWidthType = decayWidthType;
 			QGPFormationTemperature = qgpFormationTemperature;
 			NumberAveragingAngles = numberAveragingAngles;
@@ -111,7 +109,7 @@ namespace Yburn.Workers
 				CreateDecayWidthInterpolation(state),
 				CreateLinearInterpolationByTemperature(DataSets[state], QQDataColumn.Energy),
 				CreateLinearInterpolationByTemperature(DataSets[state], QQDataColumn.DisplacementRMS),
-				DopplerShiftEvaluationType, ElectricDipoleAlignmentType, MagneticDipoleAlignmentType,
+				DopplerShiftEvaluationType, ElectricDipoleAlignment,
 				QGPFormationTemperature, NumberAveragingAngles);
 		}
 
@@ -141,9 +139,7 @@ namespace Yburn.Workers
 
 		private readonly DopplerShiftEvaluationType DopplerShiftEvaluationType;
 
-		private readonly EMFDipoleAlignmentType ElectricDipoleAlignmentType;
-
-		private readonly EMFDipoleAlignmentType MagneticDipoleAlignmentType;
+		private readonly ElectricDipoleAlignment ElectricDipoleAlignment;
 
 		private readonly Dictionary<BottomiumState, DecayWidthAverager> DecayWidthAveragers;
 

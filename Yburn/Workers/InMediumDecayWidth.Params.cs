@@ -18,9 +18,8 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "DataFileName", DataFileName);
 			Store(nameValuePairs, "DopplerShiftEvaluationTypes", DopplerShiftEvaluationTypes);
 			Store(nameValuePairs, "DecayWidthType", DecayWidthType);
-			Store(nameValuePairs, "ElectricDipoleAlignmentType", ElectricDipoleAlignmentType);
+			Store(nameValuePairs, "ElectricDipoleAlignment", ElectricDipoleAlignment);
 			Store(nameValuePairs, "ElectricFieldStrength", ElectricFieldStrength);
-			Store(nameValuePairs, "MagneticDipoleAlignmentType", MagneticDipoleAlignmentType);
 			Store(nameValuePairs, "MagneticFieldStrength", MagneticFieldStrength);
 			Store(nameValuePairs, "MediumTemperatures", MediumTemperatures);
 			Store(nameValuePairs, "MediumVelocities", MediumVelocities);
@@ -39,9 +38,8 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
 			TryExtract(nameValuePairs, "DopplerShiftEvaluationTypes", ref DopplerShiftEvaluationTypes);
 			TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
-			TryExtract(nameValuePairs, "ElectricDipoleAlignmentType", ref ElectricDipoleAlignmentType);
+			TryExtract(nameValuePairs, "ElectricDipoleAlignment", ref ElectricDipoleAlignment);
 			TryExtract(nameValuePairs, "ElectricFieldStrength", ref ElectricFieldStrength);
-			TryExtract(nameValuePairs, "MagneticDipoleAlignmentType", ref MagneticDipoleAlignmentType);
 			TryExtract(nameValuePairs, "MagneticFieldStrength", ref MagneticFieldStrength);
 			TryExtract(nameValuePairs, "MediumTemperatures", ref MediumTemperatures);
 			TryExtract(nameValuePairs, "MediumVelocities", ref MediumVelocities);
@@ -56,11 +54,9 @@ namespace Yburn.Workers
 
 		private DecayWidthType DecayWidthType;
 
-		private EMFDipoleAlignmentType ElectricDipoleAlignmentType;
+		private ElectricDipoleAlignment ElectricDipoleAlignment;
 
 		private double ElectricFieldStrength;
-
-		private EMFDipoleAlignmentType MagneticDipoleAlignmentType;
 
 		private double MagneticFieldStrength;
 

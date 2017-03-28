@@ -170,9 +170,8 @@ namespace Yburn.Workers
 
 		private QQDataProvider CreateQQDataProvider()
 		{
-			return new QQDataProvider(
-				QQDataPathFile, PotentialTypes, DopplerShiftEvaluationType.UnshiftedTemperature,
-				EMFDipoleAlignmentType.None, EMFDipoleAlignmentType.None,
+			return new QQDataProvider(QQDataPathFile, PotentialTypes,
+				DopplerShiftEvaluationType.UnshiftedTemperature, ElectricDipoleAlignment,
 				DecayWidthType, QGPFormationTemperature, NumberAveragingAngles);
 		}
 

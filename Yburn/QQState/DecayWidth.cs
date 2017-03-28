@@ -398,7 +398,7 @@ namespace Yburn.QQState
 			param.AccuracyAlpha = 1e-6;
 			param.AccuracyWaveFunction = 1e-9;
 			param.AggressivenessAlpha = 0.5;
-			param.AggressivenessEnergy = quantumNumberL > 0 ? 0.02 : 40; ;
+			param.AggressivenessEnergy = quantumNumberL > 0 ? 0.02 : 40;
 			param.ColorState = ColorState.Octet;
 			param.EnergyMeV = gluonEnergyMeV - MinEnergyMeV;
 			param.GammaDampMeV = -GammaDampMeV / 8.0; /*GammaDampMeV = 0*/

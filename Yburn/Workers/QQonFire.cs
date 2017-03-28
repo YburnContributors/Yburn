@@ -595,9 +595,9 @@ namespace Yburn.Workers
 			{
 				return typeof(EMFCalculationMethod);
 			}
-			else if(enumName == "EMFDipoleAlignmentType")
+			else if(enumName == "ElectricDipoleAlignment")
 			{
-				return typeof(EMFDipoleAlignmentType);
+				return typeof(ElectricDipoleAlignment);
 			}
 			else if(enumName == "ExpansionMode")
 			{
@@ -691,8 +691,7 @@ namespace Yburn.Workers
 				QQDataPathFile,
 				PotentialTypes,
 				DopplerShiftEvaluationType,
-				ElectricDipoleAlignmentType,
-				MagneticDipoleAlignmentType,
+				ElectricDipoleAlignment,
 				DecayWidthType,
 				QGPFormationTemperature,
 				NumberAveragingAngles);

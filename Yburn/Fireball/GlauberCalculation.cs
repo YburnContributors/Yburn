@@ -212,8 +212,7 @@ namespace Yburn.Fireball
 
 		private void InitInelasticppCrossSection()
 		{
-			InelasticppCrossSectionFm2
-				= GetInelasticppCrossSectionFm2(Param.CenterOfMassEnergyTeV);
+			InelasticppCrossSectionFm2 = GetInelasticppCrossSectionFm2(Param.CenterOfMassEnergyTeV);
 		}
 
 		private void InitNucleusAB()

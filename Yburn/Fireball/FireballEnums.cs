@@ -20,12 +20,11 @@
 		AveragedLifeTime
 	};
 
-	public enum EMFDipoleAlignmentType
+	public enum ElectricDipoleAlignment
 	{
-		None,
+		Random,
 		WeakenBinding,
-		StrengthenBinding,
-		RandomAlignment
+		StrengthenBinding
 	}
 
 	public enum ExpansionMode

@@ -94,7 +94,7 @@ namespace Yburn.Workers.Tests
 		{
 			Assert.AreEqual(expectedList, Printer.GetList(
 				new List<DopplerShiftEvaluationType> { DopplerShiftEvaluationType.UnshiftedTemperature },
-				EMFDipoleAlignmentType.None, EMFDipoleAlignmentType.None,
+				ElectricDipoleAlignment.Random,
 				new List<double> { 0, 120, 240, 360, 480, 600 }, new List<double> { 0 },
 				0, 0));
 		}

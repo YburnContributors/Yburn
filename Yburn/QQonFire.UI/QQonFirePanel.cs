@@ -96,9 +96,8 @@ namespace Yburn.QQonFire.UI
 			CbxDecayWidthType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DecayWidthType"));
 			CbxDopplerShiftEvaluationType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("DopplerShiftEvaluationType"));
 			CbxEMFCalculationMethod.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFCalculationMethod"));
-			CbxElectricDipoleAlignmentType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleAlignmentType"));
+			CbxElectricDipoleAlignment.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ElectricDipoleAlignment"));
 			CbxExpansionMode.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("ExpansionMode"));
-			CbxMagneticDipoleAlignmentType.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("EMFDipoleAlignmentType"));
 			CbxNucleusShapeA.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("NucleusShape"));
 			CbxNucleusShapeB.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("NucleusShape"));
 			CbxTemperatureProfile.Items.AddRange(JobOrganizer.GetWorkerEnumEntries("TemperatureProfile"));
@@ -125,7 +124,7 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
 			nameValuePairs["EMFQuadratureOrder"] = TbxEMFQuadratureOrder.Text;
 			nameValuePairs["EMFUpdateInterval"] = TbxEMFUpdateInterval.Text;
-			nameValuePairs["ElectricDipoleAlignmentType"] = CbxElectricDipoleAlignmentType.Text;
+			nameValuePairs["ElectricDipoleAlignment"] = CbxElectricDipoleAlignment.Text;
 			nameValuePairs["ExpansionMode"] = CbxExpansionMode.Text;
 			nameValuePairs["FireballFieldTypes"] = MsxFireballFieldTypes.SelectionString;
 			nameValuePairs["FormationTimes"] = TbxFormationTimes.Text;
@@ -135,7 +134,6 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["ImpactParamsAtBinBoundaries"] = TbxImpactParamsAtBinBoundaries.Text;
 			nameValuePairs["InitialMaximumTemperature"] = TbxInitialMaximumTemperature.Text;
 			nameValuePairs["LifeTime"] = TbxLifeTime.Text;
-			nameValuePairs["MagneticDipoleAlignmentType"] = CbxMagneticDipoleAlignmentType.Text;
 			nameValuePairs["MeanParticipantsInBin"] = TbxMeanParticipantsInBin.Text;
 			nameValuePairs["NuclearRadiusA"] = TbxNuclearRadiusA.Text;
 			nameValuePairs["NuclearRadiusB"] = TbxNuclearRadiusB.Text;
@@ -154,6 +152,8 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["TemperatureProfile"] = CbxTemperatureProfile.Text;
 			nameValuePairs["ThermalTime"] = TbxThermalTime.Text;
 			nameValuePairs["TransverseMomenta"] = TbxTransverseMomenta.Text;
+			nameValuePairs["UseElectricField"] = ChkUseElectricField.Checked.ToString();
+			nameValuePairs["UseMagneticField"] = ChkUseMagneticField.Checked.ToString();
 
 			return nameValuePairs;
 		}
@@ -165,12 +165,13 @@ namespace Yburn.QQonFire.UI
 			CbxDecayWidthType.Text = nameValuePairs["DecayWidthType"];
 			CbxDopplerShiftEvaluationType.Text = nameValuePairs["DopplerShiftEvaluationType"];
 			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"];
-			CbxElectricDipoleAlignmentType.Text = nameValuePairs["ElectricDipoleAlignmentType"];
+			CbxElectricDipoleAlignment.Text = nameValuePairs["ElectricDipoleAlignment"];
 			CbxExpansionMode.Text = nameValuePairs["ExpansionMode"];
-			CbxMagneticDipoleAlignmentType.Text = nameValuePairs["MagneticDipoleAlignmentType"];
 			CbxNucleusShapeA.Text = nameValuePairs["NucleusShapeA"];
 			CbxNucleusShapeB.Text = nameValuePairs["NucleusShapeB"];
 			CbxTemperatureProfile.Text = nameValuePairs["TemperatureProfile"];
+			ChkUseElectricField.Checked = bool.Parse(nameValuePairs["UseElectricField"]);
+			ChkUseMagneticField.Checked = bool.Parse(nameValuePairs["UseMagneticField"]);
 			MsxBottomiumStates.SelectionString = nameValuePairs["BottomiumStates"];
 			MsxFireballFieldTypes.SelectionString = nameValuePairs["FireballFieldTypes"];
 			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];
@@ -212,18 +213,18 @@ namespace Yburn.QQonFire.UI
 			MenuEntry = new MenuItemQQonFire();
 			MenuEntry.MenuItemBinBounds.Click += new EventHandler(MenuItemBinBounds_Click);
 			MenuEntry.MenuItemDirectPionDecayWidths.Click += new EventHandler(MenuItemDirectPionDecayWidths_Click);
-			MenuEntry.MenuItemSuppression.Click += new EventHandler(MenuItemSuppression_Click);
 			MenuEntry.MenuItemMakeSnapshots.Click += new EventHandler(MenuItemMakeSnapshots_Click);
-			MenuEntry.MenuItemShowSnapsX.Click += new EventHandler(MenuItemShowSnapsX_Click);
-			MenuEntry.MenuItemShowSnapsY.Click += new EventHandler(MenuItemShowSnapsY_Click);
-			MenuEntry.MenuItemShowSnapsXY.Click += new EventHandler(MenuItemShowSnapsXY_Click);
-			MenuEntry.MenuItemShowGamma.Click += new EventHandler(MenuItemShowGamma_Click);
 			MenuEntry.MenuItemShowBranchingRatio.Click += new EventHandler(MenuItemShowBranchingRatio_Click);
 			MenuEntry.MenuItemShowCumulativeMatrix.Click += new EventHandler(MenuItemShowCumulativeMatrix_Click);
-			MenuEntry.MenuItemShowInverseCumulativeMatrix.Click += new EventHandler(MenuItemShowInverseCumulativeMatrix_Click);
-			MenuEntry.MenuItemShowInitialQQPopulations.Click += new EventHandler(MenuItemShowInitialQQPopulations_Click);
-			MenuEntry.MenuItemShowProtonProtonDimuonDecays.Click += new EventHandler(MenuItemShowProtonProtonDimuonDecays_Click);
 			MenuEntry.MenuItemShowFeedDown.Click += new EventHandler(MenuItemShowY1SFeedDownFractions_Click);
+			MenuEntry.MenuItemShowGamma.Click += new EventHandler(MenuItemShowGamma_Click);
+			MenuEntry.MenuItemShowInitialQQPopulations.Click += new EventHandler(MenuItemShowInitialQQPopulations_Click);
+			MenuEntry.MenuItemShowInverseCumulativeMatrix.Click += new EventHandler(MenuItemShowInverseCumulativeMatrix_Click);
+			MenuEntry.MenuItemShowProtonProtonDimuonDecays.Click += new EventHandler(MenuItemShowProtonProtonDimuonDecays_Click);
+			MenuEntry.MenuItemShowSnapsX.Click += new EventHandler(MenuItemShowSnapsX_Click);
+			MenuEntry.MenuItemShowSnapsXY.Click += new EventHandler(MenuItemShowSnapsXY_Click);
+			MenuEntry.MenuItemShowSnapsY.Click += new EventHandler(MenuItemShowSnapsY_Click);
+			MenuEntry.MenuItemSuppression.Click += new EventHandler(MenuItemSuppression_Click);
 		}
 
 		private void MakeToolTips(

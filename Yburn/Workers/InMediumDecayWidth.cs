@@ -56,9 +56,9 @@ namespace Yburn.Workers
 			{
 				return typeof(DecayWidthType);
 			}
-			else if(enumName == "EMFDipoleAlignmentType")
+			else if(enumName == "ElectricDipoleAlignment")
 			{
-				return typeof(EMFDipoleAlignmentType);
+				return typeof(ElectricDipoleAlignment);
 			}
 			else if(enumName == "PotentialType")
 			{
@@ -76,8 +76,8 @@ namespace Yburn.Workers
 				YburnConfigFile.QQDataPathFile, BottomiumStates, PotentialTypes, DecayWidthType,
 				QGPFormationTemperature, NumberAveragingAngles);
 
-			return printer.GetList(DopplerShiftEvaluationTypes,
-				ElectricDipoleAlignmentType, MagneticDipoleAlignmentType,
+			return printer.GetList(
+				DopplerShiftEvaluationTypes, ElectricDipoleAlignment,
 				MediumTemperatures, MediumVelocities, ElectricFieldStrength, MagneticFieldStrength);
 		}
 
