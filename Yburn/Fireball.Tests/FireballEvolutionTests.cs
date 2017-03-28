@@ -20,12 +20,12 @@ namespace Yburn.Fireball.Tests
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
 
 			double delta = 1e-5;
-			Assert.AreEqual(0.57044, qgpSuppressionFactors[(int)BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.19005, qgpSuppressionFactors[(int)BottomiumState.x1P], delta);
-			Assert.AreEqual(0.19314, qgpSuppressionFactors[(int)BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.07189, qgpSuppressionFactors[(int)BottomiumState.x2P], delta);
-			Assert.AreEqual(0.06861, qgpSuppressionFactors[(int)BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.02748, qgpSuppressionFactors[(int)BottomiumState.x3P], delta);
+			Assert.AreEqual(0.56163, qgpSuppressionFactors[(int)BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.18183, qgpSuppressionFactors[(int)BottomiumState.x1P], delta);
+			Assert.AreEqual(0.18518, qgpSuppressionFactors[(int)BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.06975, qgpSuppressionFactors[(int)BottomiumState.x2P], delta);
+			Assert.AreEqual(0.06666, qgpSuppressionFactors[(int)BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.02729, qgpSuppressionFactors[(int)BottomiumState.x3P], delta);
 		}
 
 		[TestMethod]
@@ -36,12 +36,12 @@ namespace Yburn.Fireball.Tests
 			double[] qgpSuppressionFactors = GetSuppressionFactors();
 
 			double delta = 1e-5;
-			Assert.AreEqual(0.86882, qgpSuppressionFactors[(int)BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.61485, qgpSuppressionFactors[(int)BottomiumState.x1P], delta);
-			Assert.AreEqual(0.61835, qgpSuppressionFactors[(int)BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.36260, qgpSuppressionFactors[(int)BottomiumState.x2P], delta);
-			Assert.AreEqual(0.35667, qgpSuppressionFactors[(int)BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.20840, qgpSuppressionFactors[(int)BottomiumState.x3P], delta);
+			Assert.AreEqual(0.85531, qgpSuppressionFactors[(int)BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.58711, qgpSuppressionFactors[(int)BottomiumState.x1P], delta);
+			Assert.AreEqual(0.59037, qgpSuppressionFactors[(int)BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.34551, qgpSuppressionFactors[(int)BottomiumState.x2P], delta);
+			Assert.AreEqual(0.33990, qgpSuppressionFactors[(int)BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.19744, qgpSuppressionFactors[(int)BottomiumState.x3P], delta);
 		}
 
 		/********************************************************************************************

@@ -155,60 +155,60 @@ namespace Yburn.Fireball.Tests
 		{
 			double delta = 1e-5;
 
-			Assert.AreEqual(0.58622, suppressionFactors[0][0][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.20376, suppressionFactors[0][0][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.21091, suppressionFactors[0][0][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.07592, suppressionFactors[0][0][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.07572, suppressionFactors[0][0][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.03186, suppressionFactors[0][0][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.57786, suppressionFactors[0][0][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.19621, suppressionFactors[0][0][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.20244, suppressionFactors[0][0][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.07380, suppressionFactors[0][0][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.07357, suppressionFactors[0][0][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.03155, suppressionFactors[0][0][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.61286, suppressionFactors[0][1][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.22699, suppressionFactors[0][1][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.23438, suppressionFactors[0][1][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.08834, suppressionFactors[0][1][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.08796, suppressionFactors[0][1][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.04579, suppressionFactors[0][1][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.60474, suppressionFactors[0][1][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.21882, suppressionFactors[0][1][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.22606, suppressionFactors[0][1][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.08596, suppressionFactors[0][1][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.08566, suppressionFactors[0][1][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.04003, suppressionFactors[0][1][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.65272, suppressionFactors[0][2][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.27555, suppressionFactors[0][2][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.28085, suppressionFactors[0][2][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.10763, suppressionFactors[0][2][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.10716, suppressionFactors[0][2][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.04278, suppressionFactors[0][2][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.64518, suppressionFactors[0][2][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.26647, suppressionFactors[0][2][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.27148, suppressionFactors[0][2][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.10488, suppressionFactors[0][2][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.10451, suppressionFactors[0][2][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.04260, suppressionFactors[0][2][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.72584, suppressionFactors[0][3][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.37376, suppressionFactors[0][3][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.37883, suppressionFactors[0][3][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.15272, suppressionFactors[0][3][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.15238, suppressionFactors[0][3][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.06963, suppressionFactors[0][3][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.71978, suppressionFactors[0][3][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.36396, suppressionFactors[0][3][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.36927, suppressionFactors[0][3][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.14951, suppressionFactors[0][3][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.14933, suppressionFactors[0][3][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.06915, suppressionFactors[0][3][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.80121, suppressionFactors[0][4][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.49217, suppressionFactors[0][4][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.49739, suppressionFactors[0][4][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.26519, suppressionFactors[0][4][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.26443, suppressionFactors[0][4][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.10365, suppressionFactors[0][4][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.79651, suppressionFactors[0][4][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.48379, suppressionFactors[0][4][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.48819, suppressionFactors[0][4][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.24818, suppressionFactors[0][4][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.24746, suppressionFactors[0][4][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.10287, suppressionFactors[0][4][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.85666, suppressionFactors[0][5][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.60173, suppressionFactors[0][5][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.60648, suppressionFactors[0][5][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.35660, suppressionFactors[0][5][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.35595, suppressionFactors[0][5][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.14480, suppressionFactors[0][5][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.85361, suppressionFactors[0][5][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.59466, suppressionFactors[0][5][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.59955, suppressionFactors[0][5][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.35144, suppressionFactors[0][5][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.35102, suppressionFactors[0][5][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.14453, suppressionFactors[0][5][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.91494, suppressionFactors[0][6][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.74089, suppressionFactors[0][6][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.74446, suppressionFactors[0][6][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.56565, suppressionFactors[0][6][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.56410, suppressionFactors[0][6][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.28914, suppressionFactors[0][6][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.91339, suppressionFactors[0][6][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.73759, suppressionFactors[0][6][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.74097, suppressionFactors[0][6][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.55947, suppressionFactors[0][6][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.55890, suppressionFactors[0][6][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.28768, suppressionFactors[0][6][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.98008, suppressionFactors[0][7][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.93179, suppressionFactors[0][7][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.93279, suppressionFactors[0][7][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.88177, suppressionFactors[0][7][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.88078, suppressionFactors[0][7][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.97970, suppressionFactors[0][7][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.93052, suppressionFactors[0][7][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.93169, suppressionFactors[0][7][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.88070, suppressionFactors[0][7][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.88044, suppressionFactors[0][7][0][BottomiumState.Y3S], delta);
 			Assert.AreEqual(0.60604, suppressionFactors[0][7][0][BottomiumState.x3P], delta);
 		}
 
@@ -218,54 +218,54 @@ namespace Yburn.Fireball.Tests
 		{
 			double delta = 1e-5;
 
-			Assert.AreEqual(0.87096, suppressionFactors[0][0][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.62907, suppressionFactors[0][0][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.63132, suppressionFactors[0][0][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.39043, suppressionFactors[0][0][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.38917, suppressionFactors[0][0][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.21260, suppressionFactors[0][0][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.85880, suppressionFactors[0][0][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.60237, suppressionFactors[0][0][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.60536, suppressionFactors[0][0][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.37327, suppressionFactors[0][0][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.36559, suppressionFactors[0][0][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.19903, suppressionFactors[0][0][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.87513, suppressionFactors[0][1][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.63726, suppressionFactors[0][1][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.64020, suppressionFactors[0][1][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.39527, suppressionFactors[0][1][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.39438, suppressionFactors[0][1][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.22261, suppressionFactors[0][1][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.86364, suppressionFactors[0][1][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.61187, suppressionFactors[0][1][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.61474, suppressionFactors[0][1][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.37871, suppressionFactors[0][1][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.37802, suppressionFactors[0][1][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.20890, suppressionFactors[0][1][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.88520, suppressionFactors[0][2][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.66266, suppressionFactors[0][2][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.66529, suppressionFactors[0][2][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.41356, suppressionFactors[0][2][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.41263, suppressionFactors[0][2][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.25142, suppressionFactors[0][2][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.87461, suppressionFactors[0][2][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.63850, suppressionFactors[0][2][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.64148, suppressionFactors[0][2][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.39844, suppressionFactors[0][2][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.39733, suppressionFactors[0][2][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.23330, suppressionFactors[0][2][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.89892, suppressionFactors[0][3][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.70113, suppressionFactors[0][3][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.70356, suppressionFactors[0][3][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.45702, suppressionFactors[0][3][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.45635, suppressionFactors[0][3][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.26298, suppressionFactors[0][3][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.88971, suppressionFactors[0][3][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.67920, suppressionFactors[0][3][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.68164, suppressionFactors[0][3][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.44076, suppressionFactors[0][3][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.43980, suppressionFactors[0][3][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.25830, suppressionFactors[0][3][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.90874, suppressionFactors[0][4][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.72517, suppressionFactors[0][4][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.72782, suppressionFactors[0][4][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.46840, suppressionFactors[0][4][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.46787, suppressionFactors[0][4][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.25853, suppressionFactors[0][4][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.90086, suppressionFactors[0][4][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.70471, suppressionFactors[0][4][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.70723, suppressionFactors[0][4][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.45433, suppressionFactors[0][4][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.45353, suppressionFactors[0][4][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.25619, suppressionFactors[0][4][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.92864, suppressionFactors[0][5][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.77639, suppressionFactors[0][5][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.77879, suppressionFactors[0][5][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.55540, suppressionFactors[0][5][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.55443, suppressionFactors[0][5][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.32465, suppressionFactors[0][5][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.92250, suppressionFactors[0][5][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.75985, suppressionFactors[0][5][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.76173, suppressionFactors[0][5][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.53303, suppressionFactors[0][5][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.53212, suppressionFactors[0][5][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.32135, suppressionFactors[0][5][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.97531, suppressionFactors[0][6][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.91642, suppressionFactors[0][6][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.91720, suppressionFactors[0][6][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.84017, suppressionFactors[0][6][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.83931, suppressionFactors[0][6][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.61840, suppressionFactors[0][6][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.97344, suppressionFactors[0][6][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.91066, suppressionFactors[0][6][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.91154, suppressionFactors[0][6][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.81855, suppressionFactors[0][6][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.81788, suppressionFactors[0][6][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.61671, suppressionFactors[0][6][0][BottomiumState.x3P], delta);
 		}
 
 		/********************************************************************************************
