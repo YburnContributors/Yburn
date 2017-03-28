@@ -8,6 +8,37 @@ namespace Yburn.Fireball
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
+		// COMPETE Collaboration (2002)
+		private static double GetTotalppCrossSectionFm2(
+			double centerOfMassEnergyTeV
+			)
+		{
+			double sGeV = 1e6 * centerOfMassEnergyTeV * centerOfMassEnergyTeV;
+			double sigmamb = 42.6 * Math.Pow(sGeV, -0.46) - 33.4 * Math.Pow(sGeV, -0.545) + 35.5
+			   + 0.307 * Math.Pow(Math.Log(sGeV / 29.1), 2);
+
+			return 0.1 * sigmamb;
+		}
+
+		// TOTEM Collaboration (2013)
+		private static double GetElasticppCrossSectionFm2(
+			double centerOfMassEnergyTeV
+			)
+		{
+			double sGeV = 1e6 * centerOfMassEnergyTeV * centerOfMassEnergyTeV;
+			double sigmamb = 11.7 - 1.59 * Math.Log(sGeV) + 0.134 * Math.Pow(Math.Log(sGeV), 2);
+
+			return 0.1 * sigmamb;
+		}
+
+		private static double GetInelasticppCrossSectionFm2(
+			double centerOfMassEnergyTeV
+			)
+		{
+			return GetTotalppCrossSectionFm2(centerOfMassEnergyTeV)
+				- GetElasticppCrossSectionFm2(centerOfMassEnergyTeV);
+		}
+
 		private static double GetNmixPHOBOS(
 			double ncoll,
 			double npart
@@ -41,7 +72,9 @@ namespace Yburn.Fireball
 
 			AssertValidMembers();
 
+
 			InitXY();
+			InitInelasticppCrossSection();
 			InitNucleusAB();
 			InitNucleonNumberDensityFieldsAB();
 			InitNucleonNumberColumnDensityFieldsAB();
@@ -141,20 +174,22 @@ namespace Yburn.Fireball
 
 		private FireballParam Param;
 
+		private double InelasticppCrossSectionFm2;
+
 		private Nucleus NucleusA;
 
 		private Nucleus NucleusB;
 
 		private void AssertValidMembers()
 		{
+			if(Param.CenterOfMassEnergyTeV <= 0)
+			{
+				throw new Exception("CenterOfMassEnergy <= 0.");
+			}
+
 			if(Param.GridCellSizeFm <= 0)
 			{
 				throw new Exception("GridCellSize <= 0.");
-			}
-
-			if(Param.InelasticppCrossSectionFm <= 0)
-			{
-				throw new Exception("InelasticppCrossSection <= 0.");
 			}
 
 			if(Param.NumberGridPoints <= 0)
@@ -175,10 +210,15 @@ namespace Yburn.Fireball
 
 		private double[] Y;
 
+		private void InitInelasticppCrossSection()
+		{
+			InelasticppCrossSectionFm2
+				= GetInelasticppCrossSectionFm2(Param.CenterOfMassEnergyTeV);
+		}
+
 		private void InitNucleusAB()
 		{
-			Nucleus.CreateNucleusPair(
-				Param, out NucleusA, out NucleusB);
+			Nucleus.CreateNucleusPair(Param, out NucleusA, out NucleusB);
 		}
 
 		private void InitNucleonNumberDensityFieldsAB()
@@ -223,7 +263,7 @@ namespace Yburn.Fireball
 				FireballFieldType.Ncoll,
 				Param.NumberGridPointsInX,
 				Param.NumberGridPointsInY,
-				(i, j) => Param.InelasticppCrossSectionFm * OverlapField[i, j]);
+				(i, j) => InelasticppCrossSectionFm2 * OverlapField[i, j]);
 		}
 
 		private void InitNpartField()
@@ -234,10 +274,10 @@ namespace Yburn.Fireball
 				Param.NumberGridPointsInY,
 				(i, j) =>
 					NucleonNumberColumnDensityFieldA[i, j] * (1.0 - Math.Pow(
-						1.0 - Param.InelasticppCrossSectionFm * NucleonNumberColumnDensityFieldB[i, j]
+						1.0 - InelasticppCrossSectionFm2 * NucleonNumberColumnDensityFieldB[i, j]
 						/ Param.NucleonNumberB, Param.NucleonNumberB))
 					+ NucleonNumberColumnDensityFieldB[i, j] * (1.0 - Math.Pow(
-						1.0 - Param.InelasticppCrossSectionFm * NucleonNumberColumnDensityFieldA[i, j]
+						1.0 - InelasticppCrossSectionFm2 * NucleonNumberColumnDensityFieldA[i, j]
 						/ Param.NucleonNumberA, Param.NucleonNumberA)));
 		}
 
@@ -335,13 +375,13 @@ namespace Yburn.Fireball
 			double columnA = NucleusA.GetNucleonNumberColumnDensityPerFm3(0, 0);
 			double columnB = NucleusB.GetNucleonNumberColumnDensityPerFm3(0, 0);
 
-			double ncoll = Param.InelasticppCrossSectionFm * columnA * columnB;
+			double ncoll = InelasticppCrossSectionFm2 * columnA * columnB;
 			double npart
 				= columnA * (1.0 - Math.Pow(
-					1.0 - Param.InelasticppCrossSectionFm * columnB / Param.NucleonNumberB,
+					1.0 - InelasticppCrossSectionFm2 * columnB / Param.NucleonNumberB,
 					Param.NucleonNumberB))
 				+ columnB * (1.0 - Math.Pow(
-					1.0 - Param.InelasticppCrossSectionFm * columnA / Param.NucleonNumberA,
+					1.0 - InelasticppCrossSectionFm2 * columnA / Param.NucleonNumberA,
 					Param.NucleonNumberA));
 
 			switch(Param.TemperatureProfile)

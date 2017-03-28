@@ -43,7 +43,7 @@ namespace Yburn.Fireball.Tests
 		{
 			FireballParam param = new FireballParam();
 
-			param.BeamRapidity = 7.99;
+			param.CenterOfMassEnergyTeV = 2.76;
 			param.DiffusenessAFm = 0.546;
 			param.DiffusenessBFm = 0.546;
 			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
@@ -108,44 +108,40 @@ namespace Yburn.Fireball.Tests
 
 		private void AssertCorrectNucleusMagneticFieldValues(SpatialVector[] fieldValues)
 		{
-			int roundedDigits = 14;
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[0].X, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[0].Y, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[0].Z, 5);
 
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[0].X, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[0].Y, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[0].Z, roundedDigits);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[1].X, 5);
+			AssertHelper.AssertApproximatelyEqual(0.088801, fieldValues[1].Y, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[1].Z, 5);
 
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[1].X, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0.088800919210167348, fieldValues[1].Y, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[1].Z, roundedDigits);
+			AssertHelper.AssertApproximatelyEqual(-0.16907, fieldValues[2].X, 5);
+			AssertHelper.AssertApproximatelyEqual(0.084533, fieldValues[2].Y, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[2].Z, 5);
 
-			AssertHelper.AssertApproximatelyEqual(-0.16906670099454876, fieldValues[2].X, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0.084533350497274382, fieldValues[2].Y, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[2].Z, roundedDigits);
-
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[3].X, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[3].Y, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[3].Z, roundedDigits);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[3].X, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[3].Y, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[3].Z, 5);
 		}
 
 		private void AssertCorrectMagneticFieldValues(SpatialVector[] fieldValues)
 		{
-			int roundedDigits = 15;
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[0].X, 5);
+			AssertHelper.AssertApproximatelyEqual(0.54102, fieldValues[0].Y, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[0].Z, 5);
 
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[0].X, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0.541029435898956, fieldValues[0].Y, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[0].Z, roundedDigits);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[1].X, 5);
+			AssertHelper.AssertApproximatelyEqual(0.52301, fieldValues[1].Y, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[1].Z, 5);
 
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[1].X, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0.52302485253884012, fieldValues[1].Y, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[1].Z, roundedDigits);
+			AssertHelper.AssertApproximatelyEqual(0.025290, fieldValues[2].X, 5);
+			AssertHelper.AssertApproximatelyEqual(0.49767, fieldValues[2].Y, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[2].Z, 5);
 
-			AssertHelper.AssertApproximatelyEqual(0.025290862764515948, fieldValues[2].X, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0.49768392755697766, fieldValues[2].Y, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[2].Z, roundedDigits);
-
-			AssertHelper.AssertApproximatelyEqual(0.0045089336487558534, fieldValues[3].X, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0.005636167060944817, fieldValues[3].Y, roundedDigits);
-			AssertHelper.AssertApproximatelyEqual(0, fieldValues[3].Z, roundedDigits);
+			AssertHelper.AssertApproximatelyEqual(0.0045087, fieldValues[3].X, 5);
+			AssertHelper.AssertApproximatelyEqual(0.0056358, fieldValues[3].Y, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[3].Z, 5);
 		}
 	}
 }

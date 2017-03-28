@@ -651,8 +651,8 @@ namespace Yburn.Workers
 		{
 			FireballParam param = new FireballParam();
 
-			param.BeamRapidity = BeamRapidity;
 			param.BreakupTemperatureMeV = BreakupTemperature;
+			param.CenterOfMassEnergyTeV = CenterOfMassEnergy;
 			param.DiffusenessAFm = DiffusenessA;
 			param.DiffusenessBFm = DiffusenessB;
 			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
@@ -663,7 +663,6 @@ namespace Yburn.Workers
 			param.GridCellSizeFm = GridCellSize;
 			param.GridRadiusFm = GridRadius;
 			param.ImpactParameterFm = ImpactParameter;
-			param.InelasticppCrossSectionFm = InelasticppCrossSection;
 			param.InitialMaximumTemperatureMeV = InitialMaximumTemperature;
 			param.NuclearRadiusAFm = NuclearRadiusA;
 			param.NuclearRadiusBFm = NuclearRadiusB;

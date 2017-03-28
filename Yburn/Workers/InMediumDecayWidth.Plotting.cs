@@ -447,8 +447,6 @@ namespace Yburn.Workers
 				plotFile.AppendLine();
 			}
 
-			AppendSavePlotAsPNG(plotFile);
-
 			WritePlotFile(plotFile);
 		}
 

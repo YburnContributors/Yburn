@@ -17,7 +17,7 @@ namespace Yburn.Fireball.Tests
 
 			double result = averager.CalculateAverageElectricFieldStrengthPerFm2(0.4);
 
-			AssertHelper.AssertApproximatelyEqual(8.68669889202293, result);
+			AssertHelper.AssertApproximatelyEqual(0.17670, result, 5);
 		}
 
 		[TestMethod]
@@ -27,7 +27,7 @@ namespace Yburn.Fireball.Tests
 
 			double result = averager.CalculateAverageMagneticFieldStrengthPerFm2(0.4);
 
-			AssertHelper.AssertApproximatelyEqual(0.23624004632176207, result);
+			AssertHelper.AssertApproximatelyEqual(0.23606, result, 5);
 		}
 
 		/********************************************************************************************
@@ -38,7 +38,7 @@ namespace Yburn.Fireball.Tests
 		{
 			FireballParam param = new FireballParam();
 
-			param.BeamRapidity = 7.99;
+			param.CenterOfMassEnergyTeV = 2.76;
 			param.DiffusenessAFm = 0.546;
 			param.DiffusenessBFm = 0.546;
 			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
@@ -46,7 +46,6 @@ namespace Yburn.Fireball.Tests
 			param.GridCellSizeFm = 1;
 			param.GridRadiusFm = 10;
 			param.ImpactParameterFm = 7;
-			param.InelasticppCrossSectionFm = 6.4;
 			param.NuclearRadiusAFm = 6.62;
 			param.NuclearRadiusBFm = 6.62;
 			param.NucleonNumberA = 208;

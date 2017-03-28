@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
@@ -149,18 +150,6 @@ namespace Yburn.Fireball
 			}
 		}
 
-		public double InelasticppCrossSectionFm
-		{
-			get
-			{
-				return InelasticppCrossSectionFm_Nullable.Value;
-			}
-			set
-			{
-				InelasticppCrossSectionFm_Nullable = value;
-			}
-		}
-
 		public double ThermalTimeFm
 		{
 			get
@@ -213,11 +202,23 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				return BeamRapidity_Nullable.Value;
+				return Math.Log(1e6 * CenterOfMassEnergyTeV / Constants.RestMassProtonMeV);
 			}
 			set
 			{
-				BeamRapidity_Nullable = value;
+				CenterOfMassEnergyTeV = 1e-6 * Math.Exp(value) * Constants.RestMassProtonMeV;
+			}
+		}
+
+		public double CenterOfMassEnergyTeV
+		{
+			get
+			{
+				return CenterOfMassEnergyTeV_Nullable.Value;
+			}
+			set
+			{
+				CenterOfMassEnergyTeV_Nullable = value;
 			}
 		}
 
@@ -417,7 +418,7 @@ namespace Yburn.Fireball
 		{
 			FireballParam param = new FireballParam();
 
-			param.BeamRapidity_Nullable = BeamRapidity_Nullable;
+			param.CenterOfMassEnergyTeV_Nullable = CenterOfMassEnergyTeV_Nullable;
 			param.DecayWidthRetrievalFunction_Nullable = DecayWidthRetrievalFunction_Nullable;
 			param.DiffusenessAFm_Nullable = DiffusenessAFm_Nullable;
 			param.DiffusenessBFm_Nullable = DiffusenessBFm_Nullable;
@@ -429,7 +430,6 @@ namespace Yburn.Fireball
 			param.GridCellSizeFm_Nullable = GridCellSizeFm_Nullable;
 			param.GridRadiusFm_Nullable = GridRadiusFm_Nullable;
 			param.ImpactParameterFm_Nullable = ImpactParameterFm_Nullable;
-			param.InelasticppCrossSectionFm_Nullable = InelasticppCrossSectionFm_Nullable;
 			param.InitialMaximumTemperatureMeV_Nullable = InitialMaximumTemperatureMeV_Nullable;
 			param.BreakupTemperatureMeV_Nullable = BreakupTemperatureMeV_Nullable;
 			param.NuclearRadiusAFm_Nullable = NuclearRadiusAFm_Nullable;
@@ -510,8 +510,6 @@ namespace Yburn.Fireball
 
 		private double? ImpactParameterFm_Nullable;
 
-		private double? InelasticppCrossSectionFm_Nullable;
-
 		private double? ThermalTimeFm_Nullable;
 
 		private Dictionary<BottomiumState, double> FormationTimesFm_Nullable;
@@ -520,7 +518,7 @@ namespace Yburn.Fireball
 
 		private double? BreakupTemperatureMeV_Nullable;
 
-		private double? BeamRapidity_Nullable;
+		private double? CenterOfMassEnergyTeV_Nullable;
 
 		private List<double> TransverseMomentaGeV_Nullable;
 

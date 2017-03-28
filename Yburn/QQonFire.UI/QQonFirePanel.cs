@@ -111,10 +111,10 @@ namespace Yburn.QQonFire.UI
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-			nameValuePairs["BeamRapidity"] = TbxBeamRapidity.Text;
 			nameValuePairs["BjorkenLifeTime"] = TbxBjorkenLifeTime.Text;
 			nameValuePairs["BottomiumStates"] = MsxBottomiumStates.SelectionString;
 			nameValuePairs["BreakupTemperature"] = TbxBreakupTemperature.Text;
+			nameValuePairs["CenterOfMassEnergy"] = TbxCenterOfMassEnergy.Text;
 			nameValuePairs["CentralityBinBoundaries"] = TbxCentralityBinBoundaries.Text;
 			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
 			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
@@ -133,7 +133,6 @@ namespace Yburn.QQonFire.UI
 			nameValuePairs["GridRadius"] = TbxGridRadius.Text;
 			nameValuePairs["ImpactParameter"] = TbxImpactParameter.Text;
 			nameValuePairs["ImpactParamsAtBinBoundaries"] = TbxImpactParamsAtBinBoundaries.Text;
-			nameValuePairs["InelasticppCrossSection"] = TbxInelasticppCrossSection.Text;
 			nameValuePairs["InitialMaximumTemperature"] = TbxInitialMaximumTemperature.Text;
 			nameValuePairs["LifeTime"] = TbxLifeTime.Text;
 			nameValuePairs["MagneticDipoleAlignmentType"] = CbxMagneticDipoleAlignmentType.Text;
@@ -175,9 +174,9 @@ namespace Yburn.QQonFire.UI
 			MsxBottomiumStates.SelectionString = nameValuePairs["BottomiumStates"];
 			MsxFireballFieldTypes.SelectionString = nameValuePairs["FireballFieldTypes"];
 			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];
-			TbxBeamRapidity.Text = nameValuePairs["BeamRapidity"];
 			TbxBjorkenLifeTime.Text = nameValuePairs["BjorkenLifeTime"];
 			TbxBreakupTemperature.Text = nameValuePairs["BreakupTemperature"];
+			TbxCenterOfMassEnergy.Text = nameValuePairs["CenterOfMassEnergy"];
 			TbxCentralityBinBoundaries.Text = nameValuePairs["CentralityBinBoundaries"];
 			TbxDataFileName.Text = nameValuePairs["DataFileName"];
 			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA"];
@@ -190,7 +189,6 @@ namespace Yburn.QQonFire.UI
 			TbxGridRadius.Text = nameValuePairs["GridRadius"];
 			TbxImpactParameter.Text = nameValuePairs["ImpactParameter"];
 			TbxImpactParamsAtBinBoundaries.Text = nameValuePairs["ImpactParamsAtBinBoundaries"];
-			TbxInelasticppCrossSection.Text = nameValuePairs["InelasticppCrossSection"];
 			TbxInitialMaximumTemperature.Text = nameValuePairs["InitialMaximumTemperature"];
 			TbxLifeTime.Text = nameValuePairs["LifeTime"];
 			TbxMeanParticipantsInBin.Text = nameValuePairs["MeanParticipantsInBin"];

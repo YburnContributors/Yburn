@@ -66,13 +66,13 @@ namespace Yburn.Fireball.Tests
 		{
 			List<double> nparts = calculator.MeanParticipantsInBin[0];
 			Assert.AreEqual(7, nparts.Count);
-			AssertHelper.AssertApproximatelyEqual(383.63733145261438, nparts[0]);
-			AssertHelper.AssertApproximatelyEqual(340.22338305849638, nparts[1]);
-			AssertHelper.AssertApproximatelyEqual(268.43057326077735, nparts[2]);
-			AssertHelper.AssertApproximatelyEqual(187.36409577711942, nparts[3]);
-			AssertHelper.AssertApproximatelyEqual(131.9447405820836, nparts[4]);
-			AssertHelper.AssertApproximatelyEqual(89.250454155387914, nparts[5]);
-			AssertHelper.AssertApproximatelyEqual(19.648149650443639, nparts[6]);
+			AssertHelper.AssertApproximatelyEqual(383.37, nparts[0], 5);
+			AssertHelper.AssertApproximatelyEqual(339.85, nparts[1], 5);
+			AssertHelper.AssertApproximatelyEqual(268.00, nparts[2], 5);
+			AssertHelper.AssertApproximatelyEqual(186.95, nparts[3], 5);
+			AssertHelper.AssertApproximatelyEqual(131.58, nparts[4], 5);
+			AssertHelper.AssertApproximatelyEqual(88.942, nparts[5], 5);
+			AssertHelper.AssertApproximatelyEqual(19.579, nparts[6], 5);
 		}
 
 		private static void AssertCorrectImpactParamsAtBinBoundaries_pPb(BinBoundaryCalculator calculator)
@@ -93,13 +93,13 @@ namespace Yburn.Fireball.Tests
 		{
 			List<double> nparts = calculator.MeanParticipantsInBin[0];
 			Assert.AreEqual(7, nparts.Count);
-			AssertHelper.AssertApproximatelyEqual(14.974233725674532, nparts[0]);
-			AssertHelper.AssertApproximatelyEqual(14.487499546553337, nparts[1]);
-			AssertHelper.AssertApproximatelyEqual(13.489194925233843, nparts[2]);
-			AssertHelper.AssertApproximatelyEqual(12.008818387583021, nparts[3]);
-			AssertHelper.AssertApproximatelyEqual(10.510321287054687, nparts[4]);
-			AssertHelper.AssertApproximatelyEqual(8.8777714843503954, nparts[5]);
-			AssertHelper.AssertApproximatelyEqual(3.459490632960875, nparts[6]);
+			AssertHelper.AssertApproximatelyEqual(15.257, nparts[0], 5);
+			AssertHelper.AssertApproximatelyEqual(14.760, nparts[1], 5);
+			AssertHelper.AssertApproximatelyEqual(13.742, nparts[2], 5);
+			AssertHelper.AssertApproximatelyEqual(12.231, nparts[3], 5);
+			AssertHelper.AssertApproximatelyEqual(10.703, nparts[4], 5);
+			AssertHelper.AssertApproximatelyEqual(9.0377, nparts[5], 5);
+			AssertHelper.AssertApproximatelyEqual(3.5060, nparts[6], 5);
 		}
 
 		/********************************************************************************************
@@ -115,11 +115,11 @@ namespace Yburn.Fireball.Tests
 			FireballParam param = new FireballParam();
 
 			param.BreakupTemperatureMeV = 160;
+			param.CenterOfMassEnergyTeV = 2.76;
 			param.DiffusenessAFm = 0.546;
 			param.DiffusenessBFm = 0.546;
 			param.GridCellSizeFm = 0.4;
 			param.GridRadiusFm = 10;
-			param.InelasticppCrossSectionFm = 6.4;
 			param.InitialMaximumTemperatureMeV = 550;
 			param.NuclearRadiusAFm = 6.62;
 			param.NuclearRadiusBFm = 6.62;
@@ -138,10 +138,10 @@ namespace Yburn.Fireball.Tests
 		{
 			FireballParam param = CreateFireballParam_PbPb();
 
+			param.CenterOfMassEnergyTeV = 5.02;
 			param.DiffusenessBFm = 0;
 			param.GridCellSizeFm = 0.2;
 			param.GridRadiusFm = 5;
-			param.InelasticppCrossSectionFm = 6.8;
 			param.NuclearRadiusBFm = 0.8775;
 			param.NucleonNumberB = 1;
 			param.NucleusShapeB = NucleusShape.GaussianDistribution;

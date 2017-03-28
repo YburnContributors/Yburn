@@ -180,7 +180,7 @@ namespace Yburn
 		private void SetJobStartTimeStamp()
 		{
 			JobStartTimeStamp = DateTime.Now;
-			JobStartTimeStampString = JobStartTimeStamp.ToString("yyyy-MM-dd-HH-mm-ss");
+			JobStartTimeStampString = JobStartTimeStamp.ToString("s");
 		}
 
 		private DateTime JobStartTimeStamp;

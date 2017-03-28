@@ -12,7 +12,6 @@ namespace Yburn.TestUtil
 				nameValuePairs["DiffusenessA"] = "3333";
 				nameValuePairs["DiffusenessB"] = "3333";
 				nameValuePairs["EMFCalculationMethod"] = "URLimitFourierSynthesis";
-				nameValuePairs["EMFCalculationMethodSelection"] = "URLimitFourierSynthesis";
 				nameValuePairs["EMFQuadratureOrder"] = "3333";
 				nameValuePairs["GridCellSize"] = "3333";
 				nameValuePairs["GridRadius"] = "3333";
@@ -103,10 +102,10 @@ namespace Yburn.TestUtil
 			{
 				Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-				nameValuePairs["BeamRapidity"] = "3333";
 				nameValuePairs["BjorkenLifeTime"] = "3333";
 				nameValuePairs["BottomiumStates"] = "Y1S,x3P";
 				nameValuePairs["BreakupTemperature"] = "3333";
+				nameValuePairs["CenterOfMassEnergy"] = "3333";
 				nameValuePairs["CentralityBinBoundaries"] = "3,3,3,3";
 				nameValuePairs["DataFileName"] = "stdout.txt";
 				nameValuePairs["DecayWidthType"] = "GammaTot";
@@ -125,7 +124,6 @@ namespace Yburn.TestUtil
 				nameValuePairs["GridRadius"] = "3333";
 				nameValuePairs["ImpactParameter"] = "3333";
 				nameValuePairs["ImpactParamsAtBinBoundaries"] = "3,3,3,3";
-				nameValuePairs["InelasticppCrossSection"] = "3333";
 				nameValuePairs["InitialMaximumTemperature"] = "3333";
 				nameValuePairs["LifeTime"] = "3333";
 				nameValuePairs["MagneticDipoleAlignmentType"] = "None";

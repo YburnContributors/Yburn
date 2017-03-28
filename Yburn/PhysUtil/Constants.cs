@@ -77,9 +77,33 @@ namespace Yburn.PhysUtil
 
 		public static readonly double RestMassY3SMeV = 10355.2;
 
-		public static readonly double RestMassX1PMeV = (9859.44 + 3 * 9892.78 + 5 * 9912.21) / 9.0;
+		public static readonly double RestMassX1P0MeV = 9859.44;
 
-		public static readonly double RestMassX2PMeV = (10232.5 + 3 * 10255.46 + 5 * 10268.65) / 9.0;
+		public static readonly double RestMassX1P1MeV = 9892.78;
+
+		public static readonly double RestMassX1P2MeV = 9912.21;
+
+		public static double RestMassX1PMeV
+		{
+			get
+			{
+				return (RestMassX1P0MeV + 3 * RestMassX1P1MeV + 5 * RestMassX1P2MeV) / 9.0;
+			}
+		}
+
+		public static readonly double RestMassX2P0MeV = 10232.5;
+
+		public static readonly double RestMassX2P1MeV = 10255.46;
+
+		public static readonly double RestMassX2P2MeV = 10268.65;
+
+		public static double RestMassX2PMeV
+		{
+			get
+			{
+				return (RestMassX2P0MeV + 3 * RestMassX2P1MeV + 5 * RestMassX2P2MeV) / 9.0;
+			}
+		}
 
 		public static readonly double RestMassX3PMeV = 10512.1;
 
@@ -96,6 +120,8 @@ namespace Yburn.PhysUtil
 				return (2 * RestMassPionPlusMeV + RestMassPionZeroMeV) / 3.0;
 			}
 		}
+
+		public static double RestMassProtonMeV = 938.272081;
 
 		/********************************************************************************************
 		 * pp Dimuon Decays (CMS2012 & ?)

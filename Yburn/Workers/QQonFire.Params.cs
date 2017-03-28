@@ -14,10 +14,10 @@ namespace Yburn.Workers
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-			Store(nameValuePairs, "BeamRapidity", BeamRapidity);
 			Store(nameValuePairs, "BjorkenLifeTime", BjorkenLifeTime);
 			Store(nameValuePairs, "BottomiumStates", BottomiumStates);
 			Store(nameValuePairs, "BreakupTemperature", BreakupTemperature);
+			Store(nameValuePairs, "CenterOfMassEnergy", CenterOfMassEnergy);
 			Store(nameValuePairs, "CentralityBinBoundaries", CentralityBinBoundaries);
 			Store(nameValuePairs, "DataFileName", DataFileName);
 			Store(nameValuePairs, "DecayWidthType", DecayWidthType);
@@ -36,7 +36,6 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "GridRadius", GridRadius);
 			Store(nameValuePairs, "ImpactParameter", ImpactParameter);
 			Store(nameValuePairs, "ImpactParamsAtBinBoundaries", ImpactParamsAtBinBoundaries);
-			Store(nameValuePairs, "InelasticppCrossSection", InelasticppCrossSection);
 			Store(nameValuePairs, "InitialMaximumTemperature", InitialMaximumTemperature);
 			Store(nameValuePairs, "LifeTime", LifeTime);
 			Store(nameValuePairs, "MagneticDipoleAlignmentType", MagneticDipoleAlignmentType);
@@ -67,10 +66,10 @@ namespace Yburn.Workers
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			TryExtract(nameValuePairs, "BeamRapidity", ref BeamRapidity);
 			TryExtract(nameValuePairs, "BjorkenLifeTime", ref BjorkenLifeTime);
 			TryExtract(nameValuePairs, "BottomiumStates", ref BottomiumStates);
 			TryExtract(nameValuePairs, "BreakupTemperature", ref BreakupTemperature);
+			TryExtract(nameValuePairs, "CenterOfMassEnergy", ref CenterOfMassEnergy);
 			TryExtract(nameValuePairs, "CentralityBinBoundaries", ref CentralityBinBoundaries);
 			TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
 			TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
@@ -89,7 +88,6 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "GridRadius", ref GridRadius);
 			TryExtract(nameValuePairs, "ImpactParameter", ref ImpactParameter);
 			TryExtract(nameValuePairs, "ImpactParamsAtBinBoundaries", ref ImpactParamsAtBinBoundaries);
-			TryExtract(nameValuePairs, "InelasticppCrossSection", ref InelasticppCrossSection);
 			TryExtract(nameValuePairs, "InitialMaximumTemperature", ref InitialMaximumTemperature);
 			TryExtract(nameValuePairs, "LifeTime", ref LifeTime);
 			TryExtract(nameValuePairs, "MagneticDipoleAlignmentType", ref MagneticDipoleAlignmentType);
@@ -114,11 +112,11 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "TransverseMomenta", ref TransverseMomenta);
 		}
 
-		private double BeamRapidity;
-
 		private double BjorkenLifeTime;
 
 		private List<BottomiumState> BottomiumStates;
+
+		private double CenterOfMassEnergy;
 
 		private List<List<int>> CentralityBinBoundaries;
 
@@ -153,8 +151,6 @@ namespace Yburn.Workers
 		private double ImpactParameter;
 
 		private List<List<double>> ImpactParamsAtBinBoundaries;
-
-		private double InelasticppCrossSection;
 
 		private double InitialMaximumTemperature;
 
