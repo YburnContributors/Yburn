@@ -70,8 +70,6 @@
 			this.TbxQGPConductivity = new System.Windows.Forms.TextBox();
 			this.GbxPlotSettings = new System.Windows.Forms.GroupBox();
 			this.LayoutSinglePointCharge = new System.Windows.Forms.TableLayoutPanel();
-			this.MsxEMFCalculationMethodSelection = new Yburn.UI.MultiSelectBox();
-			this.LblEMFCalculationMethodSelection = new System.Windows.Forms.Label();
 			this.TbxParticleRapidity = new System.Windows.Forms.TextBox();
 			this.LblRadialDistance = new System.Windows.Forms.Label();
 			this.TbxRadialDistance = new System.Windows.Forms.TextBox();
@@ -439,9 +437,9 @@
 			this.LayoutGeneralParameters.Controls.Add(this.LblSamples, 0, 5);
 			this.LayoutGeneralParameters.Controls.Add(this.TbxEMFQuadratureOrder, 1, 4);
 			this.LayoutGeneralParameters.Controls.Add(this.LblEMFQuadratureOrder, 0, 4);
-			this.LayoutGeneralParameters.Controls.Add(this.LblGridCellSize, 0, 2);
+			this.LayoutGeneralParameters.Controls.Add(this.LblGridCellSize, 0, 3);
 			this.LayoutGeneralParameters.Controls.Add(this.TbxGridCellSize, 1, 3);
-			this.LayoutGeneralParameters.Controls.Add(this.LblGridRadius, 0, 3);
+			this.LayoutGeneralParameters.Controls.Add(this.LblGridRadius, 0, 2);
 			this.LayoutGeneralParameters.Controls.Add(this.TbxGridRadius, 1, 2);
 			this.LayoutGeneralParameters.Controls.Add(this.CbxEMFCalculationMethod, 1, 1);
 			this.LayoutGeneralParameters.Controls.Add(this.LblEMFCalculationMethod, 0, 1);
@@ -502,7 +500,7 @@
 			// 
 			this.LblGridCellSize.AutoSize = true;
 			this.LblGridCellSize.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblGridCellSize.Location = new System.Drawing.Point(3, 50);
+			this.LblGridCellSize.Location = new System.Drawing.Point(3, 75);
 			this.LblGridCellSize.Name = "LblGridCellSize";
 			this.LblGridCellSize.Size = new System.Drawing.Size(235, 25);
 			this.LblGridCellSize.TabIndex = 0;
@@ -521,7 +519,7 @@
 			// 
 			this.LblGridRadius.AutoSize = true;
 			this.LblGridRadius.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblGridRadius.Location = new System.Drawing.Point(3, 75);
+			this.LblGridRadius.Location = new System.Drawing.Point(3, 50);
 			this.LblGridRadius.Name = "LblGridRadius";
 			this.LblGridRadius.Size = new System.Drawing.Size(235, 25);
 			this.LblGridRadius.TabIndex = 0;
@@ -583,7 +581,7 @@
 			this.GbxPlotSettings.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxPlotSettings.Name = "GbxPlotSettings";
 			this.GbxPlotSettings.Padding = new System.Windows.Forms.Padding(10);
-			this.GbxPlotSettings.Size = new System.Drawing.Size(459, 210);
+			this.GbxPlotSettings.Size = new System.Drawing.Size(459, 135);
 			this.GbxPlotSettings.TabIndex = 0;
 			this.GbxPlotSettings.TabStop = false;
 			this.GbxPlotSettings.Text = "Plot Settings";
@@ -593,8 +591,6 @@
 			this.LayoutSinglePointCharge.ColumnCount = 2;
 			this.LayoutSinglePointCharge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 55F));
 			this.LayoutSinglePointCharge.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45F));
-			this.LayoutSinglePointCharge.Controls.Add(this.MsxEMFCalculationMethodSelection, 1, 4);
-			this.LayoutSinglePointCharge.Controls.Add(this.LblEMFCalculationMethodSelection, 0, 4);
 			this.LayoutSinglePointCharge.Controls.Add(this.TbxParticleRapidity, 1, 0);
 			this.LayoutSinglePointCharge.Controls.Add(this.LblRadialDistance, 0, 1);
 			this.LayoutSinglePointCharge.Controls.Add(this.TbxRadialDistance, 1, 1);
@@ -606,36 +602,14 @@
 			this.LayoutSinglePointCharge.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.LayoutSinglePointCharge.Location = new System.Drawing.Point(10, 34);
 			this.LayoutSinglePointCharge.Name = "LayoutSinglePointCharge";
-			this.LayoutSinglePointCharge.RowCount = 5;
+			this.LayoutSinglePointCharge.RowCount = 4;
 			this.LayoutSinglePointCharge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutSinglePointCharge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutSinglePointCharge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
 			this.LayoutSinglePointCharge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
-			this.LayoutSinglePointCharge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 75F));
 			this.LayoutSinglePointCharge.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-			this.LayoutSinglePointCharge.Size = new System.Drawing.Size(439, 166);
+			this.LayoutSinglePointCharge.Size = new System.Drawing.Size(439, 91);
 			this.LayoutSinglePointCharge.TabIndex = 0;
-			// 
-			// MsxEMFCalculationMethodSelection
-			// 
-			this.MsxEMFCalculationMethodSelection.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.MsxEMFCalculationMethodSelection.Location = new System.Drawing.Point(244, 104);
-			this.MsxEMFCalculationMethodSelection.Margin = new System.Windows.Forms.Padding(3, 4, 3, 3);
-			this.MsxEMFCalculationMethodSelection.Name = "MsxEMFCalculationMethodSelection";
-			this.MsxEMFCalculationMethodSelection.SelectionString = "";
-			this.MsxEMFCalculationMethodSelection.Size = new System.Drawing.Size(192, 68);
-			this.MsxEMFCalculationMethodSelection.TabIndex = 0;
-			// 
-			// LblEMFCalculationMethodSelection
-			// 
-			this.LblEMFCalculationMethodSelection.AutoSize = true;
-			this.LblEMFCalculationMethodSelection.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.LblEMFCalculationMethodSelection.Location = new System.Drawing.Point(3, 100);
-			this.LblEMFCalculationMethodSelection.Name = "LblEMFCalculationMethodSelection";
-			this.LblEMFCalculationMethodSelection.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
-			this.LblEMFCalculationMethodSelection.Size = new System.Drawing.Size(235, 75);
-			this.LblEMFCalculationMethodSelection.TabIndex = 0;
-			this.LblEMFCalculationMethodSelection.Text = "EMFCalculationMethodSelection";
 			// 
 			// TbxParticleRapidity
 			// 
@@ -717,7 +691,7 @@
 			// 
 			this.GbxOutput.Controls.Add(this.LayoutOutput);
 			this.GbxOutput.FlatStyle = System.Windows.Forms.FlatStyle.System;
-			this.GbxOutput.Location = new System.Drawing.Point(10, 775);
+			this.GbxOutput.Location = new System.Drawing.Point(10, 700);
 			this.GbxOutput.Margin = new System.Windows.Forms.Padding(10);
 			this.GbxOutput.Name = "GbxOutput";
 			this.GbxOutput.Padding = new System.Windows.Forms.Padding(10);
@@ -848,8 +822,6 @@
 		private System.Windows.Forms.TextBox TbxStopTime;
 		private System.Windows.Forms.Label LblParticleRapidity;
 		private System.Windows.Forms.TextBox TbxParticleRapidity;
-		private System.Windows.Forms.Label LblEMFCalculationMethodSelection;
-		private Yburn.UI.MultiSelectBox MsxEMFCalculationMethodSelection;
 		private System.Windows.Forms.GroupBox GbxGeneralParameters;
 		private System.Windows.Forms.TableLayoutPanel LayoutGeneralParameters;
 		private System.Windows.Forms.Label LblQGPConductivity;

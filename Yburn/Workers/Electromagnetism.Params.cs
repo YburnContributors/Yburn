@@ -17,7 +17,6 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "DiffusenessA", DiffusenessAFm);
 			Store(nameValuePairs, "DiffusenessB", DiffusenessBFm);
 			Store(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
-			Store(nameValuePairs, "EMFCalculationMethodSelection", EMFCalculationMethodSelection);
 			Store(nameValuePairs, "EMFQuadratureOrder", EMFQuadratureOrder);
 			Store(nameValuePairs, "GridCellSize", GridCellSizeFm);
 			Store(nameValuePairs, "GridRadius", GridRadiusFm);
@@ -48,7 +47,6 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "DiffusenessA", ref DiffusenessAFm);
 			TryExtract(nameValuePairs, "DiffusenessB", ref DiffusenessBFm);
 			TryExtract(nameValuePairs, "EMFCalculationMethod", ref EMFCalculationMethod);
-			TryExtract(nameValuePairs, "EMFCalculationMethodSelection", ref EMFCalculationMethodSelection);
 			TryExtract(nameValuePairs, "EMFQuadratureOrder", ref EMFQuadratureOrder);
 			TryExtract(nameValuePairs, "GridCellSize", ref GridCellSizeFm);
 			TryExtract(nameValuePairs, "GridRadius", ref GridRadiusFm);
@@ -74,8 +72,6 @@ namespace Yburn.Workers
 		private double DiffusenessBFm;
 
 		private EMFCalculationMethod EMFCalculationMethod;
-
-		private List<EMFCalculationMethod> EMFCalculationMethodSelection;
 
 		private int EMFQuadratureOrder;
 

@@ -46,8 +46,8 @@ namespace Yburn.Workers
 		{
 			switch(jobId)
 			{
-				case "PlotPointChargeAzimutalMagneticField":
-					PlotPointChargeAzimutalMagneticField();
+				case "PlotPointChargeAzimuthalMagneticField":
+					PlotPointChargeAzimuthalMagneticField();
 					break;
 
 				case "PlotPointChargeLongitudinalElectricField":
@@ -58,8 +58,8 @@ namespace Yburn.Workers
 					PlotPointChargeRadialElectricField();
 					break;
 
-				case "PlotPointChargeAndNucleusFields":
-					PlotPointChargeAndNucleusFields();
+				case "PlotPointChargeAndNucleusEMF":
+					PlotPointChargeAndNucleusEMF();
 					break;
 
 				case "PlotNucleusMagneticFieldStrengthInLCF":
@@ -68,6 +68,10 @@ namespace Yburn.Workers
 
 				case "PlotCentralMagneticFieldStrength":
 					PlotCentralMagneticFieldStrength();
+					break;
+
+				case "PlotEMFStrengthInTransversePlane":
+					PlotEMFStrengthInTransversePlane();
 					break;
 
 				case "PlotAverageElectricFieldStrength":
@@ -101,7 +105,6 @@ namespace Yburn.Workers
 			param.GridCellSizeFm = GridCellSizeFm;
 			param.GridRadiusFm = GridRadiusFm;
 			param.ImpactParameterFm = ImpactParameterFm;
-			param.InelasticppCrossSectionFm = 6.4;
 			param.NucleonNumberA = NucleonNumberA;
 			param.NucleonNumberB = NucleonNumberB;
 			param.NuclearRadiusAFm = NuclearRadiusAFm;

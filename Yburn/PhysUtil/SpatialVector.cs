@@ -75,12 +75,12 @@ namespace Yburn.PhysUtil
 			double positionX,
 			double positionY,
 			double radialPart,
-			double azimutalPart,
+			double azimuthalPart,
 			double longitudinalPart
 			)
 		{
 			return radialPart * CreateRadialUnitVectorAtPosition(positionX, positionY)
-				+ azimutalPart * CreateAzimutalUnitVectorAtPosition(positionX, positionY)
+				+ azimuthalPart * CreateAzimuthalUnitVectorAtPosition(positionX, positionY)
 				+ new SpatialVector(0, 0, longitudinalPart);
 		}
 
@@ -94,7 +94,7 @@ namespace Yburn.PhysUtil
 
 		public readonly double Z;
 
-		public double AzimutalAngle
+		public double AzimuthalAngle
 		{
 			get
 			{
@@ -137,7 +137,7 @@ namespace Yburn.PhysUtil
 			return new SpatialVector(x, y, 0).Direction;
 		}
 
-		private static SpatialVector CreateAzimutalUnitVectorAtPosition(
+		private static SpatialVector CreateAzimuthalUnitVectorAtPosition(
 			double x,
 			double y
 			)

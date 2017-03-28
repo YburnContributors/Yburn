@@ -18,7 +18,8 @@ namespace Yburn.Fireball.Tests
 			double[,] fieldValuesNegativeRapidity = CalculatePointChargeFields_NegativeRapidity(
 				EMFCalculationMethod.URLimitFourierSynthesis);
 
-			AssertCorrectPointChargeFields_URLimitFourierSynthesis(fieldValuesPositiveRapidity);
+			AssertCorrectPointChargeFields_URLimitFourierSynthesis(
+				fieldValuesPositiveRapidity);
 			AssertCorrectPointChargeFields_URLimitFourierSynthesis(
 				SwitchRapidityDependentSigns(fieldValuesNegativeRapidity));
 		}
@@ -31,7 +32,8 @@ namespace Yburn.Fireball.Tests
 			double[,] fieldValuesNegativeRapidity = CalculatePointChargeFields_NegativeRapidity(
 				EMFCalculationMethod.DiffusionApproximation);
 
-			AssertCorrectPointChargeFields_DiffusionApproximation(fieldValuesPositiveRapidity);
+			AssertCorrectPointChargeFields_DiffusionApproximation(
+				fieldValuesPositiveRapidity);
 			AssertCorrectPointChargeFields_DiffusionApproximation(
 				SwitchRapidityDependentSigns(fieldValuesNegativeRapidity));
 		}
@@ -73,7 +75,7 @@ namespace Yburn.Fireball.Tests
 			double[,] fieldValues = new double[3, EffectiveTimes.Length];
 			for(int i = 0; i < EffectiveTimes.Length; i++)
 			{
-				fieldValues[0, i] = emf.CalculateAzimutalMagneticField(
+				fieldValues[0, i] = emf.CalculateAzimuthalMagneticField(
 					EffectiveTimes[i], RadialDistance);
 				fieldValues[1, i] = emf.CalculateLongitudinalElectricField(
 					EffectiveTimes[i], RadialDistance);
@@ -92,7 +94,7 @@ namespace Yburn.Fireball.Tests
 			double[,] fieldValues = new double[3, EffectiveTimes.Length];
 			for(int i = 0; i < EffectiveTimes.Length; i++)
 			{
-				fieldValues[0, i] = emf.CalculateAzimutalMagneticField(
+				fieldValues[0, i] = emf.CalculateAzimuthalMagneticField(
 					EffectiveTimes[i], RadialDistance);
 				fieldValues[1, i] = emf.CalculateLongitudinalElectricField(
 					EffectiveTimes[i], RadialDistance);
@@ -120,67 +122,73 @@ namespace Yburn.Fireball.Tests
 			return switchedFieldValues;
 		}
 
-		private void AssertCorrectPointChargeFields_URLimitFourierSynthesis(double[,] fieldValues)
+		private void AssertCorrectPointChargeFields_URLimitFourierSynthesis(
+			double[,] fieldValues
+			)
 		{
-			AssertHelper.AssertApproximatelyEqual(0.0049467209997090845, fieldValues[0, 0]);
-			AssertHelper.AssertApproximatelyEqual(0.0059387002261759025, fieldValues[0, 1]);
-			AssertHelper.AssertApproximatelyEqual(0.0017557690290176549, fieldValues[0, 2]);
-			AssertHelper.AssertApproximatelyEqual(0.00014832126189119873, fieldValues[0, 3]);
-			AssertHelper.AssertApproximatelyEqual(2.51893192097701E-05, fieldValues[0, 4]);
+			AssertHelper.AssertApproximatelyEqual(0.0049465, fieldValues[0, 0], 5);
+			AssertHelper.AssertApproximatelyEqual(0.0059384, fieldValues[0, 1], 5);
+			AssertHelper.AssertApproximatelyEqual(0.0017557, fieldValues[0, 2], 5);
+			AssertHelper.AssertApproximatelyEqual(0.00014831, fieldValues[0, 3], 5);
+			AssertHelper.AssertApproximatelyEqual(2.5188E-05, fieldValues[0, 4], 5);
 
-			AssertHelper.AssertApproximatelyEqual(1.1963757605413558E-05, fieldValues[1, 0]);
-			AssertHelper.AssertApproximatelyEqual(7.5823493934334626E-08, fieldValues[1, 1]);
-			AssertHelper.AssertApproximatelyEqual(-9.5159750512638544E-07, fieldValues[1, 2]);
-			AssertHelper.AssertApproximatelyEqual(-1.2201623967417586E-07, fieldValues[1, 3]);
-			AssertHelper.AssertApproximatelyEqual(-2.2138424860791441E-08, fieldValues[1, 4]);
+			AssertHelper.AssertApproximatelyEqual(1.1963E-05, fieldValues[1, 0], 5);
+			AssertHelper.AssertApproximatelyEqual(7.5820E-08, fieldValues[1, 1], 5);
+			AssertHelper.AssertApproximatelyEqual(-9.5155E-07, fieldValues[1, 2], 5);
+			AssertHelper.AssertApproximatelyEqual(-1.2201E-07, fieldValues[1, 3], 5);
+			AssertHelper.AssertApproximatelyEqual(-2.2137E-08, fieldValues[1, 4], 5);
 
-			AssertHelper.AssertApproximatelyEqual(0.0049467209997090845, fieldValues[2, 0]);
-			AssertHelper.AssertApproximatelyEqual(0.0059387002261759025, fieldValues[2, 1]);
-			AssertHelper.AssertApproximatelyEqual(0.0017557690290176549, fieldValues[2, 2]);
-			AssertHelper.AssertApproximatelyEqual(0.00014832126189119873, fieldValues[2, 3]);
-			AssertHelper.AssertApproximatelyEqual(2.51893192097701E-05, fieldValues[2, 4]);
+			AssertHelper.AssertApproximatelyEqual(0.0049467, fieldValues[2, 0], 5);
+			AssertHelper.AssertApproximatelyEqual(0.0059387, fieldValues[2, 1], 5);
+			AssertHelper.AssertApproximatelyEqual(0.0017558, fieldValues[2, 2], 5);
+			AssertHelper.AssertApproximatelyEqual(0.00014832, fieldValues[2, 3], 5);
+			AssertHelper.AssertApproximatelyEqual(2.5189E-05, fieldValues[2, 4], 5);
 		}
 
-		private void AssertCorrectPointChargeFields_DiffusionApproximation(double[,] fieldValues)
+		private void AssertCorrectPointChargeFields_DiffusionApproximation(
+			double[,] fieldValues
+			)
 		{
-			AssertHelper.AssertApproximatelyEqual(0.0046867553901049569, fieldValues[0, 0]);
-			AssertHelper.AssertApproximatelyEqual(0.0059898207639691742, fieldValues[0, 1]);
-			AssertHelper.AssertApproximatelyEqual(0.0017525326354007119, fieldValues[0, 2]);
-			AssertHelper.AssertApproximatelyEqual(0.00014811951578589806, fieldValues[0, 3]);
-			AssertHelper.AssertApproximatelyEqual(2.5173609831507704E-05, fieldValues[0, 4]);
+			AssertHelper.AssertApproximatelyEqual(0.0046865, fieldValues[0, 0], 5);
+			AssertHelper.AssertApproximatelyEqual(0.0059895, fieldValues[0, 1], 5);
+			AssertHelper.AssertApproximatelyEqual(0.0017524, fieldValues[0, 2], 5);
+			AssertHelper.AssertApproximatelyEqual(0.00014811, fieldValues[0, 3], 5);
+			AssertHelper.AssertApproximatelyEqual(2.5172E-05, fieldValues[0, 4], 5);
 
-			AssertHelper.AssertApproximatelyEqual(1.2987045736925823E-05, fieldValues[1, 0]);
-			AssertHelper.AssertApproximatelyEqual(3.2768311031226838E-08, fieldValues[1, 1]);
-			AssertHelper.AssertApproximatelyEqual(-9.5975204229983674E-07, fieldValues[1, 2]);
-			AssertHelper.AssertApproximatelyEqual(-1.2207878863917365E-07, fieldValues[1, 3]);
-			AssertHelper.AssertApproximatelyEqual(-2.2140237645729471E-08, fieldValues[1, 4]);
+			AssertHelper.AssertApproximatelyEqual(1.2986E-05, fieldValues[1, 0], 5);
+			AssertHelper.AssertApproximatelyEqual(3.2767E-08, fieldValues[1, 1], 5);
+			AssertHelper.AssertApproximatelyEqual(-9.5970E-07, fieldValues[1, 2], 5);
+			AssertHelper.AssertApproximatelyEqual(-1.2207E-07, fieldValues[1, 3], 5);
+			AssertHelper.AssertApproximatelyEqual(-2.2139E-08, fieldValues[1, 4], 5);
 
-			AssertHelper.AssertApproximatelyEqual(0.0046867553901049569, fieldValues[2, 0]);
-			AssertHelper.AssertApproximatelyEqual(0.0059898207639691742, fieldValues[2, 1]);
-			AssertHelper.AssertApproximatelyEqual(0.0017525326354007119, fieldValues[2, 2]);
-			AssertHelper.AssertApproximatelyEqual(0.00014811951578589806, fieldValues[2, 3]);
-			AssertHelper.AssertApproximatelyEqual(2.5173609831507704E-05, fieldValues[2, 4]);
+			AssertHelper.AssertApproximatelyEqual(0.0046868, fieldValues[2, 0], 5);
+			AssertHelper.AssertApproximatelyEqual(0.0059898, fieldValues[2, 1], 5);
+			AssertHelper.AssertApproximatelyEqual(0.0017525, fieldValues[2, 2], 5);
+			AssertHelper.AssertApproximatelyEqual(0.00014812, fieldValues[2, 3], 5);
+			AssertHelper.AssertApproximatelyEqual(2.5174E-05, fieldValues[2, 4], 5);
 		}
 
-		private void AssertCorrectPointChargeFields_FreeSpace(double[,] fieldValues)
+		private void AssertCorrectPointChargeFields_FreeSpace(
+			double[,] fieldValues
+			)
 		{
-			AssertHelper.AssertApproximatelyEqual(0.0092479378354883117, fieldValues[0, 0]);
-			AssertHelper.AssertApproximatelyEqual(0.00026408176571688155, fieldValues[0, 1]);
-			AssertHelper.AssertApproximatelyEqual(1.7628840881285309E-05, fieldValues[0, 2]);
-			AssertHelper.AssertApproximatelyEqual(2.7756673928392448E-07, fieldValues[0, 3]);
-			AssertHelper.AssertApproximatelyEqual(1.77719066637953E-08, fieldValues[0, 4]);
+			AssertHelper.AssertApproximatelyEqual(0.0092479, fieldValues[0, 0], 5);
+			AssertHelper.AssertApproximatelyEqual(0.00026408, fieldValues[0, 1], 5);
+			AssertHelper.AssertApproximatelyEqual(1.7629E-05, fieldValues[0, 2], 5);
+			AssertHelper.AssertApproximatelyEqual(2.7757E-07, fieldValues[0, 3], 5);
+			AssertHelper.AssertApproximatelyEqual(1.7772E-08, fieldValues[0, 4], 5);
 
-			AssertHelper.AssertApproximatelyEqual(-0.00012497213291200423, fieldValues[1, 0]);
-			AssertHelper.AssertApproximatelyEqual(-1.4274690038750356E-05, fieldValues[1, 1]);
-			AssertHelper.AssertApproximatelyEqual(-2.3822757947682848E-06, fieldValues[1, 2]);
-			AssertHelper.AssertApproximatelyEqual(-1.500360752886078E-07, fieldValues[1, 3]);
-			AssertHelper.AssertApproximatelyEqual(-2.4016090086209862E-08, fieldValues[1, 4]);
+			AssertHelper.AssertApproximatelyEqual(-0.00012497, fieldValues[1, 0], 5);
+			AssertHelper.AssertApproximatelyEqual(-1.4275E-05, fieldValues[1, 1], 5);
+			AssertHelper.AssertApproximatelyEqual(-2.3823E-06, fieldValues[1, 2], 5);
+			AssertHelper.AssertApproximatelyEqual(-1.5004E-07, fieldValues[1, 3], 5);
+			AssertHelper.AssertApproximatelyEqual(-2.4016E-08, fieldValues[1, 4], 5);
 
-			AssertHelper.AssertApproximatelyEqual(0.0092483986903891917, fieldValues[2, 0]);
-			AssertHelper.AssertApproximatelyEqual(0.00026409492577246675, fieldValues[2, 1]);
-			AssertHelper.AssertApproximatelyEqual(1.7629719383916E-05, fieldValues[2, 2]);
-			AssertHelper.AssertApproximatelyEqual(2.7758057133971843E-07, fieldValues[2, 3]);
-			AssertHelper.AssertApproximatelyEqual(1.7772792295860485E-08, fieldValues[2, 4]);
+			AssertHelper.AssertApproximatelyEqual(0.0092484, fieldValues[2, 0], 5);
+			AssertHelper.AssertApproximatelyEqual(0.00026409, fieldValues[2, 1], 5);
+			AssertHelper.AssertApproximatelyEqual(1.7630E-05, fieldValues[2, 2], 5);
+			AssertHelper.AssertApproximatelyEqual(2.7758E-07, fieldValues[2, 3], 5);
+			AssertHelper.AssertApproximatelyEqual(1.7773E-08, fieldValues[2, 4], 5);
 		}
 	}
 }

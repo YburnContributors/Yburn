@@ -1,9 +1,22 @@
-﻿using Yburn.PhysUtil;
+﻿using System;
+using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
 	public class CollisionalElectromagneticField
 	{
+		/********************************************************************************************
+		 * Private/protected static members, functions and properties
+		 ********************************************************************************************/
+
+		private static double CalculateNucleusPeakRapidity(
+			double beamRapidity,
+			uint nucleonNumber
+			)
+		{
+			return 1 / (1 + 0.2) * (beamRapidity - Math.Log(nucleonNumber) / 6) - 0.2;
+		}
+
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
@@ -22,14 +35,14 @@ namespace Yburn.Fireball
 			NucleusEMFA = new NucleusElectromagneticField(
 				param.EMFCalculationMethod,
 				param.QGPConductivityMeV,
-				param.BeamRapidity,
+				CalculateNucleusPeakRapidity(param.BeamRapidity, param.NucleonNumberB),
 				nucleusA,
 				param.EMFQuadratureOrder);
 
 			NucleusEMFB = new NucleusElectromagneticField(
 				param.EMFCalculationMethod,
 				param.QGPConductivityMeV,
-				-param.BeamRapidity,
+				-CalculateNucleusPeakRapidity(param.BeamRapidity, param.NucleonNumberA),
 				nucleusB,
 				param.EMFQuadratureOrder);
 		}

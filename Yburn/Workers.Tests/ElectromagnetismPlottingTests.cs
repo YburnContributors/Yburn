@@ -29,12 +29,12 @@ namespace Yburn.Workers.Tests
 		}
 
 		[TestMethod]
-		public void PlotPointChargeAzimutalMagneticField()
+		public void PlotPointChargeAzimuthalMagneticField()
 		{
 			Electromagnetism electromagnetism = new Electromagnetism();
 			electromagnetism.VariableNameValuePairs = GetPointChargeFieldPlotParams();
 
-			WaitForGnuplotThenKillIt(electromagnetism.PlotPointChargeAzimutalMagneticField());
+			WaitForGnuplotThenKillIt(electromagnetism.PlotPointChargeAzimuthalMagneticField());
 		}
 
 		[TestMethod]
@@ -93,7 +93,6 @@ namespace Yburn.Workers.Tests
 			paramList["Samples"] = "1000";
 			paramList["StartTime"] = "0.0";
 			paramList["StopTime"] = "10.0";
-			paramList["EMFCalculationMethodSelection"] = "URLimitFourierSynthesis,DiffusionApproximation,FreeSpace";
 			paramList["DataFileName"] = "PlotPointChargeFieldTest.txt";
 
 			MarkFilesForDelete(paramList);

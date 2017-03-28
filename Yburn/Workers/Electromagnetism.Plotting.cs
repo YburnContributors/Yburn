@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using Yburn.Fireball;
-using Yburn.FormatUtil;
 using Yburn.PhysUtil;
 
 namespace Yburn.Workers
@@ -14,13 +13,13 @@ namespace Yburn.Workers
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public Process PlotPointChargeAzimutalMagneticField()
+		public Process PlotPointChargeAzimuthalMagneticField()
 		{
 			AssertInputValid_PlotPointChargeField();
 			CreateDataFile(
-				CreatePointChargeAzimutalMagneticFieldEffectiveTimeDataList,
-				CreatePointChargeAzimutalMagneticFieldRadialDistanceDataList);
-			CreatePointChargeAzimutalMagneticFieldPlotFile();
+				CreatePointChargeAzimuthalMagneticFieldEffectiveTimeDataList,
+				CreatePointChargeAzimuthalMagneticFieldRadialDistanceDataList);
+			CreatePointChargeAzimuthalMagneticFieldPlotFile();
 
 			return StartGnuplot();
 		}
@@ -47,7 +46,7 @@ namespace Yburn.Workers
 			return StartGnuplot();
 		}
 
-		public Process PlotPointChargeAndNucleusFields()
+		public Process PlotPointChargeAndNucleusEMF()
 		{
 			AssertInputValid_PlotPointChargeField();
 			CreateDataFile(
@@ -74,6 +73,16 @@ namespace Yburn.Workers
 			return StartGnuplot();
 		}
 
+		public Process PlotEMFStrengthInTransversePlane()
+		{
+			CreateDataFile(
+				CreateElectricFieldStrengthInTransversePlaneDataList,
+				CreateMagneticFieldStrengthInTransversePlaneDataList);
+			CreateEMFStrengthInTransversePlanePlotFile();
+
+			return StartGnuplot();
+		}
+
 		public Process PlotAverageElectricFieldStrength()
 		{
 			CreateDataFile(CreateAverageElectricFieldStrengthDataList);
@@ -92,7 +101,12 @@ namespace Yburn.Workers
 
 		public Process PlotAverageSpinStateOverlap()
 		{
-			CreateDataFile(CreateAverageSpinStateOverlapDataList);
+			CreateDataFile(
+				CreateAverageSpinStateOverlapDataList(BottomiumState.Y1S),
+				CreateAverageSpinStateOverlapDataList(BottomiumState.x1P),
+				CreateAverageSpinStateOverlapDataList(BottomiumState.Y2S),
+				CreateAverageSpinStateOverlapDataList(BottomiumState.x2P)
+				);
 			CreateAverageSpinStateOverlapPlotFile();
 
 			return StartGnuplot();
@@ -106,7 +120,7 @@ namespace Yburn.Workers
 			* (Constants.HbarCMeVFm / Constants.RestMassPionMeV)
 			* (Constants.HbarCMeVFm / Constants.RestMassPionMeV);
 
-		private static readonly double FormationTime = 0.4;
+		private static readonly double FixedTime = 0.5;
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
@@ -136,12 +150,11 @@ namespace Yburn.Workers
 			}
 		}
 
-		private string[] EMFCalculationMethodSelectionTitleList
+		private string[] EMFCalculationMethodTitleList
 		{
 			get
 			{
-				return EMFCalculationMethodSelection.ConvertAll(
-					method => method.ToUIString()).ToArray();
+				return Enum.GetNames(typeof(EMFCalculationMethod));
 			}
 		}
 
@@ -163,16 +176,16 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set logscale xy 10");
 			plotFile.AppendLine("set format xy '%g'");
 			plotFile.AppendLine();
-			ReduceNumberOfColors(plotFile, EMFCalculationMethodSelectionTitleList.Length);
+			ReduceNumberOfColors(plotFile, EMFCalculationMethodTitleList.Length);
 			plotFile.AppendLine();
 
 			AppendPlotCommands(
 				plotFile,
 				index: 0,
 				style: "lines",
-				titles: EMFCalculationMethodSelectionTitleList);
+				titles: EMFCalculationMethodTitleList);
 
-			for(int i = 0; i < EMFCalculationMethodSelectionTitleList.Length; i++)
+			for(int i = 0; i < EMFCalculationMethodTitleList.Length; i++)
 			{
 				plotFile.AppendFormat(
 					"'' index 0 using 1:(-${0}) with lines dashtype '-' notitle,\\", i + 2);
@@ -185,7 +198,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title '" + fieldName + " of a point charge"
 				+ " with rapidity y = " + ParticleRapidity.ToString("G6")
-				+ " at effective time (t - z/v) = " + FormationTime.ToString("G6") + " fm/c'");
+				+ " at effective time (t - z/v) = " + FixedTime.ToString("G6") + " fm/c'");
 			plotFile.AppendLine("set xlabel '{/Symbol r} (fm)'");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set xrange [:30]");
@@ -195,9 +208,9 @@ namespace Yburn.Workers
 				plotFile,
 				index: 1,
 				style: "lines",
-				titles: EMFCalculationMethodSelectionTitleList);
+				titles: EMFCalculationMethodTitleList);
 
-			for(int i = 0; i < EMFCalculationMethodSelectionTitleList.Length; i++)
+			for(int i = 0; i < EMFCalculationMethodTitleList.Length; i++)
 			{
 				plotFile.AppendFormat(
 					"'' index 1 using 1:(-${0}) with lines dashtype '-' notitle,\\", i + 2);
@@ -217,7 +230,7 @@ namespace Yburn.Workers
 				StartTime, StopTime, Samples);
 			dataList.Add(effectiveTimeValues);
 
-			foreach(EMFCalculationMethod method in EMFCalculationMethodSelection)
+			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
 			{
 				PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
 					method, QGPConductivity, ParticleRapidity);
@@ -240,13 +253,13 @@ namespace Yburn.Workers
 			List<double> radialDistanceValues = GetLogarithmicAbscissaList(0.1, 100, Samples);
 			dataList.Add(radialDistanceValues);
 
-			foreach(EMFCalculationMethod method in EMFCalculationMethodSelection)
+			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
 			{
 				PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
 					method, QGPConductivity, ParticleRapidity);
 
 				PlotFunction fieldValue = radius => EMFNormalization
-					* emf.CalculateElectromagneticField(component, FormationTime, radius);
+					* emf.CalculateElectromagneticField(component, FixedTime, radius);
 
 				AddPlotFunctionLists(dataList, radialDistanceValues, fieldValue);
 			}
@@ -254,21 +267,21 @@ namespace Yburn.Workers
 			return dataList;
 		}
 
-		private void CreatePointChargeAzimutalMagneticFieldPlotFile()
+		private void CreatePointChargeAzimuthalMagneticFieldPlotFile()
 		{
-			CreatePointChargeFieldPlotFile("Azimutal magnetic field", "H_{/Symbol f}");
+			CreatePointChargeFieldPlotFile("Azimuthal magnetic field", "B_{/Symbol f}");
 		}
 
-		private List<List<double>> CreatePointChargeAzimutalMagneticFieldEffectiveTimeDataList()
+		private List<List<double>> CreatePointChargeAzimuthalMagneticFieldEffectiveTimeDataList()
 		{
 			return CreatePointChargeFieldEffectiveTimeDataList(
-				EMFComponent.AzimutalMagneticField);
+				EMFComponent.AzimuthalMagneticField);
 		}
 
-		private List<List<double>> CreatePointChargeAzimutalMagneticFieldRadialDistanceDataList()
+		private List<List<double>> CreatePointChargeAzimuthalMagneticFieldRadialDistanceDataList()
 		{
 			return CreatePointChargeFieldRadialDistanceDataList(
-				EMFComponent.AzimutalMagneticField);
+				EMFComponent.AzimuthalMagneticField);
 		}
 
 		private void CreatePointChargeLongitudinalElectricFieldPlotFile()
@@ -317,6 +330,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set title 'Field components of a point charge and nucleus"
 				+ " with rapidity y = " + ParticleRapidity.ToString("G6")
 				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6") + " fm'");
+			plotFile.AppendLine("set key maxrows 3");
 			plotFile.AppendLine("set xlabel 't - z/v (fm/c)'");
 			plotFile.AppendLine("set ylabel 'eE/m_{/Symbol p}^2, eB/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
@@ -345,7 +359,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'Field components of a point charge and nucleus"
 				+ " with rapidity y = " + ParticleRapidity.ToString("G6")
-				+ " at effective time (t - z/v) = " + FormationTime.ToString("G6") + " fm/c'");
+				+ " at effective time (t - z/v) = " + FixedTime.ToString("G6") + " fm/c'");
 			plotFile.AppendLine("set xlabel '{/Symbol r} (fm)'");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set xrange [:30]");
@@ -387,10 +401,10 @@ namespace Yburn.Workers
 
 			PlotFunction[] plotFunctions = {
 				t => EMFNormalization * pcEMF.CalculateRadialElectricField(t, RadialDistance),
-				t => EMFNormalization * pcEMF.CalculateAzimutalMagneticField(t, RadialDistance),
+				t => EMFNormalization * pcEMF.CalculateAzimuthalMagneticField(t, RadialDistance),
 				t => EMFNormalization * pcEMF.CalculateLongitudinalElectricField(t, RadialDistance),
 				t => EMFNormalization * nucEMF.CalculateRadialElectricField(t, RadialDistance),
-				t => EMFNormalization * nucEMF.CalculateAzimutalMagneticField(t, RadialDistance),
+				t => EMFNormalization * nucEMF.CalculateAzimuthalMagneticField(t, RadialDistance),
 				t => EMFNormalization * nucEMF.CalculateLongitudinalElectricField(t, RadialDistance)
 			};
 
@@ -419,15 +433,13 @@ namespace Yburn.Workers
 			NucleusElectromagneticField nucEMF = new NucleusElectromagneticField(
 				EMFCalculationMethod, QGPConductivity, ParticleRapidity, nucleusA, EMFQuadratureOrder);
 
-			double effectiveTime = FormationTime;
-
 			PlotFunction[] plotFunctions = {
-				r => EMFNormalization * pcEMF.CalculateRadialElectricField(effectiveTime, r),
-				r => EMFNormalization * pcEMF.CalculateAzimutalMagneticField(effectiveTime, r),
-				r => EMFNormalization * pcEMF.CalculateLongitudinalElectricField(effectiveTime, r),
-				r => EMFNormalization * nucEMF.CalculateRadialElectricField(effectiveTime, r),
-				r => EMFNormalization * nucEMF.CalculateAzimutalMagneticField(effectiveTime, r),
-				r => EMFNormalization * nucEMF.CalculateLongitudinalElectricField(effectiveTime, r)
+				r => EMFNormalization * pcEMF.CalculateRadialElectricField(FixedTime, r),
+				r => EMFNormalization * pcEMF.CalculateAzimuthalMagneticField(FixedTime, r),
+				r => EMFNormalization * pcEMF.CalculateLongitudinalElectricField(FixedTime, r),
+				r => EMFNormalization * nucEMF.CalculateRadialElectricField(FixedTime, r),
+				r => EMFNormalization * nucEMF.CalculateAzimuthalMagneticField(FixedTime, r),
+				r => EMFNormalization * nucEMF.CalculateLongitudinalElectricField(FixedTime, r)
 			};
 
 			foreach(PlotFunction function in plotFunctions)
@@ -451,8 +463,6 @@ namespace Yburn.Workers
 			plotFile.AppendLine();
 
 			AppendSurfacePlotCommands(plotFile);
-
-			AppendSavePlotAsPNG(plotFile);
 
 			WritePlotFile(plotFile);
 		}
@@ -481,7 +491,7 @@ namespace Yburn.Workers
 					EMFQuadratureOrder);
 
 				return EMFNormalization * emf.CalculateMagneticFieldPerFm2_LCF(
-					FormationTime, radialDistance, 0, rapidity).Norm;
+					FixedTime, radialDistance, 0, rapidity).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, rapidityValues, radialDistanceValues, function);
@@ -500,14 +510,11 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set ylabel 'b (fm)'");
 			plotFile.AppendLine("set cblabel 'e|B(0,0,0)|/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set xrange [0.0099:]");
 			plotFile.AppendLine("set logscale x 10");
 			plotFile.AppendLine("set format x '%g'");
 			plotFile.AppendLine();
 
 			AppendSurfacePlotCommands(plotFile);
-
-			AppendSavePlotAsPNG(plotFile);
 
 			WritePlotFile(plotFile);
 		}
@@ -516,7 +523,7 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> timeValues = GetLogarithmicAbscissaList(0.01, 10, Samples);
+			List<double> timeValues = GetLogarithmicAbscissaList(0.1, 10, Samples);
 			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
 
 			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
@@ -545,14 +552,81 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set ylabel 'b (fm)'");
 			plotFile.AppendLine("set cblabel 'e<|E|>/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set xrange [0.0099:]");
 			plotFile.AppendLine("set logscale x 10");
 			plotFile.AppendLine("set format x '%g'");
 			plotFile.AppendLine();
 
 			AppendSurfacePlotCommands(plotFile);
 
-			AppendSavePlotAsPNG(plotFile);
+			WritePlotFile(plotFile);
+		}
+
+		private List<List<double>> CreateElectricFieldStrengthInTransversePlaneDataList()
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<double> gridValues = GetLinearAbscissaList(-GridRadiusFm, GridRadiusFm, Samples);
+
+			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
+
+			SurfacePlotFunction function = (x, y) =>
+			{
+				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
+
+				return EMFNormalization * emf.CalculateElectricFieldPerFm2(FixedTime, x, y, 0).Norm;
+			};
+
+			AddSurfacePlotFunctionLists(dataList, gridValues, gridValues, function);
+
+			return dataList;
+		}
+
+		private List<List<double>> CreateMagneticFieldStrengthInTransversePlaneDataList()
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<double> gridValues = GetLinearAbscissaList(-GridRadiusFm, GridRadiusFm, Samples);
+
+			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
+
+			SurfacePlotFunction function = (x, y) =>
+			{
+				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
+
+				return EMFNormalization * emf.CalculateMagneticFieldPerFm2(FixedTime, x, y, 0).Norm;
+			};
+
+			AddSurfacePlotFunctionLists(dataList, gridValues, gridValues, function);
+
+			return dataList;
+		}
+
+		private void CreateEMFStrengthInTransversePlanePlotFile()
+		{
+			StringBuilder plotFile = new StringBuilder();
+			plotFile.AppendLine("reset");
+			plotFile.AppendLine("set terminal windows enhanced size 650,600 0");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Electric field strength in the z = 0 plane"
+				+ " at time t = " + FixedTime.ToString("G6") + " fm/c"
+				+ " and impact parameter b = " + ImpactParameterFm + " fm'");
+			plotFile.AppendLine("set xlabel 'x (fm)'");
+			plotFile.AppendLine("set ylabel 'y (fm)'");
+			plotFile.AppendLine("set cblabel 'e|E|/m_{/Symbol p}^2'");
+			plotFile.AppendLine();
+
+			AppendSurfacePlotCommands(plotFile, index: 0);
+
+			plotFile.AppendLine();
+			plotFile.AppendLine();
+			plotFile.AppendLine("set terminal windows enhanced size 650,600 1");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Magnetic field strength in the z = 0 plane"
+				+ " at time t = " + FixedTime.ToString("G6") + " fm/c"
+				+ " and impact parameter b = " + ImpactParameterFm + " fm'");
+			plotFile.AppendLine();
+
+			AppendSurfacePlotCommands(plotFile, index: 1);
 
 			WritePlotFile(plotFile);
 		}
@@ -561,7 +635,7 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> properTimeValues = GetLogarithmicAbscissaList(0.01, 10, Samples);
+			List<double> properTimeValues = GetLogarithmicAbscissaList(0.1, 10, Samples);
 			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
 
 			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
@@ -590,14 +664,11 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set ylabel 'b (fm)'");
 			plotFile.AppendLine("set cblabel 'e<|B|>/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set xrange [0.0099:]");
 			plotFile.AppendLine("set logscale x 10");
 			plotFile.AppendLine("set format x '%g'");
 			plotFile.AppendLine();
 
 			AppendSurfacePlotCommands(plotFile);
-
-			AppendSavePlotAsPNG(plotFile);
 
 			WritePlotFile(plotFile);
 		}
@@ -606,7 +677,7 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> properTimeValues = GetLogarithmicAbscissaList(0.01, 10, Samples);
+			List<double> properTimeValues = GetLogarithmicAbscissaList(0.1, 10, Samples);
 			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
 
 			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
@@ -628,30 +699,56 @@ namespace Yburn.Workers
 		{
 			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
-			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
+			plotFile.AppendLine("set terminal windows enhanced size 1000,500 0");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'Spin state overlap'");
 			plotFile.AppendLine("set xlabel '{/Symbol t} (fm/c)'");
 			plotFile.AppendLine("set ylabel 'b (fm)'");
-			plotFile.AppendLine("set cblabel '|<{/Symbol Y}_t^0(1S)|{/Symbol h}_b(1S)>|^2'");
+			plotFile.AppendLine("set cblabel '|<{/Symbol U}^0(1S)(B)|{/Symbol h}_b^0(1S)(0)>|^2'");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set xrange [0.0099:]");
 			plotFile.AppendLine("set logscale x 10");
 			plotFile.AppendLine("set format x '%g'");
 			plotFile.AppendLine();
 
-			AppendSurfacePlotCommands(plotFile);
+			AppendSurfacePlotCommands(plotFile, index: 0);
 
-			AppendSavePlotAsPNG(plotFile);
+			plotFile.AppendLine();
+			plotFile.AppendLine();
+			plotFile.AppendLine("set terminal windows enhanced size 1000,500 1");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set cblabel '|<{/Symbol c}_b^0(1P)(B)|h_b^0(1P)(0)>|^2'");
+			plotFile.AppendLine();
+
+			AppendSurfacePlotCommands(plotFile, index: 1);
+
+			plotFile.AppendLine();
+			plotFile.AppendLine();
+			plotFile.AppendLine("set terminal windows enhanced size 1000,500 2");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set cblabel '|<{/Symbol U}^0(2S)(B)|{/Symbol h}_b^0(2S)(0)>|^2'");
+			plotFile.AppendLine();
+
+			AppendSurfacePlotCommands(plotFile, index: 2);
+
+			plotFile.AppendLine();
+			plotFile.AppendLine();
+			plotFile.AppendLine("set terminal windows enhanced size 1000,500 3");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set cblabel '|<{/Symbol c}_b^0(2P)(B)|h_b^0(2P)(0)>|^2'");
+			plotFile.AppendLine();
+
+			AppendSurfacePlotCommands(plotFile, index: 3);
 
 			WritePlotFile(plotFile);
 		}
 
-		private List<List<double>> CreateAverageSpinStateOverlapDataList()
+		private List<List<double>> CreateAverageSpinStateOverlapDataList(
+			BottomiumState tripletState
+			)
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> properTimeValues = GetLogarithmicAbscissaList(0.01, 10, Samples);
+			List<double> properTimeValues = GetLogarithmicAbscissaList(0.1, 10, Samples);
 			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
 
 			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
@@ -661,7 +758,7 @@ namespace Yburn.Workers
 				param.ImpactParameterFm = impactParam;
 				LCFFieldAverager avg = new LCFFieldAverager(param);
 
-				return avg.CalculateAverageSpinStateOverlap(BottomiumState.Y1S, properTime);
+				return avg.CalculateAverageSpinStateOverlap(tripletState, properTime);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);

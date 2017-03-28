@@ -196,6 +196,34 @@ namespace Yburn
 			return dataFileContent;
 		}
 
+		protected void CreateDataFile(
+			params List<List<double>>[] dataLists
+			)
+		{
+			StringBuilder dataFileContent = GetDataFileContent(dataLists[0]);
+			for(int i = 1; i < dataLists.Length; i++)
+			{
+				dataFileContent.AppendLine();
+				dataFileContent.AppendLine();
+				dataFileContent.Append(GetDataFileContent(dataLists[i]));
+			}
+
+			WriteDataFile(dataFileContent);
+		}
+
+		private StringBuilder GetDataFileContent(
+			List<List<double>> dataList
+			)
+		{
+			StringBuilder dataFileContent = new StringBuilder();
+			for(int i = 0; i < dataList[0].Count; i++)
+			{
+				WriteLine(dataList, dataFileContent, i);
+			}
+
+			return dataFileContent;
+		}
+
 		protected void AppendPlotCommands(
 			StringBuilder plotFile,
 			bool isFirstPlotCommand = true,
@@ -260,7 +288,8 @@ namespace Yburn
 		}
 
 		protected void AppendSurfacePlotCommands(
-			StringBuilder plotFile
+			StringBuilder plotFile,
+			int index = 0
 			)
 		{
 			plotFile.AppendLine("set size 0.9,1");
@@ -271,25 +300,14 @@ namespace Yburn
 			plotFile.AppendLine();
 			plotFile.AppendLine("set contour");
 			plotFile.AppendLine("set cntrparam bspline");
-			plotFile.AppendLine("set cntrlabel interval -1 font ',7'");
+			plotFile.AppendLine("set cntrlabel interval -1");
 			plotFile.AppendLine("do for [i=1:8] { set linetype i linecolor rgb 'black' }");
 			plotFile.AppendLine();
 
-			plotFile.AppendFormat("splot '{0}' nonuniform matrix using 1:2:3 notitle dashtype '-'"
-				+ ", '' nonuniform matrix using 1:2:3 notitle with labels nosurface",
-				DataFileName);
+			plotFile.AppendFormat("splot '{0}' nonuniform matrix index {1} using 1:2:3 notitle"
+				+ " dashtype '-', '' nonuniform matrix index {1} using 1:2:3 notitle with labels nosurface",
+				DataFileName, index);
 			plotFile.AppendLine();
-		}
-
-		protected void AppendSavePlotAsPNG(
-			StringBuilder plotFile
-			)
-		{
-			plotFile.AppendLine();
-			plotFile.AppendLine("set terminal pngcairo enhanced size 1000,500");
-			plotFile.AppendLine("set output '" + DataFileName + ".png'");
-			plotFile.AppendLine("replot");
-			plotFile.AppendLine("set output");
 		}
 
 		protected Process StartGnuplot()

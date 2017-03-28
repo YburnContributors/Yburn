@@ -87,47 +87,47 @@ namespace Yburn.PhysUtil.Tests
 		public void ConvertVectorFieldComponents()
 		{
 			double radialPart = 1;
-			double azimutalPart = 2;
+			double azimuthalPart = 2;
 			double longitudinalPart = 3;
 
 			SpatialVector vector1 = SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
-				1, 0, radialPart, azimutalPart, longitudinalPart);
+				1, 0, radialPart, azimuthalPart, longitudinalPart);
 			Assert.AreEqual(1, vector1.X);
 			Assert.AreEqual(2, vector1.Y);
 			Assert.AreEqual(3, vector1.Z);
 
 			SpatialVector vector2 = SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
-				0, 1, radialPart, azimutalPart, longitudinalPart);
+				0, 1, radialPart, azimuthalPart, longitudinalPart);
 			Assert.AreEqual(-2, vector2.X);
 			Assert.AreEqual(1, vector2.Y);
 			Assert.AreEqual(3, vector2.Z);
 
 			SpatialVector vector3 = SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
-				-1, 0, radialPart, azimutalPart, longitudinalPart);
+				-1, 0, radialPart, azimuthalPart, longitudinalPart);
 			Assert.AreEqual(-1, vector3.X);
 			Assert.AreEqual(-2, vector3.Y);
 			Assert.AreEqual(3, vector3.Z);
 
 			SpatialVector vector4 = SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
-				0, -1, radialPart, azimutalPart, longitudinalPart);
+				0, -1, radialPart, azimuthalPart, longitudinalPart);
 			Assert.AreEqual(2, vector4.X);
 			Assert.AreEqual(-1, vector4.Y);
 			Assert.AreEqual(3, vector4.Z);
 		}
 
 		[TestMethod]
-		public void GetVectorAzimutalAngle()
+		public void GetVectorAzimuthalAngle()
 		{
-			double angle1 = new SpatialVector(1, 0, 0).AzimutalAngle;
+			double angle1 = new SpatialVector(1, 0, 0).AzimuthalAngle;
 			Assert.AreEqual(0, angle1);
 
-			double angle2 = new SpatialVector(1, 1, 0).AzimutalAngle;
+			double angle2 = new SpatialVector(1, 1, 0).AzimuthalAngle;
 			Assert.AreEqual(0.25 * Math.PI, angle2);
 
-			double angle3 = new SpatialVector(-1, 0, 0).AzimutalAngle;
+			double angle3 = new SpatialVector(-1, 0, 0).AzimuthalAngle;
 			Assert.AreEqual(Math.PI, angle3);
 
-			double angle4 = new SpatialVector(1, -1, 0).AzimutalAngle;
+			double angle4 = new SpatialVector(1, -1, 0).AzimuthalAngle;
 			Assert.AreEqual(-0.25 * Math.PI, angle4);
 		}
 

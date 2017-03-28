@@ -29,7 +29,7 @@ namespace Yburn.Fireball
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public double CalculateAzimutalMagneticField(
+		public double CalculateAzimuthalMagneticField(
 			double effectiveTime,
 			double radialDistance
 			)
@@ -39,7 +39,7 @@ namespace Yburn.Fireball
 				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
 
 				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
-					* PointChargeEMF.CalculateAzimutalMagneticField(
+					* PointChargeEMF.CalculateAzimuthalMagneticField(
 						effectiveTime,
 						pointChargePosition.Norm)
 					* pointChargePosition.Direction.X;
@@ -101,7 +101,7 @@ namespace Yburn.Fireball
 			return integral;
 		}
 
-		public double CalculateAzimutalMagneticField_LCF(
+		public double CalculateAzimuthalMagneticField_LCF(
 			double effectiveTime,
 			double radialDistance,
 			double observerRapidity
@@ -112,7 +112,7 @@ namespace Yburn.Fireball
 				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
 
 				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
-					* PointChargeEMF.CalculateAzimutalMagneticField_LCF(
+					* PointChargeEMF.CalculateAzimuthalMagneticField_LCF(
 						effectiveTime,
 						pointChargePosition.Norm,
 						observerRapidity)
@@ -229,11 +229,11 @@ namespace Yburn.Fireball
 			double effectiveTime = CalculateEffectiveTime(t, z);
 			double radialDistance = CalculateRadialDistance(x, y);
 
-			double azimutalField
-				= CalculateAzimutalMagneticField(effectiveTime, radialDistance);
+			double azimuthalField
+				= CalculateAzimuthalMagneticField(effectiveTime, radialDistance);
 
 			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
-				x, y, 0, azimutalField, 0);
+				x, y, 0, azimuthalField, 0);
 		}
 
 		public SpatialVector CalculateMagneticFieldPerFm2_LCF(
@@ -246,11 +246,11 @@ namespace Yburn.Fireball
 			double effectiveTime = CalculateEffectiveTime_LCF(properTime, rapidity);
 			double radialDistance = CalculateRadialDistance(x, y);
 
-			double azimutalField
-				= CalculateAzimutalMagneticField_LCF(effectiveTime, radialDistance, rapidity);
+			double azimuthalField
+				= CalculateAzimuthalMagneticField_LCF(effectiveTime, radialDistance, rapidity);
 
 			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
-				x, y, 0, azimutalField, 0);
+				x, y, 0, azimuthalField, 0);
 		}
 
 		/********************************************************************************************
