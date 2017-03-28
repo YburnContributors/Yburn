@@ -109,7 +109,7 @@ namespace Yburn
  		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		protected CancellationToken JobCancelToken;
+		public CancellationToken JobCancelToken;
 
 		protected abstract void StartJob(
 		 string jobId

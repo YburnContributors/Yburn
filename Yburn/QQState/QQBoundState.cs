@@ -472,7 +472,7 @@ namespace Yburn.QQState
 			ShootingSolver = new RseShootingSolver();
 			ShootingSolver.Solver = Solver;
 			ShootingSolver.DesiredAccuracy = DesiredAccuracyWaveFunction;
-			ShootingSolver.Aggressiveness = Param.QuantumNumberL > 0 ? 0.02 : 40;
+			ShootingSolver.Aggressiveness = Param.AggressivenessEnergy;
 			ShootingSolver.MaxTrials = Param.MaxShootingTrials - Trials;
 			ShootingSolver.Eigenvalue = GetEigenvalue();
 			ShootingSolver.CancellationToken = CalculationCancelToken;

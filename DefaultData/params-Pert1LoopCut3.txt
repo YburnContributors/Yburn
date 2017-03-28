@@ -21,6 +21,7 @@ Tcrit                 = 160
 AccuracyAlpha        = 1E-06
 AccuracyWaveFunction = 1E-09
 AggressivenessAlpha  = 0.5
+AggressivenessEnergy = 40
 BoundMass            = 9460.3
 Energy               = -363
 GammaDamp            = 27

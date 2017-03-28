@@ -45,6 +45,7 @@ namespace Yburn.TestUtil
 				nameValuePairs["AccuracyAlpha"] = "3333";
 				nameValuePairs["AccuracyWaveFunction"] = "3333";
 				nameValuePairs["AggressivenessAlpha"] = "3333";
+				nameValuePairs["AggressivenessEnergy"] = "33";
 				nameValuePairs["AlphaHard"] = "3333";
 				nameValuePairs["AlphaSoft"] = "3333";
 				nameValuePairs["AlphaThermal"] = "3333";

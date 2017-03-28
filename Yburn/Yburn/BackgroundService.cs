@@ -220,6 +220,7 @@ namespace Yburn
 		{
 			return Task.Factory.StartNew(() =>
 			{
+				Worker.JobCancelToken = JobCancelToken;
 				Worker.StartJob(jobId, parameterNameValuePairs);
 			}, TaskCreationOptions.LongRunning);
 		}

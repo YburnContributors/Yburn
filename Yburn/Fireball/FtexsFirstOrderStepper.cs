@@ -1,6 +1,6 @@
 ﻿namespace Yburn.Fireball
 {
-	internal class FtexsFirstOrderStepper : Stepper
+	internal class FtexsFirstOrderStepper
 	{
 		public FtexsFirstOrderStepper(
 			double gridCellSize,

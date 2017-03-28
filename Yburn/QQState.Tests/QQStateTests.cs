@@ -65,6 +65,7 @@ namespace Yburn.QQState.Tests
 			QQStateParam param = GetCommonBoundStateParam();
 			param.AccuracyWaveFunction = 1e-9;
 			param.AggressivenessAlpha = 0.5;
+			param.AggressivenessEnergy = 40;
 			param.EnergyMeV = -141.517335648066;
 			param.PotentialType = PotentialType.Tzero;
 			param.QuantumNumberL = 0;
@@ -142,6 +143,7 @@ namespace Yburn.QQState.Tests
 			QQStateParam param = GetCommonBoundStateParam();
 			param.AccuracyWaveFunction = 1e-9;
 			param.AggressivenessAlpha = 0.7;
+			param.AggressivenessEnergy = 40;
 			param.EnergyMeV = -390.02077042504118;
 			param.PotentialType = PotentialType.Tzero_NoString;
 			param.QuantumNumberL = 0;
@@ -156,6 +158,7 @@ namespace Yburn.QQState.Tests
 			QQStateParam param = GetCommonBoundStateParam();
 			param.AccuracyWaveFunction = 1e-8;
 			param.AggressivenessAlpha = 0.7;
+			param.AggressivenessEnergy = 0.02;
 			param.EnergyMeV = -341.205311278384;
 			param.PotentialType = PotentialType.Tzero_NoString;
 			param.QuantumNumberL = 1;

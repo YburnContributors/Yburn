@@ -111,6 +111,7 @@ namespace Yburn.SingleQQ.UI
 			nameValuePairs["AccuracyAlpha"] = TbxAccuracyAlpha.Text;
 			nameValuePairs["AccuracyWaveFunction"] = TbxAccuracyWaveFunction.Text;
 			nameValuePairs["AggressivenessAlpha"] = TbxAggressivenessAlpha.Text;
+			nameValuePairs["AggressivenessEnergy"] = TbxAggressivenessEnergy.Text;
 			nameValuePairs["AlphaHard"] = TbxAlphaHard.Text;
 			nameValuePairs["AlphaSoft"] = TbxAlphaSoft.Text;
 			nameValuePairs["AlphaThermal"] = TbxAlphaThermal.Text;
@@ -168,6 +169,7 @@ namespace Yburn.SingleQQ.UI
 			TbxAccuracyAlpha.Text = nameValuePairs["AccuracyAlpha"];
 			TbxAccuracyWaveFunction.Text = nameValuePairs["AccuracyWaveFunction"];
 			TbxAggressivenessAlpha.Text = nameValuePairs["AggressivenessAlpha"];
+			TbxAggressivenessEnergy.Text = nameValuePairs["AggressivenessEnergy"];
 			TbxAlphaHard.Text = nameValuePairs["AlphaHard"];
 			TbxAlphaSoft.Text = nameValuePairs["AlphaSoft"];
 			TbxAlphaThermal.Text = nameValuePairs["AlphaThermal"];
