@@ -102,6 +102,7 @@
 		public double GetMaxValue()
 		{
 			double maxValue = DiscreteValues[0, 0];
+
 			for(int i = 0; i < XDimension; i++)
 			{
 				for(int j = 0; j < YDimension; j++)
@@ -112,6 +113,24 @@
 					}
 				}
 			}
+
+			return maxValue;
+		}
+
+		public double GetMaxValueForFixedY(
+			int yIndex
+			)
+		{
+			double maxValue = DiscreteValues[0, yIndex];
+
+			for(int i = 0; i < XDimension; i++)
+			{
+				if(DiscreteValues[i, yIndex] > maxValue)
+				{
+					maxValue = DiscreteValues[i, yIndex];
+				}
+			}
+
 			return maxValue;
 		}
 

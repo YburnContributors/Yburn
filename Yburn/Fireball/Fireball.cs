@@ -69,9 +69,16 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				if(Param.AreNucleusABIdentical)
+				if(Param.IsSystemSymmetricInY)
 				{
-					return Temperature[0, 0];
+					if(Param.IsSystemSymmetricInX)
+					{
+						return Temperature[0, 0];
+					}
+					else
+					{
+						return Temperature.GetMaxValueForFixedY(0);
+					}
 				}
 				else
 				{
@@ -141,9 +148,9 @@ namespace Yburn.Fireball
 				throw new Exception("No output fields are given.");
 			}
 
-			for(int i = 0; i < Param.NumberGridPointsInX; i++)
+			for(int i = 0; i < X.Length; i++)
 			{
-				for(int j = 0; j < Param.NumberGridPointsInY; j++)
+				for(int j = 0; j < Y.Length; j++)
 				{
 					stringBuilder.AppendFormat("{0,8}{1,8}",
 						X[i].ToString(),
@@ -169,18 +176,9 @@ namespace Yburn.Fireball
 		{
 			SimpleFireballField field = GetFireballField(fieldName, state, pTindex);
 
-			if(Param.AreNucleusABIdentical)
-			{
-				// include a factor of 4 because only a quarter has been integrated
-				return 4 * Param.GridCellSizeFm * Param.GridCellSizeFm
-					* field.TrapezoidalRuleSummedValues();
-			}
-			else
-			{
-				// include a factor of 2 because only a half has been integrated
-				return 2 * Param.GridCellSizeFm * Param.GridCellSizeFm
-					* field.TrapezoidalRuleSummedValues();
-			}
+			// include a factor of 4 because only a quarter has been integrated
+			return Param.SystemSymmetryFactor * Param.GridCellSizeFm * Param.GridCellSizeFm
+				* field.TrapezoidalRuleSummedValues();
 		}
 
 		// Calculates the number of binary collisions NcollQGP that occur in the transverse plane
@@ -206,7 +204,7 @@ namespace Yburn.Fireball
 			}
 
 			// edges
-			for(int i = 1; i < Param.NumberGridPoints; i++)
+			for(int i = 1; i < X.Length; i++)
 			{
 				if(Temperature[i, 0] >= criticalTemperature)
 				{
@@ -218,7 +216,7 @@ namespace Yburn.Fireball
 				}
 			}
 
-			for(int j = 1; j < Param.NumberGridPoints; j++)
+			for(int j = 1; j < Y.Length; j++)
 			{
 				if(Temperature[0, j] >= criticalTemperature)
 				{
@@ -234,9 +232,9 @@ namespace Yburn.Fireball
 			CollisionsInHadronicRegion *= 0.5;
 
 			// the rest
-			for(int i = 1; i < Param.NumberGridPoints; i++)
+			for(int i = 1; i < X.Length; i++)
 			{
-				for(int j = 1; j < Param.NumberGridPoints; j++)
+				for(int j = 1; j < Y.Length; j++)
 				{
 					if(Temperature[i, j] >= criticalTemperature)
 					{
@@ -249,18 +247,10 @@ namespace Yburn.Fireball
 				}
 			}
 
-			if(Param.AreNucleusABIdentical)
-			{
-				// include a factor of 4 because only a quarter has been integrated
-				CollisionInQGP *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
-				CollisionsInHadronicRegion *= 4 * Param.GridCellSizeFm * Param.GridCellSizeFm;
-			}
-			else
-			{
-				// include a factor of 2 because only a half has been integrated
-				CollisionInQGP *= 2 * Param.GridCellSizeFm * Param.GridCellSizeFm;
-				CollisionsInHadronicRegion *= 2 * Param.GridCellSizeFm * Param.GridCellSizeFm;
-			}
+			CollisionInQGP
+				*= Param.SystemSymmetryFactor * Param.GridCellSizeFm * Param.GridCellSizeFm;
+			CollisionsInHadronicRegion
+				*= Param.SystemSymmetryFactor * Param.GridCellSizeFm * Param.GridCellSizeFm;
 		}
 
 		/********************************************************************************************
@@ -338,9 +328,9 @@ namespace Yburn.Fireball
 				throw new Exception("GridCellSize <= 0.");
 			}
 
-			if(Param.NumberGridPoints <= 0)
+			if(Param.GridRadiusFm <= 0)
 			{
-				throw new Exception("NumberGridPoints <= 0.");
+				throw new Exception("GridRadius <= 0.");
 			}
 
 			if(Param.ImpactParameterFm < 0)
@@ -421,30 +411,30 @@ namespace Yburn.Fireball
 		{
 			DampingFactor = new StateSpecificFireballField(
 				FireballFieldType.DampingFactor,
-				Param.NumberGridPointsInX,
-				Param.NumberGridPointsInY,
+				X.Length,
+				Y.Length,
 				Param.TransverseMomentaGeV.Count,
 				(i, j, k, l) => 1);
 		}
 
 		private void InitXY()
 		{
-			X = Param.GenerateDiscreteXAxis().ToArray();
-			Y = Param.GenerateDiscreteYAxis().ToArray();
+			X = Param.XAxis;
+			Y = Param.YAxis;
 		}
 
 		private void InitV()
 		{
 			VX = new SimpleFireballField(
 				FireballFieldType.VX,
-				Param.NumberGridPointsInX,
-				Param.NumberGridPointsInY,
+				X.Length,
+				Y.Length,
 				(i, j) => 0);
 
 			VY = new SimpleFireballField(
 				FireballFieldType.VY,
-				Param.NumberGridPointsInX,
-				Param.NumberGridPointsInY,
+				X.Length,
+				Y.Length,
 				(i, j) => 0);
 		}
 
@@ -474,8 +464,8 @@ namespace Yburn.Fireball
 		private void InitTemperature()
 		{
 			Temperature = new FireballTemperatureField(
-				Param.NumberGridPointsInX,
-				Param.NumberGridPointsInY,
+				X.Length,
+				Y.Length,
 				GlauberCalculation.TemperatureScalingField,
 				Param.InitialMaximumTemperatureMeV,
 				Param.ThermalTimeFm,
@@ -563,8 +553,8 @@ namespace Yburn.Fireball
 		{
 			return new SimpleFireballField(
 				FireballFieldType.UnscaledSuppression,
-				Param.NumberGridPointsInX,
-				Param.NumberGridPointsInY,
+				X.Length,
+				Y.Length,
 				(i, j) => DampingFactor.Values[pTindex, (int)state][i, j]
 					* GlauberCalculation.OverlapField[i, j]);
 		}

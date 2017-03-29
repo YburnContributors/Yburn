@@ -379,38 +379,91 @@ namespace Yburn.Fireball
 			}
 		}
 
-		public int NumberGridPoints
+		public bool IsSystemSymmetricInX
 		{
 			get
 			{
-				return Convert.ToInt32(Math.Round(GridRadiusFm / GridCellSizeFm)) + 1;
-			}
-			set
-			{
-				GridRadiusFm = (value - 1) * GridCellSizeFm;
+				return AreNucleusABIdentical;
 			}
 		}
 
-		public int NumberGridPointsInX
+		public bool IsSystemSymmetricInY
 		{
 			get
 			{
-				if(AreNucleusABIdentical)
-				{
-					return NumberGridPoints;
-				}
-				else
-				{
-					return 2 * NumberGridPoints - 1;
-				}
+				return true;
 			}
 		}
 
-		public int NumberGridPointsInY
+		public int SystemSymmetryFactor
 		{
 			get
 			{
-				return NumberGridPoints;
+				int factor = 1;
+
+				if(IsSystemSymmetricInX)
+				{
+					factor *= 2;
+				}
+
+				if(IsSystemSymmetricInY)
+				{
+					factor *= 2;
+				}
+
+				return factor;
+			}
+		}
+
+		public double[] XAxis
+		{
+			get
+			{
+				List<double> xAxis = new List<double>();
+				xAxis.Add(0);
+
+				int i = 1;
+				while(i * GridCellSizeFm <= GridRadiusFm)
+				{
+					xAxis.Add(i * GridCellSizeFm);
+
+					if(!IsSystemSymmetricInX)
+					{
+						xAxis.Add(-i * GridCellSizeFm);
+					}
+
+					i++;
+				}
+
+				xAxis.Sort();
+
+				return xAxis.ToArray();
+			}
+		}
+
+		public double[] YAxis
+		{
+			get
+			{
+				List<double> yAxis = new List<double>();
+				yAxis.Add(0);
+
+				int j = 1;
+				while(j * GridCellSizeFm <= GridRadiusFm)
+				{
+					yAxis.Add(j * GridCellSizeFm);
+
+					if(!IsSystemSymmetricInY)
+					{
+						yAxis.Add(-j * GridCellSizeFm);
+					}
+
+					j++;
+				}
+
+				yAxis.Sort();
+
+				return yAxis.ToArray();
 			}
 		}
 
@@ -448,40 +501,6 @@ namespace Yburn.Fireball
 			param.UseMagneticField_Nullable = UseMagneticField_Nullable;
 
 			return param;
-		}
-
-		public List<double> GenerateDiscreteXAxis()
-		{
-			List<double> x = new List<double>();
-
-			if(AreNucleusABIdentical)
-			{
-				for(int i = 0; i < NumberGridPointsInX; i++)
-				{
-					x.Add(GridCellSizeFm * i);
-				}
-			}
-			else
-			{
-				for(int i = 0; i < NumberGridPointsInX; i++)
-				{
-					x.Add(GridCellSizeFm * (i + 1 - NumberGridPoints));
-				}
-			}
-
-			return x;
-		}
-
-		public List<double> GenerateDiscreteYAxis()
-		{
-			List<double> y = new List<double>();
-
-			for(int i = 0; i < NumberGridPointsInY; i++)
-			{
-				y.Add(GridCellSizeFm * i);
-			}
-
-			return y;
 		}
 
 		/********************************************************************************************

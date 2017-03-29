@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
@@ -31,13 +30,13 @@ namespace Yburn.Fireball
 		{
 			GlauberCalculation glauber = new GlauberCalculation(param);
 
-			List<double> x = param.GenerateDiscreteXAxis();
-			List<double> y = param.GenerateDiscreteYAxis();
+			double[] x = param.XAxis;
+			double[] y = param.YAxis;
 
-			double[,] functionColumnDensityValues = new double[x.Count, y.Count];
-			for(int i = 0; i < x.Count; i++)
+			double[,] functionColumnDensityValues = new double[x.Length, y.Length];
+			for(int i = 0; i < x.Length; i++)
 			{
-				for(int j = 0; j < y.Count; j++)
+				for(int j = 0; j < y.Length; j++)
 				{
 					Func<double, double> integrand = rapidity => function(x[i], y[j], rapidity);
 
