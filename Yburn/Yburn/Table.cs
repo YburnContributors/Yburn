@@ -37,6 +37,27 @@ namespace Yburn
 			return table;
 		}
 
+		public static Table<string> CreateFromFormattedTableString(
+			string formattedTableString
+			)
+		{
+			Table<string> table = new Table<string>();
+
+			string[] rows = formattedTableString.Split(
+				new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+
+			string columnSeparator = new string(' ', BlanksBetweenColumns);
+
+			foreach(string row in rows)
+			{
+				table.AddRow(row.Split(
+					new string[] { columnSeparator }, StringSplitOptions.RemoveEmptyEntries),
+					string.Empty);
+			}
+
+			return table;
+		}
+
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
@@ -45,11 +66,11 @@ namespace Yburn
 
 		private static string Concatenate(
 			Table<string> table,
-			bool firstColumnContainsLabels
+			bool alignFirstColumnLeft
 			)
 		{
 			StringBuilder stringBuilder = new StringBuilder();
-			List<string> formatStrings = GetColumnFormatStrings(table, firstColumnContainsLabels);
+			List<string> formatStrings = GetColumnFormatStrings(table, alignFirstColumnLeft);
 
 			for(int row = 0; row < table.NumberOfRows; row++)
 			{
@@ -65,7 +86,7 @@ namespace Yburn
 
 		private static List<string> GetColumnFormatStrings(
 			Table<string> table,
-			bool isFirstColumnLabel
+			bool alignFirstColumnLeft
 			)
 		{
 			List<int> columnWidths = GetColumnWidths(table);
@@ -76,7 +97,7 @@ namespace Yburn
 				formatStrings.Add(string.Format("{{0,{0}}}", width + BlanksBetweenColumns));
 			}
 
-			if(isFirstColumnLabel)
+			if(alignFirstColumnLeft)
 			{
 				formatStrings[0] = string.Format("{{0,-{0}}}", columnWidths[0]);
 			}
@@ -262,33 +283,35 @@ namespace Yburn
 		}
 
 		public string ToFormattedTableString(
-			bool firstColumnContainsLabels = false
+			bool alignFirstColumnLeft = false
 			)
 		{
-			return Concatenate(ToStringTable(), firstColumnContainsLabels);
+			return Concatenate(ToStringTable(), alignFirstColumnLeft);
 		}
 
 		public string ToFormattedTableString(
-			IEnumerable<string> columnLabels
+			IEnumerable<string> columnLabels,
+			bool alignFirstColumnLeft = false
 			)
 		{
 			Table<string> stringTable = ToStringTable();
 			stringTable.InsertRow(0, columnLabels, string.Empty);
 
-			return Concatenate(stringTable, false);
+			return Concatenate(stringTable, alignFirstColumnLeft);
 		}
 
 		public string ToFormattedTableString(
 			IEnumerable<string> columnLabels,
 			IEnumerable<string> rowLabels,
-			string title = ""
+			string title = "",
+			bool alignFirstColumnLeft = false
 			)
 		{
 			Table<string> stringTable = ToStringTable();
 			stringTable.InsertRow(0, columnLabels, string.Empty);
 			stringTable.InsertColumn(0, new List<string>() { title }.Concat(rowLabels), string.Empty);
 
-			return Concatenate(stringTable, true);
+			return Concatenate(stringTable, alignFirstColumnLeft);
 		}
 
 		/********************************************************************************************

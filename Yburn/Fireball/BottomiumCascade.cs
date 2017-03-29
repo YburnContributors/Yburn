@@ -39,19 +39,27 @@ namespace Yburn.Fireball
 		public static string GetBranchingRatioMatrixString()
 		{
 			StringBuilder matrixString = new StringBuilder();
-			matrixString.AppendLine(CalculateBranchingRatioMatrix()
-				.GetMatrixString(extractGammaTot3P: true));
+			matrixString.Append(
+				CalculateBranchingRatioMatrix().GetMatrixString(extractGammaTot3P: true));
 
-			Table<string> muTable = new Table<string>(string.Empty, 2, 4);
-			muTable[0, 0] = "State";
-			muTable[0, 1] = BottomiumState.Y1S.ToUIString();
-			muTable[0, 2] = BottomiumState.Y2S.ToUIString();
-			muTable[0, 3] = BottomiumState.Y3S.ToUIString();
-			muTable[1, 0] = "B(nS→µ±)";
-			muTable[1, 1] = Constants.B1Smu.ToUIString();
-			muTable[1, 2] = Constants.B2Smu.ToUIString();
-			muTable[1, 3] = Constants.B3Smu.ToUIString();
-			matrixString.Append(muTable.ToFormattedTableString(firstColumnContainsLabels: true));
+			matrixString.AppendLine();
+
+			Table<string> muTable = new Table<string>();
+			muTable.AddColumn(
+				new string[] {
+					"State",
+					BottomiumState.Y1S.ToUIString(),
+					BottomiumState.Y2S.ToUIString(),
+					BottomiumState.Y3S.ToUIString()
+				}, string.Empty);
+			muTable.AddColumn(
+				new string[] {
+					"B(nS→µ±)",
+					Constants.B1Smu.ToUIString(),
+					Constants.B2Smu.ToUIString(),
+					Constants.B3Smu.ToUIString()
+				}, string.Empty);
+			matrixString.Append(muTable.ToFormattedTableString());
 
 			return matrixString.ToString();
 		}
@@ -207,31 +215,22 @@ namespace Yburn.Fireball
 
 		public string GetInitialQQPopulationsString()
 		{
-			BottomiumVector initialPops = CalculateInitialQQPopulations();
 			BottomiumVector initialPopsBR
 				= CalculateInitialQQPopulationsWithDimuonBranchingRatiosIncluded();
+			Table<string> initialPopsBRStrings = Table<string>.CreateFromFormattedTableString(
+				initialPopsBR.GetVectorString(
+					description: "N^i_AA,nl/N^f_pp,1S",
+					extractGammaTot3P: true));
 
-			string[] initialPopsRows = initialPops
-				.GetVectorString(description: "", extractGammaTot3P: true)
-				.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-			string[] stateNames = initialPopsRows[0]
-				.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-			string[] initialPopsFormattedValues = initialPopsRows[1]
-				.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+			BottomiumVector initialPops = CalculateInitialQQPopulations();
+			Table<string> initialPopsStrings = Table<string>.CreateFromFormattedTableString(
+				initialPops.GetVectorString(
+					description: "N^i_AA,nl/N^f_pp,1S/B(nS→µ±)",
+					extractGammaTot3P: true));
 
-			string[] initialPopsBRRows = initialPopsBR
-				.GetVectorString(description: "", extractGammaTot3P: true)
-				.Split(new char[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-			string[] initialPopsBRFormattedValues = initialPopsBRRows[1]
-				.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+			initialPopsBRStrings.AddColumn(initialPopsStrings.GetColumn(1), string.Empty);
 
-			Table<string> combinedEntries = new Table<string>();
-			combinedEntries.AddRow(initialPopsFormattedValues, string.Empty);
-			combinedEntries.AddRow(initialPopsBRFormattedValues, string.Empty);
-
-			return combinedEntries.ToFormattedTableString(
-				stateNames,
-				new string[] { "N^i_AA,nl/N^f_pp,1S/B(nS→µ±)", "N^i_AA,nl/N^f_pp,1S" });
+			return initialPopsBRStrings.ToFormattedTableString();
 		}
 
 		public BottomiumVector CalculateInitialQQPopulationsWithDimuonBranchingRatiosIncluded()

@@ -116,14 +116,13 @@ namespace Yburn.Fireball
 		}
 
 		public string GetMatrixString(
-			string description = "State",
 			bool extractGammaTot3P = false
 			)
 		{
 			List<string> labels = new List<string>(Enum.GetNames(typeof(BottomiumState)));
 
 			return new Table<string>(GetStringifiedRepresentation(extractGammaTot3P))
-				.ToFormattedTableString(labels, labels, description);
+				.ToFormattedTableString(labels, labels, title: "State");
 		}
 
 		/********************************************************************************************
@@ -165,14 +164,14 @@ namespace Yburn.Fireball
 					{
 						stringifiedEntries[(int)BottomiumState.x3P, (int)s]
 							= (this[BottomiumState.x3P, s] / Constants.GammaTot3P).ToUIString()
-							+ "*GammaTot3P/eV";
+							+ "*GammaTot3P/MeV";
 					}
 
 					if(stringifiedEntries[(int)s, (int)BottomiumState.x3P] != "0")
 					{
 						stringifiedEntries[(int)s, (int)BottomiumState.x3P]
 							= (this[s, BottomiumState.x3P] * Constants.GammaTot3P).ToUIString()
-							+ "/GammaTot3P*eV";
+							+ "/GammaTot3P*MeV";
 					}
 				}
 			}

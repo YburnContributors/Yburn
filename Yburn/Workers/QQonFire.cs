@@ -142,7 +142,7 @@ namespace Yburn.Workers
 				if(JobCancelToken.IsCancellationRequested)
 				{
 					LogMessages.Clear();
-					LogMessages.Append(LogHeader + "#\r\n#\r\n" + LogFooter);
+					LogMessages.Append(LogHeader + LogFooter);
 					return;
 				}
 
@@ -178,20 +178,23 @@ namespace Yburn.Workers
 			if(JobCancelToken.IsCancellationRequested)
 			{
 				LogMessages.Clear();
-				LogMessages.Append(LogHeader + "#\r\n#\r\n" + LogFooter);
+				LogMessages.Append(LogHeader + LogFooter);
 				return;
 			}
 
 			// prepare output
 			LogMessages.Clear();
 			LogMessages.Append(LogHeader);
-			LogMessages.AppendFormat("#\r\n#\r\n#{0,5}{1,12}{2,12}{3,12}\r\n",
-				"b", "Ncoll", "NcollQGP", "NcollPion");
-			LogMessages.AppendFormat("#{0,5}{1,12}{2,12}{3,12}\r\n\r\n",
-				"(fm)", "", "", "");
+
+			LogMessages.AppendLine();
+			LogMessages.AppendLine();
+
+			LogMessages.AppendLine(string.Format("#{0,7}{1,12}{2,12}{3,12}",
+				"b (fm)", "Ncoll", "NcollQGP", "NcollPion"));
+			LogMessages.AppendLine("#");
 			for(int i = 0; i < impactParams.Count; i++)
 			{
-				LogMessages.AppendLine(string.Format("{0,6}{1,12}{2,12}{3,12}",
+				LogMessages.AppendLine(string.Format("{0,8}{1,12}{2,12}{3,12}",
 					impactParams[i].ToUIString(),
 					nColls[i].ToUIString(),
 					nCollQGPs[i].ToUIString(),
@@ -217,23 +220,27 @@ namespace Yburn.Workers
 			CalculateBinBoundaries(out numberCentralityBins, out centralityBinStrings,
 				out impactParams, out nColls, out nParts, out dSigmadbs, out sigmas);
 
+			// quit here if process has been aborted
 			if(JobCancelToken.IsCancellationRequested)
 			{
 				LogMessages.Clear();
-				LogMessages.Append(LogHeader + "#\r\n#\r\n" + LogFooter);
+				LogMessages.Append(LogHeader + LogFooter);
 				return;
 			}
 
 			// prepare output
 			LogMessages.Clear();
 			LogMessages.Append(LogHeader);
-			LogMessages.AppendFormat("#\r\n#\r\n#{0,5}{1,12}{2,12}{3,12}{4,12}\r\n",
-				"b", "Ncoll", "Npart", "dSigma/db", "Sigma");
-			LogMessages.AppendFormat("#{0,5}{1,12}{2,12}{3,12}{4,12}\r\n",
-				"(fm)", "", "", "(fm)", "(fm^2)");
+
+			LogMessages.AppendLine();
+			LogMessages.AppendLine();
+
+			LogMessages.AppendLine(string.Format("#{0,7}{1,12}{2,12}{3,14}{4,14}",
+				"b (fm)", "Ncoll", "Npart", "dσ/db (fm)", "σ (fm^2)"));
+			LogMessages.AppendLine("#");
 			for(int i = 0; i < impactParams.Count; i++)
 			{
-				LogMessages.AppendLine(string.Format("{0,6}{1,12}{2,12}{3,12}{4,12}",
+				LogMessages.AppendLine(string.Format("{0,8}{1,12}{2,12}{3,14}{4,14}",
 					impactParams[i].ToUIString(),
 					nColls[i].ToUIString(),
 					nParts[i].ToUIString(),
@@ -241,16 +248,24 @@ namespace Yburn.Workers
 					sigmas[i].ToUIString()));
 			}
 
-			LogMessages.AppendLine(string.Format("\r\n\r\n#{0,11}{1,19}{2,12}",
+			LogMessages.AppendLine();
+			LogMessages.AppendLine();
+
+			LogMessages.AppendLine(string.Format("#{0,11}{1,19}{2,12}",
 				"Centrality",
-				"Bin size",
+				"Bin size (fm)",
 				"<Npart>"));
+			LogMessages.AppendLine("#");
 			for(int binGroupIndex = 0; binGroupIndex < numberCentralityBins.Count; binGroupIndex++)
 			{
-				LogMessages.AppendLine("#");
+				if(binGroupIndex > 0)
+				{
+					LogMessages.AppendLine();
+				}
+
 				for(int binIndex = 0; binIndex < numberCentralityBins[binGroupIndex]; binIndex++)
 				{
-					LogMessages.AppendLine(string.Format("#{0,11}{1,8} < b < {2,4}{3,12}",
+					LogMessages.AppendLine(string.Format("{0,12}{1,8} < b < {2,4}{3,12}",
 						centralityBinStrings[binGroupIndex][binIndex],
 						ImpactParamsAtBinBoundaries[binGroupIndex][binIndex].ToUIString(),
 						ImpactParamsAtBinBoundaries[binGroupIndex][binIndex + 1].ToUIString(),
@@ -308,52 +323,61 @@ namespace Yburn.Workers
 			SetStatusVariables(SuppressionStatusTitles);
 			DetermineMaxLifeTime();
 
-			BottomiumVector[][][] qgpSuppressionFactors = CalculateQGPSuppressionFactors(numberCentralityBins);
+			BottomiumVector[][][] qgpSuppressionFactors
+				= CalculateQGPSuppressionFactors(numberCentralityBins);
 
 			// quit here if process has been aborted
 			if(JobCancelToken.IsCancellationRequested)
 			{
 				LogMessages.Clear();
-				LogMessages.Append(LogHeader + "#\r\n#\r\n" + LogFooter);
+				LogMessages.Append(LogHeader + LogFooter);
 				return;
 			}
 
-			// The preliminary suppression factors have been calculated. Now come the final suppression factors
-			// and output to LogStream.
-			StringBuilder results = new StringBuilder();
+			// prepare output
+			LogMessages.Clear();
+			LogMessages.Append(LogHeader);
 
-			results.AppendFormat("#Preliminary suppression factors:\r\n#\r\n#{0,11}{1,12}{2,12}",
-				"Centrality",
-				"<Npart>",
-				"pT (GeV/c)");
+			LogMessages.AppendLine();
+			LogMessages.AppendLine();
+
+			LogMessages.AppendLine("#Preliminary suppression factors:");
+			LogMessages.AppendLine("#");
+			LogMessages.AppendFormat("#{0,11}{1,12}{2,12}",
+				"Centrality", "<Npart>", "pT (GeV/c)");
 			foreach(string sStateName in Enum.GetNames(typeof(BottomiumState)))
 			{
-				results.AppendFormat("{0,12}", string.Format("RAAQGP({0})", sStateName));
+				LogMessages.AppendFormat("{0,12}", string.Format("RAAQGP({0})", sStateName));
 			}
-
-			results.Append("\r\n#\r\n");
+			LogMessages.AppendLine();
+			LogMessages.AppendLine("#");
 
 			for(int binGroupIndex = 0; binGroupIndex < numberCentralityBins.Count; binGroupIndex++)
 			{
+				if(binGroupIndex > 0)
+				{
+					LogMessages.AppendLine();
+				}
+
 				for(int binIndex = 0; binIndex < numberCentralityBins[binGroupIndex]; binIndex++)
 				{
 					for(int pTIndex = 0; pTIndex < TransverseMomenta.Count; pTIndex++)
 					{
-						results.AppendFormat("{0,12}{1,12}{2,12}",
+						LogMessages.AppendFormat("{0,12}{1,12}{2,12}",
 							centralityBinStrings[binGroupIndex][binIndex],
 							MeanParticipantsInBin[binGroupIndex][binIndex].ToUIString(),
 							TransverseMomenta[pTIndex].ToUIString());
 
 						foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 						{
-							results.AppendFormat("{0,12}",
+							LogMessages.AppendFormat("{0,12}",
 								qgpSuppressionFactors[binGroupIndex][binIndex][pTIndex][state].ToUIString());
 						}
 
-						results.AppendLine();
+						LogMessages.AppendLine();
 					}
 
-					results.AppendFormat("{0,12}{1,12}{2,12}",
+					LogMessages.AppendFormat("{0,12}{1,12}{2,12}",
 						centralityBinStrings[binGroupIndex][binIndex],
 						MeanParticipantsInBin[binGroupIndex][binIndex].ToUIString(),
 						"<pT>");
@@ -366,22 +390,22 @@ namespace Yburn.Workers
 							rAAQGPsBinValues[pTIndex] = qgpSuppressionFactors[binGroupIndex][binIndex][pTIndex][state];
 						}
 
-						results.AppendFormat("{0,12}",
+						LogMessages.AppendFormat("{0,12}",
 							TransverseMomentumAverager.Calculate(state, TransverseMomenta.ToArray(), rAAQGPsBinValues)
 							.ToUIString());
 					}
 
-					results.AppendLine();
-				}
-
-				if(binGroupIndex < numberCentralityBins.Count - 1)
-				{
-					results.AppendLine();
+					LogMessages.AppendLine();
 				}
 			}
 
-			results.AppendFormat(
-				"\r\n\r\n#Final suppression factors:\r\n#\r\n#{0,11}{1,12}{2,12}{3,15}{4,15}{5,15}{6,15}{7,15}\r\n#\r\n",
+			LogMessages.AppendLine();
+			LogMessages.AppendLine();
+
+			LogMessages.AppendLine("#Final suppression factors:");
+			LogMessages.AppendLine("#");
+			LogMessages.AppendLine(string.Format(
+				"#{0,11}{1,12}{2,12}{3,15}{4,15}{5,15}{6,15}{7,15}",
 				"Centrality",
 				"<Npart>",
 				"pT (GeV/c)",
@@ -389,13 +413,19 @@ namespace Yburn.Workers
 				"RAA(Y2S)",
 				"RAA(Y3S)",
 				"(2S/1S)PbPb-pp",
-				"(3S/1S)PbPb-pp");
+				"(3S/1S)PbPb-pp"));
+			LogMessages.AppendLine("#");
 
 			// calculate final suppression factors
 			double[][] rAAs = new double[TransverseMomenta.Count][];
 			// run through the centrality bin groups
 			for(int binGroupIndex = 0; binGroupIndex < numberCentralityBins.Count; binGroupIndex++)
 			{
+				if(binGroupIndex > 0)
+				{
+					LogMessages.AppendLine();
+				}
+
 				// run through the centrality bins
 				for(int binIndex = 0; binIndex < numberCentralityBins[binGroupIndex]; binIndex++)
 				{
@@ -404,21 +434,21 @@ namespace Yburn.Workers
 					{
 						rAAs[pTIndex] = CalculateFullSuppressionFactors(qgpSuppressionFactors[binGroupIndex][binIndex][pTIndex]);
 
-						results.AppendFormat("{0,12}{1,12}{2,12}",
+						LogMessages.AppendFormat("{0,12}{1,12}{2,12}",
 							centralityBinStrings[binGroupIndex][binIndex],
 							MeanParticipantsInBin[binGroupIndex][binIndex].ToUIString(),
 							TransverseMomenta[pTIndex].ToUIString());
 
 						for(int stateIndex = 0; stateIndex < 5; stateIndex++)
 						{
-							results.AppendFormat("{0,15}",
+							LogMessages.AppendFormat("{0,15}",
 								rAAs[pTIndex][stateIndex].ToUIString());
 						}
 
-						results.AppendLine();
+						LogMessages.AppendLine();
 					}
 
-					results.AppendFormat("{0,12}{1,12}{2,12}",
+					LogMessages.AppendFormat("{0,12}{1,12}{2,12}",
 						centralityBinStrings[binGroupIndex][binIndex],
 						MeanParticipantsInBin[binGroupIndex][binIndex].ToUIString(),
 						"<pT>");
@@ -432,28 +462,19 @@ namespace Yburn.Workers
 							rAABinValues[pTIndex] = rAAs[pTIndex][l];
 						}
 
-						results.AppendFormat("{0,15}",
+						LogMessages.AppendFormat("{0,15}",
 							TransverseMomentumAverager.Calculate((BottomiumState)l,
 							TransverseMomenta.ToArray(),
 							rAABinValues).ToUIString());
 					}
 
-					results.AppendLine();
-				}
-
-				if(binGroupIndex < numberCentralityBins.Count - 1)
-				{
-					results.AppendLine();
+					LogMessages.AppendLine();
 				}
 			}
 
-			// store information in LogString, print it out and save it to file
-			string logString = LogHeader + "\r\n\r\n" + results.ToString() + LogFooter;
+			LogMessages.Append(LogFooter);
 
-			File.WriteAllText(YburnConfigFile.OutputPath + DataFileName, logString);
-
-			LogMessages.Clear();
-			LogMessages.Append(logString);
+			File.WriteAllText(YburnConfigFile.OutputPath + DataFileName, LogMessages.ToString());
 		}
 
 		public void ShowBranchingRatioMatrix()
@@ -461,8 +482,10 @@ namespace Yburn.Workers
 			CurrentJobTitle = "ShowBranchingRatioMatrix";
 
 			LogMessages.Clear();
-			LogMessages.AppendFormat("Branching ratio matrix:\r\n\r\n{0}\r\n\r\n",
-				BottomiumCascade.GetBranchingRatioMatrixString());
+			LogMessages.AppendLine("#Branching ratio matrix:");
+			LogMessages.AppendLine();
+			LogMessages.AppendLine(BottomiumCascade.GetBranchingRatioMatrixString());
+			LogMessages.AppendLine();
 		}
 
 		public void ShowCumulativeMatrix()
@@ -470,8 +493,10 @@ namespace Yburn.Workers
 			CurrentJobTitle = "ShowCumulativeMatrix";
 
 			LogMessages.Clear();
-			LogMessages.AppendFormat("Cumulative matrix:\r\n\r\n{0}\r\n\r\n",
-				BottomiumCascade.GetCumulativeMatrixString());
+			LogMessages.AppendLine("#Cumulative matrix:");
+			LogMessages.AppendLine();
+			LogMessages.AppendLine(BottomiumCascade.GetCumulativeMatrixString());
+			LogMessages.AppendLine();
 		}
 
 		public void ShowInverseCumulativeMatrix()
@@ -479,8 +504,10 @@ namespace Yburn.Workers
 			CurrentJobTitle = "ShowInverseCumulativeMatrix";
 
 			LogMessages.Clear();
-			LogMessages.AppendFormat("Inverse cumulative matrix:\r\n\r\n{0}\r\n\r\n",
-				BottomiumCascade.GetInverseCumulativeMatrixString());
+			LogMessages.AppendLine("#Inverse cumulative matrix:");
+			LogMessages.AppendLine();
+			LogMessages.AppendLine(BottomiumCascade.GetInverseCumulativeMatrixString());
+			LogMessages.AppendLine();
 		}
 
 		public void ShowDecayWidthInput()
@@ -541,8 +568,10 @@ namespace Yburn.Workers
 			BottomiumCascade cascade = new BottomiumCascade(DimuonDecaysFrompp);
 
 			LogMessages.Clear();
-			LogMessages.AppendFormat("Initial QQ populations:\r\n\r\n{0}\r\n\r\n",
-				cascade.GetInitialQQPopulationsString());
+			LogMessages.AppendLine("#Initial QQ populations:");
+			LogMessages.AppendLine();
+			LogMessages.AppendLine(cascade.GetInitialQQPopulationsString());
+			LogMessages.AppendLine();
 		}
 
 		public void ShowProtonProtonDimuonDecays()
@@ -552,8 +581,10 @@ namespace Yburn.Workers
 			BottomiumCascade cascade = new BottomiumCascade(DimuonDecaysFrompp);
 
 			LogMessages.Clear();
-			LogMessages.AppendFormat("Scaled pp dimuon decays:\r\n\r\n{0}\r\n\r\n",
-				cascade.GetNormalizedProtonProtonDimuonDecaysString());
+			LogMessages.AppendLine("#Scaled pp dimuon decays:");
+			LogMessages.AppendLine();
+			LogMessages.AppendLine(cascade.GetNormalizedProtonProtonDimuonDecaysString());
+			LogMessages.AppendLine();
 		}
 
 		public void ShowY1SFeedDownFractions()
@@ -563,8 +594,10 @@ namespace Yburn.Workers
 			BottomiumCascade cascade = new BottomiumCascade(DimuonDecaysFrompp);
 
 			LogMessages.Clear();
-			LogMessages.AppendFormat("Y1S feed down fractions:\r\n\r\n{0}\r\n\r\n",
-				cascade.GetY1SFeedDownFractionsString());
+			LogMessages.AppendLine("#Y1S feed down fractions:");
+			LogMessages.AppendLine();
+			LogMessages.AppendLine(cascade.GetY1SFeedDownFractionsString());
+			LogMessages.AppendLine();
 		}
 
 		/********************************************************************************************

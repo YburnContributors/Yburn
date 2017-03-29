@@ -109,7 +109,7 @@ namespace Yburn.Fireball
 		public string GetVectorString(
 			string description = "Population",
 			bool extractGammaTot3P = false,
-			bool transposeVector = true
+			bool transposeVector = false
 			)
 		{
 			string[] labels = Enum.GetNames(typeof(BottomiumState));
@@ -118,11 +118,11 @@ namespace Yburn.Fireball
 			if(transposeVector)
 			{
 				table.Transpose();
-				return table.ToFormattedTableString(labels, new string[] { description });
+				return table.ToFormattedTableString(labels, new string[] { description }, title: "State");
 			}
 			else
 			{
-				return table.ToFormattedTableString(new string[] { description }, labels);
+				return table.ToFormattedTableString(new string[] { description }, labels, title: "State");
 			}
 		}
 
@@ -153,7 +153,7 @@ namespace Yburn.Fireball
 			if(stringifiedEntries[(int)BottomiumState.x3P] != "0")
 			{
 				stringifiedEntries[(int)BottomiumState.x3P]
-					= (this[BottomiumState.x3P] / Constants.GammaTot3P).ToUIString() + "*GammaTot3P/eV";
+					= (this[BottomiumState.x3P] / Constants.GammaTot3P).ToUIString() + "*GammaTot3P/MeV";
 			}
 		}
 	}
