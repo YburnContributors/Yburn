@@ -112,9 +112,9 @@ namespace Yburn.Workers
 
 			// append final results in the output file and exchange the old header with a new one
 			LogMessages.Clear();
-			LogMessages.Append(LogHeader + "#\r\n#\r\n" + LogFooter);
-			dataFileString.Append(LogMessages.ToString());
+			LogMessages.Append(LogHeader + LogFooter);
 			dataFileString.Insert(0, LogHeader);
+			dataFileString.Append(LogFooter);
 
 			WriteFile(dataFileString, fileName);
 			WriteFile(gnuFileStringX, fileName + "-plotX.plt");
@@ -130,10 +130,17 @@ namespace Yburn.Workers
 			string dataFileName
 			)
 		{
+			string nameWithoutExtension = dataFileName;
+			string extension = string.Empty;
 			int indexOfDot = dataFileName.LastIndexOf(".");
-			string tempPathFile = dataFileName.Substring(0, indexOfDot);
-			string extension = dataFileName.Substring(indexOfDot, dataFileName.Length - indexOfDot);
-			return (tempPathFile + "-b" + ImpactParameter + extension).Replace("\\", "/");
+
+			if(indexOfDot >= 0)
+			{
+				nameWithoutExtension = dataFileName.Substring(0, indexOfDot);
+				extension = dataFileName.Substring(indexOfDot, dataFileName.Length - indexOfDot);
+			}
+
+			return (nameWithoutExtension + "-b" + ImpactParameter + extension).Replace("\\", "/");
 		}
 	}
 }
