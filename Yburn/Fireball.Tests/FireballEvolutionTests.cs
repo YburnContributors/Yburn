@@ -105,13 +105,13 @@ namespace Yburn.Fireball.Tests
 			FireballParam param = CreateFireballParam_PbPb();
 
 			param.CenterOfMassEnergyTeV = 5.02;
-			param.DiffusenessBFm = 0;
+			param.DiffusenessAFm = 0;
 			param.GridCellSizeFm = 0.2;
 			param.GridRadiusFm = 5;
-			param.NuclearRadiusBFm = 0.8775;
-			param.NucleonNumberB = 1;
-			param.NucleusShapeB = NucleusShape.GaussianDistribution;
-			param.ProtonNumberB = 1;
+			param.NuclearRadiusAFm = 0.8775;
+			param.NucleonNumberA = 1;
+			param.NucleusShapeA = NucleusShape.GaussianDistribution;
+			param.ProtonNumberA = 1;
 			param.TemperatureProfile = TemperatureProfile.NmixALICE13;
 
 			return param;

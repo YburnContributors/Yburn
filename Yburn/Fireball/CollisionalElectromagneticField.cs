@@ -25,7 +25,8 @@ namespace Yburn.Fireball
 			FireballParam param
 			)
 		{
-			ImpactParameterFm = param.ImpactParameterFm;
+			NucleusPositionA = param.NucleusPositionA;
+			NucleusPositionB = param.NucleusPositionB;
 
 			Nucleus nucleusA;
 			Nucleus nucleusB;
@@ -60,11 +61,11 @@ namespace Yburn.Fireball
 		{
 			// Nucleus A is located at negative x and moves in positive z direction
 			SpatialVector fieldNucleusA = NucleusEMFA.CalculateElectricFieldPerFm2(
-				t, x + 0.5 * ImpactParameterFm, y, z);
+				t, x - NucleusPositionA, y, z);
 
 			// Nucleus B is located at positive x and moves in negative z direction
 			SpatialVector fieldNucleusB = NucleusEMFB.CalculateElectricFieldPerFm2(
-				t, x - 0.5 * ImpactParameterFm, y, z);
+				t, x - NucleusPositionB, y, z);
 
 			return fieldNucleusA + fieldNucleusB;
 		}
@@ -78,11 +79,11 @@ namespace Yburn.Fireball
 		{
 			// Nucleus A is located at negative x and moves in positive z direction
 			SpatialVector fieldNucleusA = NucleusEMFA.CalculateElectricFieldPerFm2_LCF(
-				properTime, x + 0.5 * ImpactParameterFm, y, rapidity);
+				properTime, x - NucleusPositionA, y, rapidity);
 
 			// Nucleus B is located at positive x and moves in negative z direction
 			SpatialVector fieldNucleusB = NucleusEMFB.CalculateElectricFieldPerFm2_LCF(
-				properTime, x - 0.5 * ImpactParameterFm, y, rapidity);
+				properTime, x - NucleusPositionB, y, rapidity);
 
 			return fieldNucleusA + fieldNucleusB;
 		}
@@ -96,11 +97,11 @@ namespace Yburn.Fireball
 		{
 			// Nucleus A is located at negative x and moves in positive z direction
 			SpatialVector fieldNucleusA = NucleusEMFA.CalculateMagneticFieldPerFm2(
-				t, x + 0.5 * ImpactParameterFm, y, z);
+				t, x - NucleusPositionA, y, z);
 
 			// Nucleus B is located at positive x and moves in negative z direction
 			SpatialVector fieldNucleusB = NucleusEMFB.CalculateMagneticFieldPerFm2(
-				t, x - 0.5 * ImpactParameterFm, y, z);
+				t, x - NucleusPositionB, y, z);
 
 			return fieldNucleusA + fieldNucleusB;
 		}
@@ -114,11 +115,11 @@ namespace Yburn.Fireball
 		{
 			// Nucleus A is located at negative x and moves in positive z direction
 			SpatialVector fieldNucleusA = NucleusEMFA.CalculateMagneticFieldPerFm2_LCF(
-				properTime, x + 0.5 * ImpactParameterFm, y, rapidity);
+				properTime, x - NucleusPositionA, y, rapidity);
 
 			// Nucleus B is located at positive x and moves in negative z direction
 			SpatialVector fieldNucleusB = NucleusEMFB.CalculateMagneticFieldPerFm2_LCF(
-				properTime, x - 0.5 * ImpactParameterFm, y, rapidity);
+				properTime, x - NucleusPositionB, y, rapidity);
 
 			return fieldNucleusA + fieldNucleusB;
 		}
@@ -127,10 +128,12 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private double ImpactParameterFm;
+		private readonly double NucleusPositionA;
 
-		private NucleusElectromagneticField NucleusEMFA;
+		private readonly double NucleusPositionB;
 
-		private NucleusElectromagneticField NucleusEMFB;
+		private readonly NucleusElectromagneticField NucleusEMFA;
+
+		private readonly NucleusElectromagneticField NucleusEMFB;
 	}
 }

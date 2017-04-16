@@ -367,15 +367,33 @@ namespace Yburn.Fireball
 			}
 		}
 
-		public bool AreNucleusABIdentical
+		public double NucleusPositionA
 		{
 			get
 			{
-				return NucleusShapeA == NucleusShapeB
-					& NucleonNumberA == NucleonNumberB
-					& ProtonNumberA == ProtonNumberB
-					& NuclearRadiusAFm == NuclearRadiusBFm
-					& DiffusenessAFm == DiffusenessBFm;
+				if(NucleusShapeA == NucleusShape.GaussianDistribution)
+				{
+					return 0;
+				}
+				else
+				{
+					return -0.5 * ImpactParameterFm;
+				}
+			}
+		}
+
+		public double NucleusPositionB
+		{
+			get
+			{
+				if(NucleusShapeA == NucleusShape.GaussianDistribution)
+				{
+					return ImpactParameterFm;
+				}
+				else
+				{
+					return +0.5 * ImpactParameterFm;
+				}
 			}
 		}
 
@@ -506,6 +524,18 @@ namespace Yburn.Fireball
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
+
+		private bool AreNucleusABIdentical
+		{
+			get
+			{
+				return NucleusShapeA == NucleusShapeB
+					& NucleonNumberA == NucleonNumberB
+					& ProtonNumberA == ProtonNumberB
+					& NuclearRadiusAFm == NuclearRadiusBFm
+					& DiffusenessAFm == DiffusenessBFm;
+			}
+		}
 
 		private uint? NucleonNumberA_Nullable;
 
