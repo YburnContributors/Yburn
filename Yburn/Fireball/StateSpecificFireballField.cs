@@ -3,7 +3,7 @@
 namespace Yburn.Fireball
 {
 	public delegate double StateSpecificFireballFieldFunction(
-		int ptIndex, int stateIndex, int xIndex, int yIndex);
+		int xIndex, int yIndex, int pTIndex, int stateIndex);
 
 	public class StateSpecificFireballField : FireballField
 	{
@@ -15,9 +15,9 @@ namespace Yburn.Fireball
 			FireballFieldType type,
 			int xDimension,
 			int yDimension,
-			int ptDimension,
+			int pTDimension,
 			StateSpecificFireballFieldFunction function
-			) : this(type, xDimension, yDimension, ptDimension)
+			) : this(type, xDimension, yDimension, pTDimension)
 		{
 			SetValues(function);
 		}
@@ -26,10 +26,10 @@ namespace Yburn.Fireball
 			FireballFieldType type,
 			int xDimension,
 			int yDimension,
-			int ptDimension
+			int pTDimension
 			) : base(type, xDimension, yDimension)
 		{
-			PtDimension = ptDimension;
+			PTDimension = pTDimension;
 			InitValues();
 		}
 
@@ -44,11 +44,11 @@ namespace Yburn.Fireball
 		}
 
 		public SimpleFireballField GetSimpleFireballField(
-			int ptIndex,
+			int pTIndex,
 			BottomiumState state
 			)
 		{
-			return new SimpleFireballField(Type, Values[ptIndex, (int)state]);
+			return new SimpleFireballField(Type, Values[pTIndex, (int)state]);
 		}
 
 		public void SetValues(
@@ -70,16 +70,16 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		protected int PtDimension;
+		protected int PTDimension;
 
 		private void InitValues()
 		{
-			Values = new double[PtDimension, NumberBottomiumStates][,];
-			for(int k = 0; k < PtDimension; k++)
+			Values = new double[PTDimension, NumberBottomiumStates][,];
+			for(int pT = 0; pT < PTDimension; pT++)
 			{
-				for(int l = 0; l < NumberBottomiumStates; l++)
+				for(int state = 0; state < NumberBottomiumStates; state++)
 				{
-					Values[k, l] = new double[XDimension, YDimension];
+					Values[pT, state] = new double[XDimension, YDimension];
 				}
 			}
 		}
@@ -98,15 +98,15 @@ namespace Yburn.Fireball
 			StateSpecificFireballFieldFunction function
 			)
 		{
-			for(int k = 0; k < PtDimension; k++)
+			for(int pT = 0; pT < PTDimension; pT++)
 			{
-				for(int l = 0; l < NumberBottomiumStates; l++)
+				for(int state = 0; state < NumberBottomiumStates; state++)
 				{
-					for(int i = 0; i < XDimension; i++)
+					for(int x = 0; x < XDimension; x++)
 					{
-						for(int j = 0; j < YDimension; j++)
+						for(int y = 0; y < YDimension; y++)
 						{
-							Values[k, l][i, j] = function(i, j, k, l);
+							Values[pT, state][x, y] = function(x, y, pT, state);
 						}
 					}
 				}

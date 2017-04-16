@@ -118,7 +118,7 @@ namespace Yburn.Fireball
 			List<SimpleFireballField> fields = new List<SimpleFireballField>();
 			foreach(string fieldName in fieldNames)
 			{
-				if(IsPtDependent(fieldName))
+				if(IsPTDependent(fieldName))
 				{
 					for(int k = 0; k < Param.TransverseMomentaGeV.Count; k++)
 					{
@@ -171,10 +171,10 @@ namespace Yburn.Fireball
 		public double IntegrateFireballField(
 			string fieldName,
 			BottomiumState state = BottomiumState.Y1S,
-			int pTindex = 0
+			int pTIndex = 0
 			)
 		{
-			SimpleFireballField field = GetFireballField(fieldName, state, pTindex);
+			SimpleFireballField field = GetFireballField(fieldName, state, pTIndex);
 
 			// include a factor of 4 because only a quarter has been integrated
 			return Param.SystemSymmetryFactor * Param.GridCellSizeFm * Param.GridCellSizeFm
@@ -265,7 +265,7 @@ namespace Yburn.Fireball
 			}
 		}
 
-		private static bool IsPtDependent(
+		private static bool IsPTDependent(
 			string fieldName
 			)
 		{
@@ -403,8 +403,8 @@ namespace Yburn.Fireball
 			ElectricField.Advance(CurrentTime);
 			MagneticField.Advance(CurrentTime);
 			DecayWidth.Advance(CurrentTime);
-			DampingFactor.SetValues((i, j, k, l) => DampingFactor.Values[k, l][i, j]
-				* Math.Exp(-TimeStep * DecayWidth.Values[k, l][i, j] / Constants.HbarCMeVFm));
+			DampingFactor.SetValues((x, y, pT, state) => DampingFactor.Values[pT, state][x, y]
+				* Math.Exp(-TimeStep * DecayWidth.Values[pT, state][x, y] / Constants.HbarCMeVFm));
 		}
 
 		private void InitDampingFactor()
@@ -414,7 +414,7 @@ namespace Yburn.Fireball
 				X.Length,
 				Y.Length,
 				Param.TransverseMomentaGeV.Count,
-				(i, j, k, l) => 1);
+				(x, y, pT, state) => 1);
 		}
 
 		private void InitXY()
@@ -429,13 +429,13 @@ namespace Yburn.Fireball
 				FireballFieldType.VX,
 				X.Length,
 				Y.Length,
-				(i, j) => 0);
+				(x, y) => 0);
 
 			VY = new SimpleFireballField(
 				FireballFieldType.VY,
 				X.Length,
 				Y.Length,
-				(i, j) => 0);
+				(x, y) => 0);
 		}
 
 		private void InitElectromagneticFields()
@@ -483,12 +483,12 @@ namespace Yburn.Fireball
 		private SimpleFireballField GetFireballField(
 			string fieldName,
 			BottomiumState state = BottomiumState.Y1S,
-			int pTindex = 0
+			int pTIndex = 0
 			)
 		{
-			if(pTindex >= Param.TransverseMomentaGeV.Count || pTindex < 0)
+			if(pTIndex >= Param.TransverseMomentaGeV.Count || pTIndex < 0)
 			{
-				throw new Exception("pTindex is invalid.");
+				throw new Exception("pTIndex is invalid.");
 			}
 
 			switch(fieldName)
@@ -500,10 +500,10 @@ namespace Yburn.Fireball
 					return GlauberCalculation.NucleonNumberColumnDensityFieldB;
 
 				case "DampingFactor":
-					return DampingFactor.GetSimpleFireballField(pTindex, state);
+					return DampingFactor.GetSimpleFireballField(pTIndex, state);
 
 				case "DecayWidth":
-					return DecayWidth.GetSimpleFireballField(pTindex, state);
+					return DecayWidth.GetSimpleFireballField(pTIndex, state);
 
 				case "NucleonDensityA":
 					return GlauberCalculation.NucleonNumberDensityFieldA;
@@ -533,7 +533,7 @@ namespace Yburn.Fireball
 					return VY;
 
 				case "UnscaledSuppression":
-					return GetUnscaledSuppression(state, pTindex);
+					return GetUnscaledSuppression(state, pTIndex);
 
 				case "ElectricFieldStrength":
 					return ElectricField;
@@ -548,15 +548,15 @@ namespace Yburn.Fireball
 
 		private SimpleFireballField GetUnscaledSuppression(
 			BottomiumState state,
-			int pTindex
+			int pTIndex
 			)
 		{
 			return new SimpleFireballField(
 				FireballFieldType.UnscaledSuppression,
 				X.Length,
 				Y.Length,
-				(i, j) => DampingFactor.Values[pTindex, (int)state][i, j]
-					* GlauberCalculation.OverlapField[i, j]);
+				(x, y) => DampingFactor.Values[pTIndex, (int)state][x, y]
+					* GlauberCalculation.OverlapField[x, y]);
 		}
 
 		private void SetTimeStep(

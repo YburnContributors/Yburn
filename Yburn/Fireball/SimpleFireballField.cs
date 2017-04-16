@@ -21,6 +21,14 @@
 		public SimpleFireballField(
 			FireballFieldType type,
 			int xDimension,
+			int yDimension
+			) : this(type, new double[xDimension, yDimension])
+		{
+		}
+
+		public SimpleFireballField(
+			FireballFieldType type,
+			int xDimension,
 			int yDimension,
 			SimpleFireballFieldDiscreteFunction function
 			) : this(type, xDimension, yDimension)
@@ -38,15 +46,6 @@
 		{
 			AssertValidFunction(function);
 			SetDiscreteValues(function, xAxis, yAxis);
-		}
-
-		public SimpleFireballField(
-			FireballFieldType type,
-			int xDimension,
-			int yDimension
-			) : base(type, xDimension, yDimension)
-		{
-			DiscreteValues = new double[XDimension, YDimension];
 		}
 
 		/********************************************************************************************

@@ -42,9 +42,9 @@ namespace Yburn.Fireball
 			double newTime
 			)
 		{
-			SetDiscreteValues((i, j) =>
+			SetDiscreteValues((x, y) =>
 			{
-				return Tnorm[i, j] / Math.Pow(newTime, 1 / 3.0);
+				return Tnorm[x, y] / Math.Pow(newTime, 1 / 3.0);
 			});
 		}
 
@@ -97,9 +97,9 @@ namespace Yburn.Fireball
 		private void InitTnorm()
 		{
 			double norm = InitialMaximumTemperature * Math.Pow(ThermalTime, 1 / 3.0);
-			Tnorm = new SimpleFireballField(FireballFieldType.Tnorm, XDimension, YDimension, (i, j) =>
+			Tnorm = new SimpleFireballField(FireballFieldType.Tnorm, XDimension, YDimension, (x, y) =>
 				{
-					return norm * TemperatureScalingField[i, j];
+					return norm * TemperatureScalingField[x, y];
 				});
 		}
 	}

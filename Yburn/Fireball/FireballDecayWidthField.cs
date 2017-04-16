@@ -81,9 +81,9 @@ namespace Yburn.Fireball
 			LinearInterpolation2D interpE = new LinearInterpolation2D(X, Y, ElectricField.GetDiscreteValues());
 			LinearInterpolation2D interpB = new LinearInterpolation2D(X, Y, MagneticField.GetDiscreteValues());
 
-			SetValues((i, j, k, l) =>
+			SetValues((xIndex, yIndex, pTIndex, stateIndex) =>
 			{
-				if(!IsStateAlreadyFormed(k, l, newTime))
+				if(!IsStateAlreadyFormed(pTIndex, stateIndex, newTime))
 				{
 					return 0;
 				}
@@ -91,7 +91,7 @@ namespace Yburn.Fireball
 				{
 					double x;
 					double y;
-					GetQQStateCoordinates(i, j, BetaT[k, l], newTime, out x, out y);
+					GetQQStateCoordinates(xIndex, yIndex, pTIndex, stateIndex, newTime, out x, out y);
 
 					if(!IsInDomainOfCalculation(x, y))
 					{
@@ -99,15 +99,15 @@ namespace Yburn.Fireball
 					}
 					else
 					{
-						double vQQ = Math.Sqrt(Math.Pow(interpVX.GetValue(x, y), 2)
+						double vQGP = Math.Sqrt(Math.Pow(interpVX.GetValue(x, y), 2)
 							+ Math.Pow(interpVY.GetValue(x, y), 2));
 
 						return GetDecayWidth(
-							(BottomiumState)l,
+							(BottomiumState)stateIndex,
 							interpT.GetValue(x, y),
-							GetRelativeVelocityInLabFrame(BetaT[k, l], vQQ),
+							GetRelativeVelocityInQQFrame(BetaT[pTIndex, stateIndex], vQGP),
 							interpE.GetValue(x, y),
-							interpB.GetValue(x, y)) / GammaT[k, l];
+							interpB.GetValue(x, y)) / GammaT[pTIndex, stateIndex];
 					}
 				}
 			});
@@ -117,9 +117,9 @@ namespace Yburn.Fireball
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static double GetRelativeVelocityInLabFrame(
-			double vQGP,
-			double vQQ
+		private static double GetRelativeVelocityInQQFrame(
+			double vQQ,
+			double vQGP
 			)
 		{
 			return Math.Abs(vQQ - vQGP) / (1.0 - vQQ * vQGP);
@@ -158,21 +158,21 @@ namespace Yburn.Fireball
 		private void Initialize()
 		{
 			SetTransverseBottomiumVelocityAndLorentzFactor();
-			SetValues((i, j, k, l) =>
+			SetValues((x, y, pT, state) =>
 			{
-				return IsStateAlreadyFormed(k, l, InitialTime) ?
-					 GetDecayWidth((BottomiumState)l, Temperature[i, j], 0, 0, 0) / GammaT[k, l]
+				return IsStateAlreadyFormed(pT, state, InitialTime) ?
+					 GetDecayWidth((BottomiumState)state, Temperature[x, y], 0, 0, 0) / GammaT[pT, state]
 					: double.PositiveInfinity;
 			});
 		}
 
 		private bool IsStateAlreadyFormed(
-			int ptIndex,
+			int pTIndex,
 			int stateIndex,
 			double time
 			)
 		{
-			return time >= GammaT[ptIndex, stateIndex] * FormationTimes[stateIndex];
+			return time >= GammaT[pTIndex, stateIndex] * FormationTimes[stateIndex];
 		}
 
 		// transverse velocity of the bottomia
@@ -183,15 +183,15 @@ namespace Yburn.Fireball
 
 		private void SetTransverseBottomiumVelocityAndLorentzFactor()
 		{
-			GammaT = new double[PtDimension, NumberBottomiumStates];
-			BetaT = new double[PtDimension, NumberBottomiumStates];
+			GammaT = new double[PTDimension, NumberBottomiumStates];
+			BetaT = new double[PTDimension, NumberBottomiumStates];
 
-			for(int k = 0; k < PtDimension; k++)
+			for(int pT = 0; pT < PTDimension; pT++)
 			{
-				for(int l = 0; l < NumberBottomiumStates; l++)
+				for(int state = 0; state < NumberBottomiumStates; state++)
 				{
-					GammaT[k, l] = Math.Sqrt(1.0 + Math.Pow(TransverseMomenta[k] / bbRestMassInGeV(l), 2));
-					BetaT[k, l] = Math.Sqrt(1.0 - Math.Pow(GammaT[k, l], -2));
+					GammaT[pT, state] = Math.Sqrt(1.0 + Math.Pow(TransverseMomenta[pT] / bbRestMassInGeV(state), 2));
+					BetaT[pT, state] = Math.Sqrt(1.0 - Math.Pow(GammaT[pT, state], -2));
 				}
 			}
 		}
@@ -227,21 +227,22 @@ namespace Yburn.Fireball
 		}
 
 		private void GetQQStateCoordinates(
-			int i,
-			int j,
-			double qqBeta,
+			int xIndex,
+			int yIndex,
+			int pTIndex,
+			int stateIndex,
 			double time,
 			out double x,
 			out double y
 			)
 		{
-			double pathLength = qqBeta * time;
-			double vxVal = VX[i, j];
-			double vyVal = VY[i, j];
+			double pathLength = BetaT[pTIndex, stateIndex] * time;
+			double vxVal = VX[xIndex, yIndex];
+			double vyVal = VY[xIndex, yIndex];
 			double v = Math.Sqrt(vxVal * vxVal + vyVal * vyVal);
 
-			x = vxVal != 0 ? X[i] + pathLength * vxVal / v : X[i];
-			y = vyVal != 0 ? Y[j] + pathLength * vyVal / v : Y[j];
+			x = vxVal != 0 ? X[xIndex] + pathLength * vxVal / v : X[xIndex];
+			y = vyVal != 0 ? Y[yIndex] + pathLength * vyVal / v : Y[yIndex];
 		}
 
 		private bool IsInDomainOfCalculation(

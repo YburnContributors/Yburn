@@ -13,12 +13,12 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void SimpleFireballField_ThrowIfInvalidInput()
 		{
-			AssertThrowsWhenGivenParams(typeof(InvalidFireballFieldTypeException),
+			AssertThrowsWhenGivenParams(typeof(OverflowException),
 				(FireballFieldType)(-1), -1, -1, null);
 			AssertThrowsWhenGivenParams(typeof(OverflowException),
-				FireballFieldType.Temperature, -1, -1, null);
-			AssertThrowsWhenGivenParams(typeof(OverflowException),
-				FireballFieldType.Temperature, 0, -1, null);
+				(FireballFieldType)(-1), 0, -1, null);
+			AssertThrowsWhenGivenParams(typeof(InvalidFireballFieldTypeException),
+				(FireballFieldType)(-1), 0, 0, null);
 			AssertThrowsWhenGivenParams(typeof(InvalidFireballFieldFunctionException),
 				FireballFieldType.Temperature, 0, 0, null);
 		}
@@ -70,7 +70,7 @@ namespace Yburn.Fireball.Tests
 			FireballFieldType fireballFieldType,
 			int xDimension,
 			int yDimension,
-			int ptDimension,
+			int pTDimension,
 			StateSpecificFireballFieldFunction function
 			)
 		{
@@ -78,7 +78,7 @@ namespace Yburn.Fireball.Tests
 			try
 			{
 				new StateSpecificFireballField(fireballFieldType,
-					xDimension, yDimension, ptDimension, function);
+					xDimension, yDimension, pTDimension, function);
 			}
 			catch(Exception ex)
 			{
