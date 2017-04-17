@@ -260,12 +260,12 @@ namespace Yburn.Fireball.Tests
 			Assert.AreEqual(0.53212, suppressionFactors[0][5][0][BottomiumState.Y3S], delta);
 			Assert.AreEqual(0.32135, suppressionFactors[0][5][0][BottomiumState.x3P], delta);
 
-			Assert.AreEqual(0.97344, suppressionFactors[0][6][0][BottomiumState.Y1S], delta);
-			Assert.AreEqual(0.91066, suppressionFactors[0][6][0][BottomiumState.x1P], delta);
-			Assert.AreEqual(0.91154, suppressionFactors[0][6][0][BottomiumState.Y2S], delta);
-			Assert.AreEqual(0.81855, suppressionFactors[0][6][0][BottomiumState.x2P], delta);
-			Assert.AreEqual(0.81788, suppressionFactors[0][6][0][BottomiumState.Y3S], delta);
-			Assert.AreEqual(0.61671, suppressionFactors[0][6][0][BottomiumState.x3P], delta);
+			Assert.AreEqual(0.97362, suppressionFactors[0][6][0][BottomiumState.Y1S], delta);
+			Assert.AreEqual(0.91093, suppressionFactors[0][6][0][BottomiumState.x1P], delta);
+			Assert.AreEqual(0.91196, suppressionFactors[0][6][0][BottomiumState.Y2S], delta);
+			Assert.AreEqual(0.83170, suppressionFactors[0][6][0][BottomiumState.x2P], delta);
+			Assert.AreEqual(0.83055, suppressionFactors[0][6][0][BottomiumState.Y3S], delta);
+			Assert.AreEqual(0.62332, suppressionFactors[0][6][0][BottomiumState.x3P], delta);
 		}
 
 		/********************************************************************************************

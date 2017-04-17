@@ -371,14 +371,9 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				if(NucleusShapeA == NucleusShape.GaussianDistribution)
-				{
-					return 0;
-				}
-				else
-				{
-					return -0.5 * ImpactParameterFm;
-				}
+				double d = 0.5 * (NuclearRadiusAFm + NuclearRadiusBFm - ImpactParameterFm);
+
+				return Math.Min(d - NuclearRadiusAFm, 0) + Math.Max(d - NuclearRadiusBFm, 0);
 			}
 		}
 
@@ -386,14 +381,7 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				if(NucleusShapeA == NucleusShape.GaussianDistribution)
-				{
-					return ImpactParameterFm;
-				}
-				else
-				{
-					return +0.5 * ImpactParameterFm;
-				}
+				return NucleusPositionA + ImpactParameterFm;
 			}
 		}
 
