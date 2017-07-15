@@ -391,8 +391,7 @@ namespace Yburn.Workers
 
 			Nucleus nucleusA;
 			Nucleus nucleusB;
-			Nucleus.CreateNucleusPair(
-				CreateFireballParam(EMFCalculationMethod), out nucleusA, out nucleusB);
+			Nucleus.CreateNucleusPair(CreateFireballParam(), out nucleusA, out nucleusB);
 
 			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
 				EMFCalculationMethod, QGPConductivity, ParticleRapidity);
@@ -425,8 +424,7 @@ namespace Yburn.Workers
 
 			Nucleus nucleusA;
 			Nucleus nucleusB;
-			Nucleus.CreateNucleusPair(
-				CreateFireballParam(EMFCalculationMethod), out nucleusA, out nucleusB);
+			Nucleus.CreateNucleusPair(CreateFireballParam(), out nucleusA, out nucleusB);
 
 			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
 				EMFCalculationMethod, QGPConductivity, ParticleRapidity);
@@ -471,7 +469,7 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
+			FireballParam param = CreateFireballParam();
 
 			List<double> rapidityValues = GetLinearAbscissaList(-8, 8, Samples);
 			List<double> radialDistanceValues = GetLinearAbscissaList(0, 25, Samples);
@@ -486,7 +484,7 @@ namespace Yburn.Workers
 				NucleusElectromagneticField emf = new NucleusElectromagneticField(
 					param.EMFCalculationMethod,
 					param.QGPConductivityMeV,
-					param.BeamRapidity,
+					ParticleRapidity,
 					nucleusA,
 					EMFQuadratureOrder);
 
@@ -526,7 +524,7 @@ namespace Yburn.Workers
 			List<double> timeValues = GetLogarithmicAbscissaList(0.1, 10, Samples);
 			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
 
-			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
+			FireballParam param = CreateFireballParam();
 
 			SurfacePlotFunction function = (time, impactParam) =>
 			{
@@ -567,7 +565,7 @@ namespace Yburn.Workers
 
 			List<double> gridValues = GetLinearAbscissaList(-GridRadiusFm, GridRadiusFm, Samples);
 
-			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
+			FireballParam param = CreateFireballParam();
 
 			SurfacePlotFunction function = (x, y) =>
 			{
@@ -587,7 +585,7 @@ namespace Yburn.Workers
 
 			List<double> gridValues = GetLinearAbscissaList(-GridRadiusFm, GridRadiusFm, Samples);
 
-			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
+			FireballParam param = CreateFireballParam();
 
 			SurfacePlotFunction function = (x, y) =>
 			{
@@ -638,14 +636,14 @@ namespace Yburn.Workers
 			List<double> properTimeValues = GetLogarithmicAbscissaList(0.1, 10, Samples);
 			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
 
-			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
+			FireballParam param = CreateFireballParam();
 
 			SurfacePlotFunction function = (properTime, impactParam) =>
 			{
 				param.ImpactParameterFm = impactParam;
-				LCFFieldAverager avg = new LCFFieldAverager(param);
+				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * avg.CalculateAverageElectricFieldStrengthPerFm2(properTime);
+				return EMFNormalization * emf.CalculateAverageElectricFieldStrengthPerFm2(properTime);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);
@@ -680,14 +678,14 @@ namespace Yburn.Workers
 			List<double> properTimeValues = GetLogarithmicAbscissaList(0.1, 10, Samples);
 			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
 
-			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
+			FireballParam param = CreateFireballParam();
 
 			SurfacePlotFunction function = (properTime, impactParam) =>
 			{
 				param.ImpactParameterFm = impactParam;
-				LCFFieldAverager avg = new LCFFieldAverager(param);
+				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * avg.CalculateAverageMagneticFieldStrengthPerFm2(properTime);
+				return EMFNormalization * emf.CalculateAverageMagneticFieldStrengthPerFm2(properTime);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);
@@ -751,14 +749,13 @@ namespace Yburn.Workers
 			List<double> properTimeValues = GetLogarithmicAbscissaList(0.1, 10, Samples);
 			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
 
-			FireballParam param = CreateFireballParam(EMFCalculationMethod.DiffusionApproximation);
+			FireballParam param = CreateFireballParam();
 
 			SurfacePlotFunction function = (properTime, impactParam) =>
 			{
 				param.ImpactParameterFm = impactParam;
-				LCFFieldAverager avg = new LCFFieldAverager(param);
 
-				return avg.CalculateAverageSpinStateOverlap(tripletState, properTime);
+				return CalculateAverageSpinStateOverlap(tripletState, properTime);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);

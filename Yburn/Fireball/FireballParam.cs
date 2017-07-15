@@ -367,6 +367,16 @@ namespace Yburn.Fireball
 			}
 		}
 
+		public double PartonPeakRapidity
+		{
+			get
+			{
+				double nucleonNumber = 0.5 * (NucleonNumberA + NucleonNumberB);
+
+				return 1 / (1 + 0.2) * (BeamRapidity - Math.Log(nucleonNumber) / 6) - 0.2;
+			}
+		}
+
 		public double NucleusPositionA
 		{
 			get

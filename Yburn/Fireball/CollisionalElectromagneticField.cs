@@ -6,18 +6,6 @@ namespace Yburn.Fireball
 	public class CollisionalElectromagneticField
 	{
 		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-
-		private static double CalculateNucleusPeakRapidity(
-			double beamRapidity,
-			uint nucleonNumber
-			)
-		{
-			return 1 / (1 + 0.2) * (beamRapidity - Math.Log(nucleonNumber) / 6) - 0.2;
-		}
-
-		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
@@ -36,16 +24,18 @@ namespace Yburn.Fireball
 			NucleusEMFA = new NucleusElectromagneticField(
 				param.EMFCalculationMethod,
 				param.QGPConductivityMeV,
-				CalculateNucleusPeakRapidity(param.BeamRapidity, param.NucleonNumberB),
+				param.PartonPeakRapidity,
 				nucleusA,
 				param.EMFQuadratureOrder);
 
 			NucleusEMFB = new NucleusElectromagneticField(
 				param.EMFCalculationMethod,
 				param.QGPConductivityMeV,
-				-CalculateNucleusPeakRapidity(param.BeamRapidity, param.NucleonNumberA),
+				-param.PartonPeakRapidity,
 				nucleusB,
 				param.EMFQuadratureOrder);
+
+			LCFFieldAverager = new LCFFieldAverager(param);
 		}
 
 		/********************************************************************************************
@@ -124,6 +114,50 @@ namespace Yburn.Fireball
 			return fieldNucleusA + fieldNucleusB;
 		}
 
+		public double CalculateAverageElectricFieldStrengthPerFm2(
+			double properTime,
+			double x,
+			double y
+			)
+		{
+			Func<double, double> integrand
+				= rapidity => CalculateElectricFieldPerFm2_LCF(properTime, x, y, rapidity).Norm;
+
+			return LCFFieldAverager.AverageRapidityDependence(integrand);
+		}
+
+		public double CalculateAverageElectricFieldStrengthPerFm2(
+			double properTime
+			)
+		{
+			LCFFieldFunction function = (x, y, rapidity) =>
+				CalculateElectricFieldPerFm2_LCF(properTime, x, y, rapidity).Norm;
+
+			return LCFFieldAverager.AverageByBottomiumDistribution(function);
+		}
+
+		public double CalculateAverageMagneticFieldStrengthPerFm2(
+			double properTime,
+			double x,
+			double y
+			)
+		{
+			Func<double, double> integrand
+				= rapidity => CalculateMagneticFieldPerFm2_LCF(properTime, x, y, rapidity).Norm;
+
+			return LCFFieldAverager.AverageRapidityDependence(integrand);
+		}
+
+		public double CalculateAverageMagneticFieldStrengthPerFm2(
+			double properTime
+			)
+		{
+			LCFFieldFunction function = (x, y, rapidity) =>
+				CalculateMagneticFieldPerFm2_LCF(properTime, x, y, rapidity).Norm;
+
+			return LCFFieldAverager.AverageByBottomiumDistribution(function);
+		}
+
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
@@ -135,5 +169,7 @@ namespace Yburn.Fireball
 		private readonly NucleusElectromagneticField NucleusEMFA;
 
 		private readonly NucleusElectromagneticField NucleusEMFB;
+
+		private readonly LCFFieldAverager LCFFieldAverager;
 	}
 }
