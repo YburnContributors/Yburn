@@ -1,5 +1,4 @@
 ﻿using System.Globalization;
-using System.Threading;
 
 namespace Yburn.FormatUtil
 {
@@ -13,7 +12,7 @@ namespace Yburn.FormatUtil
 
 		public static void UseYburnFormat()
 		{
-			Thread.CurrentThread.CurrentCulture = YburnCulture;
+			CultureInfo.DefaultThreadCurrentCulture = YburnCulture;
 		}
 	}
 }
