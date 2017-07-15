@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text;
+using Yburn.FormatUtil;
 
 namespace Yburn
 {
@@ -53,10 +54,11 @@ namespace Yburn
 			int index
 			)
 		{
+			YburnFormat.UseYburnFormat();
+
 			foreach(List<double> list in dataList)
 			{
-				plotFile.AppendFormat("{0,-25}",
-					list[index].ToString());
+				plotFile.AppendFormat("{0,-25}", list[index].ToString());
 			}
 			plotFile.AppendLine();
 		}
