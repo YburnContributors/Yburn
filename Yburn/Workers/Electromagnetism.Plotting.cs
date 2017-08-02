@@ -46,7 +46,7 @@ namespace Yburn.Workers
 			return StartGnuplot();
 		}
 
-		public Process PlotPointChargeAndNucleusEMF()
+		public Process PlotPointChargeAndNucleusFieldComponents()
 		{
 			AssertInputValid_PlotPointChargeField();
 			CreateDataFile(
@@ -57,18 +57,33 @@ namespace Yburn.Workers
 			return StartGnuplot();
 		}
 
-		public Process PlotNucleusMagneticFieldStrengthInLCF()
+		public Process PlotNucleusEMFStrengthInLCF()
 		{
-			CreateDataFile(CreateNucleusMagneticFieldStrengthInLCFDataList);
-			CreateNucleusMagneticFieldStrengthInLCFPlotFile();
+			CreateDataFile(
+				CreateNucleusElectricFieldStrengthInLCFDataList,
+				CreateNucleusMagneticFieldStrengthInLCFDataList);
+			CreateNucleusEMFStrengthInLCFPlotFile();
 
 			return StartGnuplot();
 		}
 
-		public Process PlotCentralMagneticFieldStrength()
+		public Process PlotCollisionalEMFStrengthVersusTime()
 		{
-			CreateDataFile(CreateCentralMagneticFieldStrengthDataList);
-			CreateCentralMagneticFieldStrengthPlotFile();
+			CreateDataFile(
+				CreateCollisionalElectricFieldStrengthVersusTimeDataList,
+				CreateCollisionalMagneticFieldStrengthVersusTimeDataList);
+			CreateElectromagneticFieldStrengthVersusTimePlotFile();
+
+			return StartGnuplot();
+		}
+
+		public Process PlotCollisionalEMFStrengthVersusTimeAndImpactParameter()
+		{
+			CreateDataFile(
+				CreateCollisionalElectricFieldStrengthVersusTimeAndImpactParameterDataList,
+				CreateCollisionalMagneticFieldStrengthVersusTimeAndImpactParameterDataList
+				);
+			CreateElectromagneticFieldStrengthVersusTimeAndImpactParameterPlotFile();
 
 			return StartGnuplot();
 		}
@@ -83,18 +98,12 @@ namespace Yburn.Workers
 			return StartGnuplot();
 		}
 
-		public Process PlotAverageElectricFieldStrength()
+		public Process PlotAverageCollisionalEMFStrength()
 		{
-			CreateDataFile(CreateAverageElectricFieldStrengthDataList);
-			CreateAverageElectricFieldStrengthPlotFile();
-
-			return StartGnuplot();
-		}
-
-		public Process PlotAverageMagneticFieldStrength()
-		{
-			CreateDataFile(CreateAverageMagneticFieldStrengthDataList);
-			CreateAverageMagneticFieldStrengthPlotFile();
+			CreateDataFile(
+				AverageCollisionalElectricFieldStrengthDataList,
+				AverageCollisionalMagneticFieldStrengthDataList);
+			CreateAverageElectromagneticFieldStrengthPlotFile();
 
 			return StartGnuplot();
 		}
@@ -448,21 +457,63 @@ namespace Yburn.Workers
 			return dataList;
 		}
 
-		private void CreateNucleusMagneticFieldStrengthInLCFPlotFile()
+		private void CreateNucleusEMFStrengthInLCFPlotFile()
 		{
 			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
-			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
+			plotFile.AppendLine("set terminal windows enhanced size 750,500 0");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set title 'Single nucleus magnetic field strength in LCF'");
+			plotFile.AppendLine("set title 'Single nucleus electric field strength in LCF'");
 			plotFile.AppendLine("set xlabel '{/Symbol q}'");
 			plotFile.AppendLine("set ylabel '{/Symbol r} (fm)'");
+			plotFile.AppendLine("set cblabel 'e|E|/m_{/Symbol p}^2'");
+			plotFile.AppendLine();
+
+			AppendSurfacePlotCommands(plotFile, index: 0);
+
+			plotFile.AppendLine();
+			plotFile.AppendLine();
+			plotFile.AppendLine("set terminal windows enhanced size 750,500 1");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Single nucleus magnetic field strength in LCF'");
 			plotFile.AppendLine("set cblabel 'e|B|/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
 
-			AppendSurfacePlotCommands(plotFile);
+			AppendSurfacePlotCommands(plotFile, index: 1);
 
 			WritePlotFile(plotFile);
+		}
+
+		private List<List<double>> CreateNucleusElectricFieldStrengthInLCFDataList()
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			FireballParam param = CreateFireballParam();
+
+			List<double> rapidityValues = GetLinearAbscissaList(-8, 8, Samples);
+			List<double> radialDistanceValues = GetLinearAbscissaList(0, 25, Samples);
+
+			SurfacePlotFunction function = (rapidity, radialDistance) =>
+			{
+				Nucleus nucleusA;
+				Nucleus nucleusB;
+				Nucleus.CreateNucleusPair(
+					param, out nucleusA, out nucleusB);
+
+				NucleusElectromagneticField emf = new NucleusElectromagneticField(
+					param.EMFCalculationMethod,
+					param.QGPConductivityMeV,
+					ParticleRapidity,
+					nucleusA,
+					EMFQuadratureOrder);
+
+				return EMFNormalization * emf.CalculateElectricFieldPerFm2_LCF(
+					FixedTime, radialDistance, 0, rapidity).Norm;
+			};
+
+			AddSurfacePlotFunctionLists(dataList, rapidityValues, radialDistanceValues, function);
+
+			return dataList;
 		}
 
 		private List<List<double>> CreateNucleusMagneticFieldStrengthInLCFDataList()
@@ -497,41 +548,145 @@ namespace Yburn.Workers
 			return dataList;
 		}
 
-		private void CreateCentralMagneticFieldStrengthPlotFile()
+		private void CreateElectromagneticFieldStrengthVersusTimePlotFile()
 		{
 			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
-			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
+			plotFile.AppendLine("set terminal windows enhanced size 750,500 0");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set title 'Central magnetic field strength'");
+			plotFile.AppendLine("set title 'Collisional electric field strength at (0,R,0)"
+				+ " for impact parameter b = " + ImpactParameterFm + " fm'");
+			plotFile.AppendLine("set xlabel 't (fm/c)'");
+			plotFile.AppendLine("set ylabel 'e|E|/m_{/Symbol p}^2'");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set logscale xy 10");
+			plotFile.AppendLine("set format xy '%g'");
+			plotFile.AppendLine();
+
+			AppendPlotCommands(
+				plotFile,
+				index: 0,
+				style: "lines",
+				titles: EMFCalculationMethodTitleList);
+
+			plotFile.AppendLine();
+			plotFile.AppendLine();
+			plotFile.AppendLine("set terminal windows enhanced size 750,500 1");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Collisional magnetic field strength at (0,0,0)"
+				+ " for impact parameter b = " + ImpactParameterFm + " fm'");
+			plotFile.AppendLine("set ylabel 'e|B|/m_{/Symbol p}^2'");
+			plotFile.AppendLine();
+
+			AppendPlotCommands(
+				plotFile,
+				index: 1,
+				style: "lines",
+				titles: EMFCalculationMethodTitleList);
+
+			WritePlotFile(plotFile);
+		}
+
+		private List<List<double>> CreateCollisionalElectricFieldStrengthVersusTimeDataList()
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<double> timeValues = GetLogarithmicAbscissaList(StartTime, StopTime, Samples);
+			dataList.Add(timeValues);
+
+			FireballParam param = CreateFireballParam();
+			double y = 0.5 * (NuclearRadiusAFm + NuclearRadiusBFm);
+
+			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
+			{
+				param.EMFCalculationMethod = method;
+
+				CollisionalElectromagneticField emf
+					= new CollisionalElectromagneticField(param);
+
+				PlotFunction fieldValue = time => EMFNormalization
+					* emf.CalculateElectricFieldPerFm2(time, 0, y, 0).Norm;
+
+				AddPlotFunctionLists(dataList, timeValues, fieldValue);
+			}
+
+			return dataList;
+		}
+
+		private List<List<double>> CreateCollisionalMagneticFieldStrengthVersusTimeDataList()
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<double> timeValues = GetLogarithmicAbscissaList(StartTime, StopTime, Samples);
+			dataList.Add(timeValues);
+
+			FireballParam param = CreateFireballParam();
+
+			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
+			{
+				param.EMFCalculationMethod = method;
+
+				CollisionalElectromagneticField emf
+					= new CollisionalElectromagneticField(param);
+
+				PlotFunction fieldValue = time => EMFNormalization
+					* emf.CalculateMagneticFieldPerFm2(time, 0, 0, 0).Norm;
+
+				AddPlotFunctionLists(dataList, timeValues, fieldValue);
+			}
+
+			return dataList;
+		}
+
+		private void CreateElectromagneticFieldStrengthVersusTimeAndImpactParameterPlotFile()
+		{
+			StringBuilder plotFile = new StringBuilder();
+			plotFile.AppendLine("reset");
+			plotFile.AppendLine("set terminal windows enhanced size 750,500 0");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Collisional electric field strength at (0,R,0)'");
 			plotFile.AppendLine("set xlabel 't (fm/c)'");
 			plotFile.AppendLine("set ylabel 'b (fm)'");
-			plotFile.AppendLine("set cblabel 'e|B(0,0,0)|/m_{/Symbol p}^2'");
+			plotFile.AppendLine("set cblabel 'e|E|/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set logscale x 10");
 			plotFile.AppendLine("set format x '%g'");
 			plotFile.AppendLine();
 
-			AppendSurfacePlotCommands(plotFile);
+			AppendSurfacePlotCommands(plotFile, index: 0);
+
+			plotFile.AppendLine();
+			plotFile.AppendLine();
+			plotFile.AppendLine("set terminal windows enhanced size 750,500 1");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Collisional magnetic field strength at (0,0,0)'");
+			plotFile.AppendLine("set cblabel 'e|B|/m_{/Symbol p}^2'");
+			plotFile.AppendLine();
+
+			AppendSurfacePlotCommands(plotFile, index: 1);
 
 			WritePlotFile(plotFile);
 		}
 
-		private List<List<double>> CreateCentralMagneticFieldStrengthDataList()
+		private List<List<double>> CreateCollisionalElectricFieldStrengthVersusTimeAndImpactParameterDataList()
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> timeValues = GetLogarithmicAbscissaList(0.1, 10, Samples);
+			List<double> timeValues = GetLogarithmicAbscissaList(StartTime, StopTime, Samples);
 			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
 
 			FireballParam param = CreateFireballParam();
+
+			double x = 0;
+			double y = 0.5 * (NuclearRadiusAFm + NuclearRadiusBFm);
+			double z = 0;
 
 			SurfacePlotFunction function = (time, impactParam) =>
 			{
 				param.ImpactParameterFm = impactParam;
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * emf.CalculateMagneticFieldPerFm2(time, 0, 0, 0).Norm;
+				return EMFNormalization * emf.CalculateElectricFieldPerFm2(time, x, y, z).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, timeValues, impactParamValues, function);
@@ -539,22 +694,58 @@ namespace Yburn.Workers
 			return dataList;
 		}
 
-		private void CreateAverageElectricFieldStrengthPlotFile()
+		private List<List<double>> CreateCollisionalMagneticFieldStrengthVersusTimeAndImpactParameterDataList()
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<double> timeValues = GetLogarithmicAbscissaList(StartTime, StopTime, Samples);
+			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
+
+			FireballParam param = CreateFireballParam();
+
+			double x = 0;
+			double y = 0;
+			double z = 0;
+
+			SurfacePlotFunction function = (time, impactParam) =>
+			{
+				param.ImpactParameterFm = impactParam;
+				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
+
+				return EMFNormalization * emf.CalculateMagneticFieldPerFm2(time, x, y, z).Norm;
+			};
+
+			AddSurfacePlotFunctionLists(dataList, timeValues, impactParamValues, function);
+
+			return dataList;
+		}
+
+		private void CreateEMFStrengthInTransversePlanePlotFile()
 		{
 			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
-			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
+			plotFile.AppendLine("set terminal windows enhanced size 650,600 0");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set title 'Average Electric field strength for bb mesons'");
-			plotFile.AppendLine("set xlabel '{/Symbol t} (fm/c)'");
-			plotFile.AppendLine("set ylabel 'b (fm)'");
-			plotFile.AppendLine("set cblabel 'e<|E|>/m_{/Symbol p}^2'");
-			plotFile.AppendLine();
-			plotFile.AppendLine("set logscale x 10");
-			plotFile.AppendLine("set format x '%g'");
+			plotFile.AppendLine("set title 'Electric field strength in the z = 0 plane"
+				+ " at time t = " + FixedTime.ToString("G6") + " fm/c"
+				+ " and impact parameter b = " + ImpactParameterFm + " fm'");
+			plotFile.AppendLine("set xlabel 'x (fm)'");
+			plotFile.AppendLine("set ylabel 'y (fm)'");
+			plotFile.AppendLine("set cblabel 'e|E|/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
 
-			AppendSurfacePlotCommands(plotFile);
+			AppendSurfacePlotCommands(plotFile, index: 0);
+
+			plotFile.AppendLine();
+			plotFile.AppendLine();
+			plotFile.AppendLine("set terminal windows enhanced size 650,600 1");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Magnetic field strength in the z = 0 plane"
+				+ " at time t = " + FixedTime.ToString("G6") + " fm/c"
+				+ " and impact parameter b = " + ImpactParameterFm + " fm'");
+			plotFile.AppendLine();
+
+			AppendSurfacePlotCommands(plotFile, index: 1);
 
 			WritePlotFile(plotFile);
 		}
@@ -599,29 +790,29 @@ namespace Yburn.Workers
 			return dataList;
 		}
 
-		private void CreateEMFStrengthInTransversePlanePlotFile()
+		private void CreateAverageElectromagneticFieldStrengthPlotFile()
 		{
 			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
-			plotFile.AppendLine("set terminal windows enhanced size 650,600 0");
+			plotFile.AppendLine("set terminal windows enhanced size 750,500 0");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set title 'Electric field strength in the z = 0 plane"
-				+ " at time t = " + FixedTime.ToString("G6") + " fm/c"
-				+ " and impact parameter b = " + ImpactParameterFm + " fm'");
-			plotFile.AppendLine("set xlabel 'x (fm)'");
-			plotFile.AppendLine("set ylabel 'y (fm)'");
-			plotFile.AppendLine("set cblabel 'e|E|/m_{/Symbol p}^2'");
+			plotFile.AppendLine("set title 'Average electric field strength for bb mesons'");
+			plotFile.AppendLine("set xlabel '{/Symbol t} (fm/c)'");
+			plotFile.AppendLine("set ylabel 'b (fm)'");
+			plotFile.AppendLine("set cblabel 'e<|E|>/m_{/Symbol p}^2'");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set logscale x 10");
+			plotFile.AppendLine("set format x '%g'");
 			plotFile.AppendLine();
 
 			AppendSurfacePlotCommands(plotFile, index: 0);
 
 			plotFile.AppendLine();
 			plotFile.AppendLine();
-			plotFile.AppendLine("set terminal windows enhanced size 650,600 1");
+			plotFile.AppendLine("set terminal windows enhanced size 750,500 1");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set title 'Magnetic field strength in the z = 0 plane"
-				+ " at time t = " + FixedTime.ToString("G6") + " fm/c"
-				+ " and impact parameter b = " + ImpactParameterFm + " fm'");
+			plotFile.AppendLine("set title 'Average magnetic field strength for bb mesons'");
+			plotFile.AppendLine("set cblabel 'e<|B|>/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
 
 			AppendSurfacePlotCommands(plotFile, index: 1);
@@ -629,7 +820,7 @@ namespace Yburn.Workers
 			WritePlotFile(plotFile);
 		}
 
-		private List<List<double>> CreateAverageElectricFieldStrengthDataList()
+		private List<List<double>> AverageCollisionalElectricFieldStrengthDataList()
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
@@ -651,27 +842,7 @@ namespace Yburn.Workers
 			return dataList;
 		}
 
-		private void CreateAverageMagneticFieldStrengthPlotFile()
-		{
-			StringBuilder plotFile = new StringBuilder();
-			plotFile.AppendLine("reset");
-			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
-			plotFile.AppendLine();
-			plotFile.AppendLine("set title 'Average magnetic field strength for bb mesons'");
-			plotFile.AppendLine("set xlabel '{/Symbol t} (fm/c)'");
-			plotFile.AppendLine("set ylabel 'b (fm)'");
-			plotFile.AppendLine("set cblabel 'e<|B|>/m_{/Symbol p}^2'");
-			plotFile.AppendLine();
-			plotFile.AppendLine("set logscale x 10");
-			plotFile.AppendLine("set format x '%g'");
-			plotFile.AppendLine();
-
-			AppendSurfacePlotCommands(plotFile);
-
-			WritePlotFile(plotFile);
-		}
-
-		private List<List<double>> CreateAverageMagneticFieldStrengthDataList()
+		private List<List<double>> AverageCollisionalMagneticFieldStrengthDataList()
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
@@ -699,7 +870,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("reset");
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500 0");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set title 'Spin state overlap'");
+			plotFile.AppendLine("set title 'Spin state overlap for N = 1, L = 0'");
 			plotFile.AppendLine("set xlabel '{/Symbol t} (fm/c)'");
 			plotFile.AppendLine("set ylabel 'b (fm)'");
 			plotFile.AppendLine("set cblabel '|<{/Symbol U}^0(1S)(B)|{/Symbol h}_b^0(1S)(0)>|^2'");
@@ -714,6 +885,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine();
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500 1");
 			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Spin state overlap for N = 2, L = 1'");
 			plotFile.AppendLine("set cblabel '|<{/Symbol c}_b^0(1P)(B)|h_b^0(1P)(0)>|^2'");
 			plotFile.AppendLine();
 
@@ -723,6 +895,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine();
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500 2");
 			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Spin state overlap for N = 2, L = 0'");
 			plotFile.AppendLine("set cblabel '|<{/Symbol U}^0(2S)(B)|{/Symbol h}_b^0(2S)(0)>|^2'");
 			plotFile.AppendLine();
 
@@ -732,6 +905,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine();
 			plotFile.AppendLine("set terminal windows enhanced size 1000,500 3");
 			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Spin state overlap for N = 3, L = 1'");
 			plotFile.AppendLine("set cblabel '|<{/Symbol c}_b^0(2P)(B)|h_b^0(2P)(0)>|^2'");
 			plotFile.AppendLine();
 

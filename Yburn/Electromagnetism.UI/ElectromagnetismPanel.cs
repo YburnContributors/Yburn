@@ -162,12 +162,12 @@ namespace Yburn.Electromagnetism.UI
 			MenuEntry.MenuItemPlotPointChargeAzimuthalMagneticField.Click += new EventHandler(MenuItemPlotPointChargeAzimuthalMagneticField_Click);
 			MenuEntry.MenuItemPlotPointChargeLongitudinalElectricField.Click += new EventHandler(MenuItemPlotPointChargeLongitudinalElectricField_Click);
 			MenuEntry.MenuItemPlotPointChargeRadialElectricField.Click += new EventHandler(MenuItemPlotPointChargeRadialElectricField_Click);
-			MenuEntry.MenuItemPlotPointChargeAndNucleusEMF.Click += new EventHandler(MenuItemPlotPointChargeAndNucleusEMF_Click);
-			MenuEntry.MenuItemPlotNucleusMagneticFieldStrengthInLCF.Click += new EventHandler(MenuItemPlotNucleusMagneticFieldStrengthInLCF_Click);
-			MenuEntry.MenuItemPlotCentralMagneticFieldStrength.Click += new EventHandler(MenuItemPlotCentralMagneticFieldStrength_Click);
+			MenuEntry.MenuItemPlotPointChargeAndNucleusFieldComponents.Click += new EventHandler(MenuItemPlotPointChargeAndNucleusFieldComponents_Click);
+			MenuEntry.MenuItemPlotNucleusEMFStrengthInLCF.Click += new EventHandler(MenuItemPlotNucleusEMFStrengthInLCF_Click);
+			MenuEntry.MenuItemPlotCollisionalEMFStrengthVersusTime.Click += new EventHandler(MenuItemPlotCollisionalEMFStrengthVersusTime_Click);
+			MenuEntry.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter.Click += new EventHandler(MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter_Click);
 			MenuEntry.MenuItemPlotEMFStrengthInTransversePlane.Click += new EventHandler(MenuItemPlotEMFStrengthInTransversePlane_Click);
-			MenuEntry.MenuItemPlotAverageElectricFieldStrength.Click += new EventHandler(MenuItemPlotAverageElectricFieldStrength_Click);
-			MenuEntry.MenuItemPlotAverageMagneticFieldStrength.Click += new EventHandler(MenuItemPlotAverageMagneticFieldStrength_Click);
+			MenuEntry.MenuItemPlotAverageCollisionalEMFStrength.Click += new EventHandler(MenuItemPlotAverageCollisionalEMFStrength_Click);
 			MenuEntry.MenuItemPlotAverageSpinStateOverlap.Click += new EventHandler(MenuItemPlotAverageSpinStateOverlap_Click);
 		}
 
@@ -199,19 +199,24 @@ namespace Yburn.Electromagnetism.UI
 			JobOrganizer.RequestNewJob("PlotPointChargeRadialElectricField", ControlsValues);
 		}
 
-		private void MenuItemPlotPointChargeAndNucleusEMF_Click(object sender, EventArgs e)
+		private void MenuItemPlotPointChargeAndNucleusFieldComponents_Click(object sender, EventArgs e)
 		{
-			JobOrganizer.RequestNewJob("PlotPointChargeAndNucleusEMF", ControlsValues);
+			JobOrganizer.RequestNewJob("PlotPointChargeAndNucleusFieldComponents", ControlsValues);
 		}
 
-		private void MenuItemPlotNucleusMagneticFieldStrengthInLCF_Click(object sender, EventArgs e)
+		private void MenuItemPlotNucleusEMFStrengthInLCF_Click(object sender, EventArgs e)
 		{
-			JobOrganizer.RequestNewJob("PlotNucleusMagneticFieldStrengthInLCF", ControlsValues);
+			JobOrganizer.RequestNewJob("PlotNucleusEMFStrengthInLCF", ControlsValues);
 		}
 
-		private void MenuItemPlotCentralMagneticFieldStrength_Click(object sender, EventArgs e)
+		private void MenuItemPlotCollisionalEMFStrengthVersusTime_Click(object sender, EventArgs e)
 		{
-			JobOrganizer.RequestNewJob("PlotCentralMagneticFieldStrength", ControlsValues);
+			JobOrganizer.RequestNewJob("PlotCollisionalEMFStrengthVersusTime", ControlsValues);
+		}
+
+		private void MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotCollisionalEMFStrengthVersusTimeAndImpactParameter", ControlsValues);
 		}
 
 		private void MenuItemPlotEMFStrengthInTransversePlane_Click(object sender, EventArgs e)
@@ -219,14 +224,9 @@ namespace Yburn.Electromagnetism.UI
 			JobOrganizer.RequestNewJob("PlotEMFStrengthInTransversePlane", ControlsValues);
 		}
 
-		private void MenuItemPlotAverageElectricFieldStrength_Click(object sender, EventArgs e)
+		private void MenuItemPlotAverageCollisionalEMFStrength_Click(object sender, EventArgs e)
 		{
-			JobOrganizer.RequestNewJob("PlotAverageElectricFieldStrength", ControlsValues);
-		}
-
-		private void MenuItemPlotAverageMagneticFieldStrength_Click(object sender, EventArgs e)
-		{
-			JobOrganizer.RequestNewJob("PlotAverageMagneticFieldStrength", ControlsValues);
+			JobOrganizer.RequestNewJob("PlotAverageCollisionalEMFStrength", ControlsValues);
 		}
 
 		private void MenuItemPlotAverageSpinStateOverlap_Click(object sender, EventArgs e)

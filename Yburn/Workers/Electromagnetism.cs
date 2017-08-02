@@ -142,28 +142,28 @@ namespace Yburn.Workers
 					PlotPointChargeRadialElectricField();
 					break;
 
-				case "PlotPointChargeAndNucleusEMF":
-					PlotPointChargeAndNucleusEMF();
+				case "PlotPointChargeAndNucleusFieldComponents":
+					PlotPointChargeAndNucleusFieldComponents();
 					break;
 
-				case "PlotNucleusMagneticFieldStrengthInLCF":
-					PlotNucleusMagneticFieldStrengthInLCF();
+				case "PlotNucleusEMFStrengthInLCF":
+					PlotNucleusEMFStrengthInLCF();
 					break;
 
-				case "PlotCentralMagneticFieldStrength":
-					PlotCentralMagneticFieldStrength();
+				case "PlotCollisionalEMFStrengthVersusTime":
+					PlotCollisionalEMFStrengthVersusTime();
+					break;
+
+				case "PlotCollisionalEMFStrengthVersusTimeAndImpactParameter":
+					PlotCollisionalEMFStrengthVersusTimeAndImpactParameter();
 					break;
 
 				case "PlotEMFStrengthInTransversePlane":
 					PlotEMFStrengthInTransversePlane();
 					break;
 
-				case "PlotAverageElectricFieldStrength":
-					PlotAverageElectricFieldStrength();
-					break;
-
-				case "PlotAverageMagneticFieldStrength":
-					PlotAverageMagneticFieldStrength();
+				case "PlotAverageCollisionalEMFStrength":
+					PlotAverageCollisionalEMFStrength();
 					break;
 
 				case "PlotAverageSpinStateOverlap":
