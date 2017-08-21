@@ -77,13 +77,23 @@ namespace Yburn.Workers
 			return StartGnuplot();
 		}
 
-		public Process PlotCollisionalEMFStrengthVersusTimeAndImpactParameter()
+		public Process PlotCollisionalEMFStrengthVersusImpactParam()
 		{
 			CreateDataFile(
-				CreateCollisionalElectricFieldStrengthVersusTimeAndImpactParameterDataList,
-				CreateCollisionalMagneticFieldStrengthVersusTimeAndImpactParameterDataList
+				CreateCollisionalElectricFieldStrengthVersusImpactParameterDataList,
+				CreateCollisionalMagneticFieldStrengthVersusImpactParameterDataList);
+			CreateElectromagneticFieldStrengthVersusImpactParameterPlotFile();
+
+			return StartGnuplot();
+		}
+
+		public Process PlotCollisionalEMFStrengthVersusTimeAndImpactParam()
+		{
+			CreateDataFile(
+				CreateCollisionalElectricFieldStrengthVersusTimeAndImpactParamDataList,
+				CreateCollisionalMagneticFieldStrengthVersusTimeAndImpactParamDataList
 				);
-			CreateElectromagneticFieldStrengthVersusTimeAndImpactParameterPlotFile();
+			CreateElectromagneticFieldStrengthVersusTimeAndImpactParamPlotFile();
 
 			return StartGnuplot();
 		}
@@ -595,7 +605,10 @@ namespace Yburn.Workers
 			dataList.Add(timeValues);
 
 			FireballParam param = CreateFireballParam();
+
+			double x = 0;
 			double y = 0.5 * (NuclearRadiusAFm + NuclearRadiusBFm);
+			double z = 0;
 
 			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
 			{
@@ -605,7 +618,7 @@ namespace Yburn.Workers
 					= new CollisionalElectromagneticField(param);
 
 				PlotFunction fieldValue = time => EMFNormalization
-					* emf.CalculateElectricFieldPerFm2(time, 0, y, 0).Norm;
+					* emf.CalculateElectricFieldPerFm2(time, x, y, z).Norm;
 
 				AddPlotFunctionLists(dataList, timeValues, fieldValue);
 			}
@@ -622,6 +635,10 @@ namespace Yburn.Workers
 
 			FireballParam param = CreateFireballParam();
 
+			double x = 0;
+			double y = 0;
+			double z = 0;
+
 			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
 			{
 				param.EMFCalculationMethod = method;
@@ -630,7 +647,7 @@ namespace Yburn.Workers
 					= new CollisionalElectromagneticField(param);
 
 				PlotFunction fieldValue = time => EMFNormalization
-					* emf.CalculateMagneticFieldPerFm2(time, 0, 0, 0).Norm;
+					* emf.CalculateMagneticFieldPerFm2(time, x, y, z).Norm;
 
 				AddPlotFunctionLists(dataList, timeValues, fieldValue);
 			}
@@ -638,7 +655,108 @@ namespace Yburn.Workers
 			return dataList;
 		}
 
-		private void CreateElectromagneticFieldStrengthVersusTimeAndImpactParameterPlotFile()
+		private void CreateElectromagneticFieldStrengthVersusImpactParameterPlotFile()
+		{
+			StringBuilder plotFile = new StringBuilder();
+			plotFile.AppendLine("reset");
+			plotFile.AppendLine("set terminal windows enhanced size 750,500 0");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Collisional electric field strength at (0,R,0)"
+				+ " at time t = " + FixedTime + " fm/c'");
+			plotFile.AppendLine("set xlabel 'b (fm)'");
+			plotFile.AppendLine("set ylabel 'e|E|/m_{/Symbol p}^2'");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set logscale y 10");
+			plotFile.AppendLine("set format y '%g'");
+			plotFile.AppendLine();
+
+			AppendPlotCommands(
+				plotFile,
+				index: 0,
+				style: "lines",
+				titles: EMFCalculationMethodTitleList);
+
+			plotFile.AppendLine();
+			plotFile.AppendLine();
+			plotFile.AppendLine("set terminal windows enhanced size 750,500 1");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Collisional magnetic field strength at (0,0,0)"
+				+ " at time t = " + FixedTime + " fm/c'");
+			plotFile.AppendLine("set ylabel 'e|B|/m_{/Symbol p}^2'");
+			plotFile.AppendLine();
+
+			AppendPlotCommands(
+				plotFile,
+				index: 1,
+				style: "lines",
+				titles: EMFCalculationMethodTitleList);
+
+			WritePlotFile(plotFile);
+		}
+
+		private List<List<double>> CreateCollisionalElectricFieldStrengthVersusImpactParameterDataList()
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
+			dataList.Add(impactParamValues);
+
+			FireballParam param = CreateFireballParam();
+
+			double x = 0;
+			double y = 0.5 * (NuclearRadiusAFm + NuclearRadiusBFm);
+			double z = 0;
+
+			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
+			{
+				param.EMFCalculationMethod = method;
+
+				PlotFunction fieldValue = impactParam =>
+				{
+					param.ImpactParameterFm = impactParam;
+					CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
+
+					return EMFNormalization * emf.CalculateElectricFieldPerFm2(FixedTime, x, y, z).Norm;
+				};
+
+				AddPlotFunctionLists(dataList, impactParamValues, fieldValue);
+			}
+
+			return dataList;
+		}
+
+		private List<List<double>> CreateCollisionalMagneticFieldStrengthVersusImpactParameterDataList()
+		{
+			List<List<double>> dataList = new List<List<double>>();
+
+			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
+			dataList.Add(impactParamValues);
+
+			FireballParam param = CreateFireballParam();
+
+			double x = 0;
+			double y = 0;
+			double z = 0;
+
+			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
+			{
+				param.EMFCalculationMethod = method;
+
+				PlotFunction fieldValue = impactParam =>
+				{
+					param.ImpactParameterFm = impactParam;
+					CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
+
+					return EMFNormalization * emf.CalculateMagneticFieldPerFm2(FixedTime, x, y, z).Norm;
+				};
+
+				AddPlotFunctionLists(dataList, impactParamValues, fieldValue);
+			}
+
+			return dataList;
+		}
+
+		private void CreateElectromagneticFieldStrengthVersusTimeAndImpactParamPlotFile()
 		{
 			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
@@ -668,7 +786,7 @@ namespace Yburn.Workers
 			WritePlotFile(plotFile);
 		}
 
-		private List<List<double>> CreateCollisionalElectricFieldStrengthVersusTimeAndImpactParameterDataList()
+		private List<List<double>> CreateCollisionalElectricFieldStrengthVersusTimeAndImpactParamDataList()
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
@@ -694,7 +812,7 @@ namespace Yburn.Workers
 			return dataList;
 		}
 
-		private List<List<double>> CreateCollisionalMagneticFieldStrengthVersusTimeAndImpactParameterDataList()
+		private List<List<double>> CreateCollisionalMagneticFieldStrengthVersusTimeAndImpactParamDataList()
 		{
 			List<List<double>> dataList = new List<List<double>>();
 

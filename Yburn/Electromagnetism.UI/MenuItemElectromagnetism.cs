@@ -16,7 +16,8 @@ namespace Yburn.Electromagnetism.UI
 		public ToolStripMenuItem MenuItemPlotPointChargeAndNucleusFieldComponents;
 		public ToolStripMenuItem MenuItemPlotNucleusEMFStrengthInLCF;
 		public ToolStripMenuItem MenuItemPlotCollisionalEMFStrengthVersusTime;
-		public ToolStripMenuItem MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter;
+		public ToolStripMenuItem MenuItemPlotCollisionalEMFStrengthVersusImpactParam;
+		public ToolStripMenuItem MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParam;
 		public ToolStripMenuItem MenuItemPlotEMFStrengthInTransversePlane;
 		public ToolStripMenuItem MenuItemPlotAverageCollisionalEMFStrength;
 		public ToolStripMenuItem MenuItemPlotAverageSpinStateOverlap;
@@ -29,7 +30,8 @@ namespace Yburn.Electromagnetism.UI
 			this.MenuItemPlotPointChargeAndNucleusFieldComponents = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotNucleusEMFStrengthInLCF = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotCollisionalEMFStrengthVersusTime = new System.Windows.Forms.ToolStripMenuItem();
-			this.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemPlotCollisionalEMFStrengthVersusImpactParam = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParam = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotEMFStrengthInTransversePlane = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotAverageCollisionalEMFStrength = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotAverageSpinStateOverlap = new System.Windows.Forms.ToolStripMenuItem();
@@ -70,11 +72,17 @@ namespace Yburn.Electromagnetism.UI
 			this.MenuItemPlotCollisionalEMFStrengthVersusTime.Size = new System.Drawing.Size(361, 24);
 			this.MenuItemPlotCollisionalEMFStrengthVersusTime.Text = "Plot collisional electromagnetic field strength versus &time";
 			//
-			// MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter
+			// MenuItemPlotCollisionalEMFStrengthVersusImpactParam
 			//
-			this.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter.Name = "MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter";
-			this.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter.Size = new System.Drawing.Size(361, 24);
-			this.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter.Text = "Plot collisional electromagnetic field strength versus time and &impact parameter";
+			this.MenuItemPlotCollisionalEMFStrengthVersusImpactParam.Name = "MenuItemPlotCollisionalEMFStrengthVersusImpactParam";
+			this.MenuItemPlotCollisionalEMFStrengthVersusImpactParam.Size = new System.Drawing.Size(361, 24);
+			this.MenuItemPlotCollisionalEMFStrengthVersusImpactParam.Text = "Plot collisional electromagnetic field strength versus &impact parameter";
+			//
+			// MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParam
+			//
+			this.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParam.Name = "MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParam";
+			this.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParam.Size = new System.Drawing.Size(361, 24);
+			this.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParam.Text = "Plot collisional electromagnetic field strength versus time a&nd impact parameter";
 			//
 			// MenuItemPlotEMFStrengthInTransversePlane
 			//
@@ -86,7 +94,7 @@ namespace Yburn.Electromagnetism.UI
 			//
 			this.MenuItemPlotAverageCollisionalEMFStrength.Name = "MenuItemPlotAverageCollisionalEMFStrength";
 			this.MenuItemPlotAverageCollisionalEMFStrength.Size = new System.Drawing.Size(361, 24);
-			this.MenuItemPlotAverageCollisionalEMFStrength.Text = "Plot average collisional electromagnetic field strength for b&b mesons";
+			this.MenuItemPlotAverageCollisionalEMFStrength.Text = "Plot average collisional electromagnetic field strength for b&b̅ mesons";
 			//
 			// MenuItemPlotAverageSpinStateOverlap
 			//
@@ -103,7 +111,8 @@ namespace Yburn.Electromagnetism.UI
 				this.MenuItemPlotPointChargeAndNucleusFieldComponents,
 				this.MenuItemPlotNucleusEMFStrengthInLCF,
 				this.MenuItemPlotCollisionalEMFStrengthVersusTime,
-				this.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter,
+				this.MenuItemPlotCollisionalEMFStrengthVersusImpactParam,
+				this.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParam,
 				this.MenuItemPlotEMFStrengthInTransversePlane,
 				this.MenuItemPlotAverageCollisionalEMFStrength,
 				this.MenuItemPlotAverageSpinStateOverlap});

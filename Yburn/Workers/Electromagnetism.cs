@@ -154,8 +154,12 @@ namespace Yburn.Workers
 					PlotCollisionalEMFStrengthVersusTime();
 					break;
 
-				case "PlotCollisionalEMFStrengthVersusTimeAndImpactParameter":
-					PlotCollisionalEMFStrengthVersusTimeAndImpactParameter();
+				case "PlotCollisionalEMFStrengthVersusImpactParam":
+					PlotCollisionalEMFStrengthVersusImpactParam();
+					break;
+
+				case "PlotCollisionalEMFStrengthVersusTimeAndImpactParam":
+					PlotCollisionalEMFStrengthVersusTimeAndImpactParam();
 					break;
 
 				case "PlotEMFStrengthInTransversePlane":

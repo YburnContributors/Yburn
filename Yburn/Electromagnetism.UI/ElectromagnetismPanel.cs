@@ -165,7 +165,8 @@ namespace Yburn.Electromagnetism.UI
 			MenuEntry.MenuItemPlotPointChargeAndNucleusFieldComponents.Click += new EventHandler(MenuItemPlotPointChargeAndNucleusFieldComponents_Click);
 			MenuEntry.MenuItemPlotNucleusEMFStrengthInLCF.Click += new EventHandler(MenuItemPlotNucleusEMFStrengthInLCF_Click);
 			MenuEntry.MenuItemPlotCollisionalEMFStrengthVersusTime.Click += new EventHandler(MenuItemPlotCollisionalEMFStrengthVersusTime_Click);
-			MenuEntry.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter.Click += new EventHandler(MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter_Click);
+			MenuEntry.MenuItemPlotCollisionalEMFStrengthVersusImpactParam.Click += new EventHandler(MenuItemPlotCollisionalEMFStrengthVersusImpactParam_Click);
+			MenuEntry.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParam.Click += new EventHandler(MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParam_Click);
 			MenuEntry.MenuItemPlotEMFStrengthInTransversePlane.Click += new EventHandler(MenuItemPlotEMFStrengthInTransversePlane_Click);
 			MenuEntry.MenuItemPlotAverageCollisionalEMFStrength.Click += new EventHandler(MenuItemPlotAverageCollisionalEMFStrength_Click);
 			MenuEntry.MenuItemPlotAverageSpinStateOverlap.Click += new EventHandler(MenuItemPlotAverageSpinStateOverlap_Click);
@@ -214,9 +215,14 @@ namespace Yburn.Electromagnetism.UI
 			JobOrganizer.RequestNewJob("PlotCollisionalEMFStrengthVersusTime", ControlsValues);
 		}
 
-		private void MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParameter_Click(object sender, EventArgs e)
+		private void MenuItemPlotCollisionalEMFStrengthVersusImpactParam_Click(object sender, EventArgs e)
 		{
-			JobOrganizer.RequestNewJob("PlotCollisionalEMFStrengthVersusTimeAndImpactParameter", ControlsValues);
+			JobOrganizer.RequestNewJob("PlotCollisionalEMFStrengthVersusImpactParam", ControlsValues);
+		}
+
+		private void MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParam_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotCollisionalEMFStrengthVersusTimeAndImpactParam", ControlsValues);
 		}
 
 		private void MenuItemPlotEMFStrengthInTransversePlane_Click(object sender, EventArgs e)
