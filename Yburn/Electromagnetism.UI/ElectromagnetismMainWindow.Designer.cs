@@ -54,7 +54,7 @@
 			// 
 			this.MenuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
 			this.MenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemFile});
+			this.MenuItemFile});
 			this.MenuStrip.Location = new System.Drawing.Point(0, 0);
 			this.MenuStrip.Name = "MenuStrip";
 			this.MenuStrip.Size = new System.Drawing.Size(1182, 42);
@@ -65,19 +65,19 @@
 			// MenuItemFile
 			// 
 			this.MenuItemFile.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.MenuItemAbortProcess,
-            this.MenuItemClearScreen,
-            this.MenuItemLoadParaFile,
-            this.MenutItemSaveValuesAsParameterFile,
-            this.MenuItemLoadBatchFile,
-            this.MenuItemSelectQQDataFile,
-            this.MenuItemSelectOutputPath,
-            this.MenuItemOpenReadMe,
-            this.MenuItemQuit});
+			this.MenuItemAbortProcess,
+			this.MenuItemClearScreen,
+			this.MenuItemLoadParaFile,
+			this.MenutItemSaveValuesAsParameterFile,
+			this.MenuItemLoadBatchFile,
+			this.MenuItemSelectQQDataFile,
+			this.MenuItemSelectOutputPath,
+			this.MenuItemOpenReadMe,
+			this.MenuItemQuit});
 			this.MenuItemFile.Name = "MenuItemFile";
 			this.MenuItemFile.ShortcutKeyDisplayString = "Shift+Alt+S";
-			this.MenuItemFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.S)));
+			this.MenuItemFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift)
+			| System.Windows.Forms.Keys.S)));
 			this.MenuItemFile.Size = new System.Drawing.Size(64, 38);
 			this.MenuItemFile.Text = "&File";
 			// 
@@ -85,8 +85,8 @@
 			// 
 			this.MenuItemAbortProcess.Name = "MenuItemAbortProcess";
 			this.MenuItemAbortProcess.ShortcutKeyDisplayString = "Shift+Alt+Del";
-			this.MenuItemAbortProcess.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.Delete)));
+			this.MenuItemAbortProcess.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift)
+			| System.Windows.Forms.Keys.Delete)));
 			this.MenuItemAbortProcess.Size = new System.Drawing.Size(512, 38);
 			this.MenuItemAbortProcess.Text = "&Abort running process";
 			this.MenuItemAbortProcess.Click += new System.EventHandler(this.MenuItemAbortProcess_Click);
@@ -95,8 +95,8 @@
 			// 
 			this.MenuItemClearScreen.Name = "MenuItemClearScreen";
 			this.MenuItemClearScreen.ShortcutKeyDisplayString = "Alt+Shift+L";
-			this.MenuItemClearScreen.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.L)));
+			this.MenuItemClearScreen.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Alt | System.Windows.Forms.Keys.Shift)
+			| System.Windows.Forms.Keys.L)));
 			this.MenuItemClearScreen.Size = new System.Drawing.Size(512, 38);
 			this.MenuItemClearScreen.Text = "&Clear screen";
 			this.MenuItemClearScreen.Click += new System.EventHandler(this.MenuItemClearScreen_Click);
@@ -121,8 +121,8 @@
 			// 
 			this.MenuItemLoadBatchFile.Name = "MenuItemLoadBatchFile";
 			this.MenuItemLoadBatchFile.ShortcutKeyDisplayString = "Ctrl+Shift+O";
-			this.MenuItemLoadBatchFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift) 
-            | System.Windows.Forms.Keys.O)));
+			this.MenuItemLoadBatchFile.ShortcutKeys = ((System.Windows.Forms.Keys)(((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.Shift)
+			| System.Windows.Forms.Keys.O)));
 			this.MenuItemLoadBatchFile.Size = new System.Drawing.Size(512, 38);
 			this.MenuItemLoadBatchFile.Text = "Load &batch file";
 			this.MenuItemLoadBatchFile.Click += new System.EventHandler(this.MenuItemLoadBatchFile_Click);
