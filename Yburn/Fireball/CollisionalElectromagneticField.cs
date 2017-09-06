@@ -16,10 +16,7 @@ namespace Yburn.Fireball
 			NucleusPositionA = param.NucleusPositionA;
 			NucleusPositionB = param.NucleusPositionB;
 
-			Nucleus nucleusA;
-			Nucleus nucleusB;
-			Nucleus.CreateNucleusPair(
-				param, out nucleusA, out nucleusB);
+			Nucleus.CreateNucleusPair(param, out Nucleus nucleusA, out Nucleus nucleusB);
 
 			NucleusEMFA = new NucleusElectromagneticField(
 				param.EMFCalculationMethod,

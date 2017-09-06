@@ -75,12 +75,15 @@ namespace Yburn.Fireball.Tests
 			double[,] fieldValues = new double[3, EffectiveTimes.Length];
 			for(int i = 0; i < EffectiveTimes.Length; i++)
 			{
-				fieldValues[0, i] = emf.CalculateAzimuthalMagneticField(
-					EffectiveTimes[i], RadialDistance);
-				fieldValues[1, i] = emf.CalculateLongitudinalElectricField(
-					EffectiveTimes[i], RadialDistance);
-				fieldValues[2, i] = emf.CalculateRadialElectricField(
-					EffectiveTimes[i], RadialDistance);
+				emf.CalculateElectromagneticField(
+					EffectiveTimes[i], RadialDistance,
+					out double azimuthalMagneticComponent,
+					out double longitudinalElectricComponent,
+					out double radialElectricComponent);
+
+				fieldValues[0, i] = azimuthalMagneticComponent;
+				fieldValues[1, i] = longitudinalElectricComponent;
+				fieldValues[2, i] = radialElectricComponent;
 			}
 
 			return fieldValues;
@@ -94,12 +97,15 @@ namespace Yburn.Fireball.Tests
 			double[,] fieldValues = new double[3, EffectiveTimes.Length];
 			for(int i = 0; i < EffectiveTimes.Length; i++)
 			{
-				fieldValues[0, i] = emf.CalculateAzimuthalMagneticField(
-					EffectiveTimes[i], RadialDistance);
-				fieldValues[1, i] = emf.CalculateLongitudinalElectricField(
-					EffectiveTimes[i], RadialDistance);
-				fieldValues[2, i] = emf.CalculateRadialElectricField(
-					EffectiveTimes[i], RadialDistance);
+				emf.CalculateElectromagneticField(
+					EffectiveTimes[i], RadialDistance,
+					out double azimuthalMagneticComponent,
+					out double longitudinalElectricComponent,
+					out double radialElectricComponent);
+
+				fieldValues[0, i] = azimuthalMagneticComponent;
+				fieldValues[1, i] = longitudinalElectricComponent;
+				fieldValues[2, i] = radialElectricComponent;
 			}
 
 			return fieldValues;

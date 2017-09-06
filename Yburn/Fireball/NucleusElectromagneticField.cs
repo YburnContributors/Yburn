@@ -29,6 +29,45 @@ namespace Yburn.Fireball
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
+		public double CalculateElectromagneticField(
+			double effectiveTime,
+			double radialDistance,
+			EMFComponent component
+			)
+		{
+			CalculateElectromagneticField(
+				effectiveTime, radialDistance,
+				out double azimuthalMagneticComponent,
+				out double longitudinalElectricComponent,
+				out double radialElectricComponent);
+
+			switch(component)
+			{
+				case EMFComponent.AzimuthalMagneticComponent:
+					return azimuthalMagneticComponent;
+
+				case EMFComponent.LongitudinalElectricComponent:
+					return longitudinalElectricComponent;
+
+				case EMFComponent.RadialElectricComponent:
+					return radialElectricComponent;
+
+				default:
+					throw new Exception("Invalid EMFComponent.");
+			}
+		}
+
+		public void CalculateElectromagneticField(
+			double effectiveTime,
+			double radialDistance,
+			out double azimuthalMagneticComponent,
+			out double longitudinalElectricComponent,
+			out double radialElectricComponent
+			)
+		{
+			throw new NotImplementedException();
+		}
+
 		public double CalculateAzimuthalMagneticField(
 			double effectiveTime,
 			double radialDistance
@@ -39,9 +78,10 @@ namespace Yburn.Fireball
 				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
 
 				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
-					* PointChargeEMF.CalculateAzimuthalMagneticField(
+					* PointChargeEMF.CalculateElectromagneticField(
 						effectiveTime,
-						pointChargePosition.Norm)
+						pointChargePosition.Norm,
+						EMFComponent.AzimuthalMagneticComponent)
 					* pointChargePosition.Direction.X;
 			};
 
@@ -63,9 +103,10 @@ namespace Yburn.Fireball
 				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
 
 				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
-					* PointChargeEMF.CalculateLongitudinalElectricField(
+					* PointChargeEMF.CalculateElectromagneticField(
 						effectiveTime,
-						pointChargePosition.Norm)
+						pointChargePosition.Norm,
+						EMFComponent.LongitudinalElectricComponent)
 					* pointChargePosition.Direction.X;
 			};
 
@@ -87,9 +128,10 @@ namespace Yburn.Fireball
 				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
 
 				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
-					* PointChargeEMF.CalculateRadialElectricField(
+					* PointChargeEMF.CalculateElectromagneticField(
 						effectiveTime,
-						pointChargePosition.Norm)
+						pointChargePosition.Norm,
+						EMFComponent.RadialElectricComponent)
 					* pointChargePosition.Direction.X;
 			};
 
@@ -107,24 +149,8 @@ namespace Yburn.Fireball
 			double observerRapidity
 			)
 		{
-			Func<double, double, double> integrand = (x, y) =>
-			{
-				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
-
-				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
-					* PointChargeEMF.CalculateAzimuthalMagneticField_LCF(
-						effectiveTime,
-						pointChargePosition.Norm,
-						observerRapidity)
-					* pointChargePosition.Direction.X;
-			};
-
-			double integral = ImproperQuadrature.IntegrateOverRealPlane(
-				integrand,
-				2 * Nucleus.NuclearRadiusFm,
-				QuadratureOrder);
-
-			return integral;
+			return (Math.Cosh(observerRapidity) * NucleusVelocity - Math.Sinh(observerRapidity))
+				* CalculateRadialElectricField(effectiveTime, radialDistance);
 		}
 
 		public double CalculateLongitudinalElectricField_LCF(
@@ -133,24 +159,7 @@ namespace Yburn.Fireball
 			double observerRapidity
 			)
 		{
-			Func<double, double, double> integrand = (x, y) =>
-			{
-				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
-
-				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
-					* PointChargeEMF.CalculateLongitudinalElectricField_LCF(
-						effectiveTime,
-						pointChargePosition.Norm,
-						observerRapidity)
-					* pointChargePosition.Direction.X;
-			};
-
-			double integral = ImproperQuadrature.IntegrateOverRealPlane(
-				integrand,
-				2 * Nucleus.NuclearRadiusFm,
-				QuadratureOrder);
-
-			return integral;
+			return CalculateLongitudinalElectricField(effectiveTime, radialDistance);
 		}
 
 		public double CalculateRadialElectricField_LCF(
@@ -159,24 +168,8 @@ namespace Yburn.Fireball
 			double observerRapidity
 			)
 		{
-			Func<double, double, double> integrand = (x, y) =>
-			{
-				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
-
-				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
-					* PointChargeEMF.CalculateRadialElectricField_LCF(
-						effectiveTime,
-						pointChargePosition.Norm,
-						observerRapidity)
-					* pointChargePosition.Direction.X;
-			};
-
-			double integral = ImproperQuadrature.IntegrateOverRealPlane(
-				integrand,
-				2 * Nucleus.NuclearRadiusFm,
-				QuadratureOrder);
-
-			return integral;
+			return (Math.Cosh(observerRapidity) - Math.Sinh(observerRapidity) * NucleusVelocity)
+				* CalculateRadialElectricField(effectiveTime, radialDistance);
 		}
 
 		public SpatialVector CalculateElectricFieldPerFm2(

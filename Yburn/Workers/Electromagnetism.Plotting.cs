@@ -255,7 +255,7 @@ namespace Yburn.Workers
 					method, QGPConductivity, ParticleRapidity);
 
 				PlotFunction fieldValue = time => EMFNormalization
-					* emf.CalculateElectromagneticField(component, time, RadialDistance);
+					* emf.CalculateElectromagneticField(time, RadialDistance, component);
 
 				AddPlotFunctionLists(dataList, effectiveTimeValues, fieldValue);
 			}
@@ -278,7 +278,7 @@ namespace Yburn.Workers
 					method, QGPConductivity, ParticleRapidity);
 
 				PlotFunction fieldValue = radius => EMFNormalization
-					* emf.CalculateElectromagneticField(component, FixedTime, radius);
+					* emf.CalculateElectromagneticField(FixedTime, radius, component);
 
 				AddPlotFunctionLists(dataList, radialDistanceValues, fieldValue);
 			}
@@ -294,13 +294,13 @@ namespace Yburn.Workers
 		private List<List<double>> CreatePointChargeAzimuthalMagneticFieldEffectiveTimeDataList()
 		{
 			return CreatePointChargeFieldEffectiveTimeDataList(
-				EMFComponent.AzimuthalMagneticField);
+				EMFComponent.AzimuthalMagneticComponent);
 		}
 
 		private List<List<double>> CreatePointChargeAzimuthalMagneticFieldRadialDistanceDataList()
 		{
 			return CreatePointChargeFieldRadialDistanceDataList(
-				EMFComponent.AzimuthalMagneticField);
+				EMFComponent.AzimuthalMagneticComponent);
 		}
 
 		private void CreatePointChargeLongitudinalElectricFieldPlotFile()
@@ -311,13 +311,13 @@ namespace Yburn.Workers
 		private List<List<double>> CreatePointChargeLongitudinalElectricFieldEffectiveTimeDataList()
 		{
 			return CreatePointChargeFieldEffectiveTimeDataList(
-				EMFComponent.LongitudinalElectricField);
+				EMFComponent.LongitudinalElectricComponent);
 		}
 
 		private List<List<double>> CreatePointChargeLongitudinalElectricFieldRadialDistanceDataList()
 		{
 			return CreatePointChargeFieldRadialDistanceDataList(
-				EMFComponent.LongitudinalElectricField);
+				EMFComponent.LongitudinalElectricComponent);
 		}
 
 		private void CreatePointChargeRadialElectricFieldPlotFile()
@@ -327,19 +327,19 @@ namespace Yburn.Workers
 
 		private List<List<double>> CreatePointChargeRadialElectricFieldEffectiveTimeDataList()
 		{
-			return CreatePointChargeFieldEffectiveTimeDataList(EMFComponent.RadialElectricField);
+			return CreatePointChargeFieldEffectiveTimeDataList(EMFComponent.RadialElectricComponent);
 		}
 
 		private List<List<double>> CreatePointChargeRadialElectricFieldRadialDistanceDataList()
 		{
-			return CreatePointChargeFieldRadialDistanceDataList(EMFComponent.RadialElectricField);
+			return CreatePointChargeFieldRadialDistanceDataList(EMFComponent.RadialElectricComponent);
 		}
 
 		private void CreatePointChargeAndNucleusFieldComponentsPlotFile()
 		{
 			string[] titleList = {
-				"E^1_{/Symbol r}", "B^1_{/Symbol f}", "E^1_z",
-				"E^Z_{/Symbol r}", "B^Z_{/Symbol f}", "E^Z_z"
+				"B^1_{/Symbol f}", "E^1_z","E^1_{/Symbol r}",
+				"B^Z_{/Symbol f}", "E^Z_z", "E^Z_{/Symbol r}"
 			};
 
 			StringBuilder plotFile = new StringBuilder();
@@ -408,9 +408,7 @@ namespace Yburn.Workers
 				StartTime, StopTime, Samples);
 			dataList.Add(effectiveTimeValues);
 
-			Nucleus nucleusA;
-			Nucleus nucleusB;
-			Nucleus.CreateNucleusPair(CreateFireballParam(), out nucleusA, out nucleusB);
+			Nucleus.CreateNucleusPair(CreateFireballParam(), out Nucleus nucleusA, out Nucleus nucleusB);
 
 			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
 				EMFCalculationMethod, QGPConductivity, ParticleRapidity);
@@ -418,12 +416,12 @@ namespace Yburn.Workers
 				EMFCalculationMethod, QGPConductivity, ParticleRapidity, nucleusA, EMFQuadratureOrder);
 
 			PlotFunction[] plotFunctions = {
-				t => EMFNormalization * pcEMF.CalculateRadialElectricField(t, RadialDistance),
-				t => EMFNormalization * pcEMF.CalculateAzimuthalMagneticField(t, RadialDistance),
-				t => EMFNormalization * pcEMF.CalculateLongitudinalElectricField(t, RadialDistance),
-				t => EMFNormalization * nucEMF.CalculateRadialElectricField(t, RadialDistance),
+				t => EMFNormalization * pcEMF.CalculateElectromagneticField(t, RadialDistance, EMFComponent.AzimuthalMagneticComponent),
+				t => EMFNormalization * pcEMF.CalculateElectromagneticField(t, RadialDistance, EMFComponent.LongitudinalElectricComponent),
+				t => EMFNormalization * pcEMF.CalculateElectromagneticField(t, RadialDistance, EMFComponent.RadialElectricComponent),
 				t => EMFNormalization * nucEMF.CalculateAzimuthalMagneticField(t, RadialDistance),
-				t => EMFNormalization * nucEMF.CalculateLongitudinalElectricField(t, RadialDistance)
+				t => EMFNormalization * nucEMF.CalculateLongitudinalElectricField(t, RadialDistance),
+				t => EMFNormalization * nucEMF.CalculateRadialElectricField(t, RadialDistance)
 			};
 
 			foreach(PlotFunction function in plotFunctions)
@@ -441,9 +439,7 @@ namespace Yburn.Workers
 			List<double> radialDistanceValues = GetLogarithmicAbscissaList(0.1, 100, Samples);
 			dataList.Add(radialDistanceValues);
 
-			Nucleus nucleusA;
-			Nucleus nucleusB;
-			Nucleus.CreateNucleusPair(CreateFireballParam(), out nucleusA, out nucleusB);
+			Nucleus.CreateNucleusPair(CreateFireballParam(), out Nucleus nucleusA, out Nucleus nucleusB);
 
 			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
 				EMFCalculationMethod, QGPConductivity, ParticleRapidity);
@@ -451,12 +447,12 @@ namespace Yburn.Workers
 				EMFCalculationMethod, QGPConductivity, ParticleRapidity, nucleusA, EMFQuadratureOrder);
 
 			PlotFunction[] plotFunctions = {
-				r => EMFNormalization * pcEMF.CalculateRadialElectricField(FixedTime, r),
-				r => EMFNormalization * pcEMF.CalculateAzimuthalMagneticField(FixedTime, r),
-				r => EMFNormalization * pcEMF.CalculateLongitudinalElectricField(FixedTime, r),
-				r => EMFNormalization * nucEMF.CalculateRadialElectricField(FixedTime, r),
+				r => EMFNormalization * pcEMF.CalculateElectromagneticField(FixedTime, r, EMFComponent.AzimuthalMagneticComponent),
+				r => EMFNormalization * pcEMF.CalculateElectromagneticField(FixedTime, r, EMFComponent.LongitudinalElectricComponent),
+				r => EMFNormalization * pcEMF.CalculateElectromagneticField(FixedTime, r, EMFComponent.RadialElectricComponent),
 				r => EMFNormalization * nucEMF.CalculateAzimuthalMagneticField(FixedTime, r),
-				r => EMFNormalization * nucEMF.CalculateLongitudinalElectricField(FixedTime, r)
+				r => EMFNormalization * nucEMF.CalculateLongitudinalElectricField(FixedTime, r),
+				r => EMFNormalization * nucEMF.CalculateRadialElectricField(FixedTime, r)
 			};
 
 			foreach(PlotFunction function in plotFunctions)
@@ -505,10 +501,7 @@ namespace Yburn.Workers
 
 			SurfacePlotFunction function = (rapidity, radialDistance) =>
 			{
-				Nucleus nucleusA;
-				Nucleus nucleusB;
-				Nucleus.CreateNucleusPair(
-					param, out nucleusA, out nucleusB);
+				Nucleus.CreateNucleusPair(param, out Nucleus nucleusA, out Nucleus nucleusB);
 
 				NucleusElectromagneticField emf = new NucleusElectromagneticField(
 					param.EMFCalculationMethod,
@@ -537,10 +530,7 @@ namespace Yburn.Workers
 
 			SurfacePlotFunction function = (rapidity, radialDistance) =>
 			{
-				Nucleus nucleusA;
-				Nucleus nucleusB;
-				Nucleus.CreateNucleusPair(
-					param, out nucleusA, out nucleusB);
+				Nucleus.CreateNucleusPair(param, out Nucleus nucleusA, out Nucleus nucleusB);
 
 				NucleusElectromagneticField emf = new NucleusElectromagneticField(
 					param.EMFCalculationMethod,
