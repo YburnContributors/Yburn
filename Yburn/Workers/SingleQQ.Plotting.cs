@@ -47,7 +47,7 @@ namespace Yburn.Workers
 
 		public Process PlotPionGDF()
 		{
-			double energy = Math.Max(Math.Abs(EnergyScale), PionGDF.MinEnergy);
+			double energy = Math.Max(Math.Abs(EnergyScale_MeV), PionGDF.MinEnergy);
 			StringBuilder dataFile = new StringBuilder();
 
 			double xStep = 1.0 / Samples;
@@ -117,11 +117,11 @@ namespace Yburn.Workers
 
 		private void AssertInputValid_PlotPotential()
 		{
-			if(MinRadius < 0)
+			if(MinRadius_fm < 0)
 			{
 				throw new Exception("MinRadius < 0.");
 			}
-			if(MaxRadius <= MinRadius)
+			if(MaxRadius_fm <= MinRadius_fm)
 			{
 				throw new Exception("MaxRadius < MinRadius.");
 			}
@@ -169,10 +169,10 @@ namespace Yburn.Workers
 		{
 			List<double> radiusValueList = new List<double>();
 
-			double stepSize = (MaxRadius - MinRadius) / Samples;
+			double stepSize = (MaxRadius_fm - MinRadius_fm) / Samples;
 			for(int i = 0; i < Samples; i++)
 			{
-				radiusValueList.Add(MinRadius + i * stepSize);
+				radiusValueList.Add(MinRadius_fm + i * stepSize);
 			}
 
 			return radiusValueList;
@@ -183,34 +183,34 @@ namespace Yburn.Workers
 			switch(PotentialType)
 			{
 				case PotentialType.Complex:
-					return new ComplexPotential(AlphaSoft, Sigma, ColorState, Temperature, DebyeMass);
+					return new ComplexPotential(AlphaSoft, Sigma_MeV2, ColorState, Temperature_MeV, DebyeMass_MeV);
 
 				case PotentialType.Complex_NoString:
-					return new ComplexPotential_NoString(AlphaSoft, ColorState, Temperature, DebyeMass);
+					return new ComplexPotential_NoString(AlphaSoft, ColorState, Temperature_MeV, DebyeMass_MeV);
 
 				case PotentialType.LowT:
 					return new LowTemperaturePotential(
-						AlphaSoft, Sigma, ColorState, Temperature, DebyeMass);
+						AlphaSoft, Sigma_MeV2, ColorState, Temperature_MeV, DebyeMass_MeV);
 
 				case PotentialType.LowT_NoString:
 					return new LowTemperaturePotential_NoString(
-						AlphaSoft, ColorState, Temperature, DebyeMass);
+						AlphaSoft, ColorState, Temperature_MeV, DebyeMass_MeV);
 
 				case PotentialType.Real:
-					return new RealPotential(AlphaSoft, Sigma, ColorState, DebyeMass);
+					return new RealPotential(AlphaSoft, Sigma_MeV2, ColorState, DebyeMass_MeV);
 
 				case PotentialType.Real_NoString:
-					return new RealPotential_NoString(AlphaSoft, ColorState, DebyeMass);
+					return new RealPotential_NoString(AlphaSoft, ColorState, DebyeMass_MeV);
 
 				case PotentialType.Tzero:
-					return new VacuumPotential(AlphaSoft, Sigma, ColorState);
+					return new VacuumPotential(AlphaSoft, Sigma_MeV2, ColorState);
 
 				case PotentialType.Tzero_NoString:
 					return new VacuumPotential_NoString(AlphaSoft, ColorState);
 
 				case PotentialType.SpinDependent:
 					return new SpinDependentPotential(
-						AlphaSoft, Sigma, ColorState, SpinState, SpinCouplingRange, SpinCouplingStrength);
+						AlphaSoft, Sigma_MeV2, ColorState, SpinState, SpinCouplingRange_fm, SpinCouplingStrength_MeV);
 
 				default:
 					throw new Exception("Invalid PotentialType.");
@@ -235,11 +235,11 @@ namespace Yburn.Workers
 
 		private void AssertInputValid_PlotAlpha()
 		{
-			if(MinEnergy < 0)
+			if(MinEnergy_MeV < 0)
 			{
 				throw new Exception("MinEnergy < 0.");
 			}
-			if(MaxEnergy <= MinEnergy)
+			if(MaxEnergy_MeV <= MinEnergy_MeV)
 			{
 				throw new Exception("MaxEnergy <= MinEnergy.");
 			}
@@ -323,10 +323,10 @@ namespace Yburn.Workers
 		{
 			List<double> energyValues = new List<double>();
 
-			double step = (MaxEnergy - MinEnergy) / Samples;
+			double step = (MaxEnergy_MeV - MinEnergy_MeV) / Samples;
 			for(int i = 0; i < Samples; i++)
 			{
-				energyValues.Add(MinEnergy + step * i);
+				energyValues.Add(MinEnergy_MeV + step * i);
 			}
 
 			return energyValues;

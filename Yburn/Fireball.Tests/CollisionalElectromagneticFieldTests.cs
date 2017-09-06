@@ -24,7 +24,7 @@ namespace Yburn.Fireball.Tests
 			FireballParam param = CreateFireballParamForAverageFieldStrengths();
 			CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-			double result = emf.CalculateAverageElectricFieldStrengthPerFm2(0.4);
+			double result = emf.CalculateAverageElectricFieldStrength_per_fm2(0.4);
 
 			AssertHelper.AssertApproximatelyEqual(0.12384, result, 5);
 		}
@@ -35,7 +35,7 @@ namespace Yburn.Fireball.Tests
 			FireballParam param = CreateFireballParamForAverageFieldStrengths();
 			CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-			double result = emf.CalculateAverageMagneticFieldStrengthPerFm2(0.4);
+			double result = emf.CalculateAverageMagneticFieldStrength_per_fm2(0.4);
 
 			AssertHelper.AssertApproximatelyEqual(0.16239, result, 5);
 		}
@@ -59,20 +59,20 @@ namespace Yburn.Fireball.Tests
 			FireballParam param = new FireballParam();
 
 			param.CenterOfMassEnergyTeV = 2.76;
-			param.DiffusenessAFm = 0.546;
-			param.DiffusenessBFm = 0.546;
+			param.DiffusenessA_fm = 0.546;
+			param.DiffusenessB_fm = 0.546;
 			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
 			param.EMFQuadratureOrder = 64;
-			param.ImpactParameterFm = 7;
-			param.NuclearRadiusAFm = 6.62;
-			param.NuclearRadiusBFm = 6.62;
+			param.ImpactParameter_fm = 7;
+			param.NuclearRadiusA_fm = 6.62;
+			param.NuclearRadiusB_fm = 6.62;
 			param.NucleonNumberA = 208;
 			param.NucleonNumberB = 208;
 			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
 			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
 			param.ProtonNumberA = 82;
 			param.ProtonNumberB = 82;
-			param.QGPConductivityMeV = 5.8;
+			param.QGPConductivity_MeV = 5.8;
 
 			return param;
 		}
@@ -82,8 +82,8 @@ namespace Yburn.Fireball.Tests
 			FireballParam param = CreateFireballParam();
 
 			param.EMFQuadratureOrder = 8;
-			param.GridCellSizeFm = 1;
-			param.GridRadiusFm = 10;
+			param.GridCellSize_fm = 1;
+			param.GridRadius_fm = 10;
 			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 
 			return param;
@@ -101,7 +101,7 @@ namespace Yburn.Fireball.Tests
 			SpatialVector[] fieldValues = new SpatialVector[Positions.Length];
 			for(int i = 0; i < Positions.Length; i++)
 			{
-				fieldValues[i] = emf.CalculateMagneticFieldPerFm2(
+				fieldValues[i] = emf.CalculateMagneticField_per_fm2(
 					Time, Positions[i].X, Positions[i].Y, Positions[i].Z);
 			}
 

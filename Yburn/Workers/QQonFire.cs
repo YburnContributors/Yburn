@@ -145,7 +145,7 @@ namespace Yburn.Workers
 					return;
 				}
 
-				impactParams.Add(step * GridCellSize);
+				impactParams.Add(step * GridCellSize_fm);
 
 				Fireball.Fireball fireball = CreateFireballToCalcDirectPionDecayWidth(
 					impactParams[step]);
@@ -153,13 +153,13 @@ namespace Yburn.Workers
 				// Set BjorkenLifeTime for the LogHeader
 				if(step == 0)
 				{
-					BjorkenLifeTime = fireball.BjorkenLifeTime;
+					BjorkenLifeTime_fm = fireball.BjorkenLifeTime;
 				}
 
 				// calculate the areas
 				double nCollQGP;
 				double nCollPion;
-				fireball.CalculateNcolls(BreakupTemperature, out nCollQGP, out nCollPion);
+				fireball.CalculateNcolls(BreakupTemperature_MeV, out nCollQGP, out nCollPion);
 				nCollQGPs.Add(nCollQGP);
 				nCollPions.Add(nCollPion);
 				nColls.Add(fireball.IntegrateFireballField("Ncoll"));
@@ -266,8 +266,8 @@ namespace Yburn.Workers
 				{
 					LogMessages.AppendLine(string.Format("{0,12}{1,8} < b < {2,4}{3,12}",
 						centralityBinStrings[binGroupIndex][binIndex],
-						ImpactParamsAtBinBoundaries[binGroupIndex][binIndex].ToUIString(),
-						ImpactParamsAtBinBoundaries[binGroupIndex][binIndex + 1].ToUIString(),
+						ImpactParamsAtBinBoundaries_fm[binGroupIndex][binIndex].ToUIString(),
+						ImpactParamsAtBinBoundaries_fm[binGroupIndex][binIndex + 1].ToUIString(),
 						MeanParticipantsInBin[binGroupIndex][binIndex].ToUIString()));
 				}
 			}
@@ -290,7 +290,7 @@ namespace Yburn.Workers
 			BinBoundaryCalculator calculator = new BinBoundaryCalculator(CreateFireballParam(),
 				JobCancelToken);
 			calculator.StatusValues = StatusValues;
-			calculator.Calculate(CentralityBinBoundaries);
+			calculator.Calculate(CentralityBinBoundaries_percent);
 
 			impactParams = calculator.ImpactParams;
 			nColls = calculator.Ncolls;
@@ -300,7 +300,7 @@ namespace Yburn.Workers
 
 			centralityBinStrings = GetCentralityBinStrings();
 			numberCentralityBins = calculator.NumberCentralityBins;
-			ImpactParamsAtBinBoundaries = calculator.ImpactParamsAtBinBoundaries;
+			ImpactParamsAtBinBoundaries_fm = calculator.ImpactParamsAtBinBoundaries;
 			ParticipantsAtBinBoundaries = calculator.ParticipantsAtBinBoundaries;
 			MeanParticipantsInBin = calculator.MeanParticipantsInBin;
 		}
@@ -360,12 +360,12 @@ namespace Yburn.Workers
 
 				for(int binIndex = 0; binIndex < numberCentralityBins[binGroupIndex]; binIndex++)
 				{
-					for(int pTIndex = 0; pTIndex < TransverseMomenta.Count; pTIndex++)
+					for(int pTIndex = 0; pTIndex < TransverseMomenta_GeV.Count; pTIndex++)
 					{
 						LogMessages.AppendFormat("{0,12}{1,12}{2,12}",
 							centralityBinStrings[binGroupIndex][binIndex],
 							MeanParticipantsInBin[binGroupIndex][binIndex].ToUIString(),
-							TransverseMomenta[pTIndex].ToUIString());
+							TransverseMomenta_GeV[pTIndex].ToUIString());
 
 						foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 						{
@@ -383,14 +383,14 @@ namespace Yburn.Workers
 
 					foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 					{
-						double[] rAAQGPsBinValues = new double[TransverseMomenta.Count];
-						for(int pTIndex = 0; pTIndex < TransverseMomenta.Count; pTIndex++)
+						double[] rAAQGPsBinValues = new double[TransverseMomenta_GeV.Count];
+						for(int pTIndex = 0; pTIndex < TransverseMomenta_GeV.Count; pTIndex++)
 						{
 							rAAQGPsBinValues[pTIndex] = qgpSuppressionFactors[binGroupIndex][binIndex][pTIndex][state];
 						}
 
 						LogMessages.AppendFormat("{0,12}",
-							TransverseMomentumAverager.Calculate(state, TransverseMomenta.ToArray(), rAAQGPsBinValues)
+							TransverseMomentumAverager.Calculate(state, TransverseMomenta_GeV.ToArray(), rAAQGPsBinValues)
 							.ToUIString());
 					}
 
@@ -416,7 +416,7 @@ namespace Yburn.Workers
 			LogMessages.AppendLine("#");
 
 			// calculate final suppression factors
-			double[][] rAAs = new double[TransverseMomenta.Count][];
+			double[][] rAAs = new double[TransverseMomenta_GeV.Count][];
 			// run through the centrality bin groups
 			for(int binGroupIndex = 0; binGroupIndex < numberCentralityBins.Count; binGroupIndex++)
 			{
@@ -429,14 +429,14 @@ namespace Yburn.Workers
 				for(int binIndex = 0; binIndex < numberCentralityBins[binGroupIndex]; binIndex++)
 				{
 					// run through the pT bins
-					for(int pTIndex = 0; pTIndex < TransverseMomenta.Count; pTIndex++)
+					for(int pTIndex = 0; pTIndex < TransverseMomenta_GeV.Count; pTIndex++)
 					{
 						rAAs[pTIndex] = CalculateFullSuppressionFactors(qgpSuppressionFactors[binGroupIndex][binIndex][pTIndex]);
 
 						LogMessages.AppendFormat("{0,12}{1,12}{2,12}",
 							centralityBinStrings[binGroupIndex][binIndex],
 							MeanParticipantsInBin[binGroupIndex][binIndex].ToUIString(),
-							TransverseMomenta[pTIndex].ToUIString());
+							TransverseMomenta_GeV[pTIndex].ToUIString());
 
 						for(int stateIndex = 0; stateIndex < 5; stateIndex++)
 						{
@@ -455,15 +455,15 @@ namespace Yburn.Workers
 					// average of all pT values
 					for(int l = 0; l < 5; l++)
 					{
-						double[] rAABinValues = new double[TransverseMomenta.Count];
-						for(int pTIndex = 0; pTIndex < TransverseMomenta.Count; pTIndex++)
+						double[] rAABinValues = new double[TransverseMomenta_GeV.Count];
+						for(int pTIndex = 0; pTIndex < TransverseMomenta_GeV.Count; pTIndex++)
 						{
 							rAABinValues[pTIndex] = rAAs[pTIndex][l];
 						}
 
 						LogMessages.AppendFormat("{0,15}",
 							TransverseMomentumAverager.Calculate((BottomiumState)l,
-							TransverseMomenta.ToArray(),
+							TransverseMomenta_GeV.ToArray(),
 							rAABinValues).ToUIString());
 					}
 
@@ -663,7 +663,7 @@ namespace Yburn.Workers
 			)
 		{
 			FireballParam param = CreateFireballParam();
-			param.ImpactParameterFm = impactParam;
+			param.ImpactParameter_fm = impactParam;
 			param.TransverseMomentaGeV = new List<double> { 0 };
 			param.ExpansionMode = ExpansionMode.Longitudinal;
 
@@ -673,7 +673,7 @@ namespace Yburn.Workers
 		private Fireball.Fireball CreateFireballToDetermineMaxLifeTime()
 		{
 			FireballParam param = CreateFireballParam();
-			param.ImpactParameterFm = 0;
+			param.ImpactParameter_fm = 0;
 			param.TransverseMomentaGeV = new List<double> { 0 };
 
 			return new Fireball.Fireball(param);
@@ -683,31 +683,31 @@ namespace Yburn.Workers
 		{
 			FireballParam param = new FireballParam();
 
-			param.BreakupTemperatureMeV = BreakupTemperature;
-			param.CenterOfMassEnergyTeV = CenterOfMassEnergy;
-			param.DiffusenessAFm = DiffusenessA;
-			param.DiffusenessBFm = DiffusenessB;
+			param.BreakupTemperature_MeV = BreakupTemperature_MeV;
+			param.CenterOfMassEnergyTeV = CenterOfMassEnergy_TeV;
+			param.DiffusenessA_fm = DiffusenessA_fm;
+			param.DiffusenessB_fm = DiffusenessB_fm;
 			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
 			param.EMFQuadratureOrder = EMFQuadratureOrder;
-			param.EMFUpdateIntervalFm = EMFUpdateInterval;
+			param.EMFUpdateInterval_fm = EMFUpdateInterval_fm;
 			param.ExpansionMode = ExpansionMode;
-			param.FormationTimesFm = FormationTimes;
-			param.GridCellSizeFm = GridCellSize;
-			param.GridRadiusFm = GridRadius;
-			param.ImpactParameterFm = ImpactParameter;
-			param.InitialMaximumTemperatureMeV = InitialMaximumTemperature;
-			param.NuclearRadiusAFm = NuclearRadiusA;
-			param.NuclearRadiusBFm = NuclearRadiusB;
+			param.FormationTimes_fm = FormationTimes_fm;
+			param.GridCellSize_fm = GridCellSize_fm;
+			param.GridRadius_fm = GridRadius_fm;
+			param.ImpactParameter_fm = ImpactParameter_fm;
+			param.InitialMaximumTemperature_MeV = InitialMaximumTemperature_MeV;
+			param.NuclearRadiusA_fm = NuclearRadiusA_fm;
+			param.NuclearRadiusB_fm = NuclearRadiusB_fm;
 			param.NucleonNumberA = NucleonNumberA;
 			param.NucleonNumberB = NucleonNumberB;
 			param.NucleusShapeA = NucleusShapeA;
 			param.NucleusShapeB = NucleusShapeB;
 			param.ProtonNumberA = ProtonNumberA;
 			param.ProtonNumberB = ProtonNumberB;
-			param.QGPConductivityMeV = QGPConductivity;
+			param.QGPConductivity_MeV = QGPConductivity_MeV;
 			param.TemperatureProfile = TemperatureProfile;
-			param.ThermalTimeFm = ThermalTime;
-			param.TransverseMomentaGeV = TransverseMomenta;
+			param.ThermalTime_fm = ThermalTime_fm;
+			param.TransverseMomentaGeV = TransverseMomenta_GeV;
 			param.UseElectricField = UseElectricField;
 			param.UseMagneticField = UseMagneticField;
 
@@ -725,7 +725,7 @@ namespace Yburn.Workers
 				DopplerShiftEvaluationType,
 				ElectricDipoleAlignment,
 				DecayWidthType,
-				QGPFormationTemperature,
+				QGPFormationTemperature_MeV,
 				NumberAveragingAngles);
 		}
 
@@ -760,7 +760,7 @@ namespace Yburn.Workers
 			)
 		{
 			QGPSuppression qgpSuppression = new QGPSuppression(CreateFireballParam(),
-				numberCentralityBins, ImpactParamsAtBinBoundaries, JobCancelToken);
+				numberCentralityBins, ImpactParamsAtBinBoundaries_fm, JobCancelToken);
 			qgpSuppression.TrackStatus(StatusValues);
 
 			return qgpSuppression.CalculateQGPSuppressionFactors();
@@ -771,7 +771,7 @@ namespace Yburn.Workers
 		{
 			Fireball.Fireball fireball = CreateFireballToDetermineMaxLifeTime();
 			// Evolving the fireball to calculate the maximum QGP LifeTime
-			while(fireball.MaximumTemperature > BreakupTemperature)
+			while(fireball.MaximumTemperature > BreakupTemperature_MeV)
 			{
 				// quit here if process has been aborted
 				if(JobCancelToken.IsCancellationRequested)
@@ -782,22 +782,22 @@ namespace Yburn.Workers
 				fireball.Advance(0.1);
 			}
 
-			LifeTime = fireball.LifeTime;
-			BjorkenLifeTime = fireball.BjorkenLifeTime;
+			LifeTime_fm = fireball.LifeTime;
+			BjorkenLifeTime_fm = fireball.BjorkenLifeTime;
 		}
 
 		private List<List<string>> GetCentralityBinStrings(
 			)
 		{
 			List<List<string>> centralityBinStrings = new List<List<string>>();
-			for(int i = 0; i < CentralityBinBoundaries.Count; i++)
+			for(int i = 0; i < CentralityBinBoundaries_percent.Count; i++)
 			{
 				List<string> centralityBinGroup = new List<string>();
-				for(int j = 0; j < CentralityBinBoundaries[i].Count - 1; j++)
+				for(int j = 0; j < CentralityBinBoundaries_percent[i].Count - 1; j++)
 				{
 					centralityBinGroup.Add(string.Format("{0}-{1}%",
-						CentralityBinBoundaries[i][j].ToUIString(),
-						CentralityBinBoundaries[i][j + 1].ToUIString()));
+						CentralityBinBoundaries_percent[i][j].ToUIString(),
+						CentralityBinBoundaries_percent[i][j + 1].ToUIString()));
 				}
 				centralityBinStrings.Add(centralityBinGroup);
 			}

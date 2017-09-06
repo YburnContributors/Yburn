@@ -24,7 +24,7 @@ namespace Yburn.QQState
 		 * Public static members, functions and properties
 		 ********************************************************************************************/
 
-		public delegate double ParameterizationPointer(double energyMeV);
+		public delegate double ParameterizationPointer(double energy_MeV);
 
 		public static RunningCoupling Create(
 			RunningCouplingType type
@@ -73,34 +73,34 @@ namespace Yburn.QQState
 		private static double AlphaSatIRfixpoint = 8.915 / Constants.NumberQCDColors;
 
 		protected static double LOpert(
-			double energyMeV
+			double energy_MeV
 			)
 		{
 			// equivalent to 0.1197/(1. + 0.1197 * 9.0/(2*PI) * log(E/91200.))
-			return Math.PI / 4.5 / Math.Log(energyMeV / QQState.LambdaQCDMeV);
+			return Math.PI / 4.5 / Math.Log(energy_MeV / QQState.LambdaQCD_MeV);
 		}
 
 		private static double LOpert_CutoffAt1(
-			double energyMeV
+			double energy_MeV
 			)
 		{
-			double alphaS = LOpert(energyMeV);
+			double alphaS = LOpert(energy_MeV);
 			return (alphaS < 1 && alphaS > 0) ? alphaS : 1;
 		}
 
 		private static double LOpert_CutoffAt3(
-			double energyMeV
+			double energy_MeV
 			)
 		{
-			double alphaS = LOpert(energyMeV);
+			double alphaS = LOpert(energy_MeV);
 			return (alphaS < 3 && alphaS > 0) ? alphaS : 3;
 		}
 
 		private static double NonPerturbative_Fischer(
-			double energyMeV
+			double energy_MeV
 			)
 		{
-			double ratioSquared = Math.Pow(energyMeV / QQState.LambdaQCDMeV, 2);
+			double ratioSquared = Math.Pow(energy_MeV / QQState.LambdaQCD_MeV, 2);
 			return (AlphaSatIRfixpoint + ratioSquared * Math.PI / 2.25 *
 				(1.0 / Math.Log(ratioSquared) - 1.0 / (ratioSquared - 1.0))) / (1.0 + ratioSquared);
 		}
@@ -201,10 +201,10 @@ namespace Yburn.QQState
 		}
 
 		private double NonPerturbative_ITP(
-			double energyMeV
+			double energy_MeV
 			)
 		{
-			return AlphaInterpolator.Interpolate(energyMeV);
+			return AlphaInterpolator.Interpolate(energy_MeV);
 		}
 	}
 }

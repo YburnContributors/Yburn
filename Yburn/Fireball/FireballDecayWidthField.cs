@@ -190,13 +190,13 @@ namespace Yburn.Fireball
 			{
 				for(int state = 0; state < NumberBottomiumStates; state++)
 				{
-					GammaT[pT, state] = Math.Sqrt(1.0 + Math.Pow(TransverseMomenta[pT] / bbRestMassInGeV(state), 2));
+					GammaT[pT, state] = Math.Sqrt(1.0 + Math.Pow(TransverseMomenta[pT] / bbRestMass_GeV(state), 2));
 					BetaT[pT, state] = Math.Sqrt(1.0 - Math.Pow(GammaT[pT, state], -2));
 				}
 			}
 		}
 
-		private static double bbRestMassInGeV(
+		private static double bbRestMass_GeV(
 			int stateIndex
 			)
 		{
@@ -204,22 +204,22 @@ namespace Yburn.Fireball
 			switch(state)
 			{
 				case BottomiumState.Y1S:
-					return Constants.RestMassY1SMeV * 1E-3;
+					return Constants.RestMassY1S_MeV * 1E-3;
 
 				case BottomiumState.x1P:
-					return Constants.RestMassX1PMeV * 1E-3;
+					return Constants.RestMassX1P_MeV * 1E-3;
 
 				case BottomiumState.Y2S:
-					return Constants.RestMassY2SMeV * 1E-3;
+					return Constants.RestMassY2S_MeV * 1E-3;
 
 				case BottomiumState.x2P:
-					return Constants.RestMassX2PMeV * 1E-3;
+					return Constants.RestMassX2P_MeV * 1E-3;
 
 				case BottomiumState.Y3S:
-					return Constants.RestMassY3SMeV * 1E-3;
+					return Constants.RestMassY3S_MeV * 1E-3;
 
 				case BottomiumState.x3P:
-					return Constants.RestMassX3PMeV * 1E-3;
+					return Constants.RestMassX3P_MeV * 1E-3;
 
 				default:
 					throw new Exception("Unknown bbState");

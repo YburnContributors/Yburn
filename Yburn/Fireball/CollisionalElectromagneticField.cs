@@ -20,14 +20,14 @@ namespace Yburn.Fireball
 
 			NucleusEMFA = new NucleusElectromagneticField(
 				param.EMFCalculationMethod,
-				param.QGPConductivityMeV,
+				param.QGPConductivity_MeV,
 				param.PartonPeakRapidity,
 				nucleusA,
 				param.EMFQuadratureOrder);
 
 			NucleusEMFB = new NucleusElectromagneticField(
 				param.EMFCalculationMethod,
-				param.QGPConductivityMeV,
+				param.QGPConductivity_MeV,
 				-param.PartonPeakRapidity,
 				nucleusB,
 				param.EMFQuadratureOrder);
@@ -39,7 +39,7 @@ namespace Yburn.Fireball
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public SpatialVector CalculateElectricFieldPerFm2(
+		public SpatialVector CalculateElectricField_per_fm2(
 			double t,
 			double x,
 			double y,
@@ -47,17 +47,17 @@ namespace Yburn.Fireball
 			)
 		{
 			// Nucleus A is located at negative x and moves in positive z direction
-			SpatialVector fieldNucleusA = NucleusEMFA.CalculateElectricFieldPerFm2(
+			SpatialVector fieldNucleusA = NucleusEMFA.CalculateElectricField_per_fm2(
 				t, x - NucleusPositionA, y, z);
 
 			// Nucleus B is located at positive x and moves in negative z direction
-			SpatialVector fieldNucleusB = NucleusEMFB.CalculateElectricFieldPerFm2(
+			SpatialVector fieldNucleusB = NucleusEMFB.CalculateElectricField_per_fm2(
 				t, x - NucleusPositionB, y, z);
 
 			return fieldNucleusA + fieldNucleusB;
 		}
 
-		public SpatialVector CalculateElectricFieldPerFm2_LCF(
+		public SpatialVector CalculateElectricFieldInLCF_per_fm2(
 			double properTime,
 			double x,
 			double y,
@@ -65,17 +65,17 @@ namespace Yburn.Fireball
 			)
 		{
 			// Nucleus A is located at negative x and moves in positive z direction
-			SpatialVector fieldNucleusA = NucleusEMFA.CalculateElectricFieldPerFm2_LCF(
+			SpatialVector fieldNucleusA = NucleusEMFA.CalculateElectricFieldInLCF_per_fm2(
 				properTime, x - NucleusPositionA, y, rapidity);
 
 			// Nucleus B is located at positive x and moves in negative z direction
-			SpatialVector fieldNucleusB = NucleusEMFB.CalculateElectricFieldPerFm2_LCF(
+			SpatialVector fieldNucleusB = NucleusEMFB.CalculateElectricFieldInLCF_per_fm2(
 				properTime, x - NucleusPositionB, y, rapidity);
 
 			return fieldNucleusA + fieldNucleusB;
 		}
 
-		public SpatialVector CalculateMagneticFieldPerFm2(
+		public SpatialVector CalculateMagneticField_per_fm2(
 			double t,
 			double x,
 			double y,
@@ -83,17 +83,17 @@ namespace Yburn.Fireball
 			)
 		{
 			// Nucleus A is located at negative x and moves in positive z direction
-			SpatialVector fieldNucleusA = NucleusEMFA.CalculateMagneticFieldPerFm2(
+			SpatialVector fieldNucleusA = NucleusEMFA.CalculateMagneticField_per_fm2(
 				t, x - NucleusPositionA, y, z);
 
 			// Nucleus B is located at positive x and moves in negative z direction
-			SpatialVector fieldNucleusB = NucleusEMFB.CalculateMagneticFieldPerFm2(
+			SpatialVector fieldNucleusB = NucleusEMFB.CalculateMagneticField_per_fm2(
 				t, x - NucleusPositionB, y, z);
 
 			return fieldNucleusA + fieldNucleusB;
 		}
 
-		public SpatialVector CalculateMagneticFieldPerFm2_LCF(
+		public SpatialVector CalculateMagneticFieldInLCF_per_fm2(
 			double properTime,
 			double x,
 			double y,
@@ -101,56 +101,56 @@ namespace Yburn.Fireball
 			)
 		{
 			// Nucleus A is located at negative x and moves in positive z direction
-			SpatialVector fieldNucleusA = NucleusEMFA.CalculateMagneticFieldPerFm2_LCF(
+			SpatialVector fieldNucleusA = NucleusEMFA.CalculateMagneticFieldInLCF_per_fm2(
 				properTime, x - NucleusPositionA, y, rapidity);
 
 			// Nucleus B is located at positive x and moves in negative z direction
-			SpatialVector fieldNucleusB = NucleusEMFB.CalculateMagneticFieldPerFm2_LCF(
+			SpatialVector fieldNucleusB = NucleusEMFB.CalculateMagneticFieldInLCF_per_fm2(
 				properTime, x - NucleusPositionB, y, rapidity);
 
 			return fieldNucleusA + fieldNucleusB;
 		}
 
-		public double CalculateAverageElectricFieldStrengthPerFm2(
+		public double CalculateAverageElectricFieldStrength_per_fm2(
 			double properTime,
 			double x,
 			double y
 			)
 		{
 			Func<double, double> integrand
-				= rapidity => CalculateElectricFieldPerFm2_LCF(properTime, x, y, rapidity).Norm;
+				= rapidity => CalculateElectricFieldInLCF_per_fm2(properTime, x, y, rapidity).Norm;
 
 			return LCFFieldAverager.AverageRapidityDependence(integrand);
 		}
 
-		public double CalculateAverageElectricFieldStrengthPerFm2(
+		public double CalculateAverageElectricFieldStrength_per_fm2(
 			double properTime
 			)
 		{
 			LCFFieldFunction function = (x, y, rapidity) =>
-				CalculateElectricFieldPerFm2_LCF(properTime, x, y, rapidity).Norm;
+				CalculateElectricFieldInLCF_per_fm2(properTime, x, y, rapidity).Norm;
 
 			return LCFFieldAverager.AverageByBottomiumDistribution(function);
 		}
 
-		public double CalculateAverageMagneticFieldStrengthPerFm2(
+		public double CalculateAverageMagneticFieldStrength_per_fm2(
 			double properTime,
 			double x,
 			double y
 			)
 		{
 			Func<double, double> integrand
-				= rapidity => CalculateMagneticFieldPerFm2_LCF(properTime, x, y, rapidity).Norm;
+				= rapidity => CalculateMagneticFieldInLCF_per_fm2(properTime, x, y, rapidity).Norm;
 
 			return LCFFieldAverager.AverageRapidityDependence(integrand);
 		}
 
-		public double CalculateAverageMagneticFieldStrengthPerFm2(
+		public double CalculateAverageMagneticFieldStrength_per_fm2(
 			double properTime
 			)
 		{
 			LCFFieldFunction function = (x, y, rapidity) =>
-				CalculateMagneticFieldPerFm2_LCF(properTime, x, y, rapidity).Norm;
+				CalculateMagneticFieldInLCF_per_fm2(properTime, x, y, rapidity).Norm;
 
 			return LCFFieldAverager.AverageByBottomiumDistribution(function);
 		}

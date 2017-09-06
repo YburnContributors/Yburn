@@ -105,18 +105,18 @@ namespace Yburn.Fireball.Tests
 		{
 			FireballParam param = new FireballParam();
 
-			param.BreakupTemperatureMeV = 160;
+			param.BreakupTemperature_MeV = 160;
 			param.CenterOfMassEnergyTeV = 2.76;
 			param.DecayWidthRetrievalFunction = DummyDecayWidthProvider.GetDummyDecayWidth;
-			param.DiffusenessAFm = 0.546;
-			param.DiffusenessBFm = 0.546;
+			param.DiffusenessA_fm = 0.546;
+			param.DiffusenessB_fm = 0.546;
 			param.ExpansionMode = ExpansionMode.Transverse;
-			param.FormationTimesFm = FormationTimes;
-			param.GridCellSizeFm = 1;
-			param.GridRadiusFm = 10;
-			param.InitialMaximumTemperatureMeV = 550;
-			param.NuclearRadiusAFm = 6.62;
-			param.NuclearRadiusBFm = 6.62;
+			param.FormationTimes_fm = FormationTimes;
+			param.GridCellSize_fm = 1;
+			param.GridRadius_fm = 10;
+			param.InitialMaximumTemperature_MeV = 550;
+			param.NuclearRadiusA_fm = 6.62;
+			param.NuclearRadiusB_fm = 6.62;
 			param.NucleonNumberA = 208;
 			param.NucleonNumberB = 208;
 			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
@@ -124,7 +124,7 @@ namespace Yburn.Fireball.Tests
 			param.ProtonNumberA = 82;
 			param.ProtonNumberB = 82;
 			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
-			param.ThermalTimeFm = 0.1;
+			param.ThermalTime_fm = 0.1;
 			param.TransverseMomentaGeV = new List<double> { 6 };
 			param.UseElectricField = false;
 			param.UseMagneticField = false;
@@ -137,10 +137,10 @@ namespace Yburn.Fireball.Tests
 			FireballParam param = CreateFireballParam_PbPb();
 
 			param.CenterOfMassEnergyTeV = 5.02;
-			param.DiffusenessAFm = 0;
-			param.GridCellSizeFm = 0.5;
-			param.GridRadiusFm = 5;
-			param.NuclearRadiusAFm = 0.8775;
+			param.DiffusenessA_fm = 0;
+			param.GridCellSize_fm = 0.5;
+			param.GridRadius_fm = 5;
+			param.NuclearRadiusA_fm = 0.8775;
 			param.NucleonNumberA = 1;
 			param.NucleusShapeA = NucleusShape.GaussianDistribution;
 			param.ProtonNumberA = 1;

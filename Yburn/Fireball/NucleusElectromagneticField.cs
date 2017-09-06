@@ -11,14 +11,14 @@ namespace Yburn.Fireball
 
 		public NucleusElectromagneticField(
 			EMFCalculationMethod emfCalculationMethod,
-			double qgpConductivityMeV,
+			double qgpConductivity_MeV,
 			double nucleusRapidity,
 			Nucleus nucleus,
 			int quadratureOrder
 			)
 		{
 			PointChargeEMF = PointChargeElectromagneticField.Create(
-				emfCalculationMethod, qgpConductivityMeV, nucleusRapidity);
+				emfCalculationMethod, qgpConductivity_MeV, nucleusRapidity);
 
 			Nucleus = nucleus;
 			NucleusVelocity = Math.Tanh(nucleusRapidity);
@@ -77,7 +77,7 @@ namespace Yburn.Fireball
 			{
 				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
 
-				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
+				return Nucleus.GetProtonNumberColumnDensity_per_fm3(x, y)
 					* PointChargeEMF.CalculateElectromagneticField(
 						effectiveTime,
 						pointChargePosition.Norm,
@@ -87,7 +87,7 @@ namespace Yburn.Fireball
 
 			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
-				2 * Nucleus.NuclearRadiusFm,
+				2 * Nucleus.NuclearRadius_fm,
 				QuadratureOrder);
 
 			return integral;
@@ -102,7 +102,7 @@ namespace Yburn.Fireball
 			{
 				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
 
-				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
+				return Nucleus.GetProtonNumberColumnDensity_per_fm3(x, y)
 					* PointChargeEMF.CalculateElectromagneticField(
 						effectiveTime,
 						pointChargePosition.Norm,
@@ -112,7 +112,7 @@ namespace Yburn.Fireball
 
 			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
-				2 * Nucleus.NuclearRadiusFm,
+				2 * Nucleus.NuclearRadius_fm,
 				QuadratureOrder);
 
 			return integral;
@@ -127,7 +127,7 @@ namespace Yburn.Fireball
 			{
 				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
 
-				return Nucleus.GetProtonNumberColumnDensityPerFm3(x, y)
+				return Nucleus.GetProtonNumberColumnDensity_per_fm3(x, y)
 					* PointChargeEMF.CalculateElectromagneticField(
 						effectiveTime,
 						pointChargePosition.Norm,
@@ -137,13 +137,13 @@ namespace Yburn.Fireball
 
 			double integral = ImproperQuadrature.IntegrateOverRealPlane(
 				integrand,
-				2 * Nucleus.NuclearRadiusFm,
+				2 * Nucleus.NuclearRadius_fm,
 				QuadratureOrder);
 
 			return integral;
 		}
 
-		public double CalculateAzimuthalMagneticField_LCF(
+		public double CalculateAzimuthalMagneticFieldInLCF(
 			double effectiveTime,
 			double radialDistance,
 			double observerRapidity
@@ -153,7 +153,7 @@ namespace Yburn.Fireball
 				* CalculateRadialElectricField(effectiveTime, radialDistance);
 		}
 
-		public double CalculateLongitudinalElectricField_LCF(
+		public double CalculateLongitudinalElectricFieldInLCF(
 			double effectiveTime,
 			double radialDistance,
 			double observerRapidity
@@ -162,7 +162,7 @@ namespace Yburn.Fireball
 			return CalculateLongitudinalElectricField(effectiveTime, radialDistance);
 		}
 
-		public double CalculateRadialElectricField_LCF(
+		public double CalculateRadialElectricFieldInLCF(
 			double effectiveTime,
 			double radialDistance,
 			double observerRapidity
@@ -172,7 +172,7 @@ namespace Yburn.Fireball
 				* CalculateRadialElectricField(effectiveTime, radialDistance);
 		}
 
-		public SpatialVector CalculateElectricFieldPerFm2(
+		public SpatialVector CalculateElectricField_per_fm2(
 			double t,
 			double x,
 			double y,
@@ -192,27 +192,27 @@ namespace Yburn.Fireball
 				x, y, radialField, 0, longitudinalField);
 		}
 
-		public SpatialVector CalculateElectricFieldPerFm2_LCF(
+		public SpatialVector CalculateElectricFieldInLCF_per_fm2(
 			double properTime,
 			double x,
 			double y,
 			double rapidity
 			)
 		{
-			double effectiveTime = CalculateEffectiveTime_LCF(properTime, rapidity);
+			double effectiveTime = CalculateEffectiveTimeFromLCFCoordinates(properTime, rapidity);
 			double radialDistance = CalculateRadialDistance(x, y);
 
 			double longitudinalField
-				= CalculateLongitudinalElectricField_LCF(effectiveTime, radialDistance, rapidity);
+				= CalculateLongitudinalElectricFieldInLCF(effectiveTime, radialDistance, rapidity);
 
 			double radialField
-				= CalculateRadialElectricField_LCF(effectiveTime, radialDistance, rapidity);
+				= CalculateRadialElectricFieldInLCF(effectiveTime, radialDistance, rapidity);
 
 			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
 				x, y, radialField, 0, longitudinalField);
 		}
 
-		public SpatialVector CalculateMagneticFieldPerFm2(
+		public SpatialVector CalculateMagneticField_per_fm2(
 			double t,
 			double x,
 			double y,
@@ -229,18 +229,18 @@ namespace Yburn.Fireball
 				x, y, 0, azimuthalField, 0);
 		}
 
-		public SpatialVector CalculateMagneticFieldPerFm2_LCF(
+		public SpatialVector CalculateMagneticFieldInLCF_per_fm2(
 			double properTime,
 			double x,
 			double y,
 			double rapidity
 			)
 		{
-			double effectiveTime = CalculateEffectiveTime_LCF(properTime, rapidity);
+			double effectiveTime = CalculateEffectiveTimeFromLCFCoordinates(properTime, rapidity);
 			double radialDistance = CalculateRadialDistance(x, y);
 
 			double azimuthalField
-				= CalculateAzimuthalMagneticField_LCF(effectiveTime, radialDistance, rapidity);
+				= CalculateAzimuthalMagneticFieldInLCF(effectiveTime, radialDistance, rapidity);
 
 			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
 				x, y, 0, azimuthalField, 0);
@@ -266,7 +266,7 @@ namespace Yburn.Fireball
 			return t - z / NucleusVelocity;
 		}
 
-		private double CalculateEffectiveTime_LCF(
+		private double CalculateEffectiveTimeFromLCFCoordinates(
 			double properTime,
 			double rapidity
 			)

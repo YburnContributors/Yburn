@@ -29,7 +29,7 @@ namespace Yburn.QQState
 
 		// LambdaQCD = M_Z exp(-1/(b0 alpha_s(M_Z))),
 		// M_Z = 91.2 GeV, alpha_s(M_Z) = 0.1197, b0 = 9/(2*PI)
-		public static readonly double LambdaQCDMeV = 267.324998266534;
+		public static readonly double LambdaQCD_MeV = 267.324998266534;
 
 		public static readonly int NumberLightFlavors = 3;
 
@@ -48,7 +48,7 @@ namespace Yburn.QQState
 			SetDebyeMass();
 			SetPotential();
 
-			WaveFunctionFm = new Complex[Param.StepNumber + 1];
+			WaveFunction_fm = new Complex[Param.StepNumber + 1];
 		}
 
 		/********************************************************************************************
@@ -87,13 +87,13 @@ namespace Yburn.QQState
 			protected set;
 		}
 
-		public double DebyeMassMeV
+		public double DebyeMass_MeV
 		{
 			get;
 			protected set;
 		}
 
-		public double StepSizeFm
+		public double StepSize_fm
 		{
 			get
 			{
@@ -101,34 +101,34 @@ namespace Yburn.QQState
 			}
 		}
 
-		public double WaveVectorFm
+		public double WaveVector_fm
 		{
 			get
 			{
-				return Math.Sqrt(Param.QuarkMassMeV * Math.Abs(Param.EnergyMeV))
-					/ Constants.HbarCMeVFm;
+				return Math.Sqrt(Param.QuarkMass_MeV * Math.Abs(Param.Energy_MeV))
+					/ Constants.HbarC_MeV_fm;
 			}
 		}
 
 		// values of the radial wave function, psi_nlm(x,y,z) = WaveFunction(r)*Y_lm(theta,phi)/r
-		public Complex[] WaveFunctionFm
+		public Complex[] WaveFunction_fm
 		{
 			get;
 			protected set;
 		}
 
 		// values of radial distance at which the wave function is evaluated
-		public double[] RadiusFm
+		public double[] Radius_fm
 		{
 			get;
 			protected set;
 		}
 
-		public double SigmaEffMeV
+		public double SigmaEff_MeV
 		{
 			get
 			{
-				return PotentialFm.SigmaEffMeV;
+				return Potential_fm.SigmaEff_MeV;
 			}
 		}
 
@@ -162,44 +162,44 @@ namespace Yburn.QQState
 
 		protected RunningCoupling AlphaS;
 
-		protected Potential PotentialFm;
+		protected Potential Potential_fm;
 
 		protected RseSolver Solver;
 
 		protected Complex EffectivePotential(
-			double radiusFm
+			double radius_fm
 			)
 		{
-			double quarkMassFm = Param.QuarkMassMeV / Constants.HbarCMeVFm;
+			double quarkMass_fm = Param.QuarkMass_MeV / Constants.HbarC_MeV_fm;
 			double centrifugalTerm = Param.QuantumNumberL * (Param.QuantumNumberL + 1)
-				/ radiusFm / radiusFm;
+				/ radius_fm / radius_fm;
 
-			return quarkMassFm * PotentialFm.Value(radiusFm) + new Complex(centrifugalTerm, 0);
+			return quarkMass_fm * Potential_fm.Value(radius_fm) + new Complex(centrifugalTerm, 0);
 		}
 
 		protected Complex EffectivePotentialMinusEigenvalue(
-			double radiusFm
+			double radius_fm
 			)
 		{
-			Complex eigenvalue = (new Complex(Param.EnergyMeV, -0.5 * Param.GammaDampMeV))
-				* Param.QuarkMassMeV / Constants.HbarCMeVFm / Constants.HbarCMeVFm;
+			Complex eigenvalue = (new Complex(Param.Energy_MeV, -0.5 * Param.GammaDamp_MeV))
+				* Param.QuarkMass_MeV / Constants.HbarC_MeV_fm / Constants.HbarC_MeV_fm;
 
-			return EffectivePotential(radiusFm) - eigenvalue;
+			return EffectivePotential(radius_fm) - eigenvalue;
 		}
 
 		private void SetDebyeMass()
 		{
-			DebyeMassMeV = Param.TemperatureMeV * Math.Sqrt(2 * Math.PI
+			DebyeMass_MeV = Param.Temperature_MeV * Math.Sqrt(2 * Math.PI
 				* AlphaThermal * (2 * Constants.NumberQCDColors + NumberLightFlavors) / 3.0);
 		}
 
 		private void SetCouplings()
 		{
 			AlphaS = RunningCoupling.Create(Param.RunningCouplingType);
-			AlphaHard = AlphaS.Value(Param.QuarkMassMeV);
-			AlphaSoft = AlphaS.Value(Param.SoftScaleMeV);
-			AlphaThermal = Param.TemperatureMeV == 0 ?
-				0 : AlphaS.Value(2 * Math.PI * Param.TemperatureMeV);
+			AlphaHard = AlphaS.Value(Param.QuarkMass_MeV);
+			AlphaSoft = AlphaS.Value(Param.SoftScale_MeV);
+			AlphaThermal = Param.Temperature_MeV == 0 ?
+				0 : AlphaS.Value(2 * Math.PI * Param.Temperature_MeV);
 		}
 
 		private void SetPotential()
@@ -207,48 +207,48 @@ namespace Yburn.QQState
 			switch(Param.PotentialType)
 			{
 				case PotentialType.Complex:
-					PotentialFm = new ComplexPotential(AlphaSoft, Param.SigmaMeV,
-						Param.ColorState, Param.TemperatureMeV, DebyeMassMeV);
+					Potential_fm = new ComplexPotential(AlphaSoft, Param.Sigma_MeV,
+						Param.ColorState, Param.Temperature_MeV, DebyeMass_MeV);
 					break;
 
 				case PotentialType.Complex_NoString:
-					PotentialFm = new ComplexPotential_NoString(AlphaSoft,
-						Param.ColorState, Param.TemperatureMeV, DebyeMassMeV);
+					Potential_fm = new ComplexPotential_NoString(AlphaSoft,
+						Param.ColorState, Param.Temperature_MeV, DebyeMass_MeV);
 					break;
 
 				case PotentialType.LowT:
-					PotentialFm = new LowTemperaturePotential(AlphaSoft, Param.SigmaMeV,
-						Param.ColorState, Param.TemperatureMeV, DebyeMassMeV);
+					Potential_fm = new LowTemperaturePotential(AlphaSoft, Param.Sigma_MeV,
+						Param.ColorState, Param.Temperature_MeV, DebyeMass_MeV);
 					break;
 
 				case PotentialType.LowT_NoString:
-					PotentialFm = new LowTemperaturePotential_NoString(AlphaSoft,
-						Param.ColorState, Param.TemperatureMeV, DebyeMassMeV);
+					Potential_fm = new LowTemperaturePotential_NoString(AlphaSoft,
+						Param.ColorState, Param.Temperature_MeV, DebyeMass_MeV);
 					break;
 
 				case PotentialType.Real:
-					PotentialFm = new RealPotential(
-						AlphaSoft, Param.SigmaMeV, Param.ColorState, DebyeMassMeV);
+					Potential_fm = new RealPotential(
+						AlphaSoft, Param.Sigma_MeV, Param.ColorState, DebyeMass_MeV);
 					break;
 
 				case PotentialType.Real_NoString:
-					PotentialFm = new RealPotential_NoString(AlphaSoft,
-						Param.ColorState, DebyeMassMeV);
+					Potential_fm = new RealPotential_NoString(AlphaSoft,
+						Param.ColorState, DebyeMass_MeV);
 					break;
 
 				case PotentialType.Tzero:
-					PotentialFm = new VacuumPotential(
-						AlphaSoft, Param.SigmaMeV, Param.ColorState);
+					Potential_fm = new VacuumPotential(
+						AlphaSoft, Param.Sigma_MeV, Param.ColorState);
 					break;
 
 				case PotentialType.Tzero_NoString:
-					PotentialFm = new VacuumPotential_NoString(AlphaSoft, Param.ColorState);
+					Potential_fm = new VacuumPotential_NoString(AlphaSoft, Param.ColorState);
 					break;
 
 				case PotentialType.SpinDependent:
-					PotentialFm = new SpinDependentPotential(
-						AlphaSoft, Param.SigmaMeV, Param.ColorState, Param.SpinState,
-						Param.SpinCouplingRangeFm, Param.SpinCouplingStrengthMeV);
+					Potential_fm = new SpinDependentPotential(
+						AlphaSoft, Param.Sigma_MeV, Param.ColorState, Param.SpinState,
+						Param.SpinCouplingRange_fm, Param.SpinCouplingStrength_MeV);
 					break;
 
 				default:
@@ -275,17 +275,17 @@ namespace Yburn.QQState
 			{
 				throw new Exception("AggressivenessAlpha > 1.");
 			}
-			if(Param.GammaDampMeV < 0
+			if(Param.GammaDamp_MeV < 0
 				&& Param.ColorState == ColorState.Singlet)
 			{
 				errorMessage += "GammaDamp < 0.\r\n";
 			}
-			if(Param.GammaDampMeV > 0
+			if(Param.GammaDamp_MeV > 0
 				&& Param.ColorState == ColorState.Octet)
 			{
 				errorMessage += "GammaDamp > 0.\r\n";
 			}
-			if(Param.MaxRadiusFm <= 0)
+			if(Param.MaxRadius_fm <= 0)
 			{
 				errorMessage += "MaxRadius <= 0.\r\n";
 			}
@@ -293,11 +293,11 @@ namespace Yburn.QQState
 			{
 				errorMessage += "QuantumNumberL < 0.\r\n";
 			}
-			if(Param.QuarkMassMeV <= 0)
+			if(Param.QuarkMass_MeV <= 0)
 			{
 				errorMessage += "QuarkMass <= 0.\r\n";
 			}
-			if(Param.SoftScaleMeV < 0)
+			if(Param.SoftScale_MeV < 0)
 			{
 				errorMessage += "SoftScale < 0.\r\n";
 			}
@@ -305,19 +305,19 @@ namespace Yburn.QQState
 			{
 				errorMessage += "StepNumber < 1.\r\n";
 			}
-			if(Param.TchemMeV <= 0)
+			if(Param.Tchem_MeV <= 0)
 			{
 				errorMessage += "Tchem <= 0.\r\n";
 			}
-			if(Param.TcritMeV < Param.TchemMeV)
+			if(Param.Tcrit_MeV < Param.Tchem_MeV)
 			{
 				errorMessage += "Tcrit < Tchem.\r\n";
 			}
-			if(Param.TemperatureMeV < 0)
+			if(Param.Temperature_MeV < 0)
 			{
 				errorMessage += "Temperature < 0.\r\n";
 			}
-			if(Param.TemperatureMeV < Param.TcritMeV
+			if(Param.Temperature_MeV < Param.Tcrit_MeV
 				&& Param.PotentialType != PotentialType.Tzero
 				&& Param.PotentialType != PotentialType.Tzero_NoString
 				&& Param.PotentialType != PotentialType.SpinDependent)

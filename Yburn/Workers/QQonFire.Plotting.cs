@@ -40,13 +40,13 @@ namespace Yburn.Workers
 		{
 			PrepareJob("MakeSnapshots", SnapshotStatusTitles);
 
-			if(SnapRate <= 0)
+			if(SnapRate_per_fm <= 0)
 			{
 				throw new Exception("SnapRate <= 0.");
 			}
 
 			Fireball.Fireball fireball = CreateFireball();
-			BjorkenLifeTime = fireball.BjorkenLifeTime;
+			BjorkenLifeTime_fm = fireball.BjorkenLifeTime;
 
 			// extract path and file name of outfile and extension separately
 			string fileName = BuildSnapsFileName(DataFileName);
@@ -58,14 +58,14 @@ namespace Yburn.Workers
 			StringBuilder gnuFileStringY = new StringBuilder();
 			StringBuilder gnuFileStringXY = new StringBuilder();
 
-			int numberGridPoints = Convert.ToInt32(Math.Round(GridRadius / GridCellSize)) + 1;
+			int numberGridPoints = Convert.ToInt32(Math.Round(GridRadius_fm / GridCellSize_fm)) + 1;
 
 			gnuFileStringX.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
-				GridRadius.ToString()));
+				GridRadius_fm.ToString()));
 			gnuFileStringY.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
-				GridRadius.ToString()));
+				GridRadius_fm.ToString()));
 			gnuFileStringXY.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\nset yr[0:{1,3}]\r\n\r\n",
-				GridRadius.ToString(), GridRadius.ToString()));
+				GridRadius_fm.ToString(), GridRadius_fm.ToString()));
 
 			string xPlotStringBegin = "p \"" + fileName
 				+ "\" every " + numberGridPoints.ToString() + " index ";
@@ -77,9 +77,9 @@ namespace Yburn.Workers
 			string xyPlotStringEnd = " u 1:2:3 w p; pause .5";
 
 			int index = 0;
-			double dt = 1.0 / SnapRate;
+			double dt = 1.0 / SnapRate_per_fm;
 			double currentTime;
-			while(fireball.MaximumTemperature > BreakupTemperature)
+			while(fireball.MaximumTemperature > BreakupTemperature_MeV)
 			{
 				// quit here if process has been aborted
 				if(JobCancelToken.IsCancellationRequested)
@@ -108,7 +108,7 @@ namespace Yburn.Workers
 				index++;
 			}
 
-			LifeTime = fireball.LifeTime;
+			LifeTime_fm = fireball.LifeTime;
 
 			// append final results in the output file and exchange the old header with a new one
 			LogMessages.Clear();
@@ -140,7 +140,7 @@ namespace Yburn.Workers
 				extension = dataFileName.Substring(indexOfDot, dataFileName.Length - indexOfDot);
 			}
 
-			return (nameWithoutExtension + "-b" + ImpactParameter + extension).Replace("\\", "/");
+			return (nameWithoutExtension + "-b" + ImpactParameter_fm + extension).Replace("\\", "/");
 		}
 	}
 }

@@ -18,8 +18,8 @@ namespace Yburn.SingleQQ.UI
 			string title,
 			string[] runningCouplingTypes,
 			string runningCouplingTypeSelection,
-			string minEnergyMeV,
-			string maxEnergyMeV,
+			string minEnergy_MeV,
+			string maxEnergy_MeV,
 			string samples,
 			string dataFileName
 			)
@@ -30,7 +30,7 @@ namespace Yburn.SingleQQ.UI
 			AcceptButton = BtnPlot;
 			CancelButton = BtnLeave;
 
-			SetInputData(title, runningCouplingTypeSelection, minEnergyMeV, maxEnergyMeV,
+			SetInputData(title, runningCouplingTypeSelection, minEnergy_MeV, maxEnergy_MeV,
 				samples, dataFileName);
 		}
 
@@ -58,16 +58,16 @@ namespace Yburn.SingleQQ.UI
 		private void SetInputData(
 			string title,
 			string runningCouplingTypes,
-			string minEnergyMeV,
-			string maxEnergyMeV,
+			string minEnergy_MeV,
+			string maxEnergy_MeV,
 			string samples,
 			string dataFileName
 			)
 		{
 			Text = title;
 			MsxRunningCouplingType.SelectionString = runningCouplingTypes;
-			TbxMinEnergy.Text = minEnergyMeV;
-			TbxMaxEnergy.Text = maxEnergyMeV;
+			TbxMinEnergy.Text = minEnergy_MeV;
+			TbxMaxEnergy.Text = maxEnergy_MeV;
 			TbxSamples.Text = samples;
 			TbxDataFileName.Text = dataFileName;
 		}

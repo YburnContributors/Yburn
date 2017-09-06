@@ -102,28 +102,28 @@ namespace Yburn.Electromagnetism.UI
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-			nameValuePairs["DiffusenessA"] = TbxDiffusenessA.Text;
-			nameValuePairs["DiffusenessB"] = TbxDiffusenessB.Text;
+			nameValuePairs["DiffusenessA_fm"] = TbxDiffusenessA.Text;
+			nameValuePairs["DiffusenessB_fm"] = TbxDiffusenessB.Text;
 			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
 			nameValuePairs["EMFQuadratureOrder"] = TbxEMFQuadratureOrder.Text;
-			nameValuePairs["GridCellSize"] = TbxGridCellSize.Text;
-			nameValuePairs["GridRadius"] = TbxGridRadius.Text;
-			nameValuePairs["ImpactParameter"] = TbxImpactParameter.Text;
+			nameValuePairs["GridCellSize_fm"] = TbxGridCellSize.Text;
+			nameValuePairs["GridRadius_fm"] = TbxGridRadius.Text;
+			nameValuePairs["ImpactParameter_fm"] = TbxImpactParameter.Text;
 			nameValuePairs["ParticleRapidity"] = TbxParticleRapidity.Text;
-			nameValuePairs["NuclearRadiusA"] = TbxNuclearRadiusA.Text;
-			nameValuePairs["NuclearRadiusB"] = TbxNuclearRadiusB.Text;
+			nameValuePairs["NuclearRadiusA_fm"] = TbxNuclearRadiusA.Text;
+			nameValuePairs["NuclearRadiusB_fm"] = TbxNuclearRadiusB.Text;
 			nameValuePairs["NucleonNumberA"] = TbxNucleonNumberA.Text;
 			nameValuePairs["NucleonNumberB"] = TbxNucleonNumberB.Text;
 			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
 			nameValuePairs["ProtonNumberA"] = TbxProtonNumberA.Text;
 			nameValuePairs["ProtonNumberB"] = TbxProtonNumberB.Text;
-			nameValuePairs["QGPConductivity"] = TbxQGPConductivity.Text;
-			nameValuePairs["RadialDistance"] = TbxRadialDistance.Text;
+			nameValuePairs["QGPConductivity_MeV"] = TbxQGPConductivity.Text;
+			nameValuePairs["RadialDistance_fm"] = TbxRadialDistance.Text;
 			nameValuePairs["NucleusShapeA"] = CbxNucleusShapeA.Text;
 			nameValuePairs["NucleusShapeB"] = CbxNucleusShapeB.Text;
 			nameValuePairs["Samples"] = TbxSamples.Text;
-			nameValuePairs["StartTime"] = TbxStartTime.Text;
-			nameValuePairs["StopTime"] = TbxStopTime.Text;
+			nameValuePairs["StartTime_fm"] = TbxStartTime.Text;
+			nameValuePairs["StopTime_fm"] = TbxStopTime.Text;
 
 			return nameValuePairs;
 		}
@@ -135,25 +135,25 @@ namespace Yburn.Electromagnetism.UI
 			CbxEMFCalculationMethod.Text = nameValuePairs["EMFCalculationMethod"];
 			CbxNucleusShapeA.Text = nameValuePairs["NucleusShapeA"];
 			CbxNucleusShapeB.Text = nameValuePairs["NucleusShapeB"];
-			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA"];
-			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB"];
+			TbxDiffusenessA.Text = nameValuePairs["DiffusenessA_fm"];
+			TbxDiffusenessB.Text = nameValuePairs["DiffusenessB_fm"];
 			TbxEMFQuadratureOrder.Text = nameValuePairs["EMFQuadratureOrder"];
-			TbxGridCellSize.Text = nameValuePairs["GridCellSize"];
-			TbxGridRadius.Text = nameValuePairs["GridRadius"];
-			TbxImpactParameter.Text = nameValuePairs["ImpactParameter"];
+			TbxGridCellSize.Text = nameValuePairs["GridCellSize_fm"];
+			TbxGridRadius.Text = nameValuePairs["GridRadius_fm"];
+			TbxImpactParameter.Text = nameValuePairs["ImpactParameter_fm"];
 			TbxParticleRapidity.Text = nameValuePairs["ParticleRapidity"];
-			TbxNuclearRadiusA.Text = nameValuePairs["NuclearRadiusA"];
-			TbxNuclearRadiusB.Text = nameValuePairs["NuclearRadiusB"];
+			TbxNuclearRadiusA.Text = nameValuePairs["NuclearRadiusA_fm"];
+			TbxNuclearRadiusB.Text = nameValuePairs["NuclearRadiusB_fm"];
 			TbxNucleonNumberA.Text = nameValuePairs["NucleonNumberA"];
 			TbxNucleonNumberB.Text = nameValuePairs["NucleonNumberB"];
 			TbxDataFileName.Text = nameValuePairs["DataFileName"];
 			TbxProtonNumberA.Text = nameValuePairs["ProtonNumberA"];
 			TbxProtonNumberB.Text = nameValuePairs["ProtonNumberB"];
-			TbxQGPConductivity.Text = nameValuePairs["QGPConductivity"];
-			TbxRadialDistance.Text = nameValuePairs["RadialDistance"];
+			TbxQGPConductivity.Text = nameValuePairs["QGPConductivity_MeV"];
+			TbxRadialDistance.Text = nameValuePairs["RadialDistance_fm"];
 			TbxSamples.Text = nameValuePairs["Samples"];
-			TbxStartTime.Text = nameValuePairs["StartTime"];
-			TbxStopTime.Text = nameValuePairs["StopTime"];
+			TbxStartTime.Text = nameValuePairs["StartTime_fm"];
+			TbxStopTime.Text = nameValuePairs["StopTime_fm"];
 		}
 
 		private void InitializeMenuEntry()

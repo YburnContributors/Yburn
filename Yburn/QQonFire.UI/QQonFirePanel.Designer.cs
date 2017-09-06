@@ -1168,7 +1168,7 @@
 			this.LblSnapRate.Name = "LblSnapRate";
 			this.LblSnapRate.Size = new System.Drawing.Size(235, 25);
 			this.LblSnapRate.TabIndex = 0;
-			this.LblSnapRate.Text = "SnapRate";
+			this.LblSnapRate.Text = "SnapRate (c/fm)";
 			this.LblSnapRate.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// TbxSnapRate

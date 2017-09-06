@@ -14,33 +14,33 @@ namespace Yburn.Workers
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-			Store(nameValuePairs, "BjorkenLifeTime", BjorkenLifeTime);
+			Store(nameValuePairs, "BjorkenLifeTime_fm", BjorkenLifeTime_fm);
 			Store(nameValuePairs, "BottomiumStates", BottomiumStates);
-			Store(nameValuePairs, "BreakupTemperature", BreakupTemperature);
-			Store(nameValuePairs, "CenterOfMassEnergy", CenterOfMassEnergy);
-			Store(nameValuePairs, "CentralityBinBoundaries", CentralityBinBoundaries);
+			Store(nameValuePairs, "BreakupTemperature_MeV", BreakupTemperature_MeV);
+			Store(nameValuePairs, "CenterOfMassEnergy_TeV", CenterOfMassEnergy_TeV);
+			Store(nameValuePairs, "CentralityBinBoundaries_percent", CentralityBinBoundaries_percent);
 			Store(nameValuePairs, "DataFileName", DataFileName);
 			Store(nameValuePairs, "DecayWidthType", DecayWidthType);
-			Store(nameValuePairs, "DiffusenessA", DiffusenessA);
-			Store(nameValuePairs, "DiffusenessB", DiffusenessB);
+			Store(nameValuePairs, "DiffusenessA_fm", DiffusenessA_fm);
+			Store(nameValuePairs, "DiffusenessB_fm", DiffusenessB_fm);
 			Store(nameValuePairs, "DimuonDecaysFrompp", DimuonDecaysFrompp);
 			Store(nameValuePairs, "DopplerShiftEvaluationType", DopplerShiftEvaluationType);
 			Store(nameValuePairs, "EMFCalculationMethod", EMFCalculationMethod);
 			Store(nameValuePairs, "EMFQuadratureOrder", EMFQuadratureOrder);
-			Store(nameValuePairs, "EMFUpdateInterval", EMFUpdateInterval);
+			Store(nameValuePairs, "EMFUpdateInterval_fm", EMFUpdateInterval_fm);
 			Store(nameValuePairs, "ElectricDipoleAlignment", ElectricDipoleAlignment);
 			Store(nameValuePairs, "ExpansionMode", ExpansionMode);
 			Store(nameValuePairs, "FireballFieldTypes", FireballFieldTypes);
-			Store(nameValuePairs, "FormationTimes", FormationTimes);
-			Store(nameValuePairs, "GridCellSize", GridCellSize);
-			Store(nameValuePairs, "GridRadius", GridRadius);
-			Store(nameValuePairs, "ImpactParameter", ImpactParameter);
-			Store(nameValuePairs, "ImpactParamsAtBinBoundaries", ImpactParamsAtBinBoundaries);
-			Store(nameValuePairs, "InitialMaximumTemperature", InitialMaximumTemperature);
-			Store(nameValuePairs, "LifeTime", LifeTime);
+			Store(nameValuePairs, "FormationTimes_fm", FormationTimes_fm);
+			Store(nameValuePairs, "GridCellSize_fm", GridCellSize_fm);
+			Store(nameValuePairs, "GridRadius_fm", GridRadius_fm);
+			Store(nameValuePairs, "ImpactParameter_fm", ImpactParameter_fm);
+			Store(nameValuePairs, "ImpactParamsAtBinBoundaries_fm", ImpactParamsAtBinBoundaries_fm);
+			Store(nameValuePairs, "InitialMaximumTemperature_MeV", InitialMaximumTemperature_MeV);
+			Store(nameValuePairs, "LifeTime_fm", LifeTime_fm);
 			Store(nameValuePairs, "MeanParticipantsInBin", MeanParticipantsInBin);
-			Store(nameValuePairs, "NuclearRadiusA", NuclearRadiusA);
-			Store(nameValuePairs, "NuclearRadiusB", NuclearRadiusB);
+			Store(nameValuePairs, "NuclearRadiusA_fm", NuclearRadiusA_fm);
+			Store(nameValuePairs, "NuclearRadiusB_fm", NuclearRadiusB_fm);
 			Store(nameValuePairs, "NucleonNumberA", NucleonNumberA);
 			Store(nameValuePairs, "NucleonNumberB", NucleonNumberB);
 			Store(nameValuePairs, "NucleusShapeA", NucleusShapeA);
@@ -50,12 +50,12 @@ namespace Yburn.Workers
 			Store(nameValuePairs, "PotentialTypes", PotentialTypes);
 			Store(nameValuePairs, "ProtonNumberA", ProtonNumberA);
 			Store(nameValuePairs, "ProtonNumberB", ProtonNumberB);
-			Store(nameValuePairs, "QGPConductivity", QGPConductivity);
-			Store(nameValuePairs, "QGPFormationTemperature", QGPFormationTemperature);
-			Store(nameValuePairs, "SnapRate", SnapRate);
+			Store(nameValuePairs, "QGPConductivity_MeV", QGPConductivity_MeV);
+			Store(nameValuePairs, "QGPFormationTemperature_MeV", QGPFormationTemperature_MeV);
+			Store(nameValuePairs, "SnapRate_per_fm", SnapRate_per_fm);
 			Store(nameValuePairs, "TemperatureProfile", TemperatureProfile);
-			Store(nameValuePairs, "ThermalTime", ThermalTime);
-			Store(nameValuePairs, "TransverseMomenta", TransverseMomenta);
+			Store(nameValuePairs, "ThermalTime_fm", ThermalTime_fm);
+			Store(nameValuePairs, "TransverseMomenta_GeV", TransverseMomenta_GeV);
 			Store(nameValuePairs, "UseElectricField", UseElectricField);
 			Store(nameValuePairs, "UseMagneticField", UseMagneticField);
 
@@ -66,33 +66,33 @@ namespace Yburn.Workers
 			Dictionary<string, string> nameValuePairs
 			)
 		{
-			TryExtract(nameValuePairs, "BjorkenLifeTime", ref BjorkenLifeTime);
+			TryExtract(nameValuePairs, "BjorkenLifeTime_fm", ref BjorkenLifeTime_fm);
 			TryExtract(nameValuePairs, "BottomiumStates", ref BottomiumStates);
-			TryExtract(nameValuePairs, "BreakupTemperature", ref BreakupTemperature);
-			TryExtract(nameValuePairs, "CenterOfMassEnergy", ref CenterOfMassEnergy);
-			TryExtract(nameValuePairs, "CentralityBinBoundaries", ref CentralityBinBoundaries);
+			TryExtract(nameValuePairs, "BreakupTemperature_MeV", ref BreakupTemperature_MeV);
+			TryExtract(nameValuePairs, "CenterOfMassEnergy_TeV", ref CenterOfMassEnergy_TeV);
+			TryExtract(nameValuePairs, "CentralityBinBoundaries_percent", ref CentralityBinBoundaries_percent);
 			TryExtract(nameValuePairs, "DataFileName", ref DataFileName);
 			TryExtract(nameValuePairs, "DecayWidthType", ref DecayWidthType);
-			TryExtract(nameValuePairs, "DiffusenessA", ref DiffusenessA);
-			TryExtract(nameValuePairs, "DiffusenessB", ref DiffusenessB);
+			TryExtract(nameValuePairs, "DiffusenessA_fm", ref DiffusenessA_fm);
+			TryExtract(nameValuePairs, "DiffusenessB_fm", ref DiffusenessB_fm);
 			TryExtract(nameValuePairs, "DimuonDecaysFrompp", ref DimuonDecaysFrompp);
 			TryExtract(nameValuePairs, "DopplerShiftEvaluationType", ref DopplerShiftEvaluationType);
 			TryExtract(nameValuePairs, "EMFCalculationMethod", ref EMFCalculationMethod);
 			TryExtract(nameValuePairs, "EMFQuadratureOrder", ref EMFQuadratureOrder);
-			TryExtract(nameValuePairs, "EMFUpdateInterval", ref EMFUpdateInterval);
+			TryExtract(nameValuePairs, "EMFUpdateInterval_fm", ref EMFUpdateInterval_fm);
 			TryExtract(nameValuePairs, "ElectricDipoleAlignment", ref ElectricDipoleAlignment);
 			TryExtract(nameValuePairs, "ExpansionMode", ref ExpansionMode);
 			TryExtract(nameValuePairs, "FireballFieldTypes", ref FireballFieldTypes);
-			TryExtract(nameValuePairs, "FormationTimes", ref FormationTimes);
-			TryExtract(nameValuePairs, "GridCellSize", ref GridCellSize);
-			TryExtract(nameValuePairs, "GridRadius", ref GridRadius);
-			TryExtract(nameValuePairs, "ImpactParameter", ref ImpactParameter);
-			TryExtract(nameValuePairs, "ImpactParamsAtBinBoundaries", ref ImpactParamsAtBinBoundaries);
-			TryExtract(nameValuePairs, "InitialMaximumTemperature", ref InitialMaximumTemperature);
-			TryExtract(nameValuePairs, "LifeTime", ref LifeTime);
+			TryExtract(nameValuePairs, "FormationTimes_fm", ref FormationTimes_fm);
+			TryExtract(nameValuePairs, "GridCellSize_fm", ref GridCellSize_fm);
+			TryExtract(nameValuePairs, "GridRadius_fm", ref GridRadius_fm);
+			TryExtract(nameValuePairs, "ImpactParameter_fm", ref ImpactParameter_fm);
+			TryExtract(nameValuePairs, "ImpactParamsAtBinBoundaries_fm", ref ImpactParamsAtBinBoundaries_fm);
+			TryExtract(nameValuePairs, "InitialMaximumTemperature_MeV", ref InitialMaximumTemperature_MeV);
+			TryExtract(nameValuePairs, "LifeTime_fm", ref LifeTime_fm);
 			TryExtract(nameValuePairs, "MeanParticipantsInBin", ref MeanParticipantsInBin);
-			TryExtract(nameValuePairs, "NuclearRadiusA", ref NuclearRadiusA);
-			TryExtract(nameValuePairs, "NuclearRadiusB", ref NuclearRadiusB);
+			TryExtract(nameValuePairs, "NuclearRadiusA_fm", ref NuclearRadiusA_fm);
+			TryExtract(nameValuePairs, "NuclearRadiusB_fm", ref NuclearRadiusB_fm);
 			TryExtract(nameValuePairs, "NucleonNumberA", ref NucleonNumberA);
 			TryExtract(nameValuePairs, "NucleonNumberB", ref NucleonNumberB);
 			TryExtract(nameValuePairs, "NucleusShapeA", ref NucleusShapeA);
@@ -102,31 +102,31 @@ namespace Yburn.Workers
 			TryExtract(nameValuePairs, "PotentialTypes", ref PotentialTypes);
 			TryExtract(nameValuePairs, "ProtonNumberA", ref ProtonNumberA);
 			TryExtract(nameValuePairs, "ProtonNumberB", ref ProtonNumberB);
-			TryExtract(nameValuePairs, "QGPConductivity", ref QGPConductivity);
-			TryExtract(nameValuePairs, "QGPFormationTemperature", ref QGPFormationTemperature);
-			TryExtract(nameValuePairs, "SnapRate", ref SnapRate);
+			TryExtract(nameValuePairs, "QGPConductivity_MeV", ref QGPConductivity_MeV);
+			TryExtract(nameValuePairs, "QGPFormationTemperature_MeV", ref QGPFormationTemperature_MeV);
+			TryExtract(nameValuePairs, "SnapRate_per_fm", ref SnapRate_per_fm);
 			TryExtract(nameValuePairs, "TemperatureProfile", ref TemperatureProfile);
-			TryExtract(nameValuePairs, "ThermalTime", ref ThermalTime);
-			TryExtract(nameValuePairs, "TransverseMomenta", ref TransverseMomenta);
+			TryExtract(nameValuePairs, "ThermalTime_fm", ref ThermalTime_fm);
+			TryExtract(nameValuePairs, "TransverseMomenta_GeV", ref TransverseMomenta_GeV);
 			TryExtract(nameValuePairs, "UseElectricField", ref UseElectricField);
 			TryExtract(nameValuePairs, "UseMagneticField", ref UseMagneticField);
 		}
 
-		private double BjorkenLifeTime;
+		private double BjorkenLifeTime_fm;
 
 		private List<BottomiumState> BottomiumStates;
 
-		private double CenterOfMassEnergy;
+		private double CenterOfMassEnergy_TeV;
 
-		private List<List<int>> CentralityBinBoundaries;
+		private List<List<int>> CentralityBinBoundaries_percent;
 
 		private DopplerShiftEvaluationType DopplerShiftEvaluationType;
 
 		private DecayWidthType DecayWidthType;
 
-		private double DiffusenessA;
+		private double DiffusenessA_fm;
 
-		private double DiffusenessB;
+		private double DiffusenessB_fm;
 
 		private Dictionary<BottomiumState, double> DimuonDecaysFrompp;
 
@@ -134,7 +134,7 @@ namespace Yburn.Workers
 
 		private EMFCalculationMethod EMFCalculationMethod;
 
-		private double EMFUpdateInterval;
+		private double EMFUpdateInterval_fm;
 
 		private int EMFQuadratureOrder;
 
@@ -142,29 +142,29 @@ namespace Yburn.Workers
 
 		private List<string> FireballFieldTypes;
 
-		private Dictionary<BottomiumState, double> FormationTimes;
+		private Dictionary<BottomiumState, double> FormationTimes_fm;
 
-		private double GridCellSize;
+		private double GridCellSize_fm;
 
-		private double GridRadius;
+		private double GridRadius_fm;
 
-		private double ImpactParameter;
+		private double ImpactParameter_fm;
 
-		private List<List<double>> ImpactParamsAtBinBoundaries;
+		private List<List<double>> ImpactParamsAtBinBoundaries_fm;
 
-		private double InitialMaximumTemperature;
+		private double InitialMaximumTemperature_MeV;
 
-		private double LifeTime;
+		private double LifeTime_fm;
 
 		private List<List<double>> MeanParticipantsInBin;
 
 		private int NumberAveragingAngles;
 
-		private double BreakupTemperature;
+		private double BreakupTemperature_MeV;
 
-		private double NuclearRadiusA;
+		private double NuclearRadiusA_fm;
 
-		private double NuclearRadiusB;
+		private double NuclearRadiusB_fm;
 
 		private uint NucleonNumberA;
 
@@ -178,21 +178,21 @@ namespace Yburn.Workers
 
 		private uint ProtonNumberB;
 
-		private double QGPFormationTemperature;
+		private double QGPFormationTemperature_MeV;
 
 		private NucleusShape NucleusShapeA;
 
 		private NucleusShape NucleusShapeB;
 
-		private double QGPConductivity;
+		private double QGPConductivity_MeV;
 
-		private double SnapRate;
+		private double SnapRate_per_fm;
 
 		private TemperatureProfile TemperatureProfile;
 
-		private double ThermalTime;
+		private double ThermalTime_fm;
 
-		private List<double> TransverseMomenta;
+		private List<double> TransverseMomenta_GeV;
 
 		private bool UseElectricField;
 

@@ -38,9 +38,9 @@ namespace Yburn.QQState
 		{
 			Trials = 0;
 
-			if(PotentialFm.IsReal)
+			if(Potential_fm.IsReal)
 			{
-				Param.GammaDampMeV = 0;
+				Param.GammaDamp_MeV = 0;
 			}
 
 			CalculateWaveFunction();
@@ -62,17 +62,17 @@ namespace Yburn.QQState
 
 		private double DegreeOfConvergence;
 
-		private double MaxStepSizeFm
+		private double MaxStepSize_fm
 		{
 			get
 			{
-				return 3e-3 * 2 * Math.PI / WaveVectorFm;
+				return 3e-3 * 2 * Math.PI / WaveVector_fm;
 			}
 		}
 
 		private void AssertInputValid()
 		{
-			if(StepSizeFm > MaxStepSizeFm)
+			if(StepSize_fm > MaxStepSize_fm)
 			{
 				throw new Exception("StepSize > MaxStepSize.");
 			}
@@ -80,7 +80,7 @@ namespace Yburn.QQState
 			{
 				throw new Exception("Only PotentialType.Tzero_NoString is currently supported.");
 			}
-			if(Param.EnergyMeV < 0)
+			if(Param.Energy_MeV < 0)
 			{
 				throw new Exception("Energy < 0.");
 			}
@@ -94,12 +94,12 @@ namespace Yburn.QQState
 		{
 			Solver = new RseSolver();
 			Solver.InitialPosition = 0;
-			Solver.FinalPosition = Param.MaxRadiusFm;
+			Solver.FinalPosition = Param.MaxRadius_fm;
 			Solver.Samples = Param.StepNumber;
 			Solver.RightHandSide = EffectivePotentialMinusEigenvalue;
 			Solver.Initialize();
 
-			RadiusFm = Solver.PositionValues;
+			Radius_fm = Solver.PositionValues;
 
 			SetSolverInitialValues();
 			Solver.Initialize();
@@ -115,7 +115,7 @@ namespace Yburn.QQState
 			Solver.InitialSolutionValue = initWave;
 			Solver.InitialDerivativeValue = initDeriv;
 
-			Solver.InitialPosition += StepSizeFm;
+			Solver.InitialPosition += StepSize_fm;
 			Solver.Samples -= 1;
 		}
 
@@ -141,10 +141,10 @@ namespace Yburn.QQState
 
 		private void BuildWaveFunction()
 		{
-			WaveFunctionFm[0] = 0;
+			WaveFunction_fm[0] = 0;
 			for(int j = 1; j <= Param.StepNumber; j++)
 			{
-				WaveFunctionFm[j] = Solver.SolutionValues[j - 1];
+				WaveFunction_fm[j] = Solver.SolutionValues[j - 1];
 			}
 		}
 
@@ -216,7 +216,7 @@ namespace Yburn.QQState
 			Solver.SetFinalValuesAsNewInitialValues();
 			Solver.Samples = Param.StepNumber;
 			Solver.InitialPosition = Solver.FinalPosition;
-			Solver.FinalPosition = Solver.InitialPosition + MaxStepSizeFm * Solver.Samples;
+			Solver.FinalPosition = Solver.InitialPosition + MaxStepSize_fm * Solver.Samples;
 
 			Solver.Initialize();
 		}
@@ -226,7 +226,7 @@ namespace Yburn.QQState
 			double normFactor = Math.Sqrt(2 / Math.PI) / CurrentMaximum;
 			for(int j = 0; j <= Param.StepNumber; j++)
 			{
-				WaveFunctionFm[j] *= normFactor;
+				WaveFunction_fm[j] *= normFactor;
 			}
 		}
 
@@ -238,11 +238,11 @@ namespace Yburn.QQState
 			int MAX = 10;
 			double[] A = new double[MAX];
 			double DebyeSum = 0;
-			double dx = WaveVectorFm * StepSizeFm;
-			double DK = DebyeMassMeV / WaveVectorFm / Constants.HbarCMeVFm;
-			double ZK = PotentialFm.AlphaEff * Param.QuarkMassMeV / WaveVectorFm / Constants.HbarCMeVFm;
-			double SK = DebyeMassMeV == 0 ? 0
-				: SigmaEffMeV / DebyeMassMeV / Constants.HbarCMeVFm / WaveVectorFm / WaveVectorFm;
+			double dx = WaveVector_fm * StepSize_fm;
+			double DK = DebyeMass_MeV / WaveVector_fm / Constants.HbarC_MeV_fm;
+			double ZK = Potential_fm.AlphaEff * Param.QuarkMass_MeV / WaveVector_fm / Constants.HbarC_MeV_fm;
+			double SK = DebyeMass_MeV == 0 ? 0
+				: SigmaEff_MeV / DebyeMass_MeV / Constants.HbarC_MeV_fm / WaveVector_fm / WaveVector_fm;
 
 			A[0] = 1.0;
 			A[1] = 0.5 * ZK / (Param.QuantumNumberL + 1.0);
@@ -275,7 +275,7 @@ namespace Yburn.QQState
 			}
 
 			wave = new Complex(sum, 0);
-			deriv = new Complex(dsum * WaveVectorFm, 0); // <- factor of WaveVector is important
+			deriv = new Complex(dsum * WaveVector_fm, 0); // <- factor of WaveVector is important
 		}
 
 		protected void UpdateStatusValues()

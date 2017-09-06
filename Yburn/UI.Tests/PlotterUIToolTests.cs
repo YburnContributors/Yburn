@@ -68,8 +68,8 @@ namespace Yburn.UI.Tests
 		private static Dictionary<string, string> GetSingleQQPanelAlphaParams()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs.Add("MaxEnergy", "10000");
-			nameValuePairs.Add("Energy", "-440");
+			nameValuePairs.Add("MaxEnergy_MeV", "10000");
+			nameValuePairs.Add("Energy_MeV", "-440");
 			nameValuePairs.Add("EnergySteps", "1000");
 			nameValuePairs.Add("DataFileName", "stdout.txt");
 			nameValuePairs.Add("RunningCouplingType", "LOperturbative_Cutoff3");
@@ -81,24 +81,24 @@ namespace Yburn.UI.Tests
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 
-			nameValuePairs.Add("MinEnergy", "-440");
-			nameValuePairs.Add("MaxEnergy", "10000");
+			nameValuePairs.Add("MinEnergy_MeV", "-440");
+			nameValuePairs.Add("MaxEnergy_MeV", "10000");
 			nameValuePairs.Add("Samples", "1000");
 			nameValuePairs.Add("DataFileName", "stdout.txt");
 			nameValuePairs.Add("RunningCouplingTypeSelection", "LOperturbative_Cutoff3");
-			nameValuePairs.Add("EnergyScale", "-440");
+			nameValuePairs.Add("EnergyScale_MeV", "-440");
 
 			nameValuePairs.Add("PotentialType", "0");
 			nameValuePairs.Add("AlphaSoft", "0");
-			nameValuePairs.Add("Sigma", "0");
+			nameValuePairs.Add("Sigma_MeV2", "0");
 			nameValuePairs.Add("ColorState", "Singlet");
-			nameValuePairs.Add("Temperature", "0");
-			nameValuePairs.Add("DebyeMass", "0");
+			nameValuePairs.Add("Temperature_MeV", "0");
+			nameValuePairs.Add("DebyeMass_MeV", "0");
 			nameValuePairs.Add("SpinState", "Singlet");
-			nameValuePairs.Add("SpinCouplingRange", "0");
-			nameValuePairs.Add("SpinCouplingStrength", "0");
-			nameValuePairs.Add("MinRadius", "0");
-			nameValuePairs.Add("MaxRadius", "0");
+			nameValuePairs.Add("SpinCouplingRange_fm", "0");
+			nameValuePairs.Add("SpinCouplingStrength_MeV", "0");
+			nameValuePairs.Add("MinRadius_fm", "0");
+			nameValuePairs.Add("MaxRadius_fm", "0");
 
 			return nameValuePairs;
 		}
@@ -106,7 +106,7 @@ namespace Yburn.UI.Tests
 		private static Dictionary<string, string> GetSingleQQPanelPionGDFParams()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs.Add("Energy", "900");
+			nameValuePairs.Add("Energy_MeV", "900");
 			nameValuePairs.Add("EnergySteps", "1000");
 			nameValuePairs.Add("DataFileName", "stdout.txt");
 
@@ -116,24 +116,24 @@ namespace Yburn.UI.Tests
 		private static Dictionary<string, string> GetConvertedPionGDFNameValuePairs()
 		{
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs.Add("MinEnergy", "900");
-			nameValuePairs.Add("MaxEnergy", "0");
+			nameValuePairs.Add("MinEnergy_MeV", "900");
+			nameValuePairs.Add("MaxEnergy_MeV", "0");
 			nameValuePairs.Add("Samples", "1000");
 			nameValuePairs.Add("DataFileName", "stdout.txt");
-			nameValuePairs.Add("EnergyScale", "900");
+			nameValuePairs.Add("EnergyScale_MeV", "900");
 
 			nameValuePairs.Add("PotentialType", "0");
 			nameValuePairs.Add("AlphaSoft", "0");
-			nameValuePairs.Add("Sigma", "0");
+			nameValuePairs.Add("Sigma_MeV2", "0");
 			nameValuePairs.Add("ColorState", "Singlet");
-			nameValuePairs.Add("Temperature", "0");
-			nameValuePairs.Add("DebyeMass", "0");
+			nameValuePairs.Add("Temperature_MeV", "0");
+			nameValuePairs.Add("DebyeMass_MeV", "0");
 			nameValuePairs.Add("RunningCouplingTypeSelection", "");
 			nameValuePairs.Add("SpinState", "Singlet");
-			nameValuePairs.Add("SpinCouplingRange", "0");
-			nameValuePairs.Add("SpinCouplingStrength", "0");
-			nameValuePairs.Add("MinRadius", "0");
-			nameValuePairs.Add("MaxRadius", "0");
+			nameValuePairs.Add("SpinCouplingRange_fm", "0");
+			nameValuePairs.Add("SpinCouplingStrength_MeV", "0");
+			nameValuePairs.Add("MinRadius_fm", "0");
+			nameValuePairs.Add("MaxRadius_fm", "0");
 
 			return nameValuePairs;
 		}
@@ -143,15 +143,15 @@ namespace Yburn.UI.Tests
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 			nameValuePairs.Add("PotentialType", "Complex");
 			nameValuePairs.Add("AlphaSoft", "0.5");
-			nameValuePairs.Add("Sigma", "192000");
+			nameValuePairs.Add("Sigma_MeV2", "192000");
 			nameValuePairs.Add("ColorState", "Octet");
-			nameValuePairs.Add("Temperature", "3333");
-			nameValuePairs.Add("DebyeMass", "550");
+			nameValuePairs.Add("Temperature_MeV", "3333");
+			nameValuePairs.Add("DebyeMass_MeV", "550");
 			nameValuePairs.Add("SpinState", "Triplet");
-			nameValuePairs.Add("SpinCouplingRange", "0.1");
-			nameValuePairs.Add("SpinCouplingStrength", "15");
-			nameValuePairs.Add("MinRadius", "0");
-			nameValuePairs.Add("MaxRadius", "10");
+			nameValuePairs.Add("SpinCouplingRange_fm", "0.1");
+			nameValuePairs.Add("SpinCouplingStrength_MeV", "15");
+			nameValuePairs.Add("MinRadius_fm", "0");
+			nameValuePairs.Add("MaxRadius_fm", "10");
 			nameValuePairs.Add("EnergySteps", "1000");
 			nameValuePairs.Add("DataFileName", "stdout.txt");
 
@@ -163,22 +163,22 @@ namespace Yburn.UI.Tests
 			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
 			nameValuePairs.Add("PotentialType", "Complex");
 			nameValuePairs.Add("AlphaSoft", "0.5");
-			nameValuePairs.Add("Sigma", "1.92E+05");
+			nameValuePairs.Add("Sigma_MeV2", "1.92E+05");
 			nameValuePairs.Add("ColorState", "Octet");
-			nameValuePairs.Add("Temperature", "3333");
-			nameValuePairs.Add("DebyeMass", "550");
+			nameValuePairs.Add("Temperature_MeV", "3333");
+			nameValuePairs.Add("DebyeMass_MeV", "550");
 			nameValuePairs.Add("SpinState", "Triplet");
-			nameValuePairs.Add("SpinCouplingRange", "0.1");
-			nameValuePairs.Add("SpinCouplingStrength", "15");
-			nameValuePairs.Add("MinRadius", "0");
-			nameValuePairs.Add("MaxRadius", "10");
+			nameValuePairs.Add("SpinCouplingRange_fm", "0.1");
+			nameValuePairs.Add("SpinCouplingStrength_MeV", "15");
+			nameValuePairs.Add("MinRadius_fm", "0");
+			nameValuePairs.Add("MaxRadius_fm", "10");
 			nameValuePairs.Add("Samples", "1000");
 			nameValuePairs.Add("DataFileName", "stdout.txt");
 
-			nameValuePairs.Add("MinEnergy", "0");
-			nameValuePairs.Add("MaxEnergy", "0");
+			nameValuePairs.Add("MinEnergy_MeV", "0");
+			nameValuePairs.Add("MaxEnergy_MeV", "0");
 			nameValuePairs.Add("RunningCouplingTypeSelection", "");
-			nameValuePairs.Add("EnergyScale", "0");
+			nameValuePairs.Add("EnergyScale_MeV", "0");
 
 			return nameValuePairs;
 		}

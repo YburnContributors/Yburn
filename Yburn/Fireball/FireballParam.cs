@@ -42,27 +42,27 @@ namespace Yburn.Fireball
 			}
 		}
 
-		public double DiffusenessAFm
+		public double DiffusenessA_fm
 		{
 			get
 			{
-				return DiffusenessAFm_Nullable.Value;
+				return DiffusenessA_fm_Nullable.Value;
 			}
 			set
 			{
-				DiffusenessAFm_Nullable = value;
+				DiffusenessA_fm_Nullable = value;
 			}
 		}
 
-		public double NuclearRadiusAFm
+		public double NuclearRadiusA_fm
 		{
 			get
 			{
-				return NuclearRadiusAFm_Nullable.Value;
+				return NuclearRadiusA_fm_Nullable.Value;
 			}
 			set
 			{
-				NuclearRadiusAFm_Nullable = value;
+				NuclearRadiusA_fm_Nullable = value;
 			}
 		}
 
@@ -90,111 +90,111 @@ namespace Yburn.Fireball
 			}
 		}
 
-		public double DiffusenessBFm
+		public double DiffusenessB_fm
 		{
 			get
 			{
-				return DiffusenessBFm_Nullable.Value;
+				return DiffusenessB_fm_Nullable.Value;
 			}
 			set
 			{
-				DiffusenessBFm_Nullable = value;
+				DiffusenessB_fm_Nullable = value;
 			}
 		}
 
-		public double NuclearRadiusBFm
+		public double NuclearRadiusB_fm
 		{
 			get
 			{
-				return NuclearRadiusBFm_Nullable.Value;
+				return NuclearRadiusB_fm_Nullable.Value;
 			}
 			set
 			{
-				NuclearRadiusBFm_Nullable = value;
+				NuclearRadiusB_fm_Nullable = value;
 			}
 		}
 
-		public double GridCellSizeFm
+		public double GridCellSize_fm
 		{
 			get
 			{
-				return GridCellSizeFm_Nullable.Value;
+				return GridCellSize_fm_Nullable.Value;
 			}
 			set
 			{
-				GridCellSizeFm_Nullable = value;
+				GridCellSize_fm_Nullable = value;
 			}
 		}
 
-		public double GridRadiusFm
+		public double GridRadius_fm
 		{
 			get
 			{
-				return GridRadiusFm_Nullable.Value;
+				return GridRadius_fm_Nullable.Value;
 			}
 			set
 			{
-				GridRadiusFm_Nullable = value;
+				GridRadius_fm_Nullable = value;
 			}
 		}
 
-		public double ImpactParameterFm
+		public double ImpactParameter_fm
 		{
 			get
 			{
-				return ImpactParameterFm_Nullable.Value;
+				return ImpactParameter_fm_Nullable.Value;
 			}
 			set
 			{
-				ImpactParameterFm_Nullable = value;
+				ImpactParameter_fm_Nullable = value;
 			}
 		}
 
-		public double ThermalTimeFm
+		public double ThermalTime_fm
 		{
 			get
 			{
-				return ThermalTimeFm_Nullable.Value;
+				return ThermalTime_fm_Nullable.Value;
 			}
 			set
 			{
-				ThermalTimeFm_Nullable = value;
+				ThermalTime_fm_Nullable = value;
 			}
 		}
 
-		public Dictionary<BottomiumState, double> FormationTimesFm
+		public Dictionary<BottomiumState, double> FormationTimes_fm
 		{
 			get
 			{
-				return new Dictionary<BottomiumState, double>(FormationTimesFm_Nullable);
+				return new Dictionary<BottomiumState, double>(FormationTimes_fm_Nullable);
 			}
 			set
 			{
-				FormationTimesFm_Nullable = new Dictionary<BottomiumState, double>(value);
+				FormationTimes_fm_Nullable = new Dictionary<BottomiumState, double>(value);
 			}
 		}
 
-		public double InitialMaximumTemperatureMeV
+		public double InitialMaximumTemperature_MeV
 		{
 			get
 			{
-				return InitialMaximumTemperatureMeV_Nullable.Value;
+				return InitialMaximumTemperature_MeV_Nullable.Value;
 			}
 			set
 			{
-				InitialMaximumTemperatureMeV_Nullable = value;
+				InitialMaximumTemperature_MeV_Nullable = value;
 			}
 		}
 
-		public double BreakupTemperatureMeV
+		public double BreakupTemperature_MeV
 		{
 			get
 			{
-				return BreakupTemperatureMeV_Nullable.Value;
+				return BreakupTemperature_MeV_Nullable.Value;
 			}
 			set
 			{
-				BreakupTemperatureMeV_Nullable = value;
+				BreakupTemperature_MeV_Nullable = value;
 			}
 		}
 
@@ -202,11 +202,11 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				return Math.Log(1e6 * CenterOfMassEnergyTeV / Constants.RestMassProtonMeV);
+				return Math.Log(1e6 * CenterOfMassEnergyTeV / Constants.RestMassProton_MeV);
 			}
 			set
 			{
-				CenterOfMassEnergyTeV = 1e-6 * Math.Exp(value) * Constants.RestMassProtonMeV;
+				CenterOfMassEnergyTeV = 1e-6 * Math.Exp(value) * Constants.RestMassProton_MeV;
 			}
 		}
 
@@ -259,15 +259,15 @@ namespace Yburn.Fireball
 			}
 		}
 
-		public double QGPConductivityMeV
+		public double QGPConductivity_MeV
 		{
 			get
 			{
-				return QGPConductivityMeV_Nullable.Value;
+				return QGPConductivity_MeV_Nullable.Value;
 			}
 			set
 			{
-				QGPConductivityMeV_Nullable = value;
+				QGPConductivity_MeV_Nullable = value;
 			}
 		}
 
@@ -295,15 +295,15 @@ namespace Yburn.Fireball
 			}
 		}
 
-		public double EMFUpdateIntervalFm
+		public double EMFUpdateInterval_fm
 		{
 			get
 			{
-				return EMFUpdateIntervalFm_Nullable.Value;
+				return EMFUpdateInterval_fm_Nullable.Value;
 			}
 			set
 			{
-				EMFUpdateIntervalFm_Nullable = value;
+				EMFUpdateInterval_fm_Nullable = value;
 			}
 		}
 
@@ -381,9 +381,9 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				double d = 0.5 * (NuclearRadiusAFm + NuclearRadiusBFm - ImpactParameterFm);
+				double d = 0.5 * (NuclearRadiusA_fm + NuclearRadiusB_fm - ImpactParameter_fm);
 
-				return Math.Min(d - NuclearRadiusAFm, 0) + Math.Max(d - NuclearRadiusBFm, 0);
+				return Math.Min(d - NuclearRadiusA_fm, 0) + Math.Max(d - NuclearRadiusB_fm, 0);
 			}
 		}
 
@@ -391,7 +391,7 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				return NucleusPositionA + ImpactParameterFm;
+				return NucleusPositionA + ImpactParameter_fm;
 			}
 		}
 
@@ -439,13 +439,13 @@ namespace Yburn.Fireball
 				xAxis.Add(0);
 
 				int i = 1;
-				while(i * GridCellSizeFm <= GridRadiusFm)
+				while(i * GridCellSize_fm <= GridRadius_fm)
 				{
-					xAxis.Add(i * GridCellSizeFm);
+					xAxis.Add(i * GridCellSize_fm);
 
 					if(!IsSystemSymmetricInX)
 					{
-						xAxis.Add(-i * GridCellSizeFm);
+						xAxis.Add(-i * GridCellSize_fm);
 					}
 
 					i++;
@@ -465,13 +465,13 @@ namespace Yburn.Fireball
 				yAxis.Add(0);
 
 				int j = 1;
-				while(j * GridCellSizeFm <= GridRadiusFm)
+				while(j * GridCellSize_fm <= GridRadius_fm)
 				{
-					yAxis.Add(j * GridCellSizeFm);
+					yAxis.Add(j * GridCellSize_fm);
 
 					if(!IsSystemSymmetricInY)
 					{
-						yAxis.Add(-j * GridCellSizeFm);
+						yAxis.Add(-j * GridCellSize_fm);
 					}
 
 					j++;
@@ -489,29 +489,29 @@ namespace Yburn.Fireball
 
 			param.CenterOfMassEnergyTeV_Nullable = CenterOfMassEnergyTeV_Nullable;
 			param.DecayWidthRetrievalFunction_Nullable = DecayWidthRetrievalFunction_Nullable;
-			param.DiffusenessAFm_Nullable = DiffusenessAFm_Nullable;
-			param.DiffusenessBFm_Nullable = DiffusenessBFm_Nullable;
+			param.DiffusenessA_fm_Nullable = DiffusenessA_fm_Nullable;
+			param.DiffusenessB_fm_Nullable = DiffusenessB_fm_Nullable;
 			param.EMFCalculationMethod_Nullable = EMFCalculationMethod_Nullable;
 			param.EMFQuadratureOrder_Nullable = EMFQuadratureOrder_Nullable;
-			param.EMFUpdateIntervalFm_Nullable = EMFUpdateIntervalFm_Nullable;
+			param.EMFUpdateInterval_fm_Nullable = EMFUpdateInterval_fm_Nullable;
 			param.ExpansionMode_Nullable = ExpansionMode_Nullable;
-			param.FormationTimesFm_Nullable = FormationTimesFm_Nullable;
-			param.GridCellSizeFm_Nullable = GridCellSizeFm_Nullable;
-			param.GridRadiusFm_Nullable = GridRadiusFm_Nullable;
-			param.ImpactParameterFm_Nullable = ImpactParameterFm_Nullable;
-			param.InitialMaximumTemperatureMeV_Nullable = InitialMaximumTemperatureMeV_Nullable;
-			param.BreakupTemperatureMeV_Nullable = BreakupTemperatureMeV_Nullable;
-			param.NuclearRadiusAFm_Nullable = NuclearRadiusAFm_Nullable;
-			param.NuclearRadiusBFm_Nullable = NuclearRadiusBFm_Nullable;
+			param.FormationTimes_fm_Nullable = FormationTimes_fm_Nullable;
+			param.GridCellSize_fm_Nullable = GridCellSize_fm_Nullable;
+			param.GridRadius_fm_Nullable = GridRadius_fm_Nullable;
+			param.ImpactParameter_fm_Nullable = ImpactParameter_fm_Nullable;
+			param.InitialMaximumTemperature_MeV_Nullable = InitialMaximumTemperature_MeV_Nullable;
+			param.BreakupTemperature_MeV_Nullable = BreakupTemperature_MeV_Nullable;
+			param.NuclearRadiusA_fm_Nullable = NuclearRadiusA_fm_Nullable;
+			param.NuclearRadiusB_fm_Nullable = NuclearRadiusB_fm_Nullable;
 			param.NucleonNumberA_Nullable = NucleonNumberA_Nullable;
 			param.NucleonNumberB_Nullable = NucleonNumberB_Nullable;
 			param.ProtonNumberA_Nullable = ProtonNumberA_Nullable;
 			param.ProtonNumberB_Nullable = ProtonNumberB_Nullable;
-			param.QGPConductivityMeV_Nullable = QGPConductivityMeV_Nullable;
+			param.QGPConductivity_MeV_Nullable = QGPConductivity_MeV_Nullable;
 			param.NucleusShapeA_Nullable = NucleusShapeA_Nullable;
 			param.NucleusShapeB_Nullable = NucleusShapeB_Nullable;
 			param.TemperatureProfile_Nullable = TemperatureProfile_Nullable;
-			param.ThermalTimeFm_Nullable = ThermalTimeFm_Nullable;
+			param.ThermalTime_fm_Nullable = ThermalTime_fm_Nullable;
 			param.TransverseMomentaGeV_Nullable = TransverseMomentaGeV_Nullable;
 			param.UseElectricField_Nullable = UseElectricField_Nullable;
 			param.UseMagneticField_Nullable = UseMagneticField_Nullable;
@@ -530,8 +530,8 @@ namespace Yburn.Fireball
 				return NucleusShapeA == NucleusShapeB
 					& NucleonNumberA == NucleonNumberB
 					& ProtonNumberA == ProtonNumberB
-					& NuclearRadiusAFm == NuclearRadiusBFm
-					& DiffusenessAFm == DiffusenessBFm;
+					& NuclearRadiusA_fm == NuclearRadiusB_fm
+					& DiffusenessA_fm == DiffusenessB_fm;
 			}
 		}
 
@@ -539,31 +539,31 @@ namespace Yburn.Fireball
 
 		private uint? ProtonNumberA_Nullable;
 
-		private double? DiffusenessAFm_Nullable;
+		private double? DiffusenessA_fm_Nullable;
 
-		private double? NuclearRadiusAFm_Nullable;
+		private double? NuclearRadiusA_fm_Nullable;
 
 		private uint? NucleonNumberB_Nullable;
 
 		private uint? ProtonNumberB_Nullable;
 
-		private double? DiffusenessBFm_Nullable;
+		private double? DiffusenessB_fm_Nullable;
 
-		private double? NuclearRadiusBFm_Nullable;
+		private double? NuclearRadiusB_fm_Nullable;
 
-		private double? GridCellSizeFm_Nullable;
+		private double? GridCellSize_fm_Nullable;
 
-		private double? GridRadiusFm_Nullable;
+		private double? GridRadius_fm_Nullable;
 
-		private double? ImpactParameterFm_Nullable;
+		private double? ImpactParameter_fm_Nullable;
 
-		private double? ThermalTimeFm_Nullable;
+		private double? ThermalTime_fm_Nullable;
 
-		private Dictionary<BottomiumState, double> FormationTimesFm_Nullable;
+		private Dictionary<BottomiumState, double> FormationTimes_fm_Nullable;
 
-		private double? InitialMaximumTemperatureMeV_Nullable;
+		private double? InitialMaximumTemperature_MeV_Nullable;
 
-		private double? BreakupTemperatureMeV_Nullable;
+		private double? BreakupTemperature_MeV_Nullable;
 
 		private double? CenterOfMassEnergyTeV_Nullable;
 
@@ -573,13 +573,13 @@ namespace Yburn.Fireball
 
 		private TemperatureProfile? TemperatureProfile_Nullable;
 
-		private double? QGPConductivityMeV_Nullable;
+		private double? QGPConductivity_MeV_Nullable;
 
 		private EMFCalculationMethod? EMFCalculationMethod_Nullable;
 
 		private int? EMFQuadratureOrder_Nullable;
 
-		private double? EMFUpdateIntervalFm_Nullable;
+		private double? EMFUpdateInterval_fm_Nullable;
 
 		private NucleusShape? NucleusShapeA_Nullable;
 

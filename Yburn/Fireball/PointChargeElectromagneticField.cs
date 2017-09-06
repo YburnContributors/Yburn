@@ -30,12 +30,12 @@ namespace Yburn.Fireball
 
 		protected PointChargeElectromagneticField(
 			EMFCalculationMethod emfCalculationMethod,
-			double qgpConductivityMeV,
+			double qgpConductivity_MeV,
 			double pointChargeRapidity
 			)
 		{
 			EMFCalculationMethod = emfCalculationMethod;
-			QGPConductivityPerFm = qgpConductivityMeV / Constants.HbarCMeVFm;
+			QGPConductivity_per_fm = qgpConductivity_MeV / Constants.HbarC_MeV_fm;
 
 			PointChargeVelocity = Math.Tanh(pointChargeRapidity);
 			PointChargeLorentzFactor = Math.Cosh(pointChargeRapidity);
@@ -48,7 +48,7 @@ namespace Yburn.Fireball
 
 		public static PointChargeElectromagneticField Create(
 			EMFCalculationMethod emfCalculationMethod,
-			double qgpConductivityMeV,
+			double qgpConductivity_MeV,
 			double pointChargeRapidity
 			)
 		{
@@ -57,19 +57,19 @@ namespace Yburn.Fireball
 				case EMFCalculationMethod.URLimitFourierSynthesis:
 					return new PointChargeElectromagneticField_URLimitFourierSynthesis(
 						emfCalculationMethod,
-						qgpConductivityMeV,
+						qgpConductivity_MeV,
 						pointChargeRapidity);
 
 				case EMFCalculationMethod.DiffusionApproximation:
 					return new PointChargeElectromagneticField_DiffusionApproximation(
 						emfCalculationMethod,
-						qgpConductivityMeV,
+						qgpConductivity_MeV,
 						pointChargeRapidity);
 
 				case EMFCalculationMethod.FreeSpace:
 					return new PointChargeElectromagneticField_FreeSpace(
 						emfCalculationMethod,
-						qgpConductivityMeV,
+						qgpConductivity_MeV,
 						pointChargeRapidity);
 
 				default:
@@ -129,7 +129,7 @@ namespace Yburn.Fireball
 
 		private EMFCalculationMethod EMFCalculationMethod;
 
-		private double QGPConductivityPerFm;
+		private double QGPConductivity_per_fm;
 
 		private double PointChargeVelocity;
 
@@ -146,9 +146,9 @@ namespace Yburn.Fireball
 
 			public PointChargeElectromagneticField_URLimitFourierSynthesis(
 				EMFCalculationMethod emfCalculationMethod,
-				double qgpConductivityMeV,
+				double qgpConductivity_MeV,
 				double pointChargeRapidity
-				) : base(emfCalculationMethod, qgpConductivityMeV, pointChargeRapidity)
+				) : base(emfCalculationMethod, qgpConductivity_MeV, pointChargeRapidity)
 			{
 			}
 
@@ -223,7 +223,7 @@ namespace Yburn.Fireball
 
 					double integral = ImproperQuadrature.IntegrateOverPositiveAxis(integrand, 1, 64);
 
-					return 2 * Coupling / QGPConductivityPerFm * integral;
+					return 2 * Coupling / QGPConductivity_per_fm * integral;
 				}
 				else
 				{
@@ -252,9 +252,9 @@ namespace Yburn.Fireball
 				)
 			{
 				x = Math.Sqrt(1 + 4 * Math.Pow(
-					fourierFrequency / (PointChargeLorentzFactor * QGPConductivityPerFm), 2));
+					fourierFrequency / (PointChargeLorentzFactor * QGPConductivity_per_fm), 2));
 
-				exponentialPart = Math.Exp(0.5 * QGPConductivityPerFm
+				exponentialPart = Math.Exp(0.5 * QGPConductivity_per_fm
 					* PointChargeLorentzFactor * PointChargeLorentzFactor * effectiveTime * (1 - x));
 			}
 		}
@@ -268,9 +268,9 @@ namespace Yburn.Fireball
 
 			public PointChargeElectromagneticField_DiffusionApproximation(
 				EMFCalculationMethod emfCalculationMethod,
-				double qgpConductivityMeV,
+				double qgpConductivity_MeV,
 				double pointChargeRapidity
-				) : base(emfCalculationMethod, qgpConductivityMeV, pointChargeRapidity)
+				) : base(emfCalculationMethod, qgpConductivity_MeV, pointChargeRapidity)
 			{
 			}
 
@@ -291,12 +291,12 @@ namespace Yburn.Fireball
 					double exponentialPart = CalculateExponentialPart(effectiveTime, radialDistance);
 
 					longitudinalElectricComponent = Coupling * PointChargeVelocity * exponentialPart
-						* (0.25 * radialDistance * radialDistance * QGPConductivityPerFm - effectiveTime)
+						* (0.25 * radialDistance * radialDistance * QGPConductivity_per_fm - effectiveTime)
 						/ (PointChargeLorentzFactor * PointChargeLorentzFactor
 							* effectiveTime * effectiveTime * effectiveTime);
 
 					radialElectricComponent = Coupling * exponentialPart
-						* (radialDistance * QGPConductivityPerFm) / (2 * effectiveTime * effectiveTime);
+						* (radialDistance * QGPConductivity_per_fm) / (2 * effectiveTime * effectiveTime);
 
 					azimuthalMagneticComponent = PointChargeVelocity * radialElectricComponent;
 				}
@@ -318,7 +318,7 @@ namespace Yburn.Fireball
 				double radialDistance
 				)
 			{
-				return Math.Exp(-0.25 * radialDistance * radialDistance * QGPConductivityPerFm / effectiveTime);
+				return Math.Exp(-0.25 * radialDistance * radialDistance * QGPConductivity_per_fm / effectiveTime);
 			}
 		}
 
@@ -331,9 +331,9 @@ namespace Yburn.Fireball
 
 			public PointChargeElectromagneticField_FreeSpace(
 				EMFCalculationMethod emfCalculationMethod,
-				double qgpConductivityMeV,
+				double qgpConductivity_MeV,
 				double pointChargeRapidity
-				) : base(emfCalculationMethod, qgpConductivityMeV, pointChargeRapidity)
+				) : base(emfCalculationMethod, qgpConductivity_MeV, pointChargeRapidity)
 			{
 			}
 

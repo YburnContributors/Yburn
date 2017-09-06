@@ -153,21 +153,21 @@ namespace Yburn.SingleQQ.UI
 			nameValuePairs["BottomiumStates"] = BottomiumStates;
 			nameValuePairs["ColorState"] = ColorState;
 			nameValuePairs["DataFileName"] = DataFileName;
-			nameValuePairs["DebyeMass"] = DebyeMass;
+			nameValuePairs["DebyeMass_MeV"] = DebyeMass;
 			nameValuePairs["DecayWidthAveragingAngles"] = DecayWidthAveragingAngles;
-			nameValuePairs["EnergyScale"] = EnergyScale;
-			nameValuePairs["MaxEnergy"] = MaxEnergy;
-			nameValuePairs["MaxRadius"] = MaxRadius;
-			nameValuePairs["MinEnergy"] = MinEnergy;
-			nameValuePairs["MinRadius"] = MinRadius;
+			nameValuePairs["EnergyScale_MeV"] = EnergyScale;
+			nameValuePairs["MaxEnergy_MeV"] = MaxEnergy;
+			nameValuePairs["MaxRadius_fm"] = MaxRadius;
+			nameValuePairs["MinEnergy_MeV"] = MinEnergy;
+			nameValuePairs["MinRadius_fm"] = MinRadius;
 			nameValuePairs["PotentialType"] = PotentialType;
 			nameValuePairs["RunningCouplingTypeSelection"] = RunningCouplingTypeSelection;
 			nameValuePairs["Samples"] = Samples;
-			nameValuePairs["Sigma"] = Sigma;
-			nameValuePairs["SpinCouplingRange"] = SpinCouplingRange;
-			nameValuePairs["SpinCouplingStrength"] = SpinCouplingStrength;
+			nameValuePairs["Sigma_MeV2"] = Sigma;
+			nameValuePairs["SpinCouplingRange_fm"] = SpinCouplingRange;
+			nameValuePairs["SpinCouplingStrength_MeV"] = SpinCouplingStrength;
 			nameValuePairs["SpinState"] = SpinState;
-			nameValuePairs["Temperature"] = Temperature;
+			nameValuePairs["Temperature_MeV"] = Temperature;
 
 			return nameValuePairs;
 		}
@@ -180,21 +180,21 @@ namespace Yburn.SingleQQ.UI
 			BottomiumStates = nameValuePairs["BottomiumStates"];
 			ColorState = nameValuePairs["ColorState"];
 			DataFileName = nameValuePairs["DataFileName"];
-			DebyeMass = nameValuePairs["DebyeMass"];
+			DebyeMass = nameValuePairs["DebyeMass_MeV"];
 			DecayWidthAveragingAngles = nameValuePairs["DecayWidthAveragingAngles"];
-			EnergyScale = nameValuePairs["EnergyScale"];
-			MaxEnergy = nameValuePairs["MaxEnergy"];
-			MaxRadius = nameValuePairs["MaxRadius"];
-			MinEnergy = nameValuePairs["MinEnergy"];
-			MinRadius = nameValuePairs["MinRadius"];
+			EnergyScale = nameValuePairs["EnergyScale_MeV"];
+			MaxEnergy = nameValuePairs["MaxEnergy_MeV"];
+			MaxRadius = nameValuePairs["MaxRadius_fm"];
+			MinEnergy = nameValuePairs["MinEnergy_MeV"];
+			MinRadius = nameValuePairs["MinRadius_fm"];
 			PotentialType = nameValuePairs["PotentialType"];
 			RunningCouplingTypeSelection = nameValuePairs["RunningCouplingTypeSelection"];
 			Samples = nameValuePairs["Samples"];
-			Sigma = nameValuePairs["Sigma"];
-			SpinCouplingRange = nameValuePairs["SpinCouplingRange"];
-			SpinCouplingStrength = nameValuePairs["SpinCouplingStrength"];
+			Sigma = nameValuePairs["Sigma_MeV2"];
+			SpinCouplingRange = nameValuePairs["SpinCouplingRange_fm"];
+			SpinCouplingStrength = nameValuePairs["SpinCouplingStrength_MeV"];
 			SpinState = nameValuePairs["SpinState"];
-			Temperature = nameValuePairs["Temperature"];
+			Temperature = nameValuePairs["Temperature_MeV"];
 		}
 
 		private void SetControlsValuesFromSingleQQParams(
@@ -205,20 +205,20 @@ namespace Yburn.SingleQQ.UI
 			standardParams["AlphaSoft"] = TryGetString(param, "AlphaSoft", AlphaSoft);
 			standardParams["ColorState"] = TryGetString(param, "ColorState", ColorState);
 			standardParams["DataFileName"] = TryGetString(param, "DataFileName", DataFileName);
-			standardParams["DebyeMass"] = TryGetString(param, "DebyeMass", DebyeMass);
-			standardParams["EnergyScale"] = TryGetString(param, "Energy", EnergyScale);
+			standardParams["DebyeMass_MeV"] = TryGetString(param, "DebyeMass_MeV", DebyeMass);
+			standardParams["EnergyScale_MeV"] = TryGetString(param, "Energy_MeV", EnergyScale);
 			standardParams["RunningCouplingTypeSelection"] = TryGetString(param, "RunningCouplingType", RunningCouplingTypeSelection);
-			standardParams["MaxEnergy"] = TryGetString(param, "MaxEnergy", MaxEnergy);
-			standardParams["MaxRadius"] = TryGetString(param, "MaxRadius", MaxRadius);
-			standardParams["MinEnergy"] = TryGetString(param, "Energy", MinEnergy);
-			standardParams["MinRadius"] = TryGetString(param, "MinRadius", MinRadius);
+			standardParams["MaxEnergy_MeV"] = TryGetString(param, "MaxEnergy_MeV", MaxEnergy);
+			standardParams["MaxRadius_fm"] = TryGetString(param, "MaxRadius_fm", MaxRadius);
+			standardParams["MinEnergy_MeV"] = TryGetString(param, "Energy_MeV", MinEnergy);
+			standardParams["MinRadius_fm"] = TryGetString(param, "MinRadius_fm", MinRadius);
 			standardParams["PotentialType"] = TryGetString(param, "PotentialType", PotentialType);
 			standardParams["Samples"] = TryGetString(param, "EnergySteps", Samples);
-			standardParams["Sigma"] = TryGetString(param, "Sigma", Sigma);
-			standardParams["SpinCouplingRange"] = TryGetString(param, "SpinCouplingRange", SpinCouplingRange);
-			standardParams["SpinCouplingStrength"] = TryGetString(param, "SpinCouplingStrength", SpinCouplingStrength);
+			standardParams["Sigma_MeV2"] = TryGetString(param, "Sigma_MeV2", Sigma);
+			standardParams["SpinCouplingRange_fm"] = TryGetString(param, "SpinCouplingRange_fm", SpinCouplingRange);
+			standardParams["SpinCouplingStrength_MeV"] = TryGetString(param, "SpinCouplingStrength_MeV", SpinCouplingStrength);
 			standardParams["SpinState"] = TryGetString(param, "SpinState", SpinState);
-			standardParams["Temperature"] = TryGetString(param, "Temperature", Temperature);
+			standardParams["Temperature_MeV"] = TryGetString(param, "Temperature_MeV", Temperature);
 
 			SetControlsValues(standardParams);
 		}

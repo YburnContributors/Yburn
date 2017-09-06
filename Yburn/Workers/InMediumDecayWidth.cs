@@ -74,11 +74,11 @@ namespace Yburn.Workers
 		{
 			TemperatureDecayWidthPrinter printer = new TemperatureDecayWidthPrinter(
 				YburnConfigFile.QQDataPathFile, BottomiumStates, PotentialTypes, DecayWidthType,
-				QGPFormationTemperature, NumberAveragingAngles);
+				QGPFormationTemperature_MeV, NumberAveragingAngles);
 
 			return printer.GetList(
 				DopplerShiftEvaluationTypes, ElectricDipoleAlignment,
-				MediumTemperatures, MediumVelocities, ElectricFieldStrength, MagneticFieldStrength);
+				MediumTemperatures_MeV, MediumVelocities, ElectricFieldStrength_per_fm2, MagneticFieldStrength_per_fm2);
 		}
 
 		protected override void StartJob(

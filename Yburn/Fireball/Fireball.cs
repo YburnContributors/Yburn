@@ -21,7 +21,7 @@ namespace Yburn.Fireball
 			// The initial step should change the temperature by 1/3 percent for pure Bjorken flow
 			// (which is the case in the initial stages)
 			TimeFactor = 1e-2;
-			CurrentTime = Param.ThermalTimeFm;
+			CurrentTime = Param.ThermalTime_fm;
 			TimeStep = CurrentTime * TimeFactor; //  = 3 * DeltaT(tF)/T(tF) * tF
 
 			AssertValidMembers();
@@ -45,13 +45,13 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				return Param.ThermalTimeFm * Math.Pow(Param.InitialMaximumTemperatureMeV
-					/ Param.BreakupTemperatureMeV, 3);
+				return Param.ThermalTime_fm * Math.Pow(Param.InitialMaximumTemperature_MeV
+					/ Param.BreakupTemperature_MeV, 3);
 			}
 		}
 
 		// time as measured in the longitudinally commoving frame,
-		// CurrentTime = Param.FormationTimesFm, initially
+		// CurrentTime = Param.FormationTimes_fm, initially
 		public double CurrentTime
 		{
 			get;
@@ -100,7 +100,7 @@ namespace Yburn.Fireball
 
 				AdvanceFields();
 
-				if(MaximumTemperature <= Param.BreakupTemperatureMeV && LifeTime == -1)
+				if(MaximumTemperature <= Param.BreakupTemperature_MeV && LifeTime == -1)
 				{
 					LifeTime = CurrentTime - TimeStep;
 				}
@@ -177,7 +177,7 @@ namespace Yburn.Fireball
 			SimpleFireballField field = GetFireballField(fieldName, state, pTIndex);
 
 			// include a factor of 4 because only a quarter has been integrated
-			return Param.SystemSymmetryFactor * Param.GridCellSizeFm * Param.GridCellSizeFm
+			return Param.SystemSymmetryFactor * Param.GridCellSize_fm * Param.GridCellSize_fm
 				* field.TrapezoidalRuleSummedValues();
 		}
 
@@ -248,9 +248,9 @@ namespace Yburn.Fireball
 			}
 
 			CollisionInQGP
-				*= Param.SystemSymmetryFactor * Param.GridCellSizeFm * Param.GridCellSizeFm;
+				*= Param.SystemSymmetryFactor * Param.GridCellSize_fm * Param.GridCellSize_fm;
 			CollisionsInHadronicRegion
-				*= Param.SystemSymmetryFactor * Param.GridCellSizeFm * Param.GridCellSizeFm;
+				*= Param.SystemSymmetryFactor * Param.GridCellSize_fm * Param.GridCellSize_fm;
 		}
 
 		/********************************************************************************************
@@ -323,22 +323,22 @@ namespace Yburn.Fireball
 				throw new Exception("NucleonNumberB <= 0.");
 			}
 
-			if(Param.GridCellSizeFm <= 0)
+			if(Param.GridCellSize_fm <= 0)
 			{
 				throw new Exception("GridCellSize <= 0.");
 			}
 
-			if(Param.GridRadiusFm <= 0)
+			if(Param.GridRadius_fm <= 0)
 			{
 				throw new Exception("GridRadius <= 0.");
 			}
 
-			if(Param.ImpactParameterFm < 0)
+			if(Param.ImpactParameter_fm < 0)
 			{
 				throw new Exception("ImpactParameter < 0.");
 			}
 
-			foreach(double time in Param.FormationTimesFm.Values)
+			foreach(double time in Param.FormationTimes_fm.Values)
 			{
 				if(time <= 0)
 				{
@@ -346,12 +346,12 @@ namespace Yburn.Fireball
 				}
 			}
 
-			if(Param.InitialMaximumTemperatureMeV <= 0)
+			if(Param.InitialMaximumTemperature_MeV <= 0)
 			{
 				throw new Exception("InitialMaximumTemperature <= 0.");
 			}
 
-			if(Param.BreakupTemperatureMeV <= 0)
+			if(Param.BreakupTemperature_MeV <= 0)
 			{
 				throw new Exception("BreakupTemperature <= 0.");
 			}
@@ -381,7 +381,7 @@ namespace Yburn.Fireball
 				VY,
 				ElectricField,
 				MagneticField,
-				Param.FormationTimesFm,
+				Param.FormationTimes_fm,
 				CurrentTime,
 				Param.DecayWidthRetrievalFunction);
 		}
@@ -404,7 +404,7 @@ namespace Yburn.Fireball
 			MagneticField.Advance(CurrentTime);
 			DecayWidth.Advance(CurrentTime);
 			DampingFactor.SetValues((x, y, pT, state) => DampingFactor.Values[pT, state][x, y]
-				* Math.Exp(-TimeStep * DecayWidth.Values[pT, state][x, y] / Constants.HbarCMeVFm));
+				* Math.Exp(-TimeStep * DecayWidth.Values[pT, state][x, y] / Constants.HbarC_MeV_fm));
 		}
 
 		private void InitDampingFactor()
@@ -467,17 +467,17 @@ namespace Yburn.Fireball
 				X.Length,
 				Y.Length,
 				GlauberCalculation.TemperatureScalingField,
-				Param.InitialMaximumTemperatureMeV,
-				Param.ThermalTimeFm,
+				Param.InitialMaximumTemperature_MeV,
+				Param.ThermalTime_fm,
 				CurrentTime);
 
 			if(Param.ExpansionMode == ExpansionMode.Transverse)
 			{
-				Solver = new Ftexs(Param.GridCellSizeFm, CurrentTime, 0.25,
+				Solver = new Ftexs(Param.GridCellSize_fm, CurrentTime, 0.25,
 					Temperature.GetDiscreteValues(), VX.GetDiscreteValues(), VY.GetDiscreteValues());
 			}
 
-			Param.InitialMaximumTemperatureMeV = MaximumTemperature;
+			Param.InitialMaximumTemperature_MeV = MaximumTemperature;
 		}
 
 		private SimpleFireballField GetFireballField(

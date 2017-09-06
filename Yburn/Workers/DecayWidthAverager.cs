@@ -56,8 +56,8 @@ namespace Yburn.Workers
 			double magneticFieldStrength
 			)
 		{
-			return Math.Abs(2 * Constants.MagnetonBottomQuarkFm
-				* magneticFieldStrength * Constants.HbarCMeVFm);
+			return Math.Abs(2 * Constants.MagnetonBottomQuark_fm
+				* magneticFieldStrength * Constants.HbarC_MeV_fm);
 		}
 
 		/********************************************************************************************
@@ -240,7 +240,7 @@ namespace Yburn.Workers
 			)
 		{
 			return Math.Abs(Constants.ChargeBottomQuark * GetDisplacementRMS(temperature)
-				* electricFieldStrength * Constants.HbarCMeVFm);
+				* electricFieldStrength * Constants.HbarC_MeV_fm);
 		}
 
 		private double GetEffectiveDecayWidth(

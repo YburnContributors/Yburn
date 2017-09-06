@@ -3,38 +3,38 @@
 ###########################
 
 # Context
-ColorState            = Singlet
-SpinState             = Triplet
-PotentialType         = Complex
-RunningCouplingType   = LOperturbative_Cutoff3
-QuantumNumberL        = 0
-QuantumNumberN        = 1
-#DataFileName          = stdout.txt
-Sigma                 = 192000
-Temperature           = 160
-Tchem                 = 100
-Tcrit                 = 160
-#SpinCouplingRange     = 0
-#SpingCouplingStrength = 0
+ColorState                = Singlet
+SpinState                 = Triplet
+PotentialType             = Complex
+RunningCouplingType       = LOperturbative_Cutoff3
+QuantumNumberL            = 0
+QuantumNumberN            = 1
+#DataFileName              = stdout.txt
+Sigma_MeV2                = 192000
+Temperature_MeV           = 160
+Tchem_MeV                 = 100
+Tcrit_MeV                 = 160
+#SpinCouplingRange_fm      = 0
+#SpingCouplingStrength_MeV = 0
 
 # Shooting
 AccuracyAlpha        = 1E-06
 AccuracyWaveFunction = 1E-09
 AggressivenessAlpha  = 0.5
 AggressivenessEnergy = 40
-BoundMass            = 9460.3
-Energy               = -363
-GammaDamp            = 27
+BoundMass_MeV        = 9460.3
+Energy_MeV           = -363
+GammaDamp_MeV        = 27
 MaxShootingTrials    = 5000
-QuarkMass            = 4800.90885593666
-MaxRadius            = 10
+QuarkMass_MeV        = 4800.90885593666
+MaxRadius_fm         = 10
 StepNumber           = 20000
-SoftScale            = 1420
+SoftScale_MeV        = 1420
 UseFixedAlpha        = False
 
 # Gluodissociation
-MaxEnergy   = 10000
-EnergySteps = 1000
+MaxEnergy_MeV = 10000
+EnergySteps   = 1000
 
 
 #####################################
@@ -42,21 +42,21 @@ EnergySteps = 1000
 #####################################
 
 # General Parameters
-MediumTemperatures      = 100,150,200,250,300,350,400,450,500,550,600
-MediumVelocities        = 0,0.2,0.4,0.6,0.8
-#DecayWidthType          = GammaTot
-#PotentialTypes          = Complex
-#BottomiumStates         = Y1S,x1P,Y2S,x2P,Y3S,x3P
-#QGPFormationTemperature = 160
+MediumTemperatures_MeV      = 100,150,200,250,300,350,400,450,500,550,600
+MediumVelocities            = 0,0.2,0.4,0.6,0.8
+#DecayWidthType              = GammaTot
+#PotentialTypes              = Complex
+#BottomiumStates             = Y1S,x1P,Y2S,x2P,Y3S,x3P
+#QGPFormationTemperature_MeV = 160
 
 # Doppler Shift
 DopplerShiftEvaluationTypes = UnshiftedTemperature,AveragedDecayWidth
 #NumberAveragingAngles       = 10
 
 # Electromagnetic Energy
-#ElectricDipoleAlignment = Random
-ElectricFieldStrength   = 0
-MagneticFieldStrength   = 0
+#ElectricDipoleAlignment       = Random
+#ElectricFieldStrength_per_fm2 = 0.1
+#MagneticFieldStrength_per_fm2 = 0.1
 
 # Output
 #DataFileName = stdout.txt
@@ -67,31 +67,31 @@ MagneticFieldStrength   = 0
 ###################################
 
 # Glauber
-#NucleusShapeA   = WoodsSaxonPotential
-#NucleonNumberA  = 208
-#ProtonNumberA   = 82
-#NuclearRadiusA  = 6.62
-#DiffusenessA    = 0.546
-#NucleusShapeB   = WoodsSaxonPotential
-#NucleonNumberB  = 208
-#ProtonNumberB   = 82
-#NuclearRadiusB  = 6.62
-#DiffusenessB    = 0.546
-#ImpactParameter = 7
+#NucleusShapeA      = WoodsSaxonPotential
+#NucleonNumberA     = 208
+#ProtonNumberA      = 82
+#NuclearRadiusA_fm  = 6.62
+#DiffusenessA_fm    = 0.546
+#NucleusShapeB      = WoodsSaxonPotential
+#NucleonNumberB     = 208
+#ProtonNumberB      = 82
+#NuclearRadiusB_fm  = 6.62
+#DiffusenessB_fm    = 0.546
+#ImpactParameter_fm = 7
 
 # General Parameters
 #EMFCalculationMethod = DiffusionApproximation
 #EMFQuadratureOrder   = 8
-#QGPConductivity      = 5.8
-#GridCellSize         = 10
-#GridRadius           = 0.4
+#QGPConductivity_MeV  = 5.8
+#GridCellSize_fm      = 10
+#GridRadius_fm        = 0.4
 Samples              = 10
 
 # Single Point Charge
 ParticleRapidity              = 7.987
-RadialDistance                = 6.62
-StartTime                     = 0.1
-StopTime                      = 10.0
+RadialDistance_fm             = 6.62
+StartTime_fm                  = 0.1
+StopTime_fm                   = 10.0
 EMFCalculationMethodSelection = URLimitFourierSynthesis,DiffusionApproximation,FreeSpace
 
 # Output
@@ -106,25 +106,25 @@ EMFCalculationMethodSelection = URLimitFourierSynthesis,DiffusionApproximation,F
 NucleusShapeA           = WoodsSaxonPotential
 NucleonNumberA          = 208
 ProtonNumberA           = 82
-NuclearRadiusA          = 6.62
-DiffusenessA            = 0.546
+NuclearRadiusA_fm       = 6.62
+DiffusenessA_fm         = 0.546
 NucleusShapeB           = WoodsSaxonPotential
 NucleonNumberB          = 208
 ProtonNumberB           = 82
-NuclearRadiusB          = 6.62
-DiffusenessB            = 0.546
-ImpactParameter         = 7
+NuclearRadiusB_fm       = 6.62
+DiffusenessB_fm         = 0.546
+ImpactParameter_fm      = 7
 
 # Hydrodynamics
-ExpansionMode             = Transverse
-TemperatureProfile        = NmixALICE13
-InitialMaximumTemperature = 480
-BreakupTemperature        = 160
-ThermalTime               = 0.1
-GridCellSize              = 0.4
-GridRadius                = 10
-CenterOfMassEnergy        = 2.76
-QGPFormationTemperature   = 160
+ExpansionMode                 = Transverse
+TemperatureProfile            = NmixALICE13
+InitialMaximumTemperature_MeV = 480
+BreakupTemperature_MeV        = 160
+ThermalTime_fm                = 0.1
+GridCellSize_fm               = 0.4
+GridRadius_fm                 = 10
+CenterOfMassEnergy_TeV        = 2.76
+QGPFormationTemperature_MeV   = 160
 
 # Electromagnetics
 UseElectricField        = False
@@ -132,45 +132,45 @@ UseMagneticField        = False
 ElectricDipoleAlignment = Random
 EMFCalculationMethod    = DiffusionApproximation
 EMFQuadratureOrder      = 8
-EMFUpdateInterval       = 0.1
-QGPConductivity         = 5.8
+EMFUpdateInterval_fm    = 0.1
+QGPConductivity_MeV     = 5.8
 
 # QQStates
 DimuonDecaysFrompp         = Y1S:1.0,x1P:0.271,Y2S:0.56,x2P:0.105,Y3S:0.41,x3P:0.03
-FormationTimes             = Y1S:0.4,x1P:0.4,Y2S:0.4,x2P:0.4,Y3S:0.4,x3P:0.4
-TransverseMomenta          = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
+FormationTimes_fm          = Y1S:0.4,x1P:0.4,Y2S:0.4,x2P:0.4,Y3S:0.4,x3P:0.4
+TransverseMomenta_GeV      = 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20
 PotentialTypes             = Complex
 DecayWidthType             = GammaTot
 DopplerShiftEvaluationType = AveragedDecayWidth
 NumberAveragingAngles      = 10
 
 # Output
-BottomiumStates         = Y1S,x1P,Y2S,x2P,Y3S,x3P
-FireballFieldTypes      = ColumnDensityA
-SnapRate                = 10
-CentralityBinBoundaries = 0,5,10,20,30,40,50,60,100;0,10,30,50,100;0,100
+BottomiumStates                 = Y1S,x1P,Y2S,x2P,Y3S,x3P
+FireballFieldTypes              = ColumnDensityA
+SnapRate_per_fm                 = 10
+CentralityBinBoundaries_percent = 0,5,10,20,30,40,50,60,100;0,10,30,50,100;0,100
 
 # Si nucleus parameters
-#DiffusenessB   = 0.537
-#NucleonNumberB = 28
-#NuclearRadiusB = 3.14
+#DiffusenessB_fm   = 0.537
+#NucleonNumberB    = 28
+#NuclearRadiusB_fm = 3.14
 
 # Fe nucleus parameters
-#DiffusenessB   = 0.519
-#NucleonNumberB = 56
-#NuclearRadiusB = 4.106
+#DiffusenessB_fm   = 0.519
+#NucleonNumberB    = 56
+#NuclearRadiusB_fm = 4.106
 
 # Au nucleus parameters
-#DiffusenessB   = 0.535
-#NucleonNumberB = 197
-#NuclearRadiusB = 6.38
+#DiffusenessB_fm   = 0.535
+#NucleonNumberB    = 197
+#NuclearRadiusB_fm = 6.38
 
 # Pb nucleus parameters
-#DiffusenessB   = 0.546
-#NucleonNumberB = 208
-#NuclearRadiusB = 6.62
+#DiffusenessB_fm   = 0.546
+#NucleonNumberB    = 208
+#NuclearRadiusB_fm = 6.62
 
 # U nucleus parameters
-#DiffusenessB   = 0.605
-#NucleonNumberB = 238
-#NuclearRadiusB = 6.8054
+#DiffusenessB_fm   = 0.605
+#NucleonNumberB    = 238
+#NuclearRadiusB_fm = 6.8054

@@ -74,7 +74,7 @@ namespace Yburn.Workers
 
 		public Process PlotInMediumDecayWidthsVersusMediumVelocity()
 		{
-			MediumTemperatures = new List<double> { MediumTemperatures[0] };
+			MediumTemperatures_MeV = new List<double> { MediumTemperatures_MeV[0] };
 			CalculateInMediumDecayWidth();
 
 			StringBuilder plotFile = new StringBuilder();
@@ -102,7 +102,7 @@ namespace Yburn.Workers
 
 		public Process PlotDecayWidthEvaluatedAtDopplerShiftedTemperature()
 		{
-			MediumTemperatures = new List<double> { MediumTemperatures[0] };
+			MediumTemperatures_MeV = new List<double> { MediumTemperatures_MeV[0] };
 			MediumVelocities = new List<double> { MediumVelocities[0] };
 
 			CreateDataFile(CreateDecayWidthEvaluatedAtDopplerShiftedTemperatureDataList);
@@ -172,7 +172,7 @@ namespace Yburn.Workers
 		{
 			return new QQDataProvider(QQDataPathFile, PotentialTypes,
 				DopplerShiftEvaluationType.UnshiftedTemperature, ElectricDipoleAlignment,
-				DecayWidthType, QGPFormationTemperature, NumberAveragingAngles);
+				DecayWidthType, QGPFormationTemperature_MeV, NumberAveragingAngles);
 		}
 
 		private List<List<double>> CreateDecayWidthsFromQQDataFileDataList(
@@ -388,7 +388,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set key spacing 1.1");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title '" + InMediumDecayWidthPlottingTitle
-				+ " for medium temperature T = " + MediumTemperatures[0].ToUIString() + " MeV" + "'");
+				+ " for medium temperature T = " + MediumTemperatures_MeV[0].ToUIString() + " MeV" + "'");
 			plotFile.AppendLine("set xlabel 'u (c)'");
 			plotFile.AppendLine("set ylabel '" + GetDecayWidthTypeGnuplotCode(DecayWidthType) + " (MeV)'");
 			plotFile.AppendLine();
@@ -412,7 +412,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set title 'In-medium decay width "
 				+ GetDecayWidthTypeGnuplotCode(DecayWidthType)
 				+ " evaluated at a Doppler-shifted temperature"
-				+ " for medium temperature T = " + MediumTemperatures[0].ToUIString() + " MeV"
+				+ " for medium temperature T = " + MediumTemperatures_MeV[0].ToUIString() + " MeV"
 				+ " and medium velocity |u| = " + MediumVelocities[0].ToUIString() + " c" + "'");
 			plotFile.AppendLine("set xlabel 'cos({/Symbol q})'");
 			plotFile.AppendLine("set ylabel '"
@@ -468,14 +468,14 @@ namespace Yburn.Workers
 			{
 				PlotFunction function = cosine => averager.GetDecayWidth(
 					DecayWidthAverager.GetDopplerShiftedTemperature(
-						MediumTemperatures[0], MediumVelocities[0], cosine));
+						MediumTemperatures_MeV[0], MediumVelocities[0], cosine));
 
 				AddPlotFunctionLists(dataList, cosineValues, function);
 			}
 
 			foreach(DecayWidthAverager averager in averagers)
 			{
-				PlotFunction function = cosine => averager.GetDecayWidth(MediumTemperatures[0]);
+				PlotFunction function = cosine => averager.GetDecayWidth(MediumTemperatures_MeV[0]);
 
 				AddPlotFunctionLists(dataList, cosineValues, function);
 			}

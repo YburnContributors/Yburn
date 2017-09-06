@@ -22,8 +22,8 @@ namespace Yburn.Workers
 
 			for(int J = 0; J <= Jmax; J++)
 			{
-				double helper1 = 4 * Constants.MagnetonBottomQuarkFm * magneticFieldStrength
-					* Constants.HbarCMeVFm / HyperfineEnergySplitting_MeV[J];
+				double helper1 = 4 * Constants.MagnetonBottomQuark_fm * magneticFieldStrength
+					* Constants.HbarC_MeV_fm / HyperfineEnergySplitting_MeV[J];
 				double helper2 = helper1 / (1 + Math.Sqrt(1 + helper1 * helper1));
 
 				double coefficient = helper2 * helper2 / (1 + helper2 * helper2);
@@ -41,23 +41,23 @@ namespace Yburn.Workers
 			switch(tripletState)
 			{
 				case BottomiumState.Y1S:
-					return new double[] { Constants.RestMassY1SMeV - Constants.RestMassEta1SMeV };
+					return new double[] { Constants.RestMassY1S_MeV - Constants.RestMassEta1S_MeV };
 
 				case BottomiumState.x1P:
 					return new double[] {
-						Constants.RestMassX1P0MeV - Constants.RestMassH1PMeV,
-						Constants.RestMassX1P1MeV - Constants.RestMassH1PMeV,
-						Constants.RestMassX1P2MeV - Constants.RestMassH1PMeV
+						Constants.RestMassX1P0_MeV - Constants.RestMassH1P_MeV,
+						Constants.RestMassX1P1_MeV - Constants.RestMassH1P_MeV,
+						Constants.RestMassX1P2_MeV - Constants.RestMassH1P_MeV
 					};
 
 				case BottomiumState.Y2S:
-					return new double[] { Constants.RestMassY2SMeV - Constants.RestMassEta2SMeV };
+					return new double[] { Constants.RestMassY2S_MeV - Constants.RestMassEta2S_MeV };
 
 				case BottomiumState.x2P:
 					return new double[] {
-						Constants.RestMassX2P0MeV - Constants.RestMassH2PMeV,
-						Constants.RestMassX2P1MeV - Constants.RestMassH2PMeV,
-						Constants.RestMassX2P2MeV - Constants.RestMassH2PMeV
+						Constants.RestMassX2P0_MeV - Constants.RestMassH2P_MeV,
+						Constants.RestMassX2P1_MeV - Constants.RestMassH2P_MeV,
+						Constants.RestMassX2P2_MeV - Constants.RestMassH2P_MeV
 					};
 
 				case BottomiumState.Y3S:
@@ -82,7 +82,7 @@ namespace Yburn.Workers
 
 		public double CalculateAverageSpinStateOverlap(
 			BottomiumState tripletState,
-			double properTimeFm
+			double properTime_fm
 			)
 		{
 			FireballParam param = CreateFireballParam();
@@ -91,10 +91,10 @@ namespace Yburn.Workers
 			{
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				double B_PerFm2 = emf.CalculateMagneticFieldPerFm2_LCF(
-					properTimeFm, x, y, rapidity).Norm;
+				double B_Per_fm2 = emf.CalculateMagneticFieldInLCF_per_fm2(
+					properTime_fm, x, y, rapidity).Norm;
 
-				return CalculateSpinStateOverlap(tripletState, B_PerFm2);
+				return CalculateSpinStateOverlap(tripletState, B_Per_fm2);
 			};
 
 			LCFFieldAverager avg = new LCFFieldAverager(param);
@@ -184,22 +184,22 @@ namespace Yburn.Workers
 			FireballParam param = new FireballParam();
 
 			param.BeamRapidity = ParticleRapidity;
-			param.DiffusenessAFm = DiffusenessAFm;
-			param.DiffusenessBFm = DiffusenessBFm;
+			param.DiffusenessA_fm = DiffusenessA_fm;
+			param.DiffusenessB_fm = DiffusenessB_fm;
 			param.EMFCalculationMethod = EMFCalculationMethod;
 			param.EMFQuadratureOrder = EMFQuadratureOrder;
-			param.GridCellSizeFm = GridCellSizeFm;
-			param.GridRadiusFm = GridRadiusFm;
-			param.ImpactParameterFm = ImpactParameterFm;
+			param.GridCellSize_fm = GridCellSize_fm;
+			param.GridRadius_fm = GridRadius_fm;
+			param.ImpactParameter_fm = ImpactParameter_fm;
 			param.NucleonNumberA = NucleonNumberA;
 			param.NucleonNumberB = NucleonNumberB;
-			param.NuclearRadiusAFm = NuclearRadiusAFm;
-			param.NuclearRadiusBFm = NuclearRadiusBFm;
+			param.NuclearRadiusA_fm = NuclearRadiusA_fm;
+			param.NuclearRadiusB_fm = NuclearRadiusB_fm;
 			param.NucleusShapeA = NucleusShapeA;
 			param.NucleusShapeB = NucleusShapeB;
 			param.ProtonNumberA = ProtonNumberA;
 			param.ProtonNumberB = ProtonNumberB;
-			param.QGPConductivityMeV = QGPConductivity;
+			param.QGPConductivity_MeV = QGPConductivity_MeV;
 			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
 
 			return param;

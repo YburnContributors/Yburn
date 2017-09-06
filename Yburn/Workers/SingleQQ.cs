@@ -73,16 +73,16 @@ namespace Yburn.Workers
 				l: QuantumNumberL,
 				colorState: ColorState,
 				potentialType: PotentialType,
-				temperature: Temperature,
-				debyeMass: DebyeMass,
-				displacementRMS: DisplacementRMS,
-				softScale: SoftScale,
-				ultraSoftScale: UltraSoftScale,
-				boundMass: BoundMass,
-				energy: Energy,
-				gammaDamp: GammaDamp,
-				gammaDiss: GammaDiss,
-				gammaTot: GammaTot);
+				temperature: Temperature_MeV,
+				debyeMass: DebyeMass_MeV,
+				displacementRMS: DisplacementRMS_fm,
+				softScale: SoftScale_MeV,
+				ultraSoftScale: UltraSoftScale_MeV,
+				boundMass: BoundMass_MeV,
+				energy: Energy_MeV,
+				gammaDamp: GammaDamp_MeV,
+				gammaDiss: GammaDiss_MeV,
+				gammaTot: GammaTot_MeV);
 
 			QQDataDoc.Write(pathFile, dataSet);
 
@@ -109,9 +109,9 @@ namespace Yburn.Workers
 			if(!File.Exists(pathFile))
 			{
 				QQDataDoc.CreateNewDataDoc(pathFile, AccuracyAlpha, AccuracyWaveFunction,
-					AggressivenessAlpha, MaxEnergy, EnergySteps, QuarkMass, MaxRadius,
-					StepNumber, Sigma, Tchem,
-					Tcrit);
+					AggressivenessAlpha, MaxEnergy_MeV, EnergySteps, QuarkMass_MeV, MaxRadius_fm,
+					StepNumber, Sigma_MeV2, Tchem_MeV,
+					Tcrit_MeV);
 			}
 		}
 
@@ -167,14 +167,14 @@ namespace Yburn.Workers
 					"(MeV)"));
 				LogMessages.AppendLine();
 				LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}",
-					Temperature.ToString("G6"),
-					DebyeMass.ToString("G6"),
-					DisplacementRMS.ToString("G6"),
-					SoftScale.ToString("G6"),
-					UltraSoftScale.ToString("G6"),
-					BoundMass.ToString("G6"),
-					Energy.ToString("G6"),
-					GammaDamp.ToString("G6")));
+					Temperature_MeV.ToString("G6"),
+					DebyeMass_MeV.ToString("G6"),
+					DisplacementRMS_fm.ToString("G6"),
+					SoftScale_MeV.ToString("G6"),
+					UltraSoftScale_MeV.ToString("G6"),
+					BoundMass_MeV.ToString("G6"),
+					Energy_MeV.ToString("G6"),
+					GammaDamp_MeV.ToString("G6")));
 				LogMessages.Append(LogFooter);
 
 				List<string> dataList = new List<string>();
@@ -216,12 +216,12 @@ namespace Yburn.Workers
 				LogMessages.AppendLine("(MeV)       (MeV)       (MeV)       (MeV)       (MeV)       (MeV)       ");
 				LogMessages.AppendLine();
 				LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}",
-					Temperature.ToString("G6"),
-					DebyeMass.ToString("G6"),
-					SoftScale.ToString("G6"),
-					BoundMass.ToString("G6"),
-					Energy.ToString("G6"),
-					GammaDamp.ToString("G6")));
+					Temperature_MeV.ToString("G6"),
+					DebyeMass_MeV.ToString("G6"),
+					SoftScale_MeV.ToString("G6"),
+					BoundMass_MeV.ToString("G6"),
+					Energy_MeV.ToString("G6"),
+					GammaDamp_MeV.ToString("G6")));
 				LogMessages.AppendLine(LogFooter);
 
 				List<string> dataList = new List<string>();
@@ -260,8 +260,8 @@ namespace Yburn.Workers
 				SetStatusVariables(CrossSectionStatusTitles);
 
 				// calculate decay width and cross section
-				DecayWidth decayWidth = new DecayWidth(JobCancelToken, boundState, MaxEnergy,
-					EnergySteps, Temperature, StatusValues);
+				DecayWidth decayWidth = new DecayWidth(JobCancelToken, boundState, MaxEnergy_MeV,
+					EnergySteps, Temperature_MeV, StatusValues);
 				decayWidth.CalculateGammaDiss();
 
 				// quit here if process has been aborted
@@ -272,8 +272,8 @@ namespace Yburn.Workers
 					return;
 				}
 
-				GammaDiss = decayWidth.GammaDissMeV;
-				GammaTot = GammaDamp + GammaDiss;
+				GammaDiss_MeV = decayWidth.GammaDiss_MeV;
+				GammaTot_MeV = GammaDamp_MeV + GammaDiss_MeV;
 
 				LogMessages.Clear();
 				LogMessages.AppendLine(LogHeader + "#\r\n#");
@@ -281,16 +281,16 @@ namespace Yburn.Workers
 				LogMessages.AppendLine("(MeV)       (MeV)       (fm)        (Mev)       (Mev)       (MeV)       (MeV)       (MeV)       (MeV)       (MeV)       ");
 				LogMessages.AppendLine();
 				LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}",
-					Temperature.ToString("G6"),
-					DebyeMass.ToString("G6"),
-					DisplacementRMS.ToString("G6"),
-					SoftScale.ToString("G6"),
-					UltraSoftScale.ToString("G6"),
-					BoundMass.ToString("G6"),
-					Energy.ToString("G6"),
-					GammaDamp.ToString("G6"),
-					GammaDiss.ToString("G6"),
-					GammaTot.ToString("G6")));
+					Temperature_MeV.ToString("G6"),
+					DebyeMass_MeV.ToString("G6"),
+					DisplacementRMS_fm.ToString("G6"),
+					SoftScale_MeV.ToString("G6"),
+					UltraSoftScale_MeV.ToString("G6"),
+					BoundMass_MeV.ToString("G6"),
+					Energy_MeV.ToString("G6"),
+					GammaDamp_MeV.ToString("G6"),
+					GammaDiss_MeV.ToString("G6"),
+					GammaTot_MeV.ToString("G6")));
 				LogMessages.Append(LogFooter);
 
 				List<string> dataList = new List<string>();
@@ -317,7 +317,7 @@ namespace Yburn.Workers
 				boundState.CalculationCancelToken = JobCancelToken;
 				boundState.StatusValues = StatusValues;
 
-				QuarkMass = boundState.SearchQuarkMass(BoundMass);
+				QuarkMass_MeV = boundState.SearchQuarkMass(BoundMass_MeV);
 
 				// quit here if process has been aborted
 				if(JobCancelToken.IsCancellationRequested)
@@ -360,9 +360,9 @@ namespace Yburn.Workers
 			for(int j = 0; j <= state.Param.StepNumber; j++)
 			{
 				dataList.Add(string.Format("{0,-10}{1,-18}{2,-18}",
-					 state.RadiusFm[j].ToString("G10"),
-					 state.WaveFunctionFm[j].Re.ToString("G10"),
-					 state.WaveFunctionFm[j].Im.ToString("G10")));
+					 state.Radius_fm[j].ToString("G10"),
+					 state.WaveFunction_fm[j].Re.ToString("G10"),
+					 state.WaveFunction_fm[j].Im.ToString("G10")));
 			}
 
 			return dataList;
@@ -402,31 +402,31 @@ namespace Yburn.Workers
 			QQState.QQState state
 			)
 		{
-			Energy = state.Param.EnergyMeV;
-			GammaDamp = state.Param.GammaDampMeV;
-			SoftScale = state.Param.SoftScaleMeV;
+			Energy_MeV = state.Param.Energy_MeV;
+			GammaDamp_MeV = state.Param.GammaDamp_MeV;
+			SoftScale_MeV = state.Param.SoftScale_MeV;
 			AlphaHard = state.AlphaHard;
 			AlphaSoft = state.AlphaSoft;
 			AlphaThermal = state.AlphaThermal;
-			DebyeMass = state.DebyeMassMeV;
-			Sigma = state.Param.SigmaMeV;
-			SigmaEff = state.SigmaEffMeV;
-			StepSize = state.StepSizeFm;
-			StepsPerPeriod = state.WaveVectorFm * state.StepSizeFm;
-			Tchem = state.Param.TchemMeV;
-			Tcrit = state.Param.TcritMeV;
+			DebyeMass_MeV = state.DebyeMass_MeV;
+			Sigma_MeV2 = state.Param.Sigma_MeV;
+			SigmaEff_MeV2 = state.SigmaEff_MeV;
+			StepSize = state.StepSize_fm;
+			StepsPerPeriod = state.WaveVector_fm * state.StepSize_fm;
+			Tchem_MeV = state.Param.Tchem_MeV;
+			Tcrit_MeV = state.Param.Tcrit_MeV;
 			Trials = state.Trials;
-			WaveVector = state.WaveVectorFm;
+			WaveVector_per_fm = state.WaveVector_fm;
 
 			if(state is QQBoundState)
 			{
 				QQBoundState boundState = state as QQBoundState;
 				NumberExtrema = boundState.NumberExtrema;
-				BoundMass = boundState.BoundMassMeV;
-				AvgInvDisplacement = boundState.RadiusExpectationValue(-1);
-				DisplacementRMS = Math.Sqrt(boundState.RadiusExpectationValue(2));
+				BoundMass_MeV = boundState.BoundMass_MeV;
+				AvgInvDisplacement_per_fm = boundState.RadiusExpectationValue(-1);
+				DisplacementRMS_fm = Math.Sqrt(boundState.RadiusExpectationValue(2));
 				AlphaUltraSoft = boundState.AlphaUltraSoft;
-				UltraSoftScale = boundState.UltraSoftScaleMeV;
+				UltraSoftScale_MeV = boundState.UltraSoftScale_MeV;
 			}
 		}
 
@@ -438,23 +438,23 @@ namespace Yburn.Workers
 			param.AggressivenessAlpha = AggressivenessAlpha;
 			param.AggressivenessEnergy = AggressivenessEnergy;
 			param.ColorState = ColorState;
-			param.EnergyMeV = Energy;
-			param.GammaDampMeV = GammaDamp;
-			param.MaxRadiusFm = MaxRadius;
+			param.Energy_MeV = Energy_MeV;
+			param.GammaDamp_MeV = GammaDamp_MeV;
+			param.MaxRadius_fm = MaxRadius_fm;
 			param.MaxShootingTrials = MaxShootingTrials;
 			param.PotentialType = PotentialType;
 			param.QuantumNumberL = QuantumNumberL;
-			param.QuarkMassMeV = QuarkMass;
+			param.QuarkMass_MeV = QuarkMass_MeV;
 			param.RunningCouplingType = RunningCouplingType;
-			param.SigmaMeV = Sigma;
-			param.SoftScaleMeV = SoftScale;
-			param.SpinCouplingRangeFm = SpinCouplingRange;
-			param.SpinCouplingStrengthMeV = SpinCouplingStrength;
+			param.Sigma_MeV = Sigma_MeV2;
+			param.SoftScale_MeV = SoftScale_MeV;
+			param.SpinCouplingRange_fm = SpinCouplingRange_fm;
+			param.SpinCouplingStrength_MeV = SpinCouplingStrength_MeV;
 			param.SpinState = SpinState;
 			param.StepNumber = StepNumber;
-			param.TchemMeV = Tchem;
-			param.TcritMeV = Tcrit;
-			param.TemperatureMeV = Temperature;
+			param.Tchem_MeV = Tchem_MeV;
+			param.Tcrit_MeV = Tcrit_MeV;
+			param.Temperature_MeV = Temperature_MeV;
 
 			return param;
 		}
@@ -491,15 +491,15 @@ namespace Yburn.Workers
 			LogMessages.AppendLine();
 			LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}",
 				"Current:",
-				DebyeMass.ToString("G6"),
-				DisplacementRMS.ToString("G6"),
-				SoftScale.ToString("G6"),
-				UltraSoftScale.ToString("G6"),
-				BoundMass.ToString("G6"),
-				Energy.ToString("G6"),
-				GammaDamp.ToString("G6"),
-				GammaDiss.ToString("G6"),
-				GammaTot.ToString("G6")));
+				DebyeMass_MeV.ToString("G6"),
+				DisplacementRMS_fm.ToString("G6"),
+				SoftScale_MeV.ToString("G6"),
+				UltraSoftScale_MeV.ToString("G6"),
+				BoundMass_MeV.ToString("G6"),
+				Energy_MeV.ToString("G6"),
+				GammaDamp_MeV.ToString("G6"),
+				GammaDiss_MeV.ToString("G6"),
+				GammaTot_MeV.ToString("G6")));
 			LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}",
 				"Archived:",
 				dataSet.DebyeMass.ToString("G6"),
@@ -513,15 +513,15 @@ namespace Yburn.Workers
 				dataSet.GammaTot.ToString("G6")));
 			LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}",
 				"Deviation:",
-				(DebyeMass / dataSet.DebyeMass - 1).ToString("G3"),
-				(DisplacementRMS / dataSet.DisplacementRMS - 1).ToString("G3"),
-				(SoftScale / dataSet.SoftScale - 1).ToString("G3"),
-				(UltraSoftScale / dataSet.UltraSoftScale - 1).ToString("G3"),
-				(BoundMass / dataSet.BoundMass - 1).ToString("G3"),
-				(Energy / dataSet.Energy - 1).ToString("G3"),
-				(GammaDamp / dataSet.GammaDamp - 1).ToString("G3"),
-				(GammaDiss / dataSet.GammaDiss - 1).ToString("G3"),
-				(GammaTot / dataSet.GammaTot - 1).ToString("G3")));
+				(DebyeMass_MeV / dataSet.DebyeMass - 1).ToString("G3"),
+				(DisplacementRMS_fm / dataSet.DisplacementRMS - 1).ToString("G3"),
+				(SoftScale_MeV / dataSet.SoftScale - 1).ToString("G3"),
+				(UltraSoftScale_MeV / dataSet.UltraSoftScale - 1).ToString("G3"),
+				(BoundMass_MeV / dataSet.BoundMass - 1).ToString("G3"),
+				(Energy_MeV / dataSet.Energy - 1).ToString("G3"),
+				(GammaDamp_MeV / dataSet.GammaDamp - 1).ToString("G3"),
+				(GammaDiss_MeV / dataSet.GammaDiss - 1).ToString("G3"),
+				(GammaTot_MeV / dataSet.GammaTot - 1).ToString("G3")));
 			LogMessages.AppendLine();
 			LogMessages.AppendLine();
 		}
@@ -531,7 +531,7 @@ namespace Yburn.Workers
 			string pathFile = QQDataPathFile;
 
 			return QQDataDoc.GetDataSet(pathFile, QuantumNumberN, QuantumNumberL, ColorState,
-				new List<PotentialType> { PotentialType }, Temperature);
+				new List<PotentialType> { PotentialType }, Temperature_MeV);
 		}
 
 		protected override void StartJob(

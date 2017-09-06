@@ -90,8 +90,8 @@ namespace Yburn.Workers.Tests
 			Dictionary<string, string> paramList = new Dictionary<string, string>();
 			paramList["RunningCouplingTypeSelection"]
 				= "LOperturbative_Cutoff1 NonPerturbative_ITP";
-			paramList["MinEnergy"] = "1";
-			paramList["MaxEnergy"] = "30000";
+			paramList["MinEnergy_MeV"] = "1";
+			paramList["MaxEnergy_MeV"] = "30000";
 			paramList["Samples"] = "500";
 			paramList["DataFileName"] = "PlotAlphaTest.txt";
 
@@ -104,7 +104,7 @@ namespace Yburn.Workers.Tests
 		{
 			Dictionary<string, string> paramList = new Dictionary<string, string>();
 			paramList["Samples"] = "500";
-			paramList["EnergyScale"] = "1000";
+			paramList["EnergyScale_MeV"] = "1000";
 			paramList["DataFileName"] = "PlotPionGDFTest.txt";
 
 			MarkFilesForDelete(paramList);
@@ -118,12 +118,12 @@ namespace Yburn.Workers.Tests
 			paramList["Samples"] = "500";
 			paramList["DataFileName"] = "PlotPotentialTest.txt";
 			paramList["PotentialType"] = "Complex";
-			paramList["MinRadius"] = "0";
-			paramList["MaxRadius"] = "10";
-			paramList["Sigma"] = "192000";
+			paramList["MinRadius_fm"] = "0";
+			paramList["MaxRadius_fm"] = "10";
+			paramList["Sigma_MeV2"] = "192000";
 			paramList["AlphaSoft"] = "0.5";
-			paramList["Temperature"] = "200";
-			paramList["DebyeMass"] = "250";
+			paramList["Temperature_MeV"] = "200";
+			paramList["DebyeMass_MeV"] = "250";
 
 			MarkFilesForDelete(paramList);
 

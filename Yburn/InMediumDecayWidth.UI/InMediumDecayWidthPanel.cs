@@ -110,13 +110,13 @@ namespace Yburn.InMediumDecayWidth.UI
 			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
 			nameValuePairs["DopplerShiftEvaluationTypes"] = MsxDopplerShiftEvaluationTypes.SelectionString;
 			nameValuePairs["ElectricDipoleAlignment"] = CbxElectricDipoleAlignment.Text;
-			nameValuePairs["ElectricFieldStrength"] = TbxElectricFieldStrength.Text;
-			nameValuePairs["MagneticFieldStrength"] = TbxMagneticFieldStrength.Text;
-			nameValuePairs["MediumTemperatures"] = TbxMediumTemperatures.Text;
+			nameValuePairs["ElectricFieldStrength_per_fm2"] = TbxElectricFieldStrength.Text;
+			nameValuePairs["MagneticFieldStrength_per_fm2"] = TbxMagneticFieldStrength.Text;
+			nameValuePairs["MediumTemperatures_MeV"] = TbxMediumTemperatures.Text;
 			nameValuePairs["MediumVelocities"] = TbxMediumVelocities.Text;
 			nameValuePairs["NumberAveragingAngles"] = TbxNumberAveragingAngles.Text;
 			nameValuePairs["PotentialTypes"] = MsxPotentialTypes.SelectionString;
-			nameValuePairs["QGPFormationTemperature"] = TbxQGPFormationTemperature.Text;
+			nameValuePairs["QGPFormationTemperature_MeV"] = TbxQGPFormationTemperature.Text;
 
 			return nameValuePairs;
 		}
@@ -131,12 +131,12 @@ namespace Yburn.InMediumDecayWidth.UI
 			MsxDopplerShiftEvaluationTypes.SelectionString = nameValuePairs["DopplerShiftEvaluationTypes"];
 			MsxPotentialTypes.SelectionString = nameValuePairs["PotentialTypes"];
 			TbxDataFileName.Text = nameValuePairs["DataFileName"];
-			TbxElectricFieldStrength.Text = nameValuePairs["ElectricFieldStrength"];
-			TbxMagneticFieldStrength.Text = nameValuePairs["MagneticFieldStrength"];
-			TbxMediumTemperatures.Text = nameValuePairs["MediumTemperatures"];
+			TbxElectricFieldStrength.Text = nameValuePairs["ElectricFieldStrength_per_fm2"];
+			TbxMagneticFieldStrength.Text = nameValuePairs["MagneticFieldStrength_per_fm2"];
+			TbxMediumTemperatures.Text = nameValuePairs["MediumTemperatures_MeV"];
 			TbxMediumVelocities.Text = nameValuePairs["MediumVelocities"];
 			TbxNumberAveragingAngles.Text = nameValuePairs["NumberAveragingAngles"];
-			TbxQGPFormationTemperature.Text = nameValuePairs["QGPFormationTemperature"];
+			TbxQGPFormationTemperature.Text = nameValuePairs["QGPFormationTemperature_MeV"];
 		}
 
 		private void InitializeMenuEntry()

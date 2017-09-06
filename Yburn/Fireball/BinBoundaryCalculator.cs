@@ -146,7 +146,7 @@ namespace Yburn.Fireball
 					break;
 				}
 
-				ImpactParams.Add(step * FireballParam.GridCellSizeFm);
+				ImpactParams.Add(step * FireballParam.GridCellSize_fm);
 				GetValuesFromGlauberCalculation(ImpactParams[step]);
 
 				step++;
@@ -188,14 +188,14 @@ namespace Yburn.Fireball
 			)
 		{
 			FireballParam param = FireballParam.Clone();
-			param.ImpactParameterFm = impactParam;
+			param.ImpactParameter_fm = impactParam;
 
 			GlauberCalculation calc = new GlauberCalculation(param);
 			ncoll = calc.GetTotalNumberCollisions();
 			npart = calc.GetTotalNumberParticipants();
 
 			dsigmadb = 2 * Math.PI * impactParam * (1.0 - Math.Exp(-ncoll));
-			sigma = param.GridCellSizeFm * dsigmadb;
+			sigma = param.GridCellSize_fm * dsigmadb;
 			if(Sigmas.Count > 0)
 			{
 				sigma += Sigmas[Sigmas.Count - 1];
@@ -237,7 +237,7 @@ namespace Yburn.Fireball
 				for(int binIndex = 0; binIndex < NumberCentralityBins[binGroupIndex] + 1; binIndex++)
 				{
 					int i = GetLastIndexBeforeBin(binGroupIndex, binIndex);
-					ImpactParamsAtBinBoundaries.Last().Add(i * FireballParam.GridCellSizeFm);
+					ImpactParamsAtBinBoundaries.Last().Add(i * FireballParam.GridCellSize_fm);
 					ParticipantsAtBinBoundaries.Last().Add(Nparts[i]);
 				}
 			}

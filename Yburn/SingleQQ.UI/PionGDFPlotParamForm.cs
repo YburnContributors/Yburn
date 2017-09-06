@@ -12,7 +12,7 @@ namespace Yburn.SingleQQ.UI
 
 		public PionGDFPlotParamForm(
 			string title,
-			string energyScaleMeV,
+			string energyScale_MeV,
 			string samples,
 			string dataFileName
 			)
@@ -22,7 +22,7 @@ namespace Yburn.SingleQQ.UI
 			AcceptButton = BtnPlot;
 			CancelButton = BtnLeave;
 
-			SetInputData(title, energyScaleMeV, samples, dataFileName);
+			SetInputData(title, energyScale_MeV, samples, dataFileName);
 		}
 
 		/********************************************************************************************
@@ -37,13 +37,13 @@ namespace Yburn.SingleQQ.UI
 
 		private void SetInputData(
 			string title,
-			string energyScaleMeV,
+			string energyScale_MeV,
 			string samples,
 			string dataFileName
 			)
 		{
 			Text = title;
-			TbxEnergyScale.Text = energyScaleMeV;
+			TbxEnergyScale.Text = energyScale_MeV;
 			TbxSamples.Text = samples;
 			TbxDataFileName.Text = dataFileName;
 		}

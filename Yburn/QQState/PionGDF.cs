@@ -52,9 +52,9 @@ namespace Yburn.QQState
 
 		private static readonly double Beta = 1.722;
 
-		public static readonly double NloScaleMeV = Math.Sqrt(4e5);
+		public static readonly double NloScale_MeV = Math.Sqrt(4e5);
 
-		private static readonly double ReferenceScaleMeV = 299;
+		private static readonly double ReferenceScale_MeV = 299;
 
 		private static double a(
 			double s
@@ -106,11 +106,11 @@ namespace Yburn.QQState
 		}
 
 		private static double s(
-			double energyMeV
+			double energy_MeV
 			)
 		{
-			return Math.Log(Math.Log(energyMeV / ReferenceScaleMeV)
-				/ Math.Log(NloScaleMeV / ReferenceScaleMeV));
+			return Math.Log(Math.Log(energy_MeV / ReferenceScale_MeV)
+				/ Math.Log(NloScale_MeV / ReferenceScale_MeV));
 		}
 
 		/********************************************************************************************

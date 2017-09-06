@@ -14,7 +14,7 @@ namespace Yburn.Fireball
 
 			return new FireballElectromagneticField(
 				FireballFieldType.ElectricFieldStrength, xAxis, yAxis,
-				emf.CalculateAverageElectricFieldStrengthPerFm2, param.EMFUpdateIntervalFm);
+				emf.CalculateAverageElectricFieldStrength_per_fm2, param.EMFUpdateInterval_fm);
 		}
 
 		public static FireballElectromagneticField CreateFireballMagneticField(
@@ -27,7 +27,7 @@ namespace Yburn.Fireball
 
 			return new FireballElectromagneticField(
 				FireballFieldType.MagneticFieldStrength, xAxis, yAxis,
-				emf.CalculateAverageMagneticFieldStrengthPerFm2, param.EMFUpdateIntervalFm);
+				emf.CalculateAverageMagneticFieldStrength_per_fm2, param.EMFUpdateInterval_fm);
 		}
 
 		public static FireballElectromagneticField CreateZeroField(

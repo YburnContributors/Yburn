@@ -99,7 +99,7 @@ namespace Yburn.Fireball
 			InitQGPSuppressionFactors();
 
 			// impactParam = 0 does not contribute
-			CurrentImpactParam = FireballParam.GridCellSizeFm;
+			CurrentImpactParam = FireballParam.GridCellSize_fm;
 		}
 
 		private List<double> GetFlatImpactParams()
@@ -178,7 +178,7 @@ namespace Yburn.Fireball
 				CollectResults(fireball);
 				UpdateStatus(maximumTemperature, fireball.LifeTime);
 
-				CurrentImpactParam += FireballParam.GridCellSizeFm;
+				CurrentImpactParam += FireballParam.GridCellSize_fm;
 			}
 		}
 
@@ -201,7 +201,7 @@ namespace Yburn.Fireball
 		private Fireball CreateFireball()
 		{
 			FireballParam param = FireballParam.Clone();
-			param.ImpactParameterFm = CurrentImpactParam;
+			param.ImpactParameter_fm = CurrentImpactParam;
 
 			return new Fireball(param);
 		}
@@ -210,7 +210,7 @@ namespace Yburn.Fireball
 			Fireball fireball
 			)
 		{
-			while(fireball.MaximumTemperature > FireballParam.BreakupTemperatureMeV
+			while(fireball.MaximumTemperature > FireballParam.BreakupTemperature_MeV
 				&& !CancellationToken.IsCancellationRequested)
 			{
 				// use small time steps so that an abort command by the user is registered faster

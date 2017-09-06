@@ -66,21 +66,21 @@ namespace Yburn.QQState.Tests
 			param.AccuracyWaveFunction = 1e-9;
 			param.AggressivenessAlpha = 0.5;
 			param.AggressivenessEnergy = 40;
-			param.EnergyMeV = -141.517335648066;
+			param.Energy_MeV = -141.517335648066;
 			param.PotentialType = PotentialType.Tzero;
 			param.QuantumNumberL = 0;
-			param.SigmaMeV = 192000;
-			param.SoftScaleMeV = 1542.07788957569;
+			param.Sigma_MeV = 192000;
+			param.SoftScale_MeV = 1542.07788957569;
 			param.StepNumber = 20000;
 
 			QQBoundState boundState = new QQBoundState(param, 1);
 
-			double MassY1SMeV = 9460.3;
-			boundState.SearchQuarkMass(MassY1SMeV);
+			double MassY1S_MeV = 9460.3;
+			boundState.SearchQuarkMass(MassY1S_MeV);
 
 			Assert.IsTrue(
-				Math.Abs(boundState.Param.QuarkMassMeV / param.QuarkMassMeV - 1.0) < 1e-6);
-			Assert.IsTrue(Math.Abs(boundState.BoundMassMeV / MassY1SMeV - 1.0) < 1e-6);
+				Math.Abs(boundState.Param.QuarkMass_MeV / param.QuarkMass_MeV - 1.0) < 1e-6);
+			Assert.IsTrue(Math.Abs(boundState.BoundMass_MeV / MassY1S_MeV - 1.0) < 1e-6);
 		}
 
 		[TestMethod]
@@ -106,17 +106,17 @@ namespace Yburn.QQState.Tests
 			param.AccuracyWaveFunction = 1e-9;
 			param.AggressivenessAlpha = 0.5;
 			param.ColorState = ColorState.Octet;
-			param.EnergyMeV = 1000;
-			param.GammaDampMeV = 0;
-			param.MaxRadiusFm = 10;
+			param.Energy_MeV = 1000;
+			param.GammaDamp_MeV = 0;
+			param.MaxRadius_fm = 10;
 			param.PotentialType = PotentialType.Tzero_NoString;
-			param.QuarkMassMeV = 4800.90885593666;
+			param.QuarkMass_MeV = 4800.90885593666;
 			param.RunningCouplingType = RunningCouplingType.LOperturbative_Cutoff3;
-			param.SoftScaleMeV = 1420;
+			param.SoftScale_MeV = 1420;
 			param.StepNumber = 20000;
-			param.TchemMeV = 120;
-			param.TcritMeV = 160;
-			param.TemperatureMeV = 0;
+			param.Tchem_MeV = 120;
+			param.Tcrit_MeV = 160;
+			param.Temperature_MeV = 0;
 
 			return param;
 		}
@@ -126,14 +126,14 @@ namespace Yburn.QQState.Tests
 			QQStateParam param = new QQStateParam();
 			param.AccuracyAlpha = 1e-6;
 			param.ColorState = ColorState.Singlet;
-			param.GammaDampMeV = 0;
-			param.MaxRadiusFm = 10;
+			param.GammaDamp_MeV = 0;
+			param.MaxRadius_fm = 10;
 			param.MaxShootingTrials = 5000;
-			param.QuarkMassMeV = 4800.90885593666;
+			param.QuarkMass_MeV = 4800.90885593666;
 			param.RunningCouplingType = RunningCouplingType.LOperturbative_Cutoff3;
-			param.TchemMeV = 120;
-			param.TcritMeV = 160;
-			param.TemperatureMeV = 0;
+			param.Tchem_MeV = 120;
+			param.Tcrit_MeV = 160;
+			param.Temperature_MeV = 0;
 
 			return param;
 		}
@@ -144,10 +144,10 @@ namespace Yburn.QQState.Tests
 			param.AccuracyWaveFunction = 1e-9;
 			param.AggressivenessAlpha = 0.7;
 			param.AggressivenessEnergy = 40;
-			param.EnergyMeV = -390.02077042504118;
+			param.Energy_MeV = -390.02077042504118;
 			param.PotentialType = PotentialType.Tzero_NoString;
 			param.QuantumNumberL = 0;
-			param.SoftScaleMeV = 1368.3765139843001;
+			param.SoftScale_MeV = 1368.3765139843001;
 			param.StepNumber = 30000;
 
 			return new QQBoundState(param, 1);
@@ -159,10 +159,10 @@ namespace Yburn.QQState.Tests
 			param.AccuracyWaveFunction = 1e-8;
 			param.AggressivenessAlpha = 0.7;
 			param.AggressivenessEnergy = 0.02;
-			param.EnergyMeV = -341.205311278384;
+			param.Energy_MeV = -341.205311278384;
 			param.PotentialType = PotentialType.Tzero_NoString;
 			param.QuantumNumberL = 1;
-			param.SoftScaleMeV = 639.940673158918;
+			param.SoftScale_MeV = 639.940673158918;
 			param.StepNumber = 16000;
 
 			return new QQBoundState(param, 2);
@@ -200,7 +200,7 @@ namespace Yburn.QQState.Tests
 			)
 		{
 			return GetMaxDeviation(
-				freeState.RadiusFm, freeState.WaveFunctionFm,
+				freeState.Radius_fm, freeState.WaveFunction_fm,
 				GetCoulombWaveArray(freeState));
 		}
 
@@ -210,33 +210,33 @@ namespace Yburn.QQState.Tests
 		{
 			return GetCoulombWaveArray(
 				  freeState.Param.QuantumNumberL, GetAlphaEff(freeState),
-				  freeState.Param.QuarkMassMeV, freeState.WaveVectorFm, freeState.RadiusFm);
+				  freeState.Param.QuarkMass_MeV, freeState.WaveVector_fm, freeState.Radius_fm);
 		}
 
 		private static double GetAlphaEff(
 			QQFreeState freeState
 			)
 		{
-			Potential potential = (Potential)(new PrivateObject(freeState)).GetField("PotentialFm");
+			Potential potential = (Potential)(new PrivateObject(freeState)).GetField("Potential_fm");
 			return potential.AlphaEff;
 		}
 
 		private static Complex[] GetCoulombWaveArray(
 			int quantumNumberL,
 			double alphaEff,
-			double quarkMassMeV,
-			double waveVectorFm,
-			double[] radiusFm
+			double quarkMass_MeV,
+			double waveVector_fm,
+			double[] radius_fm
 			)
 		{
 			double twoOverPi = Math.Sqrt(2 / Math.PI);
-			double eta = -0.5 * alphaEff * quarkMassMeV / waveVectorFm / Constants.HbarCMeVFm;
+			double eta = -0.5 * alphaEff * quarkMass_MeV / waveVector_fm / Constants.HbarC_MeV_fm;
 
-			Complex[] coulombWave = new Complex[radiusFm.Length];
-			for(int j = 0; j < radiusFm.Length; j++)
+			Complex[] coulombWave = new Complex[radius_fm.Length];
+			for(int j = 0; j < radius_fm.Length; j++)
 			{
 				coulombWave[j] = new Complex(twoOverPi * AdvancedMath.CoulombF(quantumNumberL, eta,
-					waveVectorFm * radiusFm[j]), 0);
+					waveVector_fm * radius_fm[j]), 0);
 			}
 
 			return coulombWave;
@@ -306,9 +306,9 @@ namespace Yburn.QQState.Tests
 			)
 		{
 			Complex[] hydrogenWave = GetHydrogenWaveN1L0Array(
-				boundState.WaveVectorFm, boundState.RadiusFm);
+				boundState.WaveVector_fm, boundState.Radius_fm);
 
-			return GetMaxDeviation(boundState.RadiusFm, boundState.WaveFunctionFm, hydrogenWave);
+			return GetMaxDeviation(boundState.Radius_fm, boundState.WaveFunction_fm, hydrogenWave);
 		}
 
 		private double GetMaxDeviationFromHydrogenN2L1(
@@ -316,36 +316,36 @@ namespace Yburn.QQState.Tests
 			)
 		{
 			Complex[] hydrogenWave = GetHydrogenWaveN2L1Array(
-				boundState.WaveVectorFm, boundState.RadiusFm);
+				boundState.WaveVector_fm, boundState.Radius_fm);
 
-			return GetMaxDeviation(boundState.RadiusFm, boundState.WaveFunctionFm, hydrogenWave);
+			return GetMaxDeviation(boundState.Radius_fm, boundState.WaveFunction_fm, hydrogenWave);
 		}
 
 		private Complex[] GetHydrogenWaveN1L0Array(
-			double waveVectorFm,
-			double[] radiusFm
+			double waveVector_fm,
+			double[] radius_fm
 			)
 		{
-			double preFactor = Math.Sqrt(waveVectorFm);
-			Complex[] hydrogenWave = new Complex[radiusFm.Length];
-			for(int j = 0; j < radiusFm.Length; j++)
+			double preFactor = Math.Sqrt(waveVector_fm);
+			Complex[] hydrogenWave = new Complex[radius_fm.Length];
+			for(int j = 0; j < radius_fm.Length; j++)
 			{
-				hydrogenWave[j] = preFactor * HydrogenWaveFunctionN1L0(2 * waveVectorFm * radiusFm[j]);
+				hydrogenWave[j] = preFactor * HydrogenWaveFunctionN1L0(2 * waveVector_fm * radius_fm[j]);
 			}
 
 			return hydrogenWave;
 		}
 
 		private Complex[] GetHydrogenWaveN2L1Array(
-			double waveVectorFm,
-			double[] radiusFm
+			double waveVector_fm,
+			double[] radius_fm
 			)
 		{
-			double preFactor = Math.Sqrt(2 * waveVectorFm);
-			Complex[] hydrogenWave = new Complex[radiusFm.Length];
-			for(int j = 0; j < radiusFm.Length; j++)
+			double preFactor = Math.Sqrt(2 * waveVector_fm);
+			Complex[] hydrogenWave = new Complex[radius_fm.Length];
+			for(int j = 0; j < radius_fm.Length; j++)
 			{
-				hydrogenWave[j] = preFactor * HydrogenWaveFunctionN2L1(2 * waveVectorFm * radiusFm[j]);
+				hydrogenWave[j] = preFactor * HydrogenWaveFunctionN2L1(2 * waveVector_fm * radius_fm[j]);
 			}
 
 			return hydrogenWave;

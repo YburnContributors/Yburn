@@ -29,15 +29,15 @@ namespace Yburn.Fireball
 				shape: param.NucleusShapeA,
 				nucleonNumber: param.NucleonNumberA,
 				protonNumber: param.ProtonNumberA,
-				nuclearRadiusFm: param.NuclearRadiusAFm,
-				diffusenessFm: param.DiffusenessAFm);
+				nuclearRadius_fm: param.NuclearRadiusA_fm,
+				diffuseness_fm: param.DiffusenessA_fm);
 
 			nucleusB = CreateNucleus(
 				shape: param.NucleusShapeB,
 				nucleonNumber: param.NucleonNumberB,
 				protonNumber: param.ProtonNumberB,
-				nuclearRadiusFm: param.NuclearRadiusBFm,
-				diffusenessFm: param.DiffusenessBFm);
+				nuclearRadius_fm: param.NuclearRadiusB_fm,
+				diffuseness_fm: param.DiffusenessB_fm);
 		}
 
 		/********************************************************************************************
@@ -48,8 +48,8 @@ namespace Yburn.Fireball
 			NucleusShape shape,
 			uint nucleonNumber,
 			uint protonNumber,
-			double nuclearRadiusFm,
-			double diffusenessFm
+			double nuclearRadius_fm,
+			double diffuseness_fm
 			)
 		{
 			Nucleus nucleus;
@@ -60,15 +60,15 @@ namespace Yburn.Fireball
 					nucleus = new WoodsSaxonNucleus(
 						nucleonNumber: nucleonNumber,
 						protonNumber: protonNumber,
-						nuclearRadiusFm: nuclearRadiusFm,
-						diffusenessFm: diffusenessFm);
+						nuclearRadius_fm: nuclearRadius_fm,
+						diffuseness_fm: diffuseness_fm);
 					break;
 
 				case NucleusShape.GaussianDistribution:
 					nucleus = new GaussianNucleus(
 						nucleonNumber: nucleonNumber,
 						protonNumber: protonNumber,
-						nuclearRadiusFm: nuclearRadiusFm);
+						nuclearRadius_fm: nuclearRadius_fm);
 					break;
 
 				default:
@@ -85,14 +85,14 @@ namespace Yburn.Fireball
 		protected Nucleus(
 			uint nucleonNumber,
 			uint protonNumber,
-			double nuclearRadiusFm,
-			double normalizingConstantFm3
+			double nuclearRadius_fm,
+			double normalizingConstant_fm3
 			)
 		{
 			NucleonNumber = nucleonNumber;
 			ProtonNumber = protonNumber;
-			NuclearRadiusFm = nuclearRadiusFm;
-			NormalizingConstantFm3 = normalizingConstantFm3;
+			NuclearRadius_fm = nuclearRadius_fm;
+			NormalizingConstant_fm3 = normalizingConstant_fm3;
 
 			AssertValidMembers();
 		}
@@ -105,70 +105,70 @@ namespace Yburn.Fireball
 
 		public readonly uint ProtonNumber;
 
-		public readonly double NuclearRadiusFm;
+		public readonly double NuclearRadius_fm;
 
-		public double GetNucleonNumberDensityPerFm3(
-			double radiusFm
+		public double GetNucleonNumberDensity_per_fm3(
+			double radius_fm
 			)
 		{
-			return NucleonNumber * UnnormalizedDensity(radiusFm) / NormalizingConstantFm3;
+			return NucleonNumber * UnnormalizedDensity(radius_fm) / NormalizingConstant_fm3;
 		}
 
-		public double GetNucleonNumberColumnDensityPerFm3(
-			double xFm,
-			double yFm
+		public double GetNucleonNumberColumnDensity_per_fm3(
+			double x_fm,
+			double y_fm
 			)
 		{
-			return NucleonNumber * UnnormalizedColumnDensity(xFm, yFm) / NormalizingConstantFm3;
+			return NucleonNumber * UnnormalizedColumnDensity(x_fm, y_fm) / NormalizingConstant_fm3;
 		}
 
-		public double GetProtonNumberDensityPerFm3(
-			double radiusFm
+		public double GetProtonNumberDensity_per_fm3(
+			double radius_fm
 			)
 		{
-			return ProtonNumber * UnnormalizedDensity(radiusFm) / NormalizingConstantFm3;
+			return ProtonNumber * UnnormalizedDensity(radius_fm) / NormalizingConstant_fm3;
 		}
 
-		public double GetProtonNumberColumnDensityPerFm3(
-			double xFm,
-			double yFm
+		public double GetProtonNumberColumnDensity_per_fm3(
+			double x_fm,
+			double y_fm
 			)
 		{
-			return ProtonNumber * UnnormalizedColumnDensity(xFm, yFm) / NormalizingConstantFm3;
+			return ProtonNumber * UnnormalizedColumnDensity(x_fm, y_fm) / NormalizingConstant_fm3;
 		}
 
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private readonly double NormalizingConstantFm3;
+		private readonly double NormalizingConstant_fm3;
 
 		private void AssertValidMembers()
 		{
-			if(NuclearRadiusFm <= 0)
+			if(NuclearRadius_fm <= 0)
 			{
 				throw new Exception("NuclearRadius <= 0.");
 			}
-			if(NormalizingConstantFm3 <= 0)
+			if(NormalizingConstant_fm3 <= 0)
 			{
 				throw new Exception("NormalizingConstant <= 0.");
 			}
 		}
 
 		protected abstract double UnnormalizedDensity(
-			double radiusFm
+			double radius_fm
 			);
 
 		protected virtual double UnnormalizedColumnDensity(
-			double xFm,
-			double yFm
+			double x_fm,
+			double y_fm
 			)
 		{
 			Func<double, double> integrand
-				= z => UnnormalizedDensity(Math.Sqrt(xFm * xFm + yFm * yFm + z * z));
+				= z => UnnormalizedDensity(Math.Sqrt(x_fm * x_fm + y_fm * y_fm + z * z));
 
 			double integral
-				= ImproperQuadrature.IntegrateOverPositiveAxis(integrand, 2 * NuclearRadiusFm, 64);
+				= ImproperQuadrature.IntegrateOverPositiveAxis(integrand, 2 * NuclearRadius_fm, 64);
 
 			// factor two because integral runs from minus to plus infinity
 			return 2 * integral;
@@ -183,12 +183,12 @@ namespace Yburn.Fireball
 			public GaussianNucleus(
 				uint nucleonNumber,
 				uint protonNumber,
-				double nuclearRadiusFm
+				double nuclearRadius_fm
 				) : base(
 					nucleonNumber: nucleonNumber,
 					protonNumber: protonNumber,
-					nuclearRadiusFm: nuclearRadiusFm,
-					normalizingConstantFm3: Functions.GaussianDistributionNormalizingConstant3D(nuclearRadiusFm)
+					nuclearRadius_fm: nuclearRadius_fm,
+					normalizingConstant_fm3: Functions.GaussianDistributionNormalizingConstant3D(nuclearRadius_fm)
 					)
 			{
 			}
@@ -198,19 +198,19 @@ namespace Yburn.Fireball
 			 ****************************************************************************************/
 
 			protected override double UnnormalizedDensity(
-				double radiusFm
+				double radius_fm
 				)
 			{
-				return Functions.GaussianDistributionUnnormalized(radiusFm, NuclearRadiusFm);
+				return Functions.GaussianDistributionUnnormalized(radius_fm, NuclearRadius_fm);
 			}
 
 			protected override double UnnormalizedColumnDensity(
-				double xFm,
-				double yFm
+				double x_fm,
+				double y_fm
 				)
 			{
-				return Math.Sqrt(2 * Math.PI * NuclearRadiusFm * NuclearRadiusFm)
-					* UnnormalizedDensity(Math.Sqrt(xFm * xFm + yFm * yFm));
+				return Math.Sqrt(2 * Math.PI * NuclearRadius_fm * NuclearRadius_fm)
+					* UnnormalizedDensity(Math.Sqrt(x_fm * x_fm + y_fm * y_fm));
 			}
 		}
 
@@ -223,16 +223,16 @@ namespace Yburn.Fireball
 			public WoodsSaxonNucleus(
 				uint nucleonNumber,
 				uint protonNumber,
-				double nuclearRadiusFm,
-				double diffusenessFm
+				double nuclearRadius_fm,
+				double diffuseness_fm
 				) : base(
 					nucleonNumber: nucleonNumber,
 					protonNumber: protonNumber,
-					nuclearRadiusFm: nuclearRadiusFm,
-					normalizingConstantFm3: Functions.WoodsSaxonPotentialNormalizingConstant3D(nuclearRadiusFm, diffusenessFm)
+					nuclearRadius_fm: nuclearRadius_fm,
+					normalizingConstant_fm3: Functions.WoodsSaxonPotentialNormalizingConstant3D(nuclearRadius_fm, diffuseness_fm)
 					)
 			{
-				DiffusenessFm = diffusenessFm;
+				Diffuseness_fm = diffuseness_fm;
 
 				AssertValidDiffuseness();
 			}
@@ -241,7 +241,7 @@ namespace Yburn.Fireball
 			 * Public members, functions and properties
 			 ****************************************************************************************/
 
-			public readonly double DiffusenessFm;
+			public readonly double Diffuseness_fm;
 
 			/****************************************************************************************
 			 * Private/protected members, functions and properties
@@ -249,17 +249,17 @@ namespace Yburn.Fireball
 
 			protected void AssertValidDiffuseness()
 			{
-				if(DiffusenessFm <= 0)
+				if(Diffuseness_fm <= 0)
 				{
 					throw new Exception("Diffuseness <= 0.");
 				}
 			}
 
 			protected override double UnnormalizedDensity(
-				double radiusFm
+				double radius_fm
 				)
 			{
-				return Functions.WoodsSaxonPotentialUnnormalized(radiusFm, NuclearRadiusFm, DiffusenessFm);
+				return Functions.WoodsSaxonPotentialUnnormalized(radius_fm, NuclearRadius_fm, Diffuseness_fm);
 			}
 		}
 	}

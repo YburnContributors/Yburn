@@ -19,17 +19,17 @@ namespace Yburn.SingleQQ.UI
 			string[] potentialTypes,
 			string potentialType,
 			string alphaSoft,
-			string sigmaMeV,
+			string sigma_MeV,
 			string[] colorStates,
 			string colorState,
-			string temperatureMeV,
-			string debyeMassMeV,
+			string temperature_MeV,
+			string debyeMass_MeV,
 			string[] spinStates,
 			string spinState,
-			string spinCouplingRangeFm,
-			string spinCouplingStrengthMeV,
-			string minRadiusFm,
-			string maxRadiusFm,
+			string spinCouplingRange_fm,
+			string spinCouplingStrength_MeV,
+			string minRadius_fm,
+			string maxRadius_fm,
 			string samples,
 			string dataFileName
 			)
@@ -41,9 +41,9 @@ namespace Yburn.SingleQQ.UI
 			CancelButton = BtnLeave;
 
 			SetInputData(
-				title, potentialType, alphaSoft, sigmaMeV, colorState, temperatureMeV,
-				debyeMassMeV, spinState, spinCouplingRangeFm, spinCouplingStrengthMeV,
-				minRadiusFm, maxRadiusFm, samples, dataFileName);
+				title, potentialType, alphaSoft, sigma_MeV, colorState, temperature_MeV,
+				debyeMass_MeV, spinState, spinCouplingRange_fm, spinCouplingStrength_MeV,
+				minRadius_fm, maxRadius_fm, samples, dataFileName);
 		}
 
 		/********************************************************************************************
@@ -75,15 +75,15 @@ namespace Yburn.SingleQQ.UI
 			string title,
 			string potentialType,
 			string alphaSoft,
-			string sigmaMeV,
+			string sigma_MeV,
 			string colorState,
-			string temperatureMeV,
-			string debyeMassMeV,
+			string temperature_MeV,
+			string debyeMass_MeV,
 			string spinState,
-			string spinCouplingRangeFm,
-			string spinCouplingStrengthMeV,
-			string minRadiusFm,
-			string maxRadiusFm,
+			string spinCouplingRange_fm,
+			string spinCouplingStrength_MeV,
+			string minRadius_fm,
+			string maxRadius_fm,
 			string samples,
 			string dataFileName
 			)
@@ -93,16 +93,16 @@ namespace Yburn.SingleQQ.UI
 			TbxAlphaSoft.Text = alphaSoft;
 			CbxColorState.Text = colorState;
 			TbxDataFileName.Text = dataFileName;
-			TbxDebyeMass.Text = debyeMassMeV;
-			TbxMinRadius.Text = minRadiusFm;
-			TbxMaxRadius.Text = maxRadiusFm;
+			TbxDebyeMass.Text = debyeMass_MeV;
+			TbxMinRadius.Text = minRadius_fm;
+			TbxMaxRadius.Text = maxRadius_fm;
 			CbxPotentialType.Text = potentialType;
 			TbxSamples.Text = samples;
-			TbxSigma.Text = sigmaMeV;
+			TbxSigma.Text = sigma_MeV;
 			CbxSpinState.Text = spinState;
-			TbxSpinCouplingRange.Text = spinCouplingRangeFm;
-			TbxSpinCouplingStrength.Text = spinCouplingStrengthMeV;
-			TbxTemperature.Text = temperatureMeV;
+			TbxSpinCouplingRange.Text = spinCouplingRange_fm;
+			TbxSpinCouplingStrength.Text = spinCouplingStrength_MeV;
+			TbxTemperature.Text = temperature_MeV;
 		}
 
 		private void BtnPlot_Click(object sender, EventArgs e)

@@ -28,7 +28,7 @@ namespace Yburn.QQState
 
 			UseFixedAlpha = false;
 			QuantumNumberN = quantumNumberN;
-			RadiusFm = Solver.PositionValues;
+			Radius_fm = Solver.PositionValues;
 			WaveFunctionNorm = new double[Param.StepNumber + 1];
 
 			AssertInputValid();
@@ -52,19 +52,19 @@ namespace Yburn.QQState
 
 		public bool UseFixedAlpha;
 
-		public double BoundMassMeV
+		public double BoundMass_MeV
 		{
 			get
 			{
-				return 2 * Param.QuarkMassMeV + Param.EnergyMeV + PotentialFm.ValueAtInfinity;
+				return 2 * Param.QuarkMass_MeV + Param.Energy_MeV + Potential_fm.ValueAtInfinity;
 			}
 		}
 
-		public double UltraSoftScaleMeV
+		public double UltraSoftScale_MeV
 		{
 			get
 			{
-				return Constants.HbarCMeVFm * PotentialExpectationValueFm();
+				return Constants.HbarC_MeV_fm * PotentialExpectationValue_fm();
 			}
 		}
 
@@ -72,7 +72,7 @@ namespace Yburn.QQState
 		{
 			get
 			{
-				return AlphaS.Value(UltraSoftScaleMeV);
+				return AlphaS.Value(UltraSoftScale_MeV);
 			}
 		}
 
@@ -89,11 +89,11 @@ namespace Yburn.QQState
 			double expectationValue = 0;
 			for(int j = 1; j < Param.StepNumber; j++)
 			{
-				expectationValue += Math.Pow(RadiusFm[j], power) * WaveFunctionNorm[j];
+				expectationValue += Math.Pow(Radius_fm[j], power) * WaveFunctionNorm[j];
 			}
-			expectationValue += 0.5 * Math.Pow(RadiusFm[Param.StepNumber], power)
+			expectationValue += 0.5 * Math.Pow(Radius_fm[Param.StepNumber], power)
 				* WaveFunctionNorm[Param.StepNumber];
-			expectationValue *= StepSizeFm;
+			expectationValue *= StepSize_fm;
 
 			return expectationValue;
 		}
@@ -113,7 +113,7 @@ namespace Yburn.QQState
 		}
 
 		public double SearchQuarkMass(
-			double desiredBoundMassMeV
+			double desiredBoundMass_MeV
 			)
 		{
 			PrepareShooting();
@@ -122,9 +122,9 @@ namespace Yburn.QQState
 				&& !CalculationCancelToken.IsCancellationRequested)
 			{
 				PerformShooting();
-				UpdateQuarkMass(desiredBoundMassMeV);
+				UpdateQuarkMass(desiredBoundMass_MeV);
 
-				if(Math.Abs(desiredBoundMassMeV - BoundMassMeV) < 1e-6)
+				if(Math.Abs(desiredBoundMass_MeV - BoundMass_MeV) < 1e-6)
 				{
 					break;
 				}
@@ -135,7 +135,7 @@ namespace Yburn.QQState
 				throw new Exception("QuarkMass could not be adjusted.");
 			}
 
-			return Param.QuarkMassMeV;
+			return Param.QuarkMass_MeV;
 		}
 
 		/********************************************************************************************
@@ -178,7 +178,7 @@ namespace Yburn.QQState
 		{
 			get
 			{
-				return ComplexMath.Abs(WaveFunctionFm[0]);
+				return ComplexMath.Abs(WaveFunction_fm[0]);
 			}
 		}
 
@@ -198,7 +198,7 @@ namespace Yburn.QQState
 		protected void InitSolver()
 		{
 			Solver = new RseSolver();
-			Solver.InitialPosition = Param.MaxRadiusFm;
+			Solver.InitialPosition = Param.MaxRadius_fm;
 			Solver.FinalPosition = 0;
 			Solver.Samples = Param.StepNumber;
 			Solver.RightHandSide = EffectivePotentialMinusEigenvalue;
@@ -221,28 +221,28 @@ namespace Yburn.QQState
 		}
 
 		private void UpdateQuarkMass(
-			double desiredBoundMassMeV
+			double desiredBoundMass_MeV
 			)
 		{
-			Param.QuarkMassMeV = 0.5 * (desiredBoundMassMeV - Param.EnergyMeV);
+			Param.QuarkMass_MeV = 0.5 * (desiredBoundMass_MeV - Param.Energy_MeV);
 		}
 
-		private double CalculateSoftScaleMeV()
+		private double CalculateSoftScale_MeV()
 		{
-			return Constants.HbarCMeVFm * RadiusExpectationValue(-1);
+			return Constants.HbarC_MeV_fm * RadiusExpectationValue(-1);
 		}
 
-		private double PotentialExpectationValueFm()
+		private double PotentialExpectationValue_fm()
 		{
 			Complex expectationValue = 0;
 			for(int j = 1; j < Param.StepNumber; j++)
 			{
-				expectationValue += WaveFunctionNorm[j] * PotentialFm.Value(RadiusFm[j]);
+				expectationValue += WaveFunctionNorm[j] * Potential_fm.Value(Radius_fm[j]);
 			}
 			expectationValue += 0.5 * WaveFunctionNorm[Param.StepNumber]
-				* PotentialFm.Value(RadiusFm[Param.StepNumber]);
+				* Potential_fm.Value(Radius_fm[Param.StepNumber]);
 
-			return StepSizeFm * ComplexMath.Abs(expectationValue);
+			return StepSize_fm * ComplexMath.Abs(expectationValue);
 		}
 
 		private void CalculateWaveFunctionUpdateStatus()
@@ -264,14 +264,14 @@ namespace Yburn.QQState
 		private void SolveSchroedingerEquation()
 		{
 			Solver.Solve();
-			WaveFunctionFm = Solver.SolutionValues;
+			WaveFunction_fm = Solver.SolutionValues;
 		}
 
 		private void CalculateWaveFunctionNorm()
 		{
 			for(int j = 0; j <= Param.StepNumber; j++)
 			{
-				WaveFunctionNorm[j] = Norm(WaveFunctionFm[j]);
+				WaveFunctionNorm[j] = Norm(WaveFunction_fm[j]);
 			}
 		}
 
@@ -294,11 +294,11 @@ namespace Yburn.QQState
 			if(StatusValues != null)
 			{
 				StatusValues[0] = Trials.ToString();
-				StatusValues[1] = BoundMassMeV.ToString("G12");
-				StatusValues[2] = Param.SoftScaleMeV.ToString("G12");
-				StatusValues[3] = Param.EnergyMeV.ToString("G12");
-				StatusValues[4] = Param.GammaDampMeV.ToString("G12");
-				StatusValues[5] = ComplexMath.Abs(WaveFunctionFm[0])
+				StatusValues[1] = BoundMass_MeV.ToString("G12");
+				StatusValues[2] = Param.SoftScale_MeV.ToString("G12");
+				StatusValues[3] = Param.Energy_MeV.ToString("G12");
+				StatusValues[4] = Param.GammaDamp_MeV.ToString("G12");
+				StatusValues[5] = ComplexMath.Abs(WaveFunction_fm[0])
 					.ToString("G4");
 				StatusValues[6] = NumberExtrema.ToString();
 			}
@@ -312,12 +312,12 @@ namespace Yburn.QQState
 				integral += WaveFunctionNorm[j];
 			}
 			integral += .5 * (WaveFunctionNorm[0] + WaveFunctionNorm[Param.StepNumber]);
-			integral *= StepSizeFm;
+			integral *= StepSize_fm;
 
 			double sqrtIntegral = Math.Sqrt(integral);
 			for(int j = 0; j <= Param.StepNumber; j++)
 			{
-				WaveFunctionFm[j] /= sqrtIntegral;
+				WaveFunction_fm[j] /= sqrtIntegral;
 				WaveFunctionNorm[j] /= integral;
 			}
 		}
@@ -339,11 +339,11 @@ namespace Yburn.QQState
 			{
 				if(NumberExtrema > desiredNumberExtrema)
 				{
-					Param.EnergyMeV--;
+					Param.Energy_MeV--;
 				}
 				else if(NumberExtrema < desiredNumberExtrema)
 				{
-					Param.EnergyMeV++;
+					Param.Energy_MeV++;
 				}
 
 				CalculateWaveFunctionUpdateStatus();
@@ -366,9 +366,9 @@ namespace Yburn.QQState
 			Trials = 0;
 			AchievedAccuracyAlpha = 1;
 
-			if(PotentialFm.IsReal)
+			if(Potential_fm.IsReal)
 			{
-				Param.GammaDampMeV = 0;
+				Param.GammaDamp_MeV = 0;
 			}
 		}
 
@@ -378,8 +378,8 @@ namespace Yburn.QQState
 
 		private void PerformShooting()
 		{
-			PreviousSoftScale = Param.SoftScaleMeV;
-			CurrentSoftScale = Param.SoftScaleMeV;
+			PreviousSoftScale = Param.SoftScale_MeV;
+			CurrentSoftScale = Param.SoftScale_MeV;
 
 			while(Trials < Param.MaxShootingTrials
 				&& !CalculationCancelToken.IsCancellationRequested)
@@ -408,7 +408,7 @@ namespace Yburn.QQState
 		{
 			PreviousSoftScale = CurrentSoftScale;
 			CurrentSoftScale = GetNextSoftScale();
-			Param.SoftScaleMeV = CurrentSoftScale;
+			Param.SoftScale_MeV = CurrentSoftScale;
 		}
 
 		private double GetNextSoftScale()
@@ -416,7 +416,7 @@ namespace Yburn.QQState
 			double upperScale = Math.Max(PreviousSoftScale, CurrentSoftScale);
 			double lowerScale = Math.Min(PreviousSoftScale, CurrentSoftScale);
 			double newScale
-				= Param.AggressivenessAlpha * CalculateSoftScaleMeV()
+				= Param.AggressivenessAlpha * CalculateSoftScale_MeV()
 				+ (1.0 - Param.AggressivenessAlpha) * CurrentSoftScale;
 
 			if((newScale < lowerScale && lowerScale == CurrentSoftScale) ||
@@ -454,7 +454,7 @@ namespace Yburn.QQState
 
 		private void UpdatePotential()
 		{
-			PotentialFm.UpdateAlpha(AlphaSoft);
+			Potential_fm.UpdateAlpha(AlphaSoft);
 		}
 
 		private RseShootingSolver ShootingSolver;
@@ -482,7 +482,7 @@ namespace Yburn.QQState
 			};
 			ShootingSolver.SolutionAccuracyMeasure = () =>
 			{
-				return ComplexMath.Abs(WaveFunctionFm[0]);
+				return ComplexMath.Abs(WaveFunction_fm[0]);
 			};
 			ShootingSolver.ActionAfterIteration = () =>
 			{
@@ -496,7 +496,7 @@ namespace Yburn.QQState
 
 		private void UpdateWaveFunction()
 		{
-			WaveFunctionFm = Solver.SolutionValues;
+			WaveFunction_fm = Solver.SolutionValues;
 
 			CalculateWaveFunctionNorm();
 			NormalizeWaveFunction();
@@ -505,16 +505,16 @@ namespace Yburn.QQState
 
 		private Complex GetEigenvalue()
 		{
-			return (new Complex(Param.EnergyMeV, -0.5 * Param.GammaDampMeV))
-				* Param.QuarkMassMeV / Constants.HbarCMeVFm / Constants.HbarCMeVFm;
+			return (new Complex(Param.Energy_MeV, -0.5 * Param.GammaDamp_MeV))
+				* Param.QuarkMass_MeV / Constants.HbarC_MeV_fm / Constants.HbarC_MeV_fm;
 		}
 
 		private void UpdateEigenvalue()
 		{
-			Param.EnergyMeV = ShootingSolver.Eigenvalue.Re
-				* Constants.HbarCMeVFm * Constants.HbarCMeVFm / Param.QuarkMassMeV;
-			Param.GammaDampMeV = -2 * ShootingSolver.Eigenvalue.Im
-				* Constants.HbarCMeVFm * Constants.HbarCMeVFm / Param.QuarkMassMeV;
+			Param.Energy_MeV = ShootingSolver.Eigenvalue.Re
+				* Constants.HbarC_MeV_fm * Constants.HbarC_MeV_fm / Param.QuarkMass_MeV;
+			Param.GammaDamp_MeV = -2 * ShootingSolver.Eigenvalue.Im
+				* Constants.HbarC_MeV_fm * Constants.HbarC_MeV_fm / Param.QuarkMass_MeV;
 		}
 	}
 }

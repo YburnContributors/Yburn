@@ -34,12 +34,12 @@ namespace Yburn.QQState
 
 		public Potential(
 			double alphaSoft,
-			double sigmaMeV,
+			double sigma_MeV,
 			ColorState colorState
 			)
 		{
 			AlphaSoft = alphaSoft;
-			SigmaFm = sigmaMeV / Constants.HbarCMeVFm / Constants.HbarCMeVFm;
+			Sigma_fm = sigma_MeV / Constants.HbarC_MeV_fm / Constants.HbarC_MeV_fm;
 			ColorState = colorState;
 
 			AssertValidMembers();
@@ -61,7 +61,7 @@ namespace Yburn.QQState
 		}
 
 		public abstract Complex Value(
-			double radiusFm
+			double radius_fm
 			);
 
 		public double AlphaEff
@@ -70,11 +70,11 @@ namespace Yburn.QQState
 			private set;
 		}
 
-		public double SigmaEffMeV
+		public double SigmaEff_MeV
 		{
 			get
 			{
-				return SigmaEffFm * Constants.HbarCMeVFm * Constants.HbarCMeVFm;
+				return SigmaEff_fm * Constants.HbarC_MeV_fm * Constants.HbarC_MeV_fm;
 			}
 		}
 
@@ -101,15 +101,15 @@ namespace Yburn.QQState
 
 		protected double AlphaSoft;
 
-		private double SigmaFm;
+		private double Sigma_fm;
 
-		protected double SigmaEffFm;
+		protected double SigmaEff_fm;
 
 		protected ColorState ColorState;
 
 		private void AssertValidMembers()
 		{
-			if(SigmaFm < 0)
+			if(Sigma_fm < 0)
 			{
 				throw new Exception("Sigma < 0.");
 			}
@@ -120,12 +120,12 @@ namespace Yburn.QQState
 			if(ColorState == ColorState.Singlet)
 			{
 				AlphaEff = Constants.QuadraticCasimir_Fundamental * AlphaSoft;
-				SigmaEffFm = SigmaFm;
+				SigmaEff_fm = Sigma_fm;
 			}
 			else if(ColorState == ColorState.Octet)
 			{
 				AlphaEff = (Constants.QuadraticCasimir_Fundamental - 0.5 * Constants.QuadraticCasimir_Adjoint) * AlphaSoft;
-				SigmaEffFm = Constants.QuadraticCasimir_Adjoint / Constants.QuadraticCasimir_Fundamental * SigmaFm;
+				SigmaEff_fm = Constants.QuadraticCasimir_Adjoint / Constants.QuadraticCasimir_Fundamental * Sigma_fm;
 			}
 		}
 	}
@@ -138,15 +138,15 @@ namespace Yburn.QQState
 
 		public FiniteTemperaturePotential(
 			double alphaSoft,
-			double sigmaMeV,
+			double sigma_MeV,
 			ColorState colorState,
-			double temperatureMeV,
-			double debyeMassMeV
+			double temperature_MeV,
+			double debyeMass_MeV
 			)
-			: base(alphaSoft, sigmaMeV, colorState)
+			: base(alphaSoft, sigma_MeV, colorState)
 		{
-			TemperatureMeV = temperatureMeV;
-			DebyeMassMeV = debyeMassMeV;
+			Temperature_MeV = temperature_MeV;
+			DebyeMass_MeV = debyeMass_MeV;
 
 			SetHelperVariables();
 		}
@@ -159,20 +159,20 @@ namespace Yburn.QQState
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		protected double TemperatureMeV;
+		protected double Temperature_MeV;
 
-		protected double DebyeMassMeV;
+		protected double DebyeMass_MeV;
 
-		protected double AlphaOverDebyeMassFm;
+		protected double AlphaOverDebyeMass_fm;
 
-		protected double SigmaOverDebyeMassFm;
+		protected double SigmaOverDebyeMass_fm;
 
 		protected override void SetHelperVariables()
 		{
 			base.SetHelperVariables();
 
-			AlphaOverDebyeMassFm = AlphaEff * TemperatureMeV / Constants.HbarCMeVFm;
-			SigmaOverDebyeMassFm = SigmaEffFm / DebyeMassMeV * Constants.HbarCMeVFm;
+			AlphaOverDebyeMass_fm = AlphaEff * Temperature_MeV / Constants.HbarC_MeV_fm;
+			SigmaOverDebyeMass_fm = SigmaEff_fm / DebyeMass_MeV * Constants.HbarC_MeV_fm;
 		}
 	}
 
@@ -184,12 +184,12 @@ namespace Yburn.QQState
 
 		public ComplexPotential(
 			double alphaSoft,
-			double sigmaMeV,
+			double sigma_MeV,
 			ColorState colorState,
-			double temperatureMeV,
-			double debyeMassMeV
+			double temperature_MeV,
+			double debyeMass_MeV
 			)
-			: base(alphaSoft, sigmaMeV, colorState, temperatureMeV, debyeMassMeV)
+			: base(alphaSoft, sigma_MeV, colorState, temperature_MeV, debyeMass_MeV)
 		{
 		}
 
@@ -209,7 +209,7 @@ namespace Yburn.QQState
 		{
 			get
 			{
-				return SigmaEffMeV / DebyeMassMeV - AlphaEff * DebyeMassMeV;
+				return SigmaEff_MeV / DebyeMass_MeV - AlphaEff * DebyeMass_MeV;
 			}
 		}
 
@@ -222,26 +222,26 @@ namespace Yburn.QQState
 		}
 
 		public override Complex Value(
-			double radiusFm
+			double radius_fm
 			)
 		{
-			double X = DebyeMassMeV * radiusFm / Constants.HbarCMeVFm;
-			if(radiusFm == 0)
+			double X = DebyeMass_MeV * radius_fm / Constants.HbarC_MeV_fm;
+			if(radius_fm == 0)
 			{
 				return new Complex(0, 0);
 			}
 			else if(X <= 10)
 			{
-				return new Complex(-(AlphaEff / radiusFm + SigmaOverDebyeMassFm) * Math.Exp(-X),
-					-AlphaOverDebyeMassFm
+				return new Complex(-(AlphaEff / radius_fm + SigmaOverDebyeMass_fm) * Math.Exp(-X),
+					-AlphaOverDebyeMass_fm
 					* (1.0 - 0.5 * (AdvancedMath.IntegralEi(X) * Math.Exp(-X) * (1.0 / X + 1.0)
 					+ AdvancedMath.IntegralE(1, X) * Math.Exp(X) * (1.0 / X - 1.0))));
 			}
 			else
 			{
 				double X2 = X * X;
-				return new Complex(-(AlphaEff / radiusFm + SigmaOverDebyeMassFm) * Math.Exp(-X),
-					-AlphaOverDebyeMassFm
+				return new Complex(-(AlphaEff / radius_fm + SigmaOverDebyeMass_fm) * Math.Exp(-X),
+					-AlphaOverDebyeMass_fm
 					* (1.0 - (((40.0 / X2 + 1.0) * 18.0 / X2 + 1.0) * 4.0 / X2 + 1.0) * 2.0 / X2));
 			}
 		}
@@ -256,10 +256,10 @@ namespace Yburn.QQState
 		public ComplexPotential_NoString(
 			double alphaSoft,
 			ColorState colorState,
-			double temperatureMeV,
-			double debyeMassMeV
+			double temperature_MeV,
+			double debyeMass_MeV
 			)
-			: base(alphaSoft, 0, colorState, temperatureMeV, debyeMassMeV)
+			: base(alphaSoft, 0, colorState, temperature_MeV, debyeMass_MeV)
 		{
 		}
 
@@ -284,12 +284,12 @@ namespace Yburn.QQState
 
 		public LowTemperaturePotential(
 			double alphaSoft,
-			double sigmaMeV,
+			double sigma_MeV,
 			ColorState colorState,
-			double temperatureMeV,
-			double debyeMassMeV
+			double temperature_MeV,
+			double debyeMass_MeV
 			)
-			: base(alphaSoft, sigmaMeV, colorState, temperatureMeV, debyeMassMeV)
+			: base(alphaSoft, sigma_MeV, colorState, temperature_MeV, debyeMass_MeV)
 		{
 		}
 
@@ -322,22 +322,22 @@ namespace Yburn.QQState
 		}
 
 		public override Complex Value(
-				double radiusFm
+				double radius_fm
 				)
 		{
 			double PI = Math.PI;
-			double xt = TwoPiTemperatureFm * radiusFm;
+			double xt = TwoPiTemperature_fm * radius_fm;
 			double xt2 = xt * xt;
-			double xm = DebyeMassFm * radiusFm;
+			double xm = DebyeMass_fm * radius_fm;
 			double xm2 = xm * xm;
 			return new Complex(
-				-SigmaOverDebyeMassFm * Math.Exp(-xm)
-				- AlphaEff / radiusFm * (1.0 - Constants.NumberQCDColors * AlphaSoft * xt2 / 36.0 / PI
+				-SigmaOverDebyeMass_fm * Math.Exp(-xm)
+				- AlphaEff / radius_fm * (1.0 - Constants.NumberQCDColors * AlphaSoft * xt2 / 36.0 / PI
 				+ 3 * Constants.RiemannZetaFunctionAt3 / 4.0 / PI / PI * xt * xm2
 				- Constants.RiemannZetaFunctionAt3 * Constants.NumberQCDColors * AlphaSoft * xt * xt2 / 12.0 / PI / PI / PI
 				- xm * xm2 / 6.0),
-				-AlphaOverDebyeMassFm * (Constants.NumberQCDColors * Constants.NumberQCDColors * AlphaSoft * AlphaSoft / 6.0
-				+ xm2 / 6.0 * (2 * Math.Log(TemperatureMeV / DebyeMassMeV) + 1
+				-AlphaOverDebyeMass_fm * (Constants.NumberQCDColors * Constants.NumberQCDColors * AlphaSoft * AlphaSoft / 6.0
+				+ xm2 / 6.0 * (2 * Math.Log(Temperature_MeV / DebyeMass_MeV) + 1
 				+ 4 * Math.Log(2) + 2 * Constants.RiemannZetaFunctionDerivativeAt2 / Constants.RiemannZetaFunctionAt2 - 2 * Constants.EulerMascheroniConstant)
 				- Math.Log(2) * Constants.NumberQCDColors * AlphaSoft / 9.0 / PI * xt2));
 		}
@@ -346,23 +346,23 @@ namespace Yburn.QQState
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		protected double TwoPiTemperatureFm;
+		protected double TwoPiTemperature_fm;
 
-		protected double TwoPiTemperatureFm2;
+		protected double TwoPiTemperature_fm2;
 
-		protected double DebyeMassFm;
+		protected double DebyeMass_fm;
 
-		protected double DebyeMassFm2;
+		protected double DebyeMass_fm2;
 
 		protected override void SetHelperVariables()
 		{
 			base.SetHelperVariables();
 
-			TwoPiTemperatureFm = 2 * Math.PI * TemperatureMeV / Constants.HbarCMeVFm;
-			TwoPiTemperatureFm2 = TwoPiTemperatureFm * TwoPiTemperatureFm;
+			TwoPiTemperature_fm = 2 * Math.PI * Temperature_MeV / Constants.HbarC_MeV_fm;
+			TwoPiTemperature_fm2 = TwoPiTemperature_fm * TwoPiTemperature_fm;
 
-			DebyeMassFm = DebyeMassMeV / Constants.HbarCMeVFm;
-			DebyeMassFm2 = DebyeMassFm * DebyeMassFm;
+			DebyeMass_fm = DebyeMass_MeV / Constants.HbarC_MeV_fm;
+			DebyeMass_fm2 = DebyeMass_fm * DebyeMass_fm;
 		}
 	}
 
@@ -375,10 +375,10 @@ namespace Yburn.QQState
 		public LowTemperaturePotential_NoString(
 			double alphaSoft,
 			ColorState colorState,
-			double temperatureMeV,
-			double debyeMassMeV
+			double temperature_MeV,
+			double debyeMass_MeV
 			)
-			: base(alphaSoft, 0, colorState, temperatureMeV, debyeMassMeV)
+			: base(alphaSoft, 0, colorState, temperature_MeV, debyeMass_MeV)
 		{
 		}
 
@@ -403,11 +403,11 @@ namespace Yburn.QQState
 
 		public RealPotential(
 			double alphaSoft,
-			double sigmaMeV,
+			double sigma_MeV,
 			ColorState colorState,
-			double debyeMassMeV
+			double debyeMass_MeV
 			)
-			: base(alphaSoft, sigmaMeV, colorState, 0, debyeMassMeV)
+			: base(alphaSoft, sigma_MeV, colorState, 0, debyeMass_MeV)
 		{
 		}
 
@@ -427,7 +427,7 @@ namespace Yburn.QQState
 		{
 			get
 			{
-				return SigmaEffMeV / DebyeMassMeV - AlphaEff * DebyeMassMeV;
+				return SigmaEff_MeV / DebyeMass_MeV - AlphaEff * DebyeMass_MeV;
 			}
 		}
 
@@ -440,11 +440,11 @@ namespace Yburn.QQState
 		}
 
 		public override Complex Value(
-			double radiusFm
+			double radius_fm
 			)
 		{
-			return new Complex(-(AlphaEff / radiusFm + SigmaOverDebyeMassFm)
-				* Math.Exp(-DebyeMassMeV * radiusFm / Constants.HbarCMeVFm), 0);
+			return new Complex(-(AlphaEff / radius_fm + SigmaOverDebyeMass_fm)
+				* Math.Exp(-DebyeMass_MeV * radius_fm / Constants.HbarC_MeV_fm), 0);
 		}
 	}
 
@@ -457,9 +457,9 @@ namespace Yburn.QQState
 		public RealPotential_NoString(
 			double alphaSoft,
 			ColorState colorState,
-			double debyeMassMeV
+			double debyeMass_MeV
 			)
-			: base(alphaSoft, 0, colorState, debyeMassMeV)
+			: base(alphaSoft, 0, colorState, debyeMass_MeV)
 		{
 		}
 
@@ -484,10 +484,10 @@ namespace Yburn.QQState
 
 		public VacuumPotential(
 			double alphaSoft,
-			double sigmaMeV,
+			double sigma_MeV,
 			ColorState colorState
 			)
-			: base(alphaSoft, sigmaMeV, colorState)
+			: base(alphaSoft, sigma_MeV, colorState)
 		{
 		}
 
@@ -520,10 +520,10 @@ namespace Yburn.QQState
 		}
 
 		public override Complex Value(
-			double radiusFm
+			double radius_fm
 			)
 		{
-			return new Complex(-AlphaEff / radiusFm + SigmaEffFm * radiusFm, 0);
+			return new Complex(-AlphaEff / radius_fm + SigmaEff_fm * radius_fm, 0);
 		}
 	}
 
@@ -554,10 +554,10 @@ namespace Yburn.QQState
 		}
 
 		public override Complex Value(
-			double radiusFm
+			double radius_fm
 			)
 		{
-			return new Complex(-AlphaEff / radiusFm, 0);
+			return new Complex(-AlphaEff / radius_fm, 0);
 		}
 	}
 
@@ -573,17 +573,17 @@ namespace Yburn.QQState
 
 		public SpinDependentPotential(
 			double alphaSoft,
-			double sigmaMeV,
+			double sigma_MeV,
 			ColorState colorState,
 			SpinState spinState,
-			double spinCouplingRangeFm,
-			double spinCouplingStrengthMeV
+			double spinCouplingRange_fm,
+			double spinCouplingStrength_MeV
 			)
-			: base(alphaSoft, sigmaMeV, colorState)
+			: base(alphaSoft, sigma_MeV, colorState)
 		{
 			SpinState = spinState;
-			SpinCouplingRange = spinCouplingRangeFm;
-			SpinCouplingStrength = spinCouplingStrengthMeV;
+			SpinCouplingRange = spinCouplingRange_fm;
+			SpinCouplingStrength = spinCouplingStrength_MeV;
 
 			AssertValidMembers();
 			SetHelperVariables();
@@ -602,11 +602,11 @@ namespace Yburn.QQState
 		}
 
 		public override Complex Value(
-			double radiusFm
+			double radius_fm
 			)
 		{
-			return new Complex(-AlphaEff / radiusFm + SigmaEffFm * radiusFm
-				+ SpinFactor * Math.Exp(-radiusFm / SpinCouplingRange), 0);
+			return new Complex(-AlphaEff / radius_fm + SigmaEff_fm * radius_fm
+				+ SpinFactor * Math.Exp(-radius_fm / SpinCouplingRange), 0);
 		}
 
 		/********************************************************************************************

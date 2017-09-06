@@ -136,8 +136,8 @@ namespace Yburn.Workers
 		 ********************************************************************************************/
 
 		private static readonly double EMFNormalization = Constants.ElementaryCharge
-			* (Constants.HbarCMeVFm / Constants.RestMassPionMeV)
-			* (Constants.HbarCMeVFm / Constants.RestMassPionMeV);
+			* (Constants.HbarC_MeV_fm / Constants.RestMassPion_MeV)
+			* (Constants.HbarC_MeV_fm / Constants.RestMassPion_MeV);
 
 		private static readonly double FixedTime = 0.5;
 
@@ -147,15 +147,15 @@ namespace Yburn.Workers
 
 		private void AssertInputValid_PlotPointChargeField()
 		{
-			if(RadialDistance < 0)
+			if(RadialDistance_fm < 0)
 			{
 				throw new Exception("RadialDistance < 0.");
 			}
-			if(StartTime < 0)
+			if(StartTime_fm < 0)
 			{
 				throw new Exception("StartTime < 0.");
 			}
-			if(StopTime <= StartTime)
+			if(StopTime_fm <= StartTime_fm)
 			{
 				throw new Exception("StopTime <= StartTime.");
 			}
@@ -188,7 +188,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title '" + fieldName + " of a point charge"
 				+ " with rapidity y = " + ParticleRapidity.ToString("G6")
-				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6") + " fm'");
+				+ " at radial distance {/Symbol r} = " + RadialDistance_fm.ToString("G6") + " fm'");
 			plotFile.AppendLine("set xlabel 't - z/v (fm/c)'");
 			plotFile.AppendLine("set ylabel 'e" + fieldSymbol + "/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
@@ -246,16 +246,16 @@ namespace Yburn.Workers
 			List<List<double>> dataList = new List<List<double>>();
 
 			List<double> effectiveTimeValues = GetLogarithmicAbscissaList(
-				StartTime, StopTime, Samples);
+				StartTime_fm, StopTime_fm, Samples);
 			dataList.Add(effectiveTimeValues);
 
 			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
 			{
 				PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
-					method, QGPConductivity, ParticleRapidity);
+					method, QGPConductivity_MeV, ParticleRapidity);
 
 				PlotFunction fieldValue = time => EMFNormalization
-					* emf.CalculateElectromagneticField(time, RadialDistance, component);
+					* emf.CalculateElectromagneticField(time, RadialDistance_fm, component);
 
 				AddPlotFunctionLists(dataList, effectiveTimeValues, fieldValue);
 			}
@@ -275,7 +275,7 @@ namespace Yburn.Workers
 			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
 			{
 				PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
-					method, QGPConductivity, ParticleRapidity);
+					method, QGPConductivity_MeV, ParticleRapidity);
 
 				PlotFunction fieldValue = radius => EMFNormalization
 					* emf.CalculateElectromagneticField(FixedTime, radius, component);
@@ -348,7 +348,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'Field components of a point charge and nucleus"
 				+ " with rapidity y = " + ParticleRapidity.ToString("G6")
-				+ " at radial distance {/Symbol r} = " + RadialDistance.ToString("G6") + " fm'");
+				+ " at radial distance {/Symbol r} = " + RadialDistance_fm.ToString("G6") + " fm'");
 			plotFile.AppendLine("set key maxrows 3");
 			plotFile.AppendLine("set xlabel 't - z/v (fm/c)'");
 			plotFile.AppendLine("set ylabel 'eE/m_{/Symbol p}^2, eB/m_{/Symbol p}^2'");
@@ -405,23 +405,23 @@ namespace Yburn.Workers
 			List<List<double>> dataList = new List<List<double>>();
 
 			List<double> effectiveTimeValues = GetLogarithmicAbscissaList(
-				StartTime, StopTime, Samples);
+				StartTime_fm, StopTime_fm, Samples);
 			dataList.Add(effectiveTimeValues);
 
 			Nucleus.CreateNucleusPair(CreateFireballParam(), out Nucleus nucleusA, out Nucleus nucleusB);
 
 			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
-				EMFCalculationMethod, QGPConductivity, ParticleRapidity);
+				EMFCalculationMethod, QGPConductivity_MeV, ParticleRapidity);
 			NucleusElectromagneticField nucEMF = new NucleusElectromagneticField(
-				EMFCalculationMethod, QGPConductivity, ParticleRapidity, nucleusA, EMFQuadratureOrder);
+				EMFCalculationMethod, QGPConductivity_MeV, ParticleRapidity, nucleusA, EMFQuadratureOrder);
 
 			PlotFunction[] plotFunctions = {
-				t => EMFNormalization * pcEMF.CalculateElectromagneticField(t, RadialDistance, EMFComponent.AzimuthalMagneticComponent),
-				t => EMFNormalization * pcEMF.CalculateElectromagneticField(t, RadialDistance, EMFComponent.LongitudinalElectricComponent),
-				t => EMFNormalization * pcEMF.CalculateElectromagneticField(t, RadialDistance, EMFComponent.RadialElectricComponent),
-				t => EMFNormalization * nucEMF.CalculateAzimuthalMagneticField(t, RadialDistance),
-				t => EMFNormalization * nucEMF.CalculateLongitudinalElectricField(t, RadialDistance),
-				t => EMFNormalization * nucEMF.CalculateRadialElectricField(t, RadialDistance)
+				t => EMFNormalization * pcEMF.CalculateElectromagneticField(t, RadialDistance_fm, EMFComponent.AzimuthalMagneticComponent),
+				t => EMFNormalization * pcEMF.CalculateElectromagneticField(t, RadialDistance_fm, EMFComponent.LongitudinalElectricComponent),
+				t => EMFNormalization * pcEMF.CalculateElectromagneticField(t, RadialDistance_fm, EMFComponent.RadialElectricComponent),
+				t => EMFNormalization * nucEMF.CalculateAzimuthalMagneticField(t, RadialDistance_fm),
+				t => EMFNormalization * nucEMF.CalculateLongitudinalElectricField(t, RadialDistance_fm),
+				t => EMFNormalization * nucEMF.CalculateRadialElectricField(t, RadialDistance_fm)
 			};
 
 			foreach(PlotFunction function in plotFunctions)
@@ -442,9 +442,9 @@ namespace Yburn.Workers
 			Nucleus.CreateNucleusPair(CreateFireballParam(), out Nucleus nucleusA, out Nucleus nucleusB);
 
 			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
-				EMFCalculationMethod, QGPConductivity, ParticleRapidity);
+				EMFCalculationMethod, QGPConductivity_MeV, ParticleRapidity);
 			NucleusElectromagneticField nucEMF = new NucleusElectromagneticField(
-				EMFCalculationMethod, QGPConductivity, ParticleRapidity, nucleusA, EMFQuadratureOrder);
+				EMFCalculationMethod, QGPConductivity_MeV, ParticleRapidity, nucleusA, EMFQuadratureOrder);
 
 			PlotFunction[] plotFunctions = {
 				r => EMFNormalization * pcEMF.CalculateElectromagneticField(FixedTime, r, EMFComponent.AzimuthalMagneticComponent),
@@ -505,12 +505,12 @@ namespace Yburn.Workers
 
 				NucleusElectromagneticField emf = new NucleusElectromagneticField(
 					param.EMFCalculationMethod,
-					param.QGPConductivityMeV,
+					param.QGPConductivity_MeV,
 					ParticleRapidity,
 					nucleusA,
 					EMFQuadratureOrder);
 
-				return EMFNormalization * emf.CalculateElectricFieldPerFm2_LCF(
+				return EMFNormalization * emf.CalculateElectricFieldInLCF_per_fm2(
 					FixedTime, radialDistance, 0, rapidity).Norm;
 			};
 
@@ -534,12 +534,12 @@ namespace Yburn.Workers
 
 				NucleusElectromagneticField emf = new NucleusElectromagneticField(
 					param.EMFCalculationMethod,
-					param.QGPConductivityMeV,
+					param.QGPConductivity_MeV,
 					ParticleRapidity,
 					nucleusA,
 					EMFQuadratureOrder);
 
-				return EMFNormalization * emf.CalculateMagneticFieldPerFm2_LCF(
+				return EMFNormalization * emf.CalculateMagneticFieldInLCF_per_fm2(
 					FixedTime, radialDistance, 0, rapidity).Norm;
 			};
 
@@ -555,7 +555,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set terminal windows enhanced size 750,500 0");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'Collisional electric field strength at (0,R,0)"
-				+ " for impact parameter b = " + ImpactParameterFm + " fm'");
+				+ " for impact parameter b = " + ImpactParameter_fm + " fm'");
 			plotFile.AppendLine("set xlabel 't (fm/c)'");
 			plotFile.AppendLine("set ylabel 'e|E|/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
@@ -574,7 +574,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set terminal windows enhanced size 750,500 1");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'Collisional magnetic field strength at (0,0,0)"
-				+ " for impact parameter b = " + ImpactParameterFm + " fm'");
+				+ " for impact parameter b = " + ImpactParameter_fm + " fm'");
 			plotFile.AppendLine("set ylabel 'e|B|/m_{/Symbol p}^2'");
 			plotFile.AppendLine();
 
@@ -591,13 +591,13 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> timeValues = GetLogarithmicAbscissaList(StartTime, StopTime, Samples);
+			List<double> timeValues = GetLogarithmicAbscissaList(StartTime_fm, StopTime_fm, Samples);
 			dataList.Add(timeValues);
 
 			FireballParam param = CreateFireballParam();
 
 			double x = 0;
-			double y = 0.5 * (NuclearRadiusAFm + NuclearRadiusBFm);
+			double y = 0.5 * (NuclearRadiusA_fm + NuclearRadiusB_fm);
 			double z = 0;
 
 			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
@@ -608,7 +608,7 @@ namespace Yburn.Workers
 					= new CollisionalElectromagneticField(param);
 
 				PlotFunction fieldValue = time => EMFNormalization
-					* emf.CalculateElectricFieldPerFm2(time, x, y, z).Norm;
+					* emf.CalculateElectricField_per_fm2(time, x, y, z).Norm;
 
 				AddPlotFunctionLists(dataList, timeValues, fieldValue);
 			}
@@ -620,7 +620,7 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> timeValues = GetLogarithmicAbscissaList(StartTime, StopTime, Samples);
+			List<double> timeValues = GetLogarithmicAbscissaList(StartTime_fm, StopTime_fm, Samples);
 			dataList.Add(timeValues);
 
 			FireballParam param = CreateFireballParam();
@@ -637,7 +637,7 @@ namespace Yburn.Workers
 					= new CollisionalElectromagneticField(param);
 
 				PlotFunction fieldValue = time => EMFNormalization
-					* emf.CalculateMagneticFieldPerFm2(time, x, y, z).Norm;
+					* emf.CalculateMagneticField_per_fm2(time, x, y, z).Norm;
 
 				AddPlotFunctionLists(dataList, timeValues, fieldValue);
 			}
@@ -694,7 +694,7 @@ namespace Yburn.Workers
 			FireballParam param = CreateFireballParam();
 
 			double x = 0;
-			double y = 0.5 * (NuclearRadiusAFm + NuclearRadiusBFm);
+			double y = 0.5 * (NuclearRadiusA_fm + NuclearRadiusB_fm);
 			double z = 0;
 
 			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
@@ -703,10 +703,10 @@ namespace Yburn.Workers
 
 				PlotFunction fieldValue = impactParam =>
 				{
-					param.ImpactParameterFm = impactParam;
+					param.ImpactParameter_fm = impactParam;
 					CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-					return EMFNormalization * emf.CalculateElectricFieldPerFm2(FixedTime, x, y, z).Norm;
+					return EMFNormalization * emf.CalculateElectricField_per_fm2(FixedTime, x, y, z).Norm;
 				};
 
 				AddPlotFunctionLists(dataList, impactParamValues, fieldValue);
@@ -734,10 +734,10 @@ namespace Yburn.Workers
 
 				PlotFunction fieldValue = impactParam =>
 				{
-					param.ImpactParameterFm = impactParam;
+					param.ImpactParameter_fm = impactParam;
 					CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-					return EMFNormalization * emf.CalculateMagneticFieldPerFm2(FixedTime, x, y, z).Norm;
+					return EMFNormalization * emf.CalculateMagneticField_per_fm2(FixedTime, x, y, z).Norm;
 				};
 
 				AddPlotFunctionLists(dataList, impactParamValues, fieldValue);
@@ -780,21 +780,21 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> timeValues = GetLogarithmicAbscissaList(StartTime, StopTime, Samples);
+			List<double> timeValues = GetLogarithmicAbscissaList(StartTime_fm, StopTime_fm, Samples);
 			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
 
 			FireballParam param = CreateFireballParam();
 
 			double x = 0;
-			double y = 0.5 * (NuclearRadiusAFm + NuclearRadiusBFm);
+			double y = 0.5 * (NuclearRadiusA_fm + NuclearRadiusB_fm);
 			double z = 0;
 
 			SurfacePlotFunction function = (time, impactParam) =>
 			{
-				param.ImpactParameterFm = impactParam;
+				param.ImpactParameter_fm = impactParam;
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * emf.CalculateElectricFieldPerFm2(time, x, y, z).Norm;
+				return EMFNormalization * emf.CalculateElectricField_per_fm2(time, x, y, z).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, timeValues, impactParamValues, function);
@@ -806,7 +806,7 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> timeValues = GetLogarithmicAbscissaList(StartTime, StopTime, Samples);
+			List<double> timeValues = GetLogarithmicAbscissaList(StartTime_fm, StopTime_fm, Samples);
 			List<double> impactParamValues = GetLinearAbscissaList(0, 25, Samples);
 
 			FireballParam param = CreateFireballParam();
@@ -817,10 +817,10 @@ namespace Yburn.Workers
 
 			SurfacePlotFunction function = (time, impactParam) =>
 			{
-				param.ImpactParameterFm = impactParam;
+				param.ImpactParameter_fm = impactParam;
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * emf.CalculateMagneticFieldPerFm2(time, x, y, z).Norm;
+				return EMFNormalization * emf.CalculateMagneticField_per_fm2(time, x, y, z).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, timeValues, impactParamValues, function);
@@ -836,7 +836,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'Electric field strength in the z = 0 plane"
 				+ " at time t = " + FixedTime.ToString("G6") + " fm/c"
-				+ " and impact parameter b = " + ImpactParameterFm + " fm'");
+				+ " and impact parameter b = " + ImpactParameter_fm + " fm'");
 			plotFile.AppendLine("set xlabel 'x (fm)'");
 			plotFile.AppendLine("set ylabel 'y (fm)'");
 			plotFile.AppendLine("set cblabel 'e|E|/m_{/Symbol p}^2'");
@@ -850,7 +850,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'Magnetic field strength in the z = 0 plane"
 				+ " at time t = " + FixedTime.ToString("G6") + " fm/c"
-				+ " and impact parameter b = " + ImpactParameterFm + " fm'");
+				+ " and impact parameter b = " + ImpactParameter_fm + " fm'");
 			plotFile.AppendLine();
 
 			AppendSurfacePlotCommands(plotFile, index: 1);
@@ -862,7 +862,7 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> gridValues = GetLinearAbscissaList(-GridRadiusFm, GridRadiusFm, Samples);
+			List<double> gridValues = GetLinearAbscissaList(-GridRadius_fm, GridRadius_fm, Samples);
 
 			FireballParam param = CreateFireballParam();
 
@@ -870,7 +870,7 @@ namespace Yburn.Workers
 			{
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * emf.CalculateElectricFieldPerFm2(FixedTime, x, y, 0).Norm;
+				return EMFNormalization * emf.CalculateElectricField_per_fm2(FixedTime, x, y, 0).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, gridValues, gridValues, function);
@@ -882,7 +882,7 @@ namespace Yburn.Workers
 		{
 			List<List<double>> dataList = new List<List<double>>();
 
-			List<double> gridValues = GetLinearAbscissaList(-GridRadiusFm, GridRadiusFm, Samples);
+			List<double> gridValues = GetLinearAbscissaList(-GridRadius_fm, GridRadius_fm, Samples);
 
 			FireballParam param = CreateFireballParam();
 
@@ -890,7 +890,7 @@ namespace Yburn.Workers
 			{
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * emf.CalculateMagneticFieldPerFm2(FixedTime, x, y, 0).Norm;
+				return EMFNormalization * emf.CalculateMagneticField_per_fm2(FixedTime, x, y, 0).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, gridValues, gridValues, function);
@@ -939,10 +939,10 @@ namespace Yburn.Workers
 
 			SurfacePlotFunction function = (properTime, impactParam) =>
 			{
-				param.ImpactParameterFm = impactParam;
+				param.ImpactParameter_fm = impactParam;
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * emf.CalculateAverageElectricFieldStrengthPerFm2(properTime);
+				return EMFNormalization * emf.CalculateAverageElectricFieldStrength_per_fm2(properTime);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);
@@ -961,10 +961,10 @@ namespace Yburn.Workers
 
 			SurfacePlotFunction function = (properTime, impactParam) =>
 			{
-				param.ImpactParameterFm = impactParam;
+				param.ImpactParameter_fm = impactParam;
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * emf.CalculateAverageMagneticFieldStrengthPerFm2(properTime);
+				return EMFNormalization * emf.CalculateAverageMagneticFieldStrength_per_fm2(properTime);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);
@@ -1035,7 +1035,7 @@ namespace Yburn.Workers
 
 			SurfacePlotFunction function = (properTime, impactParam) =>
 			{
-				param.ImpactParameterFm = impactParam;
+				param.ImpactParameter_fm = impactParam;
 
 				return CalculateAverageSpinStateOverlap(tripletState, properTime);
 			};

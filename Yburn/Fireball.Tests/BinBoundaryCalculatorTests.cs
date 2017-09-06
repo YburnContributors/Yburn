@@ -114,15 +114,15 @@ namespace Yburn.Fireball.Tests
 		{
 			FireballParam param = new FireballParam();
 
-			param.BreakupTemperatureMeV = 160;
+			param.BreakupTemperature_MeV = 160;
 			param.CenterOfMassEnergyTeV = 2.76;
-			param.DiffusenessAFm = 0.546;
-			param.DiffusenessBFm = 0.546;
-			param.GridCellSizeFm = 0.4;
-			param.GridRadiusFm = 10;
-			param.InitialMaximumTemperatureMeV = 550;
-			param.NuclearRadiusAFm = 6.62;
-			param.NuclearRadiusBFm = 6.62;
+			param.DiffusenessA_fm = 0.546;
+			param.DiffusenessB_fm = 0.546;
+			param.GridCellSize_fm = 0.4;
+			param.GridRadius_fm = 10;
+			param.InitialMaximumTemperature_MeV = 550;
+			param.NuclearRadiusA_fm = 6.62;
+			param.NuclearRadiusB_fm = 6.62;
 			param.NucleonNumberA = 208;
 			param.NucleonNumberB = 208;
 			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
@@ -139,10 +139,10 @@ namespace Yburn.Fireball.Tests
 			FireballParam param = CreateFireballParam_PbPb();
 
 			param.CenterOfMassEnergyTeV = 5.02;
-			param.DiffusenessAFm = 0;
-			param.GridCellSizeFm = 0.2;
-			param.GridRadiusFm = 5;
-			param.NuclearRadiusAFm = 0.8775;
+			param.DiffusenessA_fm = 0;
+			param.GridCellSize_fm = 0.2;
+			param.GridRadius_fm = 5;
+			param.NuclearRadiusA_fm = 0.8775;
 			param.NucleonNumberA = 1;
 			param.NucleusShapeA = NucleusShape.GaussianDistribution;
 			param.ProtonNumberA = 1;

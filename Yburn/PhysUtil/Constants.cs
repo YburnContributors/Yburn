@@ -29,7 +29,7 @@ namespace Yburn.PhysUtil
 		 ********************************************************************************************/
 
 		// conversionant hbar*c
-		public static readonly double HbarCMeVFm = 197.3269788;
+		public static readonly double HbarC_MeV_fm = 197.3269788;
 
 		public static readonly double FineStructureConstant = 7.2973525664E-3;
 
@@ -49,11 +49,11 @@ namespace Yburn.PhysUtil
 			}
 		}
 
-		public static double MagnetonBottomQuarkFm
+		public static double MagnetonBottomQuark_fm
 		{
 			get
 			{
-				return 0.5 * ChargeBottomQuark * HbarCMeVFm / RestMassBottomQuarkMeV;
+				return 0.5 * ChargeBottomQuark * HbarC_MeV_fm / RestMassBottomQuark_MeV;
 			}
 		}
 
@@ -61,67 +61,67 @@ namespace Yburn.PhysUtil
 		 * Rest masses (PDG 2015)
 		 ********************************************************************************************/
 
-		public static readonly double RestMassBottomQuarkMeV = 4660;
+		public static readonly double RestMassBottomQuark_MeV = 4660;
 
-		public static readonly double RestMassEta1SMeV = 9399.0;
+		public static readonly double RestMassEta1S_MeV = 9399.0;
 
-		public static readonly double RestMassH1PMeV = 9899.3;
+		public static readonly double RestMassH1P_MeV = 9899.3;
 
-		public static readonly double RestMassEta2SMeV = 9999.0;
+		public static readonly double RestMassEta2S_MeV = 9999.0;
 
-		public static readonly double RestMassH2PMeV = 10259.8;
+		public static readonly double RestMassH2P_MeV = 10259.8;
 
-		public static readonly double RestMassY1SMeV = 9460.30;
+		public static readonly double RestMassY1S_MeV = 9460.30;
 
-		public static readonly double RestMassY2SMeV = 10023.26;
+		public static readonly double RestMassY2S_MeV = 10023.26;
 
-		public static readonly double RestMassY3SMeV = 10355.2;
+		public static readonly double RestMassY3S_MeV = 10355.2;
 
-		public static readonly double RestMassX1P0MeV = 9859.44;
+		public static readonly double RestMassX1P0_MeV = 9859.44;
 
-		public static readonly double RestMassX1P1MeV = 9892.78;
+		public static readonly double RestMassX1P1_MeV = 9892.78;
 
-		public static readonly double RestMassX1P2MeV = 9912.21;
+		public static readonly double RestMassX1P2_MeV = 9912.21;
 
-		public static double RestMassX1PMeV
+		public static double RestMassX1P_MeV
 		{
 			get
 			{
-				return (RestMassX1P0MeV + 3 * RestMassX1P1MeV + 5 * RestMassX1P2MeV) / 9.0;
+				return (RestMassX1P0_MeV + 3 * RestMassX1P1_MeV + 5 * RestMassX1P2_MeV) / 9.0;
 			}
 		}
 
-		public static readonly double RestMassX2P0MeV = 10232.5;
+		public static readonly double RestMassX2P0_MeV = 10232.5;
 
-		public static readonly double RestMassX2P1MeV = 10255.46;
+		public static readonly double RestMassX2P1_MeV = 10255.46;
 
-		public static readonly double RestMassX2P2MeV = 10268.65;
+		public static readonly double RestMassX2P2_MeV = 10268.65;
 
-		public static double RestMassX2PMeV
+		public static double RestMassX2P_MeV
 		{
 			get
 			{
-				return (RestMassX2P0MeV + 3 * RestMassX2P1MeV + 5 * RestMassX2P2MeV) / 9.0;
+				return (RestMassX2P0_MeV + 3 * RestMassX2P1_MeV + 5 * RestMassX2P2_MeV) / 9.0;
 			}
 		}
 
-		public static readonly double RestMassX3PMeV = 10512.1;
+		public static readonly double RestMassX3P_MeV = 10512.1;
 
-		public static readonly double RestMassBMesonMeV = (2 * 5279.29 + 5279.61) / 3.0;
+		public static readonly double RestMassBMeson_MeV = (2 * 5279.29 + 5279.61) / 3.0;
 
-		public static readonly double RestMassPionPlusMeV = 139.57018;
+		public static readonly double RestMassPionPlus_MeV = 139.57018;
 
-		public static readonly double RestMassPionZeroMeV = 134.9766;
+		public static readonly double RestMassPionZero_MeV = 134.9766;
 
-		public static double RestMassPionMeV
+		public static double RestMassPion_MeV
 		{
 			get
 			{
-				return (2 * RestMassPionPlusMeV + RestMassPionZeroMeV) / 3.0;
+				return (2 * RestMassPionPlus_MeV + RestMassPionZero_MeV) / 3.0;
 			}
 		}
 
-		public static double RestMassProtonMeV = 938.272081;
+		public static double RestMassProton_MeV = 938.272081;
 
 		/********************************************************************************************
 		 * pp Dimuon Decays (CMS2012 & ?)
