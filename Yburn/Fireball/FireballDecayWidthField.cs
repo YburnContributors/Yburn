@@ -89,9 +89,8 @@ namespace Yburn.Fireball
 				}
 				else
 				{
-					double x;
-					double y;
-					GetQQStateCoordinates(xIndex, yIndex, pTIndex, stateIndex, newTime, out x, out y);
+					GetQQStateCoordinates(xIndex, yIndex, pTIndex, stateIndex, newTime,
+						out double x, out double y);
 
 					if(!IsInDomainOfCalculation(x, y))
 					{
@@ -190,13 +189,13 @@ namespace Yburn.Fireball
 			{
 				for(int state = 0; state < NumberBottomiumStates; state++)
 				{
-					GammaT[pT, state] = Math.Sqrt(1.0 + Math.Pow(TransverseMomenta[pT] / bbRestMass_GeV(state), 2));
+					GammaT[pT, state] = Math.Sqrt(1.0 + Math.Pow(TransverseMomenta[pT] / BottomiumRestMass_GeV(state), 2));
 					BetaT[pT, state] = Math.Sqrt(1.0 - Math.Pow(GammaT[pT, state], -2));
 				}
 			}
 		}
 
-		private static double bbRestMass_GeV(
+		private static double BottomiumRestMass_GeV(
 			int stateIndex
 			)
 		{

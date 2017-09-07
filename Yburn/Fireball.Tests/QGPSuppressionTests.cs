@@ -103,31 +103,32 @@ namespace Yburn.Fireball.Tests
 
 		private static FireballParam CreateFireballParam_PbPb()
 		{
-			FireballParam param = new FireballParam();
-
-			param.BreakupTemperature_MeV = 160;
-			param.CenterOfMassEnergyTeV = 2.76;
-			param.DecayWidthRetrievalFunction = DummyDecayWidthProvider.GetDummyDecayWidth;
-			param.DiffusenessA_fm = 0.546;
-			param.DiffusenessB_fm = 0.546;
-			param.ExpansionMode = ExpansionMode.Transverse;
-			param.FormationTimes_fm = FormationTimes;
-			param.GridCellSize_fm = 1;
-			param.GridRadius_fm = 10;
-			param.InitialMaximumTemperature_MeV = 550;
-			param.NuclearRadiusA_fm = 6.62;
-			param.NuclearRadiusB_fm = 6.62;
-			param.NucleonNumberA = 208;
-			param.NucleonNumberB = 208;
-			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
-			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
-			param.ProtonNumberA = 82;
-			param.ProtonNumberB = 82;
-			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
-			param.ThermalTime_fm = 0.1;
-			param.TransverseMomentaGeV = new List<double> { 6 };
-			param.UseElectricField = false;
-			param.UseMagneticField = false;
+			FireballParam param = new FireballParam
+			{
+				BreakupTemperature_MeV = 160,
+				CenterOfMassEnergy_TeV = 2.76,
+				DecayWidthRetrievalFunction = DummyDecayWidthProvider.GetDummyDecayWidth,
+				DiffusenessA_fm = 0.546,
+				DiffusenessB_fm = 0.546,
+				ExpansionMode = ExpansionMode.Transverse,
+				FormationTimes_fm = FormationTimes,
+				GridCellSize_fm = 1,
+				GridRadius_fm = 10,
+				InitialMaximumTemperature_MeV = 550,
+				NuclearRadiusA_fm = 6.62,
+				NuclearRadiusB_fm = 6.62,
+				NucleonNumberA = 208,
+				NucleonNumberB = 208,
+				NucleusShapeA = NucleusShape.WoodsSaxonPotential,
+				NucleusShapeB = NucleusShape.WoodsSaxonPotential,
+				ProtonNumberA = 82,
+				ProtonNumberB = 82,
+				TemperatureProfile = TemperatureProfile.NmixPHOBOS13,
+				ThermalTime_fm = 0.1,
+				TransverseMomenta_GeV = new List<double> { 6 },
+				UseElectricField = false,
+				UseMagneticField = false
+			};
 
 			return param;
 		}
@@ -136,7 +137,7 @@ namespace Yburn.Fireball.Tests
 		{
 			FireballParam param = CreateFireballParam_PbPb();
 
-			param.CenterOfMassEnergyTeV = 5.02;
+			param.CenterOfMassEnergy_TeV = 5.02;
 			param.DiffusenessA_fm = 0;
 			param.GridCellSize_fm = 0.5;
 			param.GridRadius_fm = 5;

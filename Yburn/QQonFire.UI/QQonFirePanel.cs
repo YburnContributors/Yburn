@@ -108,52 +108,53 @@ namespace Yburn.QQonFire.UI
 
 		private Dictionary<string, string> GetControlsValues()
 		{
-			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-
-			nameValuePairs["BjorkenLifeTime_fm"] = TbxBjorkenLifeTime.Text;
-			nameValuePairs["BottomiumStates"] = MsxBottomiumStates.SelectionString;
-			nameValuePairs["BreakupTemperature_MeV"] = TbxBreakupTemperature.Text;
-			nameValuePairs["CenterOfMassEnergy_TeV"] = TbxCenterOfMassEnergy.Text;
-			nameValuePairs["CentralityBinBoundaries_percent"] = TbxCentralityBinBoundaries.Text;
-			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
-			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
-			nameValuePairs["DiffusenessA_fm"] = TbxDiffusenessA.Text;
-			nameValuePairs["DiffusenessB_fm"] = TbxDiffusenessB.Text;
-			nameValuePairs["DimuonDecaysFrompp"] = TbxDimuonDecaysFrompp.Text;
-			nameValuePairs["DopplerShiftEvaluationType"] = CbxDopplerShiftEvaluationType.Text;
-			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
-			nameValuePairs["EMFQuadratureOrder"] = TbxEMFQuadratureOrder.Text;
-			nameValuePairs["EMFUpdateInterval_fm"] = TbxEMFUpdateInterval.Text;
-			nameValuePairs["ElectricDipoleAlignment"] = CbxElectricDipoleAlignment.Text;
-			nameValuePairs["ExpansionMode"] = CbxExpansionMode.Text;
-			nameValuePairs["FireballFieldTypes"] = MsxFireballFieldTypes.SelectionString;
-			nameValuePairs["FormationTimes_fm"] = TbxFormationTimes.Text;
-			nameValuePairs["GridCellSize_fm"] = TbxGridCellSize.Text;
-			nameValuePairs["GridRadius_fm"] = TbxGridRadius.Text;
-			nameValuePairs["ImpactParameter_fm"] = TbxImpactParameter.Text;
-			nameValuePairs["ImpactParamsAtBinBoundaries_fm"] = TbxImpactParamsAtBinBoundaries.Text;
-			nameValuePairs["InitialMaximumTemperature_MeV"] = TbxInitialMaximumTemperature.Text;
-			nameValuePairs["LifeTime_fm"] = TbxLifeTime.Text;
-			nameValuePairs["MeanParticipantsInBin"] = TbxMeanParticipantsInBin.Text;
-			nameValuePairs["NuclearRadiusA_fm"] = TbxNuclearRadiusA.Text;
-			nameValuePairs["NuclearRadiusB_fm"] = TbxNuclearRadiusB.Text;
-			nameValuePairs["NucleonNumberA"] = TbxNucleonNumberA.Text;
-			nameValuePairs["NucleonNumberB"] = TbxNucleonNumberB.Text;
-			nameValuePairs["NucleusShapeA"] = CbxNucleusShapeA.Text;
-			nameValuePairs["NucleusShapeB"] = CbxNucleusShapeB.Text;
-			nameValuePairs["NumberAveragingAngles"] = TbxNumberAveragingAngles.Text;
-			nameValuePairs["ParticipantsAtBinBoundaries"] = TbxParticipantsAtBinBoundaries.Text;
-			nameValuePairs["PotentialTypes"] = MsxPotentialTypes.SelectionString;
-			nameValuePairs["ProtonNumberA"] = TbxProtonNumberA.Text;
-			nameValuePairs["ProtonNumberB"] = TbxProtonNumberB.Text;
-			nameValuePairs["QGPConductivity_MeV"] = TbxQGPConductivity.Text;
-			nameValuePairs["QGPFormationTemperature_MeV"] = TbxQGPFormationTemperature.Text;
-			nameValuePairs["SnapRate_per_fm"] = TbxSnapRate.Text;
-			nameValuePairs["TemperatureProfile"] = CbxTemperatureProfile.Text;
-			nameValuePairs["ThermalTime_fm"] = TbxThermalTime.Text;
-			nameValuePairs["TransverseMomenta_GeV"] = TbxTransverseMomenta.Text;
-			nameValuePairs["UseElectricField"] = ChkUseElectricField.Checked.ToString();
-			nameValuePairs["UseMagneticField"] = ChkUseMagneticField.Checked.ToString();
+			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>
+			{
+				["BjorkenLifeTime_fm"] = TbxBjorkenLifeTime.Text,
+				["BottomiumStates"] = MsxBottomiumStates.SelectionString,
+				["BreakupTemperature_MeV"] = TbxBreakupTemperature.Text,
+				["CenterOfMassEnergy_TeV"] = TbxCenterOfMassEnergy.Text,
+				["CentralityBinBoundaries_percent"] = TbxCentralityBinBoundaries.Text,
+				["DataFileName"] = TbxDataFileName.Text,
+				["DecayWidthType"] = CbxDecayWidthType.Text,
+				["DiffusenessA_fm"] = TbxDiffusenessA.Text,
+				["DiffusenessB_fm"] = TbxDiffusenessB.Text,
+				["DimuonDecaysFrompp"] = TbxDimuonDecaysFrompp.Text,
+				["DopplerShiftEvaluationType"] = CbxDopplerShiftEvaluationType.Text,
+				["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text,
+				["EMFQuadratureOrder"] = TbxEMFQuadratureOrder.Text,
+				["EMFUpdateInterval_fm"] = TbxEMFUpdateInterval.Text,
+				["ElectricDipoleAlignment"] = CbxElectricDipoleAlignment.Text,
+				["ExpansionMode"] = CbxExpansionMode.Text,
+				["FireballFieldTypes"] = MsxFireballFieldTypes.SelectionString,
+				["FormationTimes_fm"] = TbxFormationTimes.Text,
+				["GridCellSize_fm"] = TbxGridCellSize.Text,
+				["GridRadius_fm"] = TbxGridRadius.Text,
+				["ImpactParameter_fm"] = TbxImpactParameter.Text,
+				["ImpactParamsAtBinBoundaries_fm"] = TbxImpactParamsAtBinBoundaries.Text,
+				["InitialMaximumTemperature_MeV"] = TbxInitialMaximumTemperature.Text,
+				["LifeTime_fm"] = TbxLifeTime.Text,
+				["MeanParticipantsInBin"] = TbxMeanParticipantsInBin.Text,
+				["NuclearRadiusA_fm"] = TbxNuclearRadiusA.Text,
+				["NuclearRadiusB_fm"] = TbxNuclearRadiusB.Text,
+				["NucleonNumberA"] = TbxNucleonNumberA.Text,
+				["NucleonNumberB"] = TbxNucleonNumberB.Text,
+				["NucleusShapeA"] = CbxNucleusShapeA.Text,
+				["NucleusShapeB"] = CbxNucleusShapeB.Text,
+				["NumberAveragingAngles"] = TbxNumberAveragingAngles.Text,
+				["ParticipantsAtBinBoundaries"] = TbxParticipantsAtBinBoundaries.Text,
+				["PotentialTypes"] = MsxPotentialTypes.SelectionString,
+				["ProtonNumberA"] = TbxProtonNumberA.Text,
+				["ProtonNumberB"] = TbxProtonNumberB.Text,
+				["QGPConductivity_MeV"] = TbxQGPConductivity.Text,
+				["QGPFormationTemperature_MeV"] = TbxQGPFormationTemperature.Text,
+				["SnapRate_per_fm"] = TbxSnapRate.Text,
+				["TemperatureProfile"] = CbxTemperatureProfile.Text,
+				["ThermalTime_fm"] = TbxThermalTime.Text,
+				["TransverseMomenta_GeV"] = TbxTransverseMomenta.Text,
+				["UseElectricField"] = ChkUseElectricField.Checked.ToString(),
+				["UseMagneticField"] = ChkUseMagneticField.Checked.ToString()
+			};
 
 			return nameValuePairs;
 		}

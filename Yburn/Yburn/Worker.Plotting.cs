@@ -319,10 +319,12 @@ namespace Yburn
 			string plotFileName
 			)
 		{
-			ProcessStartInfo gnuplot = new ProcessStartInfo();
-			gnuplot.FileName = "wgnuplot";
-			gnuplot.Arguments = "\"" + plotFileName + "\" --persist";
-			gnuplot.WorkingDirectory = OutputPath;
+			ProcessStartInfo gnuplot = new ProcessStartInfo
+			{
+				FileName = "wgnuplot",
+				Arguments = "\"" + plotFileName + "\" --persist",
+				WorkingDirectory = OutputPath
+			};
 
 			return Process.Start(gnuplot);
 		}

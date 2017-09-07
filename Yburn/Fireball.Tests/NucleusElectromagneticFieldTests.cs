@@ -34,23 +34,24 @@ namespace Yburn.Fireball.Tests
 
 		private static FireballParam CreateFireballParam()
 		{
-			FireballParam param = new FireballParam();
-
-			param.CenterOfMassEnergyTeV = 2.76;
-			param.DiffusenessA_fm = 0.546;
-			param.DiffusenessB_fm = 0.546;
-			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
-			param.EMFQuadratureOrder = 64;
-			param.ImpactParameter_fm = 7;
-			param.NuclearRadiusA_fm = 6.62;
-			param.NuclearRadiusB_fm = 6.62;
-			param.NucleonNumberA = 208;
-			param.NucleonNumberB = 208;
-			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
-			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
-			param.ProtonNumberA = 82;
-			param.ProtonNumberB = 82;
-			param.QGPConductivity_MeV = 5.8;
+			FireballParam param = new FireballParam
+			{
+				CenterOfMassEnergy_TeV = 2.76,
+				DiffusenessA_fm = 0.546,
+				DiffusenessB_fm = 0.546,
+				EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation,
+				EMFQuadratureOrder = 64,
+				ImpactParameter_fm = 7,
+				NuclearRadiusA_fm = 6.62,
+				NuclearRadiusB_fm = 6.62,
+				NucleonNumberA = 208,
+				NucleonNumberB = 208,
+				NucleusShapeA = NucleusShape.WoodsSaxonPotential,
+				NucleusShapeB = NucleusShape.WoodsSaxonPotential,
+				ProtonNumberA = 82,
+				ProtonNumberB = 82,
+				QGPConductivity_MeV = 5.8
+			};
 
 			return param;
 		}
@@ -63,9 +64,7 @@ namespace Yburn.Fireball.Tests
 		{
 			FireballParam param = CreateFireballParam();
 
-			Nucleus nucleusA;
-			Nucleus nucleusB;
-			Nucleus.CreateNucleusPair(param, out nucleusA, out nucleusB);
+			Nucleus.CreateNucleusPair(param, out Nucleus nucleusA, out Nucleus nucleusB);
 
 			NucleusElectromagneticField emf = new NucleusElectromagneticField(
 				param.EMFCalculationMethod,

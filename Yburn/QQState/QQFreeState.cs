@@ -92,11 +92,13 @@ namespace Yburn.QQState
 
 		private void InitSolver()
 		{
-			Solver = new RseSolver();
-			Solver.InitialPosition = 0;
-			Solver.FinalPosition = Param.MaxRadius_fm;
-			Solver.Samples = Param.StepNumber;
-			Solver.RightHandSide = EffectivePotentialMinusEigenvalue;
+			Solver = new RseSolver
+			{
+				InitialPosition = 0,
+				FinalPosition = Param.MaxRadius_fm,
+				Samples = Param.StepNumber,
+				RightHandSide = EffectivePotentialMinusEigenvalue
+			};
 			Solver.Initialize();
 
 			Radius_fm = Solver.PositionValues;
@@ -109,9 +111,7 @@ namespace Yburn.QQState
 		// a series expansion and shrink the domain of calculation by one step size
 		private void SetSolverInitialValues()
 		{
-			Complex initWave;
-			Complex initDeriv;
-			FirstStepSeriesExpansion(out initWave, out initDeriv);
+			FirstStepSeriesExpansion(out Complex initWave, out Complex initDeriv);
 			Solver.InitialSolutionValue = initWave;
 			Solver.InitialDerivativeValue = initDeriv;
 

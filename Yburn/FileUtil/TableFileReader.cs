@@ -44,12 +44,11 @@ namespace Yburn.FileUtil
 			)
 		{
 			TableFileReader reader = new TableFileReader();
-			double[][] lineSortedTable;
 
 			reader.RemoveCommentaryLines(allLines);
 			reader.RemoveCommentaryWithinLines(allLines);
 			reader.RemoveEmptyLines(allLines);
-			reader.ExtractValues(allLines, out lineSortedTable);
+			reader.ExtractValues(allLines, out double[][] lineSortedTable);
 			reader.SwitchColumnAndLineIndex(lineSortedTable, out columnSortedTable);
 		}
 

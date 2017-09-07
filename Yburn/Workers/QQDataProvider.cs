@@ -19,9 +19,7 @@ namespace Yburn.Workers
 			BottomiumState state
 			)
 		{
-			int n;
-			int l;
-			GetBottomiumStateQuantumNumbers(state, out n, out l);
+			GetBottomiumStateQuantumNumbers(state, out int n, out int l);
 
 			return QQDataDoc.GetDataSets(dataPathFile, n, l, ColorState.Singlet, potentialTypes);
 		}

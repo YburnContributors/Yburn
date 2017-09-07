@@ -31,8 +31,10 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void PlotAlpha()
 		{
-			SingleQQ singleQQ = new SingleQQ();
-			singleQQ.VariableNameValuePairs = GetAlphaPlotParams();
+			SingleQQ singleQQ = new SingleQQ
+			{
+				VariableNameValuePairs = GetAlphaPlotParams()
+			};
 
 			WaitForGnuplotThenKillIt(singleQQ.PlotAlpha());
 		}
@@ -40,8 +42,10 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void PlotPionGDF()
 		{
-			SingleQQ singleQQ = new SingleQQ();
-			singleQQ.VariableNameValuePairs = GetPionGDFPlotParams();
+			SingleQQ singleQQ = new SingleQQ
+			{
+				VariableNameValuePairs = GetPionGDFPlotParams()
+			};
 
 			WaitForGnuplotThenKillIt(singleQQ.PlotPionGDF());
 		}
@@ -49,8 +53,10 @@ namespace Yburn.Workers.Tests
 		[TestMethod]
 		public void PlotComplexPotential()
 		{
-			SingleQQ singleQQ = new SingleQQ();
-			singleQQ.VariableNameValuePairs = GetComplexPotentialPlotParams();
+			SingleQQ singleQQ = new SingleQQ
+			{
+				VariableNameValuePairs = GetComplexPotentialPlotParams()
+			};
 
 			WaitForGnuplotThenKillIt(singleQQ.PlotQQPotential());
 		}
@@ -87,13 +93,14 @@ namespace Yburn.Workers.Tests
 
 		private Dictionary<string, string> GetAlphaPlotParams()
 		{
-			Dictionary<string, string> paramList = new Dictionary<string, string>();
-			paramList["RunningCouplingTypeSelection"]
-				= "LOperturbative_Cutoff1 NonPerturbative_ITP";
-			paramList["MinEnergy_MeV"] = "1";
-			paramList["MaxEnergy_MeV"] = "30000";
-			paramList["Samples"] = "500";
-			paramList["DataFileName"] = "PlotAlphaTest.txt";
+			Dictionary<string, string> paramList = new Dictionary<string, string>
+			{
+				["DataFileName"] = "PlotAlphaTest.txt",
+				["MaxEnergy_MeV"] = "30000",
+				["MinEnergy_MeV"] = "1",
+				["RunningCouplingTypeSelection"] = "LOperturbative_Cutoff1 NonPerturbative_ITP",
+				["Samples"] = "500"
+			};
 
 			MarkFilesForDelete(paramList);
 
@@ -102,10 +109,12 @@ namespace Yburn.Workers.Tests
 
 		private Dictionary<string, string> GetPionGDFPlotParams()
 		{
-			Dictionary<string, string> paramList = new Dictionary<string, string>();
-			paramList["Samples"] = "500";
-			paramList["EnergyScale_MeV"] = "1000";
-			paramList["DataFileName"] = "PlotPionGDFTest.txt";
+			Dictionary<string, string> paramList = new Dictionary<string, string>
+			{
+				["DataFileName"] = "PlotPionGDFTest.txt",
+				["EnergyScale_MeV"] = "1000",
+				["Samples"] = "500"
+			};
 
 			MarkFilesForDelete(paramList);
 
@@ -114,16 +123,18 @@ namespace Yburn.Workers.Tests
 
 		private Dictionary<string, string> GetComplexPotentialPlotParams()
 		{
-			Dictionary<string, string> paramList = new Dictionary<string, string>();
-			paramList["Samples"] = "500";
-			paramList["DataFileName"] = "PlotPotentialTest.txt";
-			paramList["PotentialType"] = "Complex";
-			paramList["MinRadius_fm"] = "0";
-			paramList["MaxRadius_fm"] = "10";
-			paramList["Sigma_MeV2"] = "192000";
-			paramList["AlphaSoft"] = "0.5";
-			paramList["Temperature_MeV"] = "200";
-			paramList["DebyeMass_MeV"] = "250";
+			Dictionary<string, string> paramList = new Dictionary<string, string>
+			{
+				["AlphaSoft"] = "0.5",
+				["DataFileName"] = "PlotPotentialTest.txt",
+				["DebyeMass_MeV"] = "250",
+				["MaxRadius_fm"] = "10",
+				["MinRadius_fm"] = "0",
+				["PotentialType"] = "Complex",
+				["Samples"] = "500",
+				["Sigma_MeV2"] = "192000",
+				["Temperature_MeV"] = "200"
+			};
 
 			MarkFilesForDelete(paramList);
 

@@ -52,10 +52,12 @@ namespace Yburn.SingleQQ.UI
 		{
 			if(PlotRequest != null)
 			{
-				PionGDFPlotRequestEventArgs args = new PionGDFPlotRequestEventArgs();
-				args.DataFileName = TbxDataFileName.Text;
-				args.EnergyScale = TbxEnergyScale.Text;
-				args.Samples = TbxSamples.Text;
+				PionGDFPlotRequestEventArgs args = new PionGDFPlotRequestEventArgs
+				{
+					DataFileName = TbxDataFileName.Text,
+					EnergyScale = TbxEnergyScale.Text,
+					Samples = TbxSamples.Text
+				};
 
 				PlotRequest(this, args);
 			}

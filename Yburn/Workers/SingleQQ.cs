@@ -128,10 +128,12 @@ namespace Yburn.Workers
 
 			try
 			{
-				QQBoundState boundState = new QQBoundState(GetQQStateParam(), QuantumNumberN);
-				boundState.CalculationCancelToken = JobCancelToken;
-				boundState.StatusValues = StatusValues;
-				boundState.UseFixedAlpha = UseFixedAlpha;
+				QQBoundState boundState = new QQBoundState(GetQQStateParam(), QuantumNumberN)
+				{
+					CalculationCancelToken = JobCancelToken,
+					StatusValues = StatusValues,
+					UseFixedAlpha = UseFixedAlpha
+				};
 
 				boundState.SearchEigenfunction();
 
@@ -194,9 +196,11 @@ namespace Yburn.Workers
 
 			try
 			{
-				QQFreeState freeState = new QQFreeState(GetQQStateParam());
-				freeState.CalculationCancelToken = JobCancelToken;
-				freeState.StatusValues = StatusValues;
+				QQFreeState freeState = new QQFreeState(GetQQStateParam())
+				{
+					CalculationCancelToken = JobCancelToken,
+					StatusValues = StatusValues
+				};
 
 				freeState.SearchEigenfunction();
 
@@ -241,9 +245,11 @@ namespace Yburn.Workers
 
 			try
 			{
-				QQBoundState boundState = new QQBoundState(GetQQStateParam(), QuantumNumberN);
-				boundState.CalculationCancelToken = JobCancelToken;
-				boundState.StatusValues = StatusValues;
+				QQBoundState boundState = new QQBoundState(GetQQStateParam(), QuantumNumberN)
+				{
+					CalculationCancelToken = JobCancelToken,
+					StatusValues = StatusValues
+				};
 
 				boundState.SearchEigenfunction();
 
@@ -313,9 +319,11 @@ namespace Yburn.Workers
 
 			try
 			{
-				QQBoundState boundState = new QQBoundState(GetQQStateParam(), QuantumNumberN);
-				boundState.CalculationCancelToken = JobCancelToken;
-				boundState.StatusValues = StatusValues;
+				QQBoundState boundState = new QQBoundState(GetQQStateParam(), QuantumNumberN)
+				{
+					CalculationCancelToken = JobCancelToken,
+					StatusValues = StatusValues
+				};
 
 				QuarkMass_MeV = boundState.SearchQuarkMass(BoundMass_MeV);
 
@@ -351,11 +359,10 @@ namespace Yburn.Workers
 			QQState.QQState state
 			)
 		{
-			List<string> dataList = new List<string>();
-			dataList.Add(string.Format("{0,-10}{1,-18}{2,-18}",
-					 "#r (fm)",
-					 "Re(Psi) (fm^-1/2)",
-					 "Im(Psi) (fm^-1/2)"));
+			List<string> dataList = new List<string>
+			{
+				string.Format("{0,-10}{1,-18}{2,-18}", "#r (fm)", "Re(Psi) (fm^-1/2)", "Im(Psi) (fm^-1/2)")
+			};
 
 			for(int j = 0; j <= state.Param.StepNumber; j++)
 			{
@@ -432,29 +439,31 @@ namespace Yburn.Workers
 
 		private QQStateParam GetQQStateParam()
 		{
-			QQStateParam param = new QQStateParam();
-			param.AccuracyAlpha = AccuracyAlpha;
-			param.AccuracyWaveFunction = AccuracyWaveFunction;
-			param.AggressivenessAlpha = AggressivenessAlpha;
-			param.AggressivenessEnergy = AggressivenessEnergy;
-			param.ColorState = ColorState;
-			param.Energy_MeV = Energy_MeV;
-			param.GammaDamp_MeV = GammaDamp_MeV;
-			param.MaxRadius_fm = MaxRadius_fm;
-			param.MaxShootingTrials = MaxShootingTrials;
-			param.PotentialType = PotentialType;
-			param.QuantumNumberL = QuantumNumberL;
-			param.QuarkMass_MeV = QuarkMass_MeV;
-			param.RunningCouplingType = RunningCouplingType;
-			param.Sigma_MeV = Sigma_MeV2;
-			param.SoftScale_MeV = SoftScale_MeV;
-			param.SpinCouplingRange_fm = SpinCouplingRange_fm;
-			param.SpinCouplingStrength_MeV = SpinCouplingStrength_MeV;
-			param.SpinState = SpinState;
-			param.StepNumber = StepNumber;
-			param.Tchem_MeV = Tchem_MeV;
-			param.Tcrit_MeV = Tcrit_MeV;
-			param.Temperature_MeV = Temperature_MeV;
+			QQStateParam param = new QQStateParam
+			{
+				AccuracyAlpha = AccuracyAlpha,
+				AccuracyWaveFunction = AccuracyWaveFunction,
+				AggressivenessAlpha = AggressivenessAlpha,
+				AggressivenessEnergy = AggressivenessEnergy,
+				ColorState = ColorState,
+				Energy_MeV = Energy_MeV,
+				GammaDamp_MeV = GammaDamp_MeV,
+				MaxRadius_fm = MaxRadius_fm,
+				MaxShootingTrials = MaxShootingTrials,
+				PotentialType = PotentialType,
+				QuantumNumberL = QuantumNumberL,
+				QuarkMass_MeV = QuarkMass_MeV,
+				RunningCouplingType = RunningCouplingType,
+				Sigma_MeV = Sigma_MeV2,
+				SoftScale_MeV = SoftScale_MeV,
+				SpinCouplingRange_fm = SpinCouplingRange_fm,
+				SpinCouplingStrength_MeV = SpinCouplingStrength_MeV,
+				SpinState = SpinState,
+				StepNumber = StepNumber,
+				Tchem_MeV = Tchem_MeV,
+				Tcrit_MeV = Tcrit_MeV,
+				Temperature_MeV = Temperature_MeV
+			};
 
 			return param;
 		}

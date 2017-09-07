@@ -109,20 +109,22 @@ namespace Yburn.SingleQQ.UI
 		{
 			if(PlotRequest != null)
 			{
-				PotentialPlotRequestEventArgs args = new PotentialPlotRequestEventArgs();
-				args.AlphaSoft = TbxAlphaSoft.Text;
-				args.ColorState = CbxColorState.Text;
-				args.DataFileName = TbxDataFileName.Text;
-				args.DebyeMass = TbxDebyeMass.Text;
-				args.MinRadius = TbxMinRadius.Text;
-				args.MaxRadius = TbxMaxRadius.Text;
-				args.PotentialType = CbxPotentialType.Text;
-				args.Samples = TbxSamples.Text;
-				args.Sigma = TbxSigma.Text;
-				args.SpinState = CbxSpinState.Text;
-				args.SpinCouplingRange = TbxSpinCouplingRange.Text;
-				args.SpinCouplingStrength = TbxSpinCouplingStrength.Text;
-				args.Temperature = TbxTemperature.Text;
+				PotentialPlotRequestEventArgs args = new PotentialPlotRequestEventArgs
+				{
+					AlphaSoft = TbxAlphaSoft.Text,
+					ColorState = CbxColorState.Text,
+					DataFileName = TbxDataFileName.Text,
+					DebyeMass = TbxDebyeMass.Text,
+					MinRadius = TbxMinRadius.Text,
+					MaxRadius = TbxMaxRadius.Text,
+					PotentialType = CbxPotentialType.Text,
+					Samples = TbxSamples.Text,
+					Sigma = TbxSigma.Text,
+					SpinState = CbxSpinState.Text,
+					SpinCouplingRange = TbxSpinCouplingRange.Text,
+					SpinCouplingStrength = TbxSpinCouplingStrength.Text,
+					Temperature = TbxTemperature.Text
+				};
 
 				PlotRequest(this, args);
 			}

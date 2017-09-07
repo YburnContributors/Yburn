@@ -137,8 +137,8 @@ namespace Yburn.Fireball
 			for(int binIndex = 0; binIndex < NumberFlatBins; binIndex++)
 			{
 				FlatQGPSuppressionFactors[binIndex]
-					= new BottomiumVector[FireballParam.TransverseMomentaGeV.Count];
-				for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Count; pTIndex++)
+					= new BottomiumVector[FireballParam.TransverseMomenta_GeV.Count];
+				for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomenta_GeV.Count; pTIndex++)
 				{
 					FlatQGPSuppressionFactors[binIndex][pTIndex] = new BottomiumVector();
 				}
@@ -225,7 +225,7 @@ namespace Yburn.Fireball
 			FlatNormalizationFactors[CurrentBinIndex]
 				+= CurrentImpactParam * fireball.IntegrateFireballField("Overlap");
 
-			for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Count; pTIndex++)
+			for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomenta_GeV.Count; pTIndex++)
 			{
 				foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 				{
@@ -286,8 +286,8 @@ namespace Yburn.Fireball
 			 )
 		{
 			QGPSuppressionFactors[binGroupIndex][binIndex]
-				 = new BottomiumVector[FireballParam.TransverseMomentaGeV.Count];
-			for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Count; pTIndex++)
+				 = new BottomiumVector[FireballParam.TransverseMomenta_GeV.Count];
+			for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomenta_GeV.Count; pTIndex++)
 			{
 				QGPSuppressionFactors[binGroupIndex][binIndex][pTIndex] = new BottomiumVector();
 				for(int flatBinIndex = ArrayReshapingMask[binGroupIndex][binIndex];
@@ -306,7 +306,7 @@ namespace Yburn.Fireball
 			{
 				for(int binIndex = 0; binIndex < NumberCentralityBins[binGroupIndex]; binIndex++)
 				{
-					for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomentaGeV.Count; pTIndex++)
+					for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomenta_GeV.Count; pTIndex++)
 					{
 						QGPSuppressionFactors[binGroupIndex][binIndex][pTIndex]
 							 /= NormalizationFactors[binGroupIndex][binIndex];

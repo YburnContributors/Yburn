@@ -30,8 +30,10 @@ namespace Yburn.UI.Tests
 		{
 			PlotterUITool.CreateAlphaPlotParamForm(GetSingleQQPanelAlphaParams());
 
-			Workers.SingleQQ singleQQ = new Workers.SingleQQ();
-			singleQQ.VariableNameValuePairs = PlotterUITool.ControlsValues;
+			Workers.SingleQQ singleQQ = new Workers.SingleQQ
+			{
+				VariableNameValuePairs = PlotterUITool.ControlsValues
+			};
 
 			AssertHelper.AssertFirstContainsSecond(
 				singleQQ.VariableNameValuePairs, GetConvertedAlphaNameValuePairs());
@@ -42,8 +44,10 @@ namespace Yburn.UI.Tests
 		{
 			PlotterUITool.CreatePionGDFPlotParamForm(GetSingleQQPanelPionGDFParams());
 
-			Workers.SingleQQ singleQQ = new Workers.SingleQQ();
-			singleQQ.VariableNameValuePairs = PlotterUITool.ControlsValues;
+			Workers.SingleQQ singleQQ = new Workers.SingleQQ
+			{
+				VariableNameValuePairs = PlotterUITool.ControlsValues
+			};
 
 			AssertHelper.AssertFirstContainsSecond(
 				singleQQ.VariableNameValuePairs, GetConvertedPionGDFNameValuePairs());
@@ -54,8 +58,10 @@ namespace Yburn.UI.Tests
 		{
 			PlotterUITool.CreatePotentialPlotParamForm(GetSingleQQPanelPotentialParams());
 
-			Workers.SingleQQ singleQQ = new Workers.SingleQQ();
-			singleQQ.VariableNameValuePairs = PlotterUITool.ControlsValues;
+			Workers.SingleQQ singleQQ = new Workers.SingleQQ
+			{
+				VariableNameValuePairs = PlotterUITool.ControlsValues
+			};
 
 			AssertHelper.AssertFirstContainsSecond(
 				singleQQ.VariableNameValuePairs, GetConvertedPotentialNameValuePairs());
@@ -67,118 +73,125 @@ namespace Yburn.UI.Tests
 
 		private static Dictionary<string, string> GetSingleQQPanelAlphaParams()
 		{
-			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs.Add("MaxEnergy_MeV", "10000");
-			nameValuePairs.Add("Energy_MeV", "-440");
-			nameValuePairs.Add("EnergySteps", "1000");
-			nameValuePairs.Add("DataFileName", "stdout.txt");
-			nameValuePairs.Add("RunningCouplingType", "LOperturbative_Cutoff3");
+			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>
+			{
+				{ "DataFileName", "stdout.txt" },
+				{ "EnergySteps", "1000" },
+				{ "Energy_MeV", "-440" },
+				{ "MaxEnergy_MeV", "10000" },
+				{ "RunningCouplingType", "LOperturbative_Cutoff3" }
+			};
 
 			return nameValuePairs;
 		}
 
 		private static Dictionary<string, string> GetConvertedAlphaNameValuePairs()
 		{
-			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-
-			nameValuePairs.Add("MinEnergy_MeV", "-440");
-			nameValuePairs.Add("MaxEnergy_MeV", "10000");
-			nameValuePairs.Add("Samples", "1000");
-			nameValuePairs.Add("DataFileName", "stdout.txt");
-			nameValuePairs.Add("RunningCouplingTypeSelection", "LOperturbative_Cutoff3");
-			nameValuePairs.Add("EnergyScale_MeV", "-440");
-
-			nameValuePairs.Add("PotentialType", "0");
-			nameValuePairs.Add("AlphaSoft", "0");
-			nameValuePairs.Add("Sigma_MeV2", "0");
-			nameValuePairs.Add("ColorState", "Singlet");
-			nameValuePairs.Add("Temperature_MeV", "0");
-			nameValuePairs.Add("DebyeMass_MeV", "0");
-			nameValuePairs.Add("SpinState", "Singlet");
-			nameValuePairs.Add("SpinCouplingRange_fm", "0");
-			nameValuePairs.Add("SpinCouplingStrength_MeV", "0");
-			nameValuePairs.Add("MinRadius_fm", "0");
-			nameValuePairs.Add("MaxRadius_fm", "0");
+			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>
+			{
+				{ "AlphaSoft", "0" },
+				{ "ColorState", "Singlet" },
+				{ "DataFileName", "stdout.txt" },
+				{ "DebyeMass_MeV", "0" },
+				{ "EnergyScale_MeV", "-440" },
+				{ "MaxEnergy_MeV", "10000" },
+				{ "MaxRadius_fm", "0" },
+				{ "MinEnergy_MeV", "-440" },
+				{ "MinRadius_fm", "0" },
+				{ "PotentialType", "0" },
+				{ "RunningCouplingTypeSelection", "LOperturbative_Cutoff3" },
+				{ "Samples", "1000" },
+				{ "Sigma_MeV2", "0" },
+				{ "SpinCouplingRange_fm", "0" },
+				{ "SpinCouplingStrength_MeV", "0" },
+				{ "SpinState", "Singlet" },
+				{ "Temperature_MeV", "0" }
+			};
 
 			return nameValuePairs;
 		}
 
 		private static Dictionary<string, string> GetSingleQQPanelPionGDFParams()
 		{
-			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs.Add("Energy_MeV", "900");
-			nameValuePairs.Add("EnergySteps", "1000");
-			nameValuePairs.Add("DataFileName", "stdout.txt");
+			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>
+			{
+				{ "DataFileName", "stdout.txt" },
+				{ "EnergySteps", "1000" },
+				{ "Energy_MeV", "900" }
+			};
 
 			return nameValuePairs;
 		}
 
 		private static Dictionary<string, string> GetConvertedPionGDFNameValuePairs()
 		{
-			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs.Add("MinEnergy_MeV", "900");
-			nameValuePairs.Add("MaxEnergy_MeV", "0");
-			nameValuePairs.Add("Samples", "1000");
-			nameValuePairs.Add("DataFileName", "stdout.txt");
-			nameValuePairs.Add("EnergyScale_MeV", "900");
-
-			nameValuePairs.Add("PotentialType", "0");
-			nameValuePairs.Add("AlphaSoft", "0");
-			nameValuePairs.Add("Sigma_MeV2", "0");
-			nameValuePairs.Add("ColorState", "Singlet");
-			nameValuePairs.Add("Temperature_MeV", "0");
-			nameValuePairs.Add("DebyeMass_MeV", "0");
-			nameValuePairs.Add("RunningCouplingTypeSelection", "");
-			nameValuePairs.Add("SpinState", "Singlet");
-			nameValuePairs.Add("SpinCouplingRange_fm", "0");
-			nameValuePairs.Add("SpinCouplingStrength_MeV", "0");
-			nameValuePairs.Add("MinRadius_fm", "0");
-			nameValuePairs.Add("MaxRadius_fm", "0");
+			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>
+			{
+				{ "ColorState", "Singlet" },
+				{ "DataFileName", "stdout.txt" },
+				{ "DebyeMass_MeV", "0" },
+				{ "EnergyScale_MeV", "900" },
+				{ "MaxEnergy_MeV", "0" },
+				{ "MaxRadius_fm", "0" },
+				{ "MinEnergy_MeV", "900" },
+				{ "MinRadius_fm", "0" },
+				{ "PotentialType", "0" },
+				{ "RunningCouplingTypeSelection", "" },
+				{ "Samples", "1000" },
+				{ "Sigma_MeV2", "0" },
+				{ "SpinCouplingRange_fm", "0" },
+				{ "SpinCouplingStrength_MeV", "0" },
+				{ "SpinState", "Singlet" },
+				{ "Temperature_MeV", "0" }
+			};
 
 			return nameValuePairs;
 		}
 
 		private static Dictionary<string, string> GetSingleQQPanelPotentialParams()
 		{
-			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs.Add("PotentialType", "Complex");
-			nameValuePairs.Add("AlphaSoft", "0.5");
-			nameValuePairs.Add("Sigma_MeV2", "192000");
-			nameValuePairs.Add("ColorState", "Octet");
-			nameValuePairs.Add("Temperature_MeV", "3333");
-			nameValuePairs.Add("DebyeMass_MeV", "550");
-			nameValuePairs.Add("SpinState", "Triplet");
-			nameValuePairs.Add("SpinCouplingRange_fm", "0.1");
-			nameValuePairs.Add("SpinCouplingStrength_MeV", "15");
-			nameValuePairs.Add("MinRadius_fm", "0");
-			nameValuePairs.Add("MaxRadius_fm", "10");
-			nameValuePairs.Add("EnergySteps", "1000");
-			nameValuePairs.Add("DataFileName", "stdout.txt");
+			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>
+			{
+				{ "AlphaSoft", "0.5" },
+				{ "ColorState", "Octet" },
+				{ "DataFileName", "stdout.txt" },
+				{ "DebyeMass_MeV", "550" },
+				{ "EnergySteps", "1000" },
+				{ "MaxRadius_fm", "10" },
+				{ "MinRadius_fm", "0" },
+				{ "PotentialType", "Complex" },
+				{ "Sigma_MeV2", "192000" },
+				{ "SpinCouplingRange_fm", "0.1" },
+				{ "SpinCouplingStrength_MeV", "15" },
+				{ "SpinState", "Triplet" },
+				{ "Temperature_MeV", "3333" }
+			};
 
 			return nameValuePairs;
 		}
 
 		private static Dictionary<string, string> GetConvertedPotentialNameValuePairs()
 		{
-			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs.Add("PotentialType", "Complex");
-			nameValuePairs.Add("AlphaSoft", "0.5");
-			nameValuePairs.Add("Sigma_MeV2", "1.92E+05");
-			nameValuePairs.Add("ColorState", "Octet");
-			nameValuePairs.Add("Temperature_MeV", "3333");
-			nameValuePairs.Add("DebyeMass_MeV", "550");
-			nameValuePairs.Add("SpinState", "Triplet");
-			nameValuePairs.Add("SpinCouplingRange_fm", "0.1");
-			nameValuePairs.Add("SpinCouplingStrength_MeV", "15");
-			nameValuePairs.Add("MinRadius_fm", "0");
-			nameValuePairs.Add("MaxRadius_fm", "10");
-			nameValuePairs.Add("Samples", "1000");
-			nameValuePairs.Add("DataFileName", "stdout.txt");
-
-			nameValuePairs.Add("MinEnergy_MeV", "0");
-			nameValuePairs.Add("MaxEnergy_MeV", "0");
-			nameValuePairs.Add("RunningCouplingTypeSelection", "");
-			nameValuePairs.Add("EnergyScale_MeV", "0");
+			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>
+			{
+				{ "AlphaSoft", "0.5" },
+				{ "ColorState", "Octet" },
+				{ "DataFileName", "stdout.txt" },
+				{ "DebyeMass_MeV", "550" },
+				{ "EnergyScale_MeV", "0" },
+				{ "MaxEnergy_MeV", "0" },
+				{ "MaxRadius_fm", "10" },
+				{ "MinEnergy_MeV", "0" },
+				{ "MinRadius_fm", "0" },
+				{ "PotentialType", "Complex" },
+				{ "RunningCouplingTypeSelection", "" },
+				{ "Samples", "1000" },
+				{ "Sigma_MeV2", "1.92E+05" },
+				{ "SpinCouplingRange_fm", "0.1" },
+				{ "SpinCouplingStrength_MeV", "15" },
+				{ "SpinState", "Triplet" },
+				{ "Temperature_MeV", "3333" }
+			};
 
 			return nameValuePairs;
 		}

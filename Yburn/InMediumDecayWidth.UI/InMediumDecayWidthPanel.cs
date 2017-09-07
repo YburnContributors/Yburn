@@ -103,20 +103,21 @@ namespace Yburn.InMediumDecayWidth.UI
 
 		private Dictionary<string, string> GetControlsValues()
 		{
-			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-
-			nameValuePairs["BottomiumStates"] = MsxBottomiumStates.SelectionString;
-			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
-			nameValuePairs["DecayWidthType"] = CbxDecayWidthType.Text;
-			nameValuePairs["DopplerShiftEvaluationTypes"] = MsxDopplerShiftEvaluationTypes.SelectionString;
-			nameValuePairs["ElectricDipoleAlignment"] = CbxElectricDipoleAlignment.Text;
-			nameValuePairs["ElectricFieldStrength_per_fm2"] = TbxElectricFieldStrength.Text;
-			nameValuePairs["MagneticFieldStrength_per_fm2"] = TbxMagneticFieldStrength.Text;
-			nameValuePairs["MediumTemperatures_MeV"] = TbxMediumTemperatures.Text;
-			nameValuePairs["MediumVelocities"] = TbxMediumVelocities.Text;
-			nameValuePairs["NumberAveragingAngles"] = TbxNumberAveragingAngles.Text;
-			nameValuePairs["PotentialTypes"] = MsxPotentialTypes.SelectionString;
-			nameValuePairs["QGPFormationTemperature_MeV"] = TbxQGPFormationTemperature.Text;
+			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>
+			{
+				["BottomiumStates"] = MsxBottomiumStates.SelectionString,
+				["DataFileName"] = TbxDataFileName.Text,
+				["DecayWidthType"] = CbxDecayWidthType.Text,
+				["DopplerShiftEvaluationTypes"] = MsxDopplerShiftEvaluationTypes.SelectionString,
+				["ElectricDipoleAlignment"] = CbxElectricDipoleAlignment.Text,
+				["ElectricFieldStrength_per_fm2"] = TbxElectricFieldStrength.Text,
+				["MagneticFieldStrength_per_fm2"] = TbxMagneticFieldStrength.Text,
+				["MediumTemperatures_MeV"] = TbxMediumTemperatures.Text,
+				["MediumVelocities"] = TbxMediumVelocities.Text,
+				["NumberAveragingAngles"] = TbxNumberAveragingAngles.Text,
+				["PotentialTypes"] = MsxPotentialTypes.SelectionString,
+				["QGPFormationTemperature_MeV"] = TbxQGPFormationTemperature.Text
+			};
 
 			return nameValuePairs;
 		}

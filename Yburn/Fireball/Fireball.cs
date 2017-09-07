@@ -120,7 +120,7 @@ namespace Yburn.Fireball
 			{
 				if(IsPTDependent(fieldName))
 				{
-					for(int k = 0; k < Param.TransverseMomentaGeV.Count; k++)
+					for(int k = 0; k < Param.TransverseMomenta_GeV.Count; k++)
 					{
 						foreach(BottomiumState state in Enum.GetValues(typeof(BottomiumState)))
 						{
@@ -129,7 +129,7 @@ namespace Yburn.Fireball
 								fields.Add(GetFireballField(fieldName, state, k));
 								stringBuilder.AppendFormat("{0,20}",
 									fieldName + "(" + state.ToString() + ", "
-									+ Param.TransverseMomentaGeV[k].ToString() + ")");
+									+ Param.TransverseMomenta_GeV[k].ToString() + ")");
 							}
 						}
 					}
@@ -356,12 +356,12 @@ namespace Yburn.Fireball
 				throw new Exception("BreakupTemperature <= 0.");
 			}
 
-			if(Param.TransverseMomentaGeV.Count == 0)
+			if(Param.TransverseMomenta_GeV.Count == 0)
 			{
 				throw new Exception("TransverseMomenta-array is empty.");
 			}
 
-			foreach(double momentum in Param.TransverseMomentaGeV)
+			foreach(double momentum in Param.TransverseMomenta_GeV)
 			{
 				if(momentum < 0)
 				{
@@ -375,7 +375,7 @@ namespace Yburn.Fireball
 			DecayWidth = new FireballDecayWidthField(
 				X,
 				Y,
-				Param.TransverseMomentaGeV,
+				Param.TransverseMomenta_GeV,
 				Temperature,
 				VX,
 				VY,
@@ -413,7 +413,7 @@ namespace Yburn.Fireball
 				FireballFieldType.DampingFactor,
 				X.Length,
 				Y.Length,
-				Param.TransverseMomentaGeV.Count,
+				Param.TransverseMomenta_GeV.Count,
 				(x, y, pT, state) => 1);
 		}
 
@@ -486,7 +486,7 @@ namespace Yburn.Fireball
 			int pTIndex = 0
 			)
 		{
-			if(pTIndex >= Param.TransverseMomentaGeV.Count || pTIndex < 0)
+			if(pTIndex >= Param.TransverseMomenta_GeV.Count || pTIndex < 0)
 			{
 				throw new Exception("pTIndex is invalid.");
 			}

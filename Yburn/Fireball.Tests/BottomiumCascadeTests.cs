@@ -73,14 +73,15 @@ namespace Yburn.Fireball.Tests
 			get
 			{
 				Dictionary<BottomiumState, double> dimuonDecays
-					= new Dictionary<BottomiumState, double>();
-
-				dimuonDecays[BottomiumState.Y1S] = 1.0;
-				dimuonDecays[BottomiumState.x1P] = 0.271;
-				dimuonDecays[BottomiumState.Y2S] = 0.56;
-				dimuonDecays[BottomiumState.x2P] = 0.105;
-				dimuonDecays[BottomiumState.Y3S] = 0.41;
-				dimuonDecays[BottomiumState.x3P] = 0.06;
+					= new Dictionary<BottomiumState, double>
+					{
+						[BottomiumState.Y1S] = 1.0,
+						[BottomiumState.x1P] = 0.271,
+						[BottomiumState.Y2S] = 0.56,
+						[BottomiumState.x2P] = 0.105,
+						[BottomiumState.Y3S] = 0.41,
+						[BottomiumState.x3P] = 0.06
+					};
 
 				return dimuonDecays;
 			}

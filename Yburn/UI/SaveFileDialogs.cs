@@ -6,13 +6,15 @@ namespace Yburn.UI
 	{
 		public static SaveFileDialog Create()
 		{
-			SaveFileDialog dialog = new SaveFileDialog();
-			dialog.Title = "Select an archive data file...";
-			dialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-			dialog.SupportMultiDottedExtensions = true;
-			dialog.DefaultExt = "txt";
-			dialog.AddExtension = true;
-			dialog.OverwritePrompt = false;
+			SaveFileDialog dialog = new SaveFileDialog
+			{
+				Title = "Select an archive data file...",
+				Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
+				SupportMultiDottedExtensions = true,
+				DefaultExt = "txt",
+				AddExtension = true,
+				OverwritePrompt = false
+			};
 
 			return dialog;
 		}
@@ -22,13 +24,15 @@ namespace Yburn.UI
 	{
 		public static SaveFileDialog Create()
 		{
-			SaveFileDialog dialog = new SaveFileDialog();
-			dialog.Title = "Save current values as parameter file...";
-			dialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
-			dialog.SupportMultiDottedExtensions = true;
-			dialog.DefaultExt = "txt";
-			dialog.AddExtension = true;
-			dialog.OverwritePrompt = true;
+			SaveFileDialog dialog = new SaveFileDialog
+			{
+				Title = "Save current values as parameter file...",
+				Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*",
+				SupportMultiDottedExtensions = true,
+				DefaultExt = "txt",
+				AddExtension = true,
+				OverwritePrompt = true
+			};
 
 			return dialog;
 		}

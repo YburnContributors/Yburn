@@ -112,24 +112,25 @@ namespace Yburn.Fireball.Tests
 
 		private static FireballParam CreateFireballParam_PbPb()
 		{
-			FireballParam param = new FireballParam();
-
-			param.BreakupTemperature_MeV = 160;
-			param.CenterOfMassEnergyTeV = 2.76;
-			param.DiffusenessA_fm = 0.546;
-			param.DiffusenessB_fm = 0.546;
-			param.GridCellSize_fm = 0.4;
-			param.GridRadius_fm = 10;
-			param.InitialMaximumTemperature_MeV = 550;
-			param.NuclearRadiusA_fm = 6.62;
-			param.NuclearRadiusB_fm = 6.62;
-			param.NucleonNumberA = 208;
-			param.NucleonNumberB = 208;
-			param.NucleusShapeA = NucleusShape.WoodsSaxonPotential;
-			param.NucleusShapeB = NucleusShape.WoodsSaxonPotential;
-			param.ProtonNumberA = 82;
-			param.ProtonNumberB = 82;
-			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
+			FireballParam param = new FireballParam
+			{
+				BreakupTemperature_MeV = 160,
+				CenterOfMassEnergy_TeV = 2.76,
+				DiffusenessA_fm = 0.546,
+				DiffusenessB_fm = 0.546,
+				GridCellSize_fm = 0.4,
+				GridRadius_fm = 10,
+				InitialMaximumTemperature_MeV = 550,
+				NuclearRadiusA_fm = 6.62,
+				NuclearRadiusB_fm = 6.62,
+				NucleonNumberA = 208,
+				NucleonNumberB = 208,
+				NucleusShapeA = NucleusShape.WoodsSaxonPotential,
+				NucleusShapeB = NucleusShape.WoodsSaxonPotential,
+				ProtonNumberA = 82,
+				ProtonNumberB = 82,
+				TemperatureProfile = TemperatureProfile.NmixPHOBOS13
+			};
 
 			return param;
 		}
@@ -138,7 +139,7 @@ namespace Yburn.Fireball.Tests
 		{
 			FireballParam param = CreateFireballParam_PbPb();
 
-			param.CenterOfMassEnergyTeV = 5.02;
+			param.CenterOfMassEnergy_TeV = 5.02;
 			param.DiffusenessA_fm = 0;
 			param.GridCellSize_fm = 0.2;
 			param.GridRadius_fm = 5;

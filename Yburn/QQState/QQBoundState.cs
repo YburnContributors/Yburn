@@ -197,13 +197,15 @@ namespace Yburn.QQState
 
 		protected void InitSolver()
 		{
-			Solver = new RseSolver();
-			Solver.InitialPosition = Param.MaxRadius_fm;
-			Solver.FinalPosition = 0;
-			Solver.Samples = Param.StepNumber;
-			Solver.RightHandSide = EffectivePotentialMinusEigenvalue;
-			Solver.InitialDerivativeValue = new Complex(0, 0);
-			Solver.InitialSolutionValue = new Complex(1e-40, 0);
+			Solver = new RseSolver
+			{
+				InitialPosition = Param.MaxRadius_fm,
+				FinalPosition = 0,
+				Samples = Param.StepNumber,
+				RightHandSide = EffectivePotentialMinusEigenvalue,
+				InitialDerivativeValue = new Complex(0, 0),
+				InitialSolutionValue = new Complex(1e-40, 0)
+			};
 
 			Solver.Initialize();
 		}
@@ -469,28 +471,23 @@ namespace Yburn.QQState
 
 		private void InitShootingSolver()
 		{
-			ShootingSolver = new RseShootingSolver();
-			ShootingSolver.Solver = Solver;
-			ShootingSolver.DesiredAccuracy = DesiredAccuracyWaveFunction;
-			ShootingSolver.Aggressiveness = Param.AggressivenessEnergy;
-			ShootingSolver.MaxTrials = Param.MaxShootingTrials - Trials;
-			ShootingSolver.Eigenvalue = GetEigenvalue();
-			ShootingSolver.CancellationToken = CalculationCancelToken;
-			ShootingSolver.SolutionConstraint = () =>
+			ShootingSolver = new RseShootingSolver
 			{
-				return NumberExtrema == QuantumNumberN - Param.QuantumNumberL;
-			};
-			ShootingSolver.SolutionAccuracyMeasure = () =>
-			{
-				return ComplexMath.Abs(WaveFunction_fm[0]);
-			};
-			ShootingSolver.ActionAfterIteration = () =>
-			{
-				Trials++;
-
-				UpdateWaveFunction();
-				UpdateEigenvalue();
-				UpdateStatusValues();
+				Solver = Solver,
+				DesiredAccuracy = DesiredAccuracyWaveFunction,
+				Aggressiveness = Param.AggressivenessEnergy,
+				MaxTrials = Param.MaxShootingTrials - Trials,
+				Eigenvalue = GetEigenvalue(),
+				CancellationToken = CalculationCancelToken,
+				SolutionConstraint = () => NumberExtrema == QuantumNumberN - Param.QuantumNumberL,
+				SolutionAccuracyMeasure = () => ComplexMath.Abs(WaveFunction_fm[0]),
+				ActionAfterIteration = () =>
+				{
+					Trials++;
+					UpdateWaveFunction();
+					UpdateEigenvalue();
+					UpdateStatusValues();
+				}
 			};
 		}
 

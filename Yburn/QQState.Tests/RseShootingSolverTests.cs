@@ -27,8 +27,10 @@ namespace Yburn.QQState.Tests
 		[ExpectedException(typeof(NonPositiveAccuracyException))]
 		public void ThrowIfNegativeAccuracy()
 		{
-			ShootingSolver = new RseShootingSolver();
-			ShootingSolver.DesiredAccuracy = -1;
+			ShootingSolver = new RseShootingSolver
+			{
+				DesiredAccuracy = -1
+			};
 
 			ShootingSolver.Solve();
 		}
@@ -37,8 +39,10 @@ namespace Yburn.QQState.Tests
 		[ExpectedException(typeof(NonPositiveAccuracyException))]
 		public void ThrowIfZeroAccuracy()
 		{
-			ShootingSolver = new RseShootingSolver();
-			ShootingSolver.DesiredAccuracy = 0;
+			ShootingSolver = new RseShootingSolver
+			{
+				DesiredAccuracy = 0
+			};
 
 			ShootingSolver.Solve();
 		}
@@ -47,9 +51,11 @@ namespace Yburn.QQState.Tests
 		[ExpectedException(typeof(ZeroAggressivenessException))]
 		public void ThrowIfZeroAggressiveness()
 		{
-			ShootingSolver = new RseShootingSolver();
-			ShootingSolver.DesiredAccuracy = 1;
-			ShootingSolver.Aggressiveness = 0;
+			ShootingSolver = new RseShootingSolver
+			{
+				DesiredAccuracy = 1,
+				Aggressiveness = 0
+			};
 
 			ShootingSolver.Solve();
 		}
@@ -58,9 +64,11 @@ namespace Yburn.QQState.Tests
 		[ExpectedException(typeof(MissingAccuracyMeasureException))]
 		public void ThrowIfMissingAccuracyMeasure()
 		{
-			ShootingSolver = new RseShootingSolver();
-			ShootingSolver.DesiredAccuracy = 1;
-			ShootingSolver.Aggressiveness = 1;
+			ShootingSolver = new RseShootingSolver
+			{
+				DesiredAccuracy = 1,
+				Aggressiveness = 1
+			};
 
 			ShootingSolver.Solve();
 		}
@@ -69,14 +77,13 @@ namespace Yburn.QQState.Tests
 		[ExpectedException(typeof(MissingRseSolverException))]
 		public void ThrowIfMissingSolver()
 		{
-			ShootingSolver = new RseShootingSolver();
-			ShootingSolver.DesiredAccuracy = 1;
-			ShootingSolver.Aggressiveness = 1;
-			ShootingSolver.SolutionAccuracyMeasure = () =>
+			ShootingSolver = new RseShootingSolver
 			{
-				return 0;
+				DesiredAccuracy = 1,
+				Aggressiveness = 1,
+				SolutionAccuracyMeasure = () => 0,
+				Solver = null
 			};
-			ShootingSolver.Solver = null;
 
 			ShootingSolver.Solve();
 		}
@@ -87,15 +94,14 @@ namespace Yburn.QQState.Tests
 		{
 			InitRseSolver_Dummy();
 
-			ShootingSolver = new RseShootingSolver();
-			ShootingSolver.DesiredAccuracy = 1;
-			ShootingSolver.Aggressiveness = 1;
-			ShootingSolver.SolutionAccuracyMeasure = () =>
+			ShootingSolver = new RseShootingSolver
 			{
-				return 10 * ShootingSolver.DesiredAccuracy;
+				DesiredAccuracy = 1,
+				Aggressiveness = 1,
+				SolutionAccuracyMeasure = () => 10 * ShootingSolver.DesiredAccuracy,
+				Solver = Solver,
+				MaxTrials = -1
 			};
-			ShootingSolver.Solver = Solver;
-			ShootingSolver.MaxTrials = -1;
 
 			ShootingSolver.Solve();
 		}
@@ -280,20 +286,21 @@ namespace Yburn.QQState.Tests
 
 			InitRseSolver_Dummy();
 
-			ShootingSolver = new RseShootingSolver();
-			ShootingSolver.SolutionAccuracyMeasure = () =>
+			ShootingSolver = new RseShootingSolver
 			{
-				return 10 * DesiredAccuracy;
+				SolutionAccuracyMeasure = () => 10 * DesiredAccuracy
 			};
 		}
 
 		private void InitRseSolver_Dummy()
 		{
-			Solver = new RseSolver();
-			Solver.InitialPosition = 0;
-			Solver.FinalPosition = 1;
-			Solver.Samples = 1;
-			Solver.RightHandSide = ZeroDglRhs;
+			Solver = new RseSolver
+			{
+				InitialPosition = 0,
+				FinalPosition = 1,
+				Samples = 1,
+				RightHandSide = ZeroDglRhs
+			};
 		}
 
 		private void InitShootingSolver_SinExactInput()
@@ -304,25 +311,26 @@ namespace Yburn.QQState.Tests
 
 			InitRseSolver_SinExactInput();
 
-			ShootingSolver = new RseShootingSolver();
-			ShootingSolver.Solver = Solver;
-			ShootingSolver.DesiredAccuracy = DesiredAccuracy;
-			ShootingSolver.Aggressiveness = Aggressiveness;
-			ShootingSolver.SolutionAccuracyMeasure = () =>
+			ShootingSolver = new RseShootingSolver
 			{
-				return ComplexMath.Abs(Solver.SolutionValues[5000]);
+				Solver = Solver,
+				DesiredAccuracy = DesiredAccuracy,
+				Aggressiveness = Aggressiveness,
+				SolutionAccuracyMeasure = () => ComplexMath.Abs(Solver.SolutionValues[5000])
 			};
 		}
 
 		private void InitRseSolver_SinExactInput()
 		{
-			Solver = new RseSolver();
-			Solver.InitialPosition = 0;
-			Solver.FinalPosition = 2 * Math.PI;
-			Solver.Samples = 10000;
-			Solver.RightHandSide = SinDglRhs;
-			Solver.InitialSolutionValue = new Complex(0, 0);
-			Solver.InitialDerivativeValue = new Complex(1, 0);
+			Solver = new RseSolver
+			{
+				InitialPosition = 0,
+				FinalPosition = 2 * Math.PI,
+				Samples = 10000,
+				RightHandSide = SinDglRhs,
+				InitialSolutionValue = new Complex(0, 0),
+				InitialDerivativeValue = new Complex(1, 0)
+			};
 		}
 
 		private void InitShootingSolver_SinEigenvalueProblem()
@@ -333,27 +341,28 @@ namespace Yburn.QQState.Tests
 
 			InitRseSolver_SinEigenvalueProblem();
 
-			ShootingSolver = new RseShootingSolver();
-			ShootingSolver.Solver = Solver;
-			ShootingSolver.DesiredAccuracy = DesiredAccuracy;
-			ShootingSolver.Aggressiveness = Aggressiveness;
-			ShootingSolver.MaxTrials = MaxShootingTrials;
-			ShootingSolver.Eigenvalue = new Complex(0, 0);
-			ShootingSolver.SolutionAccuracyMeasure = () =>
+			ShootingSolver = new RseShootingSolver
 			{
-				return ComplexMath.Abs(Solver.SolutionValues[10000]);
+				Solver = Solver,
+				DesiredAccuracy = DesiredAccuracy,
+				Aggressiveness = Aggressiveness,
+				MaxTrials = MaxShootingTrials,
+				Eigenvalue = new Complex(0, 0),
+				SolutionAccuracyMeasure = () => ComplexMath.Abs(Solver.SolutionValues[10000])
 			};
 		}
 
 		private void InitRseSolver_SinEigenvalueProblem()
 		{
-			Solver = new RseSolver();
-			Solver.InitialPosition = 0;
-			Solver.FinalPosition = 2 * Math.PI;
-			Solver.Samples = 10000;
-			Solver.RightHandSide = ZeroDglRhs;
-			Solver.InitialSolutionValue = new Complex(0, 0);
-			Solver.InitialDerivativeValue = new Complex(1, 0);
+			Solver = new RseSolver
+			{
+				InitialPosition = 0,
+				FinalPosition = 2 * Math.PI,
+				Samples = 10000,
+				RightHandSide = ZeroDglRhs,
+				InitialSolutionValue = new Complex(0, 0),
+				InitialDerivativeValue = new Complex(1, 0)
+			};
 		}
 
 		private void InitShootingSolver_ComplexEigenvalueProblem()
@@ -364,27 +373,28 @@ namespace Yburn.QQState.Tests
 
 			InitRseSolver_ComplexEigenvalueProblem();
 
-			ShootingSolver = new RseShootingSolver();
-			ShootingSolver.Solver = Solver;
-			ShootingSolver.DesiredAccuracy = DesiredAccuracy;
-			ShootingSolver.Aggressiveness = Aggressiveness;
-			ShootingSolver.MaxTrials = MaxShootingTrials;
-			ShootingSolver.Eigenvalue = new Complex(0.3, -1.5);
-			ShootingSolver.SolutionAccuracyMeasure = () =>
+			ShootingSolver = new RseShootingSolver
 			{
-				return ComplexMath.Abs(Solver.SolutionValues[10000] - ComplexTestFunction(Math.PI));
+				Solver = Solver,
+				DesiredAccuracy = DesiredAccuracy,
+				Aggressiveness = Aggressiveness,
+				MaxTrials = MaxShootingTrials,
+				Eigenvalue = new Complex(0.3, -1.5),
+				SolutionAccuracyMeasure = () => ComplexMath.Abs(Solver.SolutionValues[10000] - ComplexTestFunction(Math.PI))
 			};
 		}
 
 		private void InitRseSolver_ComplexEigenvalueProblem()
 		{
-			Solver = new RseSolver();
-			Solver.InitialPosition = 0;
-			Solver.FinalPosition = Math.PI;
-			Solver.Samples = 10000;
-			Solver.RightHandSide = ZeroDglRhs;
-			Solver.InitialSolutionValue = new Complex(1, 0);
-			Solver.InitialDerivativeValue = new Complex(-1, -1);
+			Solver = new RseSolver
+			{
+				InitialPosition = 0,
+				FinalPosition = Math.PI,
+				Samples = 10000,
+				RightHandSide = ZeroDglRhs,
+				InitialSolutionValue = new Complex(1, 0),
+				InitialDerivativeValue = new Complex(-1, -1)
+			};
 		}
 
 		private void InitShootingSolver_SolutionConstraintViolated()

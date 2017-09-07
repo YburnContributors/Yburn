@@ -181,26 +181,27 @@ namespace Yburn.Workers
 
 		private FireballParam CreateFireballParam()
 		{
-			FireballParam param = new FireballParam();
-
-			param.BeamRapidity = ParticleRapidity;
-			param.DiffusenessA_fm = DiffusenessA_fm;
-			param.DiffusenessB_fm = DiffusenessB_fm;
-			param.EMFCalculationMethod = EMFCalculationMethod;
-			param.EMFQuadratureOrder = EMFQuadratureOrder;
-			param.GridCellSize_fm = GridCellSize_fm;
-			param.GridRadius_fm = GridRadius_fm;
-			param.ImpactParameter_fm = ImpactParameter_fm;
-			param.NucleonNumberA = NucleonNumberA;
-			param.NucleonNumberB = NucleonNumberB;
-			param.NuclearRadiusA_fm = NuclearRadiusA_fm;
-			param.NuclearRadiusB_fm = NuclearRadiusB_fm;
-			param.NucleusShapeA = NucleusShapeA;
-			param.NucleusShapeB = NucleusShapeB;
-			param.ProtonNumberA = ProtonNumberA;
-			param.ProtonNumberB = ProtonNumberB;
-			param.QGPConductivity_MeV = QGPConductivity_MeV;
-			param.TemperatureProfile = TemperatureProfile.NmixPHOBOS13;
+			FireballParam param = new FireballParam
+			{
+				BeamRapidity = ParticleRapidity,
+				DiffusenessA_fm = DiffusenessA_fm,
+				DiffusenessB_fm = DiffusenessB_fm,
+				EMFCalculationMethod = EMFCalculationMethod,
+				EMFQuadratureOrder = EMFQuadratureOrder,
+				GridCellSize_fm = GridCellSize_fm,
+				GridRadius_fm = GridRadius_fm,
+				ImpactParameter_fm = ImpactParameter_fm,
+				NucleonNumberA = NucleonNumberA,
+				NucleonNumberB = NucleonNumberB,
+				NuclearRadiusA_fm = NuclearRadiusA_fm,
+				NuclearRadiusB_fm = NuclearRadiusB_fm,
+				NucleusShapeA = NucleusShapeA,
+				NucleusShapeB = NucleusShapeB,
+				ProtonNumberA = ProtonNumberA,
+				ProtonNumberB = ProtonNumberB,
+				QGPConductivity_MeV = QGPConductivity_MeV,
+				TemperatureProfile = TemperatureProfile.NmixPHOBOS13
+			};
 
 			return param;
 		}

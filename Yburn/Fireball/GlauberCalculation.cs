@@ -10,33 +10,33 @@ namespace Yburn.Fireball
 
 		// COMPETE Collaboration (2002)
 		private static double GetTotalppCrossSection_fm2(
-			double centerOfMassEnergyTeV
+			double centerOfMassEnergy_TeV
 			)
 		{
-			double sGeV = 1e6 * centerOfMassEnergyTeV * centerOfMassEnergyTeV;
-			double sigmamb = 42.6 * Math.Pow(sGeV, -0.46) - 33.4 * Math.Pow(sGeV, -0.545) + 35.5
-			   + 0.307 * Math.Pow(Math.Log(sGeV / 29.1), 2);
+			double s_GeV = 1e6 * centerOfMassEnergy_TeV * centerOfMassEnergy_TeV;
+			double sigma_mb = 42.6 * Math.Pow(s_GeV, -0.46) - 33.4 * Math.Pow(s_GeV, -0.545) + 35.5
+			   + 0.307 * Math.Pow(Math.Log(s_GeV / 29.1), 2);
 
-			return 0.1 * sigmamb;
+			return 0.1 * sigma_mb;
 		}
 
 		// TOTEM Collaboration (2013)
 		private static double GetElasticppCrossSection_fm2(
-			double centerOfMassEnergyTeV
+			double centerOfMassEnergy_TeV
 			)
 		{
-			double sGeV = 1e6 * centerOfMassEnergyTeV * centerOfMassEnergyTeV;
-			double sigmamb = 11.7 - 1.59 * Math.Log(sGeV) + 0.134 * Math.Pow(Math.Log(sGeV), 2);
+			double s_GeV = 1e6 * centerOfMassEnergy_TeV * centerOfMassEnergy_TeV;
+			double sigma_mb = 11.7 - 1.59 * Math.Log(s_GeV) + 0.134 * Math.Pow(Math.Log(s_GeV), 2);
 
-			return 0.1 * sigmamb;
+			return 0.1 * sigma_mb;
 		}
 
 		private static double GetInelasticppCrossSection_fm2(
-			double centerOfMassEnergyTeV
+			double centerOfMassEnergy_TeV
 			)
 		{
-			return GetTotalppCrossSection_fm2(centerOfMassEnergyTeV)
-				- GetElasticppCrossSection_fm2(centerOfMassEnergyTeV);
+			return GetTotalppCrossSection_fm2(centerOfMassEnergy_TeV)
+				- GetElasticppCrossSection_fm2(centerOfMassEnergy_TeV);
 		}
 
 		private static double GetNmixPHOBOS(
@@ -162,7 +162,7 @@ namespace Yburn.Fireball
 
 		private void AssertValidMembers()
 		{
-			if(Param.CenterOfMassEnergyTeV <= 0)
+			if(Param.CenterOfMassEnergy_TeV <= 0)
 			{
 				throw new Exception("CenterOfMassEnergy <= 0.");
 			}
@@ -192,7 +192,8 @@ namespace Yburn.Fireball
 
 		private void InitInelasticppCrossSection()
 		{
-			InelasticppCrossSection_fm2 = GetInelasticppCrossSection_fm2(Param.CenterOfMassEnergyTeV);
+			InelasticppCrossSection_fm2
+				= GetInelasticppCrossSection_fm2(Param.CenterOfMassEnergy_TeV);
 		}
 
 		private void InitNucleusAB()

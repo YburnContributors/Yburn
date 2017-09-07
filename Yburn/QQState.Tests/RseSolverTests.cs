@@ -27,13 +27,15 @@ namespace Yburn.QQState.Tests
 		[TestMethod]
 		public void SolveSinLeftRight()
 		{
-			RseSolver solver = new RseSolver();
-			solver.InitialPosition = 0;
-			solver.FinalPosition = -10;
-			solver.Samples = 10000;
-			solver.RightHandSide = SinDglRhs;
-			solver.InitialSolutionValue = new Complex(0, 0);
-			solver.InitialDerivativeValue = new Complex(1, 0);
+			RseSolver solver = new RseSolver
+			{
+				InitialPosition = 0,
+				FinalPosition = -10,
+				Samples = 10000,
+				RightHandSide = SinDglRhs,
+				InitialSolutionValue = new Complex(0, 0),
+				InitialDerivativeValue = new Complex(1, 0)
+			};
 
 			solver.Solve();
 
@@ -46,13 +48,15 @@ namespace Yburn.QQState.Tests
 		[TestMethod]
 		public void SolveSinRightLeft()
 		{
-			RseSolver solver = new RseSolver();
-			solver.InitialPosition = 0;
-			solver.FinalPosition = 10;
-			solver.Samples = 10000;
-			solver.RightHandSide = SinDglRhs;
-			solver.InitialSolutionValue = new Complex(0, 0);
-			solver.InitialDerivativeValue = new Complex(1, 0);
+			RseSolver solver = new RseSolver
+			{
+				InitialPosition = 0,
+				FinalPosition = 10,
+				Samples = 10000,
+				RightHandSide = SinDglRhs,
+				InitialSolutionValue = new Complex(0, 0),
+				InitialDerivativeValue = new Complex(1, 0)
+			};
 
 			solver.Solve();
 
@@ -65,13 +69,15 @@ namespace Yburn.QQState.Tests
 		[TestMethod]
 		public void SolveHydrogen10()
 		{
-			RseSolver solver = new RseSolver();
-			solver.InitialPosition = 40;
-			solver.FinalPosition = 0;
-			solver.Samples = 15000;
-			solver.RightHandSide = CoulombRightHandSideN1L0;
-			solver.InitialSolutionValue = new Complex(1e-40, 0);
-			solver.InitialDerivativeValue = new Complex(0, 0);
+			RseSolver solver = new RseSolver
+			{
+				InitialPosition = 40,
+				FinalPosition = 0,
+				Samples = 15000,
+				RightHandSide = CoulombRightHandSideN1L0,
+				InitialSolutionValue = new Complex(1e-40, 0),
+				InitialDerivativeValue = new Complex(0, 0)
+			};
 
 			solver.Solve();
 
@@ -88,13 +94,15 @@ namespace Yburn.QQState.Tests
 		[TestMethod]
 		public void SolveHydrogen21()
 		{
-			RseSolver solver = new RseSolver();
-			solver.InitialPosition = 40;
-			solver.FinalPosition = 0;
-			solver.Samples = 70000;
-			solver.RightHandSide = CoulombRightHandSideN2L1;
-			solver.InitialSolutionValue = new Complex(1e-40, 0);
-			solver.InitialDerivativeValue = new Complex(0, 0);
+			RseSolver solver = new RseSolver
+			{
+				InitialPosition = 40,
+				FinalPosition = 0,
+				Samples = 70000,
+				RightHandSide = CoulombRightHandSideN2L1,
+				InitialSolutionValue = new Complex(1e-40, 0),
+				InitialDerivativeValue = new Complex(0, 0)
+			};
 
 			solver.Solve();
 

@@ -31,8 +31,7 @@ namespace Yburn
 			ref T value
 			) where T : IConvertible
 		{
-			string stringifiedValue;
-			nameValuePairs.TryGetValue(key, out stringifiedValue);
+			nameValuePairs.TryGetValue(key, out string stringifiedValue);
 
 			if(!string.IsNullOrEmpty(stringifiedValue))
 			{
@@ -46,8 +45,7 @@ namespace Yburn
 			ref List<T> list
 			) where T : IConvertible
 		{
-			string stringifiedValue;
-			nameValuePairs.TryGetValue(key, out stringifiedValue);
+			nameValuePairs.TryGetValue(key, out string stringifiedValue);
 
 			if(!string.IsNullOrEmpty(stringifiedValue))
 			{
@@ -61,8 +59,7 @@ namespace Yburn
 			ref List<List<T>> nestedList
 			) where T : IConvertible
 		{
-			string stringifiedValue;
-			nameValuePairs.TryGetValue(key, out stringifiedValue);
+			nameValuePairs.TryGetValue(key, out string stringifiedValue);
 
 			if(!string.IsNullOrEmpty(stringifiedValue))
 			{
@@ -76,8 +73,7 @@ namespace Yburn
 			ref Dictionary<TKey, TValue> dictionary
 			) where TKey : IConvertible where TValue : IConvertible
 		{
-			string stringifiedValue;
-			nameValuePairs.TryGetValue(key, out stringifiedValue);
+			nameValuePairs.TryGetValue(key, out string stringifiedValue);
 
 			if(!string.IsNullOrEmpty(stringifiedValue))
 			{

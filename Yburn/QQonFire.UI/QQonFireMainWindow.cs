@@ -91,11 +91,13 @@ namespace Yburn.QQonFire.UI
 
 		private void SetToolTipMaker()
 		{
-			ToolTip prototype = new ToolTip();
-			prototype.AutoPopDelay = 15000;
-			prototype.InitialDelay = 500;
-			prototype.ReshowDelay = 500;
-			prototype.ShowAlways = true;
+			ToolTip prototype = new ToolTip
+			{
+				AutoPopDelay = 15000,
+				InitialDelay = 500,
+				ReshowDelay = 500,
+				ShowAlways = true
+			};
 			ToolTipMaker = new ToolTipMaker(prototype);
 		}
 
@@ -244,8 +246,10 @@ namespace Yburn.QQonFire.UI
 		{
 			if(task.Exception != null)
 			{
-				JobFailureEventArgs args = new JobFailureEventArgs();
-				args.Exception = task.Exception.InnerException;
+				JobFailureEventArgs args = new JobFailureEventArgs
+				{
+					Exception = task.Exception.InnerException
+				};
 				OnJobFailure(this, args);
 			}
 		}

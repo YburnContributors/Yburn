@@ -100,30 +100,31 @@ namespace Yburn.Electromagnetism.UI
 
 		private Dictionary<string, string> GetControlsValues()
 		{
-			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-
-			nameValuePairs["DiffusenessA_fm"] = TbxDiffusenessA.Text;
-			nameValuePairs["DiffusenessB_fm"] = TbxDiffusenessB.Text;
-			nameValuePairs["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text;
-			nameValuePairs["EMFQuadratureOrder"] = TbxEMFQuadratureOrder.Text;
-			nameValuePairs["GridCellSize_fm"] = TbxGridCellSize.Text;
-			nameValuePairs["GridRadius_fm"] = TbxGridRadius.Text;
-			nameValuePairs["ImpactParameter_fm"] = TbxImpactParameter.Text;
-			nameValuePairs["ParticleRapidity"] = TbxParticleRapidity.Text;
-			nameValuePairs["NuclearRadiusA_fm"] = TbxNuclearRadiusA.Text;
-			nameValuePairs["NuclearRadiusB_fm"] = TbxNuclearRadiusB.Text;
-			nameValuePairs["NucleonNumberA"] = TbxNucleonNumberA.Text;
-			nameValuePairs["NucleonNumberB"] = TbxNucleonNumberB.Text;
-			nameValuePairs["DataFileName"] = TbxDataFileName.Text;
-			nameValuePairs["ProtonNumberA"] = TbxProtonNumberA.Text;
-			nameValuePairs["ProtonNumberB"] = TbxProtonNumberB.Text;
-			nameValuePairs["QGPConductivity_MeV"] = TbxQGPConductivity.Text;
-			nameValuePairs["RadialDistance_fm"] = TbxRadialDistance.Text;
-			nameValuePairs["NucleusShapeA"] = CbxNucleusShapeA.Text;
-			nameValuePairs["NucleusShapeB"] = CbxNucleusShapeB.Text;
-			nameValuePairs["Samples"] = TbxSamples.Text;
-			nameValuePairs["StartTime_fm"] = TbxStartTime.Text;
-			nameValuePairs["StopTime_fm"] = TbxStopTime.Text;
+			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>
+			{
+				["DiffusenessA_fm"] = TbxDiffusenessA.Text,
+				["DiffusenessB_fm"] = TbxDiffusenessB.Text,
+				["EMFCalculationMethod"] = CbxEMFCalculationMethod.Text,
+				["EMFQuadratureOrder"] = TbxEMFQuadratureOrder.Text,
+				["GridCellSize_fm"] = TbxGridCellSize.Text,
+				["GridRadius_fm"] = TbxGridRadius.Text,
+				["ImpactParameter_fm"] = TbxImpactParameter.Text,
+				["ParticleRapidity"] = TbxParticleRapidity.Text,
+				["NuclearRadiusA_fm"] = TbxNuclearRadiusA.Text,
+				["NuclearRadiusB_fm"] = TbxNuclearRadiusB.Text,
+				["NucleonNumberA"] = TbxNucleonNumberA.Text,
+				["NucleonNumberB"] = TbxNucleonNumberB.Text,
+				["DataFileName"] = TbxDataFileName.Text,
+				["ProtonNumberA"] = TbxProtonNumberA.Text,
+				["ProtonNumberB"] = TbxProtonNumberB.Text,
+				["QGPConductivity_MeV"] = TbxQGPConductivity.Text,
+				["RadialDistance_fm"] = TbxRadialDistance.Text,
+				["NucleusShapeA"] = CbxNucleusShapeA.Text,
+				["NucleusShapeB"] = CbxNucleusShapeB.Text,
+				["Samples"] = TbxSamples.Text,
+				["StartTime_fm"] = TbxStartTime.Text,
+				["StopTime_fm"] = TbxStopTime.Text
+			};
 
 			return nameValuePairs;
 		}

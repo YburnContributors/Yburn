@@ -92,11 +92,10 @@ namespace Yburn.QQState
 		{
 			get
 			{
-				List<string> dataList = new List<string>();
-				dataList.Add(string.Format("{0,-18}{1,-18}{2,-18}",
-					 "#E (MeV)",
-					 "SigmaG (mb)",
-					 "SigmaPi (mb)"));
+				List<string> dataList = new List<string>
+				{
+					string.Format("{0,-18}{1,-18}{2,-18}", "#E (MeV)", "SigmaG (mb)", "SigmaPi (mb)")
+				};
 
 				for(int j = 0; j <= EnergySteps; j++)
 				{
@@ -381,9 +380,11 @@ namespace Yburn.QQState
 			int quantumNumberL
 			)
 		{
-			QQFreeState freeState = new QQFreeState(
-				GetFreeStateParam(gluonEnergy_MeV, quantumNumberL));
-			freeState.CalculationCancelToken = CalculationCancelToken;
+			QQFreeState freeState = new QQFreeState(GetFreeStateParam(gluonEnergy_MeV, quantumNumberL))
+			{
+				CalculationCancelToken = CalculationCancelToken
+			};
+
 			freeState.SearchEigenfunction();
 
 			return freeState.WaveFunction_fm;

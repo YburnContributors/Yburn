@@ -157,9 +157,7 @@ namespace Yburn.Workers
 				}
 
 				// calculate the areas
-				double nCollQGP;
-				double nCollPion;
-				fireball.CalculateNcolls(BreakupTemperature_MeV, out nCollQGP, out nCollPion);
+				fireball.CalculateNcolls(BreakupTemperature_MeV, out double nCollQGP, out double nCollPion);
 				nCollQGPs.Add(nCollQGP);
 				nCollPions.Add(nCollPion);
 				nColls.Add(fireball.IntegrateFireballField("Ncoll"));
@@ -209,15 +207,10 @@ namespace Yburn.Workers
 		{
 			PrepareJob("CalculateBinBoundaries", BinBoundsStatusTitles);
 
-			List<int> numberCentralityBins;
-			List<List<string>> centralityBinStrings;
-			List<double> impactParams;
-			List<double> nColls;
-			List<double> nParts;
-			List<double> dSigmadbs;
-			List<double> sigmas;
-			CalculateBinBoundaries(out numberCentralityBins, out centralityBinStrings,
-				out impactParams, out nColls, out nParts, out dSigmadbs, out sigmas);
+			CalculateBinBoundaries(
+				out List<int> numberCentralityBins, out List<List<string>> centralityBinStrings,
+				out List<double> impactParams, out List<double> nColls, out List<double> nParts,
+				out List<double> dSigmadbs, out List<double> sigmas);
 
 			// quit here if process has been aborted
 			if(JobCancelToken.IsCancellationRequested)
@@ -287,9 +280,10 @@ namespace Yburn.Workers
 			out List<double> sigmas
 				)
 		{
-			BinBoundaryCalculator calculator = new BinBoundaryCalculator(CreateFireballParam(),
-				JobCancelToken);
-			calculator.StatusValues = StatusValues;
+			BinBoundaryCalculator calculator = new BinBoundaryCalculator(CreateFireballParam(), JobCancelToken)
+			{
+				StatusValues = StatusValues
+			};
 			calculator.Calculate(CentralityBinBoundaries_percent);
 
 			impactParams = calculator.ImpactParams;
@@ -309,15 +303,10 @@ namespace Yburn.Workers
 		{
 			PrepareJob("CalculateSuppression", BinBoundsStatusTitles);
 
-			List<int> numberCentralityBins;
-			List<List<string>> centralityBinStrings;
-			List<double> impactParams;
-			List<double> nColls;
-			List<double> nParts;
-			List<double> dSigmadbs;
-			List<double> sigmas;
-			CalculateBinBoundaries(out numberCentralityBins, out centralityBinStrings,
-				out impactParams, out nColls, out nParts, out dSigmadbs, out sigmas);
+			CalculateBinBoundaries(
+				out List<int> numberCentralityBins, out List<List<string>> centralityBinStrings,
+				out List<double> impactParams, out List<double> nColls, out List<double> nParts,
+				out List<double> dSigmadbs, out List<double> sigmas);
 
 			SetStatusVariables(SuppressionStatusTitles);
 			DetermineMaxLifeTime();
@@ -664,7 +653,7 @@ namespace Yburn.Workers
 		{
 			FireballParam param = CreateFireballParam();
 			param.ImpactParameter_fm = impactParam;
-			param.TransverseMomentaGeV = new List<double> { 0 };
+			param.TransverseMomenta_GeV = new List<double> { 0 };
 			param.ExpansionMode = ExpansionMode.Longitudinal;
 
 			return new Fireball.Fireball(param);
@@ -674,42 +663,43 @@ namespace Yburn.Workers
 		{
 			FireballParam param = CreateFireballParam();
 			param.ImpactParameter_fm = 0;
-			param.TransverseMomentaGeV = new List<double> { 0 };
+			param.TransverseMomenta_GeV = new List<double> { 0 };
 
 			return new Fireball.Fireball(param);
 		}
 
 		private FireballParam CreateFireballParam()
 		{
-			FireballParam param = new FireballParam();
-
-			param.BreakupTemperature_MeV = BreakupTemperature_MeV;
-			param.CenterOfMassEnergyTeV = CenterOfMassEnergy_TeV;
-			param.DiffusenessA_fm = DiffusenessA_fm;
-			param.DiffusenessB_fm = DiffusenessB_fm;
-			param.EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation;
-			param.EMFQuadratureOrder = EMFQuadratureOrder;
-			param.EMFUpdateInterval_fm = EMFUpdateInterval_fm;
-			param.ExpansionMode = ExpansionMode;
-			param.FormationTimes_fm = FormationTimes_fm;
-			param.GridCellSize_fm = GridCellSize_fm;
-			param.GridRadius_fm = GridRadius_fm;
-			param.ImpactParameter_fm = ImpactParameter_fm;
-			param.InitialMaximumTemperature_MeV = InitialMaximumTemperature_MeV;
-			param.NuclearRadiusA_fm = NuclearRadiusA_fm;
-			param.NuclearRadiusB_fm = NuclearRadiusB_fm;
-			param.NucleonNumberA = NucleonNumberA;
-			param.NucleonNumberB = NucleonNumberB;
-			param.NucleusShapeA = NucleusShapeA;
-			param.NucleusShapeB = NucleusShapeB;
-			param.ProtonNumberA = ProtonNumberA;
-			param.ProtonNumberB = ProtonNumberB;
-			param.QGPConductivity_MeV = QGPConductivity_MeV;
-			param.TemperatureProfile = TemperatureProfile;
-			param.ThermalTime_fm = ThermalTime_fm;
-			param.TransverseMomentaGeV = TransverseMomenta_GeV;
-			param.UseElectricField = UseElectricField;
-			param.UseMagneticField = UseMagneticField;
+			FireballParam param = new FireballParam
+			{
+				BreakupTemperature_MeV = BreakupTemperature_MeV,
+				CenterOfMassEnergy_TeV = CenterOfMassEnergy_TeV,
+				DiffusenessA_fm = DiffusenessA_fm,
+				DiffusenessB_fm = DiffusenessB_fm,
+				EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation,
+				EMFQuadratureOrder = EMFQuadratureOrder,
+				EMFUpdateInterval_fm = EMFUpdateInterval_fm,
+				ExpansionMode = ExpansionMode,
+				FormationTimes_fm = FormationTimes_fm,
+				GridCellSize_fm = GridCellSize_fm,
+				GridRadius_fm = GridRadius_fm,
+				ImpactParameter_fm = ImpactParameter_fm,
+				InitialMaximumTemperature_MeV = InitialMaximumTemperature_MeV,
+				NuclearRadiusA_fm = NuclearRadiusA_fm,
+				NuclearRadiusB_fm = NuclearRadiusB_fm,
+				NucleonNumberA = NucleonNumberA,
+				NucleonNumberB = NucleonNumberB,
+				NucleusShapeA = NucleusShapeA,
+				NucleusShapeB = NucleusShapeB,
+				ProtonNumberA = ProtonNumberA,
+				ProtonNumberB = ProtonNumberB,
+				QGPConductivity_MeV = QGPConductivity_MeV,
+				TemperatureProfile = TemperatureProfile,
+				ThermalTime_fm = ThermalTime_fm,
+				TransverseMomenta_GeV = TransverseMomenta_GeV,
+				UseElectricField = UseElectricField,
+				UseMagneticField = UseMagneticField
+			};
 
 			QQDataProvider provider = CreateQQDataProvider();
 			param.DecayWidthRetrievalFunction = provider.GetInMediumDecayWidth;

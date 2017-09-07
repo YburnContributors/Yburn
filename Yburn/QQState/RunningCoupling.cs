@@ -144,9 +144,7 @@ namespace Yburn.QQState
 		public NumericalRunningCoupling()
 			: base(RunningCouplingType.NonPerturbative_ITP)
 		{
-			double[] momenta;
-			double[] alphas;
-			ExtractValues("..\\..\\AlphaS_qQCD.txt", out momenta, out alphas);
+			ExtractValues("..\\..\\AlphaS_qQCD.txt", out double[] momenta, out double[] alphas);
 			alphas = NormalizeToLOperturbative(momenta, alphas);
 
 			AlphaInterpolator = CubicSpline.InterpolateNaturalSorted(momenta, alphas);
@@ -182,8 +180,7 @@ namespace Yburn.QQState
 			out double[] alphas
 			)
 		{
-			double[][] alphaSTable;
-			TableFileReader.Read("..\\..\\AlphaS_qQCD.txt", out alphaSTable);
+			TableFileReader.Read("..\\..\\AlphaS_qQCD.txt", out double[][] alphaSTable);
 
 			momenta = alphaSTable[0];
 			alphas = alphaSTable[1];

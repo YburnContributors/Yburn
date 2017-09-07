@@ -313,8 +313,10 @@ namespace Yburn
 		{
 			if(JobFailure != null)
 			{
-				JobFailureEventArgs args = new JobFailureEventArgs();
-				args.Exception = exception;
+				JobFailureEventArgs args = new JobFailureEventArgs
+				{
+					Exception = exception
+				};
 				JobFailure(this, args);
 			}
 		}
@@ -339,8 +341,7 @@ namespace Yburn
 			string pathFile
 			)
 		{
-			Dictionary<string, string> nameValuePairs;
-			ParaFileReader.Read(pathFile, out nameValuePairs);
+			ParaFileReader.Read(pathFile, out Dictionary<string, string> nameValuePairs);
 			TransferDataToWorker(nameValuePairs);
 
 			YburnConfigFile.LastParaFile = pathFile;

@@ -157,10 +157,12 @@ namespace Yburn.Workers
 				imaginaryValues.Add(potentialValue.Im);
 			}
 
-			List<List<double>> valueList = new List<List<double>>();
-			valueList.Add(radiusValueList);
-			valueList.Add(realValues);
-			valueList.Add(imaginaryValues);
+			List<List<double>> valueList = new List<List<double>>
+			{
+				radiusValueList,
+				realValues,
+				imaginaryValues
+			};
 
 			return valueList;
 		}

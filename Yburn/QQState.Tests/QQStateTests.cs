@@ -101,39 +101,43 @@ namespace Yburn.QQState.Tests
 
 		private static QQStateParam GetCommonFreeStateParam()
 		{
-			QQStateParam param = new QQStateParam();
-			param.AccuracyAlpha = 1e-6;
-			param.AccuracyWaveFunction = 1e-9;
-			param.AggressivenessAlpha = 0.5;
-			param.ColorState = ColorState.Octet;
-			param.Energy_MeV = 1000;
-			param.GammaDamp_MeV = 0;
-			param.MaxRadius_fm = 10;
-			param.PotentialType = PotentialType.Tzero_NoString;
-			param.QuarkMass_MeV = 4800.90885593666;
-			param.RunningCouplingType = RunningCouplingType.LOperturbative_Cutoff3;
-			param.SoftScale_MeV = 1420;
-			param.StepNumber = 20000;
-			param.Tchem_MeV = 120;
-			param.Tcrit_MeV = 160;
-			param.Temperature_MeV = 0;
+			QQStateParam param = new QQStateParam
+			{
+				AccuracyAlpha = 1e-6,
+				AccuracyWaveFunction = 1e-9,
+				AggressivenessAlpha = 0.5,
+				ColorState = ColorState.Octet,
+				Energy_MeV = 1000,
+				GammaDamp_MeV = 0,
+				MaxRadius_fm = 10,
+				PotentialType = PotentialType.Tzero_NoString,
+				QuarkMass_MeV = 4800.90885593666,
+				RunningCouplingType = RunningCouplingType.LOperturbative_Cutoff3,
+				SoftScale_MeV = 1420,
+				StepNumber = 20000,
+				Tchem_MeV = 120,
+				Tcrit_MeV = 160,
+				Temperature_MeV = 0
+			};
 
 			return param;
 		}
 
 		private static QQStateParam GetCommonBoundStateParam()
 		{
-			QQStateParam param = new QQStateParam();
-			param.AccuracyAlpha = 1e-6;
-			param.ColorState = ColorState.Singlet;
-			param.GammaDamp_MeV = 0;
-			param.MaxRadius_fm = 10;
-			param.MaxShootingTrials = 5000;
-			param.QuarkMass_MeV = 4800.90885593666;
-			param.RunningCouplingType = RunningCouplingType.LOperturbative_Cutoff3;
-			param.Tchem_MeV = 120;
-			param.Tcrit_MeV = 160;
-			param.Temperature_MeV = 0;
+			QQStateParam param = new QQStateParam
+			{
+				AccuracyAlpha = 1e-6,
+				ColorState = ColorState.Singlet,
+				GammaDamp_MeV = 0,
+				MaxRadius_fm = 10,
+				MaxShootingTrials = 5000,
+				QuarkMass_MeV = 4800.90885593666,
+				RunningCouplingType = RunningCouplingType.LOperturbative_Cutoff3,
+				Tchem_MeV = 120,
+				Tcrit_MeV = 160,
+				Temperature_MeV = 0
+			};
 
 			return param;
 		}

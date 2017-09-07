@@ -231,9 +231,8 @@ namespace Yburn.QQState
 		{
 			// read whole data file
 			List<string> allLines = new List<string>(File.ReadAllLines(pathFile));
-			bool lineFound;
 			int lineIndex = FindLineIndex(allLines, dataSet.N, dataSet.L, dataSet.ColorState,
-				dataSet.PotentialType, dataSet.Temperature, out lineFound);
+				dataSet.PotentialType, dataSet.Temperature, out bool lineFound);
 
 			if(lineFound)
 			{

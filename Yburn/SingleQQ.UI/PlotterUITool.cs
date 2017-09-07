@@ -87,8 +87,7 @@ namespace Yburn.SingleQQ.UI
 			string defaultIfNull
 			)
 		{
-			string value;
-			nameValuePairs.TryGetValue(key, out value);
+			nameValuePairs.TryGetValue(key, out string value);
 			return string.IsNullOrEmpty(value) ?
 				defaultIfNull
 				: value;
@@ -148,26 +147,28 @@ namespace Yburn.SingleQQ.UI
 
 		private Dictionary<string, string> GetControlsValues()
 		{
-			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>();
-			nameValuePairs["AlphaSoft"] = AlphaSoft;
-			nameValuePairs["BottomiumStates"] = BottomiumStates;
-			nameValuePairs["ColorState"] = ColorState;
-			nameValuePairs["DataFileName"] = DataFileName;
-			nameValuePairs["DebyeMass_MeV"] = DebyeMass;
-			nameValuePairs["DecayWidthAveragingAngles"] = DecayWidthAveragingAngles;
-			nameValuePairs["EnergyScale_MeV"] = EnergyScale;
-			nameValuePairs["MaxEnergy_MeV"] = MaxEnergy;
-			nameValuePairs["MaxRadius_fm"] = MaxRadius;
-			nameValuePairs["MinEnergy_MeV"] = MinEnergy;
-			nameValuePairs["MinRadius_fm"] = MinRadius;
-			nameValuePairs["PotentialType"] = PotentialType;
-			nameValuePairs["RunningCouplingTypeSelection"] = RunningCouplingTypeSelection;
-			nameValuePairs["Samples"] = Samples;
-			nameValuePairs["Sigma_MeV2"] = Sigma;
-			nameValuePairs["SpinCouplingRange_fm"] = SpinCouplingRange;
-			nameValuePairs["SpinCouplingStrength_MeV"] = SpinCouplingStrength;
-			nameValuePairs["SpinState"] = SpinState;
-			nameValuePairs["Temperature_MeV"] = Temperature;
+			Dictionary<string, string> nameValuePairs = new Dictionary<string, string>
+			{
+				["AlphaSoft"] = AlphaSoft,
+				["BottomiumStates"] = BottomiumStates,
+				["ColorState"] = ColorState,
+				["DataFileName"] = DataFileName,
+				["DebyeMass_MeV"] = DebyeMass,
+				["DecayWidthAveragingAngles"] = DecayWidthAveragingAngles,
+				["EnergyScale_MeV"] = EnergyScale,
+				["MaxEnergy_MeV"] = MaxEnergy,
+				["MaxRadius_fm"] = MaxRadius,
+				["MinEnergy_MeV"] = MinEnergy,
+				["MinRadius_fm"] = MinRadius,
+				["PotentialType"] = PotentialType,
+				["RunningCouplingTypeSelection"] = RunningCouplingTypeSelection,
+				["Samples"] = Samples,
+				["Sigma_MeV2"] = Sigma,
+				["SpinCouplingRange_fm"] = SpinCouplingRange,
+				["SpinCouplingStrength_MeV"] = SpinCouplingStrength,
+				["SpinState"] = SpinState,
+				["Temperature_MeV"] = Temperature
+			};
 
 			return nameValuePairs;
 		}

@@ -76,12 +76,14 @@ namespace Yburn.SingleQQ.UI
 		{
 			if(PlotRequest != null)
 			{
-				AlphaPlotRequestEventArgs args = new AlphaPlotRequestEventArgs();
-				args.DataFileName = TbxDataFileName.Text;
-				args.MaxEnergy = TbxMaxEnergy.Text;
-				args.MinEnergy = TbxMinEnergy.Text;
-				args.RunningCouplingTypeSelection = MsxRunningCouplingType.SelectionString;
-				args.Samples = TbxSamples.Text;
+				AlphaPlotRequestEventArgs args = new AlphaPlotRequestEventArgs
+				{
+					DataFileName = TbxDataFileName.Text,
+					MaxEnergy = TbxMaxEnergy.Text,
+					MinEnergy = TbxMinEnergy.Text,
+					RunningCouplingTypeSelection = MsxRunningCouplingType.SelectionString,
+					Samples = TbxSamples.Text
+				};
 
 				PlotRequest(this, args);
 			}

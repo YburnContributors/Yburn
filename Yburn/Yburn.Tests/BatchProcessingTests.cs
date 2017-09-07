@@ -159,10 +159,12 @@ namespace Yburn.Tests
 	{
 		public static string CreateDummyBatchFile()
 		{
-			List<string> commands = new List<string>();
-			commands.Add("Job = 0");
-			commands.Add("Job = 0");
-			commands.Add("Job = 0");
+			List<string> commands = new List<string>
+			{
+				"Job = 0",
+				"Job = 0",
+				"Job = 0"
+			};
 
 			File.WriteAllLines(DummyBatchPathFile, commands);
 

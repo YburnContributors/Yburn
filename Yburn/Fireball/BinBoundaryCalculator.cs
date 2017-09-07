@@ -165,11 +165,8 @@ namespace Yburn.Fireball
 			double impactParam
 			)
 		{
-			double ncoll;
-			double npart;
-			double dsigmadb;
-			double sigma;
-			GetValuesFromGlauberCalculation(impactParam, out ncoll, out npart, out dsigmadb, out sigma);
+			GetValuesFromGlauberCalculation(impactParam,
+				out double ncoll, out double npart, out double dsigmadb, out double sigma);
 
 			Ncolls.Add(ncoll);
 			Nparts.Add(npart);

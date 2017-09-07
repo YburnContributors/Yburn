@@ -66,30 +66,31 @@
 
 		public QQStateParam Clone()
 		{
-			QQStateParam param = new QQStateParam();
-
-			param.AccuracyAlpha = AccuracyAlpha;
-			param.AccuracyWaveFunction = AccuracyWaveFunction;
-			param.AggressivenessAlpha = AggressivenessAlpha;
-			param.AggressivenessEnergy = AggressivenessEnergy;
-			param.ColorState = ColorState;
-			param.Energy_MeV = Energy_MeV;
-			param.GammaDamp_MeV = GammaDamp_MeV;
-			param.MaxRadius_fm = MaxRadius_fm;
-			param.MaxShootingTrials = MaxShootingTrials;
-			param.PotentialType = PotentialType;
-			param.QuantumNumberL = QuantumNumberL;
-			param.QuarkMass_MeV = QuarkMass_MeV;
-			param.RunningCouplingType = RunningCouplingType;
-			param.Sigma_MeV = Sigma_MeV;
-			param.SoftScale_MeV = SoftScale_MeV;
-			param.SpinCouplingStrength_MeV = SpinCouplingStrength_MeV;
-			param.SpinCouplingRange_fm = SpinCouplingRange_fm;
-			param.SpinState = SpinState;
-			param.StepNumber = StepNumber;
-			param.Tchem_MeV = Tchem_MeV;
-			param.Tcrit_MeV = Tcrit_MeV;
-			param.Temperature_MeV = Temperature_MeV;
+			QQStateParam param = new QQStateParam
+			{
+				AccuracyAlpha = AccuracyAlpha,
+				AccuracyWaveFunction = AccuracyWaveFunction,
+				AggressivenessAlpha = AggressivenessAlpha,
+				AggressivenessEnergy = AggressivenessEnergy,
+				ColorState = ColorState,
+				Energy_MeV = Energy_MeV,
+				GammaDamp_MeV = GammaDamp_MeV,
+				MaxRadius_fm = MaxRadius_fm,
+				MaxShootingTrials = MaxShootingTrials,
+				PotentialType = PotentialType,
+				QuantumNumberL = QuantumNumberL,
+				QuarkMass_MeV = QuarkMass_MeV,
+				RunningCouplingType = RunningCouplingType,
+				Sigma_MeV = Sigma_MeV,
+				SoftScale_MeV = SoftScale_MeV,
+				SpinCouplingStrength_MeV = SpinCouplingStrength_MeV,
+				SpinCouplingRange_fm = SpinCouplingRange_fm,
+				SpinState = SpinState,
+				StepNumber = StepNumber,
+				Tchem_MeV = Tchem_MeV,
+				Tcrit_MeV = Tcrit_MeV,
+				Temperature_MeV = Temperature_MeV
+			};
 
 			return param;
 		}
