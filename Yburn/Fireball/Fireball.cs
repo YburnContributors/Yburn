@@ -69,21 +69,16 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				if(Param.IsSystemSymmetricInY)
-				{
-					if(Param.IsSystemSymmetricInX)
-					{
-						return Temperature[0, 0];
-					}
-					else
-					{
-						return Temperature.GetMaxValueForFixedY(0);
-					}
-				}
-				else
-				{
-					return Temperature.GetMaxValue();
-				}
+				return Temperature.MaximumTemperature;
+			}
+		}
+
+		public double QGPConductivity
+		{
+			get
+			{
+				return Param.QGPConductivity_MeV
+					* (MaximumTemperature / Param.QGPFormationTemperature_MeV);
 			}
 		}
 
@@ -400,8 +395,15 @@ namespace Yburn.Fireball
 				Temperature.Advance(CurrentTime);
 			}
 
-			ElectricField.Advance(CurrentTime);
-			MagneticField.Advance(CurrentTime);
+			if(Param.UseElectricField)
+			{
+				ElectricField.Advance(CurrentTime, QGPConductivity);
+			}
+			if(Param.UseMagneticField)
+			{
+				MagneticField.Advance(CurrentTime, QGPConductivity);
+			}
+
 			DecayWidth.Advance(CurrentTime);
 			DampingFactor.SetValues((x, y, pT, state) => DampingFactor.Values[pT, state][x, y]
 				* Math.Exp(-TimeStep * DecayWidth.Values[pT, state][x, y] / Constants.HbarC_MeV_fm));
@@ -466,6 +468,8 @@ namespace Yburn.Fireball
 			Temperature = new FireballTemperatureField(
 				X.Length,
 				Y.Length,
+				Param.IsSystemSymmetricInX,
+				Param.IsSystemSymmetricInY,
 				GlauberCalculation.TemperatureScalingField,
 				Param.InitialMaximumTemperature_MeV,
 				Param.ThermalTime_fm,

@@ -198,6 +198,18 @@ namespace Yburn.Fireball
 			}
 		}
 
+		public double QGPFormationTemperature_MeV
+		{
+			get
+			{
+				return Nullable_QGPFormationTemperature_MeV.Value;
+			}
+			set
+			{
+				Nullable_QGPFormationTemperature_MeV = value;
+			}
+		}
+
 		public double BeamRapidity
 		{
 			get
@@ -499,6 +511,7 @@ namespace Yburn.Fireball
 				Nullable_ImpactParameter_fm = Nullable_ImpactParameter_fm,
 				Nullable_InitialMaximumTemperature_MeV = Nullable_InitialMaximumTemperature_MeV,
 				Nullable_BreakupTemperature_MeV = Nullable_BreakupTemperature_MeV,
+				Nullable_QGPFormationTemperature_MeV = Nullable_QGPFormationTemperature_MeV,
 				Nullable_NuclearRadiusA_fm = Nullable_NuclearRadiusA_fm,
 				Nullable_NuclearRadiusB_fm = Nullable_NuclearRadiusB_fm,
 				Nullable_NucleonNumberA = Nullable_NucleonNumberA,
@@ -563,6 +576,8 @@ namespace Yburn.Fireball
 		private double? Nullable_InitialMaximumTemperature_MeV;
 
 		private double? Nullable_BreakupTemperature_MeV;
+
+		private double? Nullable_QGPFormationTemperature_MeV;
 
 		private double? Nullable_CenterOfMassEnergy_TeV;
 

@@ -12,7 +12,14 @@ namespace Yburn.Fireball.Tests
 		 ********************************************************************************************/
 
 		[TestMethod]
-		public void CalculateMagneticField()
+		public void CalculateNucleusElectricField()
+		{
+			SpatialVector[] fieldValues = CalculateElectricFieldValues();
+			AssertCorrectElectricFieldValues(fieldValues);
+		}
+
+		[TestMethod]
+		public void CalculateNucleusMagneticField()
 		{
 			SpatialVector[] fieldValues = CalculateMagneticFieldValues();
 			AssertCorrectMagneticFieldValues(fieldValues);
@@ -23,6 +30,8 @@ namespace Yburn.Fireball.Tests
 		 ********************************************************************************************/
 
 		private static readonly double Time = 0.4;
+
+		private double QGPConductivity = 5.8;
 
 		private static readonly SpatialVector[] Positions = new SpatialVector[]
 		{
@@ -60,6 +69,47 @@ namespace Yburn.Fireball.Tests
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
+		private SpatialVector[] CalculateElectricFieldValues()
+		{
+			FireballParam param = CreateFireballParam();
+
+			Nucleus.CreateNucleusPair(param, out Nucleus nucleusA, out Nucleus nucleusB);
+
+			NucleusElectromagneticField emf = new NucleusElectromagneticField(
+				param.EMFCalculationMethod,
+				param.BeamRapidity,
+				nucleusA,
+				param.EMFQuadratureOrder);
+
+			SpatialVector[] fieldValues = new SpatialVector[Positions.Length];
+			for(int i = 0; i < Positions.Length; i++)
+			{
+				fieldValues[i] = emf.CalculateElectricField(
+						Time, Positions[i].X, Positions[i].Y, Positions[i].Z, QGPConductivity);
+			}
+
+			return fieldValues;
+		}
+
+		private void AssertCorrectElectricFieldValues(SpatialVector[] fieldValues)
+		{
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[0].X, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[0].Y, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[0].Z, 5);
+
+			AssertHelper.AssertApproximatelyEqual(0.088801, fieldValues[1].X, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[1].Y, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[1].Z, 5);
+
+			AssertHelper.AssertApproximatelyEqual(0.084533, fieldValues[2].X, 5);
+			AssertHelper.AssertApproximatelyEqual(0.16907, fieldValues[2].Y, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[2].Z, 5);
+
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[3].X, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[3].Y, 5);
+			AssertHelper.AssertApproximatelyEqual(0, fieldValues[3].Z, 5);
+		}
+
 		private SpatialVector[] CalculateMagneticFieldValues()
 		{
 			FireballParam param = CreateFireballParam();
@@ -68,7 +118,6 @@ namespace Yburn.Fireball.Tests
 
 			NucleusElectromagneticField emf = new NucleusElectromagneticField(
 				param.EMFCalculationMethod,
-				param.QGPConductivity_MeV,
 				param.BeamRapidity,
 				nucleusA,
 				param.EMFQuadratureOrder);
@@ -76,8 +125,8 @@ namespace Yburn.Fireball.Tests
 			SpatialVector[] fieldValues = new SpatialVector[Positions.Length];
 			for(int i = 0; i < Positions.Length; i++)
 			{
-				fieldValues[i] = emf.CalculateMagneticField_per_fm2(
-						Time, Positions[i].X, Positions[i].Y, Positions[i].Z);
+				fieldValues[i] = emf.CalculateMagneticField(
+						Time, Positions[i].X, Positions[i].Y, Positions[i].Z, QGPConductivity);
 			}
 
 			return fieldValues;

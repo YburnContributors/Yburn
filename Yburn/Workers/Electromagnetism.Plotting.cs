@@ -252,10 +252,10 @@ namespace Yburn.Workers
 			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
 			{
 				PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
-					method, QGPConductivity_MeV, ParticleRapidity);
+					method, ParticleRapidity);
 
 				PlotFunction fieldValue = time => EMFNormalization
-					* emf.CalculateElectromagneticField(time, RadialDistance_fm, component);
+					* emf.CalculateElectromagneticField(component, time, RadialDistance_fm, QGPConductivity_MeV);
 
 				AddPlotFunctionLists(dataList, effectiveTimeValues, fieldValue);
 			}
@@ -275,10 +275,10 @@ namespace Yburn.Workers
 			foreach(EMFCalculationMethod method in Enum.GetValues(typeof(EMFCalculationMethod)))
 			{
 				PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
-					method, QGPConductivity_MeV, ParticleRapidity);
+					method, ParticleRapidity);
 
 				PlotFunction fieldValue = radius => EMFNormalization
-					* emf.CalculateElectromagneticField(FixedTime, radius, component);
+					* emf.CalculateElectromagneticField(component, FixedTime, radius, QGPConductivity_MeV);
 
 				AddPlotFunctionLists(dataList, radialDistanceValues, fieldValue);
 			}
@@ -411,17 +411,17 @@ namespace Yburn.Workers
 			Nucleus.CreateNucleusPair(CreateFireballParam(), out Nucleus nucleusA, out Nucleus nucleusB);
 
 			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
-				EMFCalculationMethod, QGPConductivity_MeV, ParticleRapidity);
+				EMFCalculationMethod, ParticleRapidity);
 			NucleusElectromagneticField nucEMF = new NucleusElectromagneticField(
-				EMFCalculationMethod, QGPConductivity_MeV, ParticleRapidity, nucleusA, EMFQuadratureOrder);
+				EMFCalculationMethod, ParticleRapidity, nucleusA, EMFQuadratureOrder);
 
 			PlotFunction[] plotFunctions = {
-				t => EMFNormalization * pcEMF.CalculateElectromagneticField(t, RadialDistance_fm, EMFComponent.AzimuthalMagneticComponent),
-				t => EMFNormalization * pcEMF.CalculateElectromagneticField(t, RadialDistance_fm, EMFComponent.LongitudinalElectricComponent),
-				t => EMFNormalization * pcEMF.CalculateElectromagneticField(t, RadialDistance_fm, EMFComponent.RadialElectricComponent),
-				t => EMFNormalization * nucEMF.CalculateAzimuthalMagneticField(t, RadialDistance_fm),
-				t => EMFNormalization * nucEMF.CalculateLongitudinalElectricField(t, RadialDistance_fm),
-				t => EMFNormalization * nucEMF.CalculateRadialElectricField(t, RadialDistance_fm)
+				t => EMFNormalization * pcEMF.CalculateElectromagneticField(EMFComponent.AzimuthalMagneticComponent, t, RadialDistance_fm, QGPConductivity_MeV),
+				t => EMFNormalization * pcEMF.CalculateElectromagneticField(EMFComponent.LongitudinalElectricComponent, t, RadialDistance_fm, QGPConductivity_MeV),
+				t => EMFNormalization * pcEMF.CalculateElectromagneticField(EMFComponent.RadialElectricComponent, t, RadialDistance_fm, QGPConductivity_MeV),
+				t => EMFNormalization * nucEMF.CalculateAzimuthalMagneticComponent(t, RadialDistance_fm, QGPConductivity_MeV),
+				t => EMFNormalization * nucEMF.CalculateLongitudinalElectricComponent(t, RadialDistance_fm, QGPConductivity_MeV),
+				t => EMFNormalization * nucEMF.CalculateRadialElectricComponent(t, RadialDistance_fm, QGPConductivity_MeV)
 			};
 
 			foreach(PlotFunction function in plotFunctions)
@@ -442,17 +442,17 @@ namespace Yburn.Workers
 			Nucleus.CreateNucleusPair(CreateFireballParam(), out Nucleus nucleusA, out Nucleus nucleusB);
 
 			PointChargeElectromagneticField pcEMF = PointChargeElectromagneticField.Create(
-				EMFCalculationMethod, QGPConductivity_MeV, ParticleRapidity);
+				EMFCalculationMethod, ParticleRapidity);
 			NucleusElectromagneticField nucEMF = new NucleusElectromagneticField(
-				EMFCalculationMethod, QGPConductivity_MeV, ParticleRapidity, nucleusA, EMFQuadratureOrder);
+				EMFCalculationMethod, ParticleRapidity, nucleusA, EMFQuadratureOrder);
 
 			PlotFunction[] plotFunctions = {
-				r => EMFNormalization * pcEMF.CalculateElectromagneticField(FixedTime, r, EMFComponent.AzimuthalMagneticComponent),
-				r => EMFNormalization * pcEMF.CalculateElectromagneticField(FixedTime, r, EMFComponent.LongitudinalElectricComponent),
-				r => EMFNormalization * pcEMF.CalculateElectromagneticField(FixedTime, r, EMFComponent.RadialElectricComponent),
-				r => EMFNormalization * nucEMF.CalculateAzimuthalMagneticField(FixedTime, r),
-				r => EMFNormalization * nucEMF.CalculateLongitudinalElectricField(FixedTime, r),
-				r => EMFNormalization * nucEMF.CalculateRadialElectricField(FixedTime, r)
+				r => EMFNormalization * pcEMF.CalculateElectromagneticField(EMFComponent.AzimuthalMagneticComponent, FixedTime, r, QGPConductivity_MeV),
+				r => EMFNormalization * pcEMF.CalculateElectromagneticField(EMFComponent.LongitudinalElectricComponent, FixedTime, r, QGPConductivity_MeV),
+				r => EMFNormalization * pcEMF.CalculateElectromagneticField(EMFComponent.RadialElectricComponent, FixedTime, r, QGPConductivity_MeV),
+				r => EMFNormalization * nucEMF.CalculateAzimuthalMagneticComponent(FixedTime, r, QGPConductivity_MeV),
+				r => EMFNormalization * nucEMF.CalculateLongitudinalElectricComponent(FixedTime, r, QGPConductivity_MeV),
+				r => EMFNormalization * nucEMF.CalculateRadialElectricComponent(FixedTime, r, QGPConductivity_MeV)
 			};
 
 			foreach(PlotFunction function in plotFunctions)
@@ -505,13 +505,12 @@ namespace Yburn.Workers
 
 				NucleusElectromagneticField emf = new NucleusElectromagneticField(
 					param.EMFCalculationMethod,
-					param.QGPConductivity_MeV,
 					ParticleRapidity,
 					nucleusA,
 					EMFQuadratureOrder);
 
-				return EMFNormalization * emf.CalculateElectricFieldInLCF_per_fm2(
-					FixedTime, radialDistance, 0, rapidity).Norm;
+				return EMFNormalization * emf.CalculateElectricFieldInLCF(
+					FixedTime, radialDistance, 0, rapidity, QGPConductivity_MeV).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, rapidityValues, radialDistanceValues, function);
@@ -534,13 +533,12 @@ namespace Yburn.Workers
 
 				NucleusElectromagneticField emf = new NucleusElectromagneticField(
 					param.EMFCalculationMethod,
-					param.QGPConductivity_MeV,
 					ParticleRapidity,
 					nucleusA,
 					EMFQuadratureOrder);
 
-				return EMFNormalization * emf.CalculateMagneticFieldInLCF_per_fm2(
-					FixedTime, radialDistance, 0, rapidity).Norm;
+				return EMFNormalization * emf.CalculateMagneticFieldInLCF(
+					FixedTime, radialDistance, 0, rapidity, QGPConductivity_MeV).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, rapidityValues, radialDistanceValues, function);
@@ -608,7 +606,7 @@ namespace Yburn.Workers
 					= new CollisionalElectromagneticField(param);
 
 				PlotFunction fieldValue = time => EMFNormalization
-					* emf.CalculateElectricField_per_fm2(time, x, y, z).Norm;
+					* emf.CalculateElectricField(time, x, y, z, QGPConductivity_MeV).Norm;
 
 				AddPlotFunctionLists(dataList, timeValues, fieldValue);
 			}
@@ -637,7 +635,7 @@ namespace Yburn.Workers
 					= new CollisionalElectromagneticField(param);
 
 				PlotFunction fieldValue = time => EMFNormalization
-					* emf.CalculateMagneticField_per_fm2(time, x, y, z).Norm;
+					* emf.CalculateMagneticField(time, x, y, z, QGPConductivity_MeV).Norm;
 
 				AddPlotFunctionLists(dataList, timeValues, fieldValue);
 			}
@@ -706,7 +704,7 @@ namespace Yburn.Workers
 					param.ImpactParameter_fm = impactParam;
 					CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-					return EMFNormalization * emf.CalculateElectricField_per_fm2(FixedTime, x, y, z).Norm;
+					return EMFNormalization * emf.CalculateElectricField(FixedTime, x, y, z, QGPConductivity_MeV).Norm;
 				};
 
 				AddPlotFunctionLists(dataList, impactParamValues, fieldValue);
@@ -737,7 +735,7 @@ namespace Yburn.Workers
 					param.ImpactParameter_fm = impactParam;
 					CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-					return EMFNormalization * emf.CalculateMagneticField_per_fm2(FixedTime, x, y, z).Norm;
+					return EMFNormalization * emf.CalculateMagneticField(FixedTime, x, y, z, QGPConductivity_MeV).Norm;
 				};
 
 				AddPlotFunctionLists(dataList, impactParamValues, fieldValue);
@@ -794,7 +792,7 @@ namespace Yburn.Workers
 				param.ImpactParameter_fm = impactParam;
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * emf.CalculateElectricField_per_fm2(time, x, y, z).Norm;
+				return EMFNormalization * emf.CalculateElectricField(time, x, y, z, QGPConductivity_MeV).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, timeValues, impactParamValues, function);
@@ -820,7 +818,7 @@ namespace Yburn.Workers
 				param.ImpactParameter_fm = impactParam;
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * emf.CalculateMagneticField_per_fm2(time, x, y, z).Norm;
+				return EMFNormalization * emf.CalculateMagneticField(time, x, y, z, QGPConductivity_MeV).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, timeValues, impactParamValues, function);
@@ -870,7 +868,7 @@ namespace Yburn.Workers
 			{
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * emf.CalculateElectricField_per_fm2(FixedTime, x, y, 0).Norm;
+				return EMFNormalization * emf.CalculateElectricField(FixedTime, x, y, 0, QGPConductivity_MeV).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, gridValues, gridValues, function);
@@ -890,7 +888,7 @@ namespace Yburn.Workers
 			{
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * emf.CalculateMagneticField_per_fm2(FixedTime, x, y, 0).Norm;
+				return EMFNormalization * emf.CalculateMagneticField(FixedTime, x, y, 0, QGPConductivity_MeV).Norm;
 			};
 
 			AddSurfacePlotFunctionLists(dataList, gridValues, gridValues, function);
@@ -942,7 +940,7 @@ namespace Yburn.Workers
 				param.ImpactParameter_fm = impactParam;
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * emf.CalculateAverageElectricFieldStrength_per_fm2(properTime);
+				return EMFNormalization * emf.CalculateAverageElectricFieldStrength(properTime, QGPConductivity_MeV);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);
@@ -964,7 +962,7 @@ namespace Yburn.Workers
 				param.ImpactParameter_fm = impactParam;
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				return EMFNormalization * emf.CalculateAverageMagneticFieldStrength_per_fm2(properTime);
+				return EMFNormalization * emf.CalculateAverageMagneticFieldStrength(properTime, QGPConductivity_MeV);
 			};
 
 			AddSurfacePlotFunctionLists(dataList, properTimeValues, impactParamValues, function);

@@ -11,14 +11,13 @@ namespace Yburn.Fireball
 
 		public NucleusElectromagneticField(
 			EMFCalculationMethod emfCalculationMethod,
-			double qgpConductivity_MeV,
 			double nucleusRapidity,
 			Nucleus nucleus,
 			int quadratureOrder
 			)
 		{
 			PointChargeEMF = PointChargeElectromagneticField.Create(
-				emfCalculationMethod, qgpConductivity_MeV, nucleusRapidity);
+				emfCalculationMethod, nucleusRapidity);
 
 			Nucleus = nucleus;
 			NucleusVelocity = Math.Tanh(nucleusRapidity);
@@ -30,27 +29,27 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public double CalculateElectromagneticField(
-			double effectiveTime,
-			double radialDistance,
+			double effectiveTime_fm,
+			double radialDistance_fm,
 			EMFComponent component
 			)
 		{
 			CalculateElectromagneticField(
-				effectiveTime, radialDistance,
-				out double azimuthalMagneticComponent,
-				out double longitudinalElectricComponent,
-				out double radialElectricComponent);
+				effectiveTime_fm, radialDistance_fm,
+				out double azimuthalMagneticComponent_per_fm2,
+				out double longitudinalElectricComponent_per_fm2,
+				out double radialElectricComponent_per_fm2);
 
 			switch(component)
 			{
 				case EMFComponent.AzimuthalMagneticComponent:
-					return azimuthalMagneticComponent;
+					return azimuthalMagneticComponent_per_fm2;
 
 				case EMFComponent.LongitudinalElectricComponent:
-					return longitudinalElectricComponent;
+					return longitudinalElectricComponent_per_fm2;
 
 				case EMFComponent.RadialElectricComponent:
-					return radialElectricComponent;
+					return radialElectricComponent_per_fm2;
 
 				default:
 					throw new Exception("Invalid EMFComponent.");
@@ -58,30 +57,32 @@ namespace Yburn.Fireball
 		}
 
 		public void CalculateElectromagneticField(
-			double effectiveTime,
-			double radialDistance,
-			out double azimuthalMagneticComponent,
-			out double longitudinalElectricComponent,
-			out double radialElectricComponent
+			double effectiveTime_fm,
+			double radialDistance_fm,
+			out double azimuthalMagneticComponent_per_fm2,
+			out double longitudinalElectricComponent_per_fm2,
+			out double radialElectricComponent_per_fm2
 			)
 		{
 			throw new NotImplementedException();
 		}
 
-		public double CalculateAzimuthalMagneticField(
-			double effectiveTime,
-			double radialDistance
+		public double CalculateAzimuthalMagneticComponent(
+			double effectiveTime_fm,
+			double radialDistance_fm,
+			double conductivity_MeV
 			)
 		{
-			Func<double, double, double> integrand = (x, y) =>
+			Func<double, double, double> integrand = (x_fm, y_fm) =>
 			{
-				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
+				SpatialVector pointChargePosition = new SpatialVector(radialDistance_fm - x_fm, -y_fm, 0);
 
-				return Nucleus.GetProtonNumberColumnDensity_per_fm3(x, y)
+				return Nucleus.GetProtonNumberColumnDensity_per_fm3(x_fm, y_fm)
 					* PointChargeEMF.CalculateElectromagneticField(
-						effectiveTime,
+						EMFComponent.AzimuthalMagneticComponent,
+						effectiveTime_fm,
 						pointChargePosition.Norm,
-						EMFComponent.AzimuthalMagneticComponent)
+						conductivity_MeV)
 					* pointChargePosition.Direction.X;
 			};
 
@@ -93,20 +94,22 @@ namespace Yburn.Fireball
 			return integral;
 		}
 
-		public double CalculateLongitudinalElectricField(
-			double effectiveTime,
-			double radialDistance
+		public double CalculateLongitudinalElectricComponent(
+			double effectiveTime_fm,
+			double radialDistance_fm,
+			double conductivity_MeV
 			)
 		{
-			Func<double, double, double> integrand = (x, y) =>
+			Func<double, double, double> integrand = (x_fm, y_fm) =>
 			{
-				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
+				SpatialVector pointChargePosition = new SpatialVector(radialDistance_fm - x_fm, -y_fm, 0);
 
-				return Nucleus.GetProtonNumberColumnDensity_per_fm3(x, y)
+				return Nucleus.GetProtonNumberColumnDensity_per_fm3(x_fm, y_fm)
 					* PointChargeEMF.CalculateElectromagneticField(
-						effectiveTime,
+						EMFComponent.LongitudinalElectricComponent,
+						effectiveTime_fm,
 						pointChargePosition.Norm,
-						EMFComponent.LongitudinalElectricComponent)
+						conductivity_MeV)
 					* pointChargePosition.Direction.X;
 			};
 
@@ -118,20 +121,22 @@ namespace Yburn.Fireball
 			return integral;
 		}
 
-		public double CalculateRadialElectricField(
-			double effectiveTime,
-			double radialDistance
+		public double CalculateRadialElectricComponent(
+			double effectiveTime_fm,
+			double radialDistance_fm,
+			double conductivity_MeV
 			)
 		{
-			Func<double, double, double> integrand = (x, y) =>
+			Func<double, double, double> integrand = (x_fm, y_fm) =>
 			{
-				SpatialVector pointChargePosition = new SpatialVector(radialDistance - x, -y, 0);
+				SpatialVector pointChargePosition = new SpatialVector(radialDistance_fm - x_fm, -y_fm, 0);
 
-				return Nucleus.GetProtonNumberColumnDensity_per_fm3(x, y)
+				return Nucleus.GetProtonNumberColumnDensity_per_fm3(x_fm, y_fm)
 					* PointChargeEMF.CalculateElectromagneticField(
-						effectiveTime,
+						EMFComponent.RadialElectricComponent,
+						effectiveTime_fm,
 						pointChargePosition.Norm,
-						EMFComponent.RadialElectricComponent)
+						conductivity_MeV)
 					* pointChargePosition.Direction.X;
 			};
 
@@ -143,107 +148,114 @@ namespace Yburn.Fireball
 			return integral;
 		}
 
-		public double CalculateAzimuthalMagneticFieldInLCF(
-			double effectiveTime,
-			double radialDistance,
-			double observerRapidity
+		public double CalculateAzimuthalMagneticComponentInLCF(
+			double effectiveTime_fm,
+			double radialDistance_fm,
+			double observerRapidity,
+			double conductivity_MeV
 			)
 		{
 			return (Math.Cosh(observerRapidity) * NucleusVelocity - Math.Sinh(observerRapidity))
-				* CalculateRadialElectricField(effectiveTime, radialDistance);
+				* CalculateRadialElectricComponent(effectiveTime_fm, radialDistance_fm, conductivity_MeV);
 		}
 
-		public double CalculateLongitudinalElectricFieldInLCF(
-			double effectiveTime,
-			double radialDistance,
-			double observerRapidity
+		public double CalculateLongitudinalElectricComponentInLCF(
+			double effectiveTime_fm,
+			double radialDistance_fm,
+			double observerRapidity,
+			double conductivity_MeV
 			)
 		{
-			return CalculateLongitudinalElectricField(effectiveTime, radialDistance);
+			return CalculateLongitudinalElectricComponent(effectiveTime_fm, radialDistance_fm, conductivity_MeV);
 		}
 
-		public double CalculateRadialElectricFieldInLCF(
-			double effectiveTime,
-			double radialDistance,
-			double observerRapidity
+		public double CalculateRadialElectricComponentInLCF(
+			double effectiveTime_fm,
+			double radialDistance_fm,
+			double observerRapidity,
+			double conductivity_MeV
 			)
 		{
 			return (Math.Cosh(observerRapidity) - Math.Sinh(observerRapidity) * NucleusVelocity)
-				* CalculateRadialElectricField(effectiveTime, radialDistance);
+				* CalculateRadialElectricComponent(effectiveTime_fm, radialDistance_fm, conductivity_MeV);
 		}
 
-		public SpatialVector CalculateElectricField_per_fm2(
-			double t,
-			double x,
-			double y,
-			double z
+		public SpatialVector CalculateElectricField(
+			double t_fm,
+			double x_fm,
+			double y_fm,
+			double z_fm,
+			double conductivity_MeV
 			)
 		{
-			double effectiveTime = CalculateEffectiveTime(t, z);
-			double radialDistance = CalculateRadialDistance(x, y);
+			double effectiveTime_fm = CalculateEffectiveTime(t_fm, z_fm);
+			double radialDistance_fm = CalculateRadialDistance(x_fm, y_fm);
 
 			double longitudinalField
-				= CalculateLongitudinalElectricField(effectiveTime, radialDistance);
+				= CalculateLongitudinalElectricComponent(effectiveTime_fm, radialDistance_fm, conductivity_MeV);
 
 			double radialField
-				= CalculateRadialElectricField(effectiveTime, radialDistance);
+				= CalculateRadialElectricComponent(effectiveTime_fm, radialDistance_fm, conductivity_MeV);
 
 			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
-				x, y, radialField, 0, longitudinalField);
+				x_fm, y_fm, radialField, 0, longitudinalField);
 		}
 
-		public SpatialVector CalculateElectricFieldInLCF_per_fm2(
-			double properTime,
-			double x,
-			double y,
-			double rapidity
+		public SpatialVector CalculateElectricFieldInLCF(
+			double properTime_fm,
+			double x_fm,
+			double y_fm,
+			double rapidity,
+			double conductivity_MeV
 			)
 		{
-			double effectiveTime = CalculateEffectiveTimeFromLCFCoordinates(properTime, rapidity);
-			double radialDistance = CalculateRadialDistance(x, y);
+			double effectiveTime_fm = CalculateEffectiveTimeFromLCFCoordinates(properTime_fm, rapidity);
+			double radialDistance_fm = CalculateRadialDistance(x_fm, y_fm);
 
 			double longitudinalField
-				= CalculateLongitudinalElectricFieldInLCF(effectiveTime, radialDistance, rapidity);
+				= CalculateLongitudinalElectricComponentInLCF(effectiveTime_fm, radialDistance_fm, rapidity, conductivity_MeV);
 
 			double radialField
-				= CalculateRadialElectricFieldInLCF(effectiveTime, radialDistance, rapidity);
+				= CalculateRadialElectricComponentInLCF(effectiveTime_fm, radialDistance_fm, rapidity, conductivity_MeV);
 
 			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
-				x, y, radialField, 0, longitudinalField);
+				x_fm, y_fm, radialField, 0, longitudinalField);
 		}
 
-		public SpatialVector CalculateMagneticField_per_fm2(
-			double t,
-			double x,
-			double y,
-			double z
+		public SpatialVector CalculateMagneticField(
+			double t_fm,
+			double x_fm,
+			double y_fm,
+			double z_fm,
+			double conductivity_MeV
 			)
 		{
-			double effectiveTime = CalculateEffectiveTime(t, z);
-			double radialDistance = CalculateRadialDistance(x, y);
+			double effectiveTime_fm = CalculateEffectiveTime(t_fm, z_fm);
+			double radialDistance_fm = CalculateRadialDistance(x_fm, y_fm);
 
 			double azimuthalField
-				= CalculateAzimuthalMagneticField(effectiveTime, radialDistance);
+				= CalculateAzimuthalMagneticComponent(effectiveTime_fm, radialDistance_fm, conductivity_MeV);
 
 			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
-				x, y, 0, azimuthalField, 0);
+				x_fm, y_fm, 0, azimuthalField, 0);
 		}
 
-		public SpatialVector CalculateMagneticFieldInLCF_per_fm2(
-			double properTime,
-			double x,
-			double y,
-			double rapidity
+		public SpatialVector CalculateMagneticFieldInLCF(
+			double properTime_fm,
+			double x_fm,
+			double y_fm,
+			double rapidity,
+			double conductivity_MeV
 			)
 		{
-			double effectiveTime = CalculateEffectiveTimeFromLCFCoordinates(properTime, rapidity);
-			double radialDistance = CalculateRadialDistance(x, y);
+			double effectiveTime_fm = CalculateEffectiveTimeFromLCFCoordinates(properTime_fm, rapidity);
+			double radialDistance_fm = CalculateRadialDistance(x_fm, y_fm);
 
 			double azimuthalField
-				= CalculateAzimuthalMagneticFieldInLCF(effectiveTime, radialDistance, rapidity);
+				= CalculateAzimuthalMagneticComponentInLCF(effectiveTime_fm, radialDistance_fm, rapidity, conductivity_MeV);
 
 			return SpatialVector.ConvertCylindricalToEuclideanVectorFieldComponents(
-				x, y, 0, azimuthalField, 0);
+				x_fm, y_fm, 0, azimuthalField, 0);
 		}
 
 		/********************************************************************************************
@@ -259,27 +271,27 @@ namespace Yburn.Fireball
 		private int QuadratureOrder;
 
 		private double CalculateEffectiveTime(
-			double t,
-			double z
+			double t_fm,
+			double z_fm
 			)
 		{
-			return t - z / NucleusVelocity;
+			return t_fm - z_fm / NucleusVelocity;
 		}
 
 		private double CalculateEffectiveTimeFromLCFCoordinates(
-			double properTime,
+			double properTime_fm,
 			double rapidity
 			)
 		{
-			return properTime * (Math.Cosh(rapidity) - Math.Sinh(rapidity) / NucleusVelocity);
+			return properTime_fm * (Math.Cosh(rapidity) - Math.Sinh(rapidity) / NucleusVelocity);
 		}
 
 		private double CalculateRadialDistance(
-			double x,
-			double y
+			double x_fm,
+			double y_fm
 			)
 		{
-			return Math.Sqrt(x * x + y * y);
+			return Math.Sqrt(x_fm * x_fm + y_fm * y_fm);
 		}
 	}
 }

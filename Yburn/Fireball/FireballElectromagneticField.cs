@@ -14,7 +14,7 @@ namespace Yburn.Fireball
 
 			return new FireballElectromagneticField(
 				FireballFieldType.ElectricFieldStrength, xAxis, yAxis,
-				emf.CalculateAverageElectricFieldStrength_per_fm2, param.EMFUpdateInterval_fm);
+				emf.CalculateAverageElectricFieldStrength, param.EMFUpdateInterval_fm);
 		}
 
 		public static FireballElectromagneticField CreateFireballMagneticField(
@@ -27,7 +27,7 @@ namespace Yburn.Fireball
 
 			return new FireballElectromagneticField(
 				FireballFieldType.MagneticFieldStrength, xAxis, yAxis,
-				emf.CalculateAverageMagneticFieldStrength_per_fm2, param.EMFUpdateInterval_fm);
+				emf.CalculateAverageMagneticFieldStrength, param.EMFUpdateInterval_fm);
 		}
 
 		public static FireballElectromagneticField CreateZeroField(
@@ -36,7 +36,7 @@ namespace Yburn.Fireball
 			double[] yAxis
 			)
 		{
-			Func<double, double, double, double> fieldFunction = (tau, x, y) => 0;
+			Func<double, double, double, double, double> fieldFunction = (tau, x, y, sigma) => 0;
 
 			return new FireballElectromagneticField(
 				type, xAxis, yAxis, fieldFunction, double.PositiveInfinity);
@@ -50,7 +50,7 @@ namespace Yburn.Fireball
 			FireballFieldType type,
 			double[] xAxis,
 			double[] yAxis,
-			Func<double, double, double, double> fieldFunction,
+			Func<double, double, double, double, double> fieldFunction,
 			double fieldUpdateInterval
 			) : base(type, xAxis, yAxis, (x, y) => 0)
 		{
@@ -67,13 +67,14 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public void Advance(
-			double newTime
+			double newTime,
+			double qgpConductivity
 			)
 		{
 			if(Math.Abs(newTime - CurrentTime) >= UpdateInterval)
 			{
 				SimpleFireballFieldContinuousFunction function
-					= (x, y) => FieldFunction(newTime, x, y);
+					= (x, y) => FieldFunction(newTime, x, y, qgpConductivity);
 
 				SetDiscreteValues(function, XAxis, YAxis);
 				CurrentTime = newTime;
@@ -88,7 +89,7 @@ namespace Yburn.Fireball
 
 		private readonly double[] YAxis;
 
-		protected readonly Func<double, double, double, double> FieldFunction;
+		protected readonly Func<double, double, double, double, double> FieldFunction;
 
 		private readonly double UpdateInterval;
 

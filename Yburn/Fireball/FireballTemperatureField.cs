@@ -11,6 +11,8 @@ namespace Yburn.Fireball
 		public FireballTemperatureField(
 			int xDimension,
 			int yDimension,
+			bool isSymmetricInX,
+			bool isSymmetricInY,
 			SimpleFireballField temperatureScalingField,
 			double initialMaximumTemperature,
 			double thermalTime,
@@ -18,6 +20,9 @@ namespace Yburn.Fireball
 			)
 			: base(FireballFieldType.Temperature, xDimension, yDimension)
 		{
+			IsSymmetricInX = isSymmetricInX;
+			IsSymmetricInY = isSymmetricInY;
+
 			TemperatureScalingField = temperatureScalingField;
 			InitialMaximumTemperature = initialMaximumTemperature;
 			ThermalTime = thermalTime;
@@ -36,16 +41,21 @@ namespace Yburn.Fireball
 			)
 		{
 			DiscreteValues = solver.T;
+			FindMaximumTemperature();
 		}
 
 		public void Advance(
 			double newTime
 			)
 		{
-			SetDiscreteValues((x, y) =>
-			{
-				return Tnorm[x, y] / Math.Pow(newTime, 1 / 3.0);
-			});
+			SetDiscreteValues((x, y) => Tnorm[x, y] / Math.Pow(newTime, 1 / 3.0));
+			FindMaximumTemperature();
+		}
+
+		public double MaximumTemperature
+		{
+			get;
+			private set;
 		}
 
 		/********************************************************************************************
@@ -62,6 +72,10 @@ namespace Yburn.Fireball
 		private double ThermalTime;
 
 		private SimpleFireballField TemperatureScalingField;
+
+		private bool IsSymmetricInX;
+
+		private bool IsSymmetricInY;
 
 		private void AssertValidInput()
 		{
@@ -101,6 +115,33 @@ namespace Yburn.Fireball
 				{
 					return norm * TemperatureScalingField[x, y];
 				});
+		}
+
+		private void FindMaximumTemperature()
+		{
+			double xIndexToStopAt = XDimension;
+			if(IsSymmetricInX)
+			{
+				xIndexToStopAt = 1;
+			}
+
+			double yIndexToStopAt = YDimension;
+			if(IsSymmetricInY)
+			{
+				yIndexToStopAt = 1;
+			}
+
+			MaximumTemperature = 0;
+			for(int i = 0; i < xIndexToStopAt; i++)
+			{
+				for(int j = 0; j < yIndexToStopAt; j++)
+				{
+					if(DiscreteValues[i, j] > MaximumTemperature)
+					{
+						MaximumTemperature = DiscreteValues[i, j];
+					}
+				}
+			}
 		}
 	}
 }

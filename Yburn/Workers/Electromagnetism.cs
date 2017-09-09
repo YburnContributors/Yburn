@@ -91,10 +91,10 @@ namespace Yburn.Workers
 			{
 				CollisionalElectromagneticField emf = new CollisionalElectromagneticField(param);
 
-				double B_Per_fm2 = emf.CalculateMagneticFieldInLCF_per_fm2(
-					properTime_fm, x, y, rapidity).Norm;
+				double B_per_fm2 = emf.CalculateMagneticFieldInLCF(
+					properTime_fm, x, y, rapidity, QGPConductivity_MeV).Norm;
 
-				return CalculateSpinStateOverlap(tripletState, B_Per_fm2);
+				return CalculateSpinStateOverlap(tripletState, B_per_fm2);
 			};
 
 			LCFFieldAverager avg = new LCFFieldAverager(param);

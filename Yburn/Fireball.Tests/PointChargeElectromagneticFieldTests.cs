@@ -70,13 +70,13 @@ namespace Yburn.Fireball.Tests
 		private double[,] CalculatePointChargeFields_PositiveRapidity(EMFCalculationMethod method)
 		{
 			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
-				method, QGPConductivity, PointChargeRapidity);
+				method, PointChargeRapidity);
 
 			double[,] fieldValues = new double[3, EffectiveTimes.Length];
 			for(int i = 0; i < EffectiveTimes.Length; i++)
 			{
 				emf.CalculateElectromagneticField(
-					EffectiveTimes[i], RadialDistance,
+					EffectiveTimes[i], RadialDistance, QGPConductivity,
 					out double azimuthalMagneticComponent,
 					out double longitudinalElectricComponent,
 					out double radialElectricComponent);
@@ -92,13 +92,13 @@ namespace Yburn.Fireball.Tests
 		private double[,] CalculatePointChargeFields_NegativeRapidity(EMFCalculationMethod method)
 		{
 			PointChargeElectromagneticField emf = PointChargeElectromagneticField.Create(
-				method, QGPConductivity, -PointChargeRapidity);
+				method, -PointChargeRapidity);
 
 			double[,] fieldValues = new double[3, EffectiveTimes.Length];
 			for(int i = 0; i < EffectiveTimes.Length; i++)
 			{
 				emf.CalculateElectromagneticField(
-					EffectiveTimes[i], RadialDistance,
+					EffectiveTimes[i], RadialDistance, QGPConductivity,
 					out double azimuthalMagneticComponent,
 					out double longitudinalElectricComponent,
 					out double radialElectricComponent);
