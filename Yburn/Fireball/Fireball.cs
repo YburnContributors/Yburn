@@ -468,8 +468,7 @@ namespace Yburn.Fireball
 			Temperature = new FireballTemperatureField(
 				X.Length,
 				Y.Length,
-				Param.IsSystemSymmetricInX,
-				Param.IsSystemSymmetricInY,
+				Param.IsCollisionSymmetric,
 				GlauberCalculation.TemperatureScalingField,
 				Param.InitialMaximumTemperature_MeV,
 				Param.ThermalTime_fm,

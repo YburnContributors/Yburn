@@ -407,19 +407,15 @@ namespace Yburn.Fireball
 			}
 		}
 
-		public bool IsSystemSymmetricInX
+		public bool IsCollisionSymmetric
 		{
 			get
 			{
-				return AreNucleusABIdentical;
-			}
-		}
-
-		public bool IsSystemSymmetricInY
-		{
-			get
-			{
-				return true;
+				return NucleusShapeA == NucleusShapeB
+					& NucleonNumberA == NucleonNumberB
+					& ProtonNumberA == ProtonNumberB
+					& NuclearRadiusA_fm == NuclearRadiusB_fm
+					& DiffusenessA_fm == DiffusenessB_fm;
 			}
 		}
 
@@ -427,14 +423,9 @@ namespace Yburn.Fireball
 		{
 			get
 			{
-				int factor = 1;
+				int factor = 2;
 
-				if(IsSystemSymmetricInX)
-				{
-					factor *= 2;
-				}
-
-				if(IsSystemSymmetricInY)
+				if(IsCollisionSymmetric)
 				{
 					factor *= 2;
 				}
@@ -454,15 +445,13 @@ namespace Yburn.Fireball
 				{
 					xAxis.Add(i * GridCellSize_fm);
 
-					if(!IsSystemSymmetricInX)
+					if(!IsCollisionSymmetric)
 					{
-						xAxis.Add(-i * GridCellSize_fm);
+						xAxis.Insert(0, -i * GridCellSize_fm);
 					}
 
 					i++;
 				}
-
-				xAxis.Sort();
 
 				return xAxis.ToArray();
 			}
@@ -478,12 +467,6 @@ namespace Yburn.Fireball
 				while(j * GridCellSize_fm <= GridRadius_fm)
 				{
 					yAxis.Add(j * GridCellSize_fm);
-
-					if(!IsSystemSymmetricInY)
-					{
-						yAxis.Add(-j * GridCellSize_fm);
-					}
-
 					j++;
 				}
 
@@ -534,18 +517,6 @@ namespace Yburn.Fireball
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
-
-		private bool AreNucleusABIdentical
-		{
-			get
-			{
-				return NucleusShapeA == NucleusShapeB
-					& NucleonNumberA == NucleonNumberB
-					& ProtonNumberA == ProtonNumberB
-					& NuclearRadiusA_fm == NuclearRadiusB_fm
-					& DiffusenessA_fm == DiffusenessB_fm;
-			}
-		}
 
 		private uint? Nullable_NucleonNumberA;
 

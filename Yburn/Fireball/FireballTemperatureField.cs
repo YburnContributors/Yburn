@@ -11,8 +11,7 @@ namespace Yburn.Fireball
 		public FireballTemperatureField(
 			int xDimension,
 			int yDimension,
-			bool isSymmetricInX,
-			bool isSymmetricInY,
+			bool isCollisionSymmetric,
 			SimpleFireballField temperatureScalingField,
 			double initialMaximumTemperature,
 			double thermalTime,
@@ -20,8 +19,7 @@ namespace Yburn.Fireball
 			)
 			: base(FireballFieldType.Temperature, xDimension, yDimension)
 		{
-			IsSymmetricInX = isSymmetricInX;
-			IsSymmetricInY = isSymmetricInY;
+			IsCollisionSymmetric = isCollisionSymmetric;
 
 			TemperatureScalingField = temperatureScalingField;
 			InitialMaximumTemperature = initialMaximumTemperature;
@@ -73,9 +71,7 @@ namespace Yburn.Fireball
 
 		private SimpleFireballField TemperatureScalingField;
 
-		private bool IsSymmetricInX;
-
-		private bool IsSymmetricInY;
+		private bool IsCollisionSymmetric;
 
 		private void AssertValidInput()
 		{
@@ -119,26 +115,17 @@ namespace Yburn.Fireball
 
 		private void FindMaximumTemperature()
 		{
-			double xIndexToStopAt = XDimension;
-			if(IsSymmetricInX)
-			{
-				xIndexToStopAt = 1;
-			}
+			MaximumTemperature = DiscreteValues[0, 0];
 
-			double yIndexToStopAt = YDimension;
-			if(IsSymmetricInY)
+			if(!IsCollisionSymmetric)
 			{
-				yIndexToStopAt = 1;
-			}
-
-			MaximumTemperature = 0;
-			for(int i = 0; i < xIndexToStopAt; i++)
-			{
-				for(int j = 0; j < yIndexToStopAt; j++)
+				for(int i = 1; i < XDimension; i++)
 				{
-					if(DiscreteValues[i, j] > MaximumTemperature)
+					double temperature = DiscreteValues[i, 0];
+
+					if(temperature > MaximumTemperature)
 					{
-						MaximumTemperature = DiscreteValues[i, j];
+						MaximumTemperature = temperature;
 					}
 				}
 			}
