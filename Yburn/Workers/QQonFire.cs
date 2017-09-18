@@ -694,6 +694,7 @@ namespace Yburn.Workers
 				ProtonNumberA = ProtonNumberA,
 				ProtonNumberB = ProtonNumberB,
 				QGPConductivity_MeV = QGPConductivity_MeV,
+				QGPFormationTemperature_MeV = QGPFormationTemperature_MeV,
 				TemperatureProfile = TemperatureProfile,
 				ThermalTime_fm = ThermalTime_fm,
 				TransverseMomenta_GeV = TransverseMomenta_GeV,
