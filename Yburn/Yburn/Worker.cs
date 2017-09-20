@@ -205,13 +205,53 @@ namespace Yburn
 		{
 			get
 			{
-				string timePassed = DateTime.Now.Subtract(JobStartTimeStamp)
-					.TotalSeconds.ToString("F0");
+				StringBuilder stringBuilder = new StringBuilder();
 
-				return JobCancelToken.IsCancellationRequested ?
-					"#\r\n#\r\n#Job aborted after " + timePassed + " seconds.\r\n\r\n\r\n"
-					: "\r\n\r\n#Job completed after " + timePassed + " seconds.\r\n\r\n\r\n";
+				if(JobCancelToken.IsCancellationRequested)
+				{
+					stringBuilder.AppendLine("#");
+					stringBuilder.AppendLine("#");
+					stringBuilder.Append("#Job aborted after ");
+				}
+				else
+				{
+					stringBuilder.AppendLine();
+					stringBuilder.AppendLine();
+					stringBuilder.Append("#Job completed after ");
+				}
+
+				stringBuilder.Append(GetTimePassedString(DateTime.Now.Subtract(JobStartTimeStamp)));
+				stringBuilder.AppendLine(".");
+				stringBuilder.AppendLine();
+				stringBuilder.AppendLine();
+
+				return stringBuilder.ToString();
 			}
+		}
+
+		private string GetTimePassedString(
+			TimeSpan timePassed
+			)
+		{
+			StringBuilder stringBuilder = new StringBuilder();
+			stringBuilder.Append(timePassed.Seconds.ToString() + "s");
+
+			if(timePassed.TotalMinutes >= 1)
+			{
+				stringBuilder.Insert(0, timePassed.Minutes.ToString() + "m ");
+			}
+
+			if(timePassed.TotalHours >= 1)
+			{
+				stringBuilder.Insert(0, timePassed.Hours.ToString() + "h ");
+			}
+
+			if(timePassed.TotalDays >= 1)
+			{
+				stringBuilder.Insert(0, timePassed.Days.ToString() + "d ");
+			}
+
+			return stringBuilder.ToString();
 		}
 	}
 
