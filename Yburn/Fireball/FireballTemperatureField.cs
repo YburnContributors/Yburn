@@ -9,25 +9,23 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public FireballTemperatureField(
-			int xDimension,
-			int yDimension,
-			bool isCollisionSymmetric,
+			FireballCoordinateSystem system,
 			SimpleFireballField temperatureScalingField,
 			double initialMaximumTemperature,
 			double thermalTime,
 			double initialTime
 			)
-			: base(FireballFieldType.Temperature, xDimension, yDimension)
+			: base(FireballFieldType.Temperature, system)
 		{
-			IsCollisionSymmetric = isCollisionSymmetric;
-
 			TemperatureScalingField = temperatureScalingField;
 			InitialMaximumTemperature = initialMaximumTemperature;
 			ThermalTime = thermalTime;
 			InitialTime = initialTime;
 
-			AssertValidInput();
-			Initialize();
+			AssertValidMembers();
+
+			Tnorm = InitTnorm();
+			Advance(InitialTime);
 		}
 
 		/********************************************************************************************
@@ -38,7 +36,7 @@ namespace Yburn.Fireball
 			Ftexs solver
 			)
 		{
-			DiscreteValues = solver.T;
+			Values = solver.T;
 			FindMaximumTemperature();
 		}
 
@@ -46,7 +44,7 @@ namespace Yburn.Fireball
 			double newTime
 			)
 		{
-			SetDiscreteValues((x, y) => Tnorm[x, y] / Math.Pow(newTime, 1 / 3.0));
+			SetValues((x, y) => Tnorm[x, y] / Math.Pow(newTime, 1 / 3.0));
 			FindMaximumTemperature();
 		}
 
@@ -61,19 +59,17 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		// auxiliary field for the calculation of the temperature profile Temperature
-		private SimpleFireballField Tnorm;
+		private readonly SimpleFireballField Tnorm;
 
-		private double InitialMaximumTemperature;
+		private readonly double InitialMaximumTemperature;
 
-		private double InitialTime;
+		private readonly double InitialTime;
 
-		private double ThermalTime;
+		private readonly double ThermalTime;
 
-		private SimpleFireballField TemperatureScalingField;
+		private readonly SimpleFireballField TemperatureScalingField;
 
-		private bool IsCollisionSymmetric;
-
-		private void AssertValidInput()
+		private void AssertValidMembers()
 		{
 			if(TemperatureScalingField == null)
 			{
@@ -96,32 +92,26 @@ namespace Yburn.Fireball
 			}
 		}
 
-		private void Initialize()
-		{
-			InitTnorm();
-			Advance(InitialTime);
-		}
-
 		// temperature is normalized such that T(0, 0, ThermalTime_fm) = T0
 		// for a central collision (ImpactParameter = 0) and TransverseMomentum = 0
-		private void InitTnorm()
+		private SimpleFireballField InitTnorm()
 		{
 			double norm = InitialMaximumTemperature * Math.Pow(ThermalTime, 1 / 3.0);
-			Tnorm = new SimpleFireballField(FireballFieldType.Tnorm, XDimension, YDimension, (x, y) =>
-				{
-					return norm * TemperatureScalingField[x, y];
-				});
+			return new SimpleFireballField(
+				FireballFieldType.Tnorm,
+				System,
+				(x, y) => norm * TemperatureScalingField[x, y]);
 		}
 
 		private void FindMaximumTemperature()
 		{
-			MaximumTemperature = DiscreteValues[0, 0];
+			MaximumTemperature = Values[0, 0];
 
-			if(!IsCollisionSymmetric)
+			if(!System.IsCollisionSymmetric)
 			{
 				for(int i = 1; i < XDimension; i++)
 				{
-					double temperature = DiscreteValues[i, 0];
+					double temperature = Values[i, 0];
 
 					if(temperature > MaximumTemperature)
 					{

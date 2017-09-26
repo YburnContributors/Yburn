@@ -72,8 +72,7 @@ namespace Yburn.Fireball
 
 			AssertValidMembers();
 
-
-			InitXY();
+			InitCoordinateSystem();
 			InitInelasticppCrossSection();
 			InitNucleusAB();
 			InitNucleonNumberDensityFieldsAB();
@@ -108,8 +107,7 @@ namespace Yburn.Fireball
 
 		public double GetTotalNumberCollisions()
 		{
-			return Param.SystemSymmetryFactor * Param.GridCellSize_fm * Param.GridCellSize_fm
-				* NcollField.TrapezoidalRuleSummedValues();
+			return NcollField.IntegrateValues();
 		}
 
 		public SimpleFireballField NpartField
@@ -120,8 +118,7 @@ namespace Yburn.Fireball
 
 		public double GetTotalNumberParticipants()
 		{
-			return Param.SystemSymmetryFactor * Param.GridCellSize_fm * Param.GridCellSize_fm
-				* NpartField.TrapezoidalRuleSummedValues();
+			return NpartField.IntegrateValues();
 		}
 
 		public SimpleFireballField NucleonNumberColumnDensityFieldA
@@ -154,6 +151,8 @@ namespace Yburn.Fireball
 
 		private FireballParam Param;
 
+		private FireballCoordinateSystem CoordinateSystem;
+
 		private double InelasticppCrossSection_fm2;
 
 		private Nucleus NucleusA;
@@ -183,12 +182,10 @@ namespace Yburn.Fireball
 			}
 		}
 
-		// x, y are in the plane perpendicular to the symmetry axis. The origin is in the middle
-		// between the two center of the nuclei. The x-axis is in the plane that the beam axis spans
-		// with the line connecting the two centers.
-		private double[] X;
-
-		private double[] Y;
+		private void InitCoordinateSystem()
+		{
+			CoordinateSystem = new FireballCoordinateSystem(Param);
+		}
 
 		private void InitInelasticppCrossSection()
 		{
@@ -205,25 +202,22 @@ namespace Yburn.Fireball
 		{
 			NucleonNumberDensityFieldA = new SimpleFireballField(
 				FireballFieldType.NucleonDensityA,
-				X.Length,
-				Y.Length,
+				CoordinateSystem,
 				(x, y) => NucleusA.GetNucleonNumberDensity_per_fm3(Math.Sqrt(Math.Pow(
-					X[x] - Param.NucleusPositionA, 2) + Math.Pow(Y[y], 2))));
+					CoordinateSystem.XAxis[x] - Param.NucleusPositionA, 2) + Math.Pow(CoordinateSystem.YAxis[y], 2))));
 
 			NucleonNumberDensityFieldB = new SimpleFireballField(
 				FireballFieldType.NucleonDensityB,
-				X.Length,
-				Y.Length,
+				CoordinateSystem,
 				(x, y) => NucleusB.GetNucleonNumberDensity_per_fm3(Math.Sqrt(Math.Pow(
-					X[x] - Param.NucleusPositionB, 2) + Math.Pow(Y[y], 2))));
+					CoordinateSystem.XAxis[x] - Param.NucleusPositionB, 2) + Math.Pow(CoordinateSystem.YAxis[y], 2))));
 		}
 
 		private void InitNcollField()
 		{
 			NcollField = new SimpleFireballField(
 				FireballFieldType.Ncoll,
-				X.Length,
-				Y.Length,
+				CoordinateSystem,
 				(x, y) => InelasticppCrossSection_fm2 * OverlapField[x, y]);
 		}
 
@@ -231,8 +225,7 @@ namespace Yburn.Fireball
 		{
 			NpartField = new SimpleFireballField(
 				FireballFieldType.Npart,
-				X.Length,
-				Y.Length,
+				CoordinateSystem,
 				(x, y) =>
 					NucleonNumberColumnDensityFieldA[x, y] * (1.0 - Math.Pow(
 						1.0 - InelasticppCrossSection_fm2 * NucleonNumberColumnDensityFieldB[x, y]
@@ -246,32 +239,23 @@ namespace Yburn.Fireball
 		{
 			OverlapField = new SimpleFireballField(
 				FireballFieldType.Overlap,
-				X.Length,
-				Y.Length,
+				CoordinateSystem,
 				(x, y) => NucleonNumberColumnDensityFieldA[x, y] * NucleonNumberColumnDensityFieldB[x, y]);
-		}
-
-		private void InitXY()
-		{
-			X = Param.XAxis;
-			Y = Param.YAxis;
 		}
 
 		private void InitNucleonNumberColumnDensityFieldsAB()
 		{
 			NucleonNumberColumnDensityFieldA = new SimpleFireballField(
 				FireballFieldType.ColumnDensityA,
-				X.Length,
-				Y.Length,
+				CoordinateSystem,
 				(x, y) => NucleusA.GetNucleonNumberColumnDensity_per_fm3(
-					X[x] - Param.NucleusPositionA, Y[y]));
+					CoordinateSystem.XAxis[x] - Param.NucleusPositionA, CoordinateSystem.YAxis[y]));
 
 			NucleonNumberColumnDensityFieldB = new SimpleFireballField(
 				FireballFieldType.ColumnDensityB,
-				X.Length,
-				Y.Length,
+				CoordinateSystem,
 				(x, y) => NucleusB.GetNucleonNumberColumnDensity_per_fm3(
-					X[x] - Param.NucleusPositionB, Y[y]));
+					CoordinateSystem.XAxis[x] - Param.NucleusPositionB, CoordinateSystem.YAxis[y]));
 		}
 
 		private void InitTemperatureScalingField()
@@ -280,8 +264,7 @@ namespace Yburn.Fireball
 
 			TemperatureScalingField = new SimpleFireballField(
 				FireballFieldType.TemperatureScalingField,
-				X.Length,
-				Y.Length,
+				CoordinateSystem,
 				(x, y) =>
 					{
 						switch(Param.TemperatureProfile)

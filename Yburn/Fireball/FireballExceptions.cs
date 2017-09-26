@@ -14,6 +14,15 @@ namespace Yburn.Fireball
 	}
 
 	[Serializable]
+	public class InvalidFireballFieldArrayException : Exception
+	{
+		public InvalidFireballFieldArrayException()
+			: base("Array is invalid.")
+		{
+		}
+	}
+
+	[Serializable]
 	public class InvalidFireballFieldFunctionException : Exception
 	{
 		public InvalidFireballFieldFunctionException()

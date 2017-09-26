@@ -419,63 +419,6 @@ namespace Yburn.Fireball
 			}
 		}
 
-		public int SystemSymmetryFactor
-		{
-			get
-			{
-				int factor = 2;
-
-				if(IsCollisionSymmetric)
-				{
-					factor *= 2;
-				}
-
-				return factor;
-			}
-		}
-
-		public double[] XAxis
-		{
-			get
-			{
-				List<double> xAxis = new List<double> { 0 };
-
-				int i = 1;
-				while(i * GridCellSize_fm <= GridRadius_fm)
-				{
-					xAxis.Add(i * GridCellSize_fm);
-
-					if(!IsCollisionSymmetric)
-					{
-						xAxis.Insert(0, -i * GridCellSize_fm);
-					}
-
-					i++;
-				}
-
-				return xAxis.ToArray();
-			}
-		}
-
-		public double[] YAxis
-		{
-			get
-			{
-				List<double> yAxis = new List<double> { 0 };
-
-				int j = 1;
-				while(j * GridCellSize_fm <= GridRadius_fm)
-				{
-					yAxis.Add(j * GridCellSize_fm);
-					j++;
-				}
-
-				yAxis.Sort();
-
-				return yAxis.ToArray();
-			}
-		}
-
 		public FireballParam Clone()
 		{
 			FireballParam param = new FireballParam

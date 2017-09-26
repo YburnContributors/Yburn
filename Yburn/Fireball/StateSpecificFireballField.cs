@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Yburn.Fireball
 {
@@ -8,39 +10,54 @@ namespace Yburn.Fireball
 	public class StateSpecificFireballField : FireballField
 	{
 		/********************************************************************************************
+		 * Private/protected static members, functions and properties
+		 ********************************************************************************************/
+
+		protected static readonly ReadOnlyCollection<BottomiumState> BottomiumStates
+			= Array.AsReadOnly((BottomiumState[])Enum.GetValues(typeof(BottomiumState)));
+
+		protected static int NumberBottomiumStates
+		{
+			get
+			{
+				return BottomiumStates.Count;
+			}
+		}
+
+		/********************************************************************************************
 		* Constructors
 		********************************************************************************************/
 
 		public StateSpecificFireballField(
 			FireballFieldType type,
-			int xDimension,
-			int yDimension,
-			int pTDimension,
-			StateSpecificFireballFieldFunction function
-			) : this(type, xDimension, yDimension, pTDimension)
+			FireballCoordinateSystem system,
+			IList<double> transverseMomenta
+			) : base(type, system)
 		{
-			SetValues(function);
+			TransverseMomenta = new ReadOnlyCollection<double>(transverseMomenta);
+			InitValues(out Values);
 		}
 
 		public StateSpecificFireballField(
 			FireballFieldType type,
-			int xDimension,
-			int yDimension,
-			int pTDimension
-			) : base(type, xDimension, yDimension)
+			FireballCoordinateSystem system,
+			IList<double> transverseMomenta,
+			StateSpecificFireballFieldFunction function
+			) : this(type, system, transverseMomenta)
 		{
-			PTDimension = pTDimension;
-			InitValues();
+			SetValues(function);
 		}
 
 		/********************************************************************************************
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public double[,][,] Values
+		public double this[int xIndex, int yIndex, int pTIndex, int stateIndex]
 		{
-			get;
-			set;
+			get
+			{
+				return Values[pTIndex, stateIndex][xIndex, yIndex];
+			}
 		}
 
 		public SimpleFireballField GetSimpleFireballField(
@@ -48,7 +65,7 @@ namespace Yburn.Fireball
 			BottomiumState state
 			)
 		{
-			return new SimpleFireballField(Type, Values[pTIndex, (int)state]);
+			return new SimpleFireballField(Type, System, Values[pTIndex, (int)state]);
 		}
 
 		public void SetValues(
@@ -60,26 +77,31 @@ namespace Yburn.Fireball
 		}
 
 		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-
-		protected static readonly int NumberBottomiumStates
-			= Enum.GetValues(typeof(BottomiumState)).Length;
-
-		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		protected int PTDimension;
+		private readonly double[,][,] Values;
 
-		private void InitValues()
+		protected readonly ReadOnlyCollection<double> TransverseMomenta;
+
+		protected int PTDimension
 		{
-			Values = new double[PTDimension, NumberBottomiumStates][,];
+			get
+			{
+				return TransverseMomenta.Count;
+			}
+		}
+
+		private void InitValues(
+			out double[,][,] values
+			)
+		{
+			values = new double[PTDimension, NumberBottomiumStates][,];
 			for(int pT = 0; pT < PTDimension; pT++)
 			{
 				for(int state = 0; state < NumberBottomiumStates; state++)
 				{
-					Values[pT, state] = new double[XDimension, YDimension];
+					values[pT, state] = new double[XDimension, YDimension];
 				}
 			}
 		}

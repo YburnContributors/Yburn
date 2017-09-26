@@ -34,6 +34,7 @@
     <Compile Include="BottomiumCascade.cs" />
     <Compile Include="BottomiumCascadeMatrix.cs" />
     <Compile Include="BottomiumVector.cs" />
+    <Compile Include="FireballCoordinateSystem.cs" />
     <Compile Include="FireballElectromagneticField.cs" />
     <Compile Include="FtexsLaxWendroffStepper.cs" />
     <Compile Include="FtexsFirstOrderStepper.cs" />

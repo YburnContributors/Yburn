@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Yburn.PhysUtil
 {
@@ -14,12 +15,12 @@ namespace Yburn.PhysUtil
 		 ********************************************************************************************/
 
 		public LinearInterpolationBase(
-			double[] x
+			IList<double> x
 			)
 		{
 			AssertValidXarray(x);
 
-			N = x.Length;
+			N = x.Count;
 			X = x;
 			C = 0;
 			Xmin = x[0];
@@ -49,7 +50,7 @@ namespace Yburn.PhysUtil
 		 ********************************************************************************************/
 
 		private static void AssertValidXarray(
-			double[] x
+			IList<double> x
 			)
 		{
 			if(x == null)
@@ -57,7 +58,7 @@ namespace Yburn.PhysUtil
 				throw new ArgumentNullException("X-array is null.");
 			}
 
-			if(x.Length == 0)
+			if(x.Count == 0)
 			{
 				throw new ArrayEmptyException("X-array is empty.");
 			}
@@ -69,10 +70,10 @@ namespace Yburn.PhysUtil
 		}
 
 		private static bool IsArrayDisordered(
-			double[] x
+			IList<double> x
 			)
 		{
-			for(int i = 1; i < x.Length; i++)
+			for(int i = 1; i < x.Count; i++)
 			{
 				if(x[i - 1] >= x[i])
 				{
@@ -88,7 +89,7 @@ namespace Yburn.PhysUtil
 		 ********************************************************************************************/
 
 		// X-array
-		protected double[] X;
+		protected IList<double> X;
 
 		// number of array points
 		protected int N;
@@ -201,12 +202,12 @@ namespace Yburn.PhysUtil
 		 ********************************************************************************************/
 
 		public LinearInterpolation1D(
-			double[] x,
+			IList<double> x,
 			double[] f
 			)
 			: base(x)
 		{
-			AssertValidFarray(f, x.Length);
+			AssertValidFarray(f, x.Count);
 
 			F = f;
 		}
@@ -221,7 +222,7 @@ namespace Yburn.PhysUtil
 		{
 			FindInterval(x);
 
-			// if x is on a array point there is no need for interpolation
+			// if x is on an array point there is no need for interpolation
 			if(x == X[C])
 			{
 				return F[C];
@@ -296,18 +297,18 @@ namespace Yburn.PhysUtil
 		 ********************************************************************************************/
 
 		public LinearInterpolation2D(
-			double[] x,
-			double[] y,
+			IList<double> x,
+			IList<double> y,
 			double[,] f
 			)
 			: base(x)
 		{
-			AssertValidF2Darray(f, x.Length, y.Length);
+			AssertValidF2Darray(f, x.Count, y.Count);
 
 			Xmin = x[0];
 			Xmax = x[N - 1];
 			Ymin = y[0];
-			Ymax = y[y.Length - 1];
+			Ymax = y[y.Count - 1];
 
 			Set1DInterpolators(y, f);
 		}
@@ -387,7 +388,7 @@ namespace Yburn.PhysUtil
 		private LinearInterpolation1D[] LinearInterpolation1D;
 
 		private void Set1DInterpolators(
-			double[] y,
+			IList<double> y,
 			double[,] f
 			)
 		{
@@ -395,8 +396,8 @@ namespace Yburn.PhysUtil
 			for(int i = 0; i < N; i++)
 			{
 				// create new array from row
-				double[] fy = new double[y.Length];
-				for(int j = 0; j < y.Length; j++)
+				double[] fy = new double[y.Count];
+				for(int j = 0; j < y.Count; j++)
 				{
 					fy[j] = f[i, j];
 				}

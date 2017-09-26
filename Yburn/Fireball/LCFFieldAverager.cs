@@ -37,9 +37,10 @@ namespace Yburn.Fireball
 			)
 		{
 			GlauberCalculation glauber = new GlauberCalculation(Param);
+			FireballCoordinateSystem system = new FireballCoordinateSystem(Param);
 
-			double[] x = Param.XAxis;
-			double[] y = Param.YAxis;
+			double[] x = system.GetXAxis();
+			double[] y = system.GetYAxis();
 
 			double[,] functionColumnDensityValues = new double[x.Length, y.Length];
 			for(int i = 0; i < x.Length; i++)
@@ -55,10 +56,10 @@ namespace Yburn.Fireball
 			}
 
 			SimpleFireballField functionColumnDensity = new SimpleFireballField(
-				FireballFieldType.Ncoll, functionColumnDensityValues);
+				FireballFieldType.Ncoll, system, functionColumnDensityValues);
 
-			return functionColumnDensity.TrapezoidalRuleSummedValues()
-				/ glauber.NcollField.TrapezoidalRuleSummedValues();
+			return functionColumnDensity.IntegrateValues()
+				/ glauber.NcollField.IntegrateValues();
 		}
 
 		/********************************************************************************************

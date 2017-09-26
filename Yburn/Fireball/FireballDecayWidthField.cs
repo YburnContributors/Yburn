@@ -18,7 +18,15 @@ namespace Yburn.Fireball
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private double[] SetFormationTimes(
+		private static double GetRelativeVelocityInQQFrame(
+			double vQQ,
+			double vQGP
+			)
+		{
+			return Math.Abs(vQQ - vQGP) / (1.0 - vQQ * vQGP);
+		}
+
+		private static double[] SetFormationTimes(
 			Dictionary<BottomiumState, double> dictionary
 			)
 		{
@@ -37,9 +45,8 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public FireballDecayWidthField(
-			double[] xAxis,
-			double[] yAxis,
-			List<double> transverseMomenta,
+			FireballCoordinateSystem system,
+			IList<double> transverseMomenta,
 			FireballTemperatureField temperature,
 			SimpleFireballField vx,
 			SimpleFireballField vy,
@@ -49,12 +56,8 @@ namespace Yburn.Fireball
 			double initialTime,
 			DecayWidthRetrievalFunction decayWidthFunction
 			)
-			: base(FireballFieldType.DecayWidth, xAxis.Length, yAxis.Length,
-				  transverseMomenta.Count)
+			: base(FireballFieldType.DecayWidth, system, transverseMomenta)
 		{
-			X = xAxis;
-			Y = yAxis;
-			TransverseMomenta = transverseMomenta;
 			Temperature = temperature;
 			VX = vx;
 			VY = vy;
@@ -64,7 +67,8 @@ namespace Yburn.Fireball
 			InitialTime = initialTime;
 			GetDecayWidth = decayWidthFunction;
 
-			Initialize();
+			SetTransverseBottomiumVelocityAndLorentzFactor(out BetaT, out GammaT);
+			SetInitialValues();
 		}
 
 		/********************************************************************************************
@@ -75,11 +79,11 @@ namespace Yburn.Fireball
 			double newTime
 			)
 		{
-			LinearInterpolation2D interpT = new LinearInterpolation2D(X, Y, Temperature.GetDiscreteValues());
-			LinearInterpolation2D interpVX = new LinearInterpolation2D(X, Y, VX.GetDiscreteValues());
-			LinearInterpolation2D interpVY = new LinearInterpolation2D(X, Y, VY.GetDiscreteValues());
-			LinearInterpolation2D interpE = new LinearInterpolation2D(X, Y, ElectricField.GetDiscreteValues());
-			LinearInterpolation2D interpB = new LinearInterpolation2D(X, Y, MagneticField.GetDiscreteValues());
+			LinearInterpolation2D interpT = new LinearInterpolation2D(System.XAxis, System.YAxis, Temperature.GetValues());
+			LinearInterpolation2D interpVX = new LinearInterpolation2D(System.XAxis, System.YAxis, VX.GetValues());
+			LinearInterpolation2D interpVY = new LinearInterpolation2D(System.XAxis, System.YAxis, VY.GetValues());
+			LinearInterpolation2D interpE = new LinearInterpolation2D(System.XAxis, System.YAxis, ElectricField.GetValues());
+			LinearInterpolation2D interpB = new LinearInterpolation2D(System.XAxis, System.YAxis, MagneticField.GetValues());
 
 			SetValues((xIndex, yIndex, pTIndex, stateIndex) =>
 			{
@@ -113,29 +117,8 @@ namespace Yburn.Fireball
 		}
 
 		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-
-		private static double GetRelativeVelocityInQQFrame(
-			double vQQ,
-			double vQGP
-			)
-		{
-			return Math.Abs(vQQ - vQGP) / (1.0 - vQQ * vQGP);
-		}
-
-		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
-
-		// x, y are in the plane perpendicular to the symmetry axis. The origin is in the middle
-		// between the two center of the nuclei. The x-axis is in the plane that the beam axis spans
-		// with the line connecting the two centers.
-		private readonly double[] X;
-
-		private readonly double[] Y;
-
-		private readonly List<double> TransverseMomenta;
 
 		private readonly FireballTemperatureField Temperature;
 
@@ -154,15 +137,11 @@ namespace Yburn.Fireball
 
 		private readonly DecayWidthRetrievalFunction GetDecayWidth;
 
-		private void Initialize()
+		private void SetInitialValues()
 		{
-			SetTransverseBottomiumVelocityAndLorentzFactor();
-			SetValues((x, y, pT, state) =>
-			{
-				return IsStateAlreadyFormed(pT, state, InitialTime) ?
-					 GetDecayWidth((BottomiumState)state, Temperature[x, y], 0, 0, 0) / GammaT[pT, state]
-					: double.PositiveInfinity;
-			});
+			SetValues((x, y, pT, state) => IsStateAlreadyFormed(pT, state, InitialTime) ?
+				GetDecayWidth((BottomiumState)state, Temperature[x, y], 0, 0, 0) / GammaT[pT, state]
+				: double.PositiveInfinity);
 		}
 
 		private bool IsStateAlreadyFormed(
@@ -175,22 +154,25 @@ namespace Yburn.Fireball
 		}
 
 		// transverse velocity of the bottomia
-		private double[,] BetaT;
+		private readonly double[,] BetaT;
 
 		// Lorentz factor due to transverse velocity of the bottomia
-		private double[,] GammaT;
+		private readonly double[,] GammaT;
 
-		private void SetTransverseBottomiumVelocityAndLorentzFactor()
+		private void SetTransverseBottomiumVelocityAndLorentzFactor(
+			out double[,] betaT,
+			out double[,] gammaT
+			)
 		{
-			GammaT = new double[PTDimension, NumberBottomiumStates];
-			BetaT = new double[PTDimension, NumberBottomiumStates];
+			gammaT = new double[PTDimension, NumberBottomiumStates];
+			betaT = new double[PTDimension, NumberBottomiumStates];
 
 			for(int pT = 0; pT < PTDimension; pT++)
 			{
 				for(int state = 0; state < NumberBottomiumStates; state++)
 				{
-					GammaT[pT, state] = Math.Sqrt(1.0 + Math.Pow(TransverseMomenta[pT] / BottomiumRestMass_GeV(state), 2));
-					BetaT[pT, state] = Math.Sqrt(1.0 - Math.Pow(GammaT[pT, state], -2));
+					gammaT[pT, state] = Math.Sqrt(1.0 + Math.Pow(TransverseMomenta[pT] / BottomiumRestMass_GeV(state), 2));
+					betaT[pT, state] = Math.Sqrt(1.0 - Math.Pow(gammaT[pT, state], -2));
 				}
 			}
 		}
@@ -240,8 +222,8 @@ namespace Yburn.Fireball
 			double vyVal = VY[xIndex, yIndex];
 			double v = Math.Sqrt(vxVal * vxVal + vyVal * vyVal);
 
-			x = vxVal != 0 ? X[xIndex] + pathLength * vxVal / v : X[xIndex];
-			y = vyVal != 0 ? Y[yIndex] + pathLength * vyVal / v : Y[yIndex];
+			x = vxVal != 0 ? System.XAxis[xIndex] + pathLength * vxVal / v : System.XAxis[xIndex];
+			y = vyVal != 0 ? System.YAxis[yIndex] + pathLength * vyVal / v : System.YAxis[yIndex];
 		}
 
 		private bool IsInDomainOfCalculation(
@@ -249,10 +231,10 @@ namespace Yburn.Fireball
 			double y
 			)
 		{
-			return x <= X[XDimension - 1]
-				&& x >= X[0]
-				&& y <= Y[YDimension - 1]
-				&& y >= Y[0];
+			return x <= System.XAxis[XDimension - 1]
+				&& x >= System.XAxis[0]
+				&& y <= System.YAxis[YDimension - 1]
+				&& y >= System.YAxis[0];
 		}
 	}
 }

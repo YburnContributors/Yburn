@@ -28,9 +28,9 @@ namespace Yburn.Fireball
 
 			GlauberCalculation = new GlauberCalculation(Param);
 
-			InitXY();
+			InitCoordinateSystem();
 			InitV();
-			InitElectromagneticFields();
+			InitElectromagneticField();
 			InitTemperature();
 			InitDecayWidth();
 			InitDampingFactor();
@@ -143,13 +143,13 @@ namespace Yburn.Fireball
 				throw new Exception("No output fields are given.");
 			}
 
-			for(int i = 0; i < X.Length; i++)
+			for(int i = 0; i < CoordinateSystem.XAxis.Count; i++)
 			{
-				for(int j = 0; j < Y.Length; j++)
+				for(int j = 0; j < CoordinateSystem.YAxis.Count; j++)
 				{
 					stringBuilder.AppendFormat("{0,8}{1,8}",
-						X[i].ToString(),
-						Y[j].ToString());
+						CoordinateSystem.XAxis[i].ToString(),
+						CoordinateSystem.YAxis[j].ToString());
 					for(int k = 0; k < fields.Count; k++)
 					{
 						stringBuilder.AppendFormat("{0,20}",
@@ -171,9 +171,7 @@ namespace Yburn.Fireball
 		{
 			SimpleFireballField field = GetFireballField(fieldName, state, pTIndex);
 
-			// include a factor of 4 because only a quarter has been integrated
-			return Param.SystemSymmetryFactor * Param.GridCellSize_fm * Param.GridCellSize_fm
-				* field.TrapezoidalRuleSummedValues();
+			return field.IntegrateValues();
 		}
 
 		// Calculates the number of binary collisions NcollQGP that occur in the transverse plane
@@ -199,7 +197,7 @@ namespace Yburn.Fireball
 			}
 
 			// edges
-			for(int i = 1; i < X.Length; i++)
+			for(int i = 1; i < CoordinateSystem.XAxis.Count; i++)
 			{
 				if(Temperature[i, 0] >= criticalTemperature)
 				{
@@ -211,7 +209,7 @@ namespace Yburn.Fireball
 				}
 			}
 
-			for(int j = 1; j < Y.Length; j++)
+			for(int j = 1; j < CoordinateSystem.YAxis.Count; j++)
 			{
 				if(Temperature[0, j] >= criticalTemperature)
 				{
@@ -227,9 +225,9 @@ namespace Yburn.Fireball
 			CollisionsInHadronicRegion *= 0.5;
 
 			// the rest
-			for(int i = 1; i < X.Length; i++)
+			for(int i = 1; i < CoordinateSystem.XAxis.Count; i++)
 			{
-				for(int j = 1; j < Y.Length; j++)
+				for(int j = 1; j < CoordinateSystem.YAxis.Count; j++)
 				{
 					if(Temperature[i, j] >= criticalTemperature)
 					{
@@ -243,9 +241,9 @@ namespace Yburn.Fireball
 			}
 
 			CollisionInQGP
-				*= Param.SystemSymmetryFactor * Param.GridCellSize_fm * Param.GridCellSize_fm;
+				*= CoordinateSystem.SymmetryFactor * Param.GridCellSize_fm * Param.GridCellSize_fm;
 			CollisionsInHadronicRegion
-				*= Param.SystemSymmetryFactor * Param.GridCellSize_fm * Param.GridCellSize_fm;
+				*= CoordinateSystem.SymmetryFactor * Param.GridCellSize_fm * Param.GridCellSize_fm;
 		}
 
 		/********************************************************************************************
@@ -275,6 +273,8 @@ namespace Yburn.Fireball
 
 		private FireballParam Param;
 
+		private FireballCoordinateSystem CoordinateSystem;
+
 		private GlauberCalculation GlauberCalculation;
 
 		// Solver for the Euler equations for a relativistic perfect fluid
@@ -289,13 +289,6 @@ namespace Yburn.Fireball
 		private double TimeFactor;
 
 		private double TimeStep;
-
-		// x, y are in the plane perpendicular to the symmetry axis. The origin is in the middle
-		// between the two center of the nuclei. The x-axis is in the plane that the beam axis spans
-		// with the line connecting the two centers.
-		private double[] X;
-
-		private double[] Y;
 
 		// tranverse expansion velocity of the fireball as measured in the lab frame
 		private SimpleFireballField VX;
@@ -365,11 +358,15 @@ namespace Yburn.Fireball
 			}
 		}
 
+		private void InitCoordinateSystem()
+		{
+			CoordinateSystem = new FireballCoordinateSystem(Param);
+		}
+
 		private void InitDecayWidth()
 		{
 			DecayWidth = new FireballDecayWidthField(
-				X,
-				Y,
+				CoordinateSystem,
 				Param.TransverseMomenta_GeV,
 				Temperature,
 				VX,
@@ -386,8 +383,8 @@ namespace Yburn.Fireball
 			if(Param.ExpansionMode == ExpansionMode.Transverse)
 			{
 				Solver.SolveUntil(CurrentTime);
-				VX.SetDiscreteValues(Solver.VX);
-				VY.SetDiscreteValues(Solver.VY);
+				VX.SetValues(Solver.VX);
+				VY.SetValues(Solver.VY);
 				Temperature.Advance(Solver);
 			}
 			else
@@ -405,70 +402,52 @@ namespace Yburn.Fireball
 			}
 
 			DecayWidth.Advance(CurrentTime);
-			DampingFactor.SetValues((x, y, pT, state) => DampingFactor.Values[pT, state][x, y]
-				* Math.Exp(-TimeStep * DecayWidth.Values[pT, state][x, y] / Constants.HbarC_MeV_fm));
+			DampingFactor.SetValues((x, y, pT, state) => DampingFactor[x, y, pT, state]
+				* Math.Exp(-TimeStep * DecayWidth[x, y, pT, state] / Constants.HbarC_MeV_fm));
 		}
 
 		private void InitDampingFactor()
 		{
 			DampingFactor = new StateSpecificFireballField(
 				FireballFieldType.DampingFactor,
-				X.Length,
-				Y.Length,
-				Param.TransverseMomenta_GeV.Count,
+				CoordinateSystem,
+				Param.TransverseMomenta_GeV,
 				(x, y, pT, state) => 1);
-		}
-
-		private void InitXY()
-		{
-			X = Param.XAxis;
-			Y = Param.YAxis;
 		}
 
 		private void InitV()
 		{
-			VX = new SimpleFireballField(
-				FireballFieldType.VX,
-				X.Length,
-				Y.Length,
-				(x, y) => 0);
-
-			VY = new SimpleFireballField(
-				FireballFieldType.VY,
-				X.Length,
-				Y.Length,
-				(x, y) => 0);
+			VX = new SimpleFireballField(FireballFieldType.VX, CoordinateSystem);
+			VY = new SimpleFireballField(FireballFieldType.VY, CoordinateSystem);
 		}
 
-		private void InitElectromagneticFields()
+		private void InitElectromagneticField()
 		{
 			if(Param.UseElectricField)
 			{
-				ElectricField = FireballElectromagneticField.CreateFireballElectricField(Param, X, Y);
+				ElectricField = FireballElectromagneticField.CreateFireballElectricField(Param);
 			}
 			else
 			{
 				ElectricField = FireballElectromagneticField.CreateZeroField(
-					FireballFieldType.ElectricFieldStrength, X, Y);
+					FireballFieldType.ElectricFieldStrength, CoordinateSystem);
 			}
 
 			if(Param.UseMagneticField)
 			{
-				MagneticField = FireballElectromagneticField.CreateFireballMagneticField(Param, X, Y);
+				MagneticField = FireballElectromagneticField.CreateFireballMagneticField(Param);
 			}
 			else
 			{
 				MagneticField = FireballElectromagneticField.CreateZeroField(
-					FireballFieldType.MagneticFieldStrength, X, Y);
+					FireballFieldType.MagneticFieldStrength, CoordinateSystem);
 			}
 		}
 
 		private void InitTemperature()
 		{
 			Temperature = new FireballTemperatureField(
-				X.Length,
-				Y.Length,
-				Param.IsCollisionSymmetric,
+				CoordinateSystem,
 				GlauberCalculation.TemperatureScalingField,
 				Param.InitialMaximumTemperature_MeV,
 				Param.ThermalTime_fm,
@@ -477,7 +456,7 @@ namespace Yburn.Fireball
 			if(Param.ExpansionMode == ExpansionMode.Transverse)
 			{
 				Solver = new Ftexs(Param.GridCellSize_fm, CurrentTime, 0.25,
-					Temperature.GetDiscreteValues(), VX.GetDiscreteValues(), VY.GetDiscreteValues());
+					Temperature.GetValues(), VX.GetValues(), VY.GetValues());
 			}
 
 			Param.InitialMaximumTemperature_MeV = MaximumTemperature;
@@ -556,9 +535,8 @@ namespace Yburn.Fireball
 		{
 			return new SimpleFireballField(
 				FireballFieldType.UnscaledSuppression,
-				X.Length,
-				Y.Length,
-				(x, y) => DampingFactor.Values[pTIndex, (int)state][x, y]
+				CoordinateSystem,
+				(x, y) => DampingFactor[x, y, pTIndex, (int)state]
 					* GlauberCalculation.OverlapField[x, y]);
 		}
 

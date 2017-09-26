@@ -10,13 +10,11 @@ namespace Yburn.Fireball
 
 		public FireballField(
 			FireballFieldType type,
-			int xDimension,
-			int yDimension
+			FireballCoordinateSystem system
 			)
 		{
 			Type = type;
-			XDimension = xDimension;
-			YDimension = yDimension;
+			System = system;
 
 			AssertValidMembers();
 		}
@@ -35,9 +33,23 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		protected int XDimension;
+		protected readonly FireballCoordinateSystem System;
 
-		protected int YDimension;
+		protected int XDimension
+		{
+			get
+			{
+				return System.XAxis.Count;
+			}
+		}
+
+		protected int YDimension
+		{
+			get
+			{
+				return System.YAxis.Count;
+			}
+		}
 
 		private void AssertValidMembers()
 		{
