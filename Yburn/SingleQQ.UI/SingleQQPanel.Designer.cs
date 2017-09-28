@@ -391,7 +391,7 @@
 			this.LblSigma.Name = "LblSigma";
 			this.LblSigma.Size = new System.Drawing.Size(202, 25);
 			this.LblSigma.TabIndex = 0;
-			this.LblSigma.Text = "Sigma (MeV^2)";
+			this.LblSigma.Text = "Sigma (MeV²)";
 			this.LblSigma.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// TbxSigma
@@ -1017,7 +1017,7 @@
 			this.LblAvgInvDisplacement.Name = "LblAvgInvDisplacement";
 			this.LblAvgInvDisplacement.Size = new System.Drawing.Size(202, 25);
 			this.LblAvgInvDisplacement.TabIndex = 0;
-			this.LblAvgInvDisplacement.Text = "<1/r> (fm^-1)";
+			this.LblAvgInvDisplacement.Text = "<1/r> (1/fm)";
 			this.LblAvgInvDisplacement.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LblDisplacementRMS
@@ -1027,7 +1027,7 @@
 			this.LblDisplacementRMS.Name = "LblDisplacementRMS";
 			this.LblDisplacementRMS.Size = new System.Drawing.Size(202, 25);
 			this.LblDisplacementRMS.TabIndex = 0;
-			this.LblDisplacementRMS.Text = "(<r^2>)^1/2 (fm)";
+			this.LblDisplacementRMS.Text = "√<r²> (fm)";
 			this.LblDisplacementRMS.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LblSigmaEff
@@ -1037,7 +1037,7 @@
 			this.LblSigmaEff.Name = "LblSigmaEff";
 			this.LblSigmaEff.Size = new System.Drawing.Size(202, 25);
 			this.LblSigmaEff.TabIndex = 0;
-			this.LblSigmaEff.Text = "SigmaEff (MeV^2)";
+			this.LblSigmaEff.Text = "SigmaEff (MeV²)";
 			this.LblSigmaEff.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LblStepsPerPeriod
@@ -1087,7 +1087,7 @@
 			this.LblWaveVector.Name = "LblWaveVector";
 			this.LblWaveVector.Size = new System.Drawing.Size(202, 25);
 			this.LblWaveVector.TabIndex = 0;
-			this.LblWaveVector.Text = "WaveVector (fm^-1)";
+			this.LblWaveVector.Text = "WaveVector (1/fm)";
 			this.LblWaveVector.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// TbxAlphaHard

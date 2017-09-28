@@ -177,7 +177,7 @@
 			this.LblMagneticFieldStrength.Name = "LblMagneticFieldStrength";
 			this.LblMagneticFieldStrength.Size = new System.Drawing.Size(235, 25);
 			this.LblMagneticFieldStrength.TabIndex = 0;
-			this.LblMagneticFieldStrength.Text = "MagneticFieldStrength (fm^-2)";
+			this.LblMagneticFieldStrength.Text = "MagneticFieldStrength (1/fm²)";
 			this.LblMagneticFieldStrength.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LblElectricFieldStrength
@@ -188,7 +188,7 @@
 			this.LblElectricFieldStrength.Name = "LblElectricFieldStrength";
 			this.LblElectricFieldStrength.Size = new System.Drawing.Size(235, 25);
 			this.LblElectricFieldStrength.TabIndex = 0;
-			this.LblElectricFieldStrength.Text = "ElectricFieldStrength (fm^-2)";
+			this.LblElectricFieldStrength.Text = "ElectricFieldStrength (1/fm²)";
 			this.LblElectricFieldStrength.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 			// 
 			// LblElectricDipoleAlignment

@@ -442,13 +442,13 @@ namespace Yburn.QQState
 			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "MaxEnergy (MeV)", maxEnergy.ToString("G4"));
 			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "MaxRadius (fm)", rOut.ToString("G4"));
 			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "QuarkMass (MeV)", quarkMass.ToString("G4"));
-			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "Sigma (MeV^2)", sigma.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "Sigma (MeV²)", sigma.ToString("G4"));
 			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "StepNumber", stepNumber);
 			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "Tchem (MeV)", tchem.ToString("G4"));
 			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "Tcrit (MeV)", tcrit.ToString("G4"));
 			oStringBuilder.AppendLine(Separator);
 			oStringBuilder.AppendFormat(CommentarySign + ColumnFormat,
-				"N", "L", "ColorState", "PotentialType", "Temperature", "DebyeMass", "<r^2>^1/2", "SoftScale", "US_Scale", "BoundMass", "Energy", "GammaDamp", "GammaDiss", "GammaTot");
+				"N", "L", "ColorState", "PotentialType", "Temperature", "DebyeMass", "√<r²>", "SoftScale", "US_Scale", "BoundMass", "Energy", "GammaDamp", "GammaDiss", "GammaTot");
 			oStringBuilder.AppendLine();
 			oStringBuilder.AppendFormat(CommentarySign + ColumnFormat,
 				"", "", "", "", "(MeV)", "(MeV)", "(fm)", "(Mev)", "(Mev)", "(MeV)", "(MeV)", "(MeV)", "(MeV)", "(MeV)");

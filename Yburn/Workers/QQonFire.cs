@@ -228,7 +228,7 @@ namespace Yburn.Workers
 			LogMessages.AppendLine();
 
 			LogMessages.AppendLine(string.Format("#{0,7}{1,12}{2,12}{3,14}{4,14}",
-				"b (fm)", "Ncoll", "Npart", "dσ/db (fm)", "σ (fm^2)"));
+				"b (fm)", "Ncoll", "Npart", "dσ/db (fm)", "σ (fm²)"));
 			LogMessages.AppendLine("#");
 			for(int i = 0; i < impactParams.Count; i++)
 			{

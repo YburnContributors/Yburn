@@ -152,7 +152,7 @@ namespace Yburn.Workers
 				LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}",
 					"Temperature",
 					"DebyeMass",
-					"<r^2>^1/2",
+					"√<r²>",
 					"SoftScale",
 					"US_Scale",
 					"BoundMass",
@@ -283,7 +283,7 @@ namespace Yburn.Workers
 
 				LogMessages.Clear();
 				LogMessages.AppendLine(LogHeader + "#\r\n#");
-				LogMessages.AppendLine("Temperature DebyeMass   <r^2>^1/2   SoftScale   US_Scale    BoundMass   Energy      GammaDamp   GammaDiss   GammaTot    ");
+				LogMessages.AppendLine("Temperature DebyeMass   √<r²>       SoftScale   US_Scale    BoundMass   Energy      GammaDamp   GammaDiss   GammaTot    ");
 				LogMessages.AppendLine("(MeV)       (MeV)       (fm)        (Mev)       (Mev)       (MeV)       (MeV)       (MeV)       (MeV)       (MeV)       ");
 				LogMessages.AppendLine();
 				LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}",
@@ -478,7 +478,7 @@ namespace Yburn.Workers
 			LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}{8,-12}{9,-12}",
 				"",
 				"DebyeMass",
-				"<r^2>^1/2",
+				"√<r²>",
 				"SoftScale",
 				"US_Scale",
 				"BoundMass",
