@@ -135,10 +135,6 @@ namespace Yburn.Workers
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
-		private static readonly double EMFNormalization = Constants.ElementaryCharge
-			* (Constants.HbarC_MeV_fm / Constants.RestMassPion_MeV)
-			* (Constants.HbarC_MeV_fm / Constants.RestMassPion_MeV);
-
 		private static readonly double FixedTime = 0.5;
 
 		/********************************************************************************************

@@ -10,6 +10,10 @@ namespace Yburn.Workers
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
 
+		private static readonly double EMFNormalization = Constants.ElementaryCharge
+			* (Constants.HbarC_MeV_fm / Constants.RestMassPion_MeV)
+			* (Constants.HbarC_MeV_fm / Constants.RestMassPion_MeV);
+
 		private static double CalculateSpinStateOverlap(
 			BottomiumState tripletState,
 			double magneticFieldStrength
@@ -102,6 +106,17 @@ namespace Yburn.Workers
 			return avg.AverageByBottomiumDistribution(mixingCoefficientSquared);
 		}
 
+		public void ShowEMFNormalizationFactor()
+		{
+			CurrentJobTitle = "ShowEMFNormalizationFactor";
+
+			LogMessages.Clear();
+			LogMessages.AppendLine("#EMF Normalization Factor:");
+			LogMessages.AppendLine();
+			LogMessages.AppendLine("1/fm² * e/(m_π)² = " + EMFNormalization.ToString());
+			LogMessages.AppendLine();
+		}
+
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
@@ -172,6 +187,10 @@ namespace Yburn.Workers
 
 				case "PlotAverageSpinStateOverlap":
 					PlotAverageSpinStateOverlap();
+					break;
+
+				case "ShowEMFNormalizationFactor":
+					ShowEMFNormalizationFactor();
 					break;
 
 				default:

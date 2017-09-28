@@ -171,6 +171,7 @@ namespace Yburn.Electromagnetism.UI
 			MenuEntry.MenuItemPlotEMFStrengthInTransversePlane.Click += new EventHandler(MenuItemPlotEMFStrengthInTransversePlane_Click);
 			MenuEntry.MenuItemPlotAverageCollisionalEMFStrength.Click += new EventHandler(MenuItemPlotAverageCollisionalEMFStrength_Click);
 			MenuEntry.MenuItemPlotAverageSpinStateOverlap.Click += new EventHandler(MenuItemPlotAverageSpinStateOverlap_Click);
+			MenuEntry.MenuItemShowEMFNormalizationFactor.Click += new EventHandler(MenuItemShowEMFNormalizationFactor_Click);
 		}
 
 		private void MakeToolTips(
@@ -239,6 +240,11 @@ namespace Yburn.Electromagnetism.UI
 		private void MenuItemPlotAverageSpinStateOverlap_Click(object sender, EventArgs e)
 		{
 			JobOrganizer.RequestNewJob("PlotAverageSpinStateOverlap", ControlsValues);
+		}
+
+		private void MenuItemShowEMFNormalizationFactor_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("ShowEMFNormalizationFactor", ControlsValues);
 		}
 	}
 }

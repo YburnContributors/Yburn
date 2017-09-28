@@ -21,6 +21,7 @@ namespace Yburn.Electromagnetism.UI
 		public ToolStripMenuItem MenuItemPlotEMFStrengthInTransversePlane;
 		public ToolStripMenuItem MenuItemPlotAverageCollisionalEMFStrength;
 		public ToolStripMenuItem MenuItemPlotAverageSpinStateOverlap;
+		public ToolStripMenuItem MenuItemShowEMFNormalizationFactor;
 
 		private void InitializeComponent()
 		{
@@ -35,6 +36,7 @@ namespace Yburn.Electromagnetism.UI
 			this.MenuItemPlotEMFStrengthInTransversePlane = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotAverageCollisionalEMFStrength = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotAverageSpinStateOverlap = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemShowEMFNormalizationFactor = new System.Windows.Forms.ToolStripMenuItem();
 			//
 			// MenuItemPlotPointChargeAzimuthalMagneticField
 			//
@@ -102,6 +104,12 @@ namespace Yburn.Electromagnetism.UI
 			this.MenuItemPlotAverageSpinStateOverlap.Size = new System.Drawing.Size(361, 24);
 			this.MenuItemPlotAverageSpinStateOverlap.Text = "Plot &overlap between magnetically shifted triplet and unshifted singlet spin state";
 			//
+			// MenuItemShowEMFNormalizationFactor
+			//
+			this.MenuItemShowEMFNormalizationFactor.Name = "MenuItemShowEMFNormalizationFactor";
+			this.MenuItemShowEMFNormalizationFactor.Size = new System.Drawing.Size(361, 24);
+			this.MenuItemShowEMFNormalizationFactor.Text = "Show EMF normalization factor";
+			//
 			// MenuItemElectromagnetism
 			//
 			this.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -115,7 +123,8 @@ namespace Yburn.Electromagnetism.UI
 				this.MenuItemPlotCollisionalEMFStrengthVersusTimeAndImpactParam,
 				this.MenuItemPlotEMFStrengthInTransversePlane,
 				this.MenuItemPlotAverageCollisionalEMFStrength,
-				this.MenuItemPlotAverageSpinStateOverlap});
+				this.MenuItemPlotAverageSpinStateOverlap,
+				this.MenuItemShowEMFNormalizationFactor});
 			this.Size = new System.Drawing.Size(84, 24);
 			this.Text = "&Electromagnetism";
 		}
