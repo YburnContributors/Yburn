@@ -113,7 +113,13 @@ namespace Yburn.Workers
 
 		public Process PlotElectromagneticallyShiftedEnergies()
 		{
-			CreateDataFile(CreateElectromagneticallyShiftedEnergiesDataList);
+			List<DataListCreator> creators = new List<DataListCreator>();
+			foreach(BottomiumState state in BottomiumStates)
+			{
+				creators.Add(() => CreateElectromagneticallyShiftedEnergiesDataList(state));
+			}
+
+			CreateDataFile(creators.ToArray());
 			CreateElectromagneticallyShiftedEnergiesPlotFile();
 
 			return StartGnuplot();
@@ -178,8 +184,15 @@ namespace Yburn.Workers
 
 		private QQDataProvider CreateQQDataProvider()
 		{
+			return CreateQQDataProvider(ElectricDipoleAlignment);
+		}
+
+		private QQDataProvider CreateQQDataProvider(
+			ElectricDipoleAlignment dipoleAlignment
+			)
+		{
 			return new QQDataProvider(QQDataPathFile, PotentialTypes,
-				DopplerShiftEvaluationType.UnshiftedTemperature, ElectricDipoleAlignment,
+				DopplerShiftEvaluationType.UnshiftedTemperature, dipoleAlignment,
 				DecayWidthType, QGPFormationTemperature_MeV, NumberAveragingAngles);
 		}
 
@@ -232,7 +245,7 @@ namespace Yburn.Workers
 		{
 			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
-			plotFile.AppendLine("set terminal windows enhanced size 1000,600");
+			plotFile.AppendLine("set terminal windows enhanced");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'Decay widths "
 				+ GetDecayWidthTypeGnuplotCode(DecayWidthType) + " from QQDataFile'");
@@ -323,7 +336,7 @@ namespace Yburn.Workers
 		{
 			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
-			plotFile.AppendLine("set terminal windows enhanced size 1000,600");
+			plotFile.AppendLine("set terminal windows enhanced");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'Energies E from QQDataFile'");
 			plotFile.AppendLine("set xlabel 'T (MeV)'");
@@ -370,7 +383,7 @@ namespace Yburn.Workers
 			)
 		{
 			plotFile.AppendLine("reset");
-			plotFile.AppendLine("set terminal windows enhanced size 1000,600");
+			plotFile.AppendLine("set terminal windows enhanced");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title '" + InMediumDecayWidthPlottingTitle
 				+ " for medium velocity |u| = " + MediumVelocities[0].ToUIString() + " c" + "'");
@@ -385,7 +398,7 @@ namespace Yburn.Workers
 			)
 		{
 			plotFile.AppendLine("reset");
-			plotFile.AppendLine("set terminal windows enhanced size 1000,600");
+			plotFile.AppendLine("set terminal windows enhanced");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title '" + InMediumDecayWidthPlottingTitle
 				+ " for medium temperature T = " + MediumTemperatures_MeV[0].ToUIString() + " MeV" + "'");
@@ -407,7 +420,7 @@ namespace Yburn.Workers
 		{
 			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
-			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
+			plotFile.AppendLine("set terminal windows enhanced");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'In-medium decay width "
 				+ GetDecayWidthTypeGnuplotCode(DecayWidthType)
@@ -487,38 +500,58 @@ namespace Yburn.Workers
 		{
 			StringBuilder plotFile = new StringBuilder();
 			plotFile.AppendLine("reset");
-			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
+			plotFile.AppendLine("set terminal windows enhanced");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'Electromagnetically shifted energies"
 				+ " for E = " + ElectricFieldStrength_per_fm2.ToString() + " fm^{-2}"
-				+ ", B = " + MagneticFieldStrength_per_fm2.ToString() + " fm^{-2}"
-				+ ", and electric dipole configuration \"" + ElectricDipoleAlignment.ToString() + "\"'");
+				+ ", B = " + MagneticFieldStrength_per_fm2.ToString() + " fm^{-2}'");
 			plotFile.AppendLine("set xlabel 'T (MeV)'");
 			plotFile.AppendLine("set ylabel 'E (MeV)'");
+			plotFile.AppendLine();
+			ReduceNumberOfColors(plotFile, BottomiumStates.Count);
+			plotFile.AppendLine();
+			plotFile.AppendLine("set style fill transparent solid 0.2");
 			plotFile.AppendLine();
 
 			string[] titleList = BottomiumStates.ConvertAll(
 				state => GetBottomiumStateGnuplotCode(state)).ToArray();
 
-			AppendPlotCommands(plotFile, titles: titleList);
+			plotFile.AppendLine("plot\\");
+
+			for(int i = 0; i < titleList.Length; i++)
+			{
+				plotFile.AppendFormat("'{0}' index {1} using 1:2 with lines title '{2}',\\",
+					DataFileName, i, titleList[i]);
+				plotFile.AppendLine();
+			}
+
+			for(int i = 0; i < titleList.Length; i++)
+			{
+				plotFile.AppendFormat("'{0}' index {1} using 1:3:4 with filledcurves notitle,\\",
+					DataFileName, i);
+				plotFile.AppendLine();
+			}
 
 			WritePlotFile(plotFile);
 		}
 
-		private List<List<double>> CreateElectromagneticallyShiftedEnergiesDataList()
+		private List<List<double>> CreateElectromagneticallyShiftedEnergiesDataList(
+			BottomiumState state
+			)
 		{
 			List<List<double>> dataList = new List<List<double>> { MediumTemperatures_MeV };
 
-			QQDataProvider provider = CreateQQDataProvider();
-
-			List<DecayWidthAverager> averagers = new List<DecayWidthAverager>();
-			foreach(BottomiumState state in BottomiumStates)
+			List<ElectricDipoleAlignment> alignmentList = new List<ElectricDipoleAlignment>()
 			{
-				averagers.Add(provider.CreateDecayWidthAverager(state));
-			}
+				ElectricDipoleAlignment.Random,
+				ElectricDipoleAlignment.StrengthenBinding,
+				ElectricDipoleAlignment.WeakenBinding
+			};
 
-			foreach(DecayWidthAverager averager in averagers)
+			foreach(ElectricDipoleAlignment alignment in alignmentList)
 			{
+				DecayWidthAverager averager = CreateQQDataProvider(alignment).CreateDecayWidthAverager(state);
+
 				PlotFunction function = temperature => averager.GetElectromagneticallyShiftedEnergy(
 					temperature, ElectricFieldStrength_per_fm2, MagneticFieldStrength_per_fm2);
 
