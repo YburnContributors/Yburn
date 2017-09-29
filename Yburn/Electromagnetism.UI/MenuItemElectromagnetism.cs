@@ -108,7 +108,7 @@ namespace Yburn.Electromagnetism.UI
 			//
 			this.MenuItemShowEMFNormalizationFactor.Name = "MenuItemShowEMFNormalizationFactor";
 			this.MenuItemShowEMFNormalizationFactor.Size = new System.Drawing.Size(361, 24);
-			this.MenuItemShowEMFNormalizationFactor.Text = "Show EMF normalization factor";
+			this.MenuItemShowEMFNormalizationFactor.Text = "&Show EMF normalization factor";
 			//
 			// MenuItemElectromagnetism
 			//

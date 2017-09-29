@@ -149,6 +149,7 @@ namespace Yburn.InMediumDecayWidth.UI
 			MenuEntry.MenuItemPlotInMediumDecayWidthsVersusMediumTemperature.Click += new EventHandler(MenuItemPlotInMediumDecayWidthsVersusMediumTemperature_Click);
 			MenuEntry.MenuItemPlotInMediumDecayWidthsVersusMediumVelocity.Click += new EventHandler(MenuItemPlotInMediumDecayWidthsVersusMediumVelocity_Click);
 			MenuEntry.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature.Click += new EventHandler(MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature_Click);
+			MenuEntry.MenuItemPlotElectromagneticallyShiftedEnergies.Click += new EventHandler(MenuItemPlotElectromagneticallyShiftedEnergies_Click);
 		}
 
 		private void MakeToolTips(
@@ -219,6 +220,11 @@ namespace Yburn.InMediumDecayWidth.UI
 		private void MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature_Click(object sender, EventArgs e)
 		{
 			JobOrganizer.RequestNewJob("PlotDecayWidthEvaluatedAtDopplerShiftedTemperature", ControlsValues);
+		}
+
+		private void MenuItemPlotElectromagneticallyShiftedEnergies_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotElectromagneticallyShiftedEnergies", ControlsValues);
 		}
 	}
 }

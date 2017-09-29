@@ -151,49 +151,29 @@ namespace Yburn.Workers
 				temperature, double.NegativeInfinity, double.PositiveInfinity);
 		}
 
-		public double GetDisplacementRMS(
-			double temperature
-			)
-		{
-			return InterpolatedDisplacementRMS.GetValue(temperature, 0, 0);
-		}
-
-		public double GetExistenceProbability(
+		public double GetElectromagneticallyShiftedEnergy(
 			double temperature,
 			double electricFieldStrength,
 			double magneticFieldStrength
 			)
 		{
-			if(electricFieldStrength == 0 && magneticFieldStrength == 0)
+			double thermalPart = GetEnergy(temperature);
+			double electricPart = GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
+			double magneticPart = GetAbsoluteMagneticPotentialEnergy(magneticFieldStrength);
+
+			switch(ElectricDipoleAlignment)
 			{
-				return Functions.HeavisideStepFunction(-GetEnergy(temperature));
-			}
-			else
-			{
-				double A = -GetEnergy(temperature);
-				double B = 0;
-				double C = -GetAbsoluteMagneticPotentialEnergy(magneticFieldStrength);
+				case ElectricDipoleAlignment.Random:
+					return thermalPart + magneticPart / 3;
 
-				switch(ElectricDipoleAlignment)
-				{
-					case ElectricDipoleAlignment.WeakenBinding:
-						A -= GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
-						break;
+				case ElectricDipoleAlignment.WeakenBinding:
+					return thermalPart + electricPart + magneticPart / 3;
 
-					case ElectricDipoleAlignment.StrengthenBinding:
-						A += GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
-						break;
+				case ElectricDipoleAlignment.StrengthenBinding:
+					return thermalPart - electricPart + magneticPart / 3;
 
-					case ElectricDipoleAlignment.Random:
-						B = GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
-						break;
-
-					default:
-						throw new Exception("Invalid ElectricDipoleAlignment.");
-				}
-
-				return (2 * Functions.AveragedHeavisideStepFunctionWithLinearArgument(A, B)
-					+ Functions.AveragedHeavisideStepFunctionWithLinearArgument(A + C, B)) / 3;
+				default:
+					throw new Exception("Invalid ElectricDipoleAlignment.");
 			}
 		}
 
@@ -234,25 +214,6 @@ namespace Yburn.Workers
 			return qgpTemperature >= QGPFormationTemperature;
 		}
 
-		private double GetAbsoluteElectricPotentialEnergy(
-			double temperature,
-			double electricFieldStrength
-			)
-		{
-			return Math.Abs(Constants.ChargeBottomQuark * GetDisplacementRMS(temperature)
-				* electricFieldStrength * Constants.HbarC_MeV_fm);
-		}
-
-		private double GetEffectiveDecayWidth(
-			double temperature,
-			double electricFieldStrength,
-			double magneticFieldStrength
-			)
-		{
-			return GetDecayWidth(temperature)
-				/ GetExistenceProbability(temperature, electricFieldStrength, magneticFieldStrength);
-		}
-
 		private double GetAveragedDecayWidth(
 			double qgpTemperature,
 			double qgpVelocity,
@@ -290,6 +251,68 @@ namespace Yburn.Workers
 
 			return 0.5 * NewtonCotesTrapeziumRule.IntegrateComposite(
 				integrand, -1, 1, NumberAveragingAngles);
+		}
+
+		private double GetEffectiveDecayWidth(
+			double temperature,
+			double electricFieldStrength,
+			double magneticFieldStrength
+			)
+		{
+			return GetDecayWidth(temperature)
+				/ GetExistenceProbability(temperature, electricFieldStrength, magneticFieldStrength);
+		}
+
+		private double GetExistenceProbability(
+			double temperature,
+			double electricFieldStrength,
+			double magneticFieldStrength
+			)
+		{
+			if(electricFieldStrength == 0 && magneticFieldStrength == 0)
+			{
+				return Functions.HeavisideStepFunction(-GetEnergy(temperature));
+			}
+			else
+			{
+				double thermalPart = GetEnergy(temperature);
+				double electricPart = GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
+				double magneticPart = GetAbsoluteMagneticPotentialEnergy(magneticFieldStrength);
+
+				switch(ElectricDipoleAlignment)
+				{
+					case ElectricDipoleAlignment.Random:
+						return (2 * Functions.AveragedHeavisideStepFunctionWithLinearArgument(-thermalPart, electricPart)
+							+ Functions.AveragedHeavisideStepFunctionWithLinearArgument(-(thermalPart + magneticPart), electricPart)) / 3;
+
+					case ElectricDipoleAlignment.WeakenBinding:
+						return (2 * Functions.HeavisideStepFunction(-(thermalPart + electricPart))
+							+ Functions.HeavisideStepFunction(-(thermalPart + electricPart + magneticPart))) / 3;
+
+					case ElectricDipoleAlignment.StrengthenBinding:
+						return (2 * Functions.HeavisideStepFunction(-(thermalPart - electricPart))
+							+ Functions.HeavisideStepFunction(-(thermalPart - electricPart + magneticPart))) / 3;
+
+					default:
+						throw new Exception("Invalid ElectricDipoleAlignment.");
+				}
+			}
+		}
+
+		private double GetAbsoluteElectricPotentialEnergy(
+			double temperature,
+			double electricFieldStrength
+			)
+		{
+			return Math.Abs(Constants.ChargeBottomQuark * GetDisplacementRMS(temperature)
+				* electricFieldStrength * Constants.HbarC_MeV_fm);
+		}
+
+		private double GetDisplacementRMS(
+			double temperature
+			)
+		{
+			return InterpolatedDisplacementRMS.GetValue(temperature, 0, 0);
 		}
 	}
 }

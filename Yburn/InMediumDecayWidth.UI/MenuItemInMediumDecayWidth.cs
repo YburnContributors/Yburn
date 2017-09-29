@@ -16,6 +16,7 @@ namespace Yburn.InMediumDecayWidth.UI
 		public ToolStripMenuItem MenuItemPlotInMediumDecayWidthsVersusMediumTemperature;
 		public ToolStripMenuItem MenuItemPlotInMediumDecayWidthsVersusMediumVelocity;
 		public ToolStripMenuItem MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature;
+		public ToolStripMenuItem MenuItemPlotElectromagneticallyShiftedEnergies;
 
 		private void InitializeComponent()
 		{
@@ -25,12 +26,13 @@ namespace Yburn.InMediumDecayWidth.UI
 			this.MenuItemPlotInMediumDecayWidthsVersusMediumTemperature = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotInMediumDecayWidthsVersusMediumVelocity = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemPlotElectromagneticallyShiftedEnergies = new System.Windows.Forms.ToolStripMenuItem();
 			//
 			// MenuItemCalculateInMediumDecayWidths
 			//
 			this.MenuItemCalculateInMediumDecayWidths.Name = "MenuItemCalculateInMediumDecayWidths";
 			this.MenuItemCalculateInMediumDecayWidths.Size = new System.Drawing.Size(361, 24);
-			this.MenuItemCalculateInMediumDecayWidths.Text = "Ca&lculate in-medium decay widths";
+			this.MenuItemCalculateInMediumDecayWidths.Text = "Calculate &in-medium decay widths";
 			//
 			// MenuItemPlotDecayWidthsFromQQDataFile
 			//
@@ -62,6 +64,12 @@ namespace Yburn.InMediumDecayWidth.UI
 			this.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature.Size = new System.Drawing.Size(361, 24);
 			this.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature.Text = "Plot in-medium decay widths evaluated at Doppler-&shifted temperature";
 			//
+			// MenuItemPlotElectromagneticallyShiftedEnergies
+			//
+			this.MenuItemPlotElectromagneticallyShiftedEnergies.Name = "MenuItemPlotElectromagneticallyShiftedEnergies";
+			this.MenuItemPlotElectromagneticallyShiftedEnergies.Size = new System.Drawing.Size(361, 24);
+			this.MenuItemPlotElectromagneticallyShiftedEnergies.Text = "Plot electro&magnetically shifted energies";
+			//
 			// MenuItemAverageDecayWidth
 			//
 			this.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -70,7 +78,8 @@ namespace Yburn.InMediumDecayWidth.UI
 				this.MenuItemPlotEnergiesFromQQDataFile,
 				this.MenuItemPlotInMediumDecayWidthsVersusMediumTemperature,
 				this.MenuItemPlotInMediumDecayWidthsVersusMediumVelocity,
-				this.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature});
+				this.MenuItemPlotDecayWidthEvaluatedAtDopplerShiftedTemperature,
+			this.MenuItemPlotElectromagneticallyShiftedEnergies});
 			this.Size = new System.Drawing.Size(84, 24);
 			this.Text = "InMedium&DecayWidth";
 		}

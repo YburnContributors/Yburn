@@ -111,6 +111,14 @@ namespace Yburn.Workers
 			return StartGnuplot();
 		}
 
+		public Process PlotElectromagneticallyShiftedEnergies()
+		{
+			CreateDataFile(CreateElectromagneticallyShiftedEnergiesDataList);
+			CreateElectromagneticallyShiftedEnergiesPlotFile();
+
+			return StartGnuplot();
+		}
+
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
@@ -226,8 +234,6 @@ namespace Yburn.Workers
 			plotFile.AppendLine("reset");
 			plotFile.AppendLine("set terminal windows enhanced size 1000,600");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set key spacing 1.1");
-			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'Decay widths "
 				+ GetDecayWidthTypeGnuplotCode(DecayWidthType) + " from QQDataFile'");
 			plotFile.AppendLine("set xlabel 'T (MeV)'");
@@ -319,8 +325,6 @@ namespace Yburn.Workers
 			plotFile.AppendLine("reset");
 			plotFile.AppendLine("set terminal windows enhanced size 1000,600");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set key spacing 1.1");
-			plotFile.AppendLine();
 			plotFile.AppendLine("set title 'Energies E from QQDataFile'");
 			plotFile.AppendLine("set xlabel 'T (MeV)'");
 			plotFile.AppendLine("set ylabel 'E (MeV)'");
@@ -368,8 +372,6 @@ namespace Yburn.Workers
 			plotFile.AppendLine("reset");
 			plotFile.AppendLine("set terminal windows enhanced size 1000,600");
 			plotFile.AppendLine();
-			plotFile.AppendLine("set key spacing 1.1");
-			plotFile.AppendLine();
 			plotFile.AppendLine("set title '" + InMediumDecayWidthPlottingTitle
 				+ " for medium velocity |u| = " + MediumVelocities[0].ToUIString() + " c" + "'");
 			plotFile.AppendLine("set xlabel 'T (MeV)'");
@@ -384,8 +386,6 @@ namespace Yburn.Workers
 		{
 			plotFile.AppendLine("reset");
 			plotFile.AppendLine("set terminal windows enhanced size 1000,600");
-			plotFile.AppendLine();
-			plotFile.AppendLine("set key spacing 1.1");
 			plotFile.AppendLine();
 			plotFile.AppendLine("set title '" + InMediumDecayWidthPlottingTitle
 				+ " for medium temperature T = " + MediumTemperatures_MeV[0].ToUIString() + " MeV" + "'");
@@ -478,6 +478,51 @@ namespace Yburn.Workers
 				PlotFunction function = cosine => averager.GetDecayWidth(MediumTemperatures_MeV[0]);
 
 				AddPlotFunctionLists(dataList, cosineValues, function);
+			}
+
+			return dataList;
+		}
+
+		private void CreateElectromagneticallyShiftedEnergiesPlotFile()
+		{
+			StringBuilder plotFile = new StringBuilder();
+			plotFile.AppendLine("reset");
+			plotFile.AppendLine("set terminal windows enhanced size 1000,500");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title 'Electromagnetically shifted energies"
+				+ " for E = " + ElectricFieldStrength_per_fm2.ToString() + " fm^{-2}"
+				+ ", B = " + MagneticFieldStrength_per_fm2.ToString() + " fm^{-2}"
+				+ ", and electric dipole configuration \"" + ElectricDipoleAlignment.ToString() + "\"'");
+			plotFile.AppendLine("set xlabel 'T (MeV)'");
+			plotFile.AppendLine("set ylabel 'E (MeV)'");
+			plotFile.AppendLine();
+
+			string[] titleList = BottomiumStates.ConvertAll(
+				state => GetBottomiumStateGnuplotCode(state)).ToArray();
+
+			AppendPlotCommands(plotFile, titles: titleList);
+
+			WritePlotFile(plotFile);
+		}
+
+		private List<List<double>> CreateElectromagneticallyShiftedEnergiesDataList()
+		{
+			List<List<double>> dataList = new List<List<double>> { MediumTemperatures_MeV };
+
+			QQDataProvider provider = CreateQQDataProvider();
+
+			List<DecayWidthAverager> averagers = new List<DecayWidthAverager>();
+			foreach(BottomiumState state in BottomiumStates)
+			{
+				averagers.Add(provider.CreateDecayWidthAverager(state));
+			}
+
+			foreach(DecayWidthAverager averager in averagers)
+			{
+				PlotFunction function = temperature => averager.GetElectromagneticallyShiftedEnergy(
+					temperature, ElectricFieldStrength_per_fm2, MagneticFieldStrength_per_fm2);
+
+				AddPlotFunctionLists(dataList, MediumTemperatures_MeV, function);
 			}
 
 			return dataList;

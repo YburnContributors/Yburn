@@ -111,6 +111,10 @@ namespace Yburn.Workers
 					PlotDecayWidthEvaluatedAtDopplerShiftedTemperature();
 					break;
 
+				case "PlotElectromagneticallyShiftedEnergies":
+					PlotElectromagneticallyShiftedEnergies();
+					break;
+
 				default:
 					throw new InvalidJobException(jobId);
 			}
