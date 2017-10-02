@@ -1,5 +1,6 @@
 ﻿using MathNet.Numerics.Integration;
 using System;
+using System.Linq;
 
 namespace Yburn.Fireball
 {
@@ -39,15 +40,15 @@ namespace Yburn.Fireball
 			GlauberCalculation glauber = new GlauberCalculation(Param);
 			FireballCoordinateSystem system = new FireballCoordinateSystem(Param);
 
-			double[] x = system.GetXAxis();
-			double[] y = system.GetYAxis();
+			double[,] functionColumnDensityValues
+				= new double[system.XAxis.Count, system.YAxis.Count];
 
-			double[,] functionColumnDensityValues = new double[x.Length, y.Length];
-			for(int i = 0; i < x.Length; i++)
+			for(int i = 0; i < system.XAxis.Count; i++)
 			{
-				for(int j = 0; j < y.Length; j++)
+				for(int j = 0; j < system.YAxis.Count; j++)
 				{
-					Func<double, double> integrand = rapidity => function(x[i], y[j], rapidity);
+					Func<double, double> integrand
+						= rapidity => function(system.XAxis[i], system.YAxis[j], rapidity);
 
 					functionColumnDensityValues[i, j]
 						= AverageRapidityDependence(integrand)

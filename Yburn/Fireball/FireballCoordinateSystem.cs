@@ -75,16 +75,6 @@ namespace Yburn.Fireball
 
 		public readonly ReadOnlyCollection<double> YAxis;
 
-		public double[] GetXAxis()
-		{
-			return XAxis.ToArray();
-		}
-
-		public double[] GetYAxis()
-		{
-			return YAxis.ToArray();
-		}
-
 		public int FindClosestXAxisIndex(
 			double value
 			)

@@ -22,9 +22,9 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void GenerateXAxisForSymmetricCollision()
 		{
-			double[] xAxis = new FireballCoordinateSystem(4, 1, true).GetXAxis();
+			var xAxis = new FireballCoordinateSystem(4, 1, true).XAxis;
 
-			Assert.AreEqual(5, xAxis.Length);
+			Assert.AreEqual(5, xAxis.Count);
 			Assert.AreEqual(0, xAxis[0]);
 			Assert.AreEqual(1, xAxis[1]);
 			Assert.AreEqual(2, xAxis[2]);
@@ -35,9 +35,9 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void GenerateXAxisForNonsymmetricCollision()
 		{
-			double[] xAxis = new FireballCoordinateSystem(4, 1, false).GetXAxis();
+			var xAxis = new FireballCoordinateSystem(4, 1, false).XAxis;
 
-			Assert.AreEqual(9, xAxis.Length);
+			Assert.AreEqual(9, xAxis.Count);
 			Assert.AreEqual(-4, xAxis[0]);
 			Assert.AreEqual(-3, xAxis[1]);
 			Assert.AreEqual(-2, xAxis[2]);
@@ -52,9 +52,9 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void GenerateYAxisForSymmetricCollision()
 		{
-			double[] yAxis = new FireballCoordinateSystem(9, 2, true).GetYAxis();
+			var yAxis = new FireballCoordinateSystem(9, 2, true).YAxis;
 
-			Assert.AreEqual(5, yAxis.Length);
+			Assert.AreEqual(5, yAxis.Count);
 			Assert.AreEqual(0, yAxis[0]);
 			Assert.AreEqual(2, yAxis[1]);
 			Assert.AreEqual(4, yAxis[2]);
@@ -65,9 +65,9 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void GenerateYAxisForNonsymmetricCollision()
 		{
-			double[] yAxis = new FireballCoordinateSystem(9, 2, false).GetYAxis();
+			var yAxis = new FireballCoordinateSystem(9, 2, false).YAxis;
 
-			Assert.AreEqual(5, yAxis.Length);
+			Assert.AreEqual(5, yAxis.Count);
 			Assert.AreEqual(0, yAxis[0]);
 			Assert.AreEqual(2, yAxis[1]);
 			Assert.AreEqual(4, yAxis[2]);
