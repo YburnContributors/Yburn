@@ -49,18 +49,6 @@ namespace Yburn.Workers
 		}
 
 		/********************************************************************************************
-		 * Private/protected static members, functions and properties
-		 ********************************************************************************************/
-
-		private static double GetAbsoluteMagneticPotentialEnergy(
-			double magneticFieldStrength
-			)
-		{
-			return Math.Abs(2 * Constants.MagnetonBottomQuark_fm
-				* magneticFieldStrength * Constants.HbarC_MeV_fm);
-		}
-
-		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
 
@@ -70,6 +58,7 @@ namespace Yburn.Workers
 			LinearInterpolation1D interpolatedDisplacementRMS,
 			DopplerShiftEvaluationType dopplerShiftEvaluationType,
 			ElectricDipoleAlignment electricDipoleAlignment,
+			int magneticDipoleTermSign,
 			double qgpFormationTemperature,
 			int numberAveragingAngles
 			)
@@ -80,6 +69,7 @@ namespace Yburn.Workers
 
 			DopplerShiftEvaluationType = dopplerShiftEvaluationType;
 			ElectricDipoleAlignment = electricDipoleAlignment;
+			MagneticDipoleTermSign = magneticDipoleTermSign;
 
 			QGPFormationTemperature = qgpFormationTemperature;
 			NumberAveragingAngles = numberAveragingAngles;
@@ -159,7 +149,7 @@ namespace Yburn.Workers
 		{
 			double thermalPart = GetEnergy(temperature);
 			double electricPart = GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
-			double magneticPart = GetAbsoluteMagneticPotentialEnergy(magneticFieldStrength);
+			double magneticPart = GetMagneticPotentialEnergy(magneticFieldStrength);
 
 			switch(ElectricDipoleAlignment)
 			{
@@ -188,6 +178,8 @@ namespace Yburn.Workers
 		private readonly DopplerShiftEvaluationType DopplerShiftEvaluationType;
 
 		private readonly ElectricDipoleAlignment ElectricDipoleAlignment;
+
+		private readonly int MagneticDipoleTermSign;
 
 		private readonly LinearInterpolation1D InterpolatedDecayWidths;
 
@@ -277,7 +269,7 @@ namespace Yburn.Workers
 			{
 				double thermalPart = GetEnergy(temperature);
 				double electricPart = GetAbsoluteElectricPotentialEnergy(temperature, electricFieldStrength);
-				double magneticPart = GetAbsoluteMagneticPotentialEnergy(magneticFieldStrength);
+				double magneticPart = GetMagneticPotentialEnergy(magneticFieldStrength);
 
 				switch(ElectricDipoleAlignment)
 				{
@@ -306,6 +298,14 @@ namespace Yburn.Workers
 		{
 			return Math.Abs(Constants.ChargeBottomQuark * GetDisplacementRMS(temperature)
 				* electricFieldStrength * Constants.HbarC_MeV_fm);
+		}
+
+		private double GetMagneticPotentialEnergy(
+			double magneticFieldStrength
+			)
+		{
+			return MagneticDipoleTermSign * Math.Abs(2 * Constants.MagnetonBottomQuark_fm
+				* magneticFieldStrength * Constants.HbarC_MeV_fm);
 		}
 
 		private double GetDisplacementRMS(

@@ -24,6 +24,66 @@ namespace Yburn.Workers
 			return QQDataDoc.GetDataSets(dataPathFile, n, l, ColorState.Singlet, potentialTypes);
 		}
 
+		public static double AverageHyperfineBottomiumProperties(
+			BottomiumState state,
+			Dictionary<int, double> properties
+			)
+		{
+			GetBottomiumStateQuantumNumbers(state, out int n, out int l);
+			int s = 1;
+
+			double average = 0;
+			for(int j = Math.Abs(l - s); j <= l + s; j++)
+			{
+				average += (2 * j + 1) * properties[j];
+			}
+
+			return average / (2 * l + 1) / (2 * s + 1);
+		}
+
+		public static Dictionary<int, double> GetHyperfineEnergySplitting(
+			BottomiumState state
+			)
+		{
+			switch(state)
+			{
+				case BottomiumState.Y1S:
+					return new Dictionary<int, double>
+					{
+						[1] = Constants.RestMassY1S_MeV - Constants.RestMassEta1S_MeV
+					};
+
+				case BottomiumState.x1P:
+					return new Dictionary<int, double>
+					{
+						[0] = Constants.RestMassX1P0_MeV - Constants.RestMassH1P_MeV,
+						[1] = Constants.RestMassX1P1_MeV - Constants.RestMassH1P_MeV,
+						[2] = Constants.RestMassX1P2_MeV - Constants.RestMassH1P_MeV
+					};
+
+				case BottomiumState.Y2S:
+					return new Dictionary<int, double>
+					{
+						[1] = Constants.RestMassY2S_MeV - Constants.RestMassEta2S_MeV
+					};
+
+				case BottomiumState.x2P:
+					return new Dictionary<int, double>
+					{
+						[0] = Constants.RestMassX2P0_MeV - Constants.RestMassH2P_MeV,
+						[1] = Constants.RestMassX2P1_MeV - Constants.RestMassH2P_MeV,
+						[2] = Constants.RestMassX2P2_MeV - Constants.RestMassH2P_MeV
+					};
+
+				case BottomiumState.Y3S:
+				case BottomiumState.x3P:
+					throw new Exception("No data available for this BottomiumState.");
+
+				default:
+					throw new Exception("Invalid BottomiumState.");
+			}
+		}
+
 		/********************************************************************************************
 		 * Private/protected static members, functions and properties
 		 ********************************************************************************************/
@@ -71,6 +131,28 @@ namespace Yburn.Workers
 			}
 		}
 
+		private static int GetMagneticDipoleTermSign(
+			BottomiumState state
+			)
+		{
+			switch(state)
+			{
+				case BottomiumState.Y1S:
+				case BottomiumState.x1P:
+				case BottomiumState.Y2S:
+				case BottomiumState.x2P:
+					return Math.Sign(AverageHyperfineBottomiumProperties(
+						state, GetHyperfineEnergySplitting(state)));
+
+				case BottomiumState.Y3S:
+				case BottomiumState.x3P:
+					return 0;
+
+				default:
+					throw new Exception("Invalid BottomiumState.");
+			}
+		}
+
 		/********************************************************************************************
 		 * Constructors
 		 ********************************************************************************************/
@@ -107,7 +189,7 @@ namespace Yburn.Workers
 				CreateDecayWidthInterpolation(state),
 				CreateLinearInterpolationByTemperature(DataSets[state], QQDataColumn.Energy),
 				CreateLinearInterpolationByTemperature(DataSets[state], QQDataColumn.DisplacementRMS),
-				DopplerShiftEvaluationType, ElectricDipoleAlignment,
+				DopplerShiftEvaluationType, ElectricDipoleAlignment, GetMagneticDipoleTermSign(state),
 				QGPFormationTemperature, NumberAveragingAngles);
 		}
 

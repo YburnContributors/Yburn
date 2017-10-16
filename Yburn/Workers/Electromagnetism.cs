@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Yburn.Fireball;
 using Yburn.PhysUtil;
 
@@ -19,56 +20,19 @@ namespace Yburn.Workers
 			double magneticFieldStrength
 			)
 		{
-			double[] HyperfineEnergySplitting_MeV = GetHyperfineEnergySplitting(tripletState);
-			int Jmax = HyperfineEnergySplitting_MeV.Length - 1;
+			Dictionary<int, double> hfs = QQDataProvider.GetHyperfineEnergySplitting(tripletState);
+			Dictionary<int, double> overlap = new Dictionary<int, double>();
 
-			double result = 0;
-
-			for(int J = 0; J <= Jmax; J++)
+			foreach(int j in hfs.Keys)
 			{
 				double helper1 = 4 * Constants.MagnetonBottomQuark_fm * magneticFieldStrength
-					* Constants.HbarC_MeV_fm / HyperfineEnergySplitting_MeV[J];
+					* Constants.HbarC_MeV_fm / hfs[j];
 				double helper2 = helper1 / (1 + Math.Sqrt(1 + helper1 * helper1));
 
-				double coefficient = helper2 * helper2 / (1 + helper2 * helper2);
-
-				result += (2 * J + 1) * coefficient;
+				overlap.Add(j, helper2 * helper2 / (1 + helper2 * helper2));
 			}
 
-			return result / (Jmax + 1) / (Jmax + 1);
-		}
-
-		private static double[] GetHyperfineEnergySplitting(
-			BottomiumState tripletState
-			)
-		{
-			switch(tripletState)
-			{
-				case BottomiumState.Y1S:
-					return new double[] { Constants.RestMassY1S_MeV - Constants.RestMassEta1S_MeV };
-
-				case BottomiumState.x1P:
-					return new double[] {
-						Constants.RestMassX1P0_MeV - Constants.RestMassH1P_MeV,
-						Constants.RestMassX1P1_MeV - Constants.RestMassH1P_MeV,
-						Constants.RestMassX1P2_MeV - Constants.RestMassH1P_MeV
-					};
-
-				case BottomiumState.Y2S:
-					return new double[] { Constants.RestMassY2S_MeV - Constants.RestMassEta2S_MeV };
-
-				case BottomiumState.x2P:
-					return new double[] {
-						Constants.RestMassX2P0_MeV - Constants.RestMassH2P_MeV,
-						Constants.RestMassX2P1_MeV - Constants.RestMassH2P_MeV,
-						Constants.RestMassX2P2_MeV - Constants.RestMassH2P_MeV
-					};
-
-				case BottomiumState.Y3S:
-				case BottomiumState.x3P:
-				default:
-					throw new Exception("Invalid BottomiumState.");
-			}
+			return QQDataProvider.AverageHyperfineBottomiumProperties(tripletState, overlap);
 		}
 
 		/********************************************************************************************
