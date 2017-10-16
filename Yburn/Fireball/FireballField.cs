@@ -10,7 +10,7 @@ namespace Yburn.Fireball
 
 		public FireballField(
 			FireballFieldType type,
-			FireballCoordinateSystem system
+			CoordinateSystem system
 			)
 		{
 			Type = type;
@@ -33,7 +33,7 @@ namespace Yburn.Fireball
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		protected readonly FireballCoordinateSystem System;
+		protected readonly CoordinateSystem System;
 
 		protected int XDimension
 		{

@@ -42,7 +42,7 @@ namespace Yburn.Fireball.Tests
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
 
-		private FireballCoordinateSystem CoordinateSystem = new FireballCoordinateSystem(10, 1, true);
+		private CoordinateSystem CoordinateSystem = new CoordinateSystem(10, 1, true);
 
 		private void AssertThrowsWhenGivenParams(
 			Type exceptionType,

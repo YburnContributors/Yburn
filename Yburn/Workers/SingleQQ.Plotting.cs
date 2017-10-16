@@ -72,7 +72,7 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set ylabel 'g_{/Symbol p}'");
 			plotFile.AppendLine();
 
-			AppendPlotCommands(plotFile, style: "lines", titles: "");
+			AppendPlotCommand(plotFile, style: "lines");
 
 			WritePlotFile(plotFile);
 

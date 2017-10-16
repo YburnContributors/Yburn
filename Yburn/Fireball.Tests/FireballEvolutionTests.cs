@@ -137,8 +137,8 @@ namespace Yburn.Fireball.Tests
 			for(int l = 0; l < NumberBottomiumStates; l++)
 			{
 				qgpSuppressionFactors[l] = Fireball.IntegrateFireballField(
-					"UnscaledSuppression", (BottomiumState)l) /
-					Fireball.IntegrateFireballField("Overlap");
+					FireballFieldType.UnscaledSuppression, (BottomiumState)l) /
+					Fireball.IntegrateFireballField(FireballFieldType.Overlap);
 			}
 
 			return qgpSuppressionFactors;

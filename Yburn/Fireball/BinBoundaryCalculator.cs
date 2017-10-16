@@ -188,8 +188,8 @@ namespace Yburn.Fireball
 			param.ImpactParameter_fm = impactParam;
 
 			GlauberCalculation calc = new GlauberCalculation(param);
-			ncoll = calc.GetTotalNumberCollisions();
-			npart = calc.GetTotalNumberParticipants();
+			ncoll = calc.TotalNumberCollisions;
+			npart = calc.TotalNumberParticipants;
 
 			dsigmadb = 2 * Math.PI * impactParam * (1.0 - Math.Exp(-ncoll));
 			sigma = param.GridCellSize_fm * dsigmadb;

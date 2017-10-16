@@ -144,6 +144,24 @@ namespace Yburn
 			}
 		}
 
+		protected void WriteOutputToLogAndDataFile(
+			StringBuilder output,
+			bool addLogHeaderAndFooter = true
+			)
+		{
+			StringBuilder content = new StringBuilder(output.ToString());
+
+			if(addLogHeaderAndFooter)
+			{
+				content.Insert(0, LogHeader);
+				content.Append(LogFooter);
+			}
+
+			LogMessages.Clear();
+			LogMessages.Append(content);
+			WriteDataFile(content);
+		}
+
 		protected void WriteDataFile(
 			StringBuilder dataFileContent
 			)
@@ -224,17 +242,26 @@ namespace Yburn
 			return dataFileContent;
 		}
 
+		protected void AppendPlotCommand(
+			StringBuilder plotFile,
+			string style = "linespoints"
+			)
+		{
+			plotFile.AppendFormat("plot '{0}' with {1} notitle", DataFileName, style);
+			plotFile.AppendLine();
+		}
+
 		protected void AppendPlotCommands(
 			StringBuilder plotFile,
-			bool isFirstPlotCommand = true,
+			IList<string> titles,
 			int index = 0,
 			int abscissaColumn = 1,
 			int firstOrdinateColumn = 2,
 			string style = "linespoints",
-			params string[] titles
-			)
+			bool appendToExistingPlotCommands = false
+		)
 		{
-			if(isFirstPlotCommand)
+			if(!appendToExistingPlotCommands)
 			{
 				plotFile.AppendLine("plot\\");
 			}
@@ -249,19 +276,19 @@ namespace Yburn
 
 		protected void AppendPlotCommands(
 			StringBuilder plotFile,
+			IList<IList<string>> titles,
 			int abscissaColumn = 1,
 			int firstOrdinateColumn = 2,
 			string style = "linespoints",
-			bool appendToExistingPlotCommands = false,
-			params string[][] titles
+			bool appendToExistingPlotCommands = false
 			)
 		{
-			if(appendToExistingPlotCommands == false)
+			if(!appendToExistingPlotCommands)
 			{
 				plotFile.AppendLine("plot\\");
 			}
 
-			for(int index = 0; index < titles.Length; index++)
+			for(int index = 0; index < titles.Count; index++)
 			{
 				int ordinateColumn = firstOrdinateColumn;
 				foreach(string title in titles[index])
@@ -300,13 +327,11 @@ namespace Yburn
 			plotFile.AppendLine();
 			plotFile.AppendLine("set contour");
 			plotFile.AppendLine("set cntrparam bspline");
-			plotFile.AppendLine("set cntrlabel interval -1");
-			plotFile.AppendLine("do for [i=1:8] { set linetype i linecolor rgb 'black' }");
+			plotFile.AppendLine("set cntrlabel interval -1 onecolor");
 			plotFile.AppendLine();
 
 			plotFile.AppendFormat("splot '{0}' nonuniform matrix index {1} using 1:2:3 notitle"
-				+ " dashtype '-', '' nonuniform matrix index {1} using 1:2:3 notitle with labels nosurface",
-				DataFileName, index);
+				+ " dashtype '-'", DataFileName, index);
 			plotFile.AppendLine();
 		}
 

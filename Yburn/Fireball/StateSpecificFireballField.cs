@@ -30,7 +30,7 @@ namespace Yburn.Fireball
 
 		public StateSpecificFireballField(
 			FireballFieldType type,
-			FireballCoordinateSystem system,
+			CoordinateSystem system,
 			IList<double> transverseMomenta
 			) : base(type, system)
 		{
@@ -40,7 +40,7 @@ namespace Yburn.Fireball
 
 		public StateSpecificFireballField(
 			FireballFieldType type,
-			FireballCoordinateSystem system,
+			CoordinateSystem system,
 			IList<double> transverseMomenta,
 			StateSpecificFireballFieldFunction function
 			) : this(type, system, transverseMomenta)

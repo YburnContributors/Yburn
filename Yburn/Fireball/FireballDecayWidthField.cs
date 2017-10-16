@@ -45,7 +45,7 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public FireballDecayWidthField(
-			FireballCoordinateSystem system,
+			CoordinateSystem system,
 			IList<double> transverseMomenta,
 			FireballTemperatureField temperature,
 			SimpleFireballField vx,
@@ -59,8 +59,8 @@ namespace Yburn.Fireball
 			: base(FireballFieldType.DecayWidth, system, transverseMomenta)
 		{
 			Temperature = temperature;
-			VX = vx;
-			VY = vy;
+			VelocityX = vx;
+			VelocityY = vy;
 			ElectricField = electricField;
 			MagneticField = magneticField;
 			FormationTimes = SetFormationTimes(formationTimes);
@@ -80,8 +80,8 @@ namespace Yburn.Fireball
 			)
 		{
 			LinearInterpolation2D interpT = new LinearInterpolation2D(System.XAxis, System.YAxis, Temperature.GetValues());
-			LinearInterpolation2D interpVX = new LinearInterpolation2D(System.XAxis, System.YAxis, VX.GetValues());
-			LinearInterpolation2D interpVY = new LinearInterpolation2D(System.XAxis, System.YAxis, VY.GetValues());
+			LinearInterpolation2D interpVX = new LinearInterpolation2D(System.XAxis, System.YAxis, VelocityX.GetValues());
+			LinearInterpolation2D interpVY = new LinearInterpolation2D(System.XAxis, System.YAxis, VelocityY.GetValues());
 			LinearInterpolation2D interpE = new LinearInterpolation2D(System.XAxis, System.YAxis, ElectricField.GetValues());
 			LinearInterpolation2D interpB = new LinearInterpolation2D(System.XAxis, System.YAxis, MagneticField.GetValues());
 
@@ -123,9 +123,9 @@ namespace Yburn.Fireball
 		private readonly FireballTemperatureField Temperature;
 
 		// tranverse expansion velocity of the fireball as measured in the lab frame
-		private readonly SimpleFireballField VX;
+		private readonly SimpleFireballField VelocityX;
 
-		private readonly SimpleFireballField VY;
+		private readonly SimpleFireballField VelocityY;
 
 		private readonly FireballElectromagneticField ElectricField;
 
@@ -218,8 +218,8 @@ namespace Yburn.Fireball
 			)
 		{
 			double pathLength = BetaT[pTIndex, stateIndex] * time;
-			double vxVal = VX[xIndex, yIndex];
-			double vyVal = VY[xIndex, yIndex];
+			double vxVal = VelocityX[xIndex, yIndex];
+			double vyVal = VelocityY[xIndex, yIndex];
 			double v = Math.Sqrt(vxVal * vxVal + vyVal * vyVal);
 
 			x = vxVal != 0 ? System.XAxis[xIndex] + pathLength * vxVal / v : System.XAxis[xIndex];

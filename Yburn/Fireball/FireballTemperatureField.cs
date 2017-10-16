@@ -9,7 +9,7 @@ namespace Yburn.Fireball
 		 ********************************************************************************************/
 
 		public FireballTemperatureField(
-			FireballCoordinateSystem system,
+			CoordinateSystem system,
 			SimpleFireballField temperatureScalingField,
 			double initialMaximumTemperature,
 			double thermalTime,
@@ -24,7 +24,7 @@ namespace Yburn.Fireball
 
 			AssertValidMembers();
 
-			Tnorm = InitTnorm();
+			InitTemperatureNormalizationField();
 			Advance(InitialTime);
 		}
 
@@ -44,7 +44,7 @@ namespace Yburn.Fireball
 			double newTime
 			)
 		{
-			SetValues((x, y) => Tnorm[x, y] / Math.Pow(newTime, 1 / 3.0));
+			SetValues((x, y) => TemperatureNormalizationField[x, y] / Math.Pow(newTime, 1 / 3.0));
 			FindMaximumTemperature();
 		}
 
@@ -54,12 +54,16 @@ namespace Yburn.Fireball
 			private set;
 		}
 
+		// auxiliary field for the calculation of the temperature profile Temperature
+		public SimpleFireballField TemperatureNormalizationField
+		{
+			get;
+			private set;
+		}
+
 		/********************************************************************************************
 		 * Private/protected members, functions and properties
 		 ********************************************************************************************/
-
-		// auxiliary field for the calculation of the temperature profile Temperature
-		private readonly SimpleFireballField Tnorm;
 
 		private readonly double InitialMaximumTemperature;
 
@@ -94,11 +98,12 @@ namespace Yburn.Fireball
 
 		// temperature is normalized such that T(0, 0, ThermalTime_fm) = T0
 		// for a central collision (ImpactParameter = 0) and TransverseMomentum = 0
-		private SimpleFireballField InitTnorm()
+		private void InitTemperatureNormalizationField()
 		{
 			double norm = InitialMaximumTemperature * Math.Pow(ThermalTime, 1 / 3.0);
-			return new SimpleFireballField(
-				FireballFieldType.Tnorm,
+
+			TemperatureNormalizationField = new SimpleFireballField(
+				FireballFieldType.TemperatureNormalization,
 				System,
 				(x, y) => norm * TemperatureScalingField[x, y]);
 		}

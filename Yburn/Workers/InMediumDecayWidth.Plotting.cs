@@ -257,33 +257,19 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set grid");
 			plotFile.AppendLine();
 
-			int index = 0;
-			bool isFirst = true;
-			foreach(BottomiumState state in BottomiumStates)
-			{
-				AppendPlotCommands(
-					isFirstPlotCommand: isFirst,
-					plotFile: plotFile,
-					index: index,
-					style: "points",
-					titles: GetBottomiumStateGnuplotCode(state) + ", data file");
-				index++;
-				isFirst = false;
-			}
+			AppendPlotCommands(
+				plotFile: plotFile,
+				style: "points",
+				titles: BottomiumStates.ConvertAll(
+					state => new string[] { GetBottomiumStateGnuplotCode(state) + ", data file" }).ToArray());
 
-			int ordinateColumn = 2;
-			foreach(BottomiumState state in BottomiumStates)
-			{
-				AppendPlotCommands(
-					isFirstPlotCommand: isFirst,
+			AppendPlotCommands(
+					appendToExistingPlotCommands: true,
+					index: BottomiumStates.Count,
 					plotFile: plotFile,
-					index: index,
-					abscissaColumn: 1,
-					firstOrdinateColumn: ordinateColumn,
 					style: "lines noautoscale",
-					titles: GetBottomiumStateGnuplotCode(state) + ", continuous");
-				ordinateColumn++;
-			}
+					titles: BottomiumStates.ConvertAll(
+						state => GetBottomiumStateGnuplotCode(state) + ", continuous"));
 
 			WritePlotFile(plotFile);
 		}
@@ -347,33 +333,19 @@ namespace Yburn.Workers
 			plotFile.AppendLine("set grid");
 			plotFile.AppendLine();
 
-			int index = 0;
-			bool isFirst = true;
-			foreach(BottomiumState state in BottomiumStates)
-			{
-				AppendPlotCommands(
-					isFirstPlotCommand: isFirst,
-					plotFile: plotFile,
-					index: index,
-					style: "points",
-					titles: GetBottomiumStateGnuplotCode(state) + ", data file");
-				index++;
-				isFirst = false;
-			}
+			AppendPlotCommands(
+				plotFile: plotFile,
+				style: "points",
+				titles: BottomiumStates.ConvertAll(
+					state => new string[] { GetBottomiumStateGnuplotCode(state) + ", data file" }).ToArray());
 
-			int ordinateColumn = 2;
-			foreach(BottomiumState state in BottomiumStates)
-			{
-				AppendPlotCommands(
-					isFirstPlotCommand: isFirst,
+			AppendPlotCommands(
+					appendToExistingPlotCommands: true,
+					index: BottomiumStates.Count,
 					plotFile: plotFile,
-					index: index,
-					abscissaColumn: 1,
-					firstOrdinateColumn: ordinateColumn,
 					style: "lines noautoscale",
-					titles: GetBottomiumStateGnuplotCode(state) + ", continuous");
-				ordinateColumn++;
-			}
+					titles: BottomiumStates.ConvertAll(
+						state => GetBottomiumStateGnuplotCode(state) + ", continuous"));
 
 			WritePlotFile(plotFile);
 		}

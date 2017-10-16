@@ -55,7 +55,7 @@
     <Compile Include="BinBoundaryCalculatorTests.cs" />
     <Compile Include="BottomiumCascadeTests.cs" />
     <Compile Include="DummyDecayWidthProvider.cs" />
-    <Compile Include="FireballCoordinateSystemTests.cs" />
+    <Compile Include="CoordinateSystemTests.cs" />
     <Compile Include="NucleusElectromagneticFieldTests.cs" />
     <Compile Include="CollisionalElectromagneticFieldTests.cs" />
     <Compile Include="FireballEvolutionTests.cs" />

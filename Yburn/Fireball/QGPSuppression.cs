@@ -223,7 +223,7 @@ namespace Yburn.Fireball
 			)
 		{
 			FlatNormalizationFactors[CurrentBinIndex]
-				+= CurrentImpactParam * fireball.IntegrateFireballField("Overlap");
+				+= CurrentImpactParam * fireball.IntegrateFireballField(FireballFieldType.Overlap);
 
 			for(int pTIndex = 0; pTIndex < FireballParam.TransverseMomenta_GeV.Count; pTIndex++)
 			{
@@ -231,7 +231,7 @@ namespace Yburn.Fireball
 				{
 					FlatQGPSuppressionFactors[CurrentBinIndex][pTIndex][state]
 						+= CurrentImpactParam * fireball.IntegrateFireballField(
-							"UnscaledSuppression", state, pTIndex);
+							FireballFieldType.UnscaledSuppression, state, pTIndex);
 				}
 			}
 		}

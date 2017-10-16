@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Text;
+using Yburn.Fireball;
 
 namespace Yburn.Workers
 {
@@ -21,19 +23,19 @@ namespace Yburn.Workers
 		 * Public members, functions and properties
 		 ********************************************************************************************/
 
-		public void ShowSnapsX()
+		public Process ShowSnapsX()
 		{
-			StartGnuplot(BuildSnapsFileName(DataFileName) + "-plotX.plt");
+			return StartGnuplot(DataFileName + "-plotX.plt");
 		}
 
-		public void ShowSnapsY()
+		public Process ShowSnapsY()
 		{
-			StartGnuplot(BuildSnapsFileName(DataFileName) + "-plotY.plt");
+			return StartGnuplot(DataFileName + "-plotY.plt");
 		}
 
-		public void ShowSnapsXY()
+		public Process ShowSnapsXY()
 		{
-			StartGnuplot(BuildSnapsFileName(DataFileName) + "-plotXY.plt");
+			return StartGnuplot(DataFileName + "-plotXY.plt");
 		}
 
 		public void MakeSnapshots()
@@ -45,41 +47,45 @@ namespace Yburn.Workers
 				throw new Exception("SnapRate <= 0.");
 			}
 
-			Fireball.Fireball fireball = CreateFireball();
-			BjorkenLifeTime_fm = fireball.BjorkenLifeTime;
-
-			// extract path and file name of outfile and extension separately
-			string fileName = BuildSnapsFileName(DataFileName);
-
 			// All data is saved in the output file. Additionally, the corresponding gnuplot files (.plt)
 			// are created to facilitate graphical visualization of the data.
-			StringBuilder dataFileString = new StringBuilder();
+			StringBuilder output = new StringBuilder();
 			StringBuilder gnuFileStringX = new StringBuilder();
 			StringBuilder gnuFileStringY = new StringBuilder();
 			StringBuilder gnuFileStringXY = new StringBuilder();
 
-			int numberGridPoints = Convert.ToInt32(Math.Round(GridRadius_fm / GridCellSize_fm)) + 1;
+			gnuFileStringX.AppendLine("reset");
+			gnuFileStringX.AppendLine();
+			gnuFileStringX.AppendLine(string.Format("stats '{0}' using 3", DataFileName));
+			gnuFileStringX.AppendLine("set yrange [floor(STATS_min):ceil(STATS_max)]");
+			gnuFileStringX.AppendLine();
+			gnuFileStringX.AppendLine("set xlabel 'x (fm)'");
+			gnuFileStringX.AppendLine();
 
-			gnuFileStringX.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
-				GridRadius_fm.ToString()));
-			gnuFileStringY.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\n\r\n",
-				GridRadius_fm.ToString()));
-			gnuFileStringXY.Append(string.Format("reset\r\n\r\nset xr[0:{0,3}]\r\nset yr[0:{1,3}]\r\n\r\n",
-				GridRadius_fm.ToString(), GridRadius_fm.ToString()));
+			gnuFileStringY.AppendLine("reset");
+			gnuFileStringY.AppendLine();
+			gnuFileStringY.AppendLine(string.Format("stats '{0}' using 3", DataFileName));
+			gnuFileStringY.AppendLine("set yrange [floor(STATS_min):ceil(STATS_max)]");
+			gnuFileStringY.AppendLine();
+			gnuFileStringY.AppendLine("set xlabel 'y (fm)'");
+			gnuFileStringY.AppendLine();
 
-			string xPlotStringBegin = "p \"" + fileName
-				+ "\" every " + numberGridPoints.ToString() + " index ";
-			string xPlotStringEnd = " u 1:3 w p; pause .5";
-			string yPlotStringBegin = "p \"" + fileName
-				+ "\" every ::::" + (numberGridPoints - 1).ToString() + " index ";
-			string yPlotStringEnd = " u 2:3 w p; pause .5";
-			string xyPlotStringBegin = "sp \"" + fileName + "\" index ";
-			string xyPlotStringEnd = " u 1:2:3 w p; pause .5";
+			gnuFileStringXY.AppendLine("reset");
+			gnuFileStringXY.AppendLine();
+			gnuFileStringXY.AppendLine(string.Format("stats '{0}' using 3", DataFileName));
+			gnuFileStringXY.AppendLine("set zrange [floor(STATS_min):ceil(STATS_max)]");
+			gnuFileStringXY.AppendLine();
+			gnuFileStringXY.AppendLine("set xlabel 'x (fm)'");
+			gnuFileStringXY.AppendLine("set ylabel 'y (fm)'");
+			gnuFileStringXY.AppendLine();
+
+			CoordinateSystem system = CreateCoordinateSystem();
+			Fireball.Fireball fireball = CreateFireball();
+			BjorkenLifeTime_fm = fireball.BjorkenLifeTime;
 
 			int index = 0;
 			double dt = 1.0 / SnapRate_per_fm;
-			double currentTime;
-			while(fireball.MaximumTemperature > BreakupTemperature_MeV)
+			do
 			{
 				// quit here if process has been aborted
 				if(JobCancelToken.IsCancellationRequested)
@@ -87,60 +93,113 @@ namespace Yburn.Workers
 					break;
 				}
 
-				// advance fireball except for the first snapshot
-				if(index != 0)
-				{
-					fireball.Advance(dt);
-				}
-
 				// get status of calculation
-				currentTime = fireball.CurrentTime;
-				StatusValues[0] = currentTime.ToString();
+				StatusValues[0] = fireball.CurrentTime.ToString();
 
-				dataFileString.AppendLine("\r\n\r\n#Time = "
-					+ currentTime.ToString() + ", Index " + index);
-				dataFileString.Append(fireball.FieldsToString(FireballFieldTypes, BottomiumStates));
+				output.AppendLine();
+				output.AppendLine();
+				output.AppendLine(string.Format(
+					"#Time = {0}, Index {1}", fireball.CurrentTime, index));
+				output.Append(fireball.FieldsToString(FireballFieldTypes, BottomiumStates));
 
-				gnuFileStringX.AppendLine(xPlotStringBegin + index + xPlotStringEnd);
-				gnuFileStringY.AppendLine(yPlotStringBegin + index + yPlotStringEnd);
-				gnuFileStringXY.AppendLine(xyPlotStringBegin + index + xyPlotStringEnd);
+				gnuFileStringX.AppendLine(string.Format(
+					"plot '{0}' every {1} index {2} using 1:3 with points title 't = {3} fm/c'; pause .5",
+					DataFileName, system.YAxis.Count, index, fireball.CurrentTime));
+				gnuFileStringY.AppendLine(string.Format(
+					"plot '{0}' every ::{1}::{2} index {3} using 2:3 with points title 't = {4} fm/c'; pause .5",
+					DataFileName,
+					system.FindClosestXAxisIndex(0) * system.YAxis.Count,
+					(system.FindClosestXAxisIndex(0) + 1) * system.YAxis.Count - 1,
+					index,
+					fireball.CurrentTime));
+				gnuFileStringXY.AppendLine(string.Format(
+					"splot '{0}' index {1} using 1:2:3 with points title 't = {2} fm/c'; pause .5",
+					DataFileName, index, fireball.CurrentTime));
 
 				index++;
-			}
+				fireball.Advance(dt);
+			} while(fireball.MaximumTemperature > BreakupTemperature_MeV);
 
 			LifeTime_fm = fireball.LifeTime;
 
-			// append final results in the output file and exchange the old header with a new one
-			LogMessages.Clear();
-			LogMessages.Append(LogHeader + LogFooter);
-			dataFileString.Insert(0, LogHeader);
-			dataFileString.Append(LogFooter);
+			WriteOutputToLogAndDataFile(output);
 
-			WriteFile(dataFileString, fileName);
-			WriteFile(gnuFileStringX, fileName + "-plotX.plt");
-			WriteFile(gnuFileStringY, fileName + "-plotY.plt");
-			WriteFile(gnuFileStringXY, fileName + "-plotXY.plt");
+			WriteFile(gnuFileStringX, DataFileName + "-plotX.plt");
+			WriteFile(gnuFileStringY, DataFileName + "-plotY.plt");
+			WriteFile(gnuFileStringXY, DataFileName + "-plotXY.plt");
 		}
 
-		/********************************************************************************************
-		 * Private/protected members, functions and properties
-		 ********************************************************************************************/
-
-		private string BuildSnapsFileName(
-			string dataFileName
-			)
+		public Process PlotFireballTemperatureEvolution()
 		{
-			string nameWithoutExtension = dataFileName;
-			string extension = string.Empty;
-			int indexOfDot = dataFileName.LastIndexOf(".");
+			CalculateFireballTemperatureEvolution();
 
-			if(indexOfDot >= 0)
+			StringBuilder plotFile = new StringBuilder();
+			plotFile.AppendLine("reset");
+			plotFile.AppendLine("set terminal windows enhanced");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set title ' Fireball temperature evolution'");
+			plotFile.AppendLine("set xlabel 't (fm/c)'");
+			plotFile.AppendLine("set ylabel 'T_{max} (MeV)'");
+			plotFile.AppendLine();
+			plotFile.AppendLine("set xrange [0:]");
+			plotFile.AppendLine("set yrange [0:]");
+			plotFile.AppendLine();
+			plotFile.AppendFormat("set object rectangle from first 0, graph 0 to first {0}, graph 1"
+				+ " behind fillcolor rgb 'black' fillstyle solid 0.1 noborder", ThermalTime_fm);
+			plotFile.AppendLine();
+			plotFile.AppendFormat("set label 'thermalization' at first {0}, graph 0.5"
+				+ " center rotate by 90", ThermalTime_fm / 2);
+			plotFile.AppendLine();
+			plotFile.AppendFormat("set arrow from first {0}, first {1} to graph 1, first {1}"
+				+ " nohead back linetype 0", ThermalTime_fm, QGPFormationTemperature_MeV);
+			plotFile.AppendLine();
+			plotFile.AppendLine();
+
+			AppendPlotCommand(plotFile);
+
+			WritePlotFile(plotFile);
+
+			return StartGnuplot();
+		}
+
+		public void CalculateFireballTemperatureEvolution()
+		{
+			PrepareJob("PlotFireballTemperatureEvolution", SnapshotStatusTitles);
+
+			if(SnapRate_per_fm <= 0)
 			{
-				nameWithoutExtension = dataFileName.Substring(0, indexOfDot);
-				extension = dataFileName.Substring(indexOfDot, dataFileName.Length - indexOfDot);
+				throw new Exception("SnapRate <= 0.");
 			}
 
-			return (nameWithoutExtension + "-b" + ImpactParameter_fm + extension).Replace("\\", "/");
+			Fireball.Fireball fireball = CreateFireball();
+			BjorkenLifeTime_fm = fireball.BjorkenLifeTime;
+
+			StringBuilder output = new StringBuilder();
+			output.AppendLine();
+			output.AppendLine();
+			output.AppendLine(string.Format("#{0,7}{1,20}", "Time", "MaximumTemperature"));
+			output.AppendLine(string.Format("#{0,7}{1,20}", "(fm)", "(MeV)"));
+
+			double dt = 1.0 / SnapRate_per_fm;
+			do
+			{
+				// quit here if process has been aborted
+				if(JobCancelToken.IsCancellationRequested)
+				{
+					break;
+				}
+
+				StatusValues[0] = fireball.CurrentTime.ToString();
+
+				output.AppendLine(string.Format("{0,8:G4}{1,20:G4}",
+					fireball.CurrentTime, fireball.MaximumTemperature));
+
+				fireball.Advance(dt);
+			} while(fireball.MaximumTemperature > BreakupTemperature_MeV);
+
+			LifeTime_fm = fireball.LifeTime;
+
+			WriteOutputToLogAndDataFile(output);
 		}
 	}
 }

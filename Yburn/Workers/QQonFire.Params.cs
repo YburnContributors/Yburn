@@ -140,7 +140,7 @@ namespace Yburn.Workers
 
 		private ExpansionMode ExpansionMode;
 
-		private List<string> FireballFieldTypes;
+		private List<FireballFieldType> FireballFieldTypes;
 
 		private Dictionary<BottomiumState, double> FormationTimes_fm;
 

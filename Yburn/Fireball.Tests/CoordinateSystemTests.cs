@@ -3,7 +3,7 @@
 namespace Yburn.Fireball.Tests
 {
 	[TestClass]
-	public class FireballCoordinateSystemTests
+	public class CoordinateSystemTests
 	{
 		/********************************************************************************************
 		 * Public members, functions and properties
@@ -12,17 +12,17 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void InitializeSymmetryFactor()
 		{
-			int symmetric = new FireballCoordinateSystem(0, 1, true).SymmetryFactor;
+			int symmetric = new CoordinateSystem(0, 1, true).SymmetryFactor;
 			Assert.AreEqual(4, symmetric);
 
-			int nonsymmetric = new FireballCoordinateSystem(0, 1, false).SymmetryFactor;
+			int nonsymmetric = new CoordinateSystem(0, 1, false).SymmetryFactor;
 			Assert.AreEqual(2, nonsymmetric);
 		}
 
 		[TestMethod]
 		public void GenerateXAxisForSymmetricCollision()
 		{
-			var xAxis = new FireballCoordinateSystem(4, 1, true).XAxis;
+			var xAxis = new CoordinateSystem(4, 1, true).XAxis;
 
 			Assert.AreEqual(5, xAxis.Count);
 			Assert.AreEqual(0, xAxis[0]);
@@ -35,7 +35,7 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void GenerateXAxisForNonsymmetricCollision()
 		{
-			var xAxis = new FireballCoordinateSystem(4, 1, false).XAxis;
+			var xAxis = new CoordinateSystem(4, 1, false).XAxis;
 
 			Assert.AreEqual(9, xAxis.Count);
 			Assert.AreEqual(-4, xAxis[0]);
@@ -52,7 +52,7 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void GenerateYAxisForSymmetricCollision()
 		{
-			var yAxis = new FireballCoordinateSystem(9, 2, true).YAxis;
+			var yAxis = new CoordinateSystem(9, 2, true).YAxis;
 
 			Assert.AreEqual(5, yAxis.Count);
 			Assert.AreEqual(0, yAxis[0]);
@@ -65,7 +65,7 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void GenerateYAxisForNonsymmetricCollision()
 		{
-			var yAxis = new FireballCoordinateSystem(9, 2, false).YAxis;
+			var yAxis = new CoordinateSystem(9, 2, false).YAxis;
 
 			Assert.AreEqual(5, yAxis.Count);
 			Assert.AreEqual(0, yAxis[0]);
@@ -78,7 +78,7 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void FindClosestXAxisIndex()
 		{
-			FireballCoordinateSystem system = new FireballCoordinateSystem(10, 1, false);
+			CoordinateSystem system = new CoordinateSystem(10, 1, false);
 
 			Assert.AreEqual(8, system.FindClosestXAxisIndex(-2.1));
 			Assert.AreEqual(14, system.FindClosestXAxisIndex(3.8));
@@ -89,7 +89,7 @@ namespace Yburn.Fireball.Tests
 		[TestMethod]
 		public void FindClosestYAxisIndex()
 		{
-			FireballCoordinateSystem system = new FireballCoordinateSystem(10, 1, false);
+			CoordinateSystem system = new CoordinateSystem(10, 1, false);
 
 			Assert.AreEqual(2, system.FindClosestYAxisIndex(2.1));
 			Assert.AreEqual(4, system.FindClosestYAxisIndex(3.8));

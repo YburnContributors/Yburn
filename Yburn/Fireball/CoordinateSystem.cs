@@ -6,7 +6,7 @@ using Yburn.PhysUtil;
 
 namespace Yburn.Fireball
 {
-	public class FireballCoordinateSystem
+	public class CoordinateSystem
 	{
 		public static void SwitchFromLabToLCFCoordinates(
 			double t,
@@ -34,7 +34,7 @@ namespace Yburn.Fireball
 		 * Constructors
 		 ********************************************************************************************/
 
-		public FireballCoordinateSystem(
+		public CoordinateSystem(
 			double gridRadius,
 			double gridCellSize,
 			bool isCollisionSymmetric
@@ -53,7 +53,7 @@ namespace Yburn.Fireball
 			InitCoordinateAxes(out XAxis, out YAxis);
 		}
 
-		public FireballCoordinateSystem(
+		public CoordinateSystem(
 			FireballParam param
 			) : this(param.GridRadius_fm, param.GridCellSize_fm, param.IsCollisionSymmetric)
 		{

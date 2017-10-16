@@ -10,7 +10,7 @@
 
 		public SimpleFireballField(
 			FireballFieldType type,
-			FireballCoordinateSystem system
+			CoordinateSystem system
 			) : base(type, system)
 		{
 			Values = new double[XDimension, YDimension];
@@ -18,7 +18,7 @@
 
 		public SimpleFireballField(
 			FireballFieldType type,
-			FireballCoordinateSystem system,
+			CoordinateSystem system,
 			double[,] values
 			) : this(type, system)
 		{
@@ -27,7 +27,7 @@
 
 		public SimpleFireballField(
 			FireballFieldType type,
-			FireballCoordinateSystem system,
+			CoordinateSystem system,
 			SimpleFireballFieldFunction function
 			) : this(type, system)
 		{

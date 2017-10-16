@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using Yburn.PhysUtil;
 
@@ -103,7 +104,7 @@ namespace Yburn.Fireball
 		}
 
 		public string FieldsToString(
-			List<string> fieldNames,
+			List<FireballFieldType> fieldTypes,
 			List<BottomiumState> states
 			)
 		{
@@ -111,9 +112,9 @@ namespace Yburn.Fireball
 			stringBuilder.AppendFormat("#{0,7}{1,8}", "x", "y");
 
 			List<SimpleFireballField> fields = new List<SimpleFireballField>();
-			foreach(string fieldName in fieldNames)
+			foreach(FireballFieldType fieldType in fieldTypes)
 			{
-				if(IsPTDependent(fieldName))
+				if(IsPTDependent(fieldType))
 				{
 					for(int k = 0; k < Param.TransverseMomenta_GeV.Count; k++)
 					{
@@ -121,18 +122,17 @@ namespace Yburn.Fireball
 						{
 							if(states.Contains(state))
 							{
-								fields.Add(GetFireballField(fieldName, state, k));
-								stringBuilder.AppendFormat("{0,20}",
-									fieldName + "(" + state.ToString() + ", "
-									+ Param.TransverseMomenta_GeV[k].ToString() + ")");
+								fields.Add(GetFireballField(fieldType, state, k));
+								stringBuilder.AppendFormat("{0,30}", string.Format("{0}({1}, {2})",
+									fieldType, state, Param.TransverseMomenta_GeV[k]));
 							}
 						}
 					}
 				}
 				else
 				{
-					fields.Add(GetFireballField(fieldName));
-					stringBuilder.AppendFormat("{0,20}", fieldName.ToString());
+					fields.Add(GetFireballField(fieldType));
+					stringBuilder.AppendFormat("{0,30}", fieldType);
 				}
 			}
 
@@ -143,17 +143,14 @@ namespace Yburn.Fireball
 				throw new Exception("No output fields are given.");
 			}
 
-			for(int i = 0; i < CoordinateSystem.XAxis.Count; i++)
+			for(int i = 0; i < XAxis.Count; i++)
 			{
-				for(int j = 0; j < CoordinateSystem.YAxis.Count; j++)
+				for(int j = 0; j < YAxis.Count; j++)
 				{
-					stringBuilder.AppendFormat("{0,8}{1,8}",
-						CoordinateSystem.XAxis[i].ToString(),
-						CoordinateSystem.YAxis[j].ToString());
+					stringBuilder.AppendFormat("{0,8}{1,8}", XAxis[i], YAxis[j]);
 					for(int k = 0; k < fields.Count; k++)
 					{
-						stringBuilder.AppendFormat("{0,20}",
-							fields[k][i, j].ToString("G6"));
+						stringBuilder.AppendFormat("{0,30:G6}", fields[k][i, j]);
 					}
 
 					stringBuilder.AppendLine();
@@ -164,12 +161,12 @@ namespace Yburn.Fireball
 		}
 
 		public double IntegrateFireballField(
-			string fieldName,
+			FireballFieldType fieldType,
 			BottomiumState state = BottomiumState.Y1S,
 			int pTIndex = 0
 			)
 		{
-			SimpleFireballField field = GetFireballField(fieldName, state, pTIndex);
+			SimpleFireballField field = GetFireballField(fieldType, state, pTIndex);
 
 			return field.IntegrateValues();
 		}
@@ -177,7 +174,7 @@ namespace Yburn.Fireball
 		// Calculates the number of binary collisions NcollQGP that occur in the transverse plane
 		// where T >= Tcrit and NcollPion in the hadronic medium surrounding it (T < Tcrit),
 		// respectively, for the current impact parameter.
-		public void CalculateNcolls(
+		public void CalculateNumberCollisions(
 			double criticalTemperature,
 			out double CollisionInQGP,
 			out double CollisionsInHadronicRegion
@@ -189,35 +186,35 @@ namespace Yburn.Fireball
 			// center point
 			if(Temperature[0, 0] >= criticalTemperature)
 			{
-				CollisionInQGP += 0.5 * GlauberCalculation.NcollField[0, 0];
+				CollisionInQGP += 0.5 * GlauberCalculation.NumberCollisionsField[0, 0];
 			}
 			else
 			{
-				CollisionsInHadronicRegion += 0.5 * GlauberCalculation.NcollField[0, 0];
+				CollisionsInHadronicRegion += 0.5 * GlauberCalculation.NumberCollisionsField[0, 0];
 			}
 
 			// edges
-			for(int i = 1; i < CoordinateSystem.XAxis.Count; i++)
+			for(int i = 1; i < XAxis.Count; i++)
 			{
 				if(Temperature[i, 0] >= criticalTemperature)
 				{
-					CollisionInQGP += GlauberCalculation.NcollField[i, 0];
+					CollisionInQGP += GlauberCalculation.NumberCollisionsField[i, 0];
 				}
 				else
 				{
-					CollisionsInHadronicRegion += GlauberCalculation.NcollField[i, 0];
+					CollisionsInHadronicRegion += GlauberCalculation.NumberCollisionsField[i, 0];
 				}
 			}
 
-			for(int j = 1; j < CoordinateSystem.YAxis.Count; j++)
+			for(int j = 1; j < YAxis.Count; j++)
 			{
 				if(Temperature[0, j] >= criticalTemperature)
 				{
-					CollisionInQGP += GlauberCalculation.NcollField[0, j];
+					CollisionInQGP += GlauberCalculation.NumberCollisionsField[0, j];
 				}
 				else
 				{
-					CollisionsInHadronicRegion += GlauberCalculation.NcollField[0, j];
+					CollisionsInHadronicRegion += GlauberCalculation.NumberCollisionsField[0, j];
 				}
 			}
 
@@ -225,17 +222,17 @@ namespace Yburn.Fireball
 			CollisionsInHadronicRegion *= 0.5;
 
 			// the rest
-			for(int i = 1; i < CoordinateSystem.XAxis.Count; i++)
+			for(int i = 1; i < XAxis.Count; i++)
 			{
-				for(int j = 1; j < CoordinateSystem.YAxis.Count; j++)
+				for(int j = 1; j < YAxis.Count; j++)
 				{
 					if(Temperature[i, j] >= criticalTemperature)
 					{
-						CollisionInQGP += GlauberCalculation.NcollField[i, j];
+						CollisionInQGP += GlauberCalculation.NumberCollisionsField[i, j];
 					}
 					else
 					{
-						CollisionsInHadronicRegion += GlauberCalculation.NcollField[i, j];
+						CollisionsInHadronicRegion += GlauberCalculation.NumberCollisionsField[i, j];
 					}
 				}
 			}
@@ -259,12 +256,28 @@ namespace Yburn.Fireball
 		}
 
 		private static bool IsPTDependent(
-			string fieldName
+			FireballFieldType fieldType
 			)
 		{
-			return fieldName == "DampingFactor"
-				|| fieldName == "DecayWidth"
-				|| fieldName == "UnscaledSuppression";
+			return fieldType == FireballFieldType.DampingFactor
+				|| fieldType == FireballFieldType.DecayWidth
+				|| fieldType == FireballFieldType.UnscaledSuppression;
+		}
+
+		private ReadOnlyCollection<double> XAxis
+		{
+			get
+			{
+				return CoordinateSystem.XAxis;
+			}
+		}
+
+		private ReadOnlyCollection<double> YAxis
+		{
+			get
+			{
+				return CoordinateSystem.YAxis;
+			}
 		}
 
 		/********************************************************************************************
@@ -273,7 +286,7 @@ namespace Yburn.Fireball
 
 		private FireballParam Param;
 
-		private FireballCoordinateSystem CoordinateSystem;
+		private CoordinateSystem CoordinateSystem;
 
 		private GlauberCalculation GlauberCalculation;
 
@@ -291,9 +304,9 @@ namespace Yburn.Fireball
 		private double TimeStep;
 
 		// tranverse expansion velocity of the fireball as measured in the lab frame
-		private SimpleFireballField VX;
+		private SimpleFireballField VelocityX;
 
-		private SimpleFireballField VY;
+		private SimpleFireballField VelocityY;
 
 		private FireballElectromagneticField ElectricField;
 
@@ -360,7 +373,7 @@ namespace Yburn.Fireball
 
 		private void InitCoordinateSystem()
 		{
-			CoordinateSystem = new FireballCoordinateSystem(Param);
+			CoordinateSystem = new CoordinateSystem(Param);
 		}
 
 		private void InitDecayWidth()
@@ -369,8 +382,8 @@ namespace Yburn.Fireball
 				CoordinateSystem,
 				Param.TransverseMomenta_GeV,
 				Temperature,
-				VX,
-				VY,
+				VelocityX,
+				VelocityY,
 				ElectricField,
 				MagneticField,
 				Param.FormationTimes_fm,
@@ -383,8 +396,8 @@ namespace Yburn.Fireball
 			if(Param.ExpansionMode == ExpansionMode.Transverse)
 			{
 				Solver.SolveUntil(CurrentTime);
-				VX.SetValues(Solver.VX);
-				VY.SetValues(Solver.VY);
+				VelocityX.SetValues(Solver.VX);
+				VelocityY.SetValues(Solver.VY);
 				Temperature.Advance(Solver);
 			}
 			else
@@ -417,8 +430,8 @@ namespace Yburn.Fireball
 
 		private void InitV()
 		{
-			VX = new SimpleFireballField(FireballFieldType.VX, CoordinateSystem);
-			VY = new SimpleFireballField(FireballFieldType.VY, CoordinateSystem);
+			VelocityX = new SimpleFireballField(FireballFieldType.VelocityX, CoordinateSystem);
+			VelocityY = new SimpleFireballField(FireballFieldType.VelocityY, CoordinateSystem);
 		}
 
 		private void InitElectromagneticField()
@@ -456,14 +469,14 @@ namespace Yburn.Fireball
 			if(Param.ExpansionMode == ExpansionMode.Transverse)
 			{
 				Solver = new Ftexs(Param.GridCellSize_fm, CurrentTime, 0.25,
-					Temperature.GetValues(), VX.GetValues(), VY.GetValues());
+					Temperature.GetValues(), VelocityX.GetValues(), VelocityY.GetValues());
 			}
 
 			Param.InitialMaximumTemperature_MeV = MaximumTemperature;
 		}
 
 		private SimpleFireballField GetFireballField(
-			string fieldName,
+			FireballFieldType fieldType,
 			BottomiumState state = BottomiumState.Y1S,
 			int pTIndex = 0
 			)
@@ -473,54 +486,57 @@ namespace Yburn.Fireball
 				throw new Exception("pTIndex is invalid.");
 			}
 
-			switch(fieldName)
+			switch(fieldType)
 			{
-				case "ColumnDensityA":
+				case FireballFieldType.ColumnDensityA:
 					return GlauberCalculation.NucleonNumberColumnDensityFieldA;
 
-				case "ColumnDensityB":
+				case FireballFieldType.ColumnDensityB:
 					return GlauberCalculation.NucleonNumberColumnDensityFieldB;
 
-				case "DampingFactor":
+				case FireballFieldType.DampingFactor:
 					return DampingFactor.GetSimpleFireballField(pTIndex, state);
 
-				case "DecayWidth":
+				case FireballFieldType.DecayWidth:
 					return DecayWidth.GetSimpleFireballField(pTIndex, state);
 
-				case "NucleonDensityA":
+				case FireballFieldType.NucleonDensityA:
 					return GlauberCalculation.NucleonNumberDensityFieldA;
 
-				case "NucleonDensityB":
+				case FireballFieldType.NucleonDensityB:
 					return GlauberCalculation.NucleonNumberDensityFieldB;
 
-				case "Ncoll":
-					return GlauberCalculation.NcollField;
+				case FireballFieldType.NumberCollisions:
+					return GlauberCalculation.NumberCollisionsField;
 
-				case "Npart":
-					return GlauberCalculation.NpartField;
+				case FireballFieldType.NumberParticipants:
+					return GlauberCalculation.NumberParticipantsField;
 
-				case "Overlap":
+				case FireballFieldType.Overlap:
 					return GlauberCalculation.OverlapField;
 
-				case "Temperature":
+				case FireballFieldType.Temperature:
 					return Temperature;
 
-				case "TemperatureScalingField":
+				case FireballFieldType.TemperatureScaling:
 					return GlauberCalculation.TemperatureScalingField;
 
-				case "VX":
-					return VX;
+				case FireballFieldType.TemperatureNormalization:
+					return Temperature.TemperatureNormalizationField;
 
-				case "VY":
-					return VY;
+				case FireballFieldType.VelocityX:
+					return VelocityX;
 
-				case "UnscaledSuppression":
+				case FireballFieldType.VelocityY:
+					return VelocityY;
+
+				case FireballFieldType.UnscaledSuppression:
 					return GetUnscaledSuppression(state, pTIndex);
 
-				case "ElectricFieldStrength":
+				case FireballFieldType.ElectricFieldStrength:
 					return ElectricField;
 
-				case "MagneticFieldStrength":
+				case FireballFieldType.MagneticFieldStrength:
 					return MagneticField;
 
 				default:

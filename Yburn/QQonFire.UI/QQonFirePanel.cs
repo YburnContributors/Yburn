@@ -215,10 +215,11 @@ namespace Yburn.QQonFire.UI
 			MenuEntry.MenuItemBinBounds.Click += new EventHandler(MenuItemBinBounds_Click);
 			MenuEntry.MenuItemDirectPionDecayWidths.Click += new EventHandler(MenuItemDirectPionDecayWidths_Click);
 			MenuEntry.MenuItemMakeSnapshots.Click += new EventHandler(MenuItemMakeSnapshots_Click);
+			MenuEntry.MenuItemPlotFireballTemperatureEvolution.Click += new EventHandler(MenuItemPlotFireballTemperatureEvolution_Click);
 			MenuEntry.MenuItemShowBranchingRatio.Click += new EventHandler(MenuItemShowBranchingRatio_Click);
 			MenuEntry.MenuItemShowCumulativeMatrix.Click += new EventHandler(MenuItemShowCumulativeMatrix_Click);
 			MenuEntry.MenuItemShowFeedDown.Click += new EventHandler(MenuItemShowY1SFeedDownFractions_Click);
-			MenuEntry.MenuItemShowGamma.Click += new EventHandler(MenuItemShowGamma_Click);
+			MenuEntry.MenuItemShowDecayWidthInput.Click += new EventHandler(MenuItemShowDecayWidthInput_Click);
 			MenuEntry.MenuItemShowInitialQQPopulations.Click += new EventHandler(MenuItemShowInitialQQPopulations_Click);
 			MenuEntry.MenuItemShowInverseCumulativeMatrix.Click += new EventHandler(MenuItemShowInverseCumulativeMatrix_Click);
 			MenuEntry.MenuItemShowProtonProtonDimuonDecays.Click += new EventHandler(MenuItemShowProtonProtonDimuonDecays_Click);
@@ -253,7 +254,7 @@ namespace Yburn.QQonFire.UI
 			JobOrganizer.RequestNewJob("CalculateDirectPionDecayWidths", ControlsValues);
 		}
 
-		private void MenuItemShowGamma_Click(object sender, EventArgs e)
+		private void MenuItemShowDecayWidthInput_Click(object sender, EventArgs e)
 		{
 			JobOrganizer.RequestNewJob("ShowDecayWidthInput", ControlsValues);
 		}
@@ -291,6 +292,11 @@ namespace Yburn.QQonFire.UI
 		private void MenuItemMakeSnapshots_Click(object sender, EventArgs e)
 		{
 			JobOrganizer.RequestNewJob("MakeSnapshots", ControlsValues);
+		}
+
+		private void MenuItemPlotFireballTemperatureEvolution_Click(object sender, EventArgs e)
+		{
+			JobOrganizer.RequestNewJob("PlotFireballTemperatureEvolution", ControlsValues);
 		}
 
 		private void MenuItemShowSnapsX_Click(object sender, EventArgs e)

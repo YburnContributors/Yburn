@@ -14,9 +14,10 @@ namespace Yburn.QQonFire.UI
 		public ToolStripMenuItem MenuItemDirectPionDecayWidths;
 		public ToolStripMenuItem MenuItemSuppression;
 		public ToolStripMenuItem MenuItemMakeSnapshots;
+		public ToolStripMenuItem MenuItemPlotFireballTemperatureEvolution;
 		public ToolStripMenuItem MenuItemSnapshots;
 		public ToolStripMenuItem MenuItemShowSnapshots;
-		public ToolStripMenuItem MenuItemShowGamma;
+		public ToolStripMenuItem MenuItemShowDecayWidthInput;
 		public ToolStripMenuItem MenuItemShowBranchingRatio;
 		public ToolStripMenuItem MenuItemShowCumulativeMatrix;
 		public ToolStripMenuItem MenuItemShowInverseCumulativeMatrix;
@@ -34,11 +35,12 @@ namespace Yburn.QQonFire.UI
 			this.MenuItemSuppression = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemSnapshots = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemMakeSnapshots = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemPlotFireballTemperatureEvolution = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowSnapshots = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowSnapsX = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowSnapsY = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowSnapsXY = new System.Windows.Forms.ToolStripMenuItem();
-			this.MenuItemShowGamma = new System.Windows.Forms.ToolStripMenuItem();
+			this.MenuItemShowDecayWidthInput = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowBranchingRatio = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowCumulativeMatrix = new System.Windows.Forms.ToolStripMenuItem();
 			this.MenuItemShowInverseCumulativeMatrix = new System.Windows.Forms.ToolStripMenuItem();
@@ -83,6 +85,13 @@ namespace Yburn.QQonFire.UI
 			this.MenuItemMakeSnapshots.Size = new System.Drawing.Size(236, 24);
 			this.MenuItemMakeSnapshots.Text = "&Make snapshots";
 			//
+			// MenuItemPlotFireballTemperatureEvolution
+			//
+			this.MenuItemPlotFireballTemperatureEvolution.Name = "MenuItemPlotFireballTemperatureEvolution";
+			this.MenuItemPlotFireballTemperatureEvolution.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.T)));
+			this.MenuItemPlotFireballTemperatureEvolution.Size = new System.Drawing.Size(236, 24);
+			this.MenuItemPlotFireballTemperatureEvolution.Text = "Plot fireball &temperature evolution";
+			//
 			// MenuItemShowSnapshots
 			//
 			this.MenuItemShowSnapshots.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -117,11 +126,11 @@ namespace Yburn.QQonFire.UI
 			this.MenuItemShowSnapsXY.Size = new System.Drawing.Size(351, 24);
 			this.MenuItemShowSnapsXY.Text = "Show snaps in the XY-&plane";
 			//
-			// MenuItemShowGamma
+			// MenuItemShowDecayWidthInput
 			//
-			this.MenuItemShowGamma.Name = "MenuItemShowGamma";
-			this.MenuItemShowGamma.Size = new System.Drawing.Size(361, 24);
-			this.MenuItemShowGamma.Text = "Show &gamma from input file";
+			this.MenuItemShowDecayWidthInput.Name = "MenuItemShowDecayWidthInput";
+			this.MenuItemShowDecayWidthInput.Size = new System.Drawing.Size(361, 24);
+			this.MenuItemShowDecayWidthInput.Text = "Show &gamma from input file";
 			//
 			// MenuItemShowBranchingRatio
 			//
@@ -164,8 +173,9 @@ namespace Yburn.QQonFire.UI
 			this.MenuItemBinBounds,
 			this.MenuItemDirectPionDecayWidths,
 			this.MenuItemSuppression,
+			this.MenuItemPlotFireballTemperatureEvolution,
 			this.MenuItemSnapshots,
-			this.MenuItemShowGamma,
+			this.MenuItemShowDecayWidthInput,
 			this.MenuItemShowBranchingRatio,
 			this.MenuItemShowCumulativeMatrix,
 			this.MenuItemShowInverseCumulativeMatrix,

@@ -10,7 +10,7 @@ namespace Yburn.Fireball
 		{
 			return new FireballElectromagneticField(
 				FireballFieldType.ElectricFieldStrength,
-				new FireballCoordinateSystem(param),
+				new CoordinateSystem(param),
 				new CollisionalElectromagneticField(param).CalculateAverageElectricFieldStrength,
 				param.EMFUpdateInterval_fm);
 		}
@@ -21,14 +21,14 @@ namespace Yburn.Fireball
 		{
 			return new FireballElectromagneticField(
 				FireballFieldType.MagneticFieldStrength,
-				new FireballCoordinateSystem(param),
+				new CoordinateSystem(param),
 				new CollisionalElectromagneticField(param).CalculateAverageMagneticFieldStrength,
 				param.EMFUpdateInterval_fm);
 		}
 
 		public static FireballElectromagneticField CreateZeroField(
 			FireballFieldType type,
-			FireballCoordinateSystem system
+			CoordinateSystem system
 			)
 		{
 			Func<double, double, double, double, double> fieldFunction = (tau, x, y, sigma) => 0;
@@ -43,7 +43,7 @@ namespace Yburn.Fireball
 
 		protected FireballElectromagneticField(
 			FireballFieldType type,
-			FireballCoordinateSystem system,
+			CoordinateSystem system,
 			Func<double, double, double, double, double> fieldFunction,
 			double fieldUpdateInterval
 			) : base(type, system)

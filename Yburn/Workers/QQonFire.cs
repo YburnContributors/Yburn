@@ -77,6 +77,10 @@ namespace Yburn.Workers
 					MakeSnapshots();
 					break;
 
+				case "PlotFireballTemperatureEvolution":
+					PlotFireballTemperatureEvolution();
+					break;
+
 				case "ShowBranchingRatio":
 					ShowBranchingRatioMatrix();
 					break;
@@ -157,10 +161,10 @@ namespace Yburn.Workers
 				}
 
 				// calculate the areas
-				fireball.CalculateNcolls(BreakupTemperature_MeV, out double nCollQGP, out double nCollPion);
+				fireball.CalculateNumberCollisions(BreakupTemperature_MeV, out double nCollQGP, out double nCollPion);
 				nCollQGPs.Add(nCollQGP);
 				nCollPions.Add(nCollPion);
-				nColls.Add(fireball.IntegrateFireballField("Ncoll"));
+				nColls.Add(fireball.IntegrateFireballField(FireballFieldType.NumberCollisions));
 
 				StatusValues[0] = impactParams[step].ToUIString();
 				StatusValues[1] = nColls[step].ToUIString();
@@ -642,6 +646,11 @@ namespace Yburn.Workers
 			}
 		}
 
+		private CoordinateSystem CreateCoordinateSystem()
+		{
+			return new CoordinateSystem(CreateFireballParam());
+		}
+
 		private Fireball.Fireball CreateFireball()
 		{
 			return new Fireball.Fireball(CreateFireballParam());
@@ -676,7 +685,7 @@ namespace Yburn.Workers
 				CenterOfMassEnergy_TeV = CenterOfMassEnergy_TeV,
 				DiffusenessA_fm = DiffusenessA_fm,
 				DiffusenessB_fm = DiffusenessB_fm,
-				EMFCalculationMethod = EMFCalculationMethod.DiffusionApproximation,
+				EMFCalculationMethod = EMFCalculationMethod,
 				EMFQuadratureOrder = EMFQuadratureOrder,
 				EMFUpdateInterval_fm = EMFUpdateInterval_fm,
 				ExpansionMode = ExpansionMode,

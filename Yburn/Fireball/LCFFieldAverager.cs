@@ -1,6 +1,5 @@
 ﻿using MathNet.Numerics.Integration;
 using System;
-using System.Linq;
 
 namespace Yburn.Fireball
 {
@@ -37,8 +36,8 @@ namespace Yburn.Fireball
 			LCFFieldFunction function
 			)
 		{
+			CoordinateSystem system = new CoordinateSystem(Param);
 			GlauberCalculation glauber = new GlauberCalculation(Param);
-			FireballCoordinateSystem system = new FireballCoordinateSystem(Param);
 
 			double[,] functionColumnDensityValues
 				= new double[system.XAxis.Count, system.YAxis.Count];
@@ -52,15 +51,14 @@ namespace Yburn.Fireball
 
 					functionColumnDensityValues[i, j]
 						= AverageRapidityDependence(integrand)
-						* glauber.NcollField[i, j];
+						* glauber.NumberCollisionsField[i, j];
 				}
 			}
-
 			SimpleFireballField functionColumnDensity = new SimpleFireballField(
-				FireballFieldType.Ncoll, system, functionColumnDensityValues);
+				FireballFieldType.NumberCollisions, system, functionColumnDensityValues);
 
 			return functionColumnDensity.IntegrateValues()
-				/ glauber.NcollField.IntegrateValues();
+				/ glauber.NumberCollisionsField.IntegrateValues();
 		}
 
 		/********************************************************************************************

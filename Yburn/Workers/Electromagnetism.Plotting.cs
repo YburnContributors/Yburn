@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 using Yburn.Fireball;
-using Yburn.PhysUtil;
 
 namespace Yburn.Workers
 {
