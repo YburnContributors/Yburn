@@ -233,25 +233,26 @@ namespace Yburn
 			TimeSpan timePassed
 			)
 		{
-			StringBuilder stringBuilder = new StringBuilder();
-			stringBuilder.Append(timePassed.Seconds.ToString() + "s");
-
-			if(timePassed.TotalMinutes >= 1)
+			if(timePassed.Days > 0)
 			{
-				stringBuilder.Insert(0, timePassed.Minutes.ToString() + "m ");
+				return string.Format("{0}d{1:00}h{2:00}m{3:00}s",
+					timePassed.Days, timePassed.Hours, timePassed.Minutes, timePassed.Seconds);
 			}
-
-			if(timePassed.TotalHours >= 1)
+			else if(timePassed.Hours > 0)
 			{
-				stringBuilder.Insert(0, timePassed.Hours.ToString() + "h ");
+				return string.Format("{0}h{1:00}m{2:00}s",
+					timePassed.Hours, timePassed.Minutes, timePassed.Seconds);
 			}
-
-			if(timePassed.TotalDays >= 1)
+			else if(timePassed.Minutes > 0)
 			{
-				stringBuilder.Insert(0, timePassed.Days.ToString() + "d ");
+				return string.Format("{0}m{1:00}s",
+					timePassed.Minutes, timePassed.Seconds);
 			}
-
-			return stringBuilder.ToString();
+			else
+			{
+				return string.Format("{0}s",
+					timePassed.Seconds);
+			}
 		}
 	}
 
