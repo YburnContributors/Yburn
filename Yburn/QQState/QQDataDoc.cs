@@ -435,17 +435,17 @@ namespace Yburn.QQState
 			oStringBuilder.AppendLine(CommentarySign + "This is a QQDataDoc-file. Commentary lines may inserted using a leading \"" + CommentarySign + "\".");
 			oStringBuilder.AppendLine(CommentarySign + "The data has been calculated using the following parameters (hopefully) consistently:");
 			oStringBuilder.AppendLine(CommentarySign);
-			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "AccuracyAlpha", accuracyAlpha.ToString("G4"));
-			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "AccuracyWaveFunction", accuracyWave.ToString("G4"));
-			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "AggressivenessAlpha", aggressivenessAlpha.ToString("G4"));
-			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "EnergySteps", eSteps);
-			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "MaxEnergy (MeV)", maxEnergy.ToString("G4"));
-			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "MaxRadius (fm)", rOut.ToString("G4"));
-			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "QuarkMass (MeV)", quarkMass.ToString("G4"));
-			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "Sigma (MeV²)", sigma.ToString("G4"));
-			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "StepNumber", stepNumber);
-			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "Tchem (MeV)", tchem.ToString("G4"));
-			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}\r\n", "Tcrit (MeV)", tcrit.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}" + Environment.NewLine, "AccuracyAlpha", accuracyAlpha.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}" + Environment.NewLine, "AccuracyWaveFunction", accuracyWave.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}" + Environment.NewLine, "AggressivenessAlpha", aggressivenessAlpha.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}" + Environment.NewLine, "EnergySteps", eSteps);
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}" + Environment.NewLine, "MaxEnergy (MeV)", maxEnergy.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}" + Environment.NewLine, "MaxRadius (fm)", rOut.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}" + Environment.NewLine, "QuarkMass (MeV)", quarkMass.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}" + Environment.NewLine, "Sigma (MeV²)", sigma.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}" + Environment.NewLine, "StepNumber", stepNumber);
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}" + Environment.NewLine, "Tchem (MeV)", tchem.ToString("G4"));
+			oStringBuilder.AppendFormat(CommentarySign + "{0,22}    {1,-12}" + Environment.NewLine, "Tcrit (MeV)", tcrit.ToString("G4"));
 			oStringBuilder.AppendLine(Separator);
 			oStringBuilder.AppendFormat(CommentarySign + ColumnFormat,
 				"N", "L", "ColorState", "PotentialType", "Temperature", "DebyeMass", "√<r²>", "SoftScale", "US_Scale", "BoundMass", "Energy", "GammaDamp", "GammaDiss", "GammaTot");

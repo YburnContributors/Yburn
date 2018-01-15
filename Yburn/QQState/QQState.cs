@@ -275,54 +275,52 @@ namespace Yburn.QQState
 			{
 				throw new Exception("AggressivenessAlpha > 1.");
 			}
-			if(Param.GammaDamp_MeV < 0
-				&& Param.ColorState == ColorState.Singlet)
+			if(Param.GammaDamp_MeV < 0 && Param.ColorState == ColorState.Singlet)
 			{
-				errorMessage += "GammaDamp < 0.\r\n";
+				errorMessage += "GammaDamp < 0." + Environment.NewLine;
 			}
-			if(Param.GammaDamp_MeV > 0
-				&& Param.ColorState == ColorState.Octet)
+			if(Param.GammaDamp_MeV > 0 && Param.ColorState == ColorState.Octet)
 			{
-				errorMessage += "GammaDamp > 0.\r\n";
+				errorMessage += "GammaDamp > 0." + Environment.NewLine;
 			}
 			if(Param.MaxRadius_fm <= 0)
 			{
-				errorMessage += "MaxRadius <= 0.\r\n";
+				errorMessage += "MaxRadius <= 0." + Environment.NewLine;
 			}
 			if(Param.QuantumNumberL < 0)
 			{
-				errorMessage += "QuantumNumberL < 0.\r\n";
+				errorMessage += "QuantumNumberL < 0." + Environment.NewLine;
 			}
 			if(Param.QuarkMass_MeV <= 0)
 			{
-				errorMessage += "QuarkMass <= 0.\r\n";
+				errorMessage += "QuarkMass <= 0." + Environment.NewLine;
 			}
 			if(Param.SoftScale_MeV < 0)
 			{
-				errorMessage += "SoftScale < 0.\r\n";
+				errorMessage += "SoftScale < 0." + Environment.NewLine;
 			}
 			if(Param.StepNumber < 1)
 			{
-				errorMessage += "StepNumber < 1.\r\n";
+				errorMessage += "StepNumber < 1." + Environment.NewLine;
 			}
 			if(Param.Tchem_MeV <= 0)
 			{
-				errorMessage += "Tchem <= 0.\r\n";
+				errorMessage += "Tchem <= 0." + Environment.NewLine;
 			}
 			if(Param.Tcrit_MeV < Param.Tchem_MeV)
 			{
-				errorMessage += "Tcrit < Tchem.\r\n";
+				errorMessage += "Tcrit < Tchem." + Environment.NewLine;
 			}
 			if(Param.Temperature_MeV < 0)
 			{
-				errorMessage += "Temperature < 0.\r\n";
+				errorMessage += "Temperature < 0." + Environment.NewLine;
 			}
 			if(Param.Temperature_MeV < Param.Tcrit_MeV
 				&& Param.PotentialType != PotentialType.Tzero
 				&& Param.PotentialType != PotentialType.Tzero_NoString
 				&& Param.PotentialType != PotentialType.SpinDependent)
 			{
-				errorMessage += "PotentialType incompatible with T.\r\n";
+				errorMessage += "PotentialType incompatible with T." + Environment.NewLine;
 			}
 
 			if(!string.IsNullOrEmpty(errorMessage))

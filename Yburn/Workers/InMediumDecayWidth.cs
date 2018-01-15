@@ -28,11 +28,11 @@ namespace Yburn.Workers
 
 			string temperatureDecayWidthList = GetTemperatureDecayWidthList();
 
-			LogMessages.AppendFormat("#\r\n#\r\n");
+			LogMessages.AppendFormat("#" + Environment.NewLine + "#" + Environment.NewLine);
 			LogMessages.AppendFormat(temperatureDecayWidthList);
 
 			File.WriteAllText(YburnConfigFile.OutputPath + DataFileName,
-				LogHeader + "#\r\n#\r\n" + temperatureDecayWidthList);
+				LogHeader + "#" + Environment.NewLine + "#" + Environment.NewLine + temperatureDecayWidthList);
 		}
 
 

@@ -182,7 +182,7 @@ namespace Yburn.Electromagnetism.UI
 				"Chosen approximation for the calculation of the electromagnetic field.",
 				LblEMFCalculationMethod, CbxEMFCalculationMethod);
 			toolTipMaker.Add(
-				"Name of the output file. The standard output path can be set\r\n"
+				"Name of the output file. The standard output path can be set" + Environment.NewLine
 				+ "in the menu \"File\" using \"Set output path\".",
 				LblDataFileName, TbxDataFileName);
 		}

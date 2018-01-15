@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 using Yburn.Interfaces;
@@ -224,17 +225,17 @@ namespace Yburn.SingleQQ.UI
 			)
 		{
 			toolTipMaker.Add(
-				"Desired shooting accuracy in the running coupling AlphaSoft,\r\n"
-				+ "equals the difference in AlphaSoft between two consecutive\r\n"
+				"Desired shooting accuracy in the running coupling AlphaSoft," + Environment.NewLine
+				+ "equals the difference in AlphaSoft between two consecutive" + Environment.NewLine
 				+ "steps. AccuracyAlpha > 0.",
 				LblAccuracyAlpha, TbxAccuracyAlpha);
 			toolTipMaker.Add(
-				"Desired shooting accuracy in the wave function, equals the\r\n"
-				+ "absolute value of the wave function at the origin.\r\n"
+				"Desired shooting accuracy in the wave function, equals the" + Environment.NewLine
+				+ "absolute value of the wave function at the origin." + Environment.NewLine
 				+ "AccuracyWaveFunction > 0.",
 				LblAccuracyWaveFunction, TbxAccuracyWaveFunction);
 			toolTipMaker.Add(
-				"Controls the strength with which the shooting algorithm reacts to changes\r\n"
+				"Controls the strength with which the shooting algorithm reacts to changes" + Environment.NewLine
 				+ "in the running coupling. 0 <= AggressivenessAlpha < 1.",
 				LblAggressivenessAlpha, TbxAggressivenessAlpha);
 			toolTipMaker.Add(
@@ -253,16 +254,16 @@ namespace Yburn.SingleQQ.UI
 				"Total mass of the bottomium.",
 				LblBoundMass, TbxBoundMass);
 			toolTipMaker.Add(
-				"Binding energy of the bottomium, defined relative to the potential-at-infinity\r\n"
-				+ "for converging potentials. Otherwise it is defined as the real part of the\r\n"
+				"Binding energy of the bottomium, defined relative to the potential-at-infinity" + Environment.NewLine
+				+ "for converging potentials. Otherwise it is defined as the real part of the" + Environment.NewLine
 				+ "eigenvalue of the Schroedinger equation.",
 				LblEnergy, TbxEnergy);
 			toolTipMaker.Add(
-				"Decay width due to collisional damping, defined as twice the negative imaginary\r\n"
+				"Decay width due to collisional damping, defined as twice the negative imaginary" + Environment.NewLine
 				+ "part of the eigenvalue of the Schroedinger equation.",
 				LblGammaDamp, TbxGammaDamp);
 			toolTipMaker.Add(
-				"Maximum number of trials when the Schroedinger equation is solved by the shooting\r\n"
+				"Maximum number of trials when the Schroedinger equation is solved by the shooting" + Environment.NewLine
 				+ "method. If MaxShootingTrials <= 0, the Schroedinger equation is solved only once.",
 				LblMaxShootingTrials, TbxMaxShootingTrials);
 			toolTipMaker.Add(
@@ -274,18 +275,20 @@ namespace Yburn.SingleQQ.UI
 			toolTipMaker.Add("Debye mass due to color screening in the quark-gluon plasma.",
 				LblDebyeMass, TbxDebyeMass);
 			toolTipMaker.Add(
-				"Name of the output file. The standard output path can be set\r\n"
+				"Name of the output file. The standard output path can be set" + Environment.NewLine
 				+ "in the menu \"File\" using \"Set output path\".",
 				LblDataFileName, TbxDataFileName);
 			toolTipMaker.Add(
-				"Different interaction potentials:\r\n\r\n"
-				+ "Complex - Complex potential used e.g. in Nendzig, Wolschin (2014),\r\n"
-				+ "LowT - Also complex, valid for low temperatures (Brambilla et al., 2008),\r\n"
-				+ "Real - Obtained from the real part of \"Complex\",\r\n"
-				+ "Tzero - Cornell potential,\r\n"
-				+ "SpinDependent - Cornell potential with spin interaction term.\r\n\r\n"
-				+ "All potentials except the spin-dependent one are also available with vanishing\r\n"
-				+ "string coupling. The \"Tzero\"-potential becomes a simple Coulomb potential in\r\n"
+				"Different interaction potentials:" + Environment.NewLine
+				+ Environment.NewLine
+				+ "Complex - Complex potential used e.g. in Nendzig, Wolschin (2014)," + Environment.NewLine
+				+ "LowT - Also complex, valid for low temperatures (Brambilla et al., 2008)," + Environment.NewLine
+				+ "Real - Obtained from the real part of \"Complex\"," + Environment.NewLine
+				+ "Tzero - Cornell potential," + Environment.NewLine
+				+ "SpinDependent - Cornell potential with spin interaction term." + Environment.NewLine
+				+ Environment.NewLine
+				+ "All potentials except the spin-dependent one are also available with vanishing" + Environment.NewLine
+				+ "string coupling. The \"Tzero\"-potential becomes a simple Coulomb potential in" + Environment.NewLine
 				+ "this case.",
 				LblPotentialType, CbxPotentialType);
 			toolTipMaker.Add(
@@ -301,22 +304,23 @@ namespace Yburn.SingleQQ.UI
 				"Chemical freeze-out temperature of the hadronic medium.",
 				LblTchem, TbxTchem);
 			toolTipMaker.Add(
-				"Critical temperature for the transition between hadronic medium\r\n"
+				"Critical temperature for the transition between hadronic medium" + Environment.NewLine
 				+ "and quark-gluon plasma.",
 				LblTcrit, TbxTcrit);
 			toolTipMaker.Add(
 				"Distance scale of the exponentially damped spin coupling.",
 				LblSpinCouplingRange, TbxSpinCouplingRange);
 			toolTipMaker.Add(
-				"Scaling factor for the strength of the spin coupling. The absolute value of the\r\n"
+				"Scaling factor for the strength of the spin coupling. The absolute value of the" + Environment.NewLine
 				+ "coupling term differs by a factor of order one at the origin.",
 				LblSpinCouplingStrength, TbxSpinCouplingStrength);
 			toolTipMaker.Add(
-				"Different parameterizations of the running coupling:\r\n\r\n"
-				+ "LOPerturbative - Leading order perturbative calculations,\r\n"
-				+ "LOPerturbative_Cutoff1 - Leading order perturbative calculations cut off at 1,\r\n"
-				+ "LOPerturbative_Cutoff3 - Leading order perturbative calculations cut off at 3,\r\n"
-				+ "NonPerturbative_Fischer - Fit to non-perturbative calculations,\r\n"
+				"Different parameterizations of the running coupling:" + Environment.NewLine
+				+ Environment.NewLine
+				+ "LOPerturbative - Leading order perturbative calculations," + Environment.NewLine
+				+ "LOPerturbative_Cutoff1 - Leading order perturbative calculations cut off at 1," + Environment.NewLine
+				+ "LOPerturbative_Cutoff3 - Leading order perturbative calculations cut off at 3," + Environment.NewLine
+				+ "NonPerturbative_Fischer - Fit to non-perturbative calculations," + Environment.NewLine
 				+ "NonPerturbative_ITP - Fit to non-perturbative calculations.",
 				LblRunningCouplingType, CbxRunningCouplingType);
 			toolTipMaker.Add(

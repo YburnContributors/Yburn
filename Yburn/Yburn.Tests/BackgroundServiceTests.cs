@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
@@ -160,7 +161,7 @@ namespace Yburn.Tests
 			StringBuilder content = new StringBuilder();
 			foreach(KeyValuePair<string, string> param in paramList)
 			{
-				content.AppendFormat("{0} = {1}\r\n", param.Key, param.Value);
+				content.AppendFormat("{0} = {1}" + Environment.NewLine, param.Key, param.Value);
 			}
 
 			return content.ToString();

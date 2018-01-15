@@ -9,8 +9,8 @@ namespace Yburn.SingleQQ.UI
 		private void SetMenuToolTips()
 		{
 			MenuItemCalculateBoundWave.ToolTipText
-				= "Searches the bound state eigenfunction and eigenvalue\r\n"
-				+ "by a shooting algorithm that varies Energy, GammaDamp\r\n"
+				= "Searches the bound state eigenfunction and eigenvalue" + Environment.NewLine
+				+ "by a shooting algorithm that varies Energy, GammaDamp" + Environment.NewLine
 				+ "and SoftScale.";
 		}
 

@@ -88,7 +88,7 @@ namespace Yburn.FileUtil
 			if(!string.IsNullOrEmpty(nameValuePair.Key)
 				&& !string.IsNullOrEmpty(nameValuePair.Value))
 			{
-				paraFileText.AppendFormat("{0,-" + length + "} = {1}\r\n",
+				paraFileText.AppendFormat("{0,-" + length + "} = {1}" + Environment.NewLine,
 					nameValuePair.Key, nameValuePair.Value);
 			}
 		}

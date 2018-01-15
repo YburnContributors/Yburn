@@ -148,7 +148,7 @@ namespace Yburn.Workers
 				UpdateOutputParameters(boundState);
 
 				LogMessages.Clear();
-				LogMessages.AppendLine(LogHeader + "#\r\n#");
+				LogMessages.AppendLine(LogHeader + "#" + Environment.NewLine + "#");
 				LogMessages.AppendLine(string.Format("{0,-12}{1,-12}{2,-12}{3,-12}{4,-12}{5,-12}{6,-12}{7,-12}",
 					"Temperature",
 					"DebyeMass",
@@ -180,7 +180,7 @@ namespace Yburn.Workers
 				LogMessages.Append(LogFooter);
 
 				List<string> dataList = new List<string>();
-				dataList.Add(LogHeader + "#\r\n#");
+				dataList.Add(LogHeader + "#" + Environment.NewLine + "#");
 				dataList.AddRange(CreateWaveFunctionDataList(boundState));
 				File.WriteAllLines(YburnConfigFile.OutputPath + DataFileName, dataList);
 			}
@@ -215,7 +215,7 @@ namespace Yburn.Workers
 				UpdateOutputParameters(freeState);
 
 				LogMessages.Clear();
-				LogMessages.AppendLine(LogHeader + "#\r\n#");
+				LogMessages.AppendLine(LogHeader + "#" + Environment.NewLine + "#");
 				LogMessages.AppendLine("Temperature DebyeMass   SoftScale   BoundMass   Energy      GammaDamp   ");
 				LogMessages.AppendLine("(MeV)       (MeV)       (MeV)       (MeV)       (MeV)       (MeV)       ");
 				LogMessages.AppendLine();
@@ -229,7 +229,7 @@ namespace Yburn.Workers
 				LogMessages.AppendLine(LogFooter);
 
 				List<string> dataList = new List<string>();
-				dataList.Add(LogHeader + "#\r\n#");
+				dataList.Add(LogHeader + "#" + Environment.NewLine + "#");
 				dataList.AddRange(CreateWaveFunctionDataList(freeState));
 				File.WriteAllLines(YburnConfigFile.OutputPath + DataFileName, dataList);
 			}
@@ -282,7 +282,7 @@ namespace Yburn.Workers
 				GammaTot_MeV = GammaDamp_MeV + GammaDiss_MeV;
 
 				LogMessages.Clear();
-				LogMessages.AppendLine(LogHeader + "#\r\n#");
+				LogMessages.AppendLine(LogHeader + "#" + Environment.NewLine + "#");
 				LogMessages.AppendLine("Temperature DebyeMass   √<r²>       SoftScale   US_Scale    BoundMass   Energy      GammaDamp   GammaDiss   GammaTot    ");
 				LogMessages.AppendLine("(MeV)       (MeV)       (fm)        (Mev)       (Mev)       (MeV)       (MeV)       (MeV)       (MeV)       (MeV)       ");
 				LogMessages.AppendLine();
@@ -300,7 +300,7 @@ namespace Yburn.Workers
 				LogMessages.Append(LogFooter);
 
 				List<string> dataList = new List<string>();
-				dataList.Add(LogHeader + "#\r\n#");
+				dataList.Add(LogHeader + "#" + Environment.NewLine + "#");
 				dataList.AddRange(CreateWaveFunctionDataList(boundState));
 				dataList.Add(string.Empty);
 				dataList.Add(string.Empty);
@@ -338,10 +338,10 @@ namespace Yburn.Workers
 				UpdateOutputParameters(boundState);
 
 				LogMessages.Clear();
-				LogMessages.AppendLine(LogHeader + "#\r\n#\r\n" + LogFooter);
+				LogMessages.AppendLine(LogHeader + "#" + Environment.NewLine + "#" + Environment.NewLine + LogFooter);
 
 				List<string> dataList = new List<string>();
-				dataList.Add(LogHeader + "#\r\n#");
+				dataList.Add(LogHeader + "#" + Environment.NewLine + "#");
 				dataList.AddRange(CreateWaveFunctionDataList(boundState));
 				File.WriteAllLines(YburnConfigFile.OutputPath + DataFileName, dataList);
 			}

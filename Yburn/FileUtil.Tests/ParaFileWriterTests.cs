@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 
 namespace Yburn.FileUtil.Tests
@@ -33,9 +34,9 @@ namespace Yburn.FileUtil.Tests
 			NameValuePairs.Add("parameterName2", "parameterValue2");
 			NameValuePairs.Add("parameterName3", "parameterValue3");
 			AssertGivesParaFileText(
-				  "parameterName1 = parameterValue1\r\n"
-				+ "parameterName2 = parameterValue2\r\n"
-				+ "parameterName3 = parameterValue3\r\n");
+				  "parameterName1 = parameterValue1" + Environment.NewLine
+				+ "parameterName2 = parameterValue2" + Environment.NewLine
+				+ "parameterName3 = parameterValue3" + Environment.NewLine);
 		}
 
 		[TestMethod]
@@ -45,8 +46,8 @@ namespace Yburn.FileUtil.Tests
 			NameValuePairs.Add("", "parameterValue3");
 			NameValuePairs.Add("parameterName2", "parameterValue2");
 			AssertGivesParaFileText(
-				  "parameterName1 = parameterValue1\r\n"
-				+ "parameterName2 = parameterValue2\r\n");
+				  "parameterName1 = parameterValue1" + Environment.NewLine
+				+ "parameterName2 = parameterValue2" + Environment.NewLine);
 		}
 
 		[TestMethod]
@@ -57,8 +58,8 @@ namespace Yburn.FileUtil.Tests
 			NameValuePairs.Add("parameterName4", null);
 			NameValuePairs.Add("parameterName2", "parameterValue2");
 			AssertGivesParaFileText(
-				  "parameterName1 = parameterValue1\r\n"
-				+ "parameterName2 = parameterValue2\r\n");
+				  "parameterName1 = parameterValue1" + Environment.NewLine
+				+ "parameterName2 = parameterValue2" + Environment.NewLine);
 		}
 
 		[TestMethod]
@@ -68,9 +69,9 @@ namespace Yburn.FileUtil.Tests
 			NameValuePairs.Add("middleName", "parameterValue2");
 			NameValuePairs.Add("longestName", "parameterValue3");
 			AssertGivesParaFileText(
-				  "shortName   = parameterValue1\r\n"
-				+ "middleName  = parameterValue2\r\n"
-				+ "longestName = parameterValue3\r\n");
+				  "shortName   = parameterValue1" + Environment.NewLine
+				+ "middleName  = parameterValue2" + Environment.NewLine
+				+ "longestName = parameterValue3" + Environment.NewLine);
 		}
 
 		/********************************************************************************************

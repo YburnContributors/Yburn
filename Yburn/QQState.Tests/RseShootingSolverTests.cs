@@ -190,10 +190,10 @@ namespace Yburn.QQState.Tests
 			)
 		{
 			Assert.IsTrue(ComplexMath.Abs(complex1 - complex2) < DesiredAccuracy,
-				string.Format("Calculated eigenvalue: {0}\r\n"
-				+ "Expected eigenvalue: {1}\r\n"
-				+ "Max. tolerated deviation: {2}",
-				complex1, complex2, DesiredAccuracy));
+				string.Format("Calculated eigenvalue: {0}" + Environment.NewLine
+					+ "Expected eigenvalue: {1}" + Environment.NewLine
+					+ "Max. tolerated deviation: {2}",
+					complex1, complex2, DesiredAccuracy));
 		}
 
 		private static void AssertMaxDeviationBelow(
@@ -231,9 +231,10 @@ namespace Yburn.QQState.Tests
 				}
 
 				Assert.IsTrue(deviation < accuracy,
-					string.Format("Max. tolerated deviation: {0}\r\nActual deviation: {1}.\r\n"
-					+ "This occurred at position x = {2}",
-					accuracy, deviation, xValues[i]));
+					string.Format("Max. tolerated deviation: {0}" + Environment.NewLine
+						+ "Actual deviation: {1}." + Environment.NewLine
+						+ "This occurred at position x = {2}",
+						accuracy, deviation, xValues[i]));
 			}
 		}
 

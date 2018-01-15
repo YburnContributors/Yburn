@@ -299,7 +299,10 @@ namespace Yburn.Tests
 			table.AddColumn(new double[] { 4, 5 }, double.NaN);
 
 			string tableString = table.ToFormattedTableString();
-			string expectedString = "1    4\r\n2    5\r\n3  NaN\r\n";
+			string expectedString
+				= "1    4" + Environment.NewLine
+				+ "2    5" + Environment.NewLine
+				+ "3  NaN" + Environment.NewLine;
 
 			Assert.AreEqual(expectedString, tableString);
 		}
@@ -312,7 +315,11 @@ namespace Yburn.Tests
 			table.AddColumn(new double[] { 4, 5 }, double.NaN);
 
 			string tableString = table.ToFormattedTableString(new List<string> { "Col1", "Col2" });
-			string expectedString = "Col1  Col2\r\n   1     4\r\n   2     5\r\n   3   NaN\r\n";
+			string expectedString
+				= "Col1  Col2" + Environment.NewLine
+				+ "   1     4" + Environment.NewLine
+				+ "   2     5" + Environment.NewLine
+				+ "   3   NaN" + Environment.NewLine;
 
 			Assert.AreEqual(expectedString, tableString);
 		}
@@ -327,7 +334,11 @@ namespace Yburn.Tests
 			string tableString = table.ToFormattedTableString(
 				new List<string> { "Col1", "Col2" },
 				new List<string> { "Row1", "Row2", "Row3" });
-			string expectedString = "      Col1  Col2\r\nRow1     1     4\r\nRow2     2     5\r\nRow3     3   NaN\r\n";
+			string expectedString
+				= "      Col1  Col2" + Environment.NewLine
+				+ "Row1     1     4" + Environment.NewLine
+				+ "Row2     2     5" + Environment.NewLine
+				+ "Row3     3   NaN" + Environment.NewLine;
 
 			Assert.AreEqual(expectedString, tableString);
 		}

@@ -157,9 +157,9 @@ namespace Yburn.InMediumDecayWidth.UI
 			)
 		{
 			toolTipMaker.Add(
-				"In-medium bottomium decay widths depend on temperature, velocity and angle\r\n"
-				+ "relative to the velocity vector. The decay width as a function of temperature and\r\n"
-				+ "velocity is calculated as an average over the solid angle. The average is calculated\r\n"
+				"In-medium bottomium decay widths depend on temperature, velocity and angle" + Environment.NewLine
+				+ "relative to the velocity vector. The decay width as a function of temperature and" + Environment.NewLine
+				+ "velocity is calculated as an average over the solid angle. The average is calculated" + Environment.NewLine
 				+ "from samples of dedicated azimuthal angles given by the user.",
 				GbxGeneralParams);
 			toolTipMaker.Add(
@@ -184,7 +184,7 @@ namespace Yburn.InMediumDecayWidth.UI
 				"BottomiumStates to be considered in the calculation.",
 				LblBottomiumStates, MsxBottomiumStates);
 			toolTipMaker.Add(
-				"Name of the output file. The standard output path can be set\r\n"
+				"Name of the output file. The standard output path can be set" + Environment.NewLine
 				+ "in the menu \"File\" using \"Set output path\".",
 				LblDataFileName, TbxDataFileName);
 			toolTipMaker.Add(

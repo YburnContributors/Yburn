@@ -187,7 +187,7 @@ namespace Yburn.QQState.Tests
 			StringBuilder builder = new StringBuilder();
 			for(int i = 0; i < positions.Length; i++)
 			{
-				builder.AppendFormat("{0,-22}{1,-22}{2,-22}\r\n",
+				builder.AppendFormat("{0,-22}{1,-22}{2,-22}" + Environment.NewLine,
 					positions[i].ToString(),
 					values[i].Re.ToString(),
 					analyticValues(positions[i]).Re.ToString());

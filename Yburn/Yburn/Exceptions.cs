@@ -23,7 +23,7 @@ namespace Yburn
 		{
 			get
 			{
-				return string.Format("\r\nThe path \"{0}\" is not accessible. Set a new output path.\r\n",
+				return string.Format(Environment.NewLine + "The path \"{0}\" is not accessible. Set a new output path." + Environment.NewLine,
 					YburnConfigFile.OutputPath);
 			}
 		}
